@@ -37,3 +37,28 @@ Feature: Floor and Decore Service Level
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Assigning Driver(s)|
+#   Core-2641 Verify alias is displayed for partner portal trips on scheduled delivery page
+    And I verify alias is displayed correctly on "scheduled delivery page"
+    When I view the delivery details
+    And I verify alias is displayed correctly on "delivery details page"
+#    Core-3294: Verify Stop search button is displayed for partner portal weight based schedule trips
+    And I check if "Stop Searching" button is displayed
+    Then I stop searching driver
+    And I wait for "2" mins
+    When I click on the "Delivery Details" button from the dropdown
+    Then I check if the status has been changed to "No Driver(s) Found"
+    When I navigate back to Scheduled Deliveries
+#   Core-2641 Verify alias is displayed for partner portal trips on all delivery page
+    And I click on "Edit" link beside scheduled bungii
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I click on "Submit" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    When I click on "Close" button
+    And I wait for "2" mins
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then I verify alias is displayed correctly on "all delivery page"
+#    Core-3294: Verify Stop search is not displayed for ongoing bungii and All deliveries screen
+    When I click on the "Delivery Details" button from the dropdown
+    Then I check if "Stop Searching" button is not present

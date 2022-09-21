@@ -10,6 +10,9 @@ import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_DetailsPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
+import com.bungii.web.pages.admin.Admin_AccessorialChargesPage;
+import com.bungii.web.pages.admin.Admin_LiveTripsPage;
+import com.bungii.web.pages.admin.Admin_TripsPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -18,13 +21,17 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_AccessorialChargesSteps extends DriverBase {
 
+    private static LogUtility logger = new LogUtility(Admin_AccessorialChargesSteps.class);
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     Admin_LiveTripsPage admin_liveTripsPage = new Admin_LiveTripsPage();
     Admin_AccessorialChargesPage admin_accessorialChargesPage= new Admin_AccessorialChargesPage();
@@ -34,7 +41,6 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
     Admin_LoginPage Page_AdminLogin = new Admin_LoginPage();
     ActionManager action = new ActionManager();
-    private static LogUtility logger = new LogUtility(Admin_AccessorialChargesSteps.class);
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
 
@@ -48,10 +54,15 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 String amount = DataList.get(i).get("Amount").trim();
                 String feeType = DataList.get(i).get("Fee Type").trim();
                 String comment = DataList.get(i).get("Comment").trim();
-                String driver_cut = DataList.get(i).get("Driver Cut").trim();
+                if (DataList.get(i).containsKey("Driver Cut")){
+                    String driver_cut = DataList.get(i).get("Driver Cut").trim();
+                    action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
+                }
+                else {
+                    cucumberContextManager.setScenarioContext("TripType", "PartnerTrip");
+                }
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
-                action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
                 cucumberContextManager.setScenarioContext("NOTE",comment);
                 action.click(admin_accessorialChargesPage.Button_Save());
@@ -203,7 +214,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 }
                 i++;
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
@@ -213,27 +224,28 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
     @And("^I search the delivery of Customer and view it$")
     public void i_search_the_delivery_of_customerAndView() throws Throwable {
-        try{
-        String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-        String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        Thread.sleep(15000);
-        action.clearSendKeys(admin_TripsPage.TextBox_Search(),pickuprequest+Keys.ENTER);
-        ///////////////////
-        Thread.sleep(5000);
-        utility.resetGeofenceDropdown();
-        Thread.sleep(5000);
-        //String status = "Payment Successful";
-        action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", customerName),PageBase.LocatorType.XPath));
-        action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/p[contains(text(),'Delivery Details')]", customerName),PageBase.LocatorType.XPath));
+        try {
+            String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            Thread.sleep(15000);
+            action.clearSendKeys(admin_TripsPage.TextBox_Search(), pickuprequest + Keys.ENTER);
+            ///////////////////
+            Thread.sleep(5000);
+            utility.resetGeofenceDropdown();
+            Thread.sleep(5000);
+            //String status = "Payment Successful";
+            action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", customerName), PageBase.LocatorType.XPath));
+            action.click(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/p[contains(text(),'Delivery Details')]", customerName), PageBase.LocatorType.XPath));
 
-        log("I search the delivery of Customer and view it","I searched the delivery of Customer and viewed it",false);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
+            log("I search the delivery of Customer and view it", "I searched the delivery of Customer and viewed it", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
     }
 
-    }
     @And("^I search the delivery of Customer \"([^\"]*)\"$")
     public void i_search_the_delivery_of_customer_(String customer) throws Throwable {
         try{
@@ -251,6 +263,8 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     @And("^I search the delivery of Customer$")
     public void i_search_the_delivery_of_customer() throws Throwable {
         String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        //pickuprequest = dbUtility.getLinkedPickupRef(pickuprequest);
+
         String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         Thread.sleep(10000);
         action.clearSendKeys(admin_TripsPage.TextBox_Search(),pickuprequest+Keys.ENTER);
@@ -366,15 +380,26 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
 
     @Then("^I should see the delivery highlighted in \"([^\"]*)\"$")
-    public void i_should_see_the_delivery_highlighted_in_something(String strArg1) throws Throwable {
+    public void i_should_see_the_delivery_highlighted_in_something(String color) throws Throwable {
         try {
-        String expectedHighlightColor = "rgba(228, 242, 255, 1)";
+            String expectedHighlightColor="";
+            switch(color.toLowerCase()){
+                case "red":
+                 expectedHighlightColor = "rgba(254, 201, 166, 1)";
+                    break;
+                case "blue":
+                     expectedHighlightColor = "rgba(228, 242, 255, 1)";
+                    break;
+                case "grey":
+                    expectedHighlightColor = "rgba(238, 239, 239, 1)";
+                    break;
+            }
         Thread.sleep(1000);
         boolean liveDeliveryhighlightDisplayed =  admin_liveTripsPage.Text_DeliveryHighlight().isDisplayed();
         String liveDeliveryHighlightColor =  admin_liveTripsPage.Text_DeliveryHighlight().getCssValue("background-color");
 
         testStepAssert.isTrue(liveDeliveryhighlightDisplayed,"Highlight should be displayed","Highlight is displayed","Highlight is not displayed");
-        testStepAssert.isEquals(liveDeliveryHighlightColor,expectedHighlightColor,"Delivery should be highlighted with blue color","Delivery is highlighted with blue color","Delivery is not  highlighted with blue color");
+        testStepAssert.isEquals(liveDeliveryHighlightColor,expectedHighlightColor,"Delivery should be highlighted with "+color+" color","Delivery is highlighted with "+color+" color","Delivery is not  highlighted with "+color+" color");
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -382,7 +407,27 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
     }
 
+    @Then("^I should see \"([^\"]*)\" tooltip beside the bungii$")
+    public void i_should_see_something_tooltip_beside_the_bungii(String expectedTooltipText) throws Throwable {
+        try {
+            action.refreshPage();
+            Thread.sleep(10000);
+            action.Hover(admin_liveTripsPage.Icon_Hover());
+            String actualTooltiptext = action.getText(admin_liveTripsPage.Label_Tooltip());
 
+            testStepAssert.isEquals(actualTooltiptext,expectedTooltipText,"Tooltip "+expectedTooltipText+" should be displayed","Tooltip "+expectedTooltipText+" is displayed","Tooltip "+expectedTooltipText+" is not displayed");
+            String actualWidth = admin_liveTripsPage.Label_Tooltip().getCssValue("width");
+            String expectedWidth = "95px";
+
+            testStepAssert.isEquals(actualWidth,expectedWidth,"Tool tip width should be 95px","Tool tip width is 95px","Tool tip width is not 95px");
+
+
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
 
     @And("^The delivery should not be highlighted in \"([^\"]*)\" for \"([^\"]*)\"$")
     public void the_delivery_should_not_be_highlighted_in_something_for_something(String strArg1, String deliveryType) throws Throwable {
@@ -477,6 +522,22 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         Thread.sleep(1000);
 
         action.click(Page_Driver_Login.Tab_LogIn());
+        testStepAssert.isElementDisplayed(Page_Driver_Login.Link_Terms(),
+                "The terms link should be displayed",
+                "The terms link is displayed",
+                "The terms link is not displayed");
+        testStepAssert.isEquals(Page_Driver_Login.Link_Terms().getAttribute("href"),PropertyUtility.getDataProperties("terms.page.link"),
+                "The correct link should be present for terms.",
+                "The correct link is present for terms.",
+                "The correct link is not present for terms.");
+        testStepAssert.isElementDisplayed(Page_Driver_Login.Link_PrivacyPolicy(),
+                "The privacy policy link should be displayed",
+                "The privacy policy  link is displayed",
+                "The privacy policy link is not displayed");
+        testStepAssert.isEquals(Page_Driver_Login.Link_PrivacyPolicy().getAttribute("href"),PropertyUtility.getDataProperties("privacy.policy.page.link"),
+                    "The correct link should be present for privacy policy.",
+                    "The correct link is present for privacy policy.",
+                    "The correct link is not present for privacy policy.");
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), phone);
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("web.valid.common.driver.password"));
         Thread.sleep(1000);
@@ -513,5 +574,28 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     }
     }
 
+
+
+    @And("^I should see the following fee type displayed in the Report Database$")
+    public void i_should_see_the_following_fee_type_displayed_in_the_report_database(DataTable data) throws Throwable {
+        try {
+            Thread.sleep(1000);
+            String pickuprequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            List<Map<String, String>> DataList = data.asMaps();
+            List<String> expectedFeeType=new ArrayList();
+            for (int i=0; i < DataList.size();i++)
+           {Thread.sleep(1000);
+                String feeType = DataList.get(i).get("Fee Type").trim();
+                expectedFeeType.add(feeType);
+           }
+           List<String> actualFeeType = dbUtility.getAccessorialFeeType(pickuprequest);
+            testStepAssert.isTrue(actualFeeType.containsAll(expectedFeeType), expectedFeeType+" should be displayed", expectedFeeType+" is displayed", expectedFeeType+" is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
 }

@@ -13,6 +13,7 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.ios.IOSDriver;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -528,7 +529,7 @@ public class EstimateSteps extends DriverBase {
             action.click(estimatePage.Row_TimeSelect());
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
-        } else if (time.equals("<AFTER TELET>")) {
+        } else if (time.equals("<AFTER TELET>")){
 
             String teletTime = (String) cucumberContextManager.getScenarioContext("TELET");
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -552,6 +553,48 @@ public class EstimateSteps extends DriverBase {
             calendar.set(Calendar.SECOND, 0);
 
             Date nextQuatter = calendar.getTime();
+            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+            DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            String strdate = formatter.format(calendar.getTime());
+            Date teletTimeInLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(strdate);
+
+
+            String[] dateScroll = bungiiTimeForScroll(teletTimeInLocal);
+            strTime = bungiiTimeDisplayInTextArea(teletTimeInLocal);
+            action.click(estimatePage.Row_TimeSelect());
+            selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
+        } else if (time.equals("<1 HOUR AFTER TELET>")) {
+
+            String teletTime = (String) cucumberContextManager.getScenarioContext("TELET");
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            //By default data is in UTC
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date teletTimeInUtc = null;
+            try {
+                teletTimeInUtc = formatter.parse(teletTime);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(teletTimeInUtc);
+            calendar.add(Calendar.HOUR,1);
+            int mnts = calendar.get(Calendar.MINUTE);
+
+            calendar.set(Calendar.MINUTE, mnts);
+            int unroundedMinutes = calendar.get(Calendar.MINUTE);
+            int mod = unroundedMinutes % 15;
+            calendar.add(Calendar.MINUTE, (15 - mod));
+
+            calendar.set(Calendar.SECOND, 0);
+
+            //Date nextQuatter = calendar.getTime();
             String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
 
             DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -1573,6 +1616,7 @@ public class EstimateSteps extends DriverBase {
     public void selectBungiiTime(int forwordDate, String hour, String minutes, String meridiem) {
 
         action.click(estimatePage.Row_TimeSelect());
+        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
         action.dateTimePicker(estimatePage.DatePicker_BungiiTime, estimatePage.DateWheel_BungiiTime, forwordDate, hour, minutes, meridiem);
         //  action.click(estimatePage.Row_TimeSelect());
         action.click(estimatePage.Button_Set());

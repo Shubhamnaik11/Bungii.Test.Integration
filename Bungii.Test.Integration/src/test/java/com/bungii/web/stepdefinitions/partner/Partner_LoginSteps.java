@@ -161,6 +161,7 @@ public class Partner_LoginSteps extends DriverBase {
                 case "SIGN IN":
                     action.click(Page_Partner_Login.Button_Sign_In());
                     break;
+                case "GET QUOTE":
                 case "GET ESTIMATE":
                     action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                     break;
@@ -185,6 +186,7 @@ public class Partner_LoginSteps extends DriverBase {
                 case "Schedule Bungii":
                     action.JavaScriptScrolldown();
                     action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
+                    cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME", System.currentTimeMillis() / 1000L);
                     break;
                 case "New Bungii":
                     action.click(Page_Partner_Delivery.Button_New_Bungii());

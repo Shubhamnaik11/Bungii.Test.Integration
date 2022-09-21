@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.PageBase;
+import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.CucumberContextManager;
@@ -39,6 +40,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static com.bungii.common.manager.ResultManager.*;
 import static com.bungii.web.utilityfunctions.DbUtility.getActualPrice;
@@ -48,6 +50,8 @@ public class Partner_trips extends DriverBase {
     private static LogUtility logger = new LogUtility(DashBoardSteps.class);
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
     Partner_DeliveryList Page_Partner_Delivery_List = new Partner_DeliveryList();
+    Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
+
     Admin_TripDetailsPage Page_Admin_Trips_Details = new Admin_TripDetailsPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
@@ -975,7 +979,29 @@ try{
         }
 
     }
+    @And("^I wait for Minimum duration for \"([^\"]*)\" Bungii to be in Driver not accepted state$")
+    public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_driver_not_accepted_state(String strArg1) {
+        try {
+            long initialTime;
+            if (strArg1.equalsIgnoreCase("current"))
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME");
+            else
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
+            long currentTime = System.currentTimeMillis() / 1000L;
+            long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
+            if (diffInMinutes > 5) {
+                //do nothing
+            } else {
+                // minimum wait of 30 mins
+                action.hardWaitWithSwipeUp(5 - (int) diffInMinutes);
 
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^I view the correct Driver Est. Earnings for geofence based pricing model$")
     public void i_view_the_correct_Driver_Est_Earnings(){
         try{
@@ -1104,7 +1130,7 @@ try{
 
         }
 
-        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", Delivery_Date, CustomerName);
+        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", Delivery_Date, CustomerName);
         if(!Partner_Status.equalsIgnoreCase("Canceled")) {
             if(!Partner_Status.equalsIgnoreCase("Completed")) {
                 action.refreshPage();
@@ -1309,8 +1335,8 @@ try{
     public void i_should_see_the_message_something_displayed(String expectedMessage) throws Throwable {
         try{
         Thread.sleep(3000);
-        String NoDeliveries = action.getText(admin_TripsPage.Text_NoDeliveriesFound());
-        testStepAssert.isEquals(NoDeliveries,expectedMessage,"I should see " +expectedMessage+ " text displayed","Text message displayed is " + NoDeliveries,expectedMessage +" is not displayed");
+        String NoDeliveries = action.getText(admin_TripsPage.Text_NoDeliveriesFound()).toLowerCase();
+        testStepAssert.isEquals(NoDeliveries,expectedMessage.toLowerCase(),"I should see " +expectedMessage+ " text displayed","Text message displayed is " + NoDeliveries,expectedMessage +" is not displayed");
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -1394,7 +1420,133 @@ try{
     }
     }
 
+    @When("^I click on tooltip beside \"([^\"]*)\" field$")
+    public void i_click_on_tooltip_beside_something_field(String field) throws Throwable {
+        try {
+            switch (field) {
+                case "Pickup Date":
+                    action.click(Page_Partner_Dashboard.Icon_ToolTip_PickupDate());
+                    break;
+            }
+            log("I click on tooltip beside "+field ,"I have clicked on tooltip beside "+field,false);
 
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I should see tooltip value based on configured value in database$")
+    public void i_should_see_tooltip_value_based_on_configured_value_in_database() throws Throwable {
+        String subdomain= (action.getCurrentURL().split("[.]")[0]).split("//")[1];
+        String dayCount = DbUtility.getScheduledDays(subdomain);
+       testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Label_ToolTip_PickupDate()), "Please select a delivery date within the next "+dayCount+" days.", dayCount+ " days should be displayed",dayCount+ " days is displayed",dayCount+ " days is not displayed");
+    }
+    @And("^I verify alias is displayed correctly on \"([^\"]*)\"$")
+    public void i_verify_alias_is_displayed_correctly_on_something(String page) throws Throwable {
+        try {
+            String aliasPartnerPortalName= PropertyUtility.getDataProperties("partner.floor.and.decor.alias.name");
+            switch (page){
+                case "scheduled delivery page":
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerName()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+                case "delivery details page":
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerNameDeliveryDetailsPage()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+                case "all delivery page":
+                    Thread.sleep(2000);
+                    testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerNameAllDeliveryPage()),aliasPartnerPortalName,
+                            "The portal name displayed should be correct",
+                            "The portal name displayed is correct",
+                            "The portal name displayed is incorrect");
+                    break;
+            }
+            log("I should be able to verify the alias is displayed correctly",
+                    "I am able to verify the alias is displayed correctly",false);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @And("^I add the delivery address as \"([^\"]*)\"$")
+    public void i_add_the_delivery_address_as_something(String address) throws Throwable {
+        try{
+        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), address + Keys.TAB);
+        Thread.sleep(3000);
+        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+        Thread.sleep(5000);
+        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+        log("I should be able to add the dropoff delivery address as "+address,"I could add the dropoff delivery address as "+address,false);
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("I select below delivery status in filter")
+    public void iSelectBelowDeliveryStatusInFilter(DataTable data) {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String Partner_Status = dataMap.get("Partner_Status").trim();
+            if (Partner_Status.equalsIgnoreCase("Canceled")) {
+                Thread.sleep(2000);
+                action.click(Page_Partner_Delivery_List.Dropdown_Partner_Status());
+                Thread.sleep(1000);
+                action.click(Page_Partner_Delivery_List.Checkbox_Canceled_Status());
+                Thread.sleep(2000);
+                action.click(Page_Partner_Delivery_List.Button_Apply());
+            }
+            log("I should able to select the "+Partner_Status+" status in filter.","I can select the "+Partner_Status+" status in filter.", false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^The Pickup contact name \"([^\"]*)\" and pickup contact phone number \"([^\"]*)\" field should be filled$")
+    public void the_pickup_contact_name_something_and_pickup_contact_phone_number_something_field_should_be_filled(String contactName, String contactPhone) throws Throwable {
+     try{
+       String uiContactName = action.getAttributeValue(Page_Partner_Delivery.TextBox_Pickup_Contact_Name());
+        String uiContactPhone = action.getAttributeValue(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+
+        testStepAssert.isEquals(uiContactName,contactName,"Pickup contact name should be " +contactName,"Pickup contact name is " +uiContactName,"Pickup contact name  " +contactName+" is not displayed");
+
+        testStepAssert.isEquals(uiContactPhone,contactPhone,"Pickup contact number should be " +contactPhone,"Pickup contact number is " +uiContactPhone,"Pickup contact number  " +contactPhone+" is not displayed");
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("default pickup address should be shown")
+    public void defaultPickupAddressShouldBeShown() {
+        try{
+            action.isElementPresent(Page_Partner_Dashboard.Button_Pickup_Edit());
+            testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Text_Pickup_Address()),PropertyUtility.getDataProperties("equipbid_default_address"),"Correct default pickup address should be shown.","Correct default pickup address is shown.","Wrong default pickup address is shown.");
+
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
 
     public String getGeofence(String geofence) {
         String geofenceName = "";
@@ -1497,6 +1649,5 @@ try{
         }
         return SplitDate;
     }
-
 
 }

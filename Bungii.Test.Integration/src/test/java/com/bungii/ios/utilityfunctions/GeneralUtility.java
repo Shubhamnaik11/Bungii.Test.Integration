@@ -141,7 +141,6 @@ public class GeneralUtility extends DriverBase {
         return adminURL;
     }
 
-
     public void handleIosUpdateMessage() {
         try {
             if (action.isAlertPresent()) {
@@ -685,6 +684,14 @@ public class GeneralUtility extends DriverBase {
             case "RATE DUO TEAMMATE":
                 logger.detail("DRIVER APP");
                 isCorrectPage = action.getScreenHeader(driverHomePage.Header_RateDuoTeammate()).equals("Rate duo teammate");
+                break;
+            case "REFERRAL":
+                logger.detail("DRIVER APP");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_Referral()).equals("REFERRAL");
+                break;
+            case "REFERRAL HISTORY":
+                logger.detail("DRIVER APP");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_ReferralHistory()).equals("REFERRAL HISTORY");
                 break;
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
@@ -1434,14 +1441,14 @@ catch(Exception ex)
             String teletInLocalTime = formatterForLocalTimezone.format(teletTimeInUtc);
             long t = teletTimeInUtc.getTime();
             long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
-            Date minTime = new Date(t - (15 * ONE_MINUTE_IN_MILLIS));
+            Date minTime = new Date(t - (1 * ONE_MINUTE_IN_MILLIS));
             String strMindate = formatterForLocalTimezone.format(minTime);
 
 
-            Date maxTime = new Date(t + (30 * ONE_MINUTE_IN_MILLIS));
+            Date maxTime = new Date(t + (45 * ONE_MINUTE_IN_MILLIS));
             String strMaxdate = formatterForLocalTimezone.format(maxTime);
             calculatedTime[0] = teletInLocalTime;
-            calculatedTime[1] = strMindate;
+            calculatedTime[1] = teletInLocalTime;
             calculatedTime[2] = strMaxdate;
             logger.detail("[As Per calculation Of Long Stack for Trip of Customer "+phoneNumber+"] Driver to Finish By :"+ teletInLocalTime + "Range ["+strMindate+" : "+strMaxdate+"]");
 
@@ -1877,5 +1884,120 @@ catch (Exception e)
     public void reApplyGeofenceDropdown(){
         action.click(admin_dashboardPage.List_Geofence());
         action.click(admin_dashboardPage.Button_ApplyGeofence());
+    }
+    public String NavigateToPartnerLogin(String Site){
+
+        String partnerURL = GetPartnerUrl(Site);
+        action.deleteAllCookies();
+        action.navigateTo(partnerURL);
+        return partnerURL;
+    }
+
+    private String GetPartnerUrl(String PP_Site) {
+        String partnerURL = null;
+        cucumberContextManager.setScenarioContext("SiteUrl", PP_Site);
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("QA_AUTO") || environment.equalsIgnoreCase("QA_AUTO_AWS")) {
+            if (PP_Site.equalsIgnoreCase("normal")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("FloorDecor service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.fnd_service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("kiosk mode")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("BestBuy service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.ref"));
+
+            } else if (PP_Site.equalsIgnoreCase("Cort service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.cort_service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.cort_service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("BestBuy2 service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("Equip-bid")) {
+            partnerURL = PropertyUtility.getDataProperties("qa.equip-bid.url");
+            cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.equip-bid.ref"));
+        }else if (PP_Site.equalsIgnoreCase("Tile Shop")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.tileshop.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.tileshop.ref"));
+            }
+
+        }
+        return partnerURL;
+    }
+    public String getTimeZoneBasedOnGeofenceIdForIos() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        // currentGeofence="kansas";
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone.id");
+        return getGeofenceTimeZone;
+    }
+    public String[] getMilesRange(float miles){
+        String range[] = new String[2];
+        String portalName= (String) cucumberContextManager.getScenarioContext("Portal_Name");
+        if (portalName.equalsIgnoreCase("Floor and Decor")){
+            if (miles>0 && miles<=10)
+            {
+                range[0]="0";
+                range[1]="10";
+            }
+            else if(miles>10 && miles<=20)
+            {
+                range[0]="10";
+                range[1]="20";
+            }
+            else if(miles>20 && miles<=30)
+            {
+                range[0]="20";
+                range[1]="30";
+            }
+            else if(miles>30 && miles<=40)
+            {
+                range[0]="30";
+                range[1]="40";
+            }
+            else if(miles>40 && miles<=50)
+            {
+                range[0]="40";
+                range[1]="50";
+            }
+            else{
+                range[0]="50";
+                range[1]="150";
+            }
+        }else{
+             if (miles>0 && miles<=10)
+            {
+                 range[0]="0";
+                 range[1]="10";
+            }
+            else if(miles>10 && miles<=15)
+            {
+                range[0]="10";
+                range[1]="15";
+            }
+            else if(miles>15 && miles<=30)
+            {
+                range[0]="15";
+                range[1]="30";
+            }
+            else if(miles>30 && miles<=100)
+            {
+                range[0]="30";
+                range[1]="100";
+            }
+            else{
+                range[0]="100";
+                range[1]="120";
+            }
+        }
+        return range;
     }
 }

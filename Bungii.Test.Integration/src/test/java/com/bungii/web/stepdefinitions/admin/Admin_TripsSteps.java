@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.android.pages.admin.LiveTripsPage;
+import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.CucumberContextManager;
@@ -39,8 +40,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.*;
 import static com.bungii.web.utilityfunctions.DbUtility.*;
 
 public class Admin_TripsSteps extends DriverBase {
@@ -52,12 +52,16 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
     LiveTripsPage liveTripsPage = new LiveTripsPage();
-
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+    Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
+    Admin_AccessorialChargesPage admin_accessorialChargesPage= new Admin_AccessorialChargesPage();
+    Admin_RefundsPage admin_refundsPage = new Admin_RefundsPage();
+
+    Admin_TripsPage adminTripsPage = new Admin_TripsPage();
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -1094,7 +1098,7 @@ try{
         action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
         //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
         Thread.sleep(1000);
-        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
+//        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
 
         //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
         action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
@@ -1850,6 +1854,10 @@ try{
                         action.click(admin_TripsPage.Button_Filter());
                         action.click(admin_TripsPage.CheckBox_FilterPending());
                         break;
+                    case "Assigning Driver(s)":
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click(admin_TripsPage.CheckBox_AssigningDrivers());
+                        break;
                 }
                 break;
 
@@ -2386,6 +2394,790 @@ try{
                     true);
         }
     }
+    @Then("^I should see the \"([^\"]*)\" background colour$")
+    public void i_should_see_the_something_background_colour(String color) throws Throwable {
+        try{
+            switch (color){
+                case "orange":
+                    String expectedHighlightColor = PropertyUtility.getDataProperties("background.colour.orange");
+                    Thread.sleep(1000);
+                    String actualHighlightColor =  admin_LiveTripsPage.Text_DeliveryHighlight().getCssValue("background-color");
+                    testStepAssert.isEquals(actualHighlightColor,expectedHighlightColor,"Delivery should be highlighted with orange color","Delivery is highlighted with orange color","Delivery is not highlighted with orange color");
+                    break;
+            }
+            log("I should be able to see the correct background colour",
+                    "I am able to see the correct background colour",false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
+
+    @Then("^The delivery should be in \"([^\"]*)\" state$")
+    public void the_delivery_should_be_in_something_state(String deliveryStatus) throws Throwable {
+        try{
+      switch (deliveryStatus){
+          case "Assigning Driver(s)":
+              Thread.sleep(5000);
+              boolean isInDriverSearchState = admin_LiveTripsPage.Icon_LoadingIconSearching().isDisplayed();
+              String deliveryState = action.getText(admin_LiveTripsPage.Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries());
+              testStepAssert.isEquals(deliveryState,deliveryStatus,"Delivery should be in "+deliveryStatus +" state","Delivery is in "+deliveryStatus +" state","Delivery is not in "+deliveryStatus +" state");
+              testStepAssert.isTrue(isInDriverSearchState,"Loading Animation should be displayed","Loading animation is displayed","Loading animation is not displayed");
+              break;
+          case "Admin Canceled - No Driver(s) Found":
+              Thread.sleep(5000);
+              String deliveryStatusForAdminCancel = action.getText(admin_LiveTripsPage.Text_DeliveryStatusAllDeliveries());
+              testStepAssert.isEquals(deliveryStatusForAdminCancel,deliveryStatus,"Delivery should be in "+deliveryStatus +" state","Delivery is in "+deliveryStatus +" state","Delivery is not in "+deliveryStatus +" state");
+              break;
+          case "Assigning Driver(s) with no loader":
+              Thread.sleep(2000);
+              testStepAssert.isNotElementDisplayed(admin_LiveTripsPage.Icon_LoadingIconSearching(true),"Loading animation should not be displayed","Loading animation is not  displayed","Loading animation is displayed");
+              boolean isInDriverNoSearchingState = admin_LiveTripsPage.Icon_LoadingIconStoppedSearching().isDisplayed();
+              testStepAssert.isTrue(isInDriverNoSearchingState,"No Loading animation should be displayed","No Loading animation is displayed","No Loading animation is not displayed");
+              break;
+          case "No Driver(s) Found":
+              Thread.sleep(2000);
+              String noDriverFound = action.getText(admin_LiveTripsPage.Text_DeliveryStatusAllDeliveries());
+              testStepAssert.isEquals(noDriverFound,deliveryStatus,"Delivery should be in "+deliveryStatus +" state","Delivery is in "+noDriverFound +" state","Delivery is not in "+deliveryStatus +" state");
+              break;
+      }
+    }	catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+
+    @And("^I click on the filter link and should see \"([^\"]*)\" checkbox displayed$")
+    public void i_click_on_the_filter_link_and_should_see_something_checkbox_displayed(String filterBy) throws Throwable {
+      try{
+        action.click(admin_TripsPage.Button_Filter());
+        switch (filterBy){
+            case "Assigning Driver(s)":
+                boolean isAssigningDriversCheckboxDisplayed =  admin_TripsPage.CheckBox_AssigningDrivers().isDisplayed();
+                String expectedFilterText = action.getText(admin_TripsPage.Text_AllFilterOptions(4));
+                testStepAssert.isTrue(isAssigningDriversCheckboxDisplayed,filterBy +" filter checkbox should be displayed" ,filterBy +" filter checkbox is displayed",filterBy +" filter checkbox is not displayed");
+                testStepAssert.isEquals(expectedFilterText,filterBy,filterBy +" Text should be displayed" ,expectedFilterText +" text  is displayed",filterBy +" text is not displayed");
+                break;
+            case "No Driver(s) Found":
+                boolean isDriversNotFoundCheckboxDisplayed =  admin_TripsPage.CheckBox_FilterDriversNotFound().isDisplayed();
+                testStepAssert.isTrue(isDriversNotFoundCheckboxDisplayed,filterBy +" filter checkbox should be displayed" ,filterBy +" filter checkbox is displayed",filterBy +" filter checkbox is not displayed");
+                String expectedText = action.getText(admin_TripsPage.Text_AllFilterOptions(10)).trim();
+                testStepAssert.isEquals(expectedText,filterBy,filterBy +" Text should be displayed" ,expectedText +" text  is displayed",filterBy +" text is not displayed");
+                break;
+
+        }
+    }	catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+
+    @Then("^I should see the changes done by admin$")
+    public void i_should_see_the_changes_done_by_admin(DataTable data) throws Throwable {
+        try{
+        Thread.sleep(3000);
+        List<Map<String, String>> dataMap = data.asMaps();
+        for(int i=0;i<dataMap.size();i++) {
+            String status = dataMap.get(i).get("Event").trim();
+            switch(status){
+                case "Pickup Address Change":
+                    String oldpickupAddress = dataMap.get(i).get("Old Value").trim();
+                    String newPickupAddress = dataMap.get(i).get("New Value").trim();
+                    String expectedOldPickUpaddress = action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(2,2));
+                    String expectedNewPickupAddress =action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(2,3));
+                    testStepAssert.isEquals(expectedOldPickUpaddress,oldpickupAddress,"Old delivery pickup address should be "+oldpickupAddress,"Old delivery pickup address is "+expectedOldPickUpaddress,"Old delivery pickup address is not "+oldpickupAddress);
+                    testStepAssert.isEquals(expectedNewPickupAddress,newPickupAddress,"New delivery pickup address should be "+newPickupAddress,"New delivery pickup address is "+expectedNewPickupAddress,"New delivery pickup address is not "+newPickupAddress);
+                    break;
+                case "Dropoff Address Change":
+                    String oldDropOffAddress = dataMap.get(i).get("Old Value").trim().toLowerCase();
+                    String  newDropOffAddress = dataMap.get(i).get("New Value").trim().toLowerCase();
+                    String expectedOldDropOffddress = action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(3,2)).toLowerCase().trim();
+                    System.out.println(expectedOldDropOffddress);
+                    System.out.println(oldDropOffAddress);
+                    String expectedNewDropOffAddress =action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(3,3)).toLowerCase().trim();
+                    testStepAssert.isEquals(expectedOldDropOffddress,oldDropOffAddress,"Old dropoff address should be "+oldDropOffAddress,"Old dropoff address is "+expectedOldDropOffddress,"Old dropoff address is not "+newDropOffAddress);
+                    testStepAssert.isEquals(expectedNewDropOffAddress,newDropOffAddress,"New dropoff address should be "+newDropOffAddress,"New dropoff address is "+expectedNewDropOffAddress,"New dropoff address is not "+newDropOffAddress);
+                    break;
+                case "Duo To Solo":
+                    String oldDeliveryType = dataMap.get(i).get("Old Value").trim();
+                    String newdDeliveryType = dataMap.get(i).get("New Value").trim();
+                    String expectedOldDeliveryType = action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(4,2));
+                    String expectedNewDeliveryType =action.getText(admin_ScheduledTripsPage.Text_HistoryTabInformation(4,3));
+                    testStepAssert.isEquals(expectedOldDeliveryType,oldDeliveryType,"Old delivery type should be "+oldDeliveryType,"Old delivery type is "+expectedOldDeliveryType,"Old delivery type is not "+oldDeliveryType);
+                    testStepAssert.isEquals(expectedNewDeliveryType,newdDeliveryType,"New delivery type should be "+newdDeliveryType,"New delivery type is "+expectedNewDeliveryType,"New delivery type is not "+newdDeliveryType);
+                    break;
+
+            }
+        }
+    }	catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+
+    @Then("^The edit option should not be displayed for live deliveries$")
+    public void the_edit_option_should_not_be_displayed_for_live_deliveries() throws Throwable {
+        try{
+       Thread.sleep(3000);
+        action.click(admin_LiveTripsPage.Dropdown_Icon());
+        Thread.sleep(1000);
+        testStepAssert.isElementDisplayed(admin_LiveTripsPage.Dropdown_Icon(),"Edit option should not be displayed","Edit option is not displayed","Edit option is displayed");
+    }	catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I stop searching driver$")
+    public void i_stop_searching_driver() throws Throwable {
+        try{
+            action.click(admin_ScheduledTripsPage.Button_StopSearching());
+            Thread.sleep(3000);
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_ConfirmationPopUp(),
+                    "The confirmation pop-up should be displayed",
+                    "The confirmation pop-up is displayed",
+                    "The confirmation pop-up is not displayed");
+            action.click(admin_ScheduledTripsPage.Button_ConfirmStopSearching());
+            Thread.sleep(2000);
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_SuccessPopUp(),
+                    "The stop searching driver success pop-up should be displayed",
+                    "The stop searching driver success pop-up is displayed",
+                    "The stop searching driver success pop-up is not displayed");
+            action.click(admin_ScheduledTripsPage.Button_CloseConfirm());
+            Thread.sleep(2000);
+            action.click(admin_ScheduledTripsPage.Button_Ok());
+            Thread.sleep(1000);
+
+            log("I should be able to stop searching driver",
+                    "I am able to stop searching driver",
+                    false);
+
+        }	catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^The delivery should show \"([^\"]*)\" status on delivery details$")
+    public void the_delivery_should_show_something_status_on_delivery_details(String expectedDeliveryStatus) throws Throwable {
+        try{
+        Thread.sleep(3000);
+        String currentDeliveryStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryDetailsStatus());
+        testStepAssert.isEquals(currentDeliveryStatus,expectedDeliveryStatus,"The delivery should be in " +expectedDeliveryStatus+" state in delivery details page","The delivery is in " +currentDeliveryStatus+" state in delivery details page","The delivery is not in " +expectedDeliveryStatus+" state in delivery details page");
+    }	catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I should see field name as partner on delivery listing screen$")
+    public void i_should_see_field_name_as_partner_on_delivery_listing_screen() throws Throwable {
+        try {
+            String expectedHeader = PropertyUtility.getMessage("PartnerColumnHeader");
+            String actualHeader = action.getText(admin_TripsPage.Header_Partner());
+            testStepAssert.isEquals(actualHeader, expectedHeader, expectedHeader + " should be displayed", expectedHeader + "is displayed", expectedHeader + " is not displayed");
+        }
+
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I should see field name as partner on delivery detail screen$")
+    public void i_should_see_field_name_as_partner_on_delivery_detail_screen() throws Throwable{
+        try {
+            String expectedLabel = PropertyUtility.getMessage("PartnerColumnHeader");
+            String actualLabel = action.getText(admin_TripDetailsPage.Label_Partner());
+            testStepAssert.isEquals(actualLabel, expectedLabel, expectedLabel + " should be displayed", expectedLabel + "is displayed", expectedLabel + " is not displayed");
+        }
+        catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @When("^I view the delivery details for live deliveries$")
+    public void i_view_the_delivery_details_for_live_deliveries() throws Throwable {
+      try{
+          Thread.sleep(3000);
+          action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+          log("I should be able to view delivery details for live deliveries","I am able to view delivery details for live deliveries",false);
+      }
+      catch(Exception e){
+          logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+          error("Step should be successful", "Error performing step,Please check logs for more details",
+                  true);
+      }
+    }
+
+    @Then("^I check if error is shown when admin stop search again before its status is synced$")
+    public void i_check_if_error_is_shown_when_admin_stop_search_again_before_its_status_is_synced() throws Throwable {
+        try{
+            action.click(admin_ScheduledTripsPage.Button_StopSearching());
+            Thread.sleep(3000);
+            action.click(admin_ScheduledTripsPage.Button_ConfirmStopSearching());
+            Thread.sleep(3000);
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_ErrorPopUp(),
+                    "Error pop up should be displayed.",
+                    "Error pop up is displayed.",
+                    "Error pop up is not displayed.");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I should see all the information in the change payment status modal$")
+    public void i_should_see_all_the_information_in_the_change_payment_status_modal() throws Throwable {
+        try{
+        String currentStatus = action.getText(admin_TripsPage.Text_CurrentStatus());
+        String newStatus = action.getText(admin_TripsPage.Text_NewStatus());
+        testStepAssert.isEquals(currentStatus, "Payment Unsuccessful", "The current delivery status should be in Payment Unsuccessful state",
+                "The current delivery status is in " + currentStatus + " state",
+                "The current delivery status is not  in Payment Unsuccessful state");
+        testStepAssert.isEquals(newStatus, "Payment Successful", "The new status text message should display the text  Payment Successful",
+                "The new status text message displays the text  " + newStatus,
+                "The new status text message doesnt display the text  Payment Successful");
+        testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.Button_ConfirmPaymentStatusChange()), "Confirm button should be displayed",
+                "Confirm button is displayed",
+                "Confirm button is not displayed");
+        testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.Button_CancelPaymentStatusChange()), "Cancel button should be displayed",
+                "Cancel button is displayed",
+                "Cancel button is not displayed");
+    }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^The \"([^\"]*)\" \"([^\"]*)\" should not be displayed$")
+    public void the_something_something_should_not_be_displayed(String element, String strArg2) throws Throwable {
+        try{
+        switch (element){
+            case "Issue Refund":
+                testStepAssert.isNotElementDisplayed(admin_refundsPage.Button_IssueRefund(true),
+                        "Issue refund button should not be displayed",
+                        "Issue refund button is not displayed",
+                        "Issue refund button is displayed");
+                break;
+        }
+    }    catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I set the pickup address for \"([^\"]*)\"$")
+    public void i_set_the_pickup_address_for_something(String address) throws Throwable {
+        try {
+            switch (address) {
+                case "Warehouse":
+                    cucumberContextManager.setScenarioContext("WarehouseCity", "Catonsville");
+                    break;
+                case "Store":
+                    cucumberContextManager.setScenarioContext("StoreCity", "MD");
+                    break;
+                case "Equip-bid in phoenix geofence":
+                    cucumberContextManager.setScenarioContext("PhoenixEquip-bid", "phoenix");
+                    break;
+            }
+            log("I should be able to set the pickup address", "I could set the pickup address", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^The delivery status should be in \"([^\"]*)\" state in db$")
+    public void the_delivery_status_should_be_in_something_state_in_db(String deliveryStatusMessage) throws Throwable {
+        try{
+        switch (deliveryStatusMessage){
+            case "Payment Successful":
+                String pickupRef= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                String deliveryStatusInDb = dbUtility.getDeliveryStatus(pickupRef);
+                testStepAssert.isTrue(deliveryStatusInDb.contentEquals("11"),"Delivery Should be in payment successfull state",
+                        "Delivery is in payment successfull state",
+                        "Delivery is not in payment successfull state");
+                break;
+        }
+    }    catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^I should see the transaction charges \"([^\"]*)\" changing delivery Status$")
+    public void i_should_see_the_transaction_charges_something_changing_delivery_status(String checkingPeriod) throws Throwable {
+        try{
+        switch (checkingPeriod){
+            case "before":
+                Thread.sleep(2000);
+                cucumberContextManager.setScenarioContext("OriginalDeliveryChargeBeforeStatusChange",action.getText(admin_refundsPage.Label_OriginalDeliveryCharge()));
+                cucumberContextManager.setScenarioContext("TotalCustomerChargeBeforeStatusChange", action.getText(admin_refundsPage.Label_TotalCustomerCharge()));
+                cucumberContextManager.setScenarioContext("BungiiBeforeRefundBeforeStatusChange", action.getText(admin_refundsPage.Label_BungiiBeforeRefund()));
+                break;
+            case "after":
+                Thread.sleep(3000);
+                String originalDeliveryChargeBeforeStatusChange = (String) cucumberContextManager.getScenarioContext("OriginalDeliveryChargeBeforeStatusChange");
+                String totalCustomerChargeBeforeStatusChange = (String) cucumberContextManager.getScenarioContext("TotalCustomerChargeBeforeStatusChange");
+                String bungiiBeforeRefundBeforeStatusChange = (String) cucumberContextManager.getScenarioContext("BungiiBeforeRefundBeforeStatusChange");
+
+                String originalDeliveryChargeAfterStatusChange =action.getText(admin_refundsPage.Label_OriginalDeliveryCharge());
+                String totalCustomerChargeAfterStatusChange =action.getText(admin_refundsPage.Label_TotalCustomerCharge());
+                String bungiiBeforeRefundAfterStatusChange =action.getText(admin_refundsPage.Label_BungiiBeforeRefund());
+
+                testStepAssert.isFalse(originalDeliveryChargeAfterStatusChange.contentEquals(originalDeliveryChargeBeforeStatusChange),"Delivery charges should be present","Delivery charges is present","Delivery charges is not present");
+                testStepAssert.isFalse(totalCustomerChargeAfterStatusChange.contentEquals(totalCustomerChargeBeforeStatusChange),"Total customer charges should be present","Total customer charges is present","Total customer charges is not present");
+                testStepAssert.isFalse(bungiiBeforeRefundAfterStatusChange.contentEquals(bungiiBeforeRefundBeforeStatusChange),"Bungii before hand  charges should be present","Bungii before hand  charges is present","Bungii before hand  charges is not present");
+                break;
+        }
+    }    catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+
+    @And("^I search the delivery based on customer \"([^\"]*)\"$")
+    public void i_search_the_delivery_based_on_customer_something(String text) throws Throwable {
+        try {
+            String customerFullName[] = cucumberContextManager.getScenarioContext("CUSTOMER").toString().split(" ");
+            switch (text) {
+                case "first name":
+                    String onlyCustomerLastName = customerFullName[0];
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastName + Keys.ENTER);
+                    break;
+                case "first name with space in front and back":
+                    String onlyCustomerLastNameWithSpace = " " + customerFullName[0] + " ";
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastNameWithSpace + Keys.ENTER);
+                    break;
+            }
+            log("I should be able to search the delivery based on customers "+text,
+                    "I could  search the delivery based on customers "+text,false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^The timezone should be \"([^\"]*)\" on \"([^\"]*)\" page$")
+    public void the_timezone_should_be_something_on_something_page(String timezone, String page) throws Throwable{
+        try{
+            Thread.sleep(5000);
+            String scheduledDate;
+            switch (page){
+                case "Scheduled Deliveries":
+                    String initialRequestDate = action.getText(admin_ScheduledTripsPage.Text_InitialRequestDate());
+                    scheduledDate = action.getText(admin_ScheduledTripsPage.Text_ScheduledDate());
+                    testStepVerify.isTrue(initialRequestDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    testStepVerify.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    break;
+                case "Live Deliveries":
+                    scheduledDate = action.getText(admin_LiveTripsPage.Text_ScheduledDate());
+                    testStepVerify.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    break;
+                case "All Deliveries":
+                    scheduledDate = action.getText(admin_TripsPage.Text_ScheduledDate());
+                    testStepVerify.isTrue(scheduledDate.contains(timezone),"Timezone should be "+ timezone, "Time zone is not "+ timezone);
+                    break;
+            }
+        }catch (Exception e){
+             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+             error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I check if miles are updated for \"([^\"]*)\" in \"([^\"]*)\"$")
+    public void i_check_if_miles_are_updated_for_something_in_something(String edit, String stage) throws Throwable {
+        try{
+            String reference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+
+            switch (stage){
+                case "enroute":
+                    switch (edit){
+                        case "drop-off":
+                            String[] pickup1Locations = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+                            String[] pickup2Locations = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+
+                            String[] dropLocation = new String[2];
+                            dropLocation[0] = pickup1Locations[2];
+                            dropLocation[1] = pickup1Locations[3];
+                            String[] newPickupLocations = new String[2];
+                            newPickupLocations[0] = pickup2Locations[0];
+                            newPickupLocations[1] = pickup2Locations[1];
+
+                            String expectedMiles = new GoogleMaps().getMilesWithLatLong(newPickupLocations, dropLocation);
+                            String actualMiles= admin_ScheduledTripsPage.Text_DeliveryMiles().getText();
+                            cucumberContextManager.setScenarioContext("MILES",actualMiles.substring(0,5));
+                            testStepVerify.isEquals(actualMiles.substring(0,4), expectedMiles,
+                                    "The miles displayed should be correct after admin edit.",
+                                    "The miles displayed is incorrect after admin edit.");
+                            break;
+                    }
+                    break;
+                case "arrived":
+                    switch (edit){
+                        case "pick-up":
+                            String[] newLocations = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+                            String[] newPickupLocations = new String[2];
+                            newPickupLocations[0] = newLocations[0];
+                            newPickupLocations[1] = newLocations[1];
+                            String[] oldPickupLocations = new String[2];
+                            oldPickupLocations[0] = (String) cucumberContextManager.getScenarioContext("OLD_LAT_PICKUP");
+                            oldPickupLocations[1] = (String) cucumberContextManager.getScenarioContext("OLD_LONG_PICKUP");
+                            String newPickupToOldPickup = new GoogleMaps().getMilesWithLatLong(oldPickupLocations, newPickupLocations);
+
+                            String[] oldDropLocation = new String[2];
+                            oldDropLocation[0] = (String) cucumberContextManager.getScenarioContext("OLD_LAT_DROPOFF");
+                            oldDropLocation[1] = (String) cucumberContextManager.getScenarioContext("OLD_LONG_DROPOFF");
+                            String newPickupToOldDropOff = new GoogleMaps().getMilesWithLatLong(newPickupLocations, oldDropLocation);
+
+                            float distance = Float.parseFloat(newPickupToOldPickup) + Float.parseFloat(newPickupToOldDropOff);
+                            String actualMiles= admin_ScheduledTripsPage.Text_DeliveryMiles().getText();
+                            cucumberContextManager.setScenarioContext("MILES",actualMiles.substring(0,5));
+                            testStepVerify.isEquals(actualMiles.substring(0,4), String.valueOf(distance),
+                                    "The miles displayed should be correct after admin edit.",
+                                    "The miles displayed is incorrect after admin edit.");
+
+                            break;
+                        case "pick-up and drop-off":
+//                            Distance formula: P1 to P2+ P2 to D2
+                            String[] newLocation = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+                            String[] newPickupLocation = new String[2];
+                            newPickupLocation[0] = newLocation[0];
+                            newPickupLocation[1] = newLocation[1];
+                            String[] oldPickupLocation = new String[2];
+                            oldPickupLocation[0] = (String) cucumberContextManager.getScenarioContext("OLD_LAT_PICKUP");
+                            oldPickupLocation[1] = (String) cucumberContextManager.getScenarioContext("OLD_LONG_PICKUP");
+                            String[] newDropLocation = new String[2];
+                            newDropLocation[0] = newLocation[2];
+                            newDropLocation[1] = newLocation[3];
+                            String dist1 = new GoogleMaps().getMilesWithLatLong(oldPickupLocation, newPickupLocation);
+                            String dist2 = new GoogleMaps().getMilesWithLatLong(newPickupLocation, newDropLocation);
+                            float dist = Float.parseFloat(dist1) + Float.parseFloat(dist2);
+                            String actualDist= admin_ScheduledTripsPage.Text_DeliveryMiles().getText();
+                            cucumberContextManager.setScenarioContext("MILES",actualDist.substring(0,5));
+                            testStepVerify.isEquals(actualDist.substring(0,4), String.valueOf(dist),
+                                    "The miles displayed should be correct after admin edit.",
+                                    "The miles displayed is incorrect after admin edit.");
+                            break;
+                    }
+                    break;
+                case "unloading":
+                    switch (edit){
+                        case "drop-off":
+//                            Distance formula: P1 to D1+ D1 to D2
+                            String[] newLocations = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+                            String[] newDropOff = new String[2];
+                            newDropOff[0] = newLocations[2];
+                            newDropOff[1] = newLocations[3];
+                            String[] oldPickupLocations = new String[2];
+                            oldPickupLocations[0] = (String) cucumberContextManager.getScenarioContext("OLD_LAT_PICKUP");
+                            oldPickupLocations[1] = (String) cucumberContextManager.getScenarioContext("OLD_LONG_PICKUP");
+                            String[] oldDropLocation = new String[2];
+                            oldDropLocation[0] = (String) cucumberContextManager.getScenarioContext("OLD_LAT_DROPOFF");
+                            oldDropLocation[1] = (String) cucumberContextManager.getScenarioContext("OLD_LONG_DROPOFF");
+                            String oldPickToDrop = new GoogleMaps().getMilesWithLatLong(oldPickupLocations, oldDropLocation);
+                            String oldDropToNewDrop = new GoogleMaps().getMilesWithLatLong(oldDropLocation, newDropOff);
+                            float distance = Float.parseFloat(oldPickToDrop) + Float.parseFloat(oldDropToNewDrop);
+                            String actualMiles= admin_ScheduledTripsPage.Text_DeliveryMiles().getText();
+                            cucumberContextManager.setScenarioContext("MILES",actualMiles.substring(0,5));
+                            testStepVerify.isEquals(actualMiles.substring(0,4), String.valueOf(distance),
+                                    "The miles displayed should be correct after admin edit.",
+                                    "The miles displayed is incorrect after admin edit.");
+
+                            break;
+                    }
+                    break;
+                case "stack":
+                    switch (edit){
+                        case "drop-off":
+                            String[] pickup1Locations = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+                            String[] dropLocation = new String[2];
+                            dropLocation[0] = pickup1Locations[2];
+                            dropLocation[1] = pickup1Locations[3];
+                            String[] newPickupLocations = new String[2];
+                            newPickupLocations[0] = pickup1Locations[0];
+                            newPickupLocations[1] = pickup1Locations[1];
+
+                            String expectedMiles = new GoogleMaps().getMilesWithLatLong(newPickupLocations, dropLocation);
+                            String actualMiles= admin_ScheduledTripsPage.Text_DeliveryMiles().getText();
+                            cucumberContextManager.setScenarioContext("MILES",actualMiles.substring(0,5));
+                            testStepVerify.isEquals(actualMiles.substring(0,4), expectedMiles,
+                                    "The miles displayed should be correct after admin edit.",
+                                    "The miles displayed is incorrect after admin edit.");
+                            break;
+                    }
+                    break;
+            }
+
+            log("I should be able to see updated miles.","I am able to see updated miles.",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^I check if correct \"([^\"]*)\" is displayed on delivery details$")
+    public void i_check_if_correct_something_is_displayed_on_delivery_details(String costType) throws Throwable {
+        try{
+            Float miles= Float.parseFloat((String) cucumberContextManager.getScenarioContext("MILES"));
+            String reference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String loadUnload = PropertyUtility.getDataProperties("partner.load.unload.time");
+            String driverCut = PropertyUtility.getDataProperties("kansas.partner.driver.cut");
+            float loadUnloadTime = Float.parseFloat(loadUnload)/60000;
+            DecimalFormat df = new DecimalFormat("0.00");
+            switch (costType){
+                case "customer price-enroute":
+                    String[] pickup1Locations = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+                    String[] pickup2Locations = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+
+                    String[] dropLocation = new String[2];
+                    dropLocation[0] = pickup1Locations[2];
+                    dropLocation[1] = pickup1Locations[3];
+                    String[] newPickupLocations = new String[2];
+                    newPickupLocations[0] = pickup2Locations[0];
+                    newPickupLocations[1] = pickup2Locations[1];
+
+                    long[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(newPickupLocations, dropLocation);
+                    logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance[0]+" and "+timeToCoverDistance[1]);
+
+                    float time= Float.parseFloat(df.format(timeToCoverDistance[0]/60));
+                    float cost= (miles*1+time*1)+loadUnloadTime;
+                    String actualCost= admin_EditScheduledBungiiPage.Text_Estimated_Price().getText();
+                    testStepVerify.isEquals(actualCost.substring(1,6), String.valueOf(cost),
+                            "The estimated cost  displayed should be correct after admin edit.",
+                            "The estimated cost displayed is incorrect after admin edit.");
+                    float transFeeSolo= (float) Math.round((cost*0.029)+0.30);
+                    float driverCutFee=Math.round(cost* Float.parseFloat(driverCut));
+                    float driverEarning = driverCutFee-transFeeSolo;
+                    String actualDriverEarning= admin_TripDetailsPage.Text_Driver_Est_Earnings_Customer_Delivery().getText();
+                    testStepVerify.isEquals(actualDriverEarning.substring(1,6), String.valueOf(df.format(driverEarning)),
+                            "The driver earnings  displayed should be correct after admin edit.",
+                            "The driver earnings displayed is incorrect after admin edit.");
+                    break;
+
+                case "customer price-arrived":
+//                    Time=P1 to P2 + P2 to D1
+                    String[] newLocations = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+                    String[] newPickupLocation = new String[2];
+                    newPickupLocation[0] = newLocations[0];
+                    newPickupLocation[1] = newLocations[1];
+                    String[] oldPickupLocations = new String[2];
+                    oldPickupLocations[0] = (String) cucumberContextManager.getScenarioContext("OLD_LAT_PICKUP");
+                    oldPickupLocations[1] = (String) cucumberContextManager.getScenarioContext("OLD_LONG_PICKUP");
+                    long[] timeToCoverDistance1  = new GoogleMaps().getDurationInTraffic(oldPickupLocations, newPickupLocation);
+
+                    String[] oldDropLocation = new String[2];
+                    oldDropLocation[0] = (String) cucumberContextManager.getScenarioContext("OLD_LAT_DROPOFF");
+                    oldDropLocation[1] = (String) cucumberContextManager.getScenarioContext("OLD_LONG_DROPOFF");
+                    long[] timeToCoverDistance2  = new GoogleMaps().getDurationInTraffic(newPickupLocation, oldDropLocation);
+                    float time1=Float.parseFloat(df.format(timeToCoverDistance1[0]/60+timeToCoverDistance2[0]/60));
+                    float cost1= (miles*1+time1*1)+loadUnloadTime;
+                    String actualCost1= admin_EditScheduledBungiiPage.Text_Estimated_Price().getText();
+                    testStepVerify.isEquals(actualCost1.substring(1), String.valueOf(cost1),
+                            "The estimated cost  displayed should be correct after admin edit.",
+                            "The estimated cost displayed is incorrect after admin edit.");
+                    float transFeeSolo1= (float) Math.round((cost1*0.029)+0.30);
+                    float driverCutFee1=Math.round(cost1* Float.parseFloat(driverCut));
+                    float driverEarning1= driverCutFee1-transFeeSolo1;
+                    String actualDriverEarning1= admin_TripDetailsPage.Text_Driver_Est_Earnings_Customer_Delivery().getText();
+                    testStepVerify.isEquals(actualDriverEarning1.substring(1), String.valueOf(df.format(driverEarning1)),
+                            "The driver earnings  displayed should be correct after admin edit.",
+                            "The driver earnings displayed is incorrect after admin edit.");
+                    break;
+
+                case "customer price-unloading":
+//                    Time=P1 to D1+ D1 to D2
+                    String[] newLocations1 = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+                    String[] newDropLocation = new String[2];
+                    newDropLocation[0] = newLocations1[2];
+                    newDropLocation[1] = newLocations1[3];
+                    String[] oldPickupLocation = new String[2];
+                    oldPickupLocation[0] = (String) cucumberContextManager.getScenarioContext("OLD_LAT_PICKUP");
+                    oldPickupLocation[1] = (String) cucumberContextManager.getScenarioContext("OLD_LONG_PICKUP");
+                    String[] oldDropLocations = new String[2];
+                    oldDropLocations[0] = (String) cucumberContextManager.getScenarioContext("OLD_LAT_DROPOFF");
+                    oldDropLocations[1] = (String) cucumberContextManager.getScenarioContext("OLD_LONG_DROPOFF");
+                    long[] distance1  = new GoogleMaps().getDurationInTraffic(oldPickupLocation, oldDropLocations);
+                    long[] distance2  = new GoogleMaps().getDurationInTraffic(oldDropLocations, newDropLocation);
+
+                    float time2=Float.parseFloat(df.format(distance1[0]/60+distance2[0]/60));
+                    float cost2= (miles*1+time2*1)+loadUnloadTime;
+                    String actualCost2= admin_EditScheduledBungiiPage.Text_Estimated_Price().getText();
+                    testStepVerify.isEquals(actualCost2.substring(1), String.valueOf(cost2),
+                            "The estimated cost  displayed should be correct after admin edit.",
+                            "The estimated cost displayed is incorrect after admin edit.");
+                    float transFeeSolo2= (float) Math.round((cost2*0.029)+0.30);
+                    float driverCutFee2=Math.round(cost2* Float.parseFloat(driverCut));
+                    float driverEarning2= driverCutFee2-transFeeSolo2;
+                    String actualDriverEarning2= admin_TripDetailsPage.Text_Driver_Est_Earnings_Customer_Delivery().getText();
+                    testStepVerify.isEquals(actualDriverEarning2.substring(1), String.valueOf(df.format(driverEarning2)),
+                            "The driver earnings  displayed should be correct after admin edit.",
+                            "The driver earnings displayed is incorrect after admin edit.");
+                    break;
+
+                case "customer price-stack":
+                    String[] pickupLocations = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+                    String[] dropoffLocation = new String[2];
+                    dropoffLocation[0] = pickupLocations[2];
+                    dropoffLocation[1] = pickupLocations[3];
+                    String[] pickupLocation = new String[2];
+                    pickupLocation[0] = pickupLocations[0];
+                    pickupLocation[1] = pickupLocations[1];
+                    long[] time3  = new GoogleMaps().getDurationInTraffic(pickupLocation, dropoffLocation);
+
+                    float cost3= (miles*1)+(time3[0]/60*1+loadUnloadTime);
+                    String actualCost3= admin_EditScheduledBungiiPage.Text_Estimated_Price().getText();
+                    testStepVerify.isEquals(actualCost3.substring(1), String.valueOf(cost3),
+                            "The estimated cost  displayed should be correct after admin edit.",
+                            "The estimated cost displayed is incorrect after admin edit.");
+                    float transFeeSolo3= (float) Math.round((cost3*0.029)+0.30);
+                    float driverCutFee3=Math.round(cost3* Float.parseFloat(driverCut));
+                    float driverEarning3= driverCutFee3-transFeeSolo3;
+                    String actualDriverEarning3= admin_TripDetailsPage.Text_Driver_Est_Earnings_Customer_Delivery().getText();
+                    testStepVerify.isEquals(actualDriverEarning3.substring(1), String.valueOf(df.format(driverEarning3)),
+                            "The driver earnings  displayed should be correct after admin edit.",
+                            "The driver earnings displayed is incorrect after admin edit.");
+                    break;
+
+                case "customer price-duo":
+                    String[] newLocation = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+                    String[] newPickupLoc = new String[2];
+                    newPickupLoc[0] = newLocation[0];
+                    newPickupLoc[1] = newLocation[1];
+                    String[] oldPickupLoc= new String[2];
+                    oldPickupLoc[0] = (String) cucumberContextManager.getScenarioContext("OLD_LAT_PICKUP");
+                    oldPickupLoc[1] = (String) cucumberContextManager.getScenarioContext("OLD_LONG_PICKUP");
+                    String[] newDropLoc = new String[2];
+                    newDropLoc[0] = newLocation[2];
+                    newDropLoc[1] = newLocation[3];
+                    long[] tim1 = new GoogleMaps().getDurationInTraffic(oldPickupLoc, newPickupLoc);
+                    long[] tim2 = new GoogleMaps().getDurationInTraffic(newPickupLoc, newDropLoc);
+                    float Cost= (miles*1)+(tim1[0]/60)+(tim2[0]/60);
+                    float Cost1= Cost*2+2*loadUnloadTime;
+                    String actuaCost= admin_EditScheduledBungiiPage.Text_Estimated_Price().getText();
+                    testStepVerify.isEquals(actuaCost.substring(1), String.valueOf(Cost1),
+                            "The estimated cost  displayed should be correct after admin edit.",
+                            "The estimated cost displayed is incorrect after admin edit.");
+                    float transFeeSolo4= (float) Math.round(((Cost+loadUnloadTime)*0.029)+0.30);
+                    float driverCutFee4=Math.round((Cost+loadUnloadTime)* Float.parseFloat(driverCut));
+                    float driverEarning4= driverCutFee4-transFeeSolo4;
+                    String actualDriverEarning4= admin_TripDetailsPage.Text_Driver_Est_Earnings_Customer_Delivery().getText();
+                    testStepVerify.isEquals(actualDriverEarning4.substring(1), String.valueOf(df.format(driverEarning4)),
+                            "The driver earnings  displayed should be correct after admin edit.",
+                            "The driver earnings displayed is incorrect after admin edit.");
+                    break;
+            }
+            log("I should be able to see the correct estimated charge and driver charge.","I am able to see the correct estimated charge and driver charge.",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I get the old values of pickup and drop off$")
+    public void i_get_the_old_values_of_pickup_and_drop_off() throws Throwable {
+       try{
+           String reference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+           String[] locations = DbUtility.getLatAndLonPickupAndDropLocation(reference);
+
+           String[] oldPickupLocations = new String[2];
+           oldPickupLocations[0] = locations[0];
+           oldPickupLocations[1] = locations[1];
+           String[] oldDropLocation = new String[2];
+           oldDropLocation[0] = locations[2];
+           oldDropLocation[1] = locations[3];
+
+           cucumberContextManager.setScenarioContext("OLD_LAT_PICKUP",oldPickupLocations[0]);
+           cucumberContextManager.setScenarioContext("OLD_LONG_PICKUP",oldPickupLocations[1]);
+           cucumberContextManager.setScenarioContext("OLD_LAT_DROPOFF",oldDropLocation[0]);
+           cucumberContextManager.setScenarioContext("OLD_LONG_DROPOFF",oldDropLocation[1]);
+
+        log("I should be able to get old latitude and longitude values of addresses.","I am able to get old latitude and longitude values of addresses.",false);
+       }
+       catch(Exception e){
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
+    }
+    @And("^I select the live trip for \"([^\"]*)\" customer$")
+    public void i_select_the_live_trip_for_something_customer(String custName) throws Throwable {
+        try {
+            String pickupReference= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            action.clearSendKeys(admin_ScheduledTripsPage.Textbox_Search(),pickupReference);
+
+            if(custName.equalsIgnoreCase("Ondemand"))
+            {
+                String pickupReferenceOndemand=(String) cucumberContextManager.getScenarioContext("ONDEMAND_PICKUP_ID");
+                action.clearSendKeys(admin_ScheduledTripsPage.Textbox_Search(),pickupReferenceOndemand);
+            }
+
+            action.click(admin_ScheduledTripsPage.Button_Search());
+
+            Thread.sleep(25000);
+
+            action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
+            action.click(admin_ScheduledTripsPage.List_ViewEdit());
+
+
+            pass("I should able to open trip", "I viewed live delivery",
+                    false);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Problem in selecting Live delivery in admin portal for customer "+custName,
+                    true);
+        }
+    }
+    @And("^I select the live trip for \"([^\"]*)\" customer for delivery details$")
+    public void i_select_the_live_trip_for_something_customer_for_delivery_details(String cust) throws Throwable {
+        try {
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            action.sendKeys(admin_ScheduledTripsPage.Textbox_Search(), custName.substring(0, custName.indexOf(" ")));
+            action.click(admin_ScheduledTripsPage.Button_Search());
+            Thread.sleep(5000);
+            if(cust.equalsIgnoreCase("Duo")){
+                action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
+                action.click(admin_ScheduledTripsPage.Dropdown_LiveDelivery_Details());
+            }
+            else {
+                action.click(admin_ScheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", custName), PageBase.LocatorType.XPath));
+                action.click(admin_ScheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'Delivery Details')]", custName), PageBase.LocatorType.XPath));
+            }
+            log("I should be able to open delivery details for the customer",
+                    "I am able to open delivery details for the customer",false);
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
 }

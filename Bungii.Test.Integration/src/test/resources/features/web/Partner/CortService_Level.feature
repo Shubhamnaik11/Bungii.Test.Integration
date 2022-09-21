@@ -131,3 +131,9 @@ Feature: Cort Service Level
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then Revive button should be displayed beside the trip
+
+    #CORE-4136
+  @ready
+  Scenario: Verify tooltip verbiage reflects number of days based on advance scheduling days configured in database
+    When I click on tooltip beside "Pickup Date" field
+    Then I should see tooltip value based on configured value in database
