@@ -35,4 +35,8 @@ public class Driver_LoginPage extends PageBase {
     //Driver login show password
     public WebElement Link_Login_OpenEye() { return findElement("//form/div[2]/div/span[@class =\"close-eye\"]", LocatorType.XPath); }
 
+    public WebElement Link_Terms() { return findElement("//a[text()='Terms']", LocatorType.XPath); }
+
+    public WebElement Link_PrivacyPolicy() { return findElement("//a[text()='Privacy Policy']", LocatorType.XPath); }
+
 }

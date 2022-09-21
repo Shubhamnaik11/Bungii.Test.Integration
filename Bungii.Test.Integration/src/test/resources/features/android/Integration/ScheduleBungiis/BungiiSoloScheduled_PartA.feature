@@ -108,7 +108,7 @@ Feature: SoloScheduled
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
-    And I wait for "2" minutes
+    And I wait for "2" mins
     And I Select "trips" from admin sidebar
     When  I search the delivery using "Pickup Reference"
     Then The revive button should not be displayed
@@ -119,7 +119,7 @@ Feature: SoloScheduled
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8877661053     | Testcustomertywd_appleMarkBB LutherBB | Cci12345          |
-    And I wait for "2" minutes
+    And I wait for "2" mins
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -130,7 +130,7 @@ Feature: SoloScheduled
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Cancel Bungii" button
     Then The "Pick up has been successfully canceled." message should be displayed
-    And I wait for "2" minutes
+    And I wait for "2" mins
     And I Select "trips" from admin sidebar
     When  I search the delivery using "Pickup Reference"
     And Revive button should be displayed beside the trip

@@ -309,6 +309,28 @@ public class DbUtility extends DbContextManager {
         logger.detail("Driver Share is " + driverShare);
         return driverShare;
     }
+    public static String getAdminEditTime(String pickUpID) {
+        String time = "";
+        String queryString = "select created_on from pickup_history where pickupid="+pickUpID+" limit 1";
+        time = getDataFromMySqlServer(queryString);
+
+        logger.detail("For pickUpID " + pickUpID + " admin edit time is " + time);
+        return time;
+    }
+    public static String getLoadUnloadTime(String pickUpID) {
+        String loadUnloadTime = "";
+        String queryString = "select LoadingUnloadingTime from pickupdetails where PickupID = "+pickUpID;
+        loadUnloadTime = getDataFromMySqlServer(queryString);
+        logger.detail("Load/Unload time required is " + loadUnloadTime);
+        return loadUnloadTime;
+    }
+    public static String getDriverArrivalTime(String pickUpID) {
+        String drverArrivalTime = "";
+        String queryString = "select ChangeTimeStamp from tripevents where pickupid ="+pickUpID+" and TripStatus = 24";
+        drverArrivalTime = getDataFromMySqlServer(queryString);
+        logger.detail("Driver Arrival Time is" + drverArrivalTime);
+        return drverArrivalTime;
+    }
     public static String getLinkedPickupRef(String pickupRef) {
         String linkedpickupref = "";
         String queryString = "SELECT PICKUPREF FROM pickupdetails WHERE LINKEDPICKUPID in (SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef+"' )";
