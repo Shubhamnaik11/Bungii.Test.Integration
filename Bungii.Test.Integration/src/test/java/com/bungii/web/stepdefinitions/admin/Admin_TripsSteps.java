@@ -3252,7 +3252,7 @@ try{
         Thread.sleep(9000);
         action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(),driverPhone+ Keys.ENTER);
         Thread.sleep(3000);
-        cucumberContextManager.setScenarioContext("DRIVER",action.getText(admin_DriverPage.Text_DriverName()));
+        cucumberContextManager.setScenarioContext("DRIVER",action.getText(admin_DriverPage.Text_AllDriversName()));
         Thread.sleep(3000);
         String statusOfDriver = action.getText(admin_DriverPage.Text_DriverApplicationStatus());
         testStepAssert.isEquals(statusOfDriver,driverStatus,"The driver application should be "+driverStatus ,"The driver application is "+driverStatus,"The driver application is not "+driverStatus);

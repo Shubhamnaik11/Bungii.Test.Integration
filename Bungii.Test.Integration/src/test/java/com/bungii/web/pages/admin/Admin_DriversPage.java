@@ -76,7 +76,7 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Text_DetailsPopupInformation(int number) {return findElement(String.format("//div[@id=\"bodyContent\"]/p[%d]",number),LocatorType.XPath);}
 
-    public WebElement Text_DriverName() {return findElement("//div/table/tbody/tr/td[2]",LocatorType.XPath);}
+    public WebElement Text_AllDriversName() {return findElement("//div/table/tbody/tr/td[2]",LocatorType.XPath);}
 
 
 }
