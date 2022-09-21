@@ -3166,4 +3166,18 @@ try{
         }
     }
 
+    @And("I get the latest pickup reference generated for {string}")
+    public void iGetTheLatestPickupReferenceGeneratedFor(String custPhone) {
+        try{
+            String pickupRequest = getPickupRef(custPhone);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            log("I get the latest pickup reference generated for customer "+custPhone,
+                    "Latest Pickupref for customer " +custPhone+ " is " + pickupRequest, false);
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }
