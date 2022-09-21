@@ -561,7 +561,7 @@ Feature: Admin_Refund
 		And I change the driver status to "Inactive"
 		And I confirm the "Confirm" action
 		And I click on "Driver status change" button
-        And I click on the "Driver" link from the sidebar
+		And I click on the "Driver" link from the sidebar
 		When I search driver "Testdrivertywd_appleks_a_drvbc Kansas_bc"
 		And I click on "Profile" icon
 		And I edit the Driver
