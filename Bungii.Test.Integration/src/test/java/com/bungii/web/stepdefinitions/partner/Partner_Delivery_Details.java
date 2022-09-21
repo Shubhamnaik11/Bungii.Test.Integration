@@ -370,9 +370,7 @@ public class Partner_Delivery_Details extends DriverBase {
             else if (Site.equalsIgnoreCase("fnd multiple phone")) {
 
                 switch (str) {
-
                     case "Delivery Details":
-
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Product_Description(), ProductDescription);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Dimensions(), Dimensions);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Weight(), Weight);
@@ -392,8 +390,8 @@ public class Partner_Delivery_Details extends DriverBase {
                         switch (SMS_RecipientNo)
                         {
                             case "one time":
-                            action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
-                            action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), SMS_Recipient1);
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), SMS_Recipient1);
                             break;
                             case "two times":
                                 action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
@@ -411,6 +409,7 @@ public class Partner_Delivery_Details extends DriverBase {
                                 action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Name());
                                 break;
                             default:
+                                break;
                         }
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
                         action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
