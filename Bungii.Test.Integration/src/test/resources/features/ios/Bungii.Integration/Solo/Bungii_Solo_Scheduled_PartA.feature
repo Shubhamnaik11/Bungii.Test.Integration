@@ -648,3 +648,38 @@ Feature: Solo Scheduled Bungii Part A
     Then The trip should be present in my bungiis
 
 
+  @testAllan
+  Scenario:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appleks_a_drva Kansas_a" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    #CORE-3585:To verify that driver is able to successfully swipe through all in progress Bungii states
+    And I click on start Bungii for service based delivery
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    Then Bungii driver should see "Photo Verification"
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    Then Bungii driver should see "Photo Verification"
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then Bungii driver should see "Photo Verification"
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    When I click "On To The Next One" button on "Bungii completed" screen
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    Then The trip should be present in schedule delivery
