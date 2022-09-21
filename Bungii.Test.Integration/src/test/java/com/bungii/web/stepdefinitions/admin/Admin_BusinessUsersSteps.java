@@ -1053,7 +1053,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Transaction History":
                     action.click(admin_refundsPage.Button_TransactionDetails());
                     break;
-                case "OK Driver status change":
+                case "Driver status change":
                     action.click(admin_DriverPage.Button_OkDriverStatusChange());
                     break;
             }

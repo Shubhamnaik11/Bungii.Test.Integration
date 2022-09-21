@@ -2917,7 +2917,6 @@ try{
         List <WebElement> allDrivers = admin_Driverspage.List_AllDriversInActiveMap();
         for(WebElement name:allDrivers){
             if(name.getText().contentEquals(expectedDriversName)) {
-                System.out.println("Step should fail for ");
                 testStepAssert.isFail("Driver " + name.getText() + " is present in the list of all drivers");
                 break;
             }
