@@ -647,7 +647,59 @@ Feature: Solo Scheduled Bungii Part A
     And I Select "MY BUNGIIS" from Customer App menu
     Then The trip should be present in my bungiis
 
+  #CORE-3417:Verify driver instructions at pickup and drop off is in Markdown format
+  @ready
+  Scenario:Verify driver instructions at pickup and drop off is in Markdown format
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |washingtondc| NEXT_POSSIBLE | 8877661114 | Testcustomertywd_appleMarkDK LutherDK|
+    And I wait for 2 minutes
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Edit" button from the dropdown
+    And I Select "Edit Trip Details" option
+    And I assign driver "Testdrivertywd_appledc_a_drvY WashingtonY" for the trip
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+    When I click on "CLOSE" button
 
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appledc_a_drvY WashingtonY" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I click on start Bungii for service based delivery
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    Then I should see "Pickup Instructions" popup displayed
+    Then The driver "Pickup" instructions should be in markdown format
+    And I click on "GOT IT" button
+    And I slide update button on "ARRIVED" Screen
+    And  Bungii driver should see "Photo Verification"
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And Bungii driver should see "Photo Verification"
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should see "Drop-Off Instructions" popup displayed
+    Then The driver "Dropoff" instructions should be in markdown format
+    And I click on "GOT IT" button
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Bungii driver should see "Photo Verification"
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii Completed" screen
   @testAllan
   Scenario:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
     When I request Partner Portal "Solo" Trip for "Equip-bid" partner
