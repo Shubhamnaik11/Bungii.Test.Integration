@@ -5,16 +5,12 @@ import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
-import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
+import com.bungii.web.pages.partner.Partner_Done;
 import com.bungii.web.utilityfunctions.DbUtility;
-import com.bungii.web.utilityfunctions.GeneralUtility;
-import com.bungii.web.pages.driver.Driver_DashboardPage;
-import com.bungii.web.pages.driver.Driver_LoginPage;
-import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -24,10 +20,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.sql.Time;
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -36,8 +35,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.List;
 
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -62,6 +60,11 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_RefundsPage admin_refundsPage = new Admin_RefundsPage();
 
     Admin_TripsPage adminTripsPage = new Admin_TripsPage();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
+    Partner_Done Page_Partner_Done = new Partner_Done();
+    Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_DriversPage admin_Driverspage = new Admin_DriversPage();
+
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -1512,7 +1515,7 @@ try{
          if(!Driver_Name.isEmpty()) {
              Driver_Licence_Plate = PropertyUtility.getDataProperties("email.driver.LicencePlate");
          }
-         
+
          String Items_To_Deliver = (String) cucumberContextManager.getScenarioContext("Item_Name");
          String Pickup_Contact_Name = (String) cucumberContextManager.getScenarioContext("PickupContactName");
          String Pickup_Contact_Phone = (String) cucumberContextManager.getScenarioContext("PickupContactPhone");
@@ -1876,7 +1879,23 @@ try{
                         break;
                 }
                 break;
-
+            case "Vehicle Type":
+                action.click(admin_TripsPage.Button_Filter());
+                switch (value){
+                    case "Box Truck":
+                        action.click(admin_DriverPage.Checkbox_BoxTruck());
+                        break;
+                    case "Moving Van":
+                        action.click(admin_DriverPage.Checkbox_MovingVan());
+                        break;
+                    case "Pickup Truck":
+                        action.click(admin_DriverPage.Checkbox_PickupTruck());
+                        break;
+                    case "SUV":
+                        action.click(admin_DriverPage.Checkbox_SUV());
+                        break;
+                }
+                break;
         }
         log("I select filter " +filter+" as " + value ,
                 "I have selected filter " +filter+" as " + value, false);
@@ -2664,6 +2683,14 @@ try{
                         "Issue refund button is not displayed",
                         "Issue refund button is displayed");
                 break;
+            case "Testdrivertywd_appleks_a_drvbd Kansas_bd":
+            case "Testdrivertywd_appleks_a_drvbc Kansas_bc":
+                Thread.sleep(4000);
+                testStepAssert.isNotElementDisplayed(admin_DriverPage.Text_DriverName(true),
+                        "Driver Name should not be displayed",
+                        "Driver Name is not displayed",
+                        "Driver Name is displayed");
+                break;
         }
     }    catch(Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -3166,6 +3193,139 @@ try{
                     true);
         }
     }
+
+
+    @And("^I \"([^\"]*)\" all the \"([^\"]*)\" checkboxes from the filter$")
+    public void i_something_all_the_something_checkboxes_from_the_filter(String checkboxSelectOrUnselect, String element) throws Throwable {
+       try{
+        switch (checkboxSelectOrUnselect){
+           case "Unselect":
+               action.click(admin_TripsPage.Button_Filter());
+               switch (element){
+
+                   case "Equipment":
+                       utility.clearEquipment();
+                       break;
+                   case "Vehicle Type":
+                       utility.clearVehicleType();
+                       break;
+               }
+               action.click(Page_Partner_Done.Button_Apply());
+               break;
+       }
+       log("I should be able "+checkboxSelectOrUnselect+" all the "+element+" checkboxes from the filter",
+               "I could "+checkboxSelectOrUnselect+" all the "+element+" checkboxes from the filter",
+               false);
+    }
+        catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I change the driver status to \"([^\"]*)\"$")
+    public void i_change_the_driver_status_to_something(String driverStatus) throws Throwable {
+        try{
+        action.click(admin_GeofencePage.Dropdown_Status());
+        switch (driverStatus){
+            case "Inactive":
+                action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Inactive");
+                break;
+            case "Suspended":
+                action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Suspended");
+                break;
+        }
+        action.click(admin_DriverPage.TextBox_DriverStatusChangeComment());
+        action.clearSendKeys(admin_DriverPage.TextBox_DriverStatusChangeComment(),"For Testing");
+        log("I should be able to change the driver status to "+driverStatus,"I could change the driver status to "+driverStatus,false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
+    }
+
+    @When("^I select a driver \"([^\"]*)\" whose status is \"([^\"]*)\"$")
+    public void i_select_a_driver_something_whose_status_is_something(String driverPhone, String driverStatus) throws Throwable {
+        try{
+        Thread.sleep(9000);
+        action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(),driverPhone+ Keys.ENTER);
+        Thread.sleep(3000);
+        cucumberContextManager.setScenarioContext("DRIVER",action.getText(admin_DriverPage.Text_AllDriversName()));
+        Thread.sleep(3000);
+        String statusOfDriver = action.getText(admin_DriverPage.Text_DriverApplicationStatus());
+        testStepAssert.isEquals(statusOfDriver,driverStatus,"The driver application should be "+driverStatus ,"The driver application is "+driverStatus,"The driver application is not "+driverStatus);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
+    }
+
+    @And("^Driver icon should be displayed on the map for \"([^\"]*)\"$")
+    public void Driver_icon_should_be_displayed_on_the_map_for_something(String driver) throws Throwable {
+        try{
+        Thread.sleep(3000);
+        testStepAssert.isElementDisplayed(admin_Driverspage.Icon_Driver1OnMap(),"Icon should be present on the map",
+                        "Icon should be present on the map","Icon should be present on the map" );
+        action.click(admin_Driverspage.Icon_Driver1OnMap());
+        Thread.sleep(3000);
+        log("I should be able to click on driver icon displayed on the map","I could click on the driver icon displayed on the map",false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
+        }
+
+    @Then("^The driver having status \"([^\"]*)\" should not be present in active driver map$")
+    public void the_driver_having_status_something_should_not_be_present_in_active_driver_map(String strArg1) throws Throwable {
+        try{
+        Thread.sleep(12000);
+        String expectedDriversName = (String) cucumberContextManager.getScenarioContext("DRIVER");
+        List <WebElement> allDrivers = admin_Driverspage.List_AllDriversInActiveMap();
+        for(WebElement name:allDrivers){
+            if(name.getText().contentEquals(expectedDriversName)) {
+                testStepAssert.isFail("Driver " + name.getText() + " is present in the list of all drivers");
+                break;
+            }
+        }
+        testStepAssert.isTrue(true,"Driver "+expectedDriversName+" should not be  present in the list of all drivers","Driver "+expectedDriversName+" is not present in the list of all drivers",
+                "Driver "+expectedDriversName+" is present in the list of all drivers");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
+}
+
+
+    @Then("^The drivers name \"([^\"]*)\" phone number \"([^\"]*)\" and vehicle type \"([^\"]*)\" should be displayed$")
+    public void the_drivers_name_something_phone_number_something_and_vehicle_type_something_should_be_displayed(String driverName, String DriverPhone, String DriverVehicleType) throws Throwable {
+     try{
+      Thread.sleep(3000);
+      String driverNameAlongWithNameText[] =  action.getText(admin_Driverspage.Text_DetailsPopupInformation(2)).trim().split(":");
+      String name =driverNameAlongWithNameText[1].trim();
+      String phoneNoWithAdditionalData []= action.getText(admin_Driverspage.Text_DetailsPopupInformation(3)).trim().split(":");
+      String vehicleWithAdditionalData []=action.getText(admin_Driverspage.Text_DetailsPopupInformation(5)).trim().split(":");
+      String phoneNo =  phoneNoWithAdditionalData[1].trim();
+      String vehicle =  vehicleWithAdditionalData[1].trim();
+        testStepAssert.isEquals(name.toLowerCase(),driverName.toLowerCase(),"The driver name should be "+driverName ,"The driver name is "+name,"The driver name is not "+driverName);
+        testStepAssert.isEquals(phoneNo,DriverPhone,"The driver phone number should be "+DriverPhone ,"The driver phone number is "+phoneNo,"The driver phone number is not "+DriverPhone);
+        testStepAssert.isEquals(vehicle.toLowerCase(),DriverVehicleType.toLowerCase(),"The driver application should be "+DriverVehicleType ,"The driver application is "+vehicle,"The driver application is not "+DriverVehicleType);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
+    }
+
 
     @And("I get the latest pickup reference generated for {string}")
     public void iGetTheLatestPickupReferenceGeneratedFor(String custPhone) {
