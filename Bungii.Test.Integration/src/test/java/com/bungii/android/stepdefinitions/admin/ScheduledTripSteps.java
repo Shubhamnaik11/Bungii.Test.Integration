@@ -1933,5 +1933,21 @@ public class ScheduledTripSteps extends DriverBase {
 					true);
 		}
 	}
+	@Then("^I check price override prices are retained on admin edit address$")
+	public void i_check_price_override_prices_are_retained_on_admin_edit_address() throws Throwable {
+		try{
+			action.refreshPage();
+			String driverCharges = action.getText(scheduledTripsPage.Text_Driver_Est_Earnings());
+			String actualDriverCharges = driverCharges.substring(1);
+			String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
+			testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges, "Driver Charges should be overridden", "Driver Charges are overridden", "Driver Charges are not overridden");
+
+		}
+		catch(Exception e){
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
 
 }

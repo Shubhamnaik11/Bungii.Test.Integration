@@ -1,14 +1,15 @@
 package com.bungii.android.stepdefinitions.Driver;
 
-import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.EstimatePage;
-import com.bungii.android.pages.driver.*;
-import com.bungii.android.pages.otherApps.*;
-import com.bungii.android.stepdefinitions.Customer.*;
-import com.bungii.android.utilityfunctions.*;
-import com.bungii.android.utilityfunctions.*;
+import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.pages.driver.ScheduledBungiiPage;
+import com.bungii.android.pages.driver.UpdateStatusPage;
+import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.stepdefinitions.Customer.SignupSteps;
+import com.bungii.android.utilityfunctions.DbUtility;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -27,9 +28,15 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -1065,6 +1072,86 @@ public class BungiiInProgressSteps extends DriverBase {
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+    @And("^I calculate the \"([^\"]*)\" time after \"([^\"]*)\"$")
+    public void
+    i_calculate_the_something_time_after_something(String timeType, String changeType) throws Throwable {
+        try{
+            switch (changeType){
+                case "changed pickup":
+                    switch (timeType){
+                        case "telet":
+//                      Formula = (TELET + drive time from drop off A to pickup B) - 15 minutes, + 30 minutes
+                            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189"; c/// Stacked trip will be 2 customer you need of first trip
+                            String custRef = DbUtility.getCustomerRefference(phoneNumber);
+                            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+                            String teletTimeInDb = DbUtility.getTELETfromDb(custRef);
+                            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            Date time2 = formatter.parse(teletTimeInDb);
+                            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(geofenceLabel));
+                            calendar.setTime(time2);
+                            String teletInLocalTime = String.valueOf(calendar.getTime());
+                            cucumberContextManager.setScenarioContext("NEW_TELET",teletInLocalTime);
+                            String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+
+                            String[] pickupLoc= DbUtility.getPickupAndDropLocation(customerPhoneNumber);
+                            String[] pickup2Locations = DbUtility.getPickupAndDropLocation(PropertyUtility.getDataProperties("valid.customer.ondemand.phone"));
+                            String[] dropLoc = new String[2];
+                            dropLoc[0] = pickupLoc[2];
+                            dropLoc[1] = pickupLoc[3];
+                            String[] newPickupLocations = new String[2];
+                            newPickupLocations[0] = pickup2Locations[0];
+                            newPickupLocations[1] = pickup2Locations[1];
+
+                            long[] timeToCoverDistance2 = new GoogleMaps().getDurationInTraffic(dropLoc, newPickupLocations);
+                            logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance2[0]+" and "+timeToCoverDistance2[1]);
+
+                            int times = (int) (timeToCoverDistance2[0]/60);
+                            calendar.setTime(time2);
+                            calendar.add(Calendar.MINUTE, times);
+                            calendar.add(Calendar.MINUTE, -15);
+                            String lowerRangeInLocalTime = String.valueOf(calendar.getTime());
+                            cucumberContextManager.setScenarioContext("PAT_LOWER_RANGE",lowerRangeInLocalTime);
+                            calendar.setTime(time2);
+                            calendar.add(Calendar.MINUTE, 30);
+                            String upperRangeInLocalTime = String.valueOf(calendar.getTime());
+                            cucumberContextManager.setScenarioContext("PAT_UPPER_RANGE",upperRangeInLocalTime);
+                            break;
+
+                    }
+                    break;
+            }
+            log("I should be able to calculate the telet","I am able to calculate the telet",false);
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^correct details should do be displayed on (.+) screen for Stack screen$")
+    public void correct_details_should_do_be_displayed_on_bungii_accepted_screen_for_stack_screen(String key)  {
+        try{
+            switch (key.trim()){
+                case "BUNGII ACCEPTED with recalculation":
+                    String labelOne="";
+                    String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+                    if (geofence.equalsIgnoreCase("goa") || geofence.equalsIgnoreCase(""))
+                        labelOne =  PropertyUtility.getDataProperties("time.label");
+                    else
+                        labelOne =  utility.getTimeZoneBasedOnGeofence();
+                    String expectedPAT=(String)cucumberContextManager.getScenarioContext("PAT_LOWER_RANGE")+" - "+(String)cucumberContextManager.getScenarioContext("PAT_UPPER_RANGE")+" "+labelOne;
+                    expectedPAT=expectedPAT.replace("am", "AM").replace("pm","PM");
+                    String actualPAT = action.getText(bungiiAcceptedPage.Textlabel_ProjectedTimeValue());
+                    testStepVerify.isTrue(expectedPAT.contains(actualPAT),"Projected arrival Time : "+ actualPAT +" is displayed","Projected arrival Time : "+ actualPAT +" is displayed instead of "+ expectedPAT);
+                    break;
+            }}
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 }

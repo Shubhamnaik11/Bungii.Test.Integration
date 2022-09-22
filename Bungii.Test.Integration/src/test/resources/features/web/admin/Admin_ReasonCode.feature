@@ -28,7 +28,6 @@ Feature: Admin_Reason_Code
     Then the updated time should be displayed on delivery details page
 
   @ready
-
   Scenario: Verify Reason dropdown from Duo re-schedule delivery when no Driver accepts,initiated by Customer and Admin edits only time
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -49,7 +48,6 @@ Feature: Admin_Reason_Code
     Then the updated time should be displayed on delivery details page
 
   @ready
-
     Scenario: Verify Reason dropdown is displayed for Customer SOLO re-scheduled delivery when NO Driver accepts and Admin edits only Date
       When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
         | Bungii Time   | Customer Phone | Customer Name |
@@ -71,7 +69,6 @@ Feature: Admin_Reason_Code
       Then the updated date should be displayed on delivery details page
 
   @ready
-
   Scenario: Verify Reason dropdown is displayed for Customer SOLO/ DUO  re-scheduled delivery  when NO Driver accepts and Admin edits both Date and Time
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -95,7 +92,6 @@ Feature: Admin_Reason_Code
 
 
   @ready
-
   Scenario: Verify Reason dropdown is hidden when Admin does not edit date or time or both and verify reason dropdown values
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -119,7 +115,6 @@ Feature: Admin_Reason_Code
 
 
   @ready
-
   Scenario: Verify Reason dropdown for Customer DUO re-scheduled delivery when Single Driver accepts
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name  |
@@ -145,7 +140,6 @@ Feature: Admin_Reason_Code
     Then the updated date should be displayed on delivery details page
 
   @ready
-
   Scenario: Verify Reason dropdown for Customer DUO re-scheduled delivery when  Both Drivers do not accept the delivery
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -167,7 +161,7 @@ Feature: Admin_Reason_Code
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
-    Then the updated date should be displayed on delivery details page
+    Then the updated time should be displayed on delivery details page
 
   @regression
   Scenario: Verify Reason is not mandatory when pickup/drop off address edited and driver is assigned by Admin for Customer delivery
@@ -293,7 +287,6 @@ Feature: Admin_Reason_Code
 
 
   @ready
-
   Scenario: Verify Reason dropdown for PARTNER SOLO(Weight based pricing) re-scheduled delivery when NO Driver accepts and Admin edits only Date when Partner Initiated
     When I navigate to "Partner" portal configured for "FloorDecor service level" URL
     And I enter "valid" password on Partner Portal
@@ -329,11 +322,12 @@ Feature: Admin_Reason_Code
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And I get the latest pickup reference generated for "9999999117"
+    And I search the delivery using "Pickup Reference"
     Then the updated time should be displayed on delivery details page
 
 
   @ready
-
   Scenario: Verify Reason dropdown for PARTNER DUO(Geofence based pricing) re-scheduled delivery when Both Driver do not accept and admin edits only time when Partner Initiated
     Given I navigate to "Partner" portal configured for "normal" URL
     And I enter "valid" password on Partner Portal
@@ -376,6 +370,8 @@ Feature: Admin_Reason_Code
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And I get the latest pickup reference generated for "9999999118"
+    And I search the delivery using "Pickup Reference"
     Then the updated time should be displayed on delivery details page
 
   #CORE:2507-Verify Admin is able to change the status of the trip to Admin cancelled/partner cancelled/ driver cancelled

@@ -219,7 +219,7 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999364 | Testcustomertywd_appleWashK Shah|
+      | NEXT_POSSIBLE | 8877661115 | Testcustomertywd_appleMarkDL LutherDL|
     And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Ondemand" Delivery
       | driver1 state|
       |Stacked Pickup Accepted |
