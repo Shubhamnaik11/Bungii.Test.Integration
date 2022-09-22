@@ -526,16 +526,20 @@ Feature: Admin_Reason_Code
     When I request Partner Portal "Duo" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |Kansas  | NEXT_POSSIBLE | 8877661113     | Testcustomertywd_appleMarkDJ LutherDJ|
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
     And I wait for 2 minutes
-    And I view the Live Deliveries list on the admin portal
-    And I search the delivery of Customer
-    And I click on the "Delivery details" link beside scheduled bungii for "Live Duo Deliveries"
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled |
+    When I view the delivery details
     And I click on "Load" button
     Then I check if "driver duo location" button is not present
     When I navigate back to Scheduled Deliveries
     When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
-      | Accepted      | Accepted      |
       | Enroute       | Enroute       |
     And I wait for 2 minutes
     And I view the Live Deliveries list on the admin portal
