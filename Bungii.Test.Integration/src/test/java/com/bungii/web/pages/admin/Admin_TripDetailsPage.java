@@ -76,5 +76,7 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Text_PriceOverrideError() { return findElement("errorMessageFields",LocatorType.Id);}
 
     public WebElement Label_Partner() { return findElement("//table[@class='table table-striped']/tbody/tr[1]/td[1]",LocatorType.XPath);}
+    public WebElement PhoneNo_Customer() {return findElement("//table[@class='table table-striped']/tbody/tr[2]/td[2])",LocatorType.XPath);}
+
 
 }
