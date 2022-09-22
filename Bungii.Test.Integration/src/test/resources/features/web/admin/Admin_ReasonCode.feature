@@ -322,6 +322,8 @@ Feature: Admin_Reason_Code
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And I get the latest pickup reference generated for "9999999117"
+    And I search the delivery using "Pickup Reference"
     Then the updated time should be displayed on delivery details page
 
 
@@ -368,6 +370,8 @@ Feature: Admin_Reason_Code
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And I get the latest pickup reference generated for "9999999118"
+    And I search the delivery using "Pickup Reference"
     Then the updated time should be displayed on delivery details page
 
   #CORE:2507-Verify Admin is able to change the status of the trip to Admin cancelled/partner cancelled/ driver cancelled

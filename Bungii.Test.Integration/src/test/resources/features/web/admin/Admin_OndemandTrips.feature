@@ -171,7 +171,7 @@ Feature: Admin_OndemandTrips
 Scenario:To verify that admin can add Accessorial fee for driver cancelled on demand trip
  When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
 | Bungii Time   | Customer Phone | Customer Name |
-| NEXT_POSSIBLE | 9999999101 | Testcustomertywd_appleNewQA Customer|
+| NEXT_POSSIBLE | 8877661116 | Testcustomertywd_appleMarkDM LutherDM|
 And As a driver "Testdrivertywd_appledc_a_drvI WashingtonI" perform below action with respective "Solo Ondemand" Delivery
 | driver1 state|
 |Accepted      |

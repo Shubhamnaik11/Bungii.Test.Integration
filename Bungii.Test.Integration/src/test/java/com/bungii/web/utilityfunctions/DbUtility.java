@@ -654,4 +654,25 @@ public class DbUtility extends DbContextManager {
         return deliveryStatus;
 
     }
+    public static String[] getLatAndLonPickupAndDropLocation(String reference){
+        String pickupID = getPickupId(reference);
+        String tripLocation[] = new String[4];
+        tripLocation[0]=    getDataFromMySqlServer("select PickupLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[1]=    getDataFromMySqlServer("select PickupLong from pickupdropaddress  where PickupID= "+pickupID);
+        tripLocation[2]=    getDataFromMySqlServer("select DropOffLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[3]=    getDataFromMySqlServer("select DropOffLong from pickupdropaddress  where PickupID= "+pickupID);
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]+","+tripLocation[1]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[2]+","+tripLocation[3]);
+        return tripLocation;
+    }
+
+    public static String[] getPickupAndDropLocation(String reference){
+        String pickupID = getPickupId(reference);
+        String tripLocation[] = new String[2];
+        tripLocation[0]=    getDataFromMySqlServer("select PickupAddress1 from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[1]=    getDataFromMySqlServer("select DropOffAddress1 from pickupdropaddress  where PickupID= "+pickupID);
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[1]);
+        return tripLocation;
+    }
 }

@@ -1939,4 +1939,65 @@ catch (Exception e)
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone.id");
         return getGeofenceTimeZone;
     }
+    public String[] getMilesRange(float miles){
+        String range[] = new String[2];
+        String portalName= (String) cucumberContextManager.getScenarioContext("Portal_Name");
+        if (portalName.equalsIgnoreCase("Floor and Decor")){
+            if (miles>0 && miles<=10)
+            {
+                range[0]="0";
+                range[1]="10";
+            }
+            else if(miles>10 && miles<=20)
+            {
+                range[0]="10";
+                range[1]="20";
+            }
+            else if(miles>20 && miles<=30)
+            {
+                range[0]="20";
+                range[1]="30";
+            }
+            else if(miles>30 && miles<=40)
+            {
+                range[0]="30";
+                range[1]="40";
+            }
+            else if(miles>40 && miles<=50)
+            {
+                range[0]="40";
+                range[1]="50";
+            }
+            else{
+                range[0]="50";
+                range[1]="150";
+            }
+        }else{
+             if (miles>0 && miles<=10)
+            {
+                 range[0]="0";
+                 range[1]="10";
+            }
+            else if(miles>10 && miles<=15)
+            {
+                range[0]="10";
+                range[1]="15";
+            }
+            else if(miles>15 && miles<=30)
+            {
+                range[0]="15";
+                range[1]="30";
+            }
+            else if(miles>30 && miles<=100)
+            {
+                range[0]="30";
+                range[1]="100";
+            }
+            else{
+                range[0]="100";
+                range[1]="120";
+            }
+        }
+        return range;
+    }
 }

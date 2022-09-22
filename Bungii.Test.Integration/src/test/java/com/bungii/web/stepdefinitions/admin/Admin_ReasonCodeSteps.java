@@ -198,7 +198,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     public void the_updated_time_should_be_displayed_on_delivery_details_page() throws Throwable {
         try {
             String expectedTime = (String) cucumberContextManager.getScenarioContext("Time_Changed");
-            action.refreshPage();
+            //action.refreshPage();
             String actualTime = action.getText(admin_EditScheduledBungiiPage.Changed_Time());
             testStepAssert.isTrue(actualTime.contains(expectedTime), "Correct time need to be display", "Correct time is display", "Incorrect time is displayed");
         }
