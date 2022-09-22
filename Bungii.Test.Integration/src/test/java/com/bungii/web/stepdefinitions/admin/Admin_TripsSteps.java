@@ -2591,6 +2591,7 @@ try{
     public void i_should_see_field_name_as_partner_on_delivery_listing_screen() throws Throwable {
         try {
             String expectedHeader = PropertyUtility.getMessage("PartnerColumnHeader");
+            Thread.sleep(2000);
             String actualHeader = action.getText(admin_TripsPage.Header_Partner());
             testStepAssert.isEquals(actualHeader, expectedHeader, expectedHeader + " should be displayed", expectedHeader + "is displayed", expectedHeader + " is not displayed");
         }
@@ -3326,4 +3327,18 @@ try{
     }
 
 
+    @And("I get the latest pickup reference generated for {string}")
+    public void iGetTheLatestPickupReferenceGeneratedFor(String custPhone) {
+        try{
+            String pickupRequest = getPickupRef(custPhone);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            log("I get the latest pickup reference generated for customer "+custPhone,
+                    "Latest Pickupref for customer " +custPhone+ " is " + pickupRequest, false);
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

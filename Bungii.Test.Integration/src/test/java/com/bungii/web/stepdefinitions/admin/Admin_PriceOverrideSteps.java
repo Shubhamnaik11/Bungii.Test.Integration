@@ -115,7 +115,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
 
                         case "Driver cut":
                             String goodsWeight= (String) cucumberContextManager.getScenarioContext("Weight");
-                            String driverCutFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd(goodsWeight));
+                            String driverCutFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd());
                             String oldDriverCutFnd = driverCutFnd.substring(1);
                             float oldDriverPriceFnd= Float.parseFloat(oldDriverCutFnd);
                             float newDriverPriceFnd= (float) (oldDriverPriceFnd+20.08);
@@ -222,7 +222,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                         case "Driver Fixed Earnings":
                             action.refreshPage();
                             String goodsWeight = (String) cucumberContextManager.getScenarioContext("Weight");
-                            String driverChargesFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd(goodsWeight));
+                            String driverChargesFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd());
                             String actualDriverChargesFnd = driverChargesFnd.substring(1);
                             String expectedDriverChargesFnd = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
                             testStepAssert.isEquals(actualDriverChargesFnd, expectedDriverChargesFnd, "Driver Charges should be overridden", "Driver Charges are overridden", "Driver Charges are not overridden");
@@ -552,7 +552,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                             "Estimated Charges are not overridden");
 
                     String goodsWeight= (String) cucumberContextManager.getScenarioContext("Weight");
-                    String driverChargesFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd(goodsWeight));
+                    String driverChargesFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd());
                     String actualDriverChargesFnd = driverChargesFnd.substring(1);
                     String expectedDriverChargesFnd  = (String) cucumberContextManager.getScenarioContext("OLD_DRIVER_CUT");
                     testStepAssert.isEquals(actualDriverChargesFnd,expectedDriverChargesFnd,
