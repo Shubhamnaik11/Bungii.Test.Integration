@@ -53,7 +53,7 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Button_ZoomOut() {return findElement("//button[@title='Zoom out']",LocatorType.XPath);}
 
-    public WebElement Image_DriverLocation(String driver) {return findElement("//div[@title='"+driver+"']/img",LocatorType.XPath);}
+    public WebElement Image_DriverLocation(String driver,boolean...IgnoreException) {return findElement("//div[@title='"+driver+"']/img",LocatorType.XPath,IgnoreException);}
 
 
 }

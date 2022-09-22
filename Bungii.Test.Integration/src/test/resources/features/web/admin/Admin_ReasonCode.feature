@@ -510,6 +510,15 @@ Feature: Admin_Reason_Code
     And I refresh the page
     And I click on "Load" button
     Then I check if "driver location" is updated for live trip
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Bungii Completed |
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Delivery Details" button from the dropdown
+    And I click on "Load" button
+    Then I check if "driver location" button is not present
 
 #   Core-3390: Verify both driver's location is tracked in admin portal in case of Duo trip - partner portal
   @ready
@@ -517,6 +526,13 @@ Feature: Admin_Reason_Code
     When I request Partner Portal "Duo" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |Kansas  | NEXT_POSSIBLE | 8877661113     | Testcustomertywd_appleMarkDJ LutherDJ|
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    And I search the delivery of Customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Live Duo Deliveries"
+    And I click on "Load" button
+    Then I check if "driver duo location" button is not present
+    When I navigate back to Scheduled Deliveries
     When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
