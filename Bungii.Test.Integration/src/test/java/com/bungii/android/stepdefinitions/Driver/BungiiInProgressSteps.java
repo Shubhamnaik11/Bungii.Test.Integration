@@ -1153,5 +1153,44 @@ public class BungiiInProgressSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
+    public void the_something_something_should_be_displayed(String element, String strArg2) throws Throwable {
+        try{
+            Thread.sleep(3000);
+            switch (element){
+
+                case "Delivery Instructions":
+                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_DeliveryInstructions()),"Delivery Instructions Icon should be displayed","Delivery Instructions Icon is displayed","Delivery Instructions Icon is not displayed");
+                    break;
+                case "Item Details":
+                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_ItemDetails()),"Item Details Icon should be displayed","Item Details Icon is displayed","Item Details Icon is not displayed");
+                    break;
+                case "Bungii Support":
+                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_BungiiSupport()),"Bungii Support Icon should be displayed","Bungii Support Icon is displayed","Bungii Support Icon is not displayed");
+                    break;
+                case "More Options":
+                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_MoreOptions()),"More Options Icon should be displayed","More Options Icon is displayed","More Options Icon is not displayed");
+                    break;
+                case "Call":
+                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_Call()),"Call Icon should be displayed","Call Icon is displayed","Call Icon is not displayed");
+                    break;
+                case "Text":
+                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_Text()),"Phone Icon should be displayed","Phone Icon is displayed","Phone Icon is not displayed");
+                    break;
+                case "Pickup":
+                    action.scrollToBottom();
+                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_Pickup()),"Pickup Icon should be displayed","Pickup Icon is displayed","Pickup Icon is not displayed");
+                    break;
+                case "Dropoff":
+                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_DropOff()),"Dropoff Icon should be displayed","Dropoff Icon is displayed","Dropoff Icon is not displayed");
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+
+        }
+    }
 
 }
