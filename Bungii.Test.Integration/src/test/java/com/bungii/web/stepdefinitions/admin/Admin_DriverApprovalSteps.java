@@ -399,6 +399,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 case "Driver Reject Application":
                     action.click(admin_DriverVerificationPage.Button_DriverConfirmReject_Yes());
                     break;
+                case "Confirm":
+                    action.click(admin_DriverPage.Button_ConfirmDriverStatusChange());
+                    break;
             }
             log("I can confirm " + strArg1 + " action",
                     "I have confirmed " + strArg1 + " action");
@@ -632,17 +635,51 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @Then("^I should see updated text \"([^\"]*)\" in \"([^\"]*)\" potential earnings on \"([^\"]*)\" portal$")
     public void i_should_see_updated_text_something_in_something_potential_earnings_on_portal(String strArg1, String strArg2, String portal) throws Throwable {
+        try {
+            switch (portal.toLowerCase()) {
+                case "driver":
+                case "admin":
+                    testStepAssert.isEquals(action.getText(adminLoginPage.Label_ExtraEarnings()), "Earn Extra Cash. Who couldn't use more money? Earn up to $45/hour driving with Bungii.", "Updated extra earning text should be displayed", "Updated extra earning text is displayed", "Updated extra earning text is not displayed");
+                    break;
+                case "bungii.com":
+                    testStepAssert.isEquals(action.getText(driver_drivePage.Label_ExtraEarnings()), "$45/hour", "Updated extra earning text should be displayed", "Updated extra earning text is displayed", "Updated extra earning text is not displayed");
+                    break;
 
-        switch (portal.toLowerCase()) {
-            case "driver":
-            case "admin":
-                testStepAssert.isEquals(action.getText(adminLoginPage.Label_ExtraEarnings()), "Earn Extra Cash. Who couldn't use more money? Earn up to $45/hour driving with Bungii.", "Updated extra earning text should be displayed", "Updated extra earning text is displayed", "Updated extra earning text is not displayed");
-                break;
-            case "bungii.com":
-                testStepAssert.isEquals(action.getText(driver_drivePage.Label_ExtraEarnings()), "$45/hour", "Updated extra earning text should be displayed", "Updated extra earning text is displayed", "Updated extra earning text is not displayed");
-                break;
-
+            }
+            log("I should be able to see the updated text.","I am able to see the updated text.",false);
         }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+    @Then("^I check terms and privacy policy is displayed on login page$")
+    public void i_check_terms_and_privacy_policy_is_displayed_on_login_page() throws Throwable {
+       try{
+           testStepAssert.isElementDisplayed(Page_Driver_Login.Link_Terms(),
+                   "The terms link should be displayed",
+                   "The terms link is displayed",
+                   "The terms link is not displayed");
+           testStepAssert.isEquals(Page_Driver_Login.Link_Terms().getAttribute("href"),PropertyUtility.getDataProperties("terms.page.link"),
+                   "The correct link should be present for terms.",
+                   "The correct link is present for terms.",
+                   "The correct link is not present for terms.");
+           testStepAssert.isElementDisplayed(Page_Driver_Login.Link_PrivacyPolicy(),
+                   "The privacy policy link should be displayed",
+                   "The privacy policy  link is displayed",
+                   "The privacy policy link is not displayed");
+           testStepAssert.isEquals(Page_Driver_Login.Link_PrivacyPolicy().getAttribute("href"),PropertyUtility.getDataProperties("privacy.policy.page.link"),
+                   "The correct link should be present for privacy policy.",
+                   "The correct link is present for privacy policy.",
+                   "The correct link is not present for privacy policy.");
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step Should be successful", "Error performing step,Please check logs for more details",
+                   true);
+       }
     }
 
     public String[] getTruckImages() {

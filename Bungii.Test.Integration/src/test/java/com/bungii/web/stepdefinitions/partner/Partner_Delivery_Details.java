@@ -5,6 +5,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -36,6 +37,7 @@ public class Partner_Delivery_Details extends DriverBase {
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     ActionManager action = new ActionManager();
     DbUtility dbUtility = new DbUtility();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
 
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
@@ -961,8 +963,9 @@ public class Partner_Delivery_Details extends DriverBase {
 
         }
     }
-    @Then("^The \"([^\"]*)\" should be displayed$")
-    public void the_something_should_be_displayed(String element) throws Throwable {
+
+    @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
+    public void the_something_something_should_be_displayed(String element, String strArg2) throws Throwable {
         try{
             switch (element){
                 case "Phone Icon":
@@ -979,6 +982,34 @@ public class Partner_Delivery_Details extends DriverBase {
                     String alertMessage = action.getText(Page_Partner_Delivery.Alert_MessageForCall());
                     testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.Alert_MessageForCall()),"Call request text should be displayed","Call request text is displayed","Call request text is not displayed");
                     testStepAssert.isEquals(alertMessage,expectedMessage,"The text "+expectedMessage+" should be displayed","The text "+alertMessage+" is displayed","The text "+expectedMessage+" should be displayed");
+                    break;
+                case "Active Driver Map":
+                    Thread.sleep(2000);
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Link_ActiveDriverMap()),"Active driver map link should be displayed","Active driver map link is displayed","Active driver map link is not displayed");
+                    String activeText = action.getText(admin_DriverPage.Link_ActiveDriverMap());
+                    testStepAssert.isEquals(activeText,element,"The text "+element+" should be displayed","The text "+activeText+" is displayed","The text "+element+" should be displayed");
+                    break;
+                case "Map":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Image_Map()),"Map should be displayed","Map is displayed","Map is not displayed");
+                    break;
+                case "Testdrivertywd_appleks_a_drval Kansas_al":
+                case "Testdrivertywd_appleks_a_drvam Kansas_am":
+                case "Testdrivertywd_appleks_a_drvbc Kansas_bc":
+                case "Testdrivertywd_appleks_a_drvbd Kansas_bd":
+                    Thread.sleep(8000);
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Text_DriverName()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Icon_DriverPosition()),"Drivers current location icon should be displayed","Drivers current location icon is displayed","Drivers current location icon is not displayed");
+                    String kansasDriver1Name= action.getText(admin_DriverPage.Text_DriverName());
+                    testStepAssert.isEquals(kansasDriver1Name,element,"The Driver name "+element+" should be displayed","The Driver name "+kansasDriver1Name+" is displayed","The Driver name  "+element+" should be displayed");
+                    Thread.sleep(3000);
+                    break;
+                case "Driver Status":
+                    action.JavaScriptScrolldown();
+                    action.JavaScriptScrolldown();
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Label_DriverStatus()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
+                    break;
+                case "Details":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Header_Details()),"Details header should be displayed","Details header is displayed","Details header is not displayed");
                     break;
             }
     } catch (Exception e) {

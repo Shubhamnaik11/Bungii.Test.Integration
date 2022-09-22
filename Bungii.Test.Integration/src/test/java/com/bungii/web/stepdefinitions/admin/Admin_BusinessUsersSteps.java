@@ -63,6 +63,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_RefundsPage admin_refundsPage = new Admin_RefundsPage();
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -1051,6 +1052,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
                 case "Transaction History":
                     action.click(admin_refundsPage.Button_TransactionDetails());
+                    break;
+                case "Driver status change":
+                    action.click(admin_DriverPage.Button_OkDriverStatusChange());
                     break;
             }
             log("I click on the "+Name+" button",

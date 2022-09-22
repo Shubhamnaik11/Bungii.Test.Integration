@@ -1130,7 +1130,7 @@ try{
 
         }
 
-        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", Delivery_Date, CustomerName);
+        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", Delivery_Date, CustomerName);
         if(!Partner_Status.equalsIgnoreCase("Canceled")) {
             if(!Partner_Status.equalsIgnoreCase("Completed")) {
                 action.refreshPage();

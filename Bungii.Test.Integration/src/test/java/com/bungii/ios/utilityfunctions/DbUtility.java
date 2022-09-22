@@ -377,4 +377,62 @@ public class DbUtility extends DbContextManager {
         logger.detail("The driver rating for pickupId " + pickupId + " is " + rating);
         return rating;
     }
+    public static String getFixedBasedPrice(String minMiles,String maxMiles){
+        String amount;
+        amount= getDataFromMySqlServer("select  amount\n" +
+                "from bungii_admin_qa_auto.bp_service_level sl\n" +
+                "join bungii_admin_qa_auto.bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bungii_admin_qa_auto.bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bungii_admin_qa_auto.bp_service_level_fixed_distance_price pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like 'qaauto-biglots%' and sl.service_level_number =1 and mile_range_min ="+minMiles+" and mile_range_max="+maxMiles+" and no_of_drivers=1\n" +
+                "order by subdomain_name, sl.service_level_number, pr.tier_number, pr.no_of_drivers;");
+        logger.detail("The amount for delivery is "+amount);
+        return amount;
+    }
+    public static String[] getLatAndLonPickupAndDropLocation(String reference){
+        String pickupID = getPickupIdFromRef(reference);
+        String tripLocation[] = new String[4];
+        tripLocation[0]=    getDataFromMySqlServer("select PickupLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[1]=    getDataFromMySqlServer("select PickupLong from pickupdropaddress  where PickupID= "+pickupID);
+        tripLocation[2]=    getDataFromMySqlServer("select DropOffLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[3]=    getDataFromMySqlServer("select DropOffLong from pickupdropaddress  where PickupID= "+pickupID);
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]+","+tripLocation[1]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[2]+","+tripLocation[3]);
+        return tripLocation;
+    }
+    public static String getPickupIdFromRef(String pickupRef) {
+        String pickupid = "";
+        String queryString = "SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef + "'";
+        pickupid = getDataFromMySqlServer(queryString);
+        logger.detail("Pickupid  " + pickupid + " of pickupref " + pickupRef);
+        return pickupid;
+    }
+    public static String getFixedBasedDriverCut(String minMiles,String maxMiles){
+        String amount;
+        amount= getDataFromMySqlServer("select  driver_share\n" +
+                "from bungii_admin_qa_auto.bp_service_level sl\n" +
+                "join bungii_admin_qa_auto.bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bungii_admin_qa_auto.bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bungii_admin_qa_auto.bp_service_level_fixed_distance_price pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like 'qaauto-biglots%' and sl.service_level_number =1 and mile_range_min ="+minMiles+" and mile_range_max="+maxMiles+" and no_of_drivers=1\n" +
+                "order by subdomain_name, sl.service_level_number, pr.tier_number, pr.no_of_drivers;");
+        logger.detail("The amount for delivery is "+amount);
+        return amount;
+    }
+    public static String getDriverShareWeightBased(String minMiles,String maxMiles) {
+        String driverShare = "";
+        String queryString = "select driver_share from bungii_admin_qa_auto.bp_service_level sl\n" +
+                "join bungii_admin_qa_auto.bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bungii_admin_qa_auto.bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "join bungii_admin_qa_auto.bp_fixed_distance_weight_price_matrix pr on pr.bp_service_level_id = sl.bp_service_level_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like 'qaauto-floordecor166%' and sl.service_level_number = 1 and weight_range_min = '1000' and weight_range_max = '1500' \n" +
+                "and mile_range_min = '"+minMiles+"' and mile_range_max = '"+maxMiles+"'\n" +
+                "order by subdomain_name, sl.service_level_number, mile_range_min, weight_range_min;";
+        driverShare = getDataFromMySqlServer(queryString);
+        logger.detail("Driver Share is "+ driverShare);
+        return driverShare;
+    }
 }
