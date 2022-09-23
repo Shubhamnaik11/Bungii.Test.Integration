@@ -3,6 +3,7 @@ package com.bungii.ios.stepdefinitions.customer;
 import com.bungii.SetupManager;
 import com.bungii.android.pages.customer.SetPickupTimePage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.enums.Status;
@@ -299,6 +300,7 @@ public class TripStatusSteps extends DriverBase {
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("scheduled.support.number"));
                     break;
                 case "ADMIN-SMS":
+                    DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("customer.scheduled.cancel.support.number"));
                     break;
                 case "CALL":
