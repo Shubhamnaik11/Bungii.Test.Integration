@@ -113,18 +113,18 @@ And I cancel all bungiis of customer
 Scenario: Admin God Mode: Verify if admin can assign one [non controlled] driver on duo trip when it has been re-searched
 When I request "duo" Bungii as a customer in "goa" geofence
 | Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
-| NEXT_POSSIBLE | 8877661118     | Testcustomertywd_BppleMarkDO LutherDO | Cci12345          |
+| NEXT_POSSIBLE | 8877661118     | Testcustomertywd_appleMarkDO LutherDO | Cci12345          |
   And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "DUO SCHEDULED" trip
 | driver1 state | driver2 state |
 | Accepted      | Accepted      |
   
   Then I wait for "2" mins
 And I open Admin portal and navigate to "Scheduled Deliveries" page
-And I open the trip for "Testcustomertywd_BppleMarkDO LutherDO" the customer
+And I open the trip for "Testcustomertywd_appleMarkDO LutherDO" the customer
   And I remove "noncontroller" driver from Bungii and researches it
 
 Then I wait for "2" mins
-And I open the trip for "Testcustomertywd_BppleMarkDO LutherDO" the customer
+And I open the trip for "Testcustomertywd_appleMarkDO LutherDO" the customer
 And I Select "Edit Trip Details" option
   And I assign "noncontroller" driver to Bungii
 And I click on "VERIFY" button
@@ -134,7 +134,7 @@ And the "Bungii Saved!" message is displayed
 
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
-And I am logged in as "Testcustomertywd_BppleMarkDO LutherDO" customer
+And I am logged in as "Testcustomertywd_appleMarkDO LutherDO" customer
 And I tap on "Menu" > "MY BUNGIIS" link
 And I select already scheduled bungii
 Then I verify the "noncontrol driver name"
