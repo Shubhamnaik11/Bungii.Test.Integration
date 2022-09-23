@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
+import com.bungii.web.pages.admin.Admin_LiveTripsPage;
 import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
@@ -34,6 +35,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
     Admin_TripDetailsPage Page_Admin_Trips_Details = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_editScheduledBungiiPage= new Admin_EditScheduledBungiiPage();
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
+    Admin_LiveTripsPage admin_liveTripsPage=new Admin_LiveTripsPage();
 
     @And("^I check if \"([^\"]*)\" button is displayed$")
     public void i_check_if_something_button_is_displayed(String button) throws Throwable {
@@ -584,6 +586,28 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                             "Stop Searching button should not be displayed",
                             "Stop Searching button is not be displayed",
                             "Stop Searching button is displayed");
+                    break;
+                case "driver location":
+                    Thread.sleep(2000);
+                    String driver = (String)cucumberContextManager.getScenarioContext("DRIVER_1");
+                    testStepAssert.isFalse(action.isElementPresent(admin_liveTripsPage.Image_DriverLocation(driver,true)),
+                            "Driver live location pin should not be displayed",
+                            "Driver live location pin is not be displayed",
+                            "Driver live location pin is displayed");
+                    break;
+                case "driver duo location":
+                    Thread.sleep(2000);
+                    String driver1 = (String)cucumberContextManager.getScenarioContext("DRIVER_1");
+                    String driver2 = (String)cucumberContextManager.getScenarioContext("DRIVER_2");
+                    Thread.sleep(2000);
+                    testStepAssert.isFalse(action.isElementPresent(admin_liveTripsPage.Image_DriverLocation(driver1,true)),
+                            "The duo first driver live location pin should not be displayed.",
+                            "The duo first driver live location pin is not displayed.",
+                            "The duo first driver live location pin is displayed.");
+                    testStepAssert.isFalse(action.isElementPresent(admin_liveTripsPage.Image_DriverLocation(driver2,true)),
+                            "The duo second driver live location pin should not be displayed.",
+                            "The duo second driver live location pin is not displayed.",
+                            "The duo second driver live location pin is  displayed.");
                     break;
             }
 
