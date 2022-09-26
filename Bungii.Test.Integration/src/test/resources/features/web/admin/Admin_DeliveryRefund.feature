@@ -512,7 +512,7 @@ Feature: Admin_Refund
 		Then I should see the message "No deliveries found." displayed
 
    #CORE-3009 :To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
-	@ready
+	@regression
 	Scenario:To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
 		And I click on the "Driver" link from the sidebar
 		Then The "Active Driver Map" "Link" should be displayed

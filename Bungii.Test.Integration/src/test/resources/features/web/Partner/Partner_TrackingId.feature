@@ -59,7 +59,7 @@ Feature: Delivery Tracking ID
 
 
       #CORE-4081 changes
-    @ready
+  @regression
 Scenario: Display and search delivery by Order ID or Receipt Number on partner portals delivery list
   Given I'm logged into "Partner" portal and  created a new  delivery
     |PickupAddress                                                                    |DropdownAddress                                                  |ItemToDelivery|CustomerName |CustomerMobile|PickupContactName|PickupContactMobile|ReceiptNumber|

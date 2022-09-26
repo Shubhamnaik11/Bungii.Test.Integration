@@ -4,7 +4,8 @@ Feature: FloorDecor Multiple PhoneNo
 
   Background:
     Given I navigate to "Partner" portal configured for "fnd multiple phone" URL
-@ready
+
+  @regression
   Scenario: To verify ability to add multiple SMS recipients phone numbers on Delivery Details Screen for solo delivery
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -41,7 +42,7 @@ Feature: FloorDecor Multiple PhoneNo
     Then Only First added customer phone number should be displayed on Admin portal Delivery details page
     And Added recipient phone numbers should be stored in database
 
-@ready
+  @regression
   Scenario: To verify ability to add multiple SMS recipients phone numbers on Delivery Details Screen for duo delivery
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal

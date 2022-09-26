@@ -7,7 +7,7 @@ Feature: Equibid Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
 
-    @ready
+  @regression
   Scenario: To check pickup addres is editable for Equip-bid Partner Portal
       When I request "Solo" Bungii trip in partner portal configured for "Equip-bid" in "Kansas" geofence
         | Pickup_Address                                                 | Delivery_Address                                                    |
@@ -31,8 +31,8 @@ Feature: Equibid Partner Portal
       When I click "Track Deliveries" button on Partner Portal
       Then I should "see the trip in the Delivery List"
 
-      @ready
-      Scenario: To check that pickup default address is shown when click on start over after editing the pickup address for Equip-bid partner portal
+  @regression
+  Scenario: To check that pickup default address is shown when click on start over after editing the pickup address for Equip-bid partner portal
         When I request "Solo" Bungii trip in partner portal configured for "Equip-bid" in "Kansas" geofence
           | Pickup_Address                                                 | Delivery_Address                                                    |
           | 6800 Zoo Drive, Kansas City, United States, Missouri, 64132    | 200 West 12th Street, Kansas City, United States, Missouri, 64105   |
