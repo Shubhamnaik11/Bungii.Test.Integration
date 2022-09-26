@@ -62,3 +62,26 @@ Feature: Floor and Decore Service Level
 #    Core-3294: Verify Stop search is not displayed for ongoing bungii and All deliveries screen
     When I click on the "Delivery Details" button from the dropdown
     Then I check if "Stop Searching" button is not present
+
+  @ready
+    # CORE-4079: Upper left logo navigate portals to "home"
+  Scenario: Verify that Partner Portal Logo redirects to homepage
+    When I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "see 1 pallet and 2 pallets"
+    When I request "Solo" Bungii trip in partner portal configured for "FloorDecor service level" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |
+    And I click "Service Level List" button on Partner Portal
+    Then I should "see all the Service Level" for "Floor & Decor #240" Alias
+    And I change the service level to "First Threshold" in "Partner" portal
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    And I click "Continue" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    And I click on Partner Portal Logo in header
+    Then I should get Confirmation Alert popup
+    And I click on Continue button on popup
+    Then I should see header as "Get Quote"
+    And I should logout from Partner Portal
