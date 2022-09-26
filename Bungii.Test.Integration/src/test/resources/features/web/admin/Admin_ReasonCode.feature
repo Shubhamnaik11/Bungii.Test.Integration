@@ -465,7 +465,7 @@ Feature: Admin_Reason_Code
       | 10.00            | 20.50      | 25.65        | 100.00 |
 
 #   Core-3390: Verify driver tracking in each statues of ongoing trip
-  @ready
+  @regression
   Scenario: Verify driver tracking in each statues of ongoing trip
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -521,7 +521,7 @@ Feature: Admin_Reason_Code
     Then I check if "driver location" button is not present
 
 #   Core-3390: Verify both driver's location is tracked in admin portal in case of Duo trip - partner portal
-  @ready
+  @regression
   Scenario: Verify both driver's location is tracked in admin portal in case of Duo trip - partner portal
     When I request Partner Portal "Duo" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |

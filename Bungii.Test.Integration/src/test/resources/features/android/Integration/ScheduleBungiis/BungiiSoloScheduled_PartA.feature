@@ -150,7 +150,7 @@ Feature: SoloScheduled
 
 
 # #CORE-3606 : Verify Customer Signature screen is shown on driver app for Partner trips
-  @ready
+  @regression
   Scenario:Verify Customer Signature screen is shown on driver app for Partner trips
   When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
     |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -227,7 +227,7 @@ Feature: SoloScheduled
     And The customer signature field is "Signature Present"
 
  #CORE-3606 : Verify Customer signature can be skipped on driver app
-  @ready
+  @regression
   Scenario:Verify Customer signature can be skipped on driver app
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |

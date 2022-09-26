@@ -409,7 +409,7 @@ Feature: Admin_Trips
       | Scheduled |
 
   #CORE-2052 : To verify search happens when admin changes from duo to solo when no driver has accepted
-  @ready
+  @regression
   Scenario: To verify search happens when admin changes from duo to solo when no driver has accepted
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -518,7 +518,7 @@ Feature: Admin_Trips
       | Duo To Solo              |   	DUO                                                            | SOLO                                                               |
 
   #CORE-3295:Verify stop searching should change the status to Assigning drivers without loading icon
-  @ready
+  @regression
   Scenario: Verify stop searching should change the status to Assigning drivers without loading icon
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -564,7 +564,7 @@ Feature: Admin_Trips
     Then The delivery should be in "Admin Canceled - No Driver(s) Found" state
 
 #CORE-3381:To verify that customer trips can be revived after admin cancels
-@ready
+  @regression
   Scenario:To verify that customer trips can be revived after admin cancels
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
@@ -652,7 +652,7 @@ Feature: Admin_Trips
   And The amount should be "Refunded" and in "voided" state
 
     #CORE-3381:To verify that admin can fully refund completed trips which were revived
-  @ready
+  @regression
   Scenario:To verify that admin can fully refund completed trips which were revived
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |

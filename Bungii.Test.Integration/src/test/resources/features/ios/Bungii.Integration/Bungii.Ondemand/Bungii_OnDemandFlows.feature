@@ -84,9 +84,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I should be navigated to "Home" screen
 #    And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
-  
 
-  @ready
+  @regression
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
     When I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"
@@ -173,8 +172,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I logged in Customer application using  "valid miami" user
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  
-  @ready
+
+  @regression
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
     When I Switch to "driver" application on "same" devices
     And I login as "valid miami" driver on "same" device and make driver status as "Online"

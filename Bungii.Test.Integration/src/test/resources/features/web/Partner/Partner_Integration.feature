@@ -323,8 +323,7 @@ Feature: Partner Integration with Admin and Driver
    #CORE-2266:To verify the driver cannot be called for canceled delivery
     Then The Phone Icon should not be displayed
 
-  @ready
-    #Failed in Sprint 49
+  @regression
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by Non control Driver
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
