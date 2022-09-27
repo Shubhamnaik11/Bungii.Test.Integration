@@ -512,12 +512,20 @@ Feature: Admin_Refund
 		Then I should see the message "No deliveries found." displayed
 
    #CORE-3009 :To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
-	@regression
+	@testAllan
 	Scenario:To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
 		And I click on the "Driver" link from the sidebar
 		Then The "Active Driver Map" "Link" should be displayed
 		And I click on the "Active Driver Map" link from the sidebar
 		Then The "Map" "Image" should be displayed
+		#
+		When I click on "Filter" icon
+		Then The "Appliance Dolly" "Checkbox" should be displayed
+		Then The "Furniture Dolly" "Checkbox" should be displayed
+		Then The "Hand Dolly" "Checkbox" should be displayed
+		Then The "Lift Gate" "Checkbox" should be displayed
+		Then The "Ramp" "Checkbox" should be displayed
+
 		And I "Unselect" all the "Equipment" checkboxes from the filter
 		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
 		And I click on the "Select Geofence" dropdown

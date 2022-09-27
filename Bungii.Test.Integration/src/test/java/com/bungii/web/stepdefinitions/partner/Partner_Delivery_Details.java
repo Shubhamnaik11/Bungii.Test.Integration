@@ -1011,6 +1011,20 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Details":
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Header_Details()),"Details header should be displayed","Details header is displayed","Details header is not displayed");
                     break;
+                case "Appliance Dolly":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_ApplianceDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                case "Furniture Dolly":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_FurnitureDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Hand Dolly":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_HandDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Lift Gate":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_LiftGate()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Ramp":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_Ramp()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
             }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
