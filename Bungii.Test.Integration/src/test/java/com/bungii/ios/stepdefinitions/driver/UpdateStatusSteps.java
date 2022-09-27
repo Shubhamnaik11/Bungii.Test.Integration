@@ -44,13 +44,16 @@ public class UpdateStatusSteps extends DriverBase {
     LiveTripsPage liveTripsPage = new LiveTripsPage();
     private EstimatePage estimatePage;
     private BungiiDetailsPage bungiiDetailsPage;
+    private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
 
-    public UpdateStatusSteps(BungiiDetailsPage bungiiDetailsPage,EstimatePage estimatePage,UpdateStatusPage updateStatusPage, MessagesPage messagesPage,TripDetailsPage tripDetailsPage) {
+
+    public UpdateStatusSteps(BungiiDetailsPage bungiiDetailsPage,EstimatePage estimatePage,UpdateStatusPage updateStatusPage, MessagesPage messagesPage,TripDetailsPage tripDetailsPage,com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage) {
         this.bungiiDetailsPage = bungiiDetailsPage;
         this.estimatePage = estimatePage;
         this.updateStatusPage = updateStatusPage;
         this.messagesPage = messagesPage;
         this.tripDetailsPage= tripDetailsPage;
+        this.driverUpdateStatusPage = driverUpdateStatusPage;
     }
 
     @Then("^I check ETA of \"([^\"]*)\"$")
@@ -922,16 +925,16 @@ public class UpdateStatusSteps extends DriverBase {
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Header_DeliveryDetails()),"Delivery Details Header should be displayed","Delivery Details Header is displayed","Delivery Details Header is not displayed");
                     break;
                 case "Delivery Instructions":
-                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_DeliveryInstructions()),"Delivery Instructions Icon should be displayed","Delivery Instructions Icon is displayed","Delivery Instructions Icon is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_DeliveryInstructions()),"Delivery Instructions Icon should be displayed","Delivery Instructions Icon is displayed","Delivery Instructions Icon is not displayed");
                     break;
                 case "Item Details":
-                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_ItemDetails()),"Item Details Icon should be displayed","Item Details Icon is displayed","Item Details Icon is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_ItemDetails()),"Item Details Icon should be displayed","Item Details Icon is displayed","Item Details Icon is not displayed");
                     break;
                 case "Bungii Support":
-                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_BungiiSupport()),"Bungii Support Icon should be displayed","Bungii Support Icon is displayed","Bungii Support Icon is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_BungiiSupport()),"Bungii Support Icon should be displayed","Bungii Support Icon is displayed","Bungii Support Icon is not displayed");
                     break;
                 case "More Options":
-                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_MoreOptions()),"More Options Icon should be displayed","More Options Icon is displayed","More Options Icon is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(driverUpdateStatusPage.Button_MoreOptions()),"More Options Icon should be displayed","More Options Icon is displayed","More Options Icon is not displayed");
                     break;
                 case "Call":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_Call()),"Call Icon should be displayed","Call Icon is displayed","Call Icon is not displayed");
@@ -940,10 +943,10 @@ public class UpdateStatusSteps extends DriverBase {
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_Text()),"Phone Icon should be displayed","Phone Icon is displayed","Phone Icon is not displayed");
                     break;
                 case "Pickup":
-                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_Pickup()),"Pickup Icon should be displayed","Pickup Icon is displayed","Pickup Icon is not displayed");
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Icon_Pickup()),"Pickup Icon should be displayed","Pickup Icon is displayed","Pickup Icon is not displayed");
                     break;
                 case "Dropoff":
-                    testStepVerify.isTrue(action.isElementPresent(updateStatusPage.Icon_DropOff()),"Dropoff Icon should be displayed","Dropoff Icon is displayed","Dropoff Icon is not displayed");
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Icon_DropOff()),"Dropoff Icon should be displayed","Dropoff Icon is displayed","Dropoff Icon is not displayed");
                     break;
             }
         } catch (Exception e) {

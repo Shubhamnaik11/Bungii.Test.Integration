@@ -89,12 +89,12 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement RadioButton_EditDeliveryStatus() { return findElement("//span[contains(text(),'Edit Delivery Status')]",LocatorType.XPath);}
 	public WebElement Header_DeliveryDetails(){return findElement("DELIVERY DETAILS",LocatorType.AccessibilityId);}
 	public WebElement Button_CloseDeliveryDetails() { return findElement("//XCUIElementTypeNavigationBar[@name=\"Bungii_Driver.NewPickupDetail\"]/XCUIElementTypeButton[1]",LocatorType.XPath);}
-	public WebElement Icon_DeliveryInstructions(){return findElement("icon-delivery-instructions",LocatorType.AccessibilityId);}
-	public WebElement Icon_ItemDetails(){return findElement("icon-item-details",LocatorType.AccessibilityId);}
-	public WebElement Icon_BungiiSupport(){return findElement("icon-text-support",LocatorType.AccessibilityId);}
-	public WebElement Icon_MoreOptions(){return findElement("icon-more-options",LocatorType.AccessibilityId);}
+	public WebElement Icon_DeliveryInstructions(){return findElement("//XCUIElementTypeImage[@name='slide_to_start_button']/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[1]",LocatorType.XPath);}
+	public WebElement Icon_ItemDetails(){return findElement("//XCUIElementTypeImage[@name='slide_to_start_button']/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[2]",LocatorType.XPath);}
+	public WebElement Icon_BungiiSupport(){return findElement("//XCUIElementTypeImage[@name='slide_to_start_button']/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[3]",LocatorType.XPath);}
     public WebElement Icon_Call(){return findElement("icon-text-large",LocatorType.AccessibilityId);}
     public WebElement Icon_Text(){return findElement("icon-call-large",LocatorType.AccessibilityId);}
-    public WebElement Icon_Pickup(){return findElement("//XCUIElementTypeImage[@name=\"icon-stop-pickup\"]",LocatorType.XPath);}
+	public WebElement Icon_Pickup(){return findElement("//XCUIElementTypeImage[@name=\"icon-stop-pickup\"]",LocatorType.XPath);}
     public WebElement Icon_DropOff(){return findElement("//XCUIElementTypeImage[@name=\"icon-stop-drop-off\"]",LocatorType.XPath);}
+
 }

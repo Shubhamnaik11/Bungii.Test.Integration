@@ -677,101 +677,54 @@ Feature: Solo Scheduled Bungii Part A
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I click on start Bungii for service based delivery
+    And I swipe to check trip details
+    #CORE-3585:To verify Call and Text options in Stops sections for Pickup and Drop-off point on Bungii delivery details page for driver app
+    Then The "Delivery Details" "Header" should be displayed
+    Then The "Call" "Icon" should be displayed
+    Then The "Stops" "Text" should be displayed
+    Then The "Pickup" "Icon" should be displayed
+    Then The "Dropoff" "Icon" should be displayed
+    And I click on "Close" button
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
+   #CORE-3585:To verify that driver is able to successfully swipe through all in progress Bungii states
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     Then I should see "Pickup Instructions" popup displayed
     Then The driver "Pickup" instructions should be in markdown format
     And I click on "GOT IT" button
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
     And I slide update button on "ARRIVED" Screen
     And  Bungii driver should see "Photo Verification"
     And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
     And I slide update button on "LOADING ITEM" Screen
     And Bungii driver should see "Photo Verification"
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
-    And I slide update button on "DRIVING TO DROP-OFF" Screen
-    Then I should see "Drop-Off Instructions" popup displayed
-    Then The driver "Dropoff" instructions should be in markdown format
-    And I click on "GOT IT" button
-    And I slide update button on "UNLOADING ITEMS" Screen
-    And Bungii driver should see "Photo Verification"
-    And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
-    And I click "Skip This Step" button on "Rate customer" screen
-    Then I should be navigated to "Bungii Completed" screen
-  @testAllan
-  Scenario:To verify that admin/partner canceled revived deliveries are not displayed to driver on app
-    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
-      |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |kansas| NEXT_POSSIBLE | 8877661097 | Testcustomertywd_appleMarkCT LutherCT|
-    And As a driver "Testdrivertywd_appleks_a_drvbl Kansas_bl" perform below action with respective "Solo Scheduled" Delivery
-      | driver1 state |
-      | Accepted      |
-    When I switch to "ORIGINAL" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_appleks_a_drvbl Kansas_bl" driver
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
-    #CORE-3585:To verify that driver is able to successfully swipe through all in progress Bungii states
-    And I click on start Bungii for service based delivery
-    And I swipe to check trip details
-    Then The "Delivery Details" "Header" should be displayed
-    Then The "Call" "Icon" should be displayed
-    Then The "Text" "Icon" should be displayed
-    Then The "Pickup" "Icon" should be displayed
-    Then The "Dropoff" "Icon" should be displayed
-    And I click on "Close" button
-    When I request another "Solo Ondemand" Bungii as a customer in "kansas" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9284174823     | Krishna Hoderker   |               | Cci12345          |
-    Then The "Delivery Instructions" "Icon" should be displayed
-    Then The "Item Details" "Icon" should be displayed
-    Then The "Bungii Support" "Icon" should be displayed
-    Then The "More Options" "Icon" should be displayed
-    And I slide update button on "EN ROUTE" Screen
-    Then The "Delivery Instructions" "Icon" should be displayed
-    Then The "Item Details" "Icon" should be displayed
-    Then The "Bungii Support" "Icon" should be displayed
-    Then The "More Options" "Icon" should be displayed
-    And I view and accept virtual notification for "Driver" for "stack trip"
-    And I slide update button on "ARRIVED" Screen
-    Then Bungii driver should see "Photo Verification"
-    And Driver adds photos to the Bungii
-    Then The "Delivery Instructions" "Icon" should be displayed
-    Then The "Item Details" "Icon" should be displayed
-    Then The "Bungii Support" "Icon" should be displayed
-    Then The "More Options" "Icon" should be displayed
-    And I slide update button on "ARRIVED" Screen
-    Then The "Delivery Instructions" "Icon" should be displayed
-    Then The "Item Details" "Icon" should be displayed
-    Then The "Bungii Support" "Icon" should be displayed
-    Then The "More Options" "Icon" should be displayed
-    And I slide update button on "LOADING ITEM" Screen
-    When I request another "Solo Ondemand" Bungii as a customer in "kansas" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    |               | Cci12345          |
-    Then Bungii driver should see "Photo Verification"
-    And Driver adds photos to the Bungii
-   And I view and accept virtual notification for "second" delivery of "Driver" for "stack trip"
-    Then The "Delivery Instructions" "Icon" should be displayed
-    Then The "Item Details" "Icon" should be displayed
-    Then The "Bungii Support" "Icon" should be displayed
-    Then The "More Options" "Icon" should be displayed
     And I slide update button on "LOADING ITEM" Screen
     Then The "Delivery Instructions" "Icon" should be displayed
     Then The "Item Details" "Icon" should be displayed
     Then The "Bungii Support" "Icon" should be displayed
     Then The "More Options" "Icon" should be displayed
     And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then I should see "Drop-Off Instructions" popup displayed
+    Then The driver "Dropoff" instructions should be in markdown format
+    And I click on "GOT IT" button
     Then The "Delivery Instructions" "Icon" should be displayed
     Then The "Item Details" "Icon" should be displayed
     Then The "Bungii Support" "Icon" should be displayed
     Then The "More Options" "Icon" should be displayed
     And I slide update button on "UNLOADING ITEMS" Screen
-    Then Bungii driver should see "Photo Verification"
+    And Bungii driver should see "Photo Verification"
     And Driver adds photos to the Bungii
     Then The "Delivery Instructions" "Icon" should be displayed
     Then The "Item Details" "Icon" should be displayed
