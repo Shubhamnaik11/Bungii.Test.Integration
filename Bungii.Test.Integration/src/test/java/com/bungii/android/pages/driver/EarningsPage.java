@@ -38,4 +38,11 @@ public class EarningsPage extends PageBase {
 
     public WebElement Button_NavigateUp(){return findElement("//android.widget.ImageButton[contains(@content-desc,\"Navigate up\")]",LocatorType.XPath);}
 
+    public WebElement Button_BranchWallet() {
+        return findElement("com.bungii.driver:id/tv_branch_label", LocatorType.Id);
+    }
+    public WebElement Screen_DefaultBrowser() {
+        return findElement("//android.widget.TextView[@text='Sign in to find the latest Android apps, games, movies, music, & more']", LocatorType.XPath);
+    }
+
 }

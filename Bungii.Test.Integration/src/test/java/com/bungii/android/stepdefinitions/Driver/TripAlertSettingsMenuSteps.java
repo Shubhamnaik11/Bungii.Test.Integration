@@ -444,6 +444,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Skip Customer Signature":
                     action.click(updateStatusPage.Button_SkipCustomerSignature());
                     break;
+                case "Branch app":
+                    action.click(earningsPage.Button_BranchWallet());
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }

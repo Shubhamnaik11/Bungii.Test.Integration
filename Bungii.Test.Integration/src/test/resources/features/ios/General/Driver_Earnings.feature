@@ -223,3 +223,15 @@ Feature: Driver Earnings
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     Then stack trip information should be displayed on deck
+
+#   Core-4414 Verify Branch app link is shown for all the existing drivers which is not registered for Branch app
+  @ready
+  Scenario: Verify Branch app link is shown for all the existing drivers which is not registered for Branch app
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applega_a_drvae Atlanta_ae" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "EARNINGS" from driver App menu
+    Then I check if "Branch app" button is displayed
+    And I click on "Branch app" button
+    Then I should be navigated to "default browser"

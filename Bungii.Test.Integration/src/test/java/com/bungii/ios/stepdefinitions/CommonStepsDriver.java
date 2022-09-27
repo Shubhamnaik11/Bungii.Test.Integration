@@ -7,6 +7,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.DashBoardPage;
+import com.bungii.ios.pages.admin.DriversPage;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.customer.EnableLocationPage;
 import com.bungii.ios.pages.customer.EnableNotificationPage;
@@ -55,6 +56,7 @@ public class CommonStepsDriver extends DriverBase {
     private DbUtility dbUtility = new DbUtility();
     private ScheduledBungiiPage scheduledBungiipage = new ScheduledBungiiPage();
     DashBoardPage admin_dashboardPage = new DashBoardPage();
+    DriversPage driversPage = new DriversPage();
     AvailableTripsPage availableTripsPage;
 
     public CommonStepsDriver(
@@ -747,6 +749,9 @@ public class CommonStepsDriver extends DriverBase {
                 case "Remove Driver":
                     action.click(scheduledTripsPage.Button_RemoveDrivers());
                     break;
+                case "Branch app":
+                    action.click(driversPage.Button_BranchWallet());
+                    break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }
@@ -995,5 +1000,29 @@ public class CommonStepsDriver extends DriverBase {
         logger.error("Error performing step", e);
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+    @Then("^I should be navigated to \"([^\"]*)\"$")
+    public void i_should_be_navigated_to_something(String screen) throws Throwable {
+        try {
+            switch (screen){
+                case "default browser":
+                    Thread.sleep(2000);
+                    testStepAssert.isElementDisplayed(driversPage.Screen_DefaultBrowser(),
+                            "I should be on browser screen for branch app.",
+                            "I am on browser screen for branch app.",
+                            "I am not navigated to browser screen for branch app.");
+                    testStepAssert.isElementDisplayed(driversPage.Button_GetBranchApp(),
+                            "Button to get the branch app should be displayed",
+                            "Button to get the branch app is displayed",
+                            "Button to get the branch app is not displayed");
+                    break;
+            }
+            log("I should be able to navigate to "+screen,"I am able to navigate to "+screen,false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
     }
 }

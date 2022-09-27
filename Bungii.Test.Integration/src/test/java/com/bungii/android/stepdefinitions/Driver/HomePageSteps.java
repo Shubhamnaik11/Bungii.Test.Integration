@@ -36,6 +36,7 @@ public class HomePageSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
     EstimatePage estimatePage = new EstimatePage();
+    EarningsPage earningsPage = new EarningsPage();
 
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
@@ -515,6 +516,46 @@ public class HomePageSteps extends DriverBase {
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+    @And("^I check if \"([^\"]*)\" button is displayed$")
+    public void i_check_if_something_button_is_displayed(String button) throws Throwable {
+
+        try{
+            switch (button){
+                case "Branch app":
+                    testStepAssert.isElementDisplayed(earningsPage.Button_BranchWallet(),
+                            "The branch app button should be displayed",
+                            "The branch app button is displayed",
+                            "The branch app button is not displayed");
+                    break;
+            }
+            log("I should be able to check if "+button+" button is displayed","I am able to check if "+button+" button is displayed",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^I should be navigated to \"([^\"]*)\"$")
+    public void i_should_be_navigated_to_something(String screen) throws Throwable {
+        try {
+            switch (screen){
+                case "default browser":
+                    Thread.sleep(2000);
+                    testStepAssert.isElementDisplayed(earningsPage.Screen_DefaultBrowser(),
+                            "I should be on browser screen for branch app.",
+                            "I am on browser screen for branch app.",
+                            "I am not navigated to browser screen for branch app.");
+                    break;
+            }
+            log("I should be able to navigate to "+screen,"I am able to navigate to "+screen,false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
     }
 
 }
