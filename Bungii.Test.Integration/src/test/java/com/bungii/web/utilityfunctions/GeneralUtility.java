@@ -376,7 +376,7 @@ public class GeneralUtility extends DriverBase {
                 {
                    // String EmailContent = msg.getContent().toString();
                     emailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
-                    emailUtility.deleteEmailWithSubject(expectedSubject,null);
+                   // emailUtility.deleteEmailWithSubject(expectedSubject,null);
                     return emailContent;
                 }
             }

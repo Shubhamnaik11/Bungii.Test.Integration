@@ -58,7 +58,6 @@ Feature: Service Level
 
       #CORE-3199-To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
   @ready
-#    @testsweta
   Scenario: To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -86,7 +85,7 @@ Feature: Service Level
     And I wait for 2 minutes
     And I view the Live Deliveries list on  admin portal
     And I search the delivery using "Pickup Reference"
-    Then In "Live Deliveries" the trip should be  having a indicator with the text "New-1"
+   Then In "Live Deliveries" the trip should be  having a indicator with the text "New-1"
     When As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Bungii Completed |
