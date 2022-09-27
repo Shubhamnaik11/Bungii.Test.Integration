@@ -2906,7 +2906,7 @@ else
 
             if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
 
-                if (geofence.equalsIgnoreCase("denver")||geofence.equalsIgnoreCase("denver1")||geofence.equalsIgnoreCase("denver2")||geofence.equalsIgnoreCase("denver3")||geofence.equalsIgnoreCase("denver4")) {
+                if (geofence.contains("denver")) {
                     switch (geofence.toLowerCase()){
                         case "denver":
                             custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
@@ -2934,6 +2934,30 @@ else
                             geofence = "denver";
                             custPhoneNum = PropertyUtility.getDataProperties("denver4.customer.phone");
                             cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver4.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver9":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver9.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver9.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver10":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver10.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver10.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver11":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver11.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver11.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver12":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver12.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver12.customer.name"));
                             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
                             break;
                         default:
@@ -3269,8 +3293,13 @@ else
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer.name"));
                 }
 
-                else if (geofence.equalsIgnoreCase("denver")) {
-                    custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
+                else if (geofence.contains("denver")) {
+                    if(geofence.equalsIgnoreCase("denver13")){
+                        geofence="denver";
+                        custPhoneNum = PropertyUtility.getDataProperties("denver13.customer.phone");
+                    }else {
+                        custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
+                    }
                     custPassword = PropertyUtility.getDataProperties("denver.customer.password");
                     if (driverLabel.equalsIgnoreCase("driver 2")) {
                         driverPhoneNum = PropertyUtility.getDataProperties("denver.driver2.phone");
