@@ -262,8 +262,8 @@ Feature: Admin_Geofence
     And I click on the "Save" Button on "GeofenceAttributes" Screen
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
 
-# Core-3843 Verify that only active geofence zip codes are downloaded in csv file 
-  @ready
+# Core-3843 Verify that only active geofence zip codes are downloaded in csv file
+  @regression
     Scenario: Verify that only active geofence zip codes are downloaded in csv file
 #     Core-3843 Verify the download option on geofence listing page of admin portal
       When I click on "Download Zip Codes" button

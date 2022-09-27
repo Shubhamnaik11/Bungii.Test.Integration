@@ -167,7 +167,7 @@ Feature: Admin_OndemandTrips
     Then the triplist grid shows the results by type "Scheduled Category"
 
 #Core 2968 -To verify that admin can add Accessorial fee for driver cancelled on demand trip
-@ready
+@regression
 Scenario:To verify that admin can add Accessorial fee for driver cancelled on demand trip
  When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
 | Bungii Time   | Customer Phone | Customer Name |
@@ -192,7 +192,7 @@ And I should see following details in the Accessorial charges section
 | $10              | $20.5       | $25.65      | $100  | $156.15 |
 
   #CORE-3295:Verify admin is not able to edit the on demand trips when its status is assigning driver on Live deliveries screen
-  @ready
+  @regression
 Scenario:Verify admin is not able to edit the on demand trips when its status is assigning driver on Live deliveries screen
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |

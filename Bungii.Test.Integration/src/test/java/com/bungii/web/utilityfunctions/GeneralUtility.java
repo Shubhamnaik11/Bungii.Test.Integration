@@ -100,6 +100,10 @@ public class GeneralUtility extends DriverBase {
                 partnerURL = PropertyUtility.getDataProperties("qa.equip-bid.url");
                 cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.equip-bid.ref"));
             }
+            else if(PP_Site.equalsIgnoreCase("fnd multiple phone")){
+                partnerURL = PropertyUtility.getDataProperties("qa.floordecor130_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.floordecor130_partner.ref"));
+            }
         }
         return  partnerURL;
     }

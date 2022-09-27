@@ -411,7 +411,7 @@ Feature: Solo Scheduled Bungii Part A
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @ready
+  @regression
 #stable
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has Bungii In Progress
     Given that solo schedule bungii is in progress
@@ -459,7 +459,7 @@ Feature: Solo Scheduled Bungii Part A
       | 8888889917     |                 |
 
 #   Core-3098 Verify online/Offline pop up is shown when Driver has schedule trip accepted for future days
-    @ready
+  @regression
   Scenario:  Verify online/Offline pop up is shown when Driver has schedule trip accepted for future days
 
     And I login as "valid denver" customer and on Home page

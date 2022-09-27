@@ -33,7 +33,7 @@ Feature: Bungii Geofence Based Calculation
     Then correct next available scheduled time should be displayed
 
 
-  @ready
+  @regression
     #Stable
   Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
 	Given I am on the "LOG IN" page
@@ -75,7 +75,7 @@ Feature: Bungii Geofence Based Calculation
     Then I should see "new default card" on Payment page
 
 #    Core-2618 Verify that admin can set referral code amount on geofence settings page
-    @ready
+  @regression
     Scenario: Verify that admin can set referral code amount on geofence settings page
       When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal

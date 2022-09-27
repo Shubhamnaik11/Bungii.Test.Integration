@@ -382,6 +382,32 @@ public class Partner_IntegrationSteps extends DriverBase {
                 }
 
             }
+            else if (Site.equalsIgnoreCase("fnd multiple phone")) {
+                switch (Type) {
+                    case "Solo":
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                        Thread.sleep(5000);
+                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+
+                        break;
+                    case "Duo":
+                        //Clicking on duo radio button
+                        action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+                        // Thread.sleep(2000);
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                        Thread.sleep(1000);
+                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+                        Thread.sleep(3000);
+                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                        Thread.sleep(5000);
+                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+                        break;
+                    default:
+                        break;
+                }
+            }
             else if (Site.equalsIgnoreCase("Cort service level")) {
                     switch (Type) {
                         case "Solo":

@@ -115,7 +115,7 @@ And I should get following error for following accessorial charges fields values
 | -1.56        | 231        | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
 
 #Core 2968 -To verify that admin can add accessorial fees to driver cancelled partner delivery
-@ready
+@regression
 Scenario: To verify the revive trip when accessorial charges are added
 When I request Partner Portal "SOLO" Trip for "MRFM" partner
 |Geofence| Bungii Time   | Customer Phone | Customer Name |

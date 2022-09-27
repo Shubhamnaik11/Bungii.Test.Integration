@@ -7,7 +7,7 @@ Feature: Cort Service Level
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
 
-  @ready
+  @regression
   Scenario: Verify partner invoice Payment method selected by default
     When I request "Solo" Bungii trip in partner portal configured for "Cort service level" in "washingtondc" geofence
         | Pickup_Address                                                                     | Delivery_Address                                                    |
@@ -133,7 +133,7 @@ Feature: Cort Service Level
     Then Revive button should be displayed beside the trip
 
     #CORE-4136
-  @ready
+  @regression
   Scenario: Verify tooltip verbiage reflects number of days based on advance scheduling days configured in database
     When I click on tooltip beside "Pickup Date" field
     Then I should see tooltip value based on configured value in database

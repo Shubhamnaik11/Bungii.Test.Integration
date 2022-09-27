@@ -77,17 +77,17 @@ And I cancel all bungiis of customer
 #stable
 Scenario: Admin God Mode: Verify admin can assign one [controlled] driver on DUO trip when it has been re-searched
 When I request "duo" Bungii as a customer in "kansas" geofence
-| Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-| NEXT_POSSIBLE | 9999991020     | Testcustomertywd_appleand_B Android | Cci12345         |
+| Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
+| NEXT_POSSIBLE | 8877661117     | Testcustomertywd_appleMarkDN LutherDN | Cci12345          |
   And As a driver "Testdrivertywd_appleks_a_drvb Kansas_b" and "Testdrivertywd_appleks_a_drvc Kansas_c" perform below action with respective "DUO SCHEDULED" trip
 | driver1 state | driver2 state |
 | Accepted      | Accepted      |
 Then I wait for "2" mins
 And I open Admin portal and navigate to "Scheduled Deliveries" page
-And I open the trip for "Testcustomertywd_appleand_B android" the customer
+And I open the trip for "Testcustomertywd_appleMarkDN LutherDN" the customer
 And I remove "control" driver and researches Bungii
 Then I wait for "2" mins
-And I open the trip for "Testcustomertywd_appleand_B android" the customer
+And I open the trip for "Testcustomertywd_appleMarkDN LutherDN" the customer
 And I Select "Edit Trip Details" option
 And I assign driver for the "control" trip
 And I click on "VERIFY" button
@@ -98,33 +98,33 @@ And the "Bungii Saved!" message is displayed
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
 Given I am on customer Log in page
-And I am logged in as "Testcustomertywd_appleand_B Android" customer
+And I am logged in as "Testcustomertywd_appleMarkDN LutherDN" customer
 And I tap on "Menu" > "MY BUNGIIS" link
 And I select already scheduled bungii
 Then I verify the "control driver name"
 
 And I cancel all bungiis of customer
 | Customer Phone  | Customer2 Phone |
-| 9999991020      |                 |
+| 8877661117      |                 |
 
 
 @regression
   #stable
 Scenario: Admin God Mode: Verify if admin can assign one [non controlled] driver on duo trip when it has been re-searched
 When I request "duo" Bungii as a customer in "goa" geofence
-| Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-| NEXT_POSSIBLE | 9999991020     | Testcustomertywd_appleand_B Android | Cci12345         |
+| Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
+| NEXT_POSSIBLE | 8877661118     | Testcustomertywd_appleMarkDO LutherDO | Cci12345          |
   And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "DUO SCHEDULED" trip
 | driver1 state | driver2 state |
 | Accepted      | Accepted      |
   
   Then I wait for "2" mins
 And I open Admin portal and navigate to "Scheduled Deliveries" page
-And I open the trip for "Testcustomertywd_appleand_B android" the customer
+And I open the trip for "Testcustomertywd_appleMarkDO LutherDO" the customer
   And I remove "noncontroller" driver from Bungii and researches it
 
 Then I wait for "2" mins
-And I open the trip for "Testcustomertywd_appleand_B android" the customer
+And I open the trip for "Testcustomertywd_appleMarkDO LutherDO" the customer
 And I Select "Edit Trip Details" option
   And I assign "noncontroller" driver to Bungii
 And I click on "VERIFY" button
@@ -134,14 +134,14 @@ And the "Bungii Saved!" message is displayed
 
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
-And I am logged in as "Testcustomertywd_appleand_B Android" customer
+And I am logged in as "Testcustomertywd_appleMarkDO LutherDO" customer
 And I tap on "Menu" > "MY BUNGIIS" link
 And I select already scheduled bungii
 Then I verify the "noncontrol driver name"
 
 And I cancel all bungiis of customer
 | Customer Phone  | Customer2 Phone |
-| 9999991020      |                 |
+| 8877661118      |                 |
 
 
 @regression

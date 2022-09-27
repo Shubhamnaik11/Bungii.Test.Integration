@@ -12,7 +12,7 @@ Feature: Admin_Partners_Business_And_EAPI
     Then I should see "Unlock Portals" submenu
     
   #Core-2441: To verify that admin can unlock locked out partner users for different portal types
-  @ready
+  @regression
   Scenario: Verify that admin can unlock locked out partner users for different portal types and check locked partners are displayed in Unlock partners list page
     When I navigate to "Partner" portal configured for "FloorDecor service level" URL
     And I enter "invalid" password and click "SIGN IN" ten times on Partner Portal
