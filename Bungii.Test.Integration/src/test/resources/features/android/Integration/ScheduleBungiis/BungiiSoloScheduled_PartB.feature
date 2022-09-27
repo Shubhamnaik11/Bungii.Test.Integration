@@ -183,7 +183,7 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
       |   Testcustomertywd_BppleMarkCG LutherCG  |      8877661084    |   Store                  |
       |   Testcustomertywd_BppleMarkCH LutherCH  |      8877661085    |   Warehouse              |
 
-  #CORE-3858:To verify Call and Text options in Stops sections for Pickup and Drop-off point on Bungii delivery details page for driver app
+  #CORE-3585:To verify Call and Text options in Stops sections for Pickup and Drop-off point on Bungii delivery details page for driver app
     @ready
   Scenario:To verify Call and Text options in Stops sections for Pickup and Drop-off point on Bungii delivery details page for driver app
     When I request Partner Portal "Solo" Trip for "Equip-bid" partner
