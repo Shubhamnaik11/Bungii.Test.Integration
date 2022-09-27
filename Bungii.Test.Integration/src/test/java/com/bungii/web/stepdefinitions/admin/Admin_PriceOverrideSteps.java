@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
+import com.bungii.web.pages.admin.Admin_LiveTripsPage;
 import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
@@ -34,6 +35,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
     Admin_TripDetailsPage Page_Admin_Trips_Details = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_editScheduledBungiiPage= new Admin_EditScheduledBungiiPage();
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
+    Admin_LiveTripsPage admin_liveTripsPage=new Admin_LiveTripsPage();
 
     @And("^I check if \"([^\"]*)\" button is displayed$")
     public void i_check_if_something_button_is_displayed(String button) throws Throwable {
@@ -115,7 +117,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
 
                         case "Driver cut":
                             String goodsWeight= (String) cucumberContextManager.getScenarioContext("Weight");
-                            String driverCutFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd(goodsWeight));
+                            String driverCutFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd());
                             String oldDriverCutFnd = driverCutFnd.substring(1);
                             float oldDriverPriceFnd= Float.parseFloat(oldDriverCutFnd);
                             float newDriverPriceFnd= (float) (oldDriverPriceFnd+20.08);
@@ -222,7 +224,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                         case "Driver Fixed Earnings":
                             action.refreshPage();
                             String goodsWeight = (String) cucumberContextManager.getScenarioContext("Weight");
-                            String driverChargesFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd(goodsWeight));
+                            String driverChargesFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd());
                             String actualDriverChargesFnd = driverChargesFnd.substring(1);
                             String expectedDriverChargesFnd = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
                             testStepAssert.isEquals(actualDriverChargesFnd, expectedDriverChargesFnd, "Driver Charges should be overridden", "Driver Charges are overridden", "Driver Charges are not overridden");
@@ -552,7 +554,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                             "Estimated Charges are not overridden");
 
                     String goodsWeight= (String) cucumberContextManager.getScenarioContext("Weight");
-                    String driverChargesFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd(goodsWeight));
+                    String driverChargesFnd = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings_Fnd());
                     String actualDriverChargesFnd = driverChargesFnd.substring(1);
                     String expectedDriverChargesFnd  = (String) cucumberContextManager.getScenarioContext("OLD_DRIVER_CUT");
                     testStepAssert.isEquals(actualDriverChargesFnd,expectedDriverChargesFnd,
@@ -584,6 +586,28 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                             "Stop Searching button should not be displayed",
                             "Stop Searching button is not be displayed",
                             "Stop Searching button is displayed");
+                    break;
+                case "driver location":
+                    Thread.sleep(2000);
+                    String driver = (String)cucumberContextManager.getScenarioContext("DRIVER_1");
+                    testStepAssert.isFalse(action.isElementPresent(admin_liveTripsPage.Image_DriverLocation(driver,true)),
+                            "Driver live location pin should not be displayed",
+                            "Driver live location pin is not be displayed",
+                            "Driver live location pin is displayed");
+                    break;
+                case "driver duo location":
+                    Thread.sleep(2000);
+                    String driver1 = (String)cucumberContextManager.getScenarioContext("DRIVER_1");
+                    String driver2 = (String)cucumberContextManager.getScenarioContext("DRIVER_2");
+                    Thread.sleep(2000);
+                    testStepAssert.isFalse(action.isElementPresent(admin_liveTripsPage.Image_DriverLocation(driver1,true)),
+                            "The duo first driver live location pin should not be displayed.",
+                            "The duo first driver live location pin is not displayed.",
+                            "The duo first driver live location pin is displayed.");
+                    testStepAssert.isFalse(action.isElementPresent(admin_liveTripsPage.Image_DriverLocation(driver2,true)),
+                            "The duo second driver live location pin should not be displayed.",
+                            "The duo second driver live location pin is not displayed.",
+                            "The duo second driver live location pin is  displayed.");
                     break;
             }
 

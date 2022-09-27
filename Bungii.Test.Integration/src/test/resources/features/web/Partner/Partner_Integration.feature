@@ -73,11 +73,11 @@ Feature: Partner Integration with Admin and Driver
       | In-Progress    |
     When I navigate to "Delivery Status URL"
    #CORE-2266:To verify the driver phone is masked in the tracking sms of in progress bungii for geofence based partner portal delivery (SOLO)
-    Then The "Phone Icon" should be displayed
+    Then The "Phone Icon" "Image" should be displayed
     And I click on "Phone" button
-    Then The "Call Alert Message" should be displayed
-    Then The "Confirm" should be displayed
-    Then The "Cancel" should be displayed
+    Then The "Call Alert Message" "Text" should be displayed
+    Then The "Confirm" "Button" should be displayed
+    Then The "Cancel" "Button" should be displayed
     And I click on "Cancel Call" button
     Then Delivery Status should be displayed correctly as "En Route To Pickup"
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
@@ -323,8 +323,7 @@ Feature: Partner Integration with Admin and Driver
    #CORE-2266:To verify the driver cannot be called for canceled delivery
     Then The Phone Icon should not be displayed
 
-  @ready
-    #Failed in Sprint 49
+  @regression
   Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by Non control Driver
     When I request "Duo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

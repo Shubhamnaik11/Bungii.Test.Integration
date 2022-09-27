@@ -63,6 +63,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_RefundsPage admin_refundsPage = new Admin_RefundsPage();
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -1052,6 +1053,15 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Transaction History":
                     action.click(admin_refundsPage.Button_TransactionDetails());
                     break;
+                case "Driver status change":
+                    action.click(admin_DriverPage.Button_OkDriverStatusChange());
+                    break;
+                case "Load":
+                    action.click(admin_liveTripsPage.Button_LoadMap());
+                    break;
+                case "Zoom Out":
+                    action.click(admin_liveTripsPage.Button_ZoomOut());
+                    break;
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", false);
@@ -1119,6 +1129,40 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^I check if \"([^\"]*)\" is updated for live trip$")
+    public void i_check_if_something_is_updated_for_live_trip(String action) throws Throwable {
+        try{
+            switch (action){
+                case "driver location":
+                    Thread.sleep(2000);
+                    String driver = (String)cucumberContextManager.getScenarioContext("DRIVER_1");
+                    testStepAssert.isElementDisplayed(admin_liveTripsPage.Image_DriverLocation(driver),
+                            "The driver live location pin should be displayed.",
+                            "The driver live location pin is displayed.",
+                            "The driver live location pin is not displayed.");
+                    break;
 
+                case "driver location-duo":
+                    Thread.sleep(2000);
+                    String driver1 = (String)cucumberContextManager.getScenarioContext("DRIVER_1");
+                    String driver2 = (String)cucumberContextManager.getScenarioContext("DRIVER_2");
+                    Thread.sleep(2000);
+                    testStepAssert.isElementDisplayed(admin_liveTripsPage.Image_DriverLocation(driver1),
+                            "The duo first driver live location pin should be displayed.",
+                            "The duo first driver live location pin is displayed.",
+                            "The duo first driver live location pin is not displayed.");
+                    testStepAssert.isElementDisplayed(admin_liveTripsPage.Image_DriverLocation(driver2),
+                            "The duo second driver live location pin should be displayed.",
+                            "The duo second driver live location pin is displayed.",
+                            "The duo second driver live location pin is not displayed.");
+                    break;
+            }
+            log("I should be able to check update on live trip","I am able to check update on live trip",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
 }

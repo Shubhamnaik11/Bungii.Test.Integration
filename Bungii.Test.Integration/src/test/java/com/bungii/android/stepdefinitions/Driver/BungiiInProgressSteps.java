@@ -747,9 +747,10 @@ public class BungiiInProgressSteps extends DriverBase {
     public void bungii_driver_uploads_something_image(String numberofimages) throws Throwable {
         try {
             action.click(inProgressBungiiPages.Button_AddPhoto());
-            if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true)))
+            if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true))){
                 Thread.sleep(2000);
                 action.click(bungiiEstimatePage.Permissions_CameraAllow());
+                }
             Thread.sleep(2000);
             switch (numberofimages){
                 case "1":

@@ -359,6 +359,7 @@ public class ScheduledTripSteps extends DriverBase {
 
 		action.click(scheduledTripsPage.Button_Remove());
 		scheduledTripsPage.waitForPageLoad();try{Thread.sleep(5000);}catch (Exception e ){}
+		action.waitUntilIsElementClickable(scheduledTripsPage.Button_Research());
 		action.click(scheduledTripsPage.Button_Research());
 		scheduledTripsPage.waitForPageLoad();
 	}

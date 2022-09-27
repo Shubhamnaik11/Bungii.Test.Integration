@@ -422,7 +422,7 @@ Feature: Service Level
     Then The pickup time should be same for both the addresses from the dropdown
 
   #CORE-2342:To verify whether correct default contact name and phone no is added when store address is selected as pickup address
-  @ready
+  @regression
   Scenario:To verify whether correct default contact name and phone no. is added when store address is selected as pickup address
     When I navigate to "Partner" portal configured for "BestBuy2 service level" URL
     And I enter "valid" password on Partner Portal

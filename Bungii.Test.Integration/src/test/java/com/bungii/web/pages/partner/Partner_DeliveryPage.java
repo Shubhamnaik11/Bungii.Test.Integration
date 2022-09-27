@@ -227,4 +227,15 @@ public class Partner_DeliveryPage extends PageBase {
     //Text displayed when popup is opened for sms
     public WebElement Alert_MessageForCall() { return findElement("//div[@class=\"modal-content\"]/div/p",LocatorType.XPath);}
 
+    //add sms recipient
+    public WebElement TextBox_Product2Description() { return findElement("//input[@id='Name_1']",LocatorType.XPath);}
+    public WebElement TextBox_Product2Dimensions(){ return findElement("//input[@id='Dimensions_1']",LocatorType.XPath);}
+    public WebElement TextBox_Product2Weight() { return findElement("//input[@id='Weight_1']",LocatorType.XPath);}
+    public WebElement Button_AddSMSRecipient() { return findElement("//span[contains(text(),'ADD SMS RECIPIENTS')]",LocatorType.XPath);}
+    public WebElement TextBox_CustomerSMSRecipient1() { return findElement("customerMobile0",LocatorType.Name);}
+    public WebElement TextBox_CustomerSMSRecipient2() { return findElement("customerMobile1",LocatorType.Name);}
+    public WebElement TextBox_CustomerSMSRecipient3() { return findElement("customerMobile2",LocatorType.Name);}
+    public WebElement PhoneNo_Recipient1() {return findElements("//label[contains(text(),'Texting status updates to:')]//following-sibling::p[@class='phone-number']",LocatorType.XPath).get(1);}
+    public WebElement PhoneNo_Recipient2(){return findElements("//label[contains(text(),'Texting status updates to:')]//following-sibling::p[@class='phone-number']",LocatorType.XPath).get(2);}
+    public WebElement PhoneNo_Recipient3(){return findElements("//label[contains(text(),'Texting status updates to:')]//following-sibling::p[@class='phone-number']",LocatorType.XPath).get(3);}
 }

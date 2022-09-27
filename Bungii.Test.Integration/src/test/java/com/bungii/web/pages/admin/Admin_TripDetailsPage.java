@@ -37,9 +37,9 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[text()='Driver Earnings']/following::td[1]/strong",LocatorType.XPath);}
 
-    public WebElement Text_Driver_Est_Eranings() { return findElement("//td[text()=' Driver Fixed Earnings']/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Text_Driver_Est_Eranings() { return findElement("//tr[19]/td/strong",LocatorType.XPath);}
 
-    public WebElement Text_Driver_Est_Eranings_Fnd(String weight) { return findElement("//td[text()=' Driver Fixed Earnings - Pallet 1("+weight+" lbs)']/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Text_Driver_Est_Eranings_Fnd() { return findElement("//tr[19]/td/strong",LocatorType.XPath);}
 
     public WebElement Icon_Price_Override(){ return findElement("//a[@class='tooltip-overlay price-override']/img",LocatorType.XPath);}
 
@@ -76,5 +76,7 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Text_PriceOverrideError() { return findElement("errorMessageFields",LocatorType.Id);}
 
     public WebElement Label_Partner() { return findElement("//table[@class='table table-striped']/tbody/tr[1]/td[1]",LocatorType.XPath);}
+    public WebElement PhoneNo_Customer() {return findElement("//table[@class='table table-striped']/tbody/tr[2]/td[2])",LocatorType.XPath);}
+
 
 }

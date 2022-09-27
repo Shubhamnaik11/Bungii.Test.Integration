@@ -70,11 +70,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
 
 
     @And("^I search the delivery using \"([^\"]*)\"$")
-    public void i_search_the_delivery_using_something(String strArg1) throws Throwable {
+    public void i_search_the_delivery_using_something(String newpickupRef) throws Throwable {
         try {
-            Thread.sleep(1000);
-            cucumberContextManager.setScenarioContext("ADMIN1_NAME",action.getText(admin_ScheduledTripsPage.Text_AdminName()));
-            action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
+            action.refreshPage();
+            cucumberContextManager.setScenarioContext("ADMIN1_NAME", action.getText(admin_ScheduledTripsPage.Text_AdminName()));
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            Thread.sleep(2000);
+            action.clearSendKeys(adminTripsPage.TextBox_Search(), pickupRef + Keys.ENTER);
             log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -108,6 +110,11 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     Thread.sleep(4000);
                     action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
                     Thread.sleep(2000);
+                    action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+                    break;
+                case "Live Duo Deliveries":
+                    Thread.sleep(4000);
+                    action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
                     action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
                     break;
             }
