@@ -84,4 +84,3 @@ Feature: Floor and Decore Service Level
     Then I should get Confirmation Alert popup
     And I click on Continue button on popup
     Then I should see header as "Get Quote"
-    And I should logout from Partner Portal
