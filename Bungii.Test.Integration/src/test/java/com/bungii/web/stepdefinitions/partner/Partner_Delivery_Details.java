@@ -543,6 +543,40 @@ public class Partner_Delivery_Details extends DriverBase {
 
     }
 
+    @And("^I click on Partner Portal Logo in header$")
+    public void i_click_on_partner_portal_logo_in_header() throws Throwable {
+        try {
+            action.click(Page_Partner_Delivery.Logo_PartnerPortal());
+            log("I should be able to click on Partner Logo in header", "I clicked on Partner Logo in header", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step. Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I should get Confirmation Alert popup$")
+    public void i_should_get_confirmation_alert_popup() throws Throwable {
+        try {
+            testStepAssert.isElementTextEquals(Page_Partner_Delivery.Logo_ConfirmPopup(), "Heads Up!",
+                    "Title should be present in popup header",
+                    "Title is present in popup header", "Title is not present in Popup header");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step. Please check logs for more details", true);
+        }
+    }
+
+    @And("^I click on Continue button on popup$")
+    public void i_click_on_continue_button_on_popup() throws Throwable {
+        try {
+            action.click(Page_Partner_Delivery.Button_ConfirmPartnerLogoClick());
+            log("I should be able to click on Continue button on popup", "I clicked on Continue button on popup", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step. Please check logs for more details", true);
+        }
+    }
+
     @And("^I select the value in Bodc Code$")
     public void i_select_the_value_in_bodc_code() throws Throwable{
        try {

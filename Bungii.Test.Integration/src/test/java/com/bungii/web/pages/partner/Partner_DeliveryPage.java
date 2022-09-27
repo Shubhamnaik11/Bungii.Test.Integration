@@ -238,4 +238,13 @@ public class Partner_DeliveryPage extends PageBase {
     public WebElement PhoneNo_Recipient1() {return findElements("//label[contains(text(),'Texting status updates to:')]//following-sibling::p[@class='phone-number']",LocatorType.XPath).get(1);}
     public WebElement PhoneNo_Recipient2(){return findElements("//label[contains(text(),'Texting status updates to:')]//following-sibling::p[@class='phone-number']",LocatorType.XPath).get(2);}
     public WebElement PhoneNo_Recipient3(){return findElements("//label[contains(text(),'Texting status updates to:')]//following-sibling::p[@class='phone-number']",LocatorType.XPath).get(3);}
+
+    //Partner logo in header
+    public WebElement Logo_PartnerPortal() {return findElement("//img[@alt=\"Partner Logo\"]/ancestor::a", LocatorType.XPath);}
+
+    //Confirmation popup for logo redirect
+    public WebElement Logo_ConfirmPopup() {return findElement("//div[@class=\"modal-body\"]/h2", LocatorType.XPath);}
+
+    //Confirm button on Partner logo click
+    public WebElement Button_ConfirmPartnerLogoClick() {return findElement("//button[contains(text(),\"Continue\")]", LocatorType.XPath);}
 }
