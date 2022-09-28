@@ -72,7 +72,7 @@ public class TripDetailsSteps extends DriverBase {
             switch (page){
                 case "available bungii details":
                     Thread.sleep(2000);
-                    String driverEarnings = tripDetailsPage.Text_EstimatedEarnings().getText();
+                    String driverEarnings = action.getValueAttribute(tripDetailsPage.Text_EstimatedEarnings());
                     testStepAssert.isTrue(driverEarnings.contains("~"),
                             "The variable sign (~) should be present",
                             "The variable sign (~) is not present");
