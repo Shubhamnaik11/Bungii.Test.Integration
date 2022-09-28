@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.DriversPage;
 import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.pages.customer.MyBungiisPage;
@@ -38,6 +39,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     DbUtility dbUtility = new DbUtility();
     MyBungiisPage myBungiisPage = new MyBungiisPage();
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
+    DriversPage driversPage = new DriversPage();
 
     @Then("^I verify driver names and trip cost$")
     public void i_verify_driver_names_pickup_and_drop_off_address_and_trip_cost() throws Throwable {
@@ -325,6 +327,8 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                 case "View":
                     action.click(myBungiisPage.Link_ViewTrips());
                     break;
+                case "Profile":
+                    action.click(driversPage.Button_DriverProfileLink());
             }
             log("I should be able to click on "+icon,
                     "I could click on"+icon,false);
@@ -415,7 +419,65 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
           error("Step  Should be successful", "Error while comparing the driver earnings on admin portal and driver app", true);
       }
     }
-
-
+    @Then("^I check if \"([^\"]*)\" are displayed$")
+    public void i_check_if_something_are_displayed(String detailType) throws Throwable {
+        try{
+            switch (detailType){
+                case "Wallet details":
+                    testStepAssert.isElementDisplayed(driversPage.Text_BranchWalletCreated(),
+                            "The branch wallet details should be displayed.",
+                            "The branch wallet details are displayed.",
+                            "The branch wallet details are not displayed.");
+                    break;
+            }
+            log("I should be able to check "+detailType,"I am able to check "+detailType,false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I check \"([^\"]*)\" in db$")
+    public void i_check_something_in_db(String type) throws Throwable {
+        try{
+            String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String branchRegistrationDate = dbUtility.getDriverBranchRegistrationDate(driver);
+            switch (type){
+                case "no branch registration":
+                    if(branchRegistrationDate.equalsIgnoreCase("")){
+                        testStepAssert.isTrue(true,"There should be no registration date for non registered drivers.",
+                                "There is registration date for non registered drivers.");
+                    }
+                    else {
+                        testStepAssert.isFail("There is registration date for non registered drivers.");
+                    }
+                    break;
+                case "branch registered with wallet":
+                    String wallet = dbUtility.getDriverWalletInfo(driver);
+                    if(!(wallet.isEmpty())){
+                        testStepAssert.isTrue(true,"There should be wallet details present for drivers with wallet.",
+                                "There are no wallet details present for drivers with wallet.");
+                    }
+                    else {
+                        testStepAssert.isFail("There are no wallet details present for drivers with wallet.");
+                    }
+                    break;
+                case "branch registered without wallet":
+                    String withoutWallet = dbUtility.getDriverWalletInfo(driver);
+                    if(withoutWallet.isEmpty()){
+                        testStepAssert.isTrue(true,"There should not be wallet details present for drivers without wallet.",
+                                "There are wallet details present for driver without wallet.");
+                    }
+                    else {
+                        testStepAssert.isFail("There are wallet details present for driver without wallet.");
+                    }
+                    break;
+            }
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 }
 

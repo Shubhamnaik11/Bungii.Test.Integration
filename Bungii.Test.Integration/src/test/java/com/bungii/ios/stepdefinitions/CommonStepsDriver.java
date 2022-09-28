@@ -562,6 +562,9 @@ public class CommonStepsDriver extends DriverBase {
                 case "View":
                     action.click(driverHomePage.Link_ViewTrips());
                     break;
+                case "Profile":
+                    action.click(driversPage.Button_DriverProfileLink());
+                    break;
             }
             log("I should be able to click on "+icon,
                     "I could click on"+icon,false);
@@ -1024,5 +1027,63 @@ public class CommonStepsDriver extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
+    }
+    @Then("^I check if \"([^\"]*)\" are displayed$")
+    public void i_check_if_something_are_displayed(String detailType) throws Throwable {
+        try{
+            switch (detailType){
+                case "Wallet details":
+                    testStepAssert.isElementDisplayed(driversPage.Text_BranchWalletCreated(),
+                            "The branch wallet details should be displayed.",
+                            "The branch wallet details are displayed.",
+                            "The branch wallet details are not displayed.");
+                    break;
+            }
+            log("I should be able to check "+detailType,"I am able to check "+detailType,false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I check \"([^\"]*)\" in db$")
+    public void i_check_something_in_db(String type) throws Throwable {
+        try{
+            String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String branchRegistrationDate = dbUtility.getDriverBranchRegistrationDate(driver);
+            switch (type){
+                case "no branch registration":
+                    if(branchRegistrationDate.equalsIgnoreCase("")){
+                        testStepAssert.isTrue(true,"There should be no registration date for non registered drivers.",
+                                "There is registration date for non registered drivers.");
+                    }
+                    break;
+                case "branch registered with wallet":
+                    String wallet = dbUtility.getDriverWalletInfo(driver);
+                    if(!(wallet.isEmpty())){
+                        testStepAssert.isTrue(true,"There should be wallet details present for drivers with wallet.",
+                                "There are no wallet details present for drivers with wallet.");
+                    }
+                    else {
+                        testStepAssert.isFail("There are no wallet details present for drivers with wallet.");
+                    }
+                    break;
+                case "branch registered without wallet":
+                    String withoutWallet = dbUtility.getDriverWalletInfo(driver);
+                    if(withoutWallet.isEmpty()){
+                        testStepAssert.isTrue(true,"There should not be wallet details present for drivers without wallet.",
+                                "There are wallet details present for driver without wallet.");
+                    }
+                    else {
+                        testStepAssert.isFail("There are wallet details present for driver without wallet.");
+                    }
+                    break;
+
+            }
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 }

@@ -352,4 +352,14 @@ public class DbUtility extends DbContextManager {
         logger.detail("The driver rating for pickupId " + pickupId + " is " + rating);
         return rating;
     }
+    public static String getDriverBranchRegistrationDate(String driver){
+        String date=getDataFromMySqlServer("select BranchRegisteredDate from driver where phone ="+driver);
+        logger.detail("The branch registered date for driver is " +date);
+        return date;
+    }
+    public static String getDriverWalletInfo(String driver){
+        String wallet=getDataFromMySqlServer("select DriverAccountInfoBranch from driver where phone ="+driver);
+        logger.detail("The wallet info for driver: " +wallet);
+        return wallet;
+    }
 }
