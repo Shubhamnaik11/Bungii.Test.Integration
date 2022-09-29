@@ -811,4 +811,33 @@ Feature: Scheduled DUO Bungii
     And I calculate the "telet-short stack" time after "changed pickup"
     Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
 
+#   Core-2369: Verify time calculation for Long stack trip before editing the service level on Live deliveries
+  @ready
+#    @testsweta
+  Scenario: Verify time calculation for Long stack trip before editing the service level on Live deliveries
+    When I request Partner Portal "SOLO" Trip for "Biglots" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |atlanta  | NEXT_POSSIBLE | 8877661059 | Testcustomertywd_BppleMarkBH LutherBH|
+    And I wait for "1" mins
+    And As a driver "Testdrivertywd_applega_a_steveE Stark_altOnEE" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I enter phoneNumber :9049840081 and  Password :Cci12345
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 8877661004     | Testcustomertywd_appleMarkE LutherE | 2              | Cci12345          |
+
+    And I view and accept virtual notification for "Driver" for "stack trip"
+    And try to finish time should be correctly displayed for long stack trip
+
+    And I Switch to "customer" application on "same" devices
+    And I logged in Customer application using  "existing" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
