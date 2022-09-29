@@ -21,6 +21,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -3412,4 +3414,39 @@ try{
                     true);
         }
     }
+    @And("^I slide the \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_slide_the_something_to_something(String strArg1, String strArg2) throws Throwable {
+        switch (strArg2){
+            case "500 lbs":
+                    slide(admin_DriverPage.Slider_VehiclePayloadMax(),admin_DriverPage.Slider_VehiclePayloadmin());
+
+                    Thread.sleep(4000);
+
+                break;
+        }
+    }
+    public void slide(WebElement element1, WebElement element2) throws InterruptedException {
+        WebDriver driver =SetupManager.getDriver();
+        WebElement sliderLocation = element1;
+        // Used points class to get x and y coordinates of element.
+        int width = sliderLocation.getSize().getWidth();
+        System.out.println("Width is " + width);
+            Actions move = new Actions(driver);
+
+//        Action action2 = move.dragAndDropBy(element2,width+30, 0).build();
+//        action2.perform();
+        Action action3 = move.dragAndDropBy(element1,width-500 , 0).build();
+        action3.perform();
+        Action action4 = move.dragAndDropBy(element1,width-400 , 0).build();
+        action4.perform();
+        Action action5 = move.dragAndDropBy(element1,width-300 , 0).build();
+        action5.perform();
+        Action action6 = move.dragAndDropBy(element1,-200 , 0).build();
+        action6.perform();
+        Action action7 = move.clickAndHold(element1).moveByOffset(width-80,0).release().build();
+        action7.perform();
+        Action action8 = move.clickAndHold(element1).moveByOffset(50,0).release().build();
+        action8.perform();
+    }
+
 }

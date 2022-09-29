@@ -1062,6 +1062,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Zoom Out":
                     action.click(admin_liveTripsPage.Button_ZoomOut());
                     break;
+                case "Filter":
+                    action.click(admin_TripsPage.Button_Filter());
+                    break;
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", false);

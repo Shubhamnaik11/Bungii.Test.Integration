@@ -1059,6 +1059,28 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Ramp":
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_Ramp()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
                     break;
+                case "Box Truck":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_BoxTruck()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Moving Van":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_MovingVan()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Pickup Truck":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_PickupTruck()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "SUV":
+                    action.JavaScriptScrolldown();
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_SUV()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Vehicle Payload":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Slider_VehiclePayload()),element+" slider should be displayed",element+" slider is displayed",element+" slider is not displayed");
+                    break;
+                case "Vehicle Bed Length":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Slider_VehicleBedLength()),element+" slider should be displayed",element+" slider is displayed",element+" slider is not displayed");
+                    break;
+                case "Trailer":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Button_Trailer()),element+" button should be displayed",element+" button is displayed",element+" button is not displayed");
+                    break;
             }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
