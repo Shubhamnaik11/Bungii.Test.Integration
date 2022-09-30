@@ -82,7 +82,7 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Slider_VehiclePayload() {return findElement("range-slider-payload",LocatorType.ClassName);}
 
-    public WebElement Slider_VehiclePayloadMax() {return findElement("payloadRight",LocatorType.Id);}
+    public WebElement Slider_VehiclePayloadMax() {return findElement("//span[@id=\"payloadLeft\"]/following-sibling::span",LocatorType.XPath);}
     public WebElement Slider_VehiclePayloadmin() {return findElement("payloadLeft",LocatorType.Id);}
 
 

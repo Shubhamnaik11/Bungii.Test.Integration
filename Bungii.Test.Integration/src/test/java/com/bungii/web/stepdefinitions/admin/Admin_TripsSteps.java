@@ -3428,25 +3428,26 @@ try{
     public void slide(WebElement element1, WebElement element2) throws InterruptedException {
         WebDriver driver =SetupManager.getDriver();
         WebElement sliderLocation = element1;
+        WebElement sliderLocation2= element2;
         // Used points class to get x and y coordinates of element.
         int width = sliderLocation.getSize().getWidth();
         System.out.println("Width is " + width);
             Actions move = new Actions(driver);
+        int width2 = sliderLocation2.getSize().getWidth();
+        System.out.println("Width is " + width2);
 
-//        Action action2 = move.dragAndDropBy(element2,width+30, 0).build();
-//        action2.perform();
-        Action action3 = move.dragAndDropBy(element1,width-500 , 0).build();
+        Action action2 = move.dragAndDropBy(element2,width2+30, 0).build();
+        action2.perform();
+        Action action3 = move.dragAndDropBy(element1,-20 , 0).click().build();
         action3.perform();
-        Action action4 = move.dragAndDropBy(element1,width-400 , 0).build();
+        Action action4 = move.click().dragAndDropBy(element1,width+50 , 0).build();
         action4.perform();
-        Action action5 = move.dragAndDropBy(element1,width-300 , 0).build();
+        int width3 = sliderLocation2.getSize().getWidth();
+        System.out.println("Width is " + width3);
+        int width4 = sliderLocation.getSize().getWidth();
+        System.out.println("Width is " + width4);
+        Action action5 = move.dragAndDropBy(element1,width+160 , 0).click().build();
         action5.perform();
-        Action action6 = move.dragAndDropBy(element1,-200 , 0).build();
-        action6.perform();
-        Action action7 = move.clickAndHold(element1).moveByOffset(width-80,0).release().build();
-        action7.perform();
-        Action action8 = move.clickAndHold(element1).moveByOffset(50,0).release().build();
-        action8.perform();
     }
 
 }
