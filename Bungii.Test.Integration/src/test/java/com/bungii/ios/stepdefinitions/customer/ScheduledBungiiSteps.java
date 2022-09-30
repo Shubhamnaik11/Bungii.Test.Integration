@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.ScheduledBungiiPage;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -32,6 +33,20 @@ public class ScheduledBungiiSteps extends DriverBase {
 		this.scheduledBungiiPage = scheduledBungiiPage;
 	}
 
+	@And("^I should select the \"([^\"]*)\" customer on driver app$")
+	public void i_should_select_the_something_customer_on_driver_app(String customer) throws Throwable {
+		try{
+			String customerTripDateTime = (String) cucumberContextManager.getScenarioContext("CUSTOMER_APP_TRIP_TIME");
+			action.click(scheduledBungiiPage.Customer_ScheduledDelivery(customerTripDateTime));
+		pass("I should able to select scheduled bungii for customer"+customer,"I have selected scheduled bungii for customer"+customer);
+		}
+		catch (Exception e) {
+			//logger.error("Error performing step", SetupManager.getDriver().getPageSource());
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+		}
+	}
+
 	@When("^I select already scheduled bungii$")
 	public void i_select_already_scheduled_bungii() {
 		try {
@@ -42,7 +57,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 			selectBungii(tripNoOfDriver, tripTime);
 			pass("I select scheduled bungii", "I have selected already scheduled bungii of "+tripNoOfDriver+" type and at time: " + tripTime , true);
 		} catch (Exception e) {
-			logger.error("Error performing step", SetupManager.getDriver().getPageSource());
+			//logger.error("Error performing step", SetupManager.getDriver().getPageSource());
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
 		}
@@ -105,14 +120,24 @@ public class ScheduledBungiiSteps extends DriverBase {
 	 * @return
 	 */
 	public WebElement getLocatorForBungii(String bungiiType, String bungiiTime) {
+		String UIBungiiTime = action.getText(scheduledBungiiPage.Text_ScheduledTime());
 		String imageTag = "";
 		if (bungiiType.toUpperCase().equals("SOLO")) {
 			imageTag = Image_Solo;
 		}
 		action.swipeDown();
 		String currentYear = String.valueOf(DateTime.now().getYear());
-		String gmtTime = bungiiTime.replace("AM", "a.m.").replace("PM", "p.m.").replace(currentYear,"").replace(" - ","");
-		String justTime = bungiiTime.replace("AM", "").replace("PM", "").replace(currentYear,"").replace(" - ","");
+		String gmtTime="";
+		String justTime="";
+		if(UIBungiiTime.contains("AM")||UIBungiiTime.contains("PM")) {
+			gmtTime = bungiiTime.replace("-", "");
+			justTime = bungiiTime.replace(" - ", "");
+		}else if(UIBungiiTime.contains("a.m.")||UIBungiiTime.contains("p.m.")){
+			//gmtTime = bungiiTime.replace("AM", "a.m.").replace("PM", "p.m.").replace(currentYear, "").replace(" - ", "");
+			gmtTime = bungiiTime.replace("AM", "a.m.").replace("PM", "p.m.").replace(" - ", "");
+			//justTime = bungiiTime.replace("AM", "").replace("PM", "").replace(currentYear, "").replace(" - ", "");
+			justTime = bungiiTime.replace("AM", "").replace("PM", "").replace(" - ", "");
+		}
 
 		if(gmtTime.contains("MDT")||gmtTime.contains("MST"))
 			gmtTime = gmtTime.replace("MDT","GMT-6").replace("MST","GMT-6");
@@ -173,7 +198,8 @@ public class ScheduledBungiiSteps extends DriverBase {
 		bungiiTime=bungiiTime.replace("ST","DT");
 		//XCUIElementTypeStaticText[contains(@name,'Oct 13, 11:45 a.m. GMT-6') or contains(@name,'Oct 13, 2020 - 11:45 AM MDT') ]/parent::XCUIElementTypeCell
 
-		action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
+		//action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
+		action.click(getLocatorForBungii(bungiiType, bungiiTime));
 	}
 
 	/**

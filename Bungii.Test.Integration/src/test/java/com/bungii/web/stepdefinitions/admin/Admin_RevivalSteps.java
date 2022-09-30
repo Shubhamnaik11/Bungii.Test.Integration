@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_RefundsPage;
 import com.bungii.web.pages.admin.Admin_RevivalPage;
+import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.admin.Admin_TripsPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -15,10 +16,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Keys;
-
-import java.text.DecimalFormat;
+import org.openqa.selenium.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +33,9 @@ public class Admin_RevivalSteps extends DriverBase {
     DbUtility dbUtility = new DbUtility();
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     Admin_RevivalPage admin_revivalPage = new Admin_RevivalPage();
+    Admin_TripDetailsPage admin_tripDetailsPage = new Admin_TripDetailsPage();
 
-
+    Admin_TripsPage adminTripsPage = new Admin_TripsPage();
     @Then("^Revive button should be displayed beside the trip$")
     public void revive_button_should_be_displayed_beside_the_trip() throws Throwable {
         try {
@@ -47,12 +46,95 @@ public class Admin_RevivalSteps extends DriverBase {
             String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']/img", customerName);
             testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
             cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
+            String partnerName = action.getText(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td[1]", customerName), PageBase.LocatorType.XPath));
+            cucumberContextManager.setScenarioContext("PARTNER",partnerName);
+
         } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
     }
+    @And("^I should see \"([^\"]*)\" details on review popup$")
+    public void i_should_see_something_and_something_details_on_review_popup(String who) throws Throwable {
+        try {
+            String customer ="";
+        switch(who.toLowerCase()) {
+          case "customer":
+               customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+          testStepAssert.isEquals(action.getText(admin_TripsPage.Label_ReviveCustomerDetail()),customer,"Customer "+ customer+" details should be shown","Customer "+ customer+" details are shown","Customer "+ customer+" details are not shown");
+          break;
+          case "partner":
+               customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+              testStepAssert.isEquals(action.getText(admin_TripsPage.Label_ReviveCustomerDetail()),customer,"Customer "+ customer+" details should be shown","Customer "+ customer+" details are shown","Customer "+ customer+" details are not shown");
+              String partner = (String) cucumberContextManager.getScenarioContext("PARTNER");
+              testStepAssert.isEquals(action.getText(admin_TripsPage.Label_RevivePartnerDetail()),partner,"Partner "+ partner+" details should be shown","Partner "+ partner+" details are shown","Partner "+ partner+" details are not shown");
+              break;
+      }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I should not see \"([^\"]*)\" on review popup$")
+    public void i_should_not_see_something_and_something_details_on_review_popup(String who) throws Throwable {
+        try {
+            switch(who.toLowerCase()) {
+            case "pickup origin":
+                testStepAssert.isFalse(action.isElementPresent(admin_TripsPage.Label_RevivePickupOriginDetail(true)),"Pickup origin details should not be shown","Pickup origin details is not shown","Pickup origin details is shown");
+                break;
+        }
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+    @And("^\"([^\"]*)\" and \"([^\"]*)\" buttons should have background color \"([^\"]*)\" and \"([^\"]*)\" respectively$")
+    public void something_and_something_buttons_should_have_background_color_something_and_something_respectively(String primaryButton, String secondaryButton, String primaryColor, String secondaryColor) throws Throwable {
+
+        try {
+            String expectedHighlightColor = "";
+            switch (primaryColor.toLowerCase()) {
+                case "blue":
+                    expectedHighlightColor = "rgba(68, 138, 193, 1)";
+                    break;
+                case "white":
+                    expectedHighlightColor = "rgba(232, 232, 232, 1)";
+                    break;
+            }
+            String primaryButtonBackgroundColor ="";
+            switch (primaryButton.toLowerCase()) {
+                case "confirm":
+                primaryButtonBackgroundColor = admin_revivalPage.Button_Confirm().getCssValue("background-color");
+                  break;
+                case "save":
+                    primaryButtonBackgroundColor = admin_tripDetailsPage.Button_Save().getCssValue("background-color");
+                    break;
+            }
+
+            testStepAssert.isEquals(primaryButtonBackgroundColor, expectedHighlightColor, primaryButton +" button should be highlighted with "+primaryColor+" color", primaryButton +" button is highlighted with "+primaryColor+" color", primaryButton +" button is not highlighted with "+primaryColor+" color");
+            switch (secondaryColor.toLowerCase()) {
+                case "blue":
+                    expectedHighlightColor = "rgba(68, 138, 193, 1)";
+                    break;
+                case "white":
+                    expectedHighlightColor = "none";
+                    break;
+            }
+            String secondaryButtonBackgroundColor = admin_revivalPage.Button_Cancel().getCssValue("background");
+            testStepAssert.isTrue(secondaryButtonBackgroundColor.contains(expectedHighlightColor), secondaryButton +" button should be highlighted with "+secondaryColor+" color", secondaryButton +" button is highlighted with "+secondaryColor+" color", secondaryButton +" button is not highlighted with "+secondaryColor+" color");
+
+
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @Then("^I should see \"([^\"]*)\" message on popup with PickupId anad Pickup Origin$")
     public void i_should_see_something_message_on_popup_with_pickupid_anad_pickup_origin(String message) throws Throwable {
 
@@ -265,28 +347,112 @@ public class Admin_RevivalSteps extends DriverBase {
     @Then("^The Below accessorial charges should be present in the db$")
     public void the_below_accessorial_charges_should_be_present_in_the_db(DataTable data) throws Throwable {
         try{
-        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String excessWaitTimeAmount = dataMap.get("Excess Wait Time").trim();
         String cancelationAmount = dataMap.get("Cancelation").trim();
         String mountainousAmount = dataMap.get("Mountainous").trim();
         String otherAmount = dataMap.get("Other").trim();
         String PickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String TripType = (String) cucumberContextManager.getScenarioContext("TripType");
 
-        List<HashMap<String,Object>> isDriverPaid = new  DbUtility().getAccessorialAmount(PickupRequest);
-        String DB_ExcessWaitTime_Amount = isDriverPaid.get(4).get("Amount").toString();
-        String DB_Cancellation_Amount =isDriverPaid.get(3).get("Amount").toString();
-        String DB_Mountainious_Amount =isDriverPaid.get(2).get("Amount").toString();
-        String DB_Other_Amount =isDriverPaid.get(1).get("Amount").toString();
+        if(TripType.equals("PartnerTrip")) {
 
-        testStepAssert.isEquals(DB_ExcessWaitTime_Amount,excessWaitTimeAmount,"Excess wait time charges should be present and not refunded","Excess wait time charges is present and not refunded","Excess wait time charges is not present in db");
-        testStepAssert.isEquals(DB_Cancellation_Amount,cancelationAmount,"Cancellation charges should be present and not refunded","Cancellation charges is present and not refunded","Cancellation charges is not present in db");
-        testStepAssert.isEquals(DB_Mountainious_Amount,mountainousAmount,"Mountainious charges should be present and not refunded","Mountainious charges is present and not refunded","Mountainious charges is not present in db");
-        testStepAssert.isEquals(DB_Other_Amount,otherAmount,"Other charges should be present and not refunded","Other charges is present and not refunded","Other charges is not present in db");
+            List<HashMap<String, Object>> isDriverPaid = new DbUtility().getAccessorialAmount(PickupRequest);
+            String DB_ExcessWaitTime_Amount = isDriverPaid.get(3).get("Amount").toString();
+            String DB_Cancellation_Amount = isDriverPaid.get(2).get("Amount").toString();
+            String DB_Mountainious_Amount = isDriverPaid.get(1).get("Amount").toString();
+            String DB_Other_Amount = isDriverPaid.get(0).get("Amount").toString();
+
+            testStepAssert.isEquals(DB_ExcessWaitTime_Amount,excessWaitTimeAmount,"Excess wait time charges should be present and not refunded","Excess wait time charges is present and not refunded","Excess wait time charges is not present in db");
+            testStepAssert.isEquals(DB_Cancellation_Amount,cancelationAmount,"Cancellation charges should be present and not refunded","Cancellation charges is present and not refunded","Cancellation charges is not present in db");
+            testStepAssert.isEquals(DB_Mountainious_Amount,mountainousAmount,"Mountainious charges should be present and not refunded","Mountainious charges is present and not refunded","Mountainious charges is not present in db");
+            testStepAssert.isEquals(DB_Other_Amount,otherAmount,"Other charges should be present and not refunded","Other charges is present and not refunded","Other charges is not present in db");
+
+        }
+        else {
+
+            List<HashMap<String, Object>> isDriverPaid = new DbUtility().getAccessorialAmount(PickupRequest);
+            String DB_ExcessWaitTime_Amount = isDriverPaid.get(4).get("Amount").toString();
+            String DB_Cancellation_Amount = isDriverPaid.get(3).get("Amount").toString();
+            String DB_Mountainious_Amount = isDriverPaid.get(2).get("Amount").toString();
+            String DB_Other_Amount = isDriverPaid.get(1).get("Amount").toString();
+
+            testStepAssert.isEquals(DB_ExcessWaitTime_Amount,excessWaitTimeAmount,"Excess wait time charges should be present and not refunded","Excess wait time charges is present and not refunded","Excess wait time charges is not present in db");
+            testStepAssert.isEquals(DB_Cancellation_Amount,cancelationAmount,"Cancellation charges should be present and not refunded","Cancellation charges is present and not refunded","Cancellation charges is not present in db");
+            testStepAssert.isEquals(DB_Mountainious_Amount,mountainousAmount,"Mountainious charges should be present and not refunded","Mountainious charges is present and not refunded","Mountainious charges is not present in db");
+            testStepAssert.isEquals(DB_Other_Amount,otherAmount,"Other charges should be present and not refunded","Other charges is present and not refunded","Other charges is not present in db");
+        }
     }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
 }
+
+    @Then("^I should see the cancelled trip icon displayed for the delivery$")
+    public void i_should_see_the_cancelled_trip_icon_displayed_for_the_delivery() throws Throwable {
+        try{
+        Thread.sleep(1000);
+        testStepAssert.isElementDisplayed(admin_RevivalPage.Icon_CancelledTrip(),"Cancelled icon should be displayed","Cancelled icon is displayed","Cancelled icon is not displayed");
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @And("^I search the delivery using old pickup reference$")
+    public void i_search_the_delivery_using_old_pickup_reference() throws Throwable {
+        try{
+        String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
+        Thread.sleep(2000);
+        action.clearSendKeys(adminTripsPage.TextBox_Search(), oldPickupRef + Keys.ENTER);
+        log("I should be able to search the delivery using the old pickup reference",
+                "I could search the delivery using the old pickup reference",false);
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^The pickup reference should be changed to the new pickup reference$")
+    public void the_pickup_reference_should_be_changed_to_the_new_pickup_reference() throws Throwable {
+        try{
+      String[] newPickupReferenceEntireText = action.getText(admin_RevivalPage.Label_PickUpReference()).split(":");
+      String newPickupReference = newPickupReferenceEntireText[1].trim();
+      String oldPickupRef = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
+      testStepVerify.isEquals(newPickupReference,oldPickupRef,"The pickup reference should be changed to " +newPickupReference,"The pickup reference is changed to " +newPickupReference,"The pickup reference is not changed to " +newPickupReference);
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+
+    @And("^I set the cancelled delivery pickup reference as recent pickup reference to verify data in db$")
+    public void i_set_the_cancelled_delivery_pickup_reference_as_recent_pickup_reference_to_verify_data_in_db() throws Throwable {
+        try{
+        String pickupreference = (String) cucumberContextManager.getScenarioContext("OLD_PICKUP_REQUEST");
+        cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupreference);
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+    @Then("^The revive button should not be displayed$")
+    public void the_revive_button_should_not_be_displayed() throws Throwable {
+        try{
+            Thread.sleep(2000);
+            testStepAssert.isFalse(action.isElementPresent(admin_RevivalPage.Button_ReviveTrip(true)),"Revive button should not be displayed", "Revive button is not displayed", "Revive button is displayed");
+        } catch (Exception e) {;
+            error("Step  Should be successful", "Error in viewing alert", true);
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
 
 }

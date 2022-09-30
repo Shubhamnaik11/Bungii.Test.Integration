@@ -130,6 +130,13 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_Success_Ok() { return findElement("//div[@class='modal-footer']/button[text()='Ok']",LocatorType.XPath);}
 
     public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
+    public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
+    public WebElement TimePicker_Time () { return findElement("PickupDetails_ScheduledTime", LocatorType.Id); }
+    public WebElement Dropdown_ScheduledDateTime() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
+    public WebElement RadioButton_Solo() { return findElement("//input[@value='Solo']", LocatorType.XPath); }
+    public WebElement Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
+    public WebElement Button_Accept() { return findElement("com.bungii.driver:id/activity_pickup_request_accept_available_pickup_button", PageBase.LocatorType.Id); }
+
 
     public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
     public WebElement Label_HeaderPopup() { return findElement("//p[text()='Are you sure you want to revive the trip?']", LocatorType.XPath); }
@@ -137,6 +144,56 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Label_PickupCustomer() { return findElement("revive-pickup-customer", LocatorType.Id); }
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
 
+    //partner portal
+    public WebElement TextBox_PartnerLoginPassword() { return findElement("formBasicPassword", LocatorType.Id); }
+    public WebElement Button_SignIn() { return findElement("login", LocatorType.Id); }
+    public WebElement Dropdown_Setting(boolean...ignoreException) { return findElement("//div[@class='dropdown-menu-right dropdown']",LocatorType.XPath, ignoreException);}
+    public WebElement Button_TrackDeliveries() { return findElement("track-deliveries",LocatorType.Id);}
+    public WebElement Label_StartOver() { return findElement("//span[contains(text(),'Start Over')]",LocatorType.XPath);}
+    public WebElement Link_Setting() { return findElement("//i[@title='Menu']", LocatorType.XPath);}
+    public WebElement Textbox_Password() { return findElement("//input[@id='name']",LocatorType.XPath);}
+    public WebElement Button_Continue() { return  findElement("//div[@class='btn-group']//button[@class='btn'][contains(text(),'Continue')]",LocatorType.XPath);}
+    public WebElement Link_CancelDelivery() { return findElement("//button[@class='btn cancel-delivery']",LocatorType.XPath);}
+    public WebElement Button_OK() { return findElement("//button[@class='btn']",LocatorType.XPath);}
+    public WebElement Button_OkOnDeliveryCancellationFailed() { return findElement("//button[@class='btn btn btn-primary']",LocatorType.XPath);}
+    public WebElement Button_CancelDelivery() { return findElement("//button[@class='btn btn-clear btn-clear-red']",LocatorType.XPath);}
+    public WebElement Text_TrackingIdColumn() { return findElement("//tr/th[2]/div",LocatorType.XPath);}
+    public WebElement Text_TripCustomer() { return findElement("//tr[1]/td[3]/div[1]",LocatorType.XPath);}
+    public WebElement Text_TripTrackingId() { return findElement("//tr[1]/td[2]/div[1]",LocatorType.XPath);}
+    public WebElement Text_TripDeliveryAddress() { return findElement("//tr[1]/td[4]/div[1]",LocatorType.XPath);}
+    public WebElement Textbox_SearchBar() { return findElement("searchText", LocatorType.Id); }
+    public WebElement Link_SelectTripTrackDeliveries() { return findElement("//table/tbody/tr",LocatorType.XPath);}
+    //Driver earnings
+    public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_DuoDriver1Earnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings - Pallet 1')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_DuoDriver2Earnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings - Pallet 2')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_EstimateCharge() {return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong", LocatorType.XPath);}
 
+    public WebElement Text_SoloDriverEarningsApp() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView[2]", LocatorType.XPath);}
+    public WebElement Text_SoloDriverEarningsApp1() {return findElement("//android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView[2]", LocatorType.XPath);}
+    public WebElement Text_DuoDriver1EarningsApp() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[2]", LocatorType.XPath);}
+    public WebElement Text_DuoDriver2EarningsApp() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.TextView[2]", LocatorType.XPath);}
+    public WebElement Textbox_CancellationFee () { return findElement("txtCancellationFee", LocatorType.Id); }
+    public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
+    public WebElement Dropdown_CancellationReason () { return findElement("txtCancellationRemark", LocatorType.Id); }
+    public WebElement Label_CancelSuccessMessage () { return findElement("//p[@id='cancel-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Button_ReviveTrip (boolean... IgnoreException) { return findElement("//tbody/tr/td[11]/a/img", LocatorType.XPath,IgnoreException); }
+    public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
+    public WebElement Button_Cancel() { return findElement("//button[text()='Cancel']", LocatorType.XPath); }
+    public WebElement Button_Submit () { return findElement("CustomerCancel", LocatorType.Name); }
+
+    public WebElement RadioButton_PalletOne() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.RadioButton", LocatorType.XPath);}
+    public WebElement RadioButton_PalletTwo() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.RadioButton", LocatorType.XPath);}
+    public WebElement Text_PalletOne() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PalletTwo() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PalletOneWeight() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PalletOneDimensions() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Text_PalletOneName() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[3]", LocatorType.XPath); }
+    public WebElement Text_PalletOneWeightSchedulePage() { return findElement("//androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PalletOneDimensionsSchedulePage() { return findElement("//androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Text_PalletOneNameSchedulePage() { return findElement("//android.view.ViewGroup/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
+    public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
+    public WebElement Icon_CustomerHelpAdminPortal(){return  findElement("//div/span[text() =\"Customer help\"]",LocatorType.XPath);}
 
 }

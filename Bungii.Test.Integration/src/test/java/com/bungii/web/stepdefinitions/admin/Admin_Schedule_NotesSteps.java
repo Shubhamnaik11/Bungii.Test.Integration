@@ -112,6 +112,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
                     break;
             }
+            log("I should be able to click on "+deliveryType+" link","I could click on "+deliveryType+" link",false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",

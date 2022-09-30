@@ -15,15 +15,20 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
+import static com.bungii.web.utilityfunctions.DbUtility.getLinkedPickupRef;
 
 public class TripAlertSettingsMenuSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LoginSteps.class);
@@ -45,7 +50,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
+    AccountPage accountPage = new AccountPage();
+    InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
 
+    UpdateStatusPage updateStatusPage = new UpdateStatusPage();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -204,6 +212,42 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
         }
 
     }
+    @And("^I get the new pickup reference generated$")
+    public void i_get_the_new_pickup_reference_generated() throws Throwable {
+
+        try {
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            pickupRequest = getLinkedPickupRef(pickupRequest);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            log("I get the new pickup reference generated",
+                    "Pickupref is " + pickupRequest, false);
+        }
+        catch (Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "New pickup reference is not generated",
+                    true);
+        }
+
+    }
+    @And("^I select the live trip for \"([^\"]*)\" customer for delivery details$")
+    public void i_select_the_live_trip_for_something_customer_for_delivery_details(String cust) throws Throwable {
+        try {
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            action.sendKeys(scheduledTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+            action.click(scheduledTripsPage.Button_Search());
+            Thread.sleep(5000);
+            action.click(scheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", custName), PageBase.LocatorType.XPath));
+            action.click(scheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'Delivery Details')]", custName),PageBase.LocatorType.XPath));
+
+            log("I should be able to open delivery details for the customer",
+                    "I am able to open delivery details for the customer",false);
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @Then("^I should see \"([^\"]*)\" message on popup with PickupId anad Pickup Origin$")
     public void i_should_see_something_message_on_popup_with_pickupid_anad_pickup_origin(String message) throws Throwable {
 
@@ -306,6 +350,13 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "CANCEL":
                     action.click(searchingPage.Link_CancelSearch());
                     break;
+                case "Account Cancel":
+                    action.click(accountPage.Button_Cancel());
+                    break;
+
+                case "Cancel Bungii":
+                    action.click(scheduledTripsPage.Button_Submit());
+                    break;
 
                 case "SUBMIT":
                     action.click(setPickupTimePage.Button_EnterCancellationReason());
@@ -316,9 +367,14 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "BACK":
+                    ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    //action.click(myBungiisPage.Button_Back());
+                    break;
+                case "BACK TO BACK":
+                    action.click(myBungiisPage.Button_Back());
+                    Thread.sleep(2000);
                     action.click(myBungiisPage.Button_Back());
                     break;
-
                 case "Itemized Earnings":
                     action.click(earningsPage.Button_ItemizedEarnings());
                     break;
@@ -357,6 +413,36 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "GO OFFLINE":
                     action.click(bungiiCompletedPage.Button_GoOffline());
+                    break;
+                case "Delete":
+                    action.click(accountPage.Button_Delete());
+                    break;
+                case "GOT IT":
+                    action.click((Page_DriverBungiiProgress.Button_GeneralInstructions_GotIt()));
+                    break;
+                case "Clear Signature":
+                    action.click(updateStatusPage.Button_ClearSignature());
+                    break;
+                case "Confirm Status":
+                    action.click(updateStatusPage.Button_ConfirmStatus());
+                    break;
+                case "Cancel Status":
+                    action.click(updateStatusPage.Button_CloseStatus());
+                    break;
+                case "Remove Driver":
+                    action.click(updateStatusPage.Button_RemoveDrivers());
+                    break;
+                case "CALCULATE COST":
+                    action.click(updateStatusPage.Button_CalculateCost());
+                    break;
+                case "CONFIRM CHANGES":
+                    action.click(updateStatusPage.Button_Confirm());
+                    break;
+                case "Got It":
+                    action.click(updateStatusPage.Alert_DropOffInstructionsGotIt());
+                    break;
+                case "Skip Customer Signature":
+                    action.click(updateStatusPage.Button_SkipCustomerSignature());
                     break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
