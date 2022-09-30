@@ -167,11 +167,11 @@ Feature: Admin_OndemandTrips
     Then the triplist grid shows the results by type "Scheduled Category"
 
 #Core 2968 -To verify that admin can add Accessorial fee for driver cancelled on demand trip
-@ready
+@regression
 Scenario:To verify that admin can add Accessorial fee for driver cancelled on demand trip
  When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
 | Bungii Time   | Customer Phone | Customer Name |
-| NEXT_POSSIBLE | 9999999101 | Testcustomertywd_appleNewQA Customer|
+| NEXT_POSSIBLE | 8877661116 | Testcustomertywd_appleMarkDM LutherDM|
 And As a driver "Testdrivertywd_appledc_a_drvI WashingtonI" perform below action with respective "Solo Ondemand" Delivery
 | driver1 state|
 |Accepted      |
@@ -192,7 +192,7 @@ And I should see following details in the Accessorial charges section
 | $10              | $20.5       | $25.65      | $100  | $156.15 |
 
   #CORE-3295:Verify admin is not able to edit the on demand trips when its status is assigning driver on Live deliveries screen
-  @ready
+  @regression
 Scenario:Verify admin is not able to edit the on demand trips when its status is assigning driver on Live deliveries screen
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -204,3 +204,31 @@ Scenario:Verify admin is not able to edit the on demand trips when its status is
 #    Core-3294: Verify Stop search button is not displayed for customer on demand trips
     When I view the delivery details for live deliveries
     Then I check if "Stop Searching" button is not present
+
+#CORE-2584:To verify the customer ON DEMAND delivery marked as Payment successful from payment unsuccessful
+ @ready
+  Scenario:To verify the customer ON DEMAND delivery marked as Payment successful from payment unsuccessful
+    When I request "Solo Ondemand" Bungii as a customer in "phoenix" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 8877661102 | Testcustomertywd_appleMarkCY LutherCY|
+    And As a driver "Testdrivertywd_appleph_a_drvaz Phoenix_az" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      |Arrived         |
+      |Loading Item     |
+      |Driving To Dropoff |
+      |Unloading item    |
+      |Bungii Completed  |
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Pending" state
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    When I click on the "Change Payment status" button from the dropdown
+    And the "Are you sure, you want to change the payment status?" message is displayed
+    Then I should see all the information in the change payment status modal
+    And I click on "Confirm Change Payment Status" button
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state

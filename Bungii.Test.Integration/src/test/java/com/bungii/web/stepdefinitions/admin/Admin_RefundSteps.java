@@ -572,6 +572,7 @@ try{
             case "Washington DC":
             case "Boston":
             case "Goa":
+            case "Kansas":
                 action.JavaScriptClick(admin_GeofencePage.Checkbox_Geofence(geofence));
                 break;
         }
@@ -597,6 +598,9 @@ try{
                 break;
             case "Non Active Drivers":
                 action.click(admin_DashboardPage.Link_NonActiveDriver());
+                break;
+            case "Active Driver Map":
+                action.click(admin_DriverPage.Link_ActiveDriverMap());
                 break;
         }
             utility.resetGeofenceDropdown();

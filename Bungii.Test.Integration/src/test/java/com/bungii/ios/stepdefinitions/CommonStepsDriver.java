@@ -47,6 +47,7 @@ public class CommonStepsDriver extends DriverBase {
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
     private ScheduledTripsPage scheduledTripsPage;
     private com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage;
+    private BungiiDetailsPage bungiiDetailsPage;
     //private EnableLocationPage enableLocationPage;
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
@@ -54,20 +55,24 @@ public class CommonStepsDriver extends DriverBase {
     private DbUtility dbUtility = new DbUtility();
     private ScheduledBungiiPage scheduledBungiipage = new ScheduledBungiiPage();
     DashBoardPage admin_dashboardPage = new DashBoardPage();
+    AvailableTripsPage availableTripsPage;
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
                        ScheduledTripsPage scheduledTripsPage,
                        BungiiRequestPage bungiiRequestPage,
                         com.bungii.ios.pages.driver.HomePage driverHomePage,
-                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage) {
+                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage,BungiiDetailsPage bungiiDetailsPage,AvailableTripsPage availableTripsPage) {
 
         this.driverUpdateStatusPage = updateStatusPage;
         this.scheduledTripsPage = scheduledTripsPage;
         this.driverHomePage = driverHomePage;
         this.driverLoginPage=driverLoginPage;
         this.driverForgotPasswordPage=driverForgotPasswordPage;
+        this.bungiiDetailsPage = bungiiDetailsPage;
         //this.enableLocationPage=enableLocationPage;
+        this.availableTripsPage = availableTripsPage;
+
 
     }
 
@@ -611,30 +616,7 @@ public class CommonStepsDriver extends DriverBase {
                     "Error in assigning driver "+driverName+" to the delivery by admin or viewing assigned driver slot", true);
         }
     }
-    @And("^I click on the \"([^\"]*)\" and select future time$")
-    public void i_click_on_the_something_and_select_future_time(String scheduleDate) throws Throwable {
-        try{
-            switch (scheduleDate) {
-                case "Time":
-                    action.click(scheduledTripsPage.TimePicker_Time());
-                    Thread.sleep(3000);
-                    action.click(scheduledTripsPage.Dropdown_ScheduledDateTime());
-                    String timeChanged = scheduledTripsPage.TimePicker_Time().getText();
-                    cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
-                    break;
 
-                default: break;
-            }
-            log("I can select future time/date",
-                    "I was able to change time/date to future time/date", false);
-        }
-        catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step Should be successful", "Error in viewing result set",
-                    true);
-        }
-
-    }
     @And("^I click on \"([^\"]*)\" in the dropdown$")
     public void i_click_on_something_in_the_dropdown(String dropdown) throws Throwable {
         try{
@@ -960,5 +942,58 @@ public class CommonStepsDriver extends DriverBase {
                     true);
         }
     }
+    @And("^I should see \"([^\"]*)\" popup displayed$")
+    public void i_should_see_something_popup_displayed(String expectedMessage) throws Throwable {
+        try{
+            switch (expectedMessage.toLowerCase()) {
+                case "pickup instructions":
+                    boolean isPickUpHeaderDisplayed = bungiiDetailsPage.Text_PickupInstructions().isDisplayed();
+                    testStepAssert.isTrue(isPickUpHeaderDisplayed, "Pickup instruction alert should be displayed", "Pickup instruction alert is displayed", "Pickup instruction alert is not displayed");
+                    String pickupInstructionOnPopUp = action.getText(bungiiDetailsPage.Text_PickupInstructions()).toLowerCase();
+                    testStepVerify.isEquals(pickupInstructionOnPopUp, expectedMessage.toLowerCase(), expectedMessage + " Header should be displayed", pickupInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
+                    break;
+                case "drop-off instructions":
+                    boolean isDropOffHeaderDisplayed = bungiiDetailsPage.Text_DropOffInstructions().isDisplayed();
+                    testStepAssert.isTrue(isDropOffHeaderDisplayed, "DropOff instruction alert should be displayed", "DropOff instruction alert is displayed", "DropOff instruction alert is not displayed");
+                    String dropOffInstructionOnPopUp = action.getText(bungiiDetailsPage.Text_DropOffInstructions()).toLowerCase();
+                    testStepVerify.isEquals(dropOffInstructionOnPopUp, expectedMessage.toLowerCase(), expectedMessage + " Header should be displayed", dropOffInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
+                    break;
+            }
+        }catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
+
+    @Then("^The driver \"([^\"]*)\" instructions should be in markdown format$")
+    public void the_driver_something_instructions_should_be_in_markdown_format(String instructionsAt) throws Throwable {
+        try{
+        switch (instructionsAt){
+            case "Pickup":
+                String expectedServicePickupInstructions = action.getText(availableTripsPage.Text_DriverInstructionsInBulletsAtPickup());
+                if(expectedServicePickupInstructions.contains("•")){
+                    testStepAssert.isTrue(true,"The driver pickup Instructions should be in markdown format",
+                            "The driver pickup Instructions is in markdown format","The driver pickup Instructions is not in markdown format");
+                }
+                else{
+                    testStepAssert.isFail("The driver pickup instructions is not in markdown format");
+                }
+                break;
+            case "Dropoff":
+                String expectedServiceDropoffInstructions = action.getText(availableTripsPage.Text_DriverInstructionsInBulletsAtDropOff());
+                if(expectedServiceDropoffInstructions.contains("•")){
+                    testStepAssert.isTrue(true,"The driver dropoff Instructions should be in markdown format",
+                            "The driver dropoff Instructions is in markdown format","The driver dropoff Instructions is not in markdown format");
+                }
+                else{
+                    testStepAssert.isFail("The driver dropoff instructions is not in markdown format");
+                }
+                break;
+        }
+    }catch (Exception e){
+        logger.error("Error performing step", e);
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 }

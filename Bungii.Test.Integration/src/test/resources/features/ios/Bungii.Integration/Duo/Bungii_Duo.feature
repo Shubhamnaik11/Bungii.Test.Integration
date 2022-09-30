@@ -607,7 +607,7 @@ Feature: Scheduled DUO Bungii
     And I should be navigated to "Rate duo teammate" screen
 
 #CORE-3271:To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
-  @ready
+  @ready  @duo
   Scenario: To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -650,24 +650,24 @@ Feature: Scheduled DUO Bungii
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
     And I slide update button on "ARRIVED" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
 
     And I Switch to "driver" application on "driver2" devices
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
     And I slide update button on "ARRIVED" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "LOADING ITEM" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
 
     And I Switch to "driver" application on "driver2" devices
     And I slide update button on "LOADING ITEM" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
@@ -682,14 +682,133 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEMS" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
     And I Switch to "driver" application on "driver2" devices
     And I slide update button on "UNLOADING ITEMS" Screen
-    When Bungii driver uploads "1" image
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
+
+#   Core-448: Verify TELET, Projected Arrival Time and Try to Finish time when Pickup address was edited by Admin when driver had accepted long stack trip in En-route Status
+  @ready
+  Scenario:Verify TELET, Projected Arrival Time and Try to Finish time when Pickup address was edited by Admin when driver had accepted long stack trip in En-route Status
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | goa      | enroute      | 0.5 hour ahead |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I Switch to "customer" application on "same" devices
+    And I logged in Customer application using  "existing" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
+    And I connect to "extra1" using "Customer2" instance
+    And I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid customer2" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location        | Drop Location                |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
+      | 15       |           |              | Now  | Default     | No             |
+    Then I should be navigated to "SEARCHING" screen
+
+    When I open "customer" application on "ORIGINAL" devices
+    And I view and accept virtual notification for "Driver" for "stack trip"
+    And try to finish time should be correctly displayed for long stack trip
+
+    When  I switch to "Customer2" instance
+    Then correct details should do be displayed on BUNGII ACCEPTED screen for Stack screen
+    When I click "Ok" button on "BUNGII ACCEPTED" screen
+    Then correct details should do be displayed on BUNGII ACCEPTED with arrival time screen for Stack screen
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Ondemand" customer
+    And I Select "Edit Trip Details" option
+    And I edit the pickup address
+    Then I change the pickup address to "Navelim Village Panchayat"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When  I switch to "Customer2" instance
+    And I calculate the "telet" time after "changed pickup"
+    Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
+
+#   Core-448: Verify Projected Arrival Time and Try to Finish time when Pickup address was edited by Admin when driver had accepted short stack trip in Driving to Drop off Status
+  @ready
+  Scenario: Verify Projected Arrival Time and Try to Finish time when Pickup address was edited by Admin when driver had accepted short stack trip in Driving to Drop off Status
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State        |
+      | goa      | DRIVING TO DROP OFF |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    And I Switch to "customer" application on "same" devices
+    And I logged in Customer application using  "existing" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
+    And I connect to "extra1" using "Customer2" instance
+    And I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid customer2" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location        | Drop Location                |
+      | Solo   | Creative capsule verna | Margao Railway Overbridge |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
+      | 15       |           |              | Now  | Default     | No             |
+    Then I should be navigated to "SEARCHING" screen
+
+    When I open "customer" application on "ORIGINAL" devices
+
+    And I view and accept virtual notification for "Driver" for "stack trip"
+    Then I calculate projected driver arrival time
+    And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for short stack trip
+    When  I switch to "Customer2" instance
+    Then correct details should do be displayed on BUNGII ACCEPTED screen for Stack screen
+    When I click "Ok" button on "BUNGII ACCEPTED" screen
+    Then correct details should do be displayed on BUNGII ACCEPTED with arrival time screen for Stack screen
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Ondemand" customer
+    And I Select "Edit Trip Details" option
+    And I edit the pickup address
+    Then I change the pickup address to "Navelim Village Panchayat"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When  I switch to "Customer2" instance
+    And I calculate the "telet-short stack" time after "changed pickup"
+    Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
+
+

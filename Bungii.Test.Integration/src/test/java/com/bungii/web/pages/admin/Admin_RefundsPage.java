@@ -105,5 +105,6 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement TextBox_Notes2() { return findElement("TripDetails_1__Driver_Notes", LocatorType.Id); }
 
+    public WebElement Button_TransactionDetails() { return findElement("//div/h4[text()=\"Transaction history\"]/following-sibling::button", LocatorType.XPath); }
 
 }

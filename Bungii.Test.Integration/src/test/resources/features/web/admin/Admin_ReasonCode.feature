@@ -28,7 +28,6 @@ Feature: Admin_Reason_Code
     Then the updated time should be displayed on delivery details page
 
   @ready
-
   Scenario: Verify Reason dropdown from Duo re-schedule delivery when no Driver accepts,initiated by Customer and Admin edits only time
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -49,7 +48,6 @@ Feature: Admin_Reason_Code
     Then the updated time should be displayed on delivery details page
 
   @ready
-
     Scenario: Verify Reason dropdown is displayed for Customer SOLO re-scheduled delivery when NO Driver accepts and Admin edits only Date
       When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
         | Bungii Time   | Customer Phone | Customer Name |
@@ -71,7 +69,6 @@ Feature: Admin_Reason_Code
       Then the updated date should be displayed on delivery details page
 
   @ready
-
   Scenario: Verify Reason dropdown is displayed for Customer SOLO/ DUO  re-scheduled delivery  when NO Driver accepts and Admin edits both Date and Time
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -102,7 +99,6 @@ Feature: Admin_Reason_Code
 
 
   @ready
-
   Scenario: Verify Reason dropdown is hidden when Admin does not edit date or time or both and verify reason dropdown values
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -126,7 +122,6 @@ Feature: Admin_Reason_Code
 
 
   @ready
-
   Scenario: Verify Reason dropdown for Customer DUO re-scheduled delivery when Single Driver accepts
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name  |
@@ -152,7 +147,6 @@ Feature: Admin_Reason_Code
     Then the updated date should be displayed on delivery details page
 
   @ready
-
   Scenario: Verify Reason dropdown for Customer DUO re-scheduled delivery when  Both Drivers do not accept the delivery
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -174,7 +168,7 @@ Feature: Admin_Reason_Code
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
-    Then the updated date should be displayed on delivery details page
+    Then the updated time should be displayed on delivery details page
 
   @regression
   Scenario: Verify Reason is not mandatory when pickup/drop off address edited and driver is assigned by Admin for Customer delivery
@@ -300,7 +294,6 @@ Feature: Admin_Reason_Code
 
 
   @ready
-
   Scenario: Verify Reason dropdown for PARTNER SOLO(Weight based pricing) re-scheduled delivery when NO Driver accepts and Admin edits only Date when Partner Initiated
     When I navigate to "Partner" portal configured for "FloorDecor service level" URL
     And I enter "valid" password on Partner Portal
@@ -336,11 +329,12 @@ Feature: Admin_Reason_Code
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And I get the latest pickup reference generated for "9999999117"
+    And I search the delivery using "Pickup Reference"
     Then the updated time should be displayed on delivery details page
 
 
   @ready
-
   Scenario: Verify Reason dropdown for PARTNER DUO(Geofence based pricing) re-scheduled delivery when Both Driver do not accept and admin edits only time when Partner Initiated
     Given I navigate to "Partner" portal configured for "normal" URL
     And I enter "valid" password on Partner Portal
@@ -383,6 +377,8 @@ Feature: Admin_Reason_Code
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And I get the latest pickup reference generated for "9999999118"
+    And I search the delivery using "Pickup Reference"
     Then the updated time should be displayed on delivery details page
 
   #CORE:2507-Verify Admin is able to change the status of the trip to Admin cancelled/partner cancelled/ driver cancelled
@@ -474,3 +470,115 @@ Feature: Admin_Reason_Code
     Then The Below accessorial charges should be present in the db
       | Excess Wait Time | Cancelation | Mountainous | Other |
       | 10.00            | 20.50      | 25.65        | 100.00 |
+
+#   Core-3390: Verify driver tracking in each statues of ongoing trip
+  @regression
+  Scenario: Verify driver tracking in each statues of ongoing trip
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 8877661112 | Testcustomertywd_appleMarkDI LutherDI|
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted     |
+      | Enroute      |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Trip Started |
+    When I view the delivery details
+    And I click on "Load" button
+    Then I check if "driver location" is updated for live trip
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Arrived      |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location" is updated for live trip
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Loading Item |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location" is updated for live trip
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Driving To Dropoff |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location" is updated for live trip
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Unloading Item |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location" is updated for live trip
+    And As a driver "Testdrivertywd_appledc_a_drvX WashingtonX" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Bungii Completed |
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Delivery Details" button from the dropdown
+    And I click on "Load" button
+    Then I check if "driver location" button is not present
+
+#   Core-3390: Verify both driver's location is tracked in admin portal in case of Duo trip - partner portal
+  @regression
+  Scenario: Verify both driver's location is tracked in admin portal in case of Duo trip - partner portal
+    When I request Partner Portal "Duo" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas  | NEXT_POSSIBLE | 8877661113     | Testcustomertywd_appleMarkDJ LutherDJ|
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled |
+    When I view the delivery details
+    And I click on "Load" button
+    Then I check if "driver duo location" button is not present
+    When I navigate back to Scheduled Deliveries
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Enroute       | Enroute       |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    And I search the delivery of Customer
+    And I click on the "Delivery details" link beside scheduled bungii for "Live Duo Deliveries"
+    And I click on "Load" button
+    Then I check if "driver location-duo" is updated for live trip
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Arrived       | Arrived       |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location-duo" is updated for live trip
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Loading Item  | Loading Item       |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location-duo" is updated for live trip
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Driving To Dropoff  | Driving To Dropoff       |
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location-duo" is updated for live trip
+    When As a driver "Testdrivertywd_appleks_a_drvf Kansas_f" and "Testdrivertywd_appleks_a_drvg Kansas_g" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Unloading Item| Unloading Item|
+    And I wait for 2 minutes
+    And I refresh the page
+    And I click on "Load" button
+    Then I check if "driver location-duo" is updated for live trip

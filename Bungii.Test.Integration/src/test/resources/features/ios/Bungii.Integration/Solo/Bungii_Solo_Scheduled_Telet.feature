@@ -32,12 +32,12 @@ Feature: Solo Scheduled Bungii - TELET
   #stable
   Scenario: Verify Customer Is Not Allowed To Request Bungii If TELET Time Of The New Bungii Overlaps With Already Scheduled Bungii
     When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+      | Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
+      | NEXT_POSSIBLE | 8877661122     | Testcustomertywd_appleMarkDS LutherDS | Cci12345          |
 
     And I get TELET time of of the current trip
     And I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
+    When I enter Username :8877661122 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
@@ -57,8 +57,8 @@ Feature: Solo Scheduled Bungii - TELET
     #stable
   Scenario: Verify If Incoming Scheduled Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
     Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | denver   | Accepted     | NEXT_POSSIBLE |
+      | geofence   | Bungii State | Bungii Time   |
+      | denver10   | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -66,7 +66,7 @@ Feature: Solo Scheduled Bungii - TELET
     
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
+    When I enter Username :8877661121 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
 
     And I request for  bungii for given pickup and drop location
@@ -92,7 +92,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario: Verify If Incoming On-demend Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Accepted     | NEXT_POSSIBLE |
+      | denver11   | Accepted     | NEXT_POSSIBLE |
 
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -102,8 +102,8 @@ Feature: Solo Scheduled Bungii - TELET
     When I Switch to "customer" application on "same" devices
 
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
-      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                         | Customer label |
+      | now         | 8877661124     | Cci12345          | Testcustomertywd_appleMarkDU LutherDU | 2              |
 
     And I should not get notification for "driver" for "ON DEMAND TRIP"
     Then I cancel all bungiis of customer
@@ -114,7 +114,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip TELET Then Request Should Not Be Sent To Driver
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | denver   | Accepted     | 0.5 hour ahead |
+      | denver12   | Accepted     | 0.5 hour ahead |
     When I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -124,8 +124,8 @@ Feature: Solo Scheduled Bungii - TELET
     When I Switch to "customer" application on "same" devices
 
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
-      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                         | Customer label |
+      | now         | 8877661127     | Cci12345          | Testcustomertywd_appleMarkDX LutherDX | 2              |
 
     And I should not get notification for "driver" for "ON DEMAND TRIP"
     Then I cancel all bungiis of customer
@@ -139,7 +139,7 @@ Feature: Solo Scheduled Bungii - TELET
   Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked request (Trip 2) Then Driver Doesnt Receive Scheduled Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
-      | denver   | Enroute      |
+      | denver13   | Enroute      |
     #When I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -153,7 +153,7 @@ Feature: Solo Scheduled Bungii - TELET
 
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
-      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
+      | now         | 8877661128     | Cci12345          | Testcustomertywd_appleMarkDY LutherDY | 2              |
     
     And I view and accept virtual notification for "Driver" for "stack trip"
 
@@ -170,7 +170,7 @@ Feature: Solo Scheduled Bungii - TELET
     When I Select "ACCOUNT > LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
     #Given I am on the "LOG IN" page
-    When I enter Username :8888889907 and  Password :{VALID}
+    When I enter Username :8877661129 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
 
     And I request for  bungii for given pickup and drop location
@@ -186,7 +186,7 @@ Feature: Solo Scheduled Bungii - TELET
 
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | 8888889917      |
+      | CUSTOMER1_PHONE | 8877661128      |
 
  
        #its scheduled time not initial request time
@@ -306,7 +306,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I click "More Options" button on "update" screen
     And I click "Customer Signature" button on "update" screen
     Then I should see the customers name under the customer name field
@@ -360,7 +360,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I am logged in as "TestDrivertywd_applemd_a_billF Stark_bltTwOF" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
     And I click on "Skip Customer Signature" button
@@ -430,7 +430,7 @@ Feature: Solo Scheduled Bungii - TELET
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
@@ -470,7 +470,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click on "Got It" button
     And I slide update button on "UNLOADING ITEM" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
@@ -479,7 +479,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click on "Got It" button
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
@@ -557,7 +557,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I am logged in as "Testdrivertywd_applega_a_drvai Atlanta_ai" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "UNLOADING ITEM" Screen
-    And I driver adds photos to the Bungii
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field

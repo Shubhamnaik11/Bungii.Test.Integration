@@ -309,6 +309,28 @@ public class DbUtility extends DbContextManager {
         logger.detail("Driver Share is " + driverShare);
         return driverShare;
     }
+    public static String getAdminEditTime(String pickUpID) {
+        String time = "";
+        String queryString = "select created_on from pickup_history where pickupid="+pickUpID+" limit 1";
+        time = getDataFromMySqlServer(queryString);
+
+        logger.detail("For pickUpID " + pickUpID + " admin edit time is " + time);
+        return time;
+    }
+    public static String getLoadUnloadTime(String pickUpID) {
+        String loadUnloadTime = "";
+        String queryString = "select LoadingUnloadingTime from pickupdetails where PickupID = "+pickUpID;
+        loadUnloadTime = getDataFromMySqlServer(queryString);
+        logger.detail("Load/Unload time required is " + loadUnloadTime);
+        return loadUnloadTime;
+    }
+    public static String getDriverArrivalTime(String pickUpID) {
+        String drverArrivalTime = "";
+        String queryString = "select ChangeTimeStamp from tripevents where pickupid ="+pickUpID+" and TripStatus = 24";
+        drverArrivalTime = getDataFromMySqlServer(queryString);
+        logger.detail("Driver Arrival Time is" + drverArrivalTime);
+        return drverArrivalTime;
+    }
     public static String getLinkedPickupRef(String pickupRef) {
         String linkedpickupref = "";
         String queryString = "SELECT PICKUPREF FROM pickupdetails WHERE LINKEDPICKUPID in (SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef+"' )";
@@ -321,5 +343,13 @@ public class DbUtility extends DbContextManager {
         String entireQueryString = "select OnlineStatus from driver where Phone= " +phoneNumber;
         driverStatus = getDataFromMySqlServer(entireQueryString);
         return driverStatus;
+    }
+    public static String getDriverRatingFromDriver(String pickupRef){
+        String pickupId=getDataFromMySqlServer("select PickupID from pickupdetails where PickupRef = '"+pickupRef+"'");
+        String rating = getDataFromMySqlServer("select tr.driverrating from pickupdetails pd\n" +
+                "inner join  triprequest tr on tr.pickupid= pd.pickupid\n" +
+                "where pickupstatus = 11 and pd.pickupid ="+pickupId+" limit 1;");
+        logger.detail("The driver rating for pickupId " + pickupId + " is " + rating);
+        return rating;
     }
 }

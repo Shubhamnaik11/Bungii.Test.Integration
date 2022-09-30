@@ -1,11 +1,11 @@
 package com.bungii.web.stepdefinitions.partner;
 
-import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -14,30 +14,18 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import java.time.LocalTime;
+
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -49,6 +37,7 @@ public class Partner_Delivery_Details extends DriverBase {
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     ActionManager action = new ActionManager();
     DbUtility dbUtility = new DbUtility();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
 
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
@@ -120,6 +109,14 @@ public class Partner_Delivery_Details extends DriverBase {
             String RbSbNumber = "";
             String Items_deliver = "";
             String BodcCode ="";
+            String bidderNumber = "";
+            String ProductDescription2="";
+            String Dimensions2="";
+            String Weight2 = "";
+            String SMS_Recipient1 = "";
+            String SMS_Recipient2 = "";
+            String SMS_Recipient3 = "";
+
 
             if(dataMap.containsKey("Items_To_Deliver")){
                 Items_deliver = dataMap.get("Items_To_Deliver");
@@ -128,13 +125,26 @@ public class Partner_Delivery_Details extends DriverBase {
                 ProductDescription = dataMap.get("Product_Description").trim();
                 cucumberContextManager.setScenarioContext("Product_Description",ProductDescription);
             }
+            if (dataMap.containsKey("Product_Description2")) {
+                ProductDescription2 = dataMap.get("Product_Description2").trim();
+                cucumberContextManager.setScenarioContext("Product_Description2", ProductDescription2);
+
+            }
             if(dataMap.containsKey("Dimensions")){
                 Dimensions = dataMap.get("Dimensions").trim();
                 cucumberContextManager.setScenarioContext("Dimensions",Dimensions);
             }
+            if (dataMap.containsKey("Dimensions2")) {
+                Dimensions2 = dataMap.get("Dimensions2").trim();
+                cucumberContextManager.setScenarioContext("Dimensions2", Dimensions2);
+            }
             if(dataMap.containsKey("Weight")){
                 Weight = dataMap.get("Weight").trim();
                 cucumberContextManager.setScenarioContext("Weight",Weight);
+            }
+            if (dataMap.containsKey("Weight2")) {
+                Weight2 = dataMap.get("Weight2").trim();
+                cucumberContextManager.setScenarioContext("Weight2", Weight2);
             }
             if (dataMap.containsKey("Customer_Name")) {
                 CustomerName = dataMap.get("Customer_Name").trim();
@@ -163,6 +173,23 @@ public class Partner_Delivery_Details extends DriverBase {
                 BodcCode = dataMap.get("Bodc_Code").trim();
             }
 
+            if(dataMap.containsKey("Bidder_Number")){
+                bidderNumber = dataMap.get("Bidder_Number");
+            }
+            if (dataMap.containsKey("SMS_Recipient1")) {
+                SMS_Recipient1 = dataMap.get("SMS_Recipient1").trim();
+                cucumberContextManager.setScenarioContext("SMS_RecipientNo1", SMS_Recipient1);
+
+            }
+            if (dataMap.containsKey("SMS_Recipient2")) {
+                SMS_Recipient2 = dataMap.get("SMS_Recipient2").trim();
+                cucumberContextManager.setScenarioContext("SMS_RecipientNo2", SMS_Recipient2);
+            }
+            if (dataMap.containsKey("SMS_Recipient3")) {
+                SMS_Recipient3 = dataMap.get("SMS_Recipient3").trim();
+                cucumberContextManager.setScenarioContext("SMS_RecipientNo3", SMS_Recipient3);
+            }
+
             //cucumberContextManager.setScenarioContext("Customer", CustomerName);
             String SpecialInstruction = dataMap.get("Special_Instruction").trim();
 
@@ -182,20 +209,15 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
                         action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
-
-
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
                         action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
-
                         String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
                         cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
-
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
                         action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Receipt_Number(), ReceiptNumber);
-
                         break;
                     default:
                         break;
@@ -282,6 +304,34 @@ public class Partner_Delivery_Details extends DriverBase {
                 }
                 log("I enter all details on "+str+" for "+Site+" on partner screen", "I have entered all details on "+str+" for "+Site+" on partner screen", false);
 
+            } else if (Site.equalsIgnoreCase("Equip-bid")) {
+
+                switch (str) {
+                    case "Delivery Details":
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                        //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                        action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_LotNumber(), String.valueOf(ThreadLocalRandom.current().nextInt()));
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(),DeliveryPurpose);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_BidderNumber(),bidderNumber);
+                        action.click(Page_Partner_Delivery.Checkbox_Helper());
+
+                        String scheduled_date_time1 = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                        cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time1);
+
+                        break;
+                    default:
+                        break;
+                }
+                log("I enter all details on "+str+" for "+Site+" on partner screen", "I have entered all details on "+str+" for "+Site+" on partner screen", false);
+
             } else if (Site.equalsIgnoreCase("FloorDecor service level")) {
 
                 switch (str) {
@@ -312,6 +362,70 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(),SoldBuy);
 
 
+                        break;
+                    default:
+                        break;
+                }
+                log("I enter all details on "+str+" for "+Site+" on partner screen", "I have entered all details on "+str+" for "+Site+" on partner screen", false);
+
+            }
+            else if (Site.equalsIgnoreCase("fnd multiple phone")) {
+
+                switch (str) {
+                    case "Delivery Details":
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Product_Description(), ProductDescription);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Dimensions(), Dimensions);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Weight(), Weight);
+                        String BungiiType= (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+                        if(BungiiType.equalsIgnoreCase("Duo"))
+                        {
+                            action.clearSendKeys(Page_Partner_Delivery.TextBox_Product2Description(), ProductDescription2);
+                            action.clearSendKeys(Page_Partner_Delivery.TextBox_Product2Dimensions(), Dimensions2);
+                            action.clearSendKeys(Page_Partner_Delivery.TextBox_Product2Weight(), Weight2);
+                        }
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                        action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+                        action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
+                        String numRecipients=(String) cucumberContextManager.getScenarioContext("num_Recipients");
+                        switch (numRecipients)
+                        {
+                            case "one time":
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), SMS_Recipient1);
+                            break;
+                            case "two times":
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), SMS_Recipient1);
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), SMS_Recipient2);
+                                break;
+                            case "three times":
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), SMS_Recipient1);
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), SMS_Recipient2);
+                                action.click(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3());
+                                action.clearSendKeys(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3(), SMS_Recipient3);
+                                action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Name());
+                                break;
+                            default:
+                                break;
+                        }
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+                        String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                        cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
+                        cucumberContextManager.setScenarioContext("Customer_Name", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
+                        cucumberContextManager.setScenarioContext("Customer_Mobile", Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value"));
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(), DeliveryPurpose);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Rb_Sb_Number(), RbSbNumber);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(), SoldBuy);
                         break;
                     default:
                         break;
@@ -427,6 +541,40 @@ public class Partner_Delivery_Details extends DriverBase {
                     true);
         }
 
+    }
+
+    @And("^I click on Partner Portal Logo in header$")
+    public void i_click_on_partner_portal_logo_in_header() throws Throwable {
+        try {
+            action.click(Page_Partner_Delivery.Logo_PartnerPortal());
+            log("I should be able to click on Partner Logo in header", "I clicked on Partner Logo in header", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step. Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I should get Confirmation Alert popup$")
+    public void i_should_get_confirmation_alert_popup() throws Throwable {
+        try {
+            testStepAssert.isElementTextEquals(Page_Partner_Delivery.Logo_ConfirmPopup(), "Heads Up!",
+                    "Title should be present in popup header",
+                    "Title is present in popup header", "Title is not present in Popup header");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step. Please check logs for more details", true);
+        }
+    }
+
+    @And("^I click on Continue button on popup$")
+    public void i_click_on_continue_button_on_popup() throws Throwable {
+        try {
+            action.click(Page_Partner_Delivery.Button_ConfirmPartnerLogoClick());
+            log("I should be able to click on Continue button on popup", "I clicked on Continue button on popup", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step. Please check logs for more details", true);
+        }
     }
 
     @And("^I select the value in Bodc Code$")
@@ -849,8 +997,9 @@ public class Partner_Delivery_Details extends DriverBase {
 
         }
     }
-    @Then("^The \"([^\"]*)\" should be displayed$")
-    public void the_something_should_be_displayed(String element) throws Throwable {
+
+    @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
+    public void the_something_something_should_be_displayed(String element, String strArg2) throws Throwable {
         try{
             switch (element){
                 case "Phone Icon":
@@ -868,6 +1017,34 @@ public class Partner_Delivery_Details extends DriverBase {
                     testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.Alert_MessageForCall()),"Call request text should be displayed","Call request text is displayed","Call request text is not displayed");
                     testStepAssert.isEquals(alertMessage,expectedMessage,"The text "+expectedMessage+" should be displayed","The text "+alertMessage+" is displayed","The text "+expectedMessage+" should be displayed");
                     break;
+                case "Active Driver Map":
+                    Thread.sleep(2000);
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Link_ActiveDriverMap()),"Active driver map link should be displayed","Active driver map link is displayed","Active driver map link is not displayed");
+                    String activeText = action.getText(admin_DriverPage.Link_ActiveDriverMap());
+                    testStepAssert.isEquals(activeText,element,"The text "+element+" should be displayed","The text "+activeText+" is displayed","The text "+element+" should be displayed");
+                    break;
+                case "Map":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Image_Map()),"Map should be displayed","Map is displayed","Map is not displayed");
+                    break;
+                case "Testdrivertywd_appleks_a_drval Kansas_al":
+                case "Testdrivertywd_appleks_a_drvam Kansas_am":
+                case "Testdrivertywd_appleks_a_drvbc Kansas_bc":
+                case "Testdrivertywd_appleks_a_drvbd Kansas_bd":
+                    Thread.sleep(8000);
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Text_DriverName()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Icon_DriverPosition()),"Drivers current location icon should be displayed","Drivers current location icon is displayed","Drivers current location icon is not displayed");
+                    String kansasDriver1Name= action.getText(admin_DriverPage.Text_DriverName());
+                    testStepAssert.isEquals(kansasDriver1Name,element,"The Driver name "+element+" should be displayed","The Driver name "+kansasDriver1Name+" is displayed","The Driver name  "+element+" should be displayed");
+                    Thread.sleep(3000);
+                    break;
+                case "Driver Status":
+                    action.JavaScriptScrolldown();
+                    action.JavaScriptScrolldown();
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Label_DriverStatus()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
+                    break;
+                case "Details":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Header_Details()),"Details header should be displayed","Details header is displayed","Details header is not displayed");
+                    break;
             }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -875,6 +1052,80 @@ public class Partner_Delivery_Details extends DriverBase {
                 true);
 
     }
+    }
+
+    @When("^I click \"([^\"]*)\" button \"([^\"]*)\" to add more recipients$")
+    public void i_click_something_button_something_to_add_more_recipients(String strArg1, String strArg2) throws Throwable {
+        {
+            try {
+                    if (Page_Partner_Delivery.Button_AddSMSRecipient().isDisplayed())
+                    {
+                        cucumberContextManager.setScenarioContext("num_Recipients", strArg2);
+                        String numRecipients=(String) cucumberContextManager.getScenarioContext("num_Recipients");
+                        switch (numRecipients) {
+                            case "one time":
+                                action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
+                                break;
+                            case "two times":
+                                action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), (long) 2000);
+                                break;
+                            case "three times":
+                                action.isElementPresent(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1(), (long) 2000);
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2(), (long) 2000);
+                                action.click(Page_Partner_Delivery.Button_AddSMSRecipient());
+                                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3(), (long) 2000);
+                                break;
+                            default:
+                                break;
+                        }
+                        log("I am able to click on add recipients button required number of times", " I am unable to add sms recipients", false);
+                    }
+                } catch (Exception e) {
+
+                    logger.error("Add SMS recipients button not present", ExceptionUtils.getStackTrace(e));
+                    error("Add SMS recipients button should be present", "Add SMS recipients button not present",
+                            true);
+                }
+            }
+        }
+
+
+
+    @Then("^New mobile recipients field should be added$")
+    public void new_mobile_recipients_field_should_be_added() throws Throwable {
+        try {
+
+            switch((String) cucumberContextManager.getScenarioContext("NofRecipients")){
+                     case "one time":
+                         testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1()), "added recipient1 mobile field should be displayed", "added recipient is displayed", "added recipient1 mobile field is not displayed");
+                         break;
+                    case "two times":
+                        testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1()), "added recipient1 mobile field should be displayed", "added recipient is displayed", "added recipient1 mobile field is not displayed");
+                        testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2()), "added recipient2 mobile field should be displayed", "added recipient is displayed", "added recipient2 mobile field is not displayed");
+                        break;
+                    case "three times":
+                        testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient1()), "added recipient1 mobile field should be displayed", "added recipient is displayed", "added recipient1 mobile field is not displayed");
+                        testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient2()), "added recipient2 mobile field should be displayed", "added recipient is displayed", "added recipient2 mobile field is not displayed");
+                        testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.TextBox_CustomerSMSRecipient3()), "added recipient3 mobile field should be displayed", "added recipient is displayed", "added recipient2 mobile field is not displayed");
+                        break;
+                default:
+                    break;
+
+           }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^The Phone Icon should not be displayed$")
@@ -888,6 +1139,7 @@ public class Partner_Delivery_Details extends DriverBase {
                 true);
 
     }
+
     }
 
 

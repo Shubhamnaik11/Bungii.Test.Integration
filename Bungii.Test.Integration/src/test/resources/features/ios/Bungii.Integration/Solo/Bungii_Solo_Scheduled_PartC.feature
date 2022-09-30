@@ -73,7 +73,7 @@ Feature: Solo Scheduled Bungii Part C
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @ready
+  @regression
     #stable
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Solo Scheduled Trip
     Given that solo schedule bungii is in progress
@@ -221,20 +221,14 @@ Feature: Solo Scheduled Bungii Part C
     #stable
   Scenario: Verify Customer Can Request Cancel Solo Scheduled Bungii Through SMS To Admin If No Driver Accepts And Processing Gets Over
     Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
+      | geofence  | Bungii State | Bungii Time   |
+      | denver9   | Scheduled    | NEXT_POSSIBLE |
 
     When I Switch to "customer" application on "same" devices
-    Then I wait for "3" mins
     Given I am on the "LOG IN" page
-    Then I wait for "3" mins
-    And I logged in Customer application using  "valid denver" user
-    Then I wait for "3" mins
-    When I Switch to "customer" application on "same" devices
-    Then I wait for "3" mins
+    And I logged in Customer application using  "valid denver9" user
     When I Switch to "customer" application on "same" devices
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-    Then I wait for "3" mins
     When I Switch to "customer" application on "same" devices
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
@@ -256,13 +250,13 @@ Feature: Solo Scheduled Bungii Part C
   Scenario: Verify Customer Can Request Cancel Scheduled Trip Via Admin SMS After 2 Hour (15 mins in QA Auto) Processing Is Over
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+      | NEXT_POSSIBLE | 8877661120     | Testcustomertywd_appleMarkDQ LutherDQ | Cci12345          |
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
+    When I enter Username :8877661120 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I Select "MY BUNGIIS" from Customer App menu
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state

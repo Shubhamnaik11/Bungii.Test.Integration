@@ -233,8 +233,7 @@ Feature: Admin_Price_Override
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
 
-
-  @ready
+  @regression
   Scenario: Verify the estimated charge and driver earnings before and after driver accepts and when service level is updated over a admin override functionality
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -369,9 +368,7 @@ Feature: Admin_Price_Override
     And I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
 
-
-  @ready
-
+  @regression
   Scenario: Verify fnd deliveries and driver app for change Service Level after override for driver earnings and customer cost before driver accepts and check if indicator is displayed
     When I navigate to "Partner" portal configured for "FloorDecor service level" URL
     And I enter "valid" password on Partner Portal
@@ -560,7 +557,7 @@ Feature: Admin_Price_Override
     Then I check if "Price Override" icon is displayed
 
 #    Core-2960 Verify customer price override and driver earnings override is retained for a weight based delivery converted from DUO to SOLO when driver not accepted the delivery
-    @ready
+  @regression
     Scenario: Verify customer price override and driver earnings override is retained for a weight based delivery converted from DUO to SOLO when driver not accepted the delivery
       When I request Partner Portal "DUO" Trip for "Floor and Decor" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -599,7 +596,7 @@ Feature: Admin_Price_Override
       Then I check "Customer price" is retained after "duo to solo" conversion
       Then I check "Driver Earning" is retained after "duo to solo" conversion
 
-  @ready
+  @regression
   Scenario: Verify the schedule delivery can be edited DUO to SOLO Bungii without price override for weight based pricing
       When I request Partner Portal "DUO" Trip for "Floor and Decor" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |

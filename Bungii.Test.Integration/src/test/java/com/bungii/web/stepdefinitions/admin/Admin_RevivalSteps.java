@@ -311,6 +311,8 @@ public class Admin_RevivalSteps extends DriverBase {
                         case "Admin Canceled - No Driver(s) Found":
                         case "Partner Canceled":
                         case "Driver Canceled":
+                        case "Payment Pending":
+                        case "Payment Successful":
                             Thread.sleep(3000);
                             String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(11));
                             testStepAssert.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",

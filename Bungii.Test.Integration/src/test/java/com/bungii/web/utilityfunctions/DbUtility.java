@@ -645,4 +645,47 @@ public class DbUtility extends DbContextManager {
         return statusFlag;
 
     }
+
+    public static String getDeliveryStatus(String Pickup_Reference) {
+        String deliveryStatus;
+        String queryStringForPickupTripStatus ="select PickupStatus from pickupdetails where PickupRef ='"+Pickup_Reference+"'";
+        deliveryStatus = getDataFromMySqlServer(queryStringForPickupTripStatus);
+        logger.detail("Delivery Status is "+deliveryStatus+ " for pickup reference "+ Pickup_Reference);
+        return deliveryStatus;
+
+    }
+
+    //for checking added multiple customer sms recipients in database
+    public static List<HashMap<String, Object>> getCustomerSMSRecipients(String PickupRef)
+    {
+
+        List<HashMap<String,Object>> CustSMSRecipients = new ArrayList<>();
+        String Querystring= "select pa.sms_customer_phone_list from pickup_additional_info pa join pickupdetails pd on pa.pickup_id = pd.PickupID where pd.PickupRef ='"+PickupRef+"'";
+        CustSMSRecipients= getDataFromMySqlServerMap(Querystring);
+        return CustSMSRecipients;
+
+    }
+
+    public static String[] getLatAndLonPickupAndDropLocation(String reference){
+        String pickupID = getPickupId(reference);
+        String tripLocation[] = new String[4];
+        tripLocation[0]=    getDataFromMySqlServer("select PickupLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[1]=    getDataFromMySqlServer("select PickupLong from pickupdropaddress  where PickupID= "+pickupID);
+        tripLocation[2]=    getDataFromMySqlServer("select DropOffLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[3]=    getDataFromMySqlServer("select DropOffLong from pickupdropaddress  where PickupID= "+pickupID);
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]+","+tripLocation[1]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[2]+","+tripLocation[3]);
+        return tripLocation;
+    }
+
+    public static String[] getPickupAndDropLocation(String reference){
+        String pickupID = getPickupId(reference);
+        String tripLocation[] = new String[2];
+        tripLocation[0]=    getDataFromMySqlServer("select PickupAddress1 from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[1]=    getDataFromMySqlServer("select DropOffAddress1 from pickupdropaddress  where PickupID= "+pickupID);
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[1]);
+        return tripLocation;
+    }
 }
+

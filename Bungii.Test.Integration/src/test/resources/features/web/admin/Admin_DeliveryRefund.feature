@@ -511,3 +511,99 @@ Feature: Admin_Refund
 		And  I search the delivery using "Pickup Reference"
 		Then I should see the message "No deliveries found." displayed
 
+   #CORE-3009 :To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
+	@regression
+	Scenario:To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
+		And I click on the "Driver" link from the sidebar
+		Then The "Active Driver Map" "Link" should be displayed
+		And I click on the "Active Driver Map" link from the sidebar
+		Then The "Map" "Image" should be displayed
+		And I "Unselect" all the "Equipment" checkboxes from the filter
+		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+		And I click on the "Select Geofence" dropdown
+		And I Enter the text "Kansas"
+		When I click on the "Kansas" checkbox
+		When I select filter "Vehicle Type" as "Box Truck"
+		And I click on Apply button on Filter
+		Then The "Testdrivertywd_appleks_a_drval Kansas_al" "Driver name" should be displayed
+		And Driver icon should be displayed on the map for "Testdrivertywd_appleks_a_drval Kansas_al"
+		Then The "Details" "Popup" should be displayed
+		Then The drivers name "Testdrivertywd_appleks_a_drval Kansas_al" phone number "9049840217" and vehicle type "Truck" should be displayed
+		When I select filter "Vehicle Type" as "Box Truck"
+		And I click on Apply button on Filter
+		When I select filter "Vehicle Type" as "Moving Van"
+		And I click on Apply button on Filter
+		Then The "Testdrivertywd_appleks_a_drvam Kansas_am" "Driver name" should be displayed
+		And Driver icon should be displayed on the map for "Testdrivertywd_appleks_a_drvam Kansas_am"
+		Then The "Details" "Popup" should be displayed
+		Then The drivers name "Testdrivertywd_appleks_a_drvam Kansas_am" phone number "9049840218" and vehicle type "Van" should be displayed
+		When I select filter "Vehicle Type" as "Moving Van"
+		And I click on Apply button on Filter
+		When I select filter "Vehicle Type" as "Pickup Truck"
+		And I click on Apply button on Filter
+		Then The "Testdrivertywd_appleks_a_drvbc Kansas_bc" "Driver name" should be displayed
+		And Driver icon should be displayed on the map for "Testdrivertywd_appleks_a_drvbc Kansas_bc"
+		Then The "Details" "Popup" should be displayed
+		Then The drivers name "Testdrivertywd_appleks_a_drvbc Kansas_bc" phone number "9049840266" and vehicle type "Truck" should be displayed
+		When I select filter "Vehicle Type" as "Pickup Truck"
+		And I click on Apply button on Filter
+		When I select filter "Vehicle Type" as "SUV"
+		And I click on Apply button on Filter
+		Then The "Testdrivertywd_appleks_a_drvbd Kansas_bd" "Driver name" should be displayed
+		And Driver icon should be displayed on the map for "Testdrivertywd_appleks_a_drvbd Kansas_bd"
+		Then The "Details" "Popup" should be displayed
+		Then The drivers name "Testdrivertywd_appleks_a_drvbd Kansas_bd" phone number "9049840267" and vehicle type "SUV" should be displayed
+		And I click on the "Driver" link from the sidebar
+		When I search driver "Testdrivertywd_appleks_a_drvbd Kansas_bd"
+		And I click on "Profile" icon
+		And I edit the Driver
+		Then The "Driver Status" "Label" should be displayed
+		And I change the driver status to "Inactive"
+		And I confirm the "Confirm" action
+		And I click on "Driver status change" button
+		And I click on the "Driver" link from the sidebar
+		When I search driver "Testdrivertywd_appleks_a_drvbc Kansas_bc"
+		And I click on "Profile" icon
+		And I edit the Driver
+		Then The "Driver Status" "Label" should be displayed
+		And I change the driver status to "Suspended"
+		And I confirm the "Confirm" action
+		And I click on "Driver status change" button
+		And I click on the "Driver" link from the sidebar
+		And I click on the "Active Driver Map" link from the sidebar
+		When I clear the filter applied
+		And I "Unselect" all the "Equipment" checkboxes from the filter
+		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+		And I click on the "Select Geofence" dropdown
+		And I Enter the text "Kansas"
+		When I click on the "Kansas" checkbox
+		When I select filter "Vehicle Type" as "SUV"
+		And I click on Apply button on Filter
+		Then The "Testdrivertywd_appleks_a_drvbd Kansas_bd" "Driver name" should not be displayed
+		When I select filter "Vehicle Type" as "SUV"
+		And I click on Apply button on Filter
+		When I select filter "Vehicle Type" as "Pickup Truck"
+		And I click on Apply button on Filter
+		Then The "Testdrivertywd_appleks_a_drvbc Kansas_bc" "Driver name" should not be displayed
+		And I click on the "Driver" link from the sidebar
+		When I clear the filter applied
+		When I select a driver "9999999931" whose status is "New Application"
+		And I click on the "Active Driver Map" link from the sidebar
+		When I clear the filter applied
+		And I "Unselect" all the "Equipment" checkboxes from the filter
+		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+		And I click on the "Select Geofence" dropdown
+		And I Enter the text "Kansas"
+		When I click on the "Kansas" checkbox
+		Then The driver having status "New Application" should not be present in active driver map
+		And I click on the "Driver" link from the sidebar
+		When I clear the filter applied
+		When I select a driver "6637633622" whose status is "Rejected"
+		And I click on the "Active Driver Map" link from the sidebar
+		When I clear the filter applied
+		And I "Unselect" all the "Equipment" checkboxes from the filter
+		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+		And I click on the "Select Geofence" dropdown
+		And I Enter the text "Kansas"
+		When I click on the "Kansas" checkbox
+		Then The driver having status "Rejected" should not be present in active driver map

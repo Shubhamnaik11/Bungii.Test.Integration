@@ -163,6 +163,15 @@ public class Partner_DeliveryPage extends PageBase {
     //Delivery Purpose Text fields
     public WebElement TextBox_Delivery_Purpose() { return findElement("//input[@data-field='Delivery purpose']",LocatorType.XPath);}
 
+    //Lot Number Text fields
+    public WebElement TextBox_LotNumber() { return findElement("//input[@data-field='Lot Number']",LocatorType.XPath);}
+
+    //Bidder Number Text fields
+    public WebElement TextBox_BidderNumber() { return findElement("//input[@data-field='Bidder Number']",LocatorType.XPath);}
+
+    //Helper check box
+    public WebElement Checkbox_Helper() { return findElement("//div[@id='helperCheckbox']",LocatorType.XPath);}
+
     //RB/SB NUMBER Text fields
     public WebElement TextBox_Rb_Sb_Number() { return findElement("//label[contains(text(),'RB/SB Number')]//following-sibling::input",LocatorType.XPath);}
 
@@ -218,4 +227,24 @@ public class Partner_DeliveryPage extends PageBase {
     //Text displayed when popup is opened for sms
     public WebElement Alert_MessageForCall() { return findElement("//div[@class=\"modal-content\"]/div/p",LocatorType.XPath);}
 
+    //add sms recipient
+    public WebElement TextBox_Product2Description() { return findElement("//input[@id='Name_1']",LocatorType.XPath);}
+    public WebElement TextBox_Product2Dimensions(){ return findElement("//input[@id='Dimensions_1']",LocatorType.XPath);}
+    public WebElement TextBox_Product2Weight() { return findElement("//input[@id='Weight_1']",LocatorType.XPath);}
+    public WebElement Button_AddSMSRecipient() { return findElement("//span[contains(text(),'ADD SMS RECIPIENTS')]",LocatorType.XPath);}
+    public WebElement TextBox_CustomerSMSRecipient1() { return findElement("customerMobile0",LocatorType.Name);}
+    public WebElement TextBox_CustomerSMSRecipient2() { return findElement("customerMobile1",LocatorType.Name);}
+    public WebElement TextBox_CustomerSMSRecipient3() { return findElement("customerMobile2",LocatorType.Name);}
+    public WebElement PhoneNo_Recipient1() {return findElements("//label[contains(text(),'Texting status updates to:')]//following-sibling::p[@class='phone-number']",LocatorType.XPath).get(1);}
+    public WebElement PhoneNo_Recipient2(){return findElements("//label[contains(text(),'Texting status updates to:')]//following-sibling::p[@class='phone-number']",LocatorType.XPath).get(2);}
+    public WebElement PhoneNo_Recipient3(){return findElements("//label[contains(text(),'Texting status updates to:')]//following-sibling::p[@class='phone-number']",LocatorType.XPath).get(3);}
+
+    //Partner logo in header
+    public WebElement Logo_PartnerPortal() {return findElement("//img[@alt=\"Partner Logo\"]/ancestor::a", LocatorType.XPath);}
+
+    //Confirmation popup for logo redirect
+    public WebElement Logo_ConfirmPopup() {return findElement("//div[@class=\"modal-body\"]/h2", LocatorType.XPath);}
+
+    //Confirm button on Partner logo click
+    public WebElement Button_ConfirmPartnerLogoClick() {return findElement("//button[contains(text(),\"Continue\")]", LocatorType.XPath);}
 }

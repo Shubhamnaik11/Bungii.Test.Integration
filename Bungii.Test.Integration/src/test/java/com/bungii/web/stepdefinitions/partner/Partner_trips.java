@@ -1130,7 +1130,7 @@ try{
 
         }
 
-        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", Delivery_Date, CustomerName);
+        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", Delivery_Date, CustomerName);
         if(!Partner_Status.equalsIgnoreCase("Canceled")) {
             if(!Partner_Status.equalsIgnoreCase("Completed")) {
                 action.refreshPage();
@@ -1496,6 +1496,28 @@ try{
     }
     }
 
+    @And("I select below delivery status in filter")
+    public void iSelectBelowDeliveryStatusInFilter(DataTable data) {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String Partner_Status = dataMap.get("Partner_Status").trim();
+            if (Partner_Status.equalsIgnoreCase("Canceled")) {
+                Thread.sleep(2000);
+                action.click(Page_Partner_Delivery_List.Dropdown_Partner_Status());
+                Thread.sleep(1000);
+                action.click(Page_Partner_Delivery_List.Checkbox_Canceled_Status());
+                Thread.sleep(2000);
+                action.click(Page_Partner_Delivery_List.Button_Apply());
+            }
+            log("I should able to select the "+Partner_Status+" status in filter.","I can select the "+Partner_Status+" status in filter.", false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @Then("^The Pickup contact name \"([^\"]*)\" and pickup contact phone number \"([^\"]*)\" field should be filled$")
     public void the_pickup_contact_name_something_and_pickup_contact_phone_number_something_field_should_be_filled(String contactName, String contactPhone) throws Throwable {
      try{
@@ -1510,6 +1532,20 @@ try{
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+
+    @Then("default pickup address should be shown")
+    public void defaultPickupAddressShouldBeShown() {
+        try{
+            action.isElementPresent(Page_Partner_Dashboard.Button_Pickup_Edit());
+            testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Text_Pickup_Address()),PropertyUtility.getDataProperties("equipbid_default_address"),"Correct default pickup address should be shown.","Correct default pickup address is shown.","Wrong default pickup address is shown.");
+
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
     }
 
     public String getGeofence(String geofence) {
@@ -1613,6 +1649,5 @@ try{
         }
         return SplitDate;
     }
-
 
 }

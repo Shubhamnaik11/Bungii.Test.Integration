@@ -115,7 +115,7 @@ And I should get following error for following accessorial charges fields values
 | -1.56        | 231        | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
 
 #Core 2968 -To verify that admin can add accessorial fees to driver cancelled partner delivery
-@ready
+@regression
 Scenario: To verify the revive trip when accessorial charges are added
 When I request Partner Portal "SOLO" Trip for "MRFM" partner
 |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -128,6 +128,7 @@ And I wait for 1 minutes
 And As a driver "Testdrivertywd_appleks_a_drvae Kansas_ae" perform below action with respective "Solo Scheduled" partner portal trip
 | driver1 state |
 | Driver Canceled |
+#	Core-4330 Verify terms and privacy policy is displayed on login page
 And I login to driver portal on a new tab with driver phone number "9049840210"
 And I click on "Driver Details" link to get the total driver earnings value screen and navigate back to admin portal
 And I wait for 2 minutes

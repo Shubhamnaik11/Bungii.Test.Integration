@@ -400,9 +400,122 @@ Feature: Bungii Duo Scheduled Part A
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |  CUSTOMER1_PHONE |  |
-    
-  
- 
 
- 
+
+  @ready
+  Scenario: Verify driver(s) can rate each other successfully in a duo delivery
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8877661051     | Testcustomertywd_appleMarkAZ LutherAZ | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_mattC Stark_dvOnEC" and "Testdrivertywd_appledv_b_mattD Stark_dvOnED" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Unloading Items | Unloading Items |
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :9049840050 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "UNLOADING ITEMS" Screen
+    When Bungii driver uploads "1" image
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+#  Core-3107 Verify the elements on Driver rating page for each driver in Duo trip
+    And I check all the elements are displayed on driver rating page
+    And I select "3" Ratting star for solo Driver 1
+#  Core-3107 Verify that comments field is correctly validated on driver rating page
+    And I add a comment for driver
+    And I click "Driver Submit" button on "Rate duo teammate" screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I check if the rating is saved in the db
+
+# Core 448: Verify Projected Arrival Time and Try to Finish time when Drop off address was edited by Admin when driver had accepted long stack trip in Arrived Status
+  @ready
+  Scenario:  Verify Projected Arrival Time and Try to Finish time when Drop off address was edited by Admin when driver had accepted long stack trip in Arrived Status
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State   |
+      | atlanta  | ARRIVED |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "accepts stack message" request
+    And I accept Alert message for "Alert: Display Stack trip after current trip"
+    And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
+
+    When I Switch to "customer" application on "same" devices
+    And I am logged in as "Testcustomertywd_apple_AGQFCg Test" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Ondemand" customer
+    And I Select "Edit Trip Details" option
+    And I edit the pickup address
+    Then I change the pickup address to "Hair Kymistry, Powers"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "customer" application on "same" devices
+    And I calculate the "telet" time after "changed pickup"
+    Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
+
+
+# Core 448: Verify Projected Arrival Time and Try to Finish time for short stack when admin edits the drop off address of the Stacked trip
+  @ready
+  Scenario:  Verify Projected Arrival Time and Try to Finish time for short stack when admin edits the drop off address of the Stacked trip
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State        |
+      | atlanta  | DRIVING TO DROP OFF |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "accepts stack message" request
+    And I accept Alert message for "Alert: Display Stack trip after current trip"
+    And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for short stack trip
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_apple_AGQFCg Test" customer
+    And I Select "Edit Trip Details" option
+    And I edit the drop off address
+    Then I change the drop off address to "Hair Kymistry, Powers"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "ORIGINAL" devices
+    And stack trip information should be displayed on deck
+    Then try to finish time should be correctly displayed for short stack trip
+
+
+
 
