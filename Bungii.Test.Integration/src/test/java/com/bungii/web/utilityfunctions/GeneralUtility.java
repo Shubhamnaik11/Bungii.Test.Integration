@@ -16,6 +16,7 @@ import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_LoginPage;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
@@ -376,7 +377,7 @@ public class GeneralUtility extends DriverBase {
                 {
                    // String EmailContent = msg.getContent().toString();
                     emailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
-                   // emailUtility.deleteEmailWithSubject(expectedSubject,null);
+                    emailUtility.deleteEmailWithSubject(expectedSubject,null);
                     return emailContent;
                 }
             }
@@ -551,9 +552,14 @@ public class GeneralUtility extends DriverBase {
     public String getExpectedPartnerFirmScheduledEmailContent(String pickupdate, String customerName, String customerPhone, String customerEmail, String driverName, String driverPhone, String driverLicencePlate, String supportNumber, String firmName)
     {
         String emailMessage = "";
-
+        FileReader fr;
         try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerFirmScheduledEmail.txt");
+            if(SystemUtils.IS_OS_WINDOWS){
+                 fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerFirmScheduledEmail.txt");
+            }
+            else {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerFirmScheduledEmail.txt");
+            }
             String s;
             try (
 
@@ -641,8 +647,14 @@ public class GeneralUtility extends DriverBase {
     public String getExpectedPartnerFirmInitialDeliveriesEmailContent(String firmName,String deliveryCount)
     {
         String emailMessage = "";
+        FileReader fr;
         try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerPortalIntialDeliveriesEmail.txt");
+            if(SystemUtils.IS_OS_WINDOWS){
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalIntialDeliveriesEmail.txt");
+            }
+            else{
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerPortalIntialDeliveriesEmail.txt");
+            }
             String s;
             try (
 
