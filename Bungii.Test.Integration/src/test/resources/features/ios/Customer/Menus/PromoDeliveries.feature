@@ -75,7 +75,6 @@ Examples:
 
 
 @regression
-  @gs
   @authfailure
 Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promoter Type Promocode
 When I Switch to "customer" application on "same" devices
