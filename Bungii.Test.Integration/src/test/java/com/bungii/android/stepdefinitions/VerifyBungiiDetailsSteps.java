@@ -429,6 +429,12 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                             "The branch wallet details are displayed.",
                             "The branch wallet details are not displayed.");
                     break;
+                case "Processing details":
+                    testStepAssert.isElementDisplayed(driversPage.Text_BranchProcessing(),
+                            "The branch wallet processing details should be displayed.",
+                            "The branch wallet processing details are displayed.",
+                            "The branch wallet processing details are not displayed.");
+                    break;
             }
             log("I should be able to check "+detailType,"I am able to check "+detailType,false);
         }
@@ -441,15 +447,15 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     public void i_check_something_in_db(String type) throws Throwable {
         try{
             String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-            String branchRegistrationDate = dbUtility.getDriverBranchRegistrationDate(driver);
             switch (type){
                 case "no branch registration":
-                    if(branchRegistrationDate.equalsIgnoreCase("")){
-                        testStepAssert.isTrue(true,"There should be no registration date for non registered drivers.",
-                                "There is registration date for non registered drivers.");
+                    String branchRegistrationDate = dbUtility.getDriverBranchRegistrationDate(driver);
+                    if(branchRegistrationDate != null){
+                        testStepAssert.isFail("There is registration date for non registered drivers.");
                     }
                     else {
-                        testStepAssert.isFail("There is registration date for non registered drivers.");
+                        testStepAssert.isTrue(true,"There should be no registration date for non registered drivers.",
+                                "There is registration date for non registered drivers.");
                     }
                     break;
                 case "branch registered with wallet":
@@ -464,15 +470,16 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                     break;
                 case "branch registered without wallet":
                     String withoutWallet = dbUtility.getDriverWalletInfo(driver);
-                    if(withoutWallet.isEmpty()){
+                    if(withoutWallet != null){
+                        testStepAssert.isFail("There are wallet details present for driver without wallet.");
+                    }
+                    else {
                         testStepAssert.isTrue(true,"There should not be wallet details present for drivers without wallet.",
                                 "There are wallet details present for driver without wallet.");
                     }
-                    else {
-                        testStepAssert.isFail("There are wallet details present for driver without wallet.");
-                    }
                     break;
             }
+            log("I should be able to check details in db","I am able to check details in db",false);
         }
         catch (Exception e){
             logger.error("Error performing step", e);

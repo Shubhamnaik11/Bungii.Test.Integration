@@ -353,12 +353,13 @@ public class DbUtility extends DbContextManager {
         return rating;
     }
     public static String getDriverBranchRegistrationDate(String driver){
-        String date=getDataFromMySqlServer("select BranchRegisteredDate from driver where phone ="+driver);
+        String date=getDataFromMySqlServer("select BranchRegisteredDate from bungii_admin_qa_auto.driver where phone ="+driver);
         logger.detail("The branch registered date for driver is " +date);
         return date;
     }
     public static String getDriverWalletInfo(String driver){
-        String wallet=getDataFromMySqlServer("select DriverAccountInfoBranch from driver where phone ="+driver);
+        String id=getDataFromMySqlServer("select Id from bungii_admin_qa_auto.driver where phone = "+driver);
+        String wallet=getDataFromMySqlServer("select DriverAccountInfoBranch from bungii_admin_qa_auto.driverdetail where driver = "+id);
         logger.detail("The wallet info for driver: " +wallet);
         return wallet;
     }

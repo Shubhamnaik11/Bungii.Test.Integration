@@ -261,7 +261,7 @@ Feature: Driver Earnings
     Then I should be navigated to "default browser"
 
 #   Core-4414 Verify Branch app link is shown for all the existing drivers who is enrolled and wallet is created
-#   Driver with Branch Wallet:
+#   Driver with Branch Wallet: 9049840056
   @ready
   Scenario: Verify Branch app link is shown for all the existing drivers who is enrolled and wallet is created
 #   Validating Branch Details on Admin Portal
@@ -269,14 +269,14 @@ Feature: Driver Earnings
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "DRIVERS" from admin sidebar
-    And I search for "Testdrivertywd_appleks_a_drvu Kansas_u" driver on driver details
+    And I search for "Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ" driver on driver details
     And I click on "Profile" icon on driver page
     Then I check if "Wallet details" are displayed
 
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Testdrivertywd_appleks_a_drvu Kansas_u" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
  #   Validating Driver registered for Branch app with wallet in Db
     And I check "branch registered with wallet" in db
@@ -286,12 +286,22 @@ Feature: Driver Earnings
     Then I should be navigated to "default browser"
 
 #   Core-4414 Verify Branch app link is shown for all the existing drivers who is enrolled in Branch but no wallet created
-#   Driver without Branch Wallet:
+#   Driver without Branch Wallet: 9049840054
   @ready
   Scenario: Verify Branch app link is shown for all the existing drivers who is enrolled in Branch but no wallet created
+   #   Validating Branch Details on Admin Portal
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "DRIVERS" from admin sidebar
+    And I search for "Testdrivertywd_appledv_b_mattH Stark_dvOnEH" driver on driver details
+    And I click on "Profile" icon on driver page
+    Then I check if "Processing details" are displayed
+
+    When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Testdrivertywd_appleks_a_drvu Kansas_u" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattH Stark_dvOnEH" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
  #   Validating Driver registered for Branch app with wallet in Db
     And I check "branch registered without wallet" in db
