@@ -5,6 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_PaymentMethodsPage;
+import com.bungii.web.pages.partner.Partner_DashboardPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -26,6 +27,7 @@ public class Admin_PaymentMethodSteps extends DriverBase {
         private static LogUtility logger = new LogUtility(Admin_PaymentMethodSteps.class);
 
         Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
+    Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
 
         @Then("^The \"([^\"]*)\" gets saved successfully and it is displayed in the grid$")
         public void the_something_gets_saved_successfully_and_it_is_displayed_in_the_grid(String pageName) throws Throwable {
@@ -119,6 +121,10 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                     action.click(admin_paymentMethodsPage.Dropdown_Partners());
                     Thread.sleep(1000);
                     break;
+                   case "Date":
+                       Thread.sleep(3000);
+                       action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
+                       break;
             }
             log("I should be able to click on the "+dropdown+" dropdown",
                     "I could click on the "+dropdown+" dropdown",false);

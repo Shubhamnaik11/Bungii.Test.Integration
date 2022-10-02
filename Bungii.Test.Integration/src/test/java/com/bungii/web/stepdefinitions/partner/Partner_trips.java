@@ -1547,6 +1547,11 @@ try{
         }
 
     }
+    @Then("^I check if the day is \"([^\"]*)\" first time slot is \"([^\"]*)\" and last time slot is \"([^\"]*)\"$")
+    public void i_check_if_the_day_is_something_first_time_slot_is_something_and_last_time_slot_is_something(String strArg1, String strArg2, String strArg3) throws Throwable {
+        java.util.Date date = new java.util.Date();
+        System.out.println(date);
+    }
 
     public String getGeofence(String geofence) {
         String geofenceName = "";
