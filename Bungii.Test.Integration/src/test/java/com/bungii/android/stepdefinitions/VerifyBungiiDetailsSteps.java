@@ -329,6 +329,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                     break;
                 case "Profile":
                     action.click(driversPage.Button_DriverProfileLink());
+                    break;
             }
             log("I should be able to click on "+icon,
                     "I could click on"+icon,false);
