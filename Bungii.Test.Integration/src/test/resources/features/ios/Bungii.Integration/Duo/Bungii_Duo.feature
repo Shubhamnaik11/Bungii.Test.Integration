@@ -824,20 +824,33 @@ Feature: Scheduled DUO Bungii
       | Accepted      |
       | Enroute       |
 
+    And I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I enter phoneNumber :9049840081 and  Password :Cci12345
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
-    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
-      | now         | 8877661004     | Testcustomertywd_appleMarkE LutherE | 2              | Cci12345          |
+    And I connect to "extra1" using "Customer2" instance
+    And I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid customer2" user
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location        | Drop Location                |
+      | Solo   | 1475 Holcomb Bridge Road Roswell Georgia 30076 | 2359 Windy Hill Road Southeast Marietta Georgia 02155|
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
+      | 15       |           |              | Now  | Default     | No             |
+    Then I should be navigated to "SEARCHING" screen
 
+    When I Switch to "driver" application on "ORIGINAL" devices
     And I view and accept virtual notification for "Driver" for "stack trip"
     And try to finish time should be correctly displayed for long stack trip
 
-    And I Switch to "customer" application on "same" devices
-    And I logged in Customer application using  "existing" user
-    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I close "Tutorial" if exist
+    When  I switch to "Customer2" instance
+    Then correct details should do be displayed on BUNGII ACCEPTED screen for Stack screen
+    When I click "Ok" button on "BUNGII ACCEPTED" screen
+    Then correct details should do be displayed on BUNGII ACCEPTED with arrival time screen for Stack screen
 
