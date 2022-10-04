@@ -224,6 +224,7 @@ Feature: Partner Portal Cases integration with IOS
     And I enter phoneNumber :9049840255 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I mark the driver "online"
 
     When I request Partner Portal "DUO" Trip for "Floor and Decor" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
