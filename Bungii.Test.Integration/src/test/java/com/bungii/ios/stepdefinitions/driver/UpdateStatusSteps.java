@@ -928,10 +928,10 @@ public class UpdateStatusSteps extends DriverBase {
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_DeliveryInstructions()),"Delivery Instructions Icon should be displayed","Delivery Instructions Icon is displayed","Delivery Instructions Icon is not displayed");
                     break;
                 case "Item Details":
-                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_ItemDetails()),"Item Details Icon should be displayed","Item Details Icon is displayed","Item Details Icon is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Button_ViewItems()),"Item Details Icon should be displayed","Item Details Icon is displayed","Item Details Icon is not displayed");
                     break;
                 case "Bungii Support":
-                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_BungiiSupport()),"Bungii Support Icon should be displayed","Bungii Support Icon is displayed","Bungii Support Icon is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Button_SupportSms()),"Bungii Support Icon should be displayed","Bungii Support Icon is displayed","Bungii Support Icon is not displayed");
                     break;
                 case "More Options":
                     testStepAssert.isTrue(action.isElementPresent(driverUpdateStatusPage.Button_MoreOptions()),"More Options Icon should be displayed","More Options Icon is displayed","More Options Icon is not displayed");

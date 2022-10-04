@@ -55,6 +55,9 @@ public class BungiiInProgressSteps extends DriverBase {
     UpdateStatusPage updateStatusPage = new UpdateStatusPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
     GeneralUtility GeneralUtility = new GeneralUtility();
+    InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
+    InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
+
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
         try {
@@ -1159,13 +1162,13 @@ public class BungiiInProgressSteps extends DriverBase {
             Thread.sleep(5000);
             switch (element){
                 case "Delivery Instructions":
-                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_DeliveryInstructions()),"Delivery Instructions Icon should be displayed","Delivery Instructions Icon is displayed","Delivery Instructions Icon is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(inProgressPages.Button_DeliveryInstructions()),"Delivery Instructions Icon should be displayed","Delivery Instructions Icon is displayed","Delivery Instructions Icon is not displayed");
                     break;
                 case "Item Details":
-                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_ItemDetails()),"Item Details Icon should be displayed","Item Details Icon is displayed","Item Details Icon is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_DriverBungiiProgress.Button_Customer_ViewItem()),"Item Details Icon should be displayed","Item Details Icon is displayed","Item Details Icon is not displayed");
                     break;
                 case "Bungii Support":
-                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_BungiiSupport()),"Bungii Support Icon should be displayed","Bungii Support Icon is displayed","Bungii Support Icon is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_DriverBungiiProgress.Button_Customer_CallSupport()),"Bungii Support Icon should be displayed","Bungii Support Icon is displayed","Bungii Support Icon is not displayed");
                     break;
                 case "More Options":
                     testStepAssert.isTrue(action.isElementPresent(inProgressBungiiPages.Button_MoreOptions()),"More Options Icon should be displayed","More Options Icon is displayed","More Options Icon is not displayed");
