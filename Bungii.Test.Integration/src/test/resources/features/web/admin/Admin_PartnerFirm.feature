@@ -288,7 +288,8 @@ Feature: Admin_PartnerFirm
     And I enter cancellation fee and Comments
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
-    When I view the Trips list on the admin portal
+#    When I view the Trips list on the admin portal
+    When I view All Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 

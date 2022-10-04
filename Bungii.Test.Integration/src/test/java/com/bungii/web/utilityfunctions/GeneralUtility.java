@@ -16,6 +16,7 @@ import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_LoginPage;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
@@ -364,13 +365,15 @@ public class GeneralUtility extends DriverBase {
                 Message msg = recentMessages[i - 1];
              //   System.out.println(msg.getMessageNumber());
                 String subject = msg.getSubject();//important value
+                String from = String.valueOf(msg.getFrom()[0]).toLowerCase();
+                String recipient = String.valueOf(msg.getAllRecipients()[0]);
 
                 System.out.println("Subject: " + subject + " | Date: " + msg.getReceivedDate());
                 // System.out.println("From: " + msg.getFrom()[0]);
                // System.out.println("To: " + msg.getAllRecipients()[0]);//important value
                 System.out.println();
                // System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
-                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress)))
+                if ((from.contains(fromAddress.toLowerCase())) && (subject.contains(expectedSubject)) && (recipient.contains(expectedToAddress)))
                 {
                    // String EmailContent = msg.getContent().toString();
                     emailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
@@ -549,9 +552,14 @@ public class GeneralUtility extends DriverBase {
     public String getExpectedPartnerFirmScheduledEmailContent(String pickupdate, String customerName, String customerPhone, String customerEmail, String driverName, String driverPhone, String driverLicencePlate, String supportNumber, String firmName)
     {
         String emailMessage = "";
-
+        FileReader fr;
         try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerFirmScheduledEmail.txt");
+            if(SystemUtils.IS_OS_WINDOWS){
+                 fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerFirmScheduledEmail.txt");
+            }
+            else {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerFirmScheduledEmail.txt");
+            }
             String s;
             try (
 
@@ -626,6 +634,35 @@ public class GeneralUtility extends DriverBase {
                             .replaceAll("%DriverName%",driverName)
                             .replaceAll("%SupportNumber%",supportNumber)
                             .replaceAll("%FirmName%",firmName);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+    public String getExpectedPartnerFirmInitialDeliveriesEmailContent(String firmName,String deliveryCount)
+    {
+        String emailMessage = "";
+        FileReader fr;
+        try{
+            if(SystemUtils.IS_OS_WINDOWS){
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalIntialDeliveriesEmail.txt");
+            }
+            else{
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerPortalIntialDeliveriesEmail.txt");
+            }
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%PartnerName%",firmName);
+                    s = s.replaceAll("%DeliveryCount%",deliveryCount);
                     emailMessage += s;
                 }
 

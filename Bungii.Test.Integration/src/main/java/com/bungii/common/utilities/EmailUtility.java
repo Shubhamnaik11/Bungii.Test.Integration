@@ -11,6 +11,7 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.search.ComparisonTerm;
 import javax.mail.search.ReceivedDateTerm;
 import javax.mail.search.SearchTerm;
+import javax.mail.search.SubjectTerm;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -287,15 +288,16 @@ public class EmailUtility extends DriverBase {
                     System.in));
             // retrieve the messages from the folder in an array and print it
             Message[] messages = emailFolder.getMessages();
-          //  System.out.println("messages.length = " + messages.length);
-            for (int i = 0; i < messages.length; i++) {
-                Message message = messages[i];
-                String emailSubject = message.getSubject();
-                if(emailSubject.equalsIgnoreCase(subject)) {
-                    message.setFlag(Flags.Flag.DELETED, true);
-                    System.out.println("DELETED message with Subject: " + subject);
-                }
+            // creates a search criterion
+            SearchTerm searchCondition = new SubjectTerm(subject);
+            Message[] foundMessages = emailFolder.search(searchCondition);
 
+            for (int i = 0; i < foundMessages.length-1; i++) {
+                Message message = foundMessages[i];
+                String subject1 = message.getSubject();
+                System.out.println("Found message #" + i + ": " + subject1);
+                message.setFlag(Flags.Flag.DELETED, true);
+                System.out.println("DELETED message with Subject: " + subject1);
             }
             emailFolder.close(true);
         } catch (NoSuchProviderException e) {

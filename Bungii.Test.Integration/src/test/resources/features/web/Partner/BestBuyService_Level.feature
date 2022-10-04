@@ -85,11 +85,13 @@ Feature: Service Level
     And I wait for 2 minutes
     And I view the Live Deliveries list on  admin portal
     And I search the delivery using "Pickup Reference"
-    Then In "Live Deliveries" the trip should be  having a indicator with the text "New-1"
+   Then In "Live Deliveries" the trip should be  having a indicator with the text "New-1"
     When As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Bungii Completed |
     And I wait for 2 minutes
+#   Core-3647 Verify that email notification is sent on configured email id's once first 3 partner portal trips are completed
+    And Partner firm should receive "1st-Initial deliveries" email
     And I view All Deliveries list on the admin portal
     And I search the delivery using "Pickup Reference"
     Then The "All Deliveries" page should display the delivery in "Payment Successful" form
@@ -130,6 +132,7 @@ Feature: Service Level
       | driver1 state|
       | Bungii Completed |
     And I wait for 2 minutes
+    And Partner firm should receive "2nd-Initial deliveries" email
     And I view All Deliveries list on the admin portal
     And I search the delivery using "Pickup Reference"
     Then The "All Deliveries" page should display the delivery in "Payment Successful" form
@@ -200,6 +203,17 @@ Feature: Service Level
     And I view the all Scheduled Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then The delivery should not be having indicator
+    And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state   |
+      | Accepted      |
+      | Enroute       |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
+      | Bungii Completed |
+    And I wait for 2 minutes
+    Then Partner firm should receive "3rd-Initial deliveries" email
 
 
   @ready
