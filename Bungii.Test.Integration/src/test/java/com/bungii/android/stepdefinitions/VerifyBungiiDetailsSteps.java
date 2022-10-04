@@ -420,30 +420,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
           error("Step  Should be successful", "Error while comparing the driver earnings on admin portal and driver app", true);
       }
     }
-    @Then("^I check if \"([^\"]*)\" are displayed$")
-    public void i_check_if_something_are_displayed(String detailType) throws Throwable {
-        try{
-            switch (detailType){
-                case "Wallet details":
-                    testStepAssert.isElementDisplayed(driversPage.Text_BranchWalletCreated(),
-                            "The branch wallet details should be displayed.",
-                            "The branch wallet details are displayed.",
-                            "The branch wallet details are not displayed.");
-                    break;
-                case "Processing details":
-                    testStepAssert.isElementDisplayed(driversPage.Text_BranchProcessing(),
-                            "The branch wallet processing details should be displayed.",
-                            "The branch wallet processing details are displayed.",
-                            "The branch wallet processing details are not displayed.");
-                    break;
-            }
-            log("I should be able to check "+detailType,"I am able to check "+detailType,false);
-        }
-        catch (Exception e){
-            logger.error("Error performing step", e);
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
-        }
-    }
+
     @And("^I check \"([^\"]*)\" in db$")
     public void i_check_something_in_db(String type) throws Throwable {
         try{
