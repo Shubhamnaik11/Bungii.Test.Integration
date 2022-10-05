@@ -3415,39 +3415,27 @@ try{
         }
     }
     @And("^I slide the \"([^\"]*)\" to \"([^\"]*)\"$")
-    public void i_slide_the_something_to_something(String strArg1, String strArg2) throws Throwable {
-        switch (strArg2){
+    public void i_slide_the_something_to_something(String sliderName, String slideBy) throws Throwable {
+        try{
+        switch (slideBy){
             case "500 lbs":
-                    slide(admin_DriverPage.Slider_VehiclePayloadMax(),admin_DriverPage.Slider_VehiclePayloadmin());
-
-                    Thread.sleep(4000);
-
+                action.slide(admin_DriverPage.Slider_VehiclePayloadmin(), 69,0);
+                Thread.sleep(4000);
+                break;
+            case "100 In":
+                action.slide(admin_DriverPage.Slider_VehicleBedLengthMin(), 114,0);
+                Thread.sleep(4000);
                 break;
         }
-    }
-    public void slide(WebElement element1, WebElement element2) throws InterruptedException {
-        WebDriver driver =SetupManager.getDriver();
-        WebElement sliderLocation = element1;
-        WebElement sliderLocation2= element2;
-        // Used points class to get x and y coordinates of element.
-        int width = sliderLocation.getSize().getWidth();
-        System.out.println("Width is " + width);
-            Actions move = new Actions(driver);
-        int width2 = sliderLocation2.getSize().getWidth();
-        System.out.println("Width is " + width2);
+        log("I should be able to slide "+sliderName+" to be in the range of "+slideBy,
+                "I could slide "+sliderName+" to be in the range of "+slideBy,false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
 
-        Action action2 = move.dragAndDropBy(element2,width2+30, 0).build();
-        action2.perform();
-        Action action3 = move.dragAndDropBy(element1,-20 , 0).click().build();
-        action3.perform();
-        Action action4 = move.click().dragAndDropBy(element1,width+50 , 0).build();
-        action4.perform();
-        int width3 = sliderLocation2.getSize().getWidth();
-        System.out.println("Width is " + width3);
-        int width4 = sliderLocation.getSize().getWidth();
-        System.out.println("Width is " + width4);
-        Action action5 = move.dragAndDropBy(element1,width+160 , 0).click().build();
-        action5.perform();
     }
+    }
+
 
 }

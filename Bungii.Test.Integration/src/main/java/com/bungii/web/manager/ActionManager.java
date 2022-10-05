@@ -431,4 +431,20 @@ catch(Exception ex)
             return "Unable to fetch background color";
         }
     }
+    public void slide(WebElement element,int slideXValue,int SlideYValue)  {
+        try {
+            WebDriver driver = SetupManager.getDriver();
+            int width = element.getSize().getWidth();
+            Actions move = new Actions(driver);
+
+            Action action = move.dragAndDropBy(element, (width + slideXValue), SlideYValue).build();
+            action.perform();
+        }
+        catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to Slide",
+                    true);
+        }
+
+    }
 }
