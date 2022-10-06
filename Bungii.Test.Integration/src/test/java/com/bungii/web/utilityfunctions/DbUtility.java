@@ -240,9 +240,11 @@ public class DbUtility extends DbContextManager {
     public static String getEstimateDistance(String alias) {
         String Estimate_distance;
         // String queryString = "SELECT EstDistance FROM pickupdetails where customerRef='"+customerReference+"'order by  pickupid desc limit 1";
-        String queryString = "SELECT EstDistance FROM pickupdetails where customerRef in (select customerRef from customer where Id in (select customer_id from business_partner_location where alias like '" + alias + "')) order by  pickupid  desc limit 1";
-
-        Estimate_distance = getDataFromMySqlServer(queryString);
+//        String queryString = "SELECT EstDistance FROM pickupdetails where customerRef in (select customerRef from customer where Id in (select customer_id from business_partner_location where alias like '" + alias + "')) order by  pickupid  desc limit 1";
+        String queryString1 = "select Reference from bp_store bp join customer c on c.id = bp.customer_id where store_alias ='" + alias + "'";
+        String partnerReference = getDataFromMySqlMgmtServer(queryString1);
+        String queryString2 = "SELECT EstDistance FROM pickupdetails where customerRef = '" + partnerReference + "' order by  pickupid desc limit 1";
+        Estimate_distance = getDataFromMySqlServer(queryString2);
         logger.detail("Estimate Distance =  " + Estimate_distance + " of latest delivery");
         return Estimate_distance;
 
