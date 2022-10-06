@@ -123,7 +123,7 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                     break;
                    case "Date":
                        Thread.sleep(3000);
-                       action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
+                       action.click(Page_Partner_Dashboard.blah());
                        break;
             }
             log("I should be able to click on the "+dropdown+" dropdown",

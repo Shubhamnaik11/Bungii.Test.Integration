@@ -227,4 +227,27 @@ public class DbUtility extends DbContextManager {
         return remarkID;
 
     }
+    public static int getFromTime(String index, String DayOfTheWeek) {
+        String fromTime;
+        String queryStringFromTime = "select from_time from bp_store_operating_hour oh join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = oh.bp_config_version_id\n" +
+                "join bp_store s on s.bp_store_id = fnm.bp_store_id where fnm.bp_setting_fn_id = 16 and subdomain_name is not null\n" +
+                " and subdomain_name like 'qaauto-homeoutlet%' order by subdomain_name ,week_day and week_day = '"+index+"'  desc limit 1";
+        fromTime = getDataFromMySqlMgmtServer(queryStringFromTime);
+        int timeIn12HoursFormat = (Integer.parseInt(fromTime) / 3600000) ;
+        logger.detail("Partners initial working hour is "+timeIn12HoursFormat+ " for the day  "+ DayOfTheWeek);
+        return timeIn12HoursFormat;
+
+    }
+
+    public static int getToTime(String index, String DayOfTheWeek) {
+        String toTime;
+        String queryStringFromTime = "select to_time from bp_store_operating_hour oh join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = oh.bp_config_version_id\n" +
+                "join bp_store s on s.bp_store_id = fnm.bp_store_id where fnm.bp_setting_fn_id = 16 and subdomain_name is not null\n" +
+                " and subdomain_name like 'qaauto-homeoutlet%' order by subdomain_name ,week_day and week_day = '"+index+"'  desc limit 1";
+        toTime = getDataFromMySqlMgmtServer(queryStringFromTime);
+        int timeIn12HoursFormat = (Integer.parseInt(toTime) / 3600000) -12;
+        logger.detail("Partners last working hours is "+timeIn12HoursFormat+ " for the day  "+ DayOfTheWeek);
+        return timeIn12HoursFormat;
+
+    }
 }

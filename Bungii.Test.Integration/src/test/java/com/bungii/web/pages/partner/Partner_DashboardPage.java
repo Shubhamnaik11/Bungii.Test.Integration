@@ -295,4 +295,12 @@ public class Partner_DashboardPage extends PageBase {
 
     //Status data in first row of result
     public WebElement Text_DeliveryStatus() { return findElement("//tr[1]/td[6]/div[1]",LocatorType.XPath);}
+
+    public WebElement blah() { return findElement("//label[text()=\"Pickup Time\"]/following-sibling::div[1]",LocatorType.XPath);}
+
+    public WebElement Text_LastTimeSlot(int index) { return findElement(String.format("//div[@id=\"menu-\"]/div/ul/li[%d]",index),LocatorType.XPath);}
+    public WebElement Text_FirstTimeSlot() { return findElement("//div[@id=\"menu-\"]/div/ul/li[1]",LocatorType.XPath);}
+    public WebElement Button_SundayDisabled() { return findElement("//div[@class=\"left\"]/div[@class=\"item excluded\"]",LocatorType.XPath);}
+
+
 }
