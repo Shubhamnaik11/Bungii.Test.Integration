@@ -1206,6 +1206,26 @@ public class CommonSteps extends DriverBase {
         logger.detail("Driver Credentials : " + credentials.get(0) +" / "+ credentials.get(1));
         return credentials;
     }
+
+    @And("I mark the driver {string}")
+    public void iMarkTheDriver(String driverStatus) {
+        try{
+            switch (driverStatus){
+                case "online":
+                        goOnline();
+                    break;
+                case "offline":
+                    goOffline();
+                    break;
+            }
+            pass("The driver should be able to mark "+driverStatus,"The driver is marked "+driverStatus,false);
+        }catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            fail("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @And("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")
     public void i_login_as_something_driver_on_something_device_and_make_driver_status_something_as(String user, String device, String driverStatus) throws Throwable {
         try {

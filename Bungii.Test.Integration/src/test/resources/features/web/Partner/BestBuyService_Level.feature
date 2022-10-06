@@ -18,6 +18,7 @@ Feature: Service Level
       |NEXT_POSSIBLE        |
     Then I should "see Delivery Cost: N/A"
     And I click "GET ESTIMATE" button on Partner Portal
+      And I click "Continue" button on Partner Portal
 
 #      Core - 2619 Verify Driver Availability count is reduced by 1 when Solo trip is scheduled
       And I check in the db the number of timeslots available "before schedule for best buy"

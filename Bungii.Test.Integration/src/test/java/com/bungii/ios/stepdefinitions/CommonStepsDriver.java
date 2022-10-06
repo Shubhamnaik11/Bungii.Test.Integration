@@ -752,6 +752,9 @@ public class CommonStepsDriver extends DriverBase {
                 case "Remove Driver":
                     action.click(scheduledTripsPage.Button_RemoveDrivers());
                     break;
+                case "Close":
+                    action.click(driverUpdateStatusPage.Button_CloseDeliveryDetails());
+                    break;
                 case "Branch app":
                     action.click(driversPage.Button_BranchWallet());
                     break;
