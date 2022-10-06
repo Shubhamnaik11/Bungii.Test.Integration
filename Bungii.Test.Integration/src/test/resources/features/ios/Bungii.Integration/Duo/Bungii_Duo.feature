@@ -811,14 +811,13 @@ Feature: Scheduled DUO Bungii
     And I calculate the "telet-short stack" time after "changed pickup"
     Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
 
-#   Core-2369: Verify time calculation for Long stack trip before editing the service level on Live deliveries
+#   Core-2369: Verify time calculation for Long stack trip after editing the service level on Live deliveries
   @ready
 #    @testsweta
-  Scenario: Verify time calculation for Long stack trip before editing the service level on Live deliveries
+  Scenario: Verify time calculation for Long stack trip after editing the service level on Live deliveries
     When I request Partner Portal "SOLO" Trip for "Biglots" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |atlanta  | NEXT_POSSIBLE | 8877661059 | Testcustomertywd_BppleMarkBH LutherBH|
-    And I wait for "1" mins
     And As a driver "Testdrivertywd_applega_a_steveE Stark_altOnEE" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state |
       | Accepted      |
@@ -827,7 +826,7 @@ Feature: Scheduled DUO Bungii
     And I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I enter phoneNumber :9049840081 and  Password :Cci12345
+    And I am logged in as "Testdrivertywd_applega_a_steveE Stark_altOnEE" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I connect to "extra1" using "Customer2" instance
@@ -845,12 +844,30 @@ Feature: Scheduled DUO Bungii
       | 15       |           |              | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
 
+    And I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "ORIGINAL" devices
     And I view and accept virtual notification for "Driver" for "stack trip"
-    And try to finish time should be correctly displayed for long stack trip
+#    And try to finish time should be correctly displayed for long stack trip
 
     When  I switch to "Customer2" instance
-    Then correct details should do be displayed on BUNGII ACCEPTED screen for Stack screen
+#    Then correct details should do be displayed on BUNGII ACCEPTED screen for Stack screen
     When I click "Ok" button on "BUNGII ACCEPTED" screen
-    Then correct details should do be displayed on BUNGII ACCEPTED with arrival time screen for Stack screen
+#    Then correct details should do be displayed on BUNGII ACCEPTED with arrival time screen for Stack screen
 
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_BppleMarkBH LutherBH"
+#   Core-2641 Verify alias is displayed for partner portal trips on Live delivery page
+    And I Select "Edit Trip Details" option
+    And I change the service level to "Room of Choice" in "Admin" portal
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    Then the "Bungii Saved!" message is displayed
+    When I click on "Close" button
+
+    And I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I calculate the "telet-long stack" time after "changed service level"

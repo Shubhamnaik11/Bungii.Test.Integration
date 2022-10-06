@@ -234,6 +234,67 @@ public class BungiiAcceptedSteps extends DriverBase {
 
                     }
                     break;
+                case "changed service level":
+                    switch (timeType){
+                        case "telet-long stack":
+//TELET = Service Level Edited time + ((Estimated Duration from Pickup point to drop off point + Time at pickup and Drop off) * 1.5)+30
+                            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189"; c/// Stacked trip will be 2 customer you need of first trip
+                            String pickupRef = (String) cucumberContextManager.getScenarioContext("Pickup_Request");
+                            String pickUpID = DbUtility.getPickupIdWithRef(pickupRef);
+                            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+                            System.out.println(geofenceLabel);
+                            String adminEditTime= DbUtility.getAdminEditTime(pickUpID);
+                            System.out.println(adminEditTime);
+                            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+//                            TimeZone tz1 = TimeZone.getTimeZone("UTC");
+                            TimeZone tz2 = TimeZone.getTimeZone("EDT");
+                            Calendar sourceCalendar = Calendar.getInstance(tz2);
+                            sourceCalendar.setTime(formatter.parse(adminEditTime));
+                            System.out.println(sourceCalendar.getTime());
+                            sourceCalendar.add(Calendar.MINUTE,-240);
+                            System.out.println(sourceCalendar.getTime());
+
+//                            sourceCalendar.setTimeZone(tz1);
+//
+//                            Calendar targetCalendar = Calendar.getInstance();
+//                            for (int field : new int[] {Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, Calendar.HOUR, Calendar.MINUTE, Calendar.SECOND, Calendar.MILLISECOND}) {
+//                                targetCalendar.set(field, sourceCalendar.get(field));
+//                            }
+//                            targetCalendar.setTimeZone(tz2);
+//                            System.out.println(targetCalendar.getTime());
+//                            System.out.println(newdate);
+//                            Date newda = formatter.parse(newdate);
+//                            System.out.println(newda);
+
+
+                            String[] locationsTripOne = DbUtility.getPickupAndDropLocation(phoneNumber);
+                            String[] dropLocation = new String[2];
+                            dropLocation[0] = locationsTripOne[2];
+                            dropLocation[1] = locationsTripOne[3];
+                            String[] pickupLocations = new String[2];
+                            pickupLocations[0] = locationsTripOne[0];
+                            pickupLocations[1] = locationsTripOne[1];
+                            long[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(pickupLocations, dropLocation);
+                            logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance[0]+" and "+timeToCoverDistance[1]);
+
+                            String timeAtPick= DbUtility.getTimeAtPickUpAndDrop("default_pickup_time");
+                            String timeAtDrop= DbUtility.getTimeAtPickUpAndDrop("default_dropoff_time");
+                            int pickUpInMins = (Integer.parseInt(timeAtPick)/1000)/60;
+                            int dropOffInMins = (Integer.parseInt(timeAtDrop)/1000)/60;
+                            int mins = (int) ((((timeToCoverDistance[0]/60)+dropOffInMins+pickUpInMins)*1.5)+30);
+                            System.out.println( sourceCalendar.getTime());
+                            sourceCalendar.add(Calendar.MINUTE,mins);
+                            System.out.println( sourceCalendar.getTime());
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+                            Date dateObj = sourceCalendar.getTime();
+                            System.out.println(sdf.format(dateObj));
+                            System.out.println(new SimpleDateFormat("K:mm").format(dateObj));
+
+                            break;
+                    }
+                    break;
             }
             log("I should be able to calculate the telet","I am able to calculate the telet",false);
 
