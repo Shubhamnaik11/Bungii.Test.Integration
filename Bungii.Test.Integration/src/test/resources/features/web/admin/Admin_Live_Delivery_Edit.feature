@@ -65,7 +65,7 @@ Feature: Admin_Live_Delivery_Edit
     And I should see pickup address edit history
     And I close the Note
     When I open the live delivery details in admin portal
-    Then the updated drop off address should be displayed on delivery details page
+    And I confirm the change pickup address on delivery details page
     And Delivery price is recalculated based on updated value of drop off address
   
   @regression

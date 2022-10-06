@@ -197,7 +197,7 @@ Feature: Service Level
       |Type|DeliveryAddress                                                                  |ServiceName   |Distance |
       |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
       |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
-  @siddhi
+
     #CORE-1574(Web side part)
     @ready
   Scenario: Verify that admin can update service level for the Partner Portal delivery from Scheduled Deliveries page
@@ -233,7 +233,7 @@ Feature: Service Level
     And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I change the service level to "White Glove" in "Admin" portal
@@ -241,15 +241,14 @@ Feature: Service Level
     And I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
-    And  I refresh the page
+    And I get the new pickup reference generated
+    And I search the delivery of Customer
     And I click on the dropdown beside scheduled bungii
     When I click the "Notes & History" link
     And I click on "History"
     Then The "History" tab should be selected
     And I should see edit Service level history
     And I close the Note
-    And I get the new pickup reference generated
-    And I search the delivery of Customer
     When I view the partner portal delivery details in admin portal
     Then the change service level should be displayed on delivery details page
     And the price for the delivery shown as per the changed service level

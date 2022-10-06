@@ -31,7 +31,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     //public WebElement Admin_Dropdown_ServiceLevel(String serviceLevel) { return findElement("//li/div/div/span[@class='service-title' and @data-name='"+serviceLevel+"']",LocatorType.XPath);}
     public WebElement Admin_Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
-
+    public WebElement Admin_Dropdown_ServiceLevelSelected() { return findElement("//select[@id='ddServiceLevelOption']/option[@selected='selected']",LocatorType.XPath);}
     public WebElement Link_Grid_First_Row() { return findElement("//tr[@id='row1']/td[4]/a",LocatorType.XPath);}
     public WebElement Textbox_Drop_Off_Location () { return findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
     public WebElement Textbox_Pickup_Location () { return findElement("PickupDetails_PickupOriginAddress",LocatorType.Id);}
@@ -225,8 +225,6 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_HistoryNewValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[3]",LocatorType.XPath);}
 
     public WebElement Link_NotesHistoryLiveDelivery(){return findElement("//ul[@class=\"dropdown-menu\"]/li[3]/p",LocatorType.XPath);}
-
-    public WebElement Button_History(){return  findElement("history-tab-btn",LocatorType.Id);}
 
     public WebElement Text_HistoryTabInformation(int row ,int col){return  findElement(String.format("//div[@class=\"old-note\"]/table/tbody/tr[%d]/td[%d]",row,col),LocatorType.XPath);}
 
