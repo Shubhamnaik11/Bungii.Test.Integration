@@ -747,6 +747,9 @@ public class CommonStepsDriver extends DriverBase {
                 case "Remove Driver":
                     action.click(scheduledTripsPage.Button_RemoveDrivers());
                     break;
+                case "Close":
+                    action.click(driverUpdateStatusPage.Button_CloseDeliveryDetails());
+                    break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }

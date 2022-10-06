@@ -45,4 +45,9 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Label_CustomerSignature(boolean...IgnoreException){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]",LocatorType.XPath,IgnoreException);}
     public WebElement Alert_DropOffInstructionsGotIt(){return findElement("com.bungii.driver:id/view_instructions_btn_next",LocatorType.Id);}
 
+    public WebElement Button_CloseDeliveryDetails() { return findElement("com.bungii.driver:id/appCompatImageView14",LocatorType.Id);}
+    public WebElement Icon_Call(){return findElement("com.bungii.driver:id/view_sliding_bottom_sheet_expanded_iv_call_customer",LocatorType.Id);}
+    public WebElement Icon_Text(){return findElement("com.bungii.driver:id/appCompatImageView18",LocatorType.Id);}
+    public WebElement Icon_Pickup(){return findElement("//android.view.ViewGroup/android.widget.ScrollView/androidx.appcompat.widget.LinearLayoutCompat/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.ImageView",LocatorType.XPath);}
+    public WebElement Icon_DropOff(){return findElement("//android.view.ViewGroup/android.widget.ScrollView/androidx.appcompat.widget.LinearLayoutCompat/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.ImageView",LocatorType.XPath);}
 }
