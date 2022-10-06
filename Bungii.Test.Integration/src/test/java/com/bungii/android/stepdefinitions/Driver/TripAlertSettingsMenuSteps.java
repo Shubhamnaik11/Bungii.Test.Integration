@@ -447,6 +447,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "CLOSE":
                     action.click(updateStatusPage.Button_CloseDeliveryDetails());
                     break;
+                case "Branch app":
+                    action.click(earningsPage.Button_BranchWallet());
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }

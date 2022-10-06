@@ -23,6 +23,14 @@ public class DriversPage extends PageBase {
     public WebElement Text_DriverRattingProfile() {
         return findElement("//td[text()='Rating']/following-sibling::td/strong", LocatorType.XPath);
     }
-
+    public WebElement Button_BranchWallet() {
+        return findElement("//XCUIElementTypeButton[@name='Branch wallet']", LocatorType.XPath);
+    }
+    public WebElement Screen_DefaultBrowser() {
+        return findElement("//XCUIElementTypeOther[@name=\"BrowserWindow\"]", LocatorType.XPath);
+    }
+    public WebElement Button_GetBranchApp() {
+        return findElement("//XCUIElementTypeLink[@name=\"Get The App\"]", LocatorType.XPath);
+    }
 
 }

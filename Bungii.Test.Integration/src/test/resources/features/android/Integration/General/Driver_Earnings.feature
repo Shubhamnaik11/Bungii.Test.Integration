@@ -246,5 +246,48 @@ Feature: Driver Earnings
        | Customer Phone  | Customer2 Phone |
        | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
+#   Core-4414 Verify Branch app link is shown for all the existing drivers which is not registered for Branch app
+  @ready
+  Scenario: Verify Branch app link is shown for all the existing drivers which is not registered for Branch app
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Testdrivertywd_appleks_a_drvu Kansas_u" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+ #   Validating Driver not registered for Branch app in Db
+    And I check "no branch registration" in db
+    And I Select "EARNINGS" from driver App menu
+    Then I check if "Branch app" button is displayed
+    And I click on "Branch app" button
+    Then I should be navigated to "default browser"
 
+#   Core-4414 Verify Branch app link is shown for all the existing drivers who is enrolled and wallet is created
+#   Driver with Branch Wallet: 9049840056
+  @ready
+  Scenario: Verify Branch app link is shown for all the existing drivers who is enrolled and wallet is created
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+ #   Validating Driver registered for Branch app with wallet in Db
+    And I check "branch registered with wallet" in db
+    And I Select "EARNINGS" from driver App menu
+    Then I check if "Branch app" button is displayed
+    And I click on "Branch app" button
+    Then I should be navigated to "default browser"
 
+#   Core-4414 Verify Branch app link is shown for all the existing drivers who is enrolled in Branch but no wallet created
+#   Driver without Branch Wallet: 9049840054
+  @ready
+  Scenario: Verify Branch app link is shown for all the existing drivers who is enrolled in Branch but no wallet created
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Testdrivertywd_appledv_b_mattH Stark_dvOnEH" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+ #   Validating Driver registered for Branch app with wallet in Db
+    And I check "branch registered without wallet" in db
+    And I Select "EARNINGS" from driver App menu
+    Then I check if "Branch app" button is displayed
+    And I click on "Branch app" button
+    Then I should be navigated to "default browser"
