@@ -3412,4 +3412,19 @@ try{
                     true);
         }
     }
+
+    @And("^I set the the time of the delivery outside bungii working hours$")
+    public void i_set_the_the_time_of_the_delivery_outside_bungii_working_hours() throws Throwable {
+        try{
+        action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
+        Thread.sleep(3000);
+        action.click(admin_EditScheduledBungiiPage.Text_LastTimeSlotAdminEdit());
+        log("I should be able to set the delivery outside bungii working hours","I could set the delivery timing outside bungii working hours",false);
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
+}
 }

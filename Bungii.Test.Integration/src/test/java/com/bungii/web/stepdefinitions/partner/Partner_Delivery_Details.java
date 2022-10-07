@@ -6,6 +6,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriversPage;
+import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -38,6 +39,8 @@ public class Partner_Delivery_Details extends DriverBase {
     ActionManager action = new ActionManager();
     DbUtility dbUtility = new DbUtility();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
+    Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+
 
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
@@ -116,7 +119,8 @@ public class Partner_Delivery_Details extends DriverBase {
             String SMS_Recipient1 = "";
             String SMS_Recipient2 = "";
             String SMS_Recipient3 = "";
-
+            String DropOffContactName = "";
+            String DropOffContactPhone = "";
 
             if(dataMap.containsKey("Items_To_Deliver")){
                 Items_deliver = dataMap.get("Items_To_Deliver");
@@ -196,8 +200,17 @@ public class Partner_Delivery_Details extends DriverBase {
             String PickupContactName = dataMap.get("Pickup_Contact_Name").trim();
             String PickupContactPhone = dataMap.get("Pickup_Contact_Phone").trim();
 
-            String DropOffContactName = dataMap.get("Drop_Off_Contact_Name").trim();
-            String DropOffContactPhone = dataMap.get("Drop_Contact_Phone").trim();
+//            String DropOffContactName = dataMap.get("Drop_Off_Contact_Name").trim();
+            if (dataMap.containsKey("Drop_Off_Contact_Name")) {
+                DropOffContactName = dataMap.get("Drop_Off_Contact_Name").trim();
+                cucumberContextManager.setScenarioContext("Drop_Off_Contact_Name", DropOffContactName);
+            }
+//            String DropOffContactPhone = dataMap.get("Drop_Contact_Phone").trim();
+            if (dataMap.containsKey("Drop_Contact_Phone")) {
+                DropOffContactPhone = dataMap.get("Drop_Contact_Phone").trim();
+                cucumberContextManager.setScenarioContext("Drop_Contact_Phone", DropOffContactPhone);
+            }
+
             //String ReceiptNumber = dataMap.get("Receipt_Number").trim();
 
 
@@ -459,6 +472,33 @@ public class Partner_Delivery_Details extends DriverBase {
 
                         action.click(Page_Partner_Delivery.Dropdown_SoldBuy());
                         action.click(Page_Partner_Delivery.List_StoreAssociate(BodcCode));
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (Site.equalsIgnoreCase("Home outlet service level")) {
+
+                switch (str) {
+                    case "Delivery Details":
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Product_Description(), ProductDescription);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Dimensions(),Dimensions);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Weight(),Weight);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                        action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+
+                        String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                        cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
+                        cucumberContextManager.setScenarioContext("Customer_Name", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
+                        cucumberContextManager.setScenarioContext("Customer_Mobile", Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value"));
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Receipt_Number(), OrderNumber);
 
                         break;
                     default:
@@ -1044,6 +1084,9 @@ public class Partner_Delivery_Details extends DriverBase {
                     break;
                 case "Details":
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Header_Details()),"Details header should be displayed","Details header is displayed","Details header is not displayed");
+                    break;
+                case "Warning":
+                    testStepAssert.isTrue(action.isElementPresent(admin_EditScheduledBungiiPage.Icon_Warning()),"Warning Icon should be displayed","Warning Icon is displayed","Warning Icon is not displayed");
                     break;
             }
     } catch (Exception e) {

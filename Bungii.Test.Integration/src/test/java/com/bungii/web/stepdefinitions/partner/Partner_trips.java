@@ -1551,7 +1551,7 @@ try{
     }
     @Then("^I check if the day is \"([^\"]*)\" first time slot is \"([^\"]*)\" and last time slot is \"([^\"]*)\"$")
     public void i_check_if_the_day_is_something_first_time_slot_is_something_and_last_time_slot_is_something(String day, String strArg2, String strArg3) throws Throwable {
-
+        try{
         for(int i=0;i<7;i++){
             LocalDate todayDateWithMonthAndYeat = LocalDate.now().plusDays(i);
             DayOfWeek dayBasedOnDate=todayDateWithMonthAndYeat.getDayOfWeek();
@@ -1571,11 +1571,14 @@ try{
         if (currentDay.equalsIgnoreCase("Sunday")){
             Thread.sleep(2000);
             action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
-            boolean isSundayDisabled =Page_Partner_Dashboard.Button_SundayDisabled().isDisplayed();
-            System.out.println(isSundayDisabled);
-           boolean c = action.invisibilityOfElementLocated(Page_Partner_Dashboard.Button_SundayDisabled());
-            System.out.println(c);
-
+            String IsButtonDisabled = Page_Partner_Dashboard.Button_SundayDisabled().getAttribute("class");
+            testStepAssert.isEquals(IsButtonDisabled,"item excluded","Class name should be item excluded for the button to be unclickable",
+                    "Class name is  item excluded and  the button is  unclickable",
+                    "Class name is not item excluded" );
+        testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Button_SundayDisabled(),
+                currentDate+" should be displayed but not clickable as its "+currentDay,
+                 currentDate+" is displayed but not clickable as its "+currentDay,
+                currentDate+" is displayed but is clickable as its "+currentDay);
 
         }
         else {
@@ -1583,7 +1586,7 @@ try{
                 Thread.sleep(3000);
                 action.click(Page_Partner_Dashboard.FutureTrip(currentDate));
                 Thread.sleep(3000);
-                action.click(Page_Partner_Dashboard.blah());
+                action.click(Page_Partner_Dashboard.Button_PickupTime());
                 if(currentDay.equalsIgnoreCase("Saturday")) {
                     String firstTimeSlot = action.getText(Page_Partner_Dashboard.Text_FirstTimeSlot());
                     String lastTimeSlot = action.getText(Page_Partner_Dashboard.Text_LastTimeSlot(33));
@@ -1597,7 +1600,7 @@ try{
                             "The partner portal last time slot should be "+ lastTimeSlotInDB,
                             "The partner portal last time slot is "+ lastTimeSlot,
                             "The partner portal last time slot is not "+lastTimeSlotInDB );
-
+                    action.click(Page_Partner_Dashboard.Text_FirstTimeSlot());
                 }
                 else {
                     String firstTimeSlot = action.getText(Page_Partner_Dashboard.Text_FirstTimeSlot());
@@ -1612,9 +1615,15 @@ try{
                             "The partner portal last time slot should be "+ lastTimeSlotInDB,
                             "The partner portal last time slot is "+ lastTimeSlot,
                             "The partner portal last time slot is not "+lastTimeSlotInDB );
+                    action.click(Page_Partner_Dashboard.Text_FirstTimeSlot());
                 }
 
         }
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 

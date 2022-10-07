@@ -92,4 +92,11 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement Label_ErrorMessage() { return findElement("verify-error", LocatorType.Id); }
 
     public WebElement Label_AdditionalNotes() { return findElement("//div/p[text() =\"Special Instructions:\"]", LocatorType.XPath); }
+
+    public WebElement Text_LastTimeSlotAdminEdit() { return findElement("//div[@class=\"ui-timepicker-wrapper\"]/ul/li[96]", LocatorType.XPath); }
+
+    public WebElement Label_WarningForOutsideBungiiHoursTimeSet() { return findElement("//div/small[@id=\"warning-message\"]/em", LocatorType.XPath); }
+
+    public WebElement Icon_Warning() { return findElement("//div/small[@id=\"warning-message\"]/i", LocatorType.XPath); }
+
 }
