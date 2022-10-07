@@ -41,7 +41,6 @@ Feature: Home Outlet
    #CORE-3293:Verify Time slot displayed on Partner portal within Bungii and Partner working hrs when partner has different working hrs on each day
   @ready
   Scenario:Verify Time slot displayed on Partner portal within Bungii and Partner working hrs when partner has different working hrs on each day
-    When I click on "<string>" button
     Then I check if the day is "Monday" first time slot is "09:00 AM" and last time slot is "06:00 PM"
     Then I check if the day is "Tuesday" first time slot is "09:00 AM" and last time slot is "06:00 PM"
     Then I check if the day is "Wednesday" first time slot is "09:00 AM" and last time slot is "06:00 PM"
