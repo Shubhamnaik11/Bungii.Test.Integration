@@ -23,6 +23,4 @@ public class DriversPage extends PageBase {
     public WebElement Text_DriverRattingProfile() {
         return findElement("//td[text()='Rating']/following-sibling::td/strong", LocatorType.XPath);
     }
-
-
 }

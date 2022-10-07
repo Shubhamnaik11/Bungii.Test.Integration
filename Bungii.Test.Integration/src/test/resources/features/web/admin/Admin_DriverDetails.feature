@@ -144,3 +144,16 @@ Feature: Admin_DriverDetails
     And I enter confirm comment for edited phone and "Cancel" it
     And I click "Cancel" button for the "Testdrivertywd_appledc_a_drve Driver" driver
     Then I see unchanged driver phone number
+
+#  Core-4175
+    @ready
+    Scenario Outline: Verify that existing drivers with Branch app Registration on admin portal
+      When I search driver "<DriverName>"
+      And I click "Profile" button for the "<DriverName>" driver
+      Then I check if "<Details>" are displayed
+
+      Examples:
+        | DriverName                                   |   Details               |  Type                                   |
+        | Testdrivertywd_appledv_b_mattH Stark_dvOnEH  |   Processing details    |  Branch app Registration without wallet |
+        | Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ  |   Wallet details        |  Branch app registration and wallet     |
+        | Testdrivertywd_appledc_a_drve Driver         |   Acc not created       |  No Branch app Registration             |

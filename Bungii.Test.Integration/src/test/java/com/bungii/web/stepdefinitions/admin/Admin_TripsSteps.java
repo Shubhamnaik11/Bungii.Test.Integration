@@ -1347,6 +1347,14 @@ try{
     @Then("^Partner firm should receive \"([^\"]*)\" email$")
     public void partner_firm_should_receive_something_email(String emailSubject) throws Throwable {
 
+        String portalName= (String) cucumberContextManager.getScenarioContext("Portal_Name");
+        if (portalName.equalsIgnoreCase("BestBuy2 service level")){
+            String deliveryCount=emailSubject.substring(0,3);
+            cucumberContextManager.setScenarioContext("DELIVERY_COUNT",deliveryCount);
+            String partnerPortal=PropertyUtility.getDataProperties("partner.baltimore.name");
+            emailSubject=partnerPortal+" has completed one of their initial deliveries!";
+        }
+
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody == null) {
              testStepAssert.isFail("Email : " + emailSubject + " not received");
@@ -1449,6 +1457,11 @@ try{
                     message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
                 }
                 //message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                break;
+            case "Best Buy #11, Baltimore, MD has completed one of their initial deliveries!":
+                String partnerPortal=PropertyUtility.getDataProperties("partner.baltimore.name");
+                String deliveryCount= (String) cucumberContextManager.getScenarioContext("DELIVERY_COUNT");
+                message = utility.getExpectedPartnerFirmInitialDeliveriesEmailContent(partnerPortal,deliveryCount);
                 break;
         }
         message= message.replaceAll(" ","");
