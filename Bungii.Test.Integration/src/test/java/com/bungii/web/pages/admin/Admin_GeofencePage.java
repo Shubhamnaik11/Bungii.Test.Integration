@@ -98,10 +98,10 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Row_geofenceList(String Name,String Status,String Timezone) {return  findElement(String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",Name,Status,Timezone), LocatorType.XPath);}
 
-    public WebElement List_Geofence() {return findElement("dropdownMenuButton" , LocatorType.Id);}
-    public WebElement TextBox_SearchGeofence() {return findElement("myInput" , LocatorType.Id);}
-    public WebElement Button_ApplyGeofence() {return findElement("btnApply" , LocatorType.Id);}
-    public WebElement Button_Clear() {return findElement("clearAll" , LocatorType.Id);}
+    public WebElement List_Geofence() {return findElement("dropdown-autoclose-outside" , LocatorType.Id);}
+    public WebElement TextBox_SearchGeofence() {return findElement("foo" , LocatorType.Id);}
+    public WebElement Button_ApplyGeofence() {return findElement("//button[contains(text(),'APPLY')]" , LocatorType.XPath);}
+    public WebElement Button_Clear() {return findElement("//button[contains(text(),'CLEAR')]" , LocatorType.XPath);}
 
     public WebElement Checkbox_Geofence(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath, ignoreException);}
     public WebElement Checkbox_GeofenceLabel(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]",geofence) , LocatorType.XPath, ignoreException);}

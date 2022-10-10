@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Admin_CustomerPage extends PageBase {
 
-    public WebElement Menu_Customers () { return findElement("//li[@id='adminmenu-customers']/a", LocatorType.XPath); }
+    public WebElement Menu_Customers () { return findElement("//span[contains(text(),'Customers')]", LocatorType.XPath); }
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
@@ -30,23 +30,23 @@ public class Admin_CustomerPage extends PageBase {
 
     public WebElement Header_Spent(){ return findElement("//span[@id='span-AmountSpent']", LocatorType.XPath);}
 
-    public WebElement Label_NoCustomerFound(){return findElement("//h5[contains(text(),'No Customers found.')]", LocatorType.XPath);}
+    public WebElement Label_NoCustomerFound(){return findElement("//td[contains(text(),'No Data.')]", LocatorType.XPath);}
 
-    public WebElement TextBox_Phone() { return findElement("customer-phone", LocatorType.Id); }
+    public WebElement TextBox_Phone() { return findElement("//div[@class='col-sm-2']/input", LocatorType.XPath); }
 
-    public WebElement TextBox_Email() { return findElement("customer-email", LocatorType.Id); }
+    public WebElement TextBox_Email() { return findElement("//input[@class='usertrip-form-control-email form-control']", LocatorType.XPath); }
 
     public WebElement Icon_EditPhone() { return findElement("phone-edit", LocatorType.Id); }
 
-    public WebElement Icon_EditEmail() { return findElement("email-edit", LocatorType.Id); }
+    public WebElement Icon_EditEmail() { return findElement("//img[@title='Edit Email']", LocatorType.XPath); }
 
-    public WebElement Button_SavePhone() { return findElement("phone-save", LocatorType.Id); }
+    public WebElement Button_SavePhone() { return findElement("//img[@class='save-icon']", LocatorType.XPath); }
 
-    public WebElement Button_SaveEmail() { return findElement("email-save", LocatorType.Id); }
+    public WebElement Button_SaveEmail() { return findElement("//img[@title='save Phone']", LocatorType.XPath); }
 
-    public WebElement Button_CancelPhone() { return findElement("phone-cancel", LocatorType.Id); }
+    public WebElement Button_CancelPhone() { return findElement("//img[@class='cancel-icon']", LocatorType.XPath); }
 
-    public WebElement Button_CancelEmail() { return findElement("email-cancel", LocatorType.Id); }
+    public WebElement Button_CancelEmail() { return findElement("//img[@title='cancel Phone']", LocatorType.XPath); }
 
     public WebElement TextBox_Comment() { return findElement("update-comment", LocatorType.Id); }
 

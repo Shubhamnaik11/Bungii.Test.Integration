@@ -630,6 +630,7 @@ try{
                 testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_NoPromoCodesFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
             case "No Customers found.":
+                message="No Data.";
                 testStepAssert.isEquals(action.getText(admin_customerPage.Label_NoCustomerFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
             case "Payment details added successfully for Business User.":

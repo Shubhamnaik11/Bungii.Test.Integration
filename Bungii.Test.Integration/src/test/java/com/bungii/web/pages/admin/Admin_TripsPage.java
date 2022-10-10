@@ -7,56 +7,56 @@ import java.util.List;
 
 public class Admin_TripsPage extends PageBase {
 
-    public WebElement Menu_Trips () { return findElement("adminmenu-trips", LocatorType.Id); }
+    public WebElement Menu_Trips () { return findElement("//ul[@id='side-menu']/li/p/span[contains(text(),'Deliveries')]", LocatorType.XPath); }
 
-    public WebElement Menu_CompletedTrips () { return findElement("adminmenu-completedtrips", LocatorType.Id); }
+    public WebElement Menu_CompletedTrips () { return findElement("//span[contains(text(),'All Deliveries')]", LocatorType.XPath); }
 
     //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
 
-    public WebElement DropDown_SearchForPeriod () {return findElement("SearchForPeriod", LocatorType.Id); }
+    public WebElement DropDown_SearchForPeriod () {return findElement("//div[text()='The following deliveries from:']/select", LocatorType.XPath); }
 
     //public List<WebElement> Client_names () { return findElements("//td[9]", LocatorType.XPath); }
     public List<WebElement> Client_names () { return findElements("//td[9]", LocatorType.XPath); }
 
-    public WebElement Button_Filter () { return findElement("btnFilter", LocatorType.Id); }
+    public WebElement Button_Filter () { return findElement("//button[@class='btn-filter btn btn-primary']/span", LocatorType.XPath); }
 
-    public WebElement Button_Apply () { return  findElement("applyFilter", LocatorType.Id); }
+    public WebElement Button_Apply () { return  findElement("//button[contains(text(),'APPLY')]", LocatorType.XPath); }
 
-    public WebElement CheckBox_FilterPaymentUnsuccessful () { return findElement("chkStatus-10", LocatorType.Id); }
+    public WebElement CheckBox_FilterPaymentUnsuccessful () { return findElement("Payment Unsuccessful", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterPaymentSuccessful () { return findElement("chkStatus-11", LocatorType.Id); }
+    public WebElement CheckBox_FilterPaymentSuccessful () { return findElement("Payment Successful", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterCustomerCancelled () { return findElement("chkStatus-64", LocatorType.Id); }
+    public WebElement CheckBox_FilterCustomerCancelled () { return findElement("Customer Canceled", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterDriverCancelled () { return findElement("chkStatus-66", LocatorType.Id); }
+    public WebElement CheckBox_FilterDriverCancelled () { return findElement("Driver Canceled", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterAdminCancelled () { return findElement("chkStatus-70", LocatorType.Id); }
+    public WebElement CheckBox_FilterAdminCancelled () { return findElement("Admin Canceled", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterPartnerCancelled () { return findElement("chkStatus-72", LocatorType.Id); }
+    public WebElement CheckBox_FilterPartnerCancelled () { return findElement("Partner Canceled", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterPickupWithError () { return findElement("chkStatus-PickupwithError", LocatorType.Id); }
+    public WebElement CheckBox_FilterPickupWithError () { return findElement("Pickup with Error", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterPriceEstimated () { return findElement("chkStatus-2", LocatorType.Id); }
+    public WebElement CheckBox_FilterPriceEstimated () { return findElement("Price Estimated", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterDriversNotFound () { return findElement("chkStatus-60", LocatorType.Id); }
+    public WebElement CheckBox_FilterDriversNotFound () { return findElement("No Driver(s) Found", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterDriverRemoved () { return findElement("chkStatus-71", LocatorType.Id); }
+    public WebElement CheckBox_FilterDriverRemoved () { return findElement("Driver Removed", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterDriverNotArrived () { return findElement("chkStatus-63", LocatorType.Id); }
+    public WebElement CheckBox_FilterDriverNotArrived () { return findElement("Driver Not Arrived", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterPromoterPaymentPending () { return findElement("chkStatus-14", LocatorType.Id); }
+    public WebElement CheckBox_FilterPromoterPaymentPending () { return findElement("Promoter Payment Pending", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterSolo () { return findElement("chkPickupType-1", LocatorType.Id); }
+    public WebElement CheckBox_FilterSolo () { return findElement("Solo", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterDuo () { return findElement("chkPickupType-2", LocatorType.Id); }
+    public WebElement CheckBox_FilterDuo () { return findElement("Duo", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterOnDemand () { return findElement("chkPickupCategory-1", LocatorType.Id); }
+    public WebElement CheckBox_FilterOnDemand () { return findElement("On-Demand", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterScheduled () { return findElement("chkPickupCategory-2", LocatorType.Id); }
+    public WebElement CheckBox_FilterScheduled () { return findElement("Scheduled", LocatorType.Id); }
 
-    public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
+    public WebElement Dropdown_SearchForPeriod () { return findElement("//div[text()='The following deliveries from:']/select", LocatorType.XPath); }
 
     public WebElement Text_AllTripIndicator () { return findElement("//tbody[@id=\"TripListsTBody\"]/tr/td[1]/label", LocatorType.XPath); }
 
@@ -94,5 +94,6 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Text_ScheduledDate(){return findElement("//td[4]/a",LocatorType.XPath);}
 
+    public WebElement Link_DeliveryDetails() {return findElement("//a[contains(text(),'Delivery Details')]",LocatorType.XPath);}
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Admin_DriversPage extends PageBase {
 
-    public WebElement Menu_Drivers () { return findElement("//img[@alt='Drivers']", LocatorType.XPath); }
+    public WebElement Menu_Drivers () { return findElement("//ul[@id='side-menu']/li/p/span[contains(text(),'Drivers')]", LocatorType.XPath); }
 
     //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 

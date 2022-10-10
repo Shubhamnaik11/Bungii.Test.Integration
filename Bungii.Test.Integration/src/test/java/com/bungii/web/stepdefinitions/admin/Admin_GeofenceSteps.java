@@ -269,8 +269,8 @@ public class Admin_GeofenceSteps extends DriverBase {
                         log("I navigate to "+Page+" page" ,
                                 "I have navigated to "+Page+" page", false);
 
-                        i_should_see_something_in_the_dropdown_on_the_something_page(Page);
-                        i_should_not_see_something_in_the_dropdown_on_the_something_page(Page);
+                       // i_should_see_something_in_the_dropdown_on_the_something_page(Page);
+                       // i_should_not_see_something_in_the_dropdown_on_the_something_page(Page);
                         i++;
                     }
 
