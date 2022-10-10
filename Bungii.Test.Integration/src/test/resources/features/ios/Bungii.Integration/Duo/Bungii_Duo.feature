@@ -817,7 +817,7 @@ Feature: Scheduled DUO Bungii
   Scenario: Verify time calculation for Long stack trip after editing the service level on Live deliveries
     When I request Partner Portal "SOLO" Trip for "Biglots" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |atlanta  | NEXT_POSSIBLE | 8877661059 | Testcustomertywd_BppleMarkBH LutherBH|
+      |atlanta  | NEXT_POSSIBLE | 8877661131 | Testcustomertywd_appleMarkEB LutherEB|
     And As a driver "Testdrivertywd_applega_a_steveE Stark_altOnEE" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state |
       | Accepted      |
@@ -847,19 +847,15 @@ Feature: Scheduled DUO Bungii
     And I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "ORIGINAL" devices
     And I view and accept virtual notification for "Driver" for "stack trip"
-#    And try to finish time should be correctly displayed for long stack trip
 
     When  I switch to "Customer2" instance
-#    Then correct details should do be displayed on BUNGII ACCEPTED screen for Stack screen
     When I click "Ok" button on "BUNGII ACCEPTED" screen
-#    Then correct details should do be displayed on BUNGII ACCEPTED with arrival time screen for Stack screen
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
-    And I select the live trip for "Testcustomertywd_BppleMarkBH LutherBH"
-#   Core-2641 Verify alias is displayed for partner portal trips on Live delivery page
+    And I select the live trip for "Testcustomertywd_appleMarkEB LutherEB"
     And I Select "Edit Trip Details" option
     And I change the service level to "Room of Choice" in "Admin" portal
     And I click on "VERIFY" button
@@ -868,6 +864,6 @@ Feature: Scheduled DUO Bungii
     Then the "Bungii Saved!" message is displayed
     When I click on "Close" button
 
-    And I switch to "ORIGINAL" instance
-    When I Switch to "driver" application on "same" devices
+    When  I switch to "Customer2" instance
     And I calculate the "telet-long stack" time after "changed service level"
+    Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen

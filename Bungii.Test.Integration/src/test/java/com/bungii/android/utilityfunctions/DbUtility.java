@@ -317,6 +317,36 @@ public class DbUtility extends DbContextManager {
         logger.detail("For pickUpID " + pickUpID + " admin edit time is " + time);
         return time;
     }
+    public static String getPickupIdWithRef(String pickupRef) {
+        String pickupid = "";
+        String queryString = "SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef + "'";
+        pickupid = getDataFromMySqlServer(queryString);
+        logger.detail("Pickupid  " + pickupid + " of pickupref " + pickupRef);
+        return pickupid;
+    }
+    public static String[] getPickupAndDropLocationWithID(String pickupID){
+        String tripLocation[] = new String[4];
+        tripLocation[0]=    getDataFromMySqlServer("select PickupLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[1]=    getDataFromMySqlServer("select PickupLong from pickupdropaddress  where PickupID= "+pickupID);
+        tripLocation[2]=    getDataFromMySqlServer("select DropOffLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[3]=    getDataFromMySqlServer("select DropOffLong from pickupdropaddress  where PickupID= "+pickupID);
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]+","+tripLocation[1]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[2]+","+tripLocation[3]);
+        return tripLocation;
+    }
+    public static String getTimeAtPickUpAndDrop(String type) {
+        String time = "";
+        String queryString = "select "+type+"\n" +
+                "from bungii_admin_qa_auto.bp_service_level sl\n" +
+                "join bungii_admin_qa_auto.bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
+                "join bungii_admin_qa_auto.bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
+                "where bungii_admin_qa_auto.fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
+                "and subdomain_name like 'qaauto-biglots%' and service_level_number=3\n" +
+                "order by subdomain_name, service_level_number, service_name;";
+        time = getDataFromMySqlServer(queryString);
+        logger.detail("Time at pickup/dropoff is "+ time);
+        return time;
+    }
     public static String getLoadUnloadTime(String pickUpID) {
         String loadUnloadTime = "";
         String queryString = "select LoadingUnloadingTime from pickupdetails where PickupID = "+pickUpID;

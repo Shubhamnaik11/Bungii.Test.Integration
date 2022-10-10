@@ -71,6 +71,10 @@ public class BungiiAcceptedSteps extends DriverBase {
 
                 if (geofence.equalsIgnoreCase("goa") || geofence.equalsIgnoreCase(""))
                     labelOne =  PropertyUtility.getDataProperties("time.label");
+                else if (geofence.equalsIgnoreCase("atlanta"))
+                {
+                    labelOne =  PropertyUtility.getDataProperties("edt.time.label");
+                }
                 else
                     labelOne =  utility.getTimeZoneBasedOnGeofence();
                 testStepVerify.isElementEnabled(bungiiAcceptedPage.Button_CancelBungii(),"Cancel Bungii should be displayed");
@@ -241,34 +245,16 @@ public class BungiiAcceptedSteps extends DriverBase {
                             String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189"; c/// Stacked trip will be 2 customer you need of first trip
                             String pickupRef = (String) cucumberContextManager.getScenarioContext("Pickup_Request");
                             String pickUpID = DbUtility.getPickupIdWithRef(pickupRef);
-                            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
-                            System.out.println(geofenceLabel);
                             String adminEditTime= DbUtility.getAdminEditTime(pickUpID);
                             System.out.println(adminEditTime);
                             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
-//                            TimeZone tz1 = TimeZone.getTimeZone("UTC");
-                            TimeZone tz2 = TimeZone.getTimeZone("EDT");
-                            Calendar sourceCalendar = Calendar.getInstance(tz2);
+                            Calendar sourceCalendar = Calendar.getInstance();
                             sourceCalendar.setTime(formatter.parse(adminEditTime));
                             System.out.println(sourceCalendar.getTime());
                             sourceCalendar.add(Calendar.MINUTE,-240);
                             System.out.println(sourceCalendar.getTime());
 
-//                            sourceCalendar.setTimeZone(tz1);
-//
-//                            Calendar targetCalendar = Calendar.getInstance();
-//                            for (int field : new int[] {Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, Calendar.HOUR, Calendar.MINUTE, Calendar.SECOND, Calendar.MILLISECOND}) {
-//                                targetCalendar.set(field, sourceCalendar.get(field));
-//                            }
-//                            targetCalendar.setTimeZone(tz2);
-//                            System.out.println(targetCalendar.getTime());
-//                            System.out.println(newdate);
-//                            Date newda = formatter.parse(newdate);
-//                            System.out.println(newda);
-
-
-                            String[] locationsTripOne = DbUtility.getPickupAndDropLocation(phoneNumber);
+                            String[] locationsTripOne = DbUtility.getPickupAndDropLocationWithID(pickUpID);
                             String[] dropLocation = new String[2];
                             dropLocation[0] = locationsTripOne[2];
                             dropLocation[1] = locationsTripOne[3];
@@ -286,11 +272,34 @@ public class BungiiAcceptedSteps extends DriverBase {
                             System.out.println( sourceCalendar.getTime());
                             sourceCalendar.add(Calendar.MINUTE,mins);
                             System.out.println( sourceCalendar.getTime());
+                            String newTelet= String.valueOf(sourceCalendar.getTime());
+                            cucumberContextManager.setScenarioContext("DRIVER_TELET",newTelet.substring(11,16));
+//                          Formula = (TELET + drive time from drop off A to pickup B) - 10 minutes, + 30 minutes
+                            String pickupRefTrip2 = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                            String pickUpIDTrip2 = DbUtility.getPickupIdWithRef(pickupRefTrip2);
+                            String[] locationsTripTwo = DbUtility.getPickupAndDropLocationWithID(pickUpIDTrip2);
+                            String[] pickupLocations2 = new String[2];
+                            pickupLocations2[0] = locationsTripTwo[0];
+                            pickupLocations2[1] = locationsTripTwo[1];
+                            long[] timeToCoverDistance2 = new GoogleMaps().getDurationInTraffic(dropLocation, pickupLocations2);
+                            logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance2[0]+" and "+timeToCoverDistance2[1]);
+                            int lowerMins= (int) (timeToCoverDistance2[0]/60-10);
+                            sourceCalendar.add(Calendar.MINUTE,lowerMins);
+                            String newLowerPat= String.valueOf(sourceCalendar.getTime()).substring(11,16);
+                            DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+                            dateFormat.parse(newLowerPat);
+                            cucumberContextManager.setScenarioContext("PAT_LOWER_RANGE",dateFormat.format(newLowerPat));
+                            sourceCalendar.add(Calendar.MINUTE,lowerMins+40);
+                            String newUpperPat= String.valueOf(sourceCalendar.getTime()).substring(11,16);
+                            dateFormat.format(newUpperPat);
+                            cucumberContextManager.setScenarioContext("PAT_UPPER_RANGE",newUpperPat);
 
-                            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
-                            Date dateObj = sourceCalendar.getTime();
-                            System.out.println(sdf.format(dateObj));
-                            System.out.println(new SimpleDateFormat("K:mm").format(dateObj));
+
+//                            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+//                            Date dateObj = sourceCalendar.getTime();
+//                            System.out.println(sdf.format(dateObj));
+//                            System.out.println(new SimpleDateFormat("K:mm").format(dateObj));
+//                            cucumberContextManager.setScenarioContext("DRIVER_TELET",new SimpleDateFormat("K:mm").format(dateObj));
 
                             break;
                     }

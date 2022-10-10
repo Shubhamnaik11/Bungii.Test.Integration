@@ -568,6 +568,22 @@ public class ScheduledTripSteps extends DriverBase {
 					true);
 		}
 	}
+	@And("^I select the live trip for \"([^\"]*)\"$")
+	public void i_select_the_live_trip_for_something(String custName) throws Throwable {
+		try{
+			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),custName);
+			action.click(scheduledTripsPage.Button_Search());
+			Thread.sleep(25000);
+			action.click(scheduledTripsPage.Icon_Dropdown());
+			action.click(scheduledTripsPage.Option_Edit());
+			log("I should be able to see the trip with "+custName,"I am able to see the trip with "+custName,false);
+		}
+		catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Problem in selecting Live delivery in admin portal for customer "+custName,
+					true);
+		}
+	}
 	@And("^I open the trip for \"([^\"]*)\" the customer$")
 	public void i_open_the_trip_for_something_the_customer(String custName) throws Throwable {
 		try {
