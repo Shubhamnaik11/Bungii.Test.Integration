@@ -531,7 +531,26 @@ public class LiveTripsSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I check if \"([^\"]*)\" button is displayed$")
+    public void i_check_if_something_button_is_displayed(String button) throws Throwable {
 
+        try{
+            switch (button){
+                case "Branch app":
+                    testStepAssert.isElementDisplayed(driversPage.Button_BranchWallet(),
+                            "The branch app button should be displayed",
+                            "The branch app button is displayed",
+                            "The branch app button is not displayed");
+                    break;
+            }
+            log("I should be able to check if "+button+" button is displayed","I am able to check if "+button+" button is displayed",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @And("^I verify the elements on driver referral page$")
     public void i_verify_the_elements_on_driver_referral_page() throws Throwable {
        try{
