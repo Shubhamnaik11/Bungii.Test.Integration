@@ -247,4 +247,7 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Confirm button on Partner logo click
     public WebElement Button_ConfirmPartnerLogoClick() {return findElement("//button[contains(text(),\"Continue\")]", LocatorType.XPath);}
+
+    public List<WebElement> Text_PartnerName() {return findElements("//tbody[@id='TripListsTBody']/tr/td[text()='Best Buy #11 - Baltimore, MD']", LocatorType.XPath);}
+
 }
