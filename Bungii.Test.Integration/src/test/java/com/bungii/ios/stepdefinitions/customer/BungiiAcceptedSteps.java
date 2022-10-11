@@ -286,13 +286,13 @@ public class BungiiAcceptedSteps extends DriverBase {
                             int lowerMins= (int) (timeToCoverDistance2[0]/60-10);
                             sourceCalendar.add(Calendar.MINUTE,lowerMins);
                             String newLowerPat= String.valueOf(sourceCalendar.getTime()).substring(11,16);
-                            DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-                            dateFormat.parse(newLowerPat);
-                            cucumberContextManager.setScenarioContext("PAT_LOWER_RANGE",dateFormat.format(newLowerPat));
+                            DateFormat dateFormat = new SimpleDateFormat("HH:mm aa");
+                            sourceCalendar.setTime(dateFormat.parse(newLowerPat));
+                            cucumberContextManager.setScenarioContext("PAT_LOWER_RANGE",sourceCalendar.getTime());
                             sourceCalendar.add(Calendar.MINUTE,lowerMins+40);
                             String newUpperPat= String.valueOf(sourceCalendar.getTime()).substring(11,16);
-                            dateFormat.format(newUpperPat);
-                            cucumberContextManager.setScenarioContext("PAT_UPPER_RANGE",newUpperPat);
+                            sourceCalendar.setTime(dateFormat.parse(newUpperPat));
+                            cucumberContextManager.setScenarioContext("PAT_UPPER_RANGE",sourceCalendar.getTime());
 
 
 //                            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
