@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Admin_ScheduledTripsPage extends PageBase {
 
-    public WebElement Menu_ScheduledTrips () { return findElement("adminmenu-scheduledtrips", LocatorType.Id); }
+    public WebElement Menu_ScheduledTrips () { return findElement("//span[contains(text(),'Scheduled Deliveries')]", LocatorType.XPath); }
 
-    public WebElement Menu_AllTrips () { return findElement("adminmenu-completedtrips", LocatorType.Id); }
+    public WebElement Menu_AllTrips () { return findElement("//span[contains(text(),'All Deliveries')]", LocatorType.XPath); }
 
     //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 

@@ -18,14 +18,14 @@ public class Admin_DashboardPage extends PageBase {
 
     public WebElement GridRow_PendingVerificationLink (String LastName) { return findElement("//td[text()='James "+LastName+"']/following-sibling::td[text()='Pending Verification']/following-sibling::td[2]/a", LocatorType.XPath); }
 
-    public WebElement Menu_Dashboard () { return findElement("//li[@id='adminmenu-dashboard']/a", LocatorType.XPath); }
+    public WebElement Menu_Dashboard () { return findElement("//span[contains(text(),'Dashboard')]", LocatorType.XPath); }
     public WebElement Icon_Search() { return findElement("btnSearchDriver", LocatorType.Id); }
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
-    public WebElement TextBox_SearchCustomer() { return findElement("txtSearchCustomer", LocatorType.Id); }
+    public WebElement TextBox_SearchCustomer() { return findElement("SearchCriteria", LocatorType.Id); }
 
-    public WebElement Textbox_DriverSearch () { return findElement("txtSearchDriver",LocatorType.Id);}
+    public WebElement Textbox_DriverSearch () { return findElement("//h4[text()='Recent Driver Registrations']/ancestor::div[@class='col-sm-6']/following-sibling::div/div/div/input",LocatorType.XPath);}
     public WebElement Link_Drivers() { return findElement("//*[@id='adminmenu-drivers-menu']/a", LocatorType.XPath); }
     public WebElement Link_Customers() { return findElement("//*[@id='adminmenu-customers']/a", LocatorType.XPath); }
     public WebElement Link_NonActiveDriver() { return findElement("//*[@id='adminmenu-customers']/a", LocatorType.XPath); }

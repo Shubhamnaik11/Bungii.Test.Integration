@@ -6,9 +6,9 @@ import org.openqa.selenium.WebElement;
 public class Admin_PartnersPage extends PageBase {
 
    // public WebElement Menu_Partners () { return findElement("adminmenu-partners", LocatorType.Id); }
-    public WebElement Menu_Partners () { return findElement("adminmenu-potentialpartners", LocatorType.Id); }
+    public WebElement Menu_Partners () { return findElement("//ul[@id='side-menu']/li/p/span[contains(text(),'Partners')]", LocatorType.XPath); }
 
-    public WebElement Assign_Partners () { return findElement("adminmenu-assigncluster", LocatorType.Id); }
+    public WebElement Assign_Partners () { return findElement("//span[contains(text(),'Partner List')]", LocatorType.XPath); }
 
     public WebElement Text_Invalid_Password_Message () { return findElement("//div[@class='form-group']/div", LocatorType.XPath); }
 
