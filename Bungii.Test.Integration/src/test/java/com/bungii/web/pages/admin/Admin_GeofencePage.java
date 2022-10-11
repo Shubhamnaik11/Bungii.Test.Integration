@@ -103,7 +103,7 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Button_ApplyGeofence() {return findElement("//button[contains(text(),'APPLY')]" , LocatorType.XPath);}
     public WebElement Button_Clear() {return findElement("//button[contains(text(),'CLEAR')]" , LocatorType.XPath);}
 
-    public WebElement Checkbox_Geofence(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath, ignoreException);}
+    public WebElement Checkbox_Geofence(String geofence , boolean... ignoreException) {return findElements(String.format("//span[contains(.,'%s')]/preceding::span/span",geofence) , LocatorType.XPath).get(0);}
     public WebElement Checkbox_GeofenceLabel(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]",geofence) , LocatorType.XPath, ignoreException);}
 
     public WebElement Button_DownloadZipCodes() {return findElement("btnDownloadZipcodes" , LocatorType.Id);}

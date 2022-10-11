@@ -367,7 +367,7 @@ public class Admin_TripsSteps extends DriverBase {
                 driver = driver1 + "," + driver2;
             if (status.equalsIgnoreCase("Scheduled") || (status.equalsIgnoreCase("Assigning Driver(s)") && pageName.contains("Scheduled")) || status.equalsIgnoreCase("Driver Removed")|| status.equalsIgnoreCase("Driver(s) Not Found")||status.equalsIgnoreCase("Pending")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType[0].toUpperCase(), customer);
-                String costPath =  String.format("//td[contains(.,'%s')]/preceding-sibling::td[1]/span", customer);
+                String costPath =  String.format("//span[contains(.,'%s')]/following::td[5]", customer);
 
                 TripPath= xpath;
                 int retrycount = 10;

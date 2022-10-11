@@ -74,6 +74,7 @@ Feature: Admin_CustomersPage
     When I edit "Phone" to "9800000048" and Cancel it
     And I edit "Email" to "bungiiauto48@gmail.com" and Cancel it
     When I navigate to Customer List
+    When I enter "customers" "first name" in the "Customers search" box
     Then old Phone is displayed for the customer in the Customer List
     When I view the searched customer
     Then old Phone and Email is displayed for the customer
@@ -89,6 +90,7 @@ Feature: Admin_CustomersPage
     When I edit "Phone" to "9800000048" and Cancel on Comments popup
     And I edit "Email" to "bungiiauto48@gmail.com" and Cancel on Comments popup
     When I navigate to Customer List
+    When I enter "customers" "first name" in the "Customers search" box
     Then old Phone is displayed for the customer in the Customer List
     When I view the searched customer
     Then old Phone and Email is displayed for the customer
@@ -115,9 +117,19 @@ Feature: Admin_CustomersPage
     When I enter "customers" "first name" in the "Customers search" box
     Then I should see "customer first name" listed on the "Customers" page
     When I view the searched customer
-    When I edit "Phone" to "9800000004" and save it
-    And I edit "Email" to "bungiiauto585@gmail.com" and save it
+    When I edit "Phone" to "9700000004" and save it
+    And I edit "Email" to "bungiiautoo585@gmail.com" and save it
+    And I wait for "2" mins
     When I navigate to Customer List
+    When I enter "customers" "first name" in the "Customers search" box
     Then updated Phone is displayed for the customer in the Customer List
-    When I view the searched customer
-    Then updated Phone and Email is displayed for the customer
+    When I click on "Customers" Menu
+    And I enter "customers" "first name" in the "Customers search" box
+    And I view the searched customer
+    And I edit "Phone" to "9000000004" and save it
+    And I edit "Email" to "bungiiauto585@gmail.com" and save it
+    And I wait for "2" mins
+    When I navigate to Customer List
+    When I enter "customers" "first name" in the "Customers search" box
+    Then updated Phone is displayed for the customer in the Customer List
+

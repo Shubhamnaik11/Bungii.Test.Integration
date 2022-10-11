@@ -1150,7 +1150,8 @@ public class GeneralUtility extends DriverBase {
     public void selectGeofenceDropdown(String geofence){
         action.click(admin_geofencePage.List_Geofence());
         action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(),geofence);
-        action.JavaScriptClick(admin_geofencePage.Checkbox_Geofence(geofence));
+        String geofencePartial= geofence.substring(1);
+        action.JavaScriptClick(admin_geofencePage.Checkbox_Geofence(geofencePartial));
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
     public void reApplyGeofenceDropdown(){
