@@ -411,7 +411,7 @@ try{
                 break;
             case "Email":
                 action.click(admin_customerPage.Icon_EditEmail());
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 action.clearSendKeys(admin_customerPage.TextBox_Email(),value);
                 action.click(admin_customerPage.Button_SaveEmail());
                 action.clearSendKeys(admin_customerPage.TextBox_Comment(),"updated to "+ value);
@@ -478,7 +478,7 @@ try{
         String custName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME") + " "+ (String) cucumberContextManager.getScenarioContext("CUSTLASTNAME");
         String phone = (String)  cucumberContextManager.getScenarioContext("PHONE");
 
-        String xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custName,phone);
+        String xpath = String.format("//tr[1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custName,phone);
         testStepAssert.isElementDisplayed(admin_customerPage.findElement(xpath,PageBase.LocatorType.XPath),
                 "Customer's updated phone should be listed in grid.",
                 "Customer's updated phone is listed in grid.",
@@ -557,7 +557,7 @@ try{
         String custFirstName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME");
         String phone = (String)  cucumberContextManager.getScenarioContext("OLDPHONE");
 
-        String xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custFirstName,phone);
+        String xpath = String.format("//tr[1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custFirstName,phone);
         testStepAssert.isElementDisplayed(admin_customerPage.findElement(xpath,PageBase.LocatorType.XPath),
                 "Customer's updated phone should be listed in grid.",
                 "Customer's updated phone is listed in grid.",
@@ -571,7 +571,7 @@ try{
     @When("^I navigate to Customer List$")
     public void i_navigate_to_customer_list() {
         try {
-            String url = utility.GetAdminUrl().replace("/Admin/Login", "") + "/BungiiReports/Customers";
+            String url = utility.GetAdminUrl().replace("/login", "") + "/BungiiReports/Customers";
             action.navigateTo(url);
             Thread.sleep(5000);
             action.isElementPresent(admin_customerPage.TextBox_SearchCustomer());
