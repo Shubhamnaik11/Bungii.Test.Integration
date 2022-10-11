@@ -75,7 +75,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//p[@id='delivery-completed-success-message']/i[2]", LocatorType.XPath); }
 
-    public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
+    public WebElement Dropdown_SearchForPeriod () { return findElement("//select[@class='user-trip-dropdown form-select']", LocatorType.XPath); }
 
     public WebElement Checkbox_NonControlDriver () { return findElement( "//div[@id='tripDriverDetails']/div[1]/label[1]/input", LocatorType.XPath);}
 
