@@ -127,7 +127,7 @@ public class Partner_LoginSteps extends DriverBase {
                 case "Admin":
                     //action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
                     //String PreviousServiceLevel=Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel().getText();
-                    String PreviousServiceLevel=Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevelSelected().getText();
+                    String PreviousServiceLevel=action.getText(Page_Admin_ScheduledTrips.Admin_DropdownServiceLevelSelected());
                     cucumberContextManager.setScenarioContext("Old_service", PreviousServiceLevel);
                     action.selectElementByText(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(), Service_Name);
                     cucumberContextManager.setScenarioContext("Change_service", Service_Name);

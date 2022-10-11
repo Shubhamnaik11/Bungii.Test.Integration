@@ -244,7 +244,7 @@ Feature: Service Level
     And I get the new pickup reference generated
     And I search the delivery of Customer
     And I click on the dropdown beside scheduled bungii
-    When I click the "Notes & History" link
+    And I click the "Notes & History" link
     And I click on "History"
     Then The "History" tab should be selected
     And I should see edit Service level history

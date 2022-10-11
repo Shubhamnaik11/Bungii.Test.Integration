@@ -375,7 +375,7 @@ Feature: Admin_Trips
   When I wait for 2 minutes
   And  I refresh the page
   And I click on the dropdown beside scheduled bungii
-  When I click the "Notes & History" link
+  And I click the "Notes & History" link
   And I click on "History"
   Then The "History" tab should be selected
   And I should see solo to duo and assign remove one driver edit history
