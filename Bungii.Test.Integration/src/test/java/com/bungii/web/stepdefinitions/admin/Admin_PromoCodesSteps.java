@@ -662,6 +662,7 @@ try{
                 break;
 
             case "Bungii Saved!":
+                Thread.sleep(3000);
                 actualMessage=action.getText(admin_potentialPartnersPage.Text_SuccessMessage());
                 if(actualMessage.equalsIgnoreCase(message)){
                     testStepAssert.isTrue(true,"Expected message is displayed.","Expected message is not displayed.");

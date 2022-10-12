@@ -35,12 +35,12 @@ public class LiveTripsPage extends PageBase {
     public WebElement Button_Cancel () { return findElement("btnCancel", LocatorType.Id); }
 
     public WebElement Button_Confirm () { return findElement("btnConfirm", LocatorType.Id); }
-    public WebElement Menu_Trips () { return findElement("adminmenu-trips", LocatorType.Id); }
-    public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
+    public WebElement Menu_Trips () { return findElement("//span[text()='Deliveries']", LocatorType.XPath); }
+    public WebElement Dropdown_SearchForPeriod () { return findElement("//select[@class='user-trip-dropdown form-select']", LocatorType.XPath); }
 
-    public WebElement Menu_LiveTrips () { return findElement("adminmenu-livetrips", LocatorType.Id); }
+    public WebElement Menu_LiveTrips () { return findElement("//span[contains(text(),'Live Deliveries')]", LocatorType.XPath); }
 
-    public WebElement Menu_AllDeliveries () { return findElement("adminmenu-completedtrips",LocatorType.Id);}
+    public WebElement Menu_AllDeliveries () { return findElement("//span[contains(text(),'All Deliveries')]",LocatorType.XPath);}
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 

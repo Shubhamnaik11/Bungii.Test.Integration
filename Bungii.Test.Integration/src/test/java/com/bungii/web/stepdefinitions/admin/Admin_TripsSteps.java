@@ -790,7 +790,8 @@ try{
         try{
         Thread.sleep(4000);
         action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/img")));
-        action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/ul/li/p[contains(text(),'Edit')]")));
+            Thread.sleep(3000);
+            action.click(admin_EditScheduledBungiiPage.Button_Edit());
             log(" I click on Edit link besides the scheduled bungii",
                 "I have clicked on Edit link besides the scheduled bungii", false);
     } catch(Exception e){
