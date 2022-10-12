@@ -90,6 +90,7 @@ Feature: Admin_Reason_Code
     And I wait for "2" mins
     And  I refresh the page
     And I click on the dropdown beside scheduled bungii
+    #CORE-3382
     When I click the "Notes & History" link
     And I click on "History"
     Then The "History" tab should be selected
