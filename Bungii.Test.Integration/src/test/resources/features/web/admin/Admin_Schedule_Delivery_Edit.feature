@@ -26,6 +26,15 @@ Feature: Admin_Schedule_Delivery_Edit
       When I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
       And I wait for "2" mins
+      And  I refresh the page
+      And I click on the dropdown beside scheduled bungii
+      Then I should see the "History" underlined
+      #CORE-3382
+      When I click the "Notes & History" link
+      And I click on "History"
+      Then The "History" tab should be selected
+      And I should see drop off address edit history
+      And I close the Note
       When I view the delivery details in admin portal
       Then the updated drop off address should be displayed on delivery details page
       And I confirm Pickup note is "Updated"
