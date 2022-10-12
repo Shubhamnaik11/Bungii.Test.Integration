@@ -27,6 +27,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
@@ -2294,6 +2295,9 @@ public class CommonSteps extends DriverBase {
     @And("^I Select Trip from scheduled trip$")
     public void i_select_trip_from_scheduled_trip() {
         try {
+//            cucumberContextManager.setScenarioContext("CUSTOMER","Testcustomertywd_appleMarkCR LutherCR");
+//            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER","2");
+//            cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION","partner");
             String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
@@ -3789,6 +3793,27 @@ public class CommonSteps extends DriverBase {
             log("I should be able to get old latitude and longitude values of addresses.","I am able to get old latitude and longitude values of addresses.",false);
         }
         catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @Then("^The \"([^\"]*)\" \"([^\"]*)\" should not be displayed$")
+    public void the_something_something_should_not_be_displayed(String element, String strArg2) throws Throwable {
+        try{
+            switch (element){
+                case "Contact Duo Teammate":
+                    By Text_ContactDuo = MobileBy.xpath("//XCUIElementTypeStaticText[@name=\"Contact DUO\"]");
+                    By Text_TeamMate = MobileBy.xpath("//XCUIElementTypeStaticText[@name=\"Teammate\"]");
+                    testStepAssert.isFalse(action.isElementPresent(action.waitForExpectedElement(Text_ContactDuo)),"Contact Duo text should not be displayed","Contact Duo text is not displayed","Contact Duo text is displayed");
+                    Thread.sleep(9000);
+                    testStepAssert.isFalse(action.isElementPresent(action.waitForExpectedElement(Text_TeamMate)),"Teammate text should not be displayed","Teammate text is not displayed","Teammate text is displayed");
+                    break;
+
+            }
+        }    catch(Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);

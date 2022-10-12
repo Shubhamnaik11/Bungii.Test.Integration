@@ -94,5 +94,12 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Icon_Text(){return findElement("icon-call-large",LocatorType.AccessibilityId);}
 	public WebElement Icon_Pickup(){return findElement("//XCUIElementTypeImage[@name=\"icon-stop-pickup\"]",LocatorType.XPath);}
 	public WebElement Icon_DropOff(){return findElement("//XCUIElementTypeImage[@name=\"icon-stop-drop-off\"]",LocatorType.XPath);}
+	public WebElement Text_ContactDuo(){return findElement("//XCUIElementTypeStaticText[@name=\"Contact DUO\"]",LocatorType.XPath);}
+	public WebElement Text_TeamMate(){return findElement("//XCUIElementTypeStaticText[@name=\"Teammate\"]",LocatorType.XPath);}
+
+
+
+
+
 
 }

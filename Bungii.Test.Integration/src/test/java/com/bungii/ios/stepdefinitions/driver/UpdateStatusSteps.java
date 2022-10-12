@@ -19,10 +19,12 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 
@@ -947,6 +949,21 @@ public class UpdateStatusSteps extends DriverBase {
                     break;
                 case "Dropoff":
                     testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Icon_DropOff()),"Dropoff Icon should be displayed","Dropoff Icon is displayed","Dropoff Icon is not displayed");
+                    break;
+                case "Contact Duo Teammate":
+                    By Text_ContactDuo = MobileBy.xpath("//XCUIElementTypeStaticText[@name=\"Contact DUO\"]");
+                    By Text_TeamMate = MobileBy.xpath("//XCUIElementTypeStaticText[@name=\"Teammate\"]");
+                    testStepAssert.isTrue(action.isElementPresent(action.waitForExpectedElement(Text_ContactDuo)),"Contact Duo text should be displayed","Contact Duo text is displayed","Contact Duo text is not displayed");
+
+                    Thread.sleep(9000);
+                    testStepAssert.isTrue(action.isElementPresent(action.waitForExpectedElement(Text_TeamMate)),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
+
+                    String expectedDuoText = action.getText(action.waitForExpectedElement(Text_ContactDuo));
+                    String expectedTeammateText = action.getText(action.waitForExpectedElement(Text_TeamMate));
+                    String properMessage = expectedDuoText + " " +expectedTeammateText;
+                    testStepVerify.isEquals(properMessage.toLowerCase(),element.toLowerCase(),element +" text should be displayed",
+                            properMessage +" text is displayed",
+                            element +" text is not  displayed");
                     break;
             }
         } catch (Exception e) {
