@@ -673,6 +673,34 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
+    public String getExpectedPartnerFirmFirstEmailContent(String firmName)
+    {
+        String emailMessage = "";
+        FileReader fr;
+        try{
+            if(SystemUtils.IS_OS_WINDOWS){
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalFirstScheduleDeliveryEmail.txt");
+            }
+            else{
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerPortalFirstScheduleDeliveryEmail.txt");
+            }
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%PartnerName%",firmName);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
 
     public String getExpectedPartnerPortalCanceledEmailContentWithDriver(String partner_Name,String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String driverName,String driverPhone,String driverLicencePlate,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone)
     {
