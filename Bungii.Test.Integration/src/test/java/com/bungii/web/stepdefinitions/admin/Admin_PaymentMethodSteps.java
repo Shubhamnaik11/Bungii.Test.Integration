@@ -75,7 +75,7 @@ public class Admin_PaymentMethodSteps extends DriverBase {
             try{
             switch(PageName) {
                 case "partner Cards":
-                    testStepAssert.isElementTextEquals(admin_paymentMethodsPage.Label_SuccessMessageForPartner(),"Partner Payment Method added successfully.","Partner Payment Method added successfully. message should be displayed" ,"Partner Payment Method added successfully. message is displayed","Partner Payment Method added successfully. message should be displayed is not displayed");
+                    testStepAssert.isElementTextEquals(admin_paymentMethodsPage.Label_SuccessMessageForPartner(),"Payment details added successfully for partner.","Payment details added successfully for partner. message should be displayed" ,"Payment details added successfully for partner. message is displayed","Payment details added successfully for partner. message should be displayed is not displayed");
                     break;
 
                 case "Bungii Cards":

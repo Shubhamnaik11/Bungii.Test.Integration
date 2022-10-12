@@ -114,23 +114,23 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_potentialPartnersPage.Menu_PartnerSearch());
                break;
            case "Partner Portal  > Partner Card":
-               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_Partners());
                action.click(admin_paymentMethodsPage.Menu_PaymentMethodsSubMenu());
 
                break;
            case "Partner Portal  > Bungii Card":
-               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_Partners());
                action.click(admin_paymentMethodsPage.Menu_PaymentMethodsSubMenu());
                action.click(admin_paymentMethodsPage.Menu_BungiiCards());
                break;
            case "Partner Portal  > Partners":
                Thread.sleep(5000);
-               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_Partners());
                action.click(admin_paymentMethodsPage.Menu_PartnersSubMenu());
                break;
            case "Partner Portal  > Locations":
                Thread.sleep(5000);
-               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_Partners());
                action.click(admin_paymentMethodsPage.Menu_LocationsSubMenu());
                break;
        }
