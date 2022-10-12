@@ -9,13 +9,13 @@ public class Admin_RevivalPage extends PageBase {
 
     public WebElement Button_Cancel() { return findElement("//button[text()='Cancel']", LocatorType.XPath); }
 
-    public WebElement Label_HeaderPopup() { return findElement("//p[text()='Are you sure you want to revive the trip?']", LocatorType.XPath); }
+    public WebElement Label_HeaderPopup() { return findElement("//span[contains(text(),'Are you sure you want to revive the trip?')]", LocatorType.XPath); }
 
     public WebElement Label_PickupOrigin() { return findElement("revive-pickup-customer-type", LocatorType.Id); }
 
-    public WebElement Label_PickupId() { return findElement("revive-pickup-id", LocatorType.Id); }
+    public WebElement Label_PickupId() { return findElement("//div[contains(.,'Pickup Id :')]/b[1]", LocatorType.XPath); }
 
-    public WebElement Label_PickupCustomer() { return findElement("revive-pickup-customer", LocatorType.Id); }
+    public WebElement Label_PickupCustomer() { return findElement("//div[contains(.,'Customer :')]/b[2]", LocatorType.XPath); }
 
     public WebElement Label_PickupPartnerPortal() { return findElement("revive-pickup-partner-portal", LocatorType.Id); }
 

@@ -43,7 +43,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_InfoMessage() { return findElement("info-message", LocatorType.Id); }
 
-    public WebElement RadioButton_EditTripDetails() { return findElement("//span[text()='Edit Delivery Details']/preceding-sibling::span", LocatorType.XPath); }
+    public WebElement RadioButton_EditTripDetails() { return findElement("//label[text()='Edit Delivery Details']/preceding-sibling::input", LocatorType.XPath); }
 
     public WebElement List_DriverSearchResult (String driverName) { return findElement("//div[@id='divDriversResult']/div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
 
@@ -51,7 +51,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement TickMarkDriver (String driverName) { return findElement("//td[text()='"+driverName+"']/ancestor::tr/td/i[@class='fa fa-check text-green-alt']", LocatorType.XPath); }
 
-    public WebElement  Button_Edit() {return findElement("//p[@id='btnEdit']",LocatorType.XPath);}
+    public WebElement  Button_Edit() {return findElement("//a[contains(text(),'Edit')]",LocatorType.XPath);}
 
     public WebElement  Button_Delivery_Details() {return findElement("//p[@class='clickable-row']",LocatorType.XPath);}
 
