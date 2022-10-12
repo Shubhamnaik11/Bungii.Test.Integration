@@ -40,11 +40,17 @@ Feature: Home Outlet
 
    #CORE-3293:Verify Time slot displayed on Partner portal within Bungii and Partner working hrs when partner has different working hrs on each day
   @ready
-  Scenario:Verify Time slot displayed on Partner portal within Bungii and Partner working hrs when partner has different working hrs on each day
-    Then I check if the day is "Monday" first time slot is "09:00 AM" and last time slot is "06:00 PM"
-    Then I check if the day is "Tuesday" first time slot is "09:00 AM" and last time slot is "06:00 PM"
-    Then I check if the day is "Wednesday" first time slot is "09:00 AM" and last time slot is "06:00 PM"
-    Then I check if the day is "Thursday" first time slot is "09:00 AM" and last time slot is "06:00 PM"
-    Then I check if the day is "Friday" first time slot is "09:00 AM" and last time slot is "06:00 PM"
-    Then I check if the day is "Saturday" first time slot is "09:00 AM" and last time slot is "05:00 PM"
-    Then I check if the day is "Sunday" first time slot is "Not Present" and last time slot is "Not Present"
+  Scenario Outline:Verify Time slot displayed on Partner portal within Bungii and Partner working hrs when partner has different working hrs on each day
+    When I click on "Pickup Date" button
+    Then For "<Day>" first time slot is "<First Time Slot>" and last time slot is "<Last Time Slot>"
+    And I refresh the page
+
+    Examples:
+      |   Day       |   First Time Slot  |  Last Time Slot    |
+      |  Monday     |    09:00 AM        |   06:00 PM         |
+      |  Tuesday    |    09:00 AM        |   06:00 PM         |
+      |  Wednesday  |    09:00 AM        |   06:00 PM         |
+      |  Thursday   |    09:00 AM        |   06:00 PM         |
+      |  Friday     |    09:00 AM        |   06:00 PM         |
+      |  Saturday   |    09:00 AM        |   05:00 PM         |
+      |  Sunday     |    Not Present     |   Not Present      |

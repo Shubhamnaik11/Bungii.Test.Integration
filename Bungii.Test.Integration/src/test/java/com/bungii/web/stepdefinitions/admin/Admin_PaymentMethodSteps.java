@@ -27,7 +27,6 @@ public class Admin_PaymentMethodSteps extends DriverBase {
         private static LogUtility logger = new LogUtility(Admin_PaymentMethodSteps.class);
 
         Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
-    Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
 
         @Then("^The \"([^\"]*)\" gets saved successfully and it is displayed in the grid$")
         public void the_something_gets_saved_successfully_and_it_is_displayed_in_the_grid(String pageName) throws Throwable {
