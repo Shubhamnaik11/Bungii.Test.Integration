@@ -29,6 +29,7 @@ Feature: Admin_Schedule_Delivery_Edit
       And  I refresh the page
       And I click on the dropdown beside scheduled bungii
       Then I should see the "History" underlined
+      #CORE-3382
       When I click the "Notes & History" link
       And I click on "History"
       Then The "History" tab should be selected
