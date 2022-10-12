@@ -42,11 +42,11 @@ Feature: Home Outlet
   @ready
   Scenario Outline:Verify Time slot displayed on Partner portal within Bungii and Partner working hrs when partner has different working hrs on each day
     When I click on "Pickup Date" button
-    Then For "<Day>" first time slot is "<First Time Slot>" and last time slot is "<Last Time Slot>"
+    Then For "<Day>" first time slot is "<Initial Time>" and last time slot is "<Last Time>"
     And I refresh the page
 
     Examples:
-      |   Day       |   First Time Slot  |  Last Time Slot    |
+      |   Day       |   Initial Time     |  Last Time         |
       |  Monday     |    09:00 AM        |   06:00 PM         |
       |  Tuesday    |    09:00 AM        |   06:00 PM         |
       |  Wednesday  |    09:00 AM        |   06:00 PM         |
