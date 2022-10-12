@@ -344,6 +344,7 @@ Feature: Admin Notes & History
     When I create multiple notes
     Then I should see the notes displayed̥
 
+  #CORE-3382
   @ready
   Scenario:To verify admin is able to see edit History for customer solo trip
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
