@@ -60,9 +60,18 @@ Feature: Service Level
       #CORE-3199-To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
   @ready
   Scenario: To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
+    When  I am logged in as Admin
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I view the Live Deliveries list on  admin portal
+    And I check if partner trips are already present
+    And I view All Deliveries list on the admin portal
+    And I check if partner trips are already present
+
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
+#     Core-4080 Verify that email notification is sent on configured email id's once first partner portal delivery is scheduled
+    And Partner firm should receive "1st-Delivery" email
     And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
@@ -71,7 +80,6 @@ Feature: Service Level
     When I check in the db the number of timeslots available "for bestbuy first address" new portal
     When I check in the db the number of timeslots available "for bestbuy second address" new portal
 
-    And  I am logged in as Admin
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"

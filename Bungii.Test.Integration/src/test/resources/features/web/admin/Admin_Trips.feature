@@ -373,6 +373,14 @@ Feature: Admin_Trips
   And I click on "Remove Driver" button
   And I click on "Research" button
   When I wait for 2 minutes
+  And  I refresh the page
+  And I click on the dropdown beside scheduled bungii
+  #CORE-3382
+  And I click the "Notes & History" link
+  And I click on "History"
+  Then The "History" tab should be selected
+  And I should see solo to duo and assign remove one driver edit history
+  And I close the Note
   And I get the latest "pickup Reference"
   And I view the all Scheduled Deliveries list on the admin portal
   And  I search the delivery using "Pickup Reference"
