@@ -525,6 +525,27 @@ public class Partner_IntegrationSteps extends DriverBase {
                 log("I request " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", "I have requested " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", false);
 
             }
+            else if (Site.equalsIgnoreCase("Home outlet service level")) {
+                switch (Type) {
+                    case "Solo":
+
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        Thread.sleep(2000);
+                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                        Thread.sleep(1000);
+                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                        Thread.sleep(2000);
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                        Thread.sleep(5000);
+                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+                        Thread.sleep(5000);
+                        break;
+                }
+                log("I request " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", "I have requested " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", false);
+
+            }
                 } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
