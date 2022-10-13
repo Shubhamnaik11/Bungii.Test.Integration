@@ -248,6 +248,24 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^I check if \"([^\"]*)\" are displayed$")
+    public void i_check_if_something_are_displayed(String type) throws Throwable {
+        try{
+            switch (type){
+                case "photos":
+                    int noOfPhotos=scheduledTripsPage.List_Photos().size();
+                    testStepAssert.isTrue(noOfPhotos==3,
+                            "The photos added by driver should be displayed.",
+                            "The photos added by driver are not displayed.");
+                    break;
+            }
+            log("I should be able to check "+type,"I am able to check "+type,false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^I should see \"([^\"]*)\" message on popup with PickupId anad Pickup Origin$")
     public void i_should_see_something_message_on_popup_with_pickupid_anad_pickup_origin(String message) throws Throwable {
 

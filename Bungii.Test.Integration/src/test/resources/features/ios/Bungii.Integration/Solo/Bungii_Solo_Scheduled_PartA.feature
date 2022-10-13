@@ -735,3 +735,36 @@ Feature: Solo Scheduled Bungii Part A
     And I add comment on rate customer page
     When I click "On To The Next One" button on "Bungii completed" screen
     And I should be navigated to "Bungii Completed" screen
+
+#   Core-3412: Verify Photo Verification screens are shown on driver app for Customer trip when driver has accepted stacked trip
+  @ready
+  Scenario: Verify Photo Verification screens are shown on driver app for Customer trip when driver has accepted stacked trip
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | goa      | enroute      | 0.5 hour ahead |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+
+    When I Switch to "driver" application on "same" devices
+    And I view and accept virtual notification for "Driver" for "stack trip"
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I check if "Save" button is disabled
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    And I wait for "2" mins
+#   Core-3412: Verify uploaded photos are shown on admin portal
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I wait for "2" mins
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Vishal Bagi" customer for delivery details
+    Then I check if "photos" are displayed

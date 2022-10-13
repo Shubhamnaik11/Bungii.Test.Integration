@@ -1137,6 +1137,10 @@ public class BungiiSteps extends DriverBase {
                     action.click(Page_DriverBungiiProgress.Button_MoreOptions());
                     break;
 
+                case "clicks Take photo":
+                    action.click(Page_DriverBungiiProgress.Button_TakePhotos());
+                    break;
+
                 case "skips to rate customer":
                     testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Title_RateCustomer(),PropertyUtility.getMessage("driver.navigation.rate.customer"));
                     action.click(Page_DriverBungiiProgress.Link_SkipRating());

@@ -183,7 +183,9 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am logged in as "Testdrivertywd_applega_a_steveG Stark_altOnEG" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I slide update button on "UNLOADING ITEMS" Screen
+#    Core-3412 Verify driver is able to upload Photo verification from More Option
+    When Bungii Driver "clicks More Options"
+    When Bungii Driver "clicks Take photo"
     When Bungii driver uploads "1" image
     When Bungii Driver "clicks More Options"
     And I click "Customer Signature" button on "update" screen
@@ -469,3 +471,35 @@ Feature: SoloScheduled
     And I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     And Bungii Driver "skips to rate customer"
+
+#  Core-3412 Verify Photo Verification screens are shown on driver app for Customer on demand trip
+  @ready
+#    @testsweta
+  Scenario: Verify Photo Verification screens are shown on driver app for Customer on demand trip
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 8877661107     | Testcustomertywd_appleMarkDD LutherDD | 2              | Cci12345          |
+    And As a driver "Testdrivertywd_applega_a_drvaj Atlanta_aj" perform below action with respective "Solo Ondemand" trip
+      | driver1 state|
+      | Accepted |
+      | Arrived |
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_applega_a_drvaj Atlanta_aj" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "ARRIVED" Screen
+    When Bungii driver uploads "1" image
+    Then I slide update button on "ARRIVED" Screen
+#   Core-3412: Verify uploaded photos are shown on admin portal
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleMarkDD LutherDD" the customer for delivery details
+    Then I check if "photos" are displayed
+
+#  Core-3412 Verify Photo verification screen is shown for partner trip which has Photo verification enabled for partner but disabled for geofence
+  @ready
+#  @testsweta
+  Scenario: Verify Photo verification screen is shown for partner trip which has Photo verification enabled for partner but disabled for geofence
+

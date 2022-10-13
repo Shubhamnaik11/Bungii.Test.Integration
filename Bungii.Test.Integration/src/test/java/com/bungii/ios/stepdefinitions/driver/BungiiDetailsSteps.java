@@ -412,4 +412,57 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I check if \"([^\"]*)\" button is disabled$")
+    public void i_check_if_something_button_is_disabled(String buttonName) throws Throwable {
+        try{
+            switch (buttonName){
+                case "Save":
+                    testStepAssert.isFalse(bungiiDetailsPage.Button_SavePhotos().isEnabled(),
+                            "The save button should be disabled.",
+                            "The save button is enabled.");
+                    break;
+            }
+            log("I should be able to check if "+buttonName+" is disabled.","I am able to check if "+buttonName+" is disabled.",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check if \"([^\"]*)\" are displayed$")
+    public void i_check_if_something_are_displayed(String type) throws Throwable {
+        try{
+            switch (type){
+                case "photos":
+                    int noOfPhotos=bungiiDetailsPage.List_Photos().size();
+                    testStepAssert.isTrue(noOfPhotos==3,
+                            "The photos added by driver should be displayed.",
+                            "The photos added by driver are not displayed.");
+                    break;
+            }
+            log("I should be able to check "+type,"I am able to check "+type,false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I check if \"([^\"]*)\" is not displayed$")
+    public void i_check_if_something_is_not_displayed(String type) throws Throwable {
+       try{
+           switch (type){
+               case "photo verification":
+                   testStepAssert.isFalse(action.isElementPresent(bungiiDetailsPage.Tab_AddPhoto(true)),
+                           "Photo verification should not be displayed",
+                           "Photo verification pin is not be displayed",
+                           "Photo verification pin is displayed");
+                   break;
+           }
+       }
+       catch (Exception e){
+           logger.error("Error performing step", e);
+           error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+       }
+    }
+
 }
