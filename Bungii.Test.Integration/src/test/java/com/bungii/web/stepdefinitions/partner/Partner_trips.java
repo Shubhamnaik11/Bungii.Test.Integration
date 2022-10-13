@@ -36,6 +36,8 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -1545,6 +1547,82 @@ try{
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+
+    }
+    @Then("^For \"([^\"]*)\" first time slot is \"([^\"]*)\" and last time slot is \"([^\"]*)\"$")
+    public void for__something_first_time_slot_is_something_and_last_time_slot_is_something(String day, String strArg2, String strArg3) throws Throwable {
+        try{
+            String partnerPortalName =PropertyUtility.getDataProperties("qa.home.outlet.url").substring(8,25);
+        for(int i=0;i<7;i++){
+            LocalDate todayDateWithMonthAndYeat = LocalDate.now().plusDays(i);
+            DayOfWeek dayBasedOnDate=todayDateWithMonthAndYeat.getDayOfWeek();
+            int currentDate= todayDateWithMonthAndYeat.getDayOfMonth();
+            if (dayBasedOnDate.toString().equalsIgnoreCase(day)){
+                int currentDayIndex=dayBasedOnDate.getValue();
+                cucumberContextManager.setScenarioContext("CurrentDate",currentDate);
+                cucumberContextManager.setScenarioContext("CurrentDayOfTheWeek",dayBasedOnDate);
+                cucumberContextManager.setScenarioContext("IndexOfTheCurrentDay",currentDayIndex);
+                break;
+            }
+        }
+        String currentDate = (String) cucumberContextManager.getScenarioContext("CurrentDate");
+        String currentDay = (String) cucumberContextManager.getScenarioContext("CurrentDayOfTheWeek");
+        String currentDayIndex = (String) cucumberContextManager.getScenarioContext("IndexOfTheCurrentDay");
+
+        if (currentDay.equalsIgnoreCase("Sunday")){
+            Thread.sleep(2000);
+            String IsButtonDisabled = Page_Partner_Dashboard.Button_SundayDisabled().getAttribute("class");
+            testStepAssert.isEquals(IsButtonDisabled,"item excluded","Button should be not clickable as Partner is closed on Sundays",
+                    "Button is  not clickable as Partner is closed on Sundays",
+                    "Button is clickable even though partner is closed on Sundays" );
+        testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Button_SundayDisabled(),
+                currentDate+" should be displayed but not clickable as its "+currentDay,
+                 currentDate+" is displayed but not clickable as its "+currentDay,
+                currentDate+" is displayed but is clickable as its "+currentDay);
+
+        }
+        else {
+                Thread.sleep(3000);
+                action.click(Page_Partner_Dashboard.FutureTrip(currentDate));
+                Thread.sleep(3000);
+                action.click(Page_Partner_Dashboard.Button_PickupTime());
+                if(currentDay.equalsIgnoreCase("Saturday")) {
+                    String firstTimeSlot = action.getText(Page_Partner_Dashboard.Text_FirstTimeSlot());
+                    String lastTimeSlot = action.getText(Page_Partner_Dashboard.Text_LastTimeSlot(33));
+                    String firstTimeSlotInDB = "0"+ new com.bungii.api.utilityFunctions.DbUtility().getFromTime(currentDayIndex,currentDay,partnerPortalName) + ":00 AM";
+                    String lastTimeSlotInDB = "0"+ new com.bungii.api.utilityFunctions.DbUtility().getToTime(currentDayIndex, currentDay,partnerPortalName) +":00 PM";;
+                    testStepAssert.isEquals(firstTimeSlot,firstTimeSlotInDB,
+                            "The partner portal first time slot should be "+firstTimeSlotInDB ,
+                            "The partner portal first time slot is "+firstTimeSlot ,
+                            "The partner portal first time slot is not "+ firstTimeSlotInDB);
+                    testStepAssert.isEquals(lastTimeSlot,lastTimeSlotInDB,
+                            "The partner portal last time slot should be "+ lastTimeSlotInDB,
+                            "The partner portal last time slot is "+ lastTimeSlot,
+                            "The partner portal last time slot is not "+lastTimeSlotInDB );
+
+                }
+                else {
+                    String firstTimeSlot = action.getText(Page_Partner_Dashboard.Text_FirstTimeSlot());
+                    String lastTimeSlot = action.getText(Page_Partner_Dashboard.Text_LastTimeSlot(37));
+
+                    String firstTimeSlotInDB = "0"+ new com.bungii.api.utilityFunctions.DbUtility().getFromTime(currentDayIndex,currentDay,partnerPortalName) + ":00 AM";
+                    String lastTimeSlotInDB = "0"+ new com.bungii.api.utilityFunctions.DbUtility().getToTime(currentDayIndex, currentDay,partnerPortalName) +":00 PM";;
+                    testStepAssert.isEquals(firstTimeSlot,firstTimeSlotInDB,
+                            "The partner portal first time slot should be "+firstTimeSlotInDB ,
+                            "The partner portal first time slot is "+firstTimeSlot ,
+                            "The partner portal first time slot is not "+ firstTimeSlotInDB);
+                    testStepAssert.isEquals(lastTimeSlot,lastTimeSlotInDB,
+                            "The partner portal last time slot should be "+ lastTimeSlotInDB,
+                            "The partner portal last time slot is "+ lastTimeSlot,
+                            "The partner portal last time slot is not "+lastTimeSlotInDB );
+                }
+
+        }
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
