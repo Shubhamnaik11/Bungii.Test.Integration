@@ -954,16 +954,8 @@ public class UpdateStatusSteps extends DriverBase {
                     By Text_ContactDuo = MobileBy.xpath("//XCUIElementTypeStaticText[@name=\"Contact DUO\"]");
                     By Text_TeamMate = MobileBy.xpath("//XCUIElementTypeStaticText[@name=\"Teammate\"]");
                     testStepAssert.isTrue(action.isElementPresent(action.waitForExpectedElement(Text_ContactDuo)),"Contact Duo text should be displayed","Contact Duo text is displayed","Contact Duo text is not displayed");
-
-                    Thread.sleep(9000);
+                    Thread.sleep(7000);
                     testStepAssert.isTrue(action.isElementPresent(action.waitForExpectedElement(Text_TeamMate)),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
-
-                    String expectedDuoText = action.getText(action.waitForExpectedElement(Text_ContactDuo));
-                    String expectedTeammateText = action.getText(action.waitForExpectedElement(Text_TeamMate));
-                    String properMessage = expectedDuoText + " " +expectedTeammateText;
-                    testStepVerify.isEquals(properMessage.toLowerCase(),element.toLowerCase(),element +" text should be displayed",
-                            properMessage +" text is displayed",
-                            element +" text is not  displayed");
                     break;
             }
         } catch (Exception e) {

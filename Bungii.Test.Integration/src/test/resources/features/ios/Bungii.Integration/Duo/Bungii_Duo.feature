@@ -543,7 +543,7 @@ Feature: Scheduled DUO Bungii
     And I should be navigated to "Rate duo teammate" screen
 
 #Core-3507 : To verify that vehicle info is displayed on duo teammate screen for duo customer trip
-  @testAllan
+  @ready
   Scenario: To verify that vehicle info is displayed on duo teammate screen for duo customer trip
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -560,6 +560,7 @@ Feature: Scheduled DUO Bungii
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
+    #CORE-4007:To verify DUO Team mates details on Customer DUO delivery
     Then The "Contact Duo Teammate" "Animation Text" should be displayed
     And I slide update button on "ARRIVED" Screen
     And Driver adds photos to the Bungii
@@ -624,7 +625,7 @@ Feature: Scheduled DUO Bungii
     And I should be navigated to "Rate duo teammate" screen
 
 #CORE-3271:To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
-#  @testAllan  @duo
+  @ready  @duo
   Scenario: To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -637,36 +638,36 @@ Feature: Scheduled DUO Bungii
     And I am logged in as "Testdrivertywd_applens_a_kayS Stark_nsOnES" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
-#    When I request Partner Portal "Duo" Trip for "Tile Shop" partner
-#      |Geofence| Bungii Time   | Customer Phone | Customer Name |
-#      |nashville| NEXT_POSSIBLE | 8877661095 | Testcustomertywd_appleMarkCR LutherCR|
-#
-#    When I Switch to "driver" application on "ORIGINAL" devices
-#    And I Select "AVAILABLE BUNGIIS" from driver App menu
-#    And I Select Partner portal Trip from available trip
-#    And I select "Pallet-1" from items
-#    Then I should see "DUO LIFT" header displayed
-#    And I accept selected Bungii
-#    And I Select "SCHEDULED BUNGIIS" from driver App menu
-#    And I Select Trip from scheduled trip
-#    Then I should see "DUO LIFT" header displayed
-#    And I start selected Bungii
-#
-#    And I Switch to "driver" application on "driver2" devices
-#    And I Select "AVAILABLE BUNGIIS" from driver App menu
-#    And I Select Partner portal Trip from available trip
-#    And I select "Pallet-2" from items
-#    Then I should see "DUO LIFT" header displayed
-#    When I accept selected Bungii
-#    And I Select "SCHEDULED BUNGIIS" from driver App menu
-#    And I Select Trip from scheduled trip
-#    Then I should see "DUO LIFT" header displayed
-#    And I start selected Bungii
+    When I request Partner Portal "Duo" Trip for "Tile Shop" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |nashville| NEXT_POSSIBLE | 8877661095 | Testcustomertywd_appleMarkCR LutherCR|
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    And I select "Pallet-1" from items
+    Then I should see "DUO LIFT" header displayed
+    And I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I should see "DUO LIFT" header displayed
+    And I start selected Bungii
+
+    And I Switch to "driver" application on "driver2" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    And I select "Pallet-2" from items
+    Then I should see "DUO LIFT" header displayed
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I should see "DUO LIFT" header displayed
+    And I start selected Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
-#    CORE-4007 :To verify DUO Team mates animation starts only at ARRIVED status(iOS)
+#    CORE-4007 :To verify DUO Team mates details for Weight based DUO Partner delivery
     Then The "Contact Duo Teammate" "Animation Text" should be displayed
     And I slide update button on "ARRIVED" Screen
     And Driver adds photos to the Bungii
@@ -695,6 +696,7 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then I should see "DUO LIFT" header displayed
     And I click on "GOT IT" button
+#    CORE-4007 :To verify DUO Team mates details for Weight based DUO Partner delivery
     Then The "Contact Duo Teammate" "Animation Text" should be displayed
 
     And I Switch to "driver" application on "driver2" devices

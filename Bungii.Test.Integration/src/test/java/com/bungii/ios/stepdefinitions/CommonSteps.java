@@ -158,7 +158,7 @@ public class CommonSteps extends DriverBase {
         this.driverhomepage = driverhomepage;
     }
     LiveTripsPage liveTripsPage=new LiveTripsPage();
-
+    com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage = new com.bungii.ios.pages.driver.UpdateStatusPage();
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page$")
     public void something_message_should_be_displayed_on_something_page(String messageElement, String screen) {
@@ -3805,13 +3805,10 @@ public class CommonSteps extends DriverBase {
         try{
             switch (element){
                 case "Contact Duo Teammate":
-                    By Text_ContactDuo = MobileBy.xpath("//XCUIElementTypeStaticText[@name=\"Contact DUO\"]");
-                    By Text_TeamMate = MobileBy.xpath("//XCUIElementTypeStaticText[@name=\"Teammate\"]");
-                    testStepAssert.isFalse(action.isElementPresent(action.waitForExpectedElement(Text_ContactDuo)),"Contact Duo text should not be displayed","Contact Duo text is not displayed","Contact Duo text is displayed");
-                    Thread.sleep(9000);
-                    testStepAssert.isFalse(action.isElementPresent(action.waitForExpectedElement(Text_TeamMate)),"Teammate text should not be displayed","Teammate text is not displayed","Teammate text is displayed");
+                    Thread.sleep(3000);
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Text_ContactDuo(true)),"Contact Duo text should not be displayed","Contact Duo text is not displayed","Contact Duo text is displayed");
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Text_TeamMate(true)),"Teammate text should not be displayed","Teammate text is not displayed","Teammate text is displayed");
                     break;
-
             }
         }    catch(Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
