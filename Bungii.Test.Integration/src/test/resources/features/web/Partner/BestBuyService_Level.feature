@@ -4,7 +4,7 @@ Feature: Service Level
   Background:
     Given I navigate to "Partner" portal configured for "BestBuy service level" URL
 
-    @regression
+  @regression
       #stable
   Scenario: Verify that NA is shown for Best buy service level on configured Partner portal site.
     When I enter "valid" password on Partner Portal
@@ -18,15 +18,15 @@ Feature: Service Level
       |NEXT_POSSIBLE        |
     Then I should "see Delivery Cost: N/A"
     And I click "GET ESTIMATE" button on Partner Portal
-      And I click "Continue" button on Partner Portal
+    And I click "Continue" button on Partner Portal
 
 #      Core - 2619 Verify Driver Availability count is reduced by 1 when Solo trip is scheduled
-      And I check in the db the number of timeslots available "before schedule for best buy"
+    And I check in the db the number of timeslots available "before schedule for best buy"
 
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
-      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|SoldBuy     |
-      |5067400         |Handle with care   |Testpartner U |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |ON1         |Krishna|
+      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
+      |5067400         |Handle with care   |Testpartner U |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |ON1         |12345|
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
@@ -38,40 +38,32 @@ Feature: Service Level
     And I select the Scheduled Bungii from Delivery List
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
 
-      When As a driver "Testdrivertywd_appleks_a_gruJ Stark_ksOnJ" perform below action with respective "Solo Scheduled" Delivery
-        | driver1 state |
-        | Accepted      |
-      And I check in the db the number of timeslots available "after schedule for best buy"
+    When As a driver "Testdrivertywd_appleks_a_gruJ Stark_ksOnJ" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+    And I check in the db the number of timeslots available "after schedule for best buy"
 
 #    Core - 2989 Verify that Driver Availability count is incremented by 1 on cancelling a scheduled solo trip
-      When I navigate to "Admin" portal configured for "QA" URL
-      And I view the Scheduled Deliveries list on the admin portal
-      Then I should be able to see the respective bungii partner portal trip with the below status
-        | Status           |
-        | Scheduled        |
-      And I click on "Edit" link beside scheduled bungii
-      And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
-      And I enter cancellation fee and Comments
-      And I click on "Submit" button
-      Then The "Pick up has been successfully canceled." message should be displayed
+    When I navigate to "Admin" portal configured for "QA" URL
+    And I view the Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      | Scheduled        |
+    And I click on "Edit" link beside scheduled bungii
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I click on "Submit" button
+    Then The "Pick up has been successfully canceled." message should be displayed
 
-      Then I check in the db the number of timeslots available "after cancelling solo trip"
+    Then I check in the db the number of timeslots available "after cancelling solo trip"
 
       #CORE-3199-To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
   @ready
-  Scenario: To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
-    When  I am logged in as Admin
-    And I view the all Scheduled Deliveries list on the admin portal
-    And I view the Live Deliveries list on  admin portal
-    And I check if partner trips are already present
-    And I view All Deliveries list on the admin portal
-    And I check if partner trips are already present
 
+  Scenario: To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
-#     Core-4080 Verify that email notification is sent on configured email id's once first partner portal delivery is scheduled
-    And Partner firm should receive "1st-Delivery" email
     And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
@@ -80,6 +72,7 @@ Feature: Service Level
     When I check in the db the number of timeslots available "for bestbuy first address" new portal
     When I check in the db the number of timeslots available "for bestbuy second address" new portal
 
+    And  I am logged in as Admin
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
@@ -94,7 +87,7 @@ Feature: Service Level
     And I wait for 2 minutes
     And I view the Live Deliveries list on  admin portal
     And I search the delivery using "Pickup Reference"
-   Then In "Live Deliveries" the trip should be  having a indicator with the text "New-1"
+    Then In "Live Deliveries" the trip should be  having a indicator with the text "New-1"
     When As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Bungii Completed |
@@ -226,6 +219,7 @@ Feature: Service Level
 
 
   @ready
+  @sn
   Scenario: Verify Driver Availability count is reduced by 2 when Duo trip is scheduled
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -243,8 +237,8 @@ Feature: Service Level
 
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
-      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|SoldBuy     |
-      |5067400         |Handle with care   |Testcustomertywd_appleMarkZ LutherZ |8877661025     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |ON1         |Krishna|
+      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
+      |5067400         |Handle with care   |Testcustomertywd_appleMarkZ LutherZ |8877661025     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |ON1         |12345|
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
@@ -270,8 +264,8 @@ Feature: Service Level
 
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
-      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|SoldBuy     |
-      |5067400         |Handle with care   |Testcustomertywd_appleMarkAA LutherAA |8877661026     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |ON1         |Krishna|
+      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
+      |5067400         |Handle with care   |Testcustomertywd_appleMarkAA LutherAA |8877661026     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |ON1         |12345|
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
@@ -316,8 +310,8 @@ Feature: Service Level
 
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
-      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|SoldBuy     |
-      |5067400         |Handle with care   |Testcustomertywd_appleMarkAB LutherAB|8877661027     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |ON1         |Krishna|
+      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
+      |5067400         |Handle with care   |Testcustomertywd_appleMarkAB LutherAB|8877661027     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |ON1         |12345|
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
@@ -381,8 +375,8 @@ Feature: Service Level
 
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
-      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|SoldBuy     |
-      |5067400         |Handle with care   |Testcustomertywd_appleMarkAC LutherAC |8877661028     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |ON1         |Krishna|
+      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
+      |5067400         |Handle with care   |Testcustomertywd_appleMarkAC LutherAC |8877661028     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |ON1         |12345|
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
@@ -476,3 +470,31 @@ Feature: Service Level
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then The revive button should not be displayed
+
+  @ready
+      #stable
+  Scenario: Verify that Order number field accepts only integer values on configured Best buy Partner portal site.
+    When I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "be logged in"
+    When I request "Solo" Bungii trip in partner portal configured for "BestBuy service level" in "Kansas" geofence
+      | Pickup_Address                                 | Delivery_Address                               |
+      | 9301 Quivira Rd, Overland Park, KS, US, 66215  | 9301 Quivira Rd, Overland Park, KS, US, 66215  |
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    Then I should "see Delivery Cost: N/A"
+    And I click "GET ESTIMATE" button on Partner Portal
+    And I click "Continue" button on Partner Portal
+
+#      Core - 3367 Verify that Order number field accepts only integer values on configured Best buy Partner portal site.
+    And I check in the db the number of timeslots available "before schedule for best buy"
+    Then I should "see Delivery Details screen"
+    When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
+      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
+      |5067400         |Handle with care   |Testpartner U |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |12345         |12345|
+    Then I should "see Delivery Cost: N/A on Delivery Details screen"
+    And I check if "Order number" field accepts only integer values
+    And I check if "Employee number" field accepts only integer values
+    And I click "Schedule Bungii" button on Partner Portal
+    Then I should "see Done screen"

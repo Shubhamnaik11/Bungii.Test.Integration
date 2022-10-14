@@ -1077,5 +1077,44 @@ public class Partner_LoginSteps extends DriverBase {
                     true);
         }
     }
+
+    @And("^I check if \"([^\"]*)\" field accepts only integer values$")
+
+    public void i_check_if_something_field_accepts_only_integer_values(String type) throws Throwable {
+        try{
+            String alphabetValue= PropertyUtility.getDataProperties("alphabet.value");
+            String specialCharacterValues= PropertyUtility.getDataProperties("specialCharacters.value");
+            String integerValues=PropertyUtility.getDataProperties("integer.value");
+            switch (type)
+            {
+                case "Order number":
+                    action.clearSendKeys(Page_Partner_Login.Input_OrderNo(), alphabetValue);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_OrderNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_OrderNo(),specialCharacterValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_OrderNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_OrderNo(), integerValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_OrderNo()), integerValues);
+                    break;
+
+                case "Employee number":
+                    action.clearSendKeys(Page_Partner_Login.Input_EmployeeNo(), alphabetValue);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_EmployeeNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_EmployeeNo(), specialCharacterValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_EmployeeNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_EmployeeNo(), integerValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_EmployeeNo()), integerValues);
+                    break;
+            }
+
+            log("I should be able to check if "+type+" field accepts only integer value",
+                    "I am able to check if "+type+ " field accepts only integer value" , false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }
 
