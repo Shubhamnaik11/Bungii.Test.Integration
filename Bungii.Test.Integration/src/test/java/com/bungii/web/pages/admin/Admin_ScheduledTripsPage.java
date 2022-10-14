@@ -14,7 +14,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Button_Submit () { return findElement("CustomerCancel", LocatorType.Name); }
 
-    public WebElement Textbox_CancellationFee () { return findElement("txtCancellationFee", LocatorType.Id); }
+    public WebElement Textbox_CancellationFee () { return findElement("Primary", LocatorType.Id); }
 
     public WebElement Label_Drop_Off_Location () { return findElement("//p[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
 
@@ -46,9 +46,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Pickup_Address() { return findElement("//label[@id='lblPickupAddress']",LocatorType.XPath);}
 
-    public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
+    public WebElement Textbox_CancellationComment () { return findElement("Secondary", LocatorType.Id); }
 
-    public WebElement Dropdown_CancellationReason () { return findElement("txtCancellationRemark", LocatorType.Id); }
+    public WebElement Dropdown_CancellationReason () { return findElement("//select[@class='form-select']", LocatorType.XPath); }
 
     public WebElement Dropdown_Reason () { return findElement("ddEditDeliveryRemark", LocatorType.Id); }
 
@@ -69,11 +69,11 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Label_SuccessMessage () { return findElement("SuccessMessage", LocatorType.Id); }
     //changed by Richa
-    public WebElement Label_CancelSuccessMessage () { return findElement("//p[@id='cancel-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Label_CancelSuccessMessage () { return findElement("//span[@id='cancel-success-message']/i[2]", LocatorType.XPath); }
 
-    public WebElement Label_CancelSuccessMessageLive () { return findElement("//p[@id='delivery-cancelled-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Label_CancelSuccessMessageLive () { return findElement("//span[@id='cancel-success-message']/i[2]", LocatorType.XPath); }
 
-    public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//p[@id='delivery-completed-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//span[@id='cancel-success-message']/i[2]", LocatorType.XPath); }
 
     public WebElement Dropdown_SearchForPeriod () { return findElement("//select[@class='user-trip-dropdown form-select']", LocatorType.XPath); }
 
