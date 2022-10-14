@@ -474,7 +474,6 @@ Feature: SoloScheduled
 
 #  Core-3412 Verify Photo Verification screens are shown on driver app for Customer on demand trip
   @ready
-#    @testsweta
   Scenario: Verify Photo Verification screens are shown on driver app for Customer on demand trip
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
@@ -490,16 +489,24 @@ Feature: SoloScheduled
     And I slide update button on "ARRIVED" Screen
     When Bungii driver uploads "1" image
     Then I slide update button on "ARRIVED" Screen
-#   Core-3412: Verify uploaded photos are shown on admin portal
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "live trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkDD LutherDD" the customer for delivery details
-    Then I check if "photos" are displayed
 
 #  Core-3412 Verify Photo verification screen is shown for partner trip which has Photo verification enabled for partner but disabled for geofence
+#  Photo verification disabled for phoenic geofence
   @ready
-#  @testsweta
   Scenario: Verify Photo verification screen is shown for partner trip which has Photo verification enabled for partner but disabled for geofence
-
+    And I set the pickup address for "Equip-bid in phoenix geofence"
+    When I request Partner Portal "SOLO" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |phoenix| NEXT_POSSIBLE | 8877661101 | Testcustomertywd_appleMarkCX LutherCX|
+    And As a driver "Testdrivertywd_appleph_a_drvaw Phoenix_aw" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+      | Arrived       |
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appleph_a_drvaw Phoenix_aw" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "ARRIVED" Screen
+    When Bungii driver uploads "1" image
+    Then I slide update button on "ARRIVED" Screen
