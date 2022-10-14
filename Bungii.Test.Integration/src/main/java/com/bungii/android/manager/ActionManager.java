@@ -755,4 +755,34 @@ public class ActionManager {
                 true);
     }
     }
+
+    /**
+     * Find the dynamic element wait until its visible
+     *
+     * @param by Element location found xpath, etc...
+     **/
+    public WebElement waitForExpectedElement(final By by) {
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
+        WebElement element = wait.until(visibilityOfElementLocated(by));
+        logger.detail("WAITING | Visibility of element by locator -> " + by );
+
+        return element;
+    }
+
+    /**
+     * @param by Element location found by xpath etc...
+     * @return
+     * @throws NoSuchElementException
+     */
+    private ExpectedCondition<WebElement> visibilityOfElementLocated(final By by) throws NoSuchElementException {
+        return driver -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                logger.error(e.getMessage());
+            }
+            WebElement element = SetupManager.getDriver().findElement(by);
+            return element.isEnabled() ? element : null;
+        };
+    }
 }

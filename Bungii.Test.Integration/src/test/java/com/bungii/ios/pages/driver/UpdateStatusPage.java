@@ -97,9 +97,4 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Text_ContactDuo(boolean...IgnoreException){return findElement("//XCUIElementTypeStaticText[@name=\"Contact DUO\"]",LocatorType.XPath,IgnoreException);}
 	public WebElement Text_TeamMate(boolean... IgnoreException){return findElement("//XCUIElementTypeStaticText[@name=\"Teammate\"]",LocatorType.XPath,IgnoreException);}
 
-
-
-
-
-
 }

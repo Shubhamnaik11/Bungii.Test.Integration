@@ -568,7 +568,6 @@ Feature: Scheduled DUO Bungii
     And I accept Alert message for "Reminder: both driver at pickup"
     Then The "Contact Duo Teammate" "Animation Text" should not be displayed
 
-#    Then The "Contact Duo Teammate" "Animation Text" should not be displayed
     And I connect to "extra1" using "Driver2" instance
     When I Switch to "driver" application on "Driver2" devices
     And I am on the "LOG IN" page on driverApp
