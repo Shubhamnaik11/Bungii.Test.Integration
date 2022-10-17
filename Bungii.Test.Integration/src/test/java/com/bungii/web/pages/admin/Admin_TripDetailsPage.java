@@ -3,8 +3,6 @@ package com.bungii.web.pages.admin;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
-import java.nio.file.WatchEvent;
-
 public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Link_ManuallyEndBungii () { return findElement("btnEndPickup", LocatorType.Id); }
