@@ -193,6 +193,7 @@ Feature: Admin_Trips
       | Driving To Dropoff |
       | Unloading Item |
     And I view the Live Deliveries list on the admin portal
+    And I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Unloading Items |

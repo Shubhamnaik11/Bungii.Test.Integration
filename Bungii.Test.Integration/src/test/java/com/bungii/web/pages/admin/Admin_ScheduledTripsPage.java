@@ -16,25 +16,25 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Textbox_CancellationFee () { return findElement("txtCancellationFee", LocatorType.Id); }
 
-    public WebElement Label_Drop_Off_Location () { return findElement("//p[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
+    public WebElement Label_Drop_Off_Location () { return findElement("//span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
 
-    public WebElement Label_Pickup_Location () { return findElement("//p[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
+    public WebElement Label_Pickup_Location () { return findElement("//span[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
 
     public WebElement Label_Market () { return findElement("//th[text()='Market']",LocatorType.XPath);}
 
     public WebElement Label_Delivery_Portal () { return findElement("//th[text()='Delivery Type']",LocatorType.XPath);}
 
-    public WebElement Button_Edit_Drop_Off_Address () { return findElement("//img[@title='Edit drop off location']",LocatorType.XPath);}
+    public WebElement Button_Edit_Drop_Off_Address () { return findElement("//img[@title='Edit drop off Location']",LocatorType.XPath);}
 
-    public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit pickup location']",LocatorType.XPath);}
+    public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit Pickup Location']",LocatorType.XPath);}
 
 
     //public WebElement Admin_Dropdown_ServiceLevel(String serviceLevel) { return findElement("//li/div/div/span[@class='service-title' and @data-name='"+serviceLevel+"']",LocatorType.XPath);}
     public WebElement Admin_Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
     public WebElement Admin_DropdownServiceLevelSelected() { return findElement("//select[@id='ddServiceLevelOption']/option[@selected='selected']",LocatorType.XPath);}
     public WebElement Link_Grid_First_Row() { return findElement("//tr[@id='row1']/td[4]/a",LocatorType.XPath);}
-    public WebElement Textbox_Drop_Off_Location () { return findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
-    public WebElement Textbox_Pickup_Location () { return findElement("PickupDetails_PickupOriginAddress",LocatorType.Id);}
+    public WebElement Textbox_Drop_Off_Location () { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/div/div/input",LocatorType.XPath);}
+    public WebElement Textbox_Pickup_Location () { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div[1]/div/div/input",LocatorType.XPath);}
 
     //public WebElement FirstAddressDropdownResult () { return findElement("//div[@id='divPlacesResult']/div[1]",LocatorType.XPath);}
 
@@ -42,9 +42,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement DropdownPickupResult (String address) { return findElement(String.format("//div[@id='divPickupPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
 
-    public WebElement DropOff_Address() { return findElement("//label[@id='lblDestinationAddress']",LocatorType.XPath);}
+    public WebElement DropOff_Address() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
 
-    public WebElement Pickup_Address() { return findElement("//label[@id='lblPickupAddress']",LocatorType.XPath);}
+    public WebElement Pickup_Address() { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
 
     public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
 
@@ -96,7 +96,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Textbox_Search () { return findElement("SearchCriteria", LocatorType.Id); }
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
 
-    public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
+    public WebElement List_ViewDeliveries(){return  findElement("//div[@class='popover-hover']/a[contains(text(),'Delivery Details')]",LocatorType.XPath);}
 
     //Deivery details
     public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
