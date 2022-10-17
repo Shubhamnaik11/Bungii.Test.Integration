@@ -3,6 +3,8 @@ package com.bungii.web.pages.admin;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.nio.file.WatchEvent;
+
 public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Link_ManuallyEndBungii () { return findElement("btnEndPickup", LocatorType.Id); }
@@ -78,5 +80,9 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Label_Partner() { return findElement("//table[@class='table table-striped']/tbody/tr[1]/td[1]",LocatorType.XPath);}
     public WebElement PhoneNo_Customer() {return findElement("//table[@class='table table-striped']/tbody/tr[2]/td[2])",LocatorType.XPath);}
 
-
+    public WebElement TitleText_TransactionHistory() {return findElement("//h4[contains(text(),'Transaction history')]", LocatorType.XPath);}
+    public WebElement TransactionHistory_DeliveryTotal() {return findElement("//div[@id='transactionHistory']//div[@class='col-sm-4']", LocatorType.XPath);}
+    public WebElement TransactionHistory_CustomerRefundAmount() {return findElement("//div[@id='transactionHistory']//tr[1]/descendant::td[2]", LocatorType.XPath);}
+    public WebElement TransactionHistory_DriverEarnings() {return findElement("//div[@id='transactionHistory']//tr[2]/descendant::td[2]", LocatorType.XPath);}
+    public WebElement TransactionHistory_BungiiEarnings() {return findElement("//div[@id='transactionHistory']//tr[3]/descendant::td[2]", LocatorType.XPath);}
 }
