@@ -355,67 +355,84 @@ Scenario:To verify that for converted trip from duo to solo does not display the
 	Then The bungii teammate icon should not be displayed
 
 #CORE-3507 : To verify that vehicle info is displayed on duo teammate screen for duo customer trip
-@testAllan
+@ready
 Scenario:To verify that vehicle info is displayed on duo teammate screen for duo customer trip
-#Given that duo schedule bungii is in progress
-#| geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
-#| Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+Given that duo schedule bungii is in progress
+| geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+| Kansas   | enroute     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
 When I Switch to "driver" application on "same" devices
 And I am on the LOG IN page on driver app
 And I am logged in as "kansas driver 1" driver
-#And I click on the Duo teammate image
-#Then I should see the driver vehicle information
-#And I click on device "Back" button
-#And Bungii Driver "slides to the next state"
-#And I click on the Duo teammate image
-#Then I should see the driver vehicle information
-#And I click on device "Back" button
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
+And Bungii Driver "slides to the next state"
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
 #CORE-4007:To verify DUO Team mates details on Customer DUO delivery
 #CORE-4007:To verify DUO Team mates animation starts only at ARRIVED status(ANDROID)
-#Then The "Contact Duo Teammate" "Animation Text" should be displayed
-#And Bungii Driver "slides to the next state"
-#When Bungii driver uploads "1" image
-#And Bungii Driver "slides to the next state"
-#Then I accept Alert message for "Reminder: both driver at pickup"
-#And I click on the Duo teammate image
-#Then I should see the driver vehicle information
-#And I click on device "Back" button
-#Then The "Contact Duo Teammate" "Animation Text" should not be displayed
+Then The "Contact Duo Teammate" "Animation Text" should be displayed
+And Bungii Driver "slides to the next state"
+When Bungii driver uploads "1" image
+And Bungii Driver "slides to the next state"
+Then I accept Alert message for "Reminder: both driver at pickup"
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
+Then The "Contact Duo Teammate" "Animation Text" should not be displayed
 
 When I connect to "extra1" using "Driver2" instance
 And I Open "driver" application on "same" devices
 And I am on the LOG IN page on driver app
 And I am logged in as "kansas driver 2" driver
-#And I click on the Duo teammate image
-#Then I should see the driver vehicle information
-#And I click on device "Back" button
-#When Bungii Driver "slides to the next state"
-#And I click on the Duo teammate image
-#Then I should see the driver vehicle information
-#When I click on device "Back" button
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
+When Bungii Driver "slides to the next state"
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+When I click on device "Back" button
 And Bungii Driver "slides to the next state"
 When Bungii driver uploads "1" image
 And Bungii Driver "slides to the next state"
-
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
 And Bungii Driver "slides to the next state"
 When Bungii driver uploads "1" image
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
 And Bungii Driver "slides to the next state"
 #CORE-4007:To verify DUO Team mates animation is not visible when driver is at DRIVING TO DROP-OFF stage(ANDROID)
 Then The "Contact Duo Teammate" "Animation Text" should not be displayed
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
 And Bungii Driver "slides to the next state"
 #CORE-4007:To verify DUO Team mates animation when non control driver reaches Arrived and Control driver is yet to reach
 #CORE-4007:To verify DUO Team mates animation when driver is at UNLOADING ITEMS stage (ANDROID)
 Then The "Contact Duo Teammate" "Animation Text" should be displayed
 And Bungii Driver "slides to the next state"
 When Bungii driver uploads "1" image
+And I click on the Duo teammate image
+Then I should see the driver vehicle information
+And I click on device "Back" button
 And Bungii Driver "slides to the next state"
-
 When I accept Alert message for "Reminder: both driver at drop off"
 #CORE-4007:To verify DUO Team mates animation is not visible when driver has COMPLETED delivery
 Then The "Contact Duo Teammate" "Animation Text" should not be displayed
 Then I should be navigated to "Rate duo teammate" screen
 
 When I Switch to "driver" application on "ORIGINAL" devices
+And Bungii Driver "slides to the next state"
+When Bungii driver uploads "1" image
+And Bungii Driver "slides to the next state"
+And Bungii Driver "slides to the next state"
+And Bungii Driver "slides to the next state"
+When Bungii driver uploads "1" image
+And Bungii Driver "slides to the next state"
 When I accept Alert message for "Reminder: both driver at drop off"
 Then I should be navigated to "Rate duo teammate" screen
 
@@ -463,6 +480,8 @@ Then Bungii driver should see "General Instructions"
 When I Switch to "driver" application on "ORIGINAL" devices
 When I slide update button on "EN ROUTE" Screen
 And I click on "GOT IT" button
+#CORE-4007:To verify DUO Team mates details for Weight based DUO Partner deliver
+Then The "Contact Duo Teammate" "Animation Text" should be displayed
 And I slide update button on "ARRIVED" Screen
 When Bungii driver uploads "1" image
 And I slide update button on "ARRIVED" Screen
@@ -488,6 +507,8 @@ When I Switch to "driver" application on "ORIGINAL" devices
 And I slide update button on "DRIVING TO DROP-OFF" Screen
 Then I should see "DUO LIFT" header displayed
 And I click on "GOT IT" button
+#CORE-4007:To verify DUO Team mates details for Weight based DUO Partner deliver
+Then The "Contact Duo Teammate" "Animation Text" should be displayed
 
 And I Switch to "driver" application on "driver2" devices
 And I slide update button on "DRIVING TO DROP-OFF" Screen

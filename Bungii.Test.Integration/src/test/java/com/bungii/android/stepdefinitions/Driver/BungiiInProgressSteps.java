@@ -756,6 +756,10 @@ public class BungiiInProgressSteps extends DriverBase {
                 Thread.sleep(2000);
                 action.click(bungiiEstimatePage.Permissions_CameraAllow());
                 }
+            if (!action.isElementPresent(bungiiEstimatePage.Button_CameraIcon(true))){
+                Thread.sleep(2000);
+                action.click(inProgressBungiiPages.Button_AddPhoto());
+            }
             Thread.sleep(2000);
             switch (numberofimages){
                 case "1":
@@ -768,8 +772,34 @@ public class BungiiInProgressSteps extends DriverBase {
                     Thread.sleep(2000);
 
                     action.click(p2);
+                    if(!action.isElementPresent(inProgressBungiiPages.Image_UploadedImage(true))){
+
+                        if (!action.isElementPresent(bungiiProgressPage.Button_Save(true))) {
+                            action.click(p1);
+                            Thread.sleep(2000);
+                            action.click(p2);
+                        }
+                        else {
+                            action.click(inProgressBungiiPages.Button_AddPhoto());
+                            Thread.sleep(2000);
+                            action.click(bungiiEstimatePage.Button_CameraIcon());
+                            Thread.sleep(2000);
+                            action.click(p1);
+                            Thread.sleep(2000);
+                            action.click(p2);
+                        }
+                    }
                     Thread.sleep(2000);
-                    testStepVerify.isElementDisplayed(inProgressBungiiPages.Image_UploadedImage(),"Captured Image should be shown","Captured Image is shown", "Captured Image is not shown");
+                   if(!action.isElementPresent(inProgressBungiiPages.Image_UploadedImage(true))) {
+                    action.click(inProgressBungiiPages.Button_AddPhoto());
+                    Thread.sleep(2000);
+                    action.click(bungiiEstimatePage.Button_CameraIcon());
+                    Thread.sleep(2000);
+                    action.click(p1);
+                    Thread.sleep(2000);
+                    action.click(p2);
+                }
+                    testStepVerify.isElementDisplayed(inProgressBungiiPages.Image_UploadedImage(true),"Captured Image should be shown","Captured Image is shown", "Captured Image is not shown");
                     Thread.sleep(2000);
                     action.click(bungiiProgressPage.Button_Save());
                     break;
@@ -1192,7 +1222,7 @@ public class BungiiInProgressSteps extends DriverBase {
                     By Text_ContactDuo = MobileBy.id("com.bungii.driver:id/tv_contact_duo_label");
                     By Text_TeamMate = MobileBy.id("com.bungii.driver:id/tv_teammate_label");
                     testStepAssert.isTrue(action.isElementPresent(action.waitForExpectedElement(Text_ContactDuo)),"Contact Duo text should be displayed","Contact Duo text is displayed","Contact Duo text is not displayed");
-                    Thread.sleep(7000);
+                    Thread.sleep(10000);
                     testStepAssert.isTrue(action.isElementPresent(action.waitForExpectedElement(Text_TeamMate)),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
                     break;
             }
