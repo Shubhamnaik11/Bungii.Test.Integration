@@ -1137,7 +1137,7 @@ public class BungiiSteps extends DriverBase {
                     action.click(Page_DriverBungiiProgress.Button_MoreOptions());
                     break;
 
-                case "clicks Take photo":
+                case "clicks take photo":
                     action.click(Page_DriverBungiiProgress.Button_TakePhotos());
                     break;
 

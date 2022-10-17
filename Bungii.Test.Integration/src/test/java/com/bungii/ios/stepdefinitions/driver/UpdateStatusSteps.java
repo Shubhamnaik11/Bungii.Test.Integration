@@ -948,6 +948,12 @@ public class UpdateStatusSteps extends DriverBase {
                 case "Dropoff":
                     testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Icon_DropOff()),"Dropoff Icon should be displayed","Dropoff Icon is displayed","Dropoff Icon is not displayed");
                     break;
+                case "Photos":
+                    int noOfPhotos=bungiiDetailsPage.List_Photos().size();
+                    testStepAssert.isTrue(noOfPhotos==3,
+                            "The photos added by driver should be displayed.",
+                            "The photos added by driver are not displayed.");
+                    break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -35,7 +35,7 @@ Feature: Partner Portal Cases integration with IOS
     And I slide update button on "LOADING ITEM" Screen
     #   Core-3412 Verify Photo verification screen is not shown for partner trip which has Photo verification disabled but enabled for geofence
     #    Photo verification disabled for MRFM
-    Then I check if "photo verification" is not displayed
+    And I check if "photo verification" button is "not displayed"
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
     Then Partner Portal name should be displayed in "DRIVING TO DROP-OFF" section
     And I slide update button on "DRIVING TO DROP-OFF" Screen

@@ -756,7 +756,7 @@ Feature: Solo Scheduled Bungii Part A
     And I view and accept virtual notification for "Driver" for "stack trip"
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
-    And I check if "Save" button is disabled
+    And I check if "Save" button is "disabled"
     And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
     And I wait for "2" mins
@@ -767,4 +767,4 @@ Feature: Solo Scheduled Bungii Part A
     And I wait for "2" mins
     And I Select "live trips" from admin sidebar
     And I select the live trip for "Vishal Bagi" customer for delivery details
-    Then I check if "photos" are displayed
+    Then The "Photos" "on admin portal" should be displayed

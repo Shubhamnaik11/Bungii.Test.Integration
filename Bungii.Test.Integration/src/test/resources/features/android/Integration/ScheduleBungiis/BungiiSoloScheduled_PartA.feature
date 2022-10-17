@@ -185,7 +185,7 @@ Feature: SoloScheduled
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 #    Core-3412 Verify driver is able to upload Photo verification from More Option
     When Bungii Driver "clicks More Options"
-    When Bungii Driver "clicks Take photo"
+    When Bungii Driver "clicks take photo"
     When Bungii driver uploads "1" image
     When Bungii Driver "clicks More Options"
     And I click "Customer Signature" button on "update" screen
