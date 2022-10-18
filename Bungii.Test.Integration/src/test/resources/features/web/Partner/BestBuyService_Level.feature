@@ -22,7 +22,6 @@ Feature: Service Level
 
 #      Core - 2619 Verify Driver Availability count is reduced by 1 when Solo trip is scheduled
     And I check in the db the number of timeslots available "before schedule for best buy"
-
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
       |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
@@ -37,12 +36,10 @@ Feature: Service Level
     Then I should not able to see Filter screen
     And I select the Scheduled Bungii from Delivery List
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
-
     When As a driver "Testdrivertywd_appleks_a_gruJ Stark_ksOnJ" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I check in the db the number of timeslots available "after schedule for best buy"
-
 #    Core - 2989 Verify that Driver Availability count is incremented by 1 on cancelling a scheduled solo trip
     When I navigate to "Admin" portal configured for "QA" URL
     And I view the Scheduled Deliveries list on the admin portal
@@ -54,20 +51,25 @@ Feature: Service Level
     And I enter cancellation fee and Comments
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
-
     Then I check in the db the number of timeslots available "after cancelling solo trip"
 
       #CORE-3199-To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
   @ready
-
   Scenario: To verify that First 5 Partner portal deliveries are indicated on scheduled delivery page
+    When  I am logged in as Admin
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I view the Live Deliveries list on  admin portal
+    And I check if partner trips are already present
+    And I view All Deliveries list on the admin portal
+    And I check if partner trips are already present
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
     And As a driver "TestDrivertywd_applemd_a_billC Stark_bltTwO" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
-
+#    Core-4080 Verify that email notification is sent on configured email id's once first partner portal delivery is scheduled
+    And Partner firm should receive "1st-Delivery" email
 #   Core - 2619  Verify that Partner Portals with multiple addresses have independent time slots for each store address.
     When I check in the db the number of timeslots available "for bestbuy first address" new portal
     When I check in the db the number of timeslots available "for bestbuy second address" new portal
@@ -98,7 +100,6 @@ Feature: Service Level
     And I search the delivery using "Pickup Reference"
     Then The "All Deliveries" page should display the delivery in "Payment Successful" form
     And In "All Deliveries" the trip should be  having a indicator with the text "New-1"
-
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
@@ -139,7 +140,6 @@ Feature: Service Level
     And I search the delivery using "Pickup Reference"
     Then The "All Deliveries" page should display the delivery in "Payment Successful" form
     And In "All Deliveries" the trip should be  having a indicator with the text "New-2"
-
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
@@ -157,7 +157,6 @@ Feature: Service Level
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then In "All Deliveries" the trip should be  having a indicator with the text "New-3"
-
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
@@ -170,7 +169,6 @@ Feature: Service Level
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then In "All Deliveries" the trip should be  having a indicator with the text "New-4"
-
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661035 | Testcustomertywd_appleMarkAJ LutherAJ|
@@ -197,7 +195,6 @@ Feature: Service Level
       |  Status |
       | Assigning Driver(s) |
     Then In "Scheduled Deliveries" the trip should be  having a indicator with the text "New-5"
-
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661036 | Testcustomertywd_appleMarkAK LutherAK|
@@ -217,7 +214,6 @@ Feature: Service Level
     And I wait for 2 minutes
     Then Partner firm should receive "3rd-Initial deliveries" email
 
-
   @ready
   Scenario: Verify Driver Availability count is reduced by 2 when Duo trip is scheduled
     When I enter "valid" password on Partner Portal
@@ -231,9 +227,7 @@ Feature: Service Level
       |NEXT_POSSIBLE        |
     Then I should "see Delivery Cost: N/A"
     And I click "GET ESTIMATE" button on Partner Portal
-
     And I check in the db the number of timeslots available "before schedule for best buy"
-
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
       |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
@@ -241,14 +235,11 @@ Feature: Service Level
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
-
     When As a driver "Testdrivertywd_appleks_a_gruJ Stark_ksOnJ" and "Testdrivertywd_appleks_a_gruK Stark_ksOnK" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
-
     And I check in the db the number of timeslots available "after schedule for duo for best buy"
     And I click "New Bungii" button on Partner Portal
-
     When I request "Solo" Bungii trip in partner portal configured for "BestBuy service level" in "Kansas" geofence
       | Pickup_Address                                 | Delivery_Address                                             |
       | 1735 Noriega St, San Francisco, CA, US, 94122  | 6800 Zoo Drive, Kansas City, United States, Missouri, 64132  |
@@ -257,10 +248,8 @@ Feature: Service Level
       |NEXT_POSSIBLE        |
     Then I should "see Delivery Cost: N/A"
     And I click "GET ESTIMATE" button on Partner Portal
-
 #   Core - 2619 Verify that available deliveries are reduced in each partner portal having similar store addresses.
     And I check in the db the number of timeslots available "before schedule for best buy"
-
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
       |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
@@ -272,7 +261,6 @@ Feature: Service Level
       | driver1 state |
       | Accepted      |
     And I check in the db the number of timeslots available "after schedule for best buy"
-
 #    Core - 2989 Verify that Driver Availability count is incremented/reduced when admin edits date and time
     When I navigate to "Admin" portal configured for "QA" URL
     And I view the Scheduled Deliveries list on the admin portal
@@ -304,9 +292,7 @@ Feature: Service Level
       |NEXT_POSSIBLE        |
     Then I should "see Delivery Cost: N/A"
     And I click "GET ESTIMATE" button on Partner Portal
-
     And I check in the db the number of timeslots available "before schedule for best buy"
-
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
       |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
@@ -318,7 +304,6 @@ Feature: Service Level
       | driver1 state |
       | Accepted      |
     And I check in the db the number of timeslots available "after schedule for best buy"
-
     When I navigate to "Admin" portal configured for "QA" URL
     And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
@@ -332,9 +317,7 @@ Feature: Service Level
     Then I click on "SAVE CHANGES" button
     And the "Bungii Saved!" message is displayed
     And I wait for "2" mins
-
     Then I check in the db the number of timeslots available "after changing bungii type from solo to duo"
-
 #    Core - 2989 Verify that Driver Availability count is incremented by 2 on cancelling a scheduled duo trip
     When I click on "Close" button
     And I refresh the page
@@ -349,7 +332,6 @@ Feature: Service Level
     And I enter cancellation fee and Comments
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
-
     Then I check in the db the number of timeslots available "after cancelling duo trip"
 
 #    Core - 2989 Verify that Driver Availability count is incremented when admin converts a trip from duo to solo
@@ -366,12 +348,9 @@ Feature: Service Level
       |NEXT_POSSIBLE        |
     Then I should "see Delivery Cost: N/A"
     And I click "GET ESTIMATE" button on Partner Portal
-
     And I check in the db the number of timeslots available "before schedule for best buy"
-
 #    Core - 2619 Verify that Driver Availability count is not reduced/incremented for a different partner portal once a slot is utilized/restored in one partner portal under same geofence
     And I check in the db the number of timeslots available "before schedule for mrfm"
-
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
       |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
@@ -379,14 +358,11 @@ Feature: Service Level
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
-
     When As a driver "Testdrivertywd_appleks_a_drvaw Kansas_aw" and "Testdrivertywd_appleks_a_drvax Kansas_ax" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
     And I check in the db the number of timeslots available "after schedule for duo for best buy"
-
     And I check in the db the number of timeslots available "after schedule for mrfm"
-
     When I navigate to "Admin" portal configured for "QA" URL
     And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
@@ -404,10 +380,7 @@ Feature: Service Level
     Then I click on "SAVE CHANGES" button
     And the "Bungii Saved!" message is displayed
     And I wait for "2" mins
-
     And I check in the db the number of timeslots available "after changing bungii type from duo to solo"
-
-
 
 #CORE-2419:Verify that correct date and time slots are displayed for partner portals having multiple pickup addresses
   @ready
