@@ -198,7 +198,7 @@ public class UpdateStatusSteps extends DriverBase {
                     break;
                 case "ARRIVED":
                     if(TripType.equals("Duo")){
-                        actualName = getCustomerNameOnDriverApp(5);
+                        actualName = getCustomerNameOnDriverApp(4);
                     }
                     else {
                         actualName = getCustomerNameOnDriverApp(4);
@@ -624,10 +624,10 @@ public class UpdateStatusSteps extends DriverBase {
         String actualPickuplocation ="";
         String tripType= (String) cucumberContextManager.getScenarioContext("TripType");
         if(tripType.equalsIgnoreCase("Duo")) {
-            actualPickuplocation = actualInfo.get(6).replace(",", "").replace("  ", " ");
+            actualPickuplocation = actualInfo.get(7).replace(",", "").replace("  ", " ");
         }
         else{
-            actualPickuplocation = actualInfo.get(5).replace(",", "").replace("  ", " ");
+            actualPickuplocation = actualInfo.get(6).replace(",", "").replace("  ", " ");
         }
         boolean isPickupDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation
