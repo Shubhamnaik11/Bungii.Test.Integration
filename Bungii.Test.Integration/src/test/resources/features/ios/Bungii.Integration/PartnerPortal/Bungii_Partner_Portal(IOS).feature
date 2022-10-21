@@ -33,6 +33,9 @@ Feature: Partner Portal Cases integration with IOS
     Then I should be navigated to "LOADING ITEMS" trip status screen on driver
     Then Partner Portal name should be displayed in "LOADING ITEMS" section
     And I slide update button on "LOADING ITEM" Screen
+    #   Core-3412 Verify Photo verification screen is not shown for partner trip which has Photo verification disabled but enabled for geofence
+    #    Photo verification disabled for MRFM
+    And I check if "photo verification" button is "not displayed"
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
     Then Partner Portal name should be displayed in "DRIVING TO DROP-OFF" section
     And I slide update button on "DRIVING TO DROP-OFF" Screen
@@ -204,7 +207,9 @@ Feature: Partner Portal Cases integration with IOS
 
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEM" Screen
+#    Core-3412 Verify driver is able to upload Photo verification from More Option
+    And I click "More Options" button on "update" screen
+    And I click "Take Photo" button on "update" screen
     And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen

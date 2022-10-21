@@ -104,7 +104,7 @@ public class Partner_Delivery_Details extends DriverBase {
             String CustomerMobile = "";
             String ReceiptNumber = "";
             String OrderNumber = "";
-            String SoldBuy = "";
+            String EmployeeID = "";
             String ProductDescription = "";
             String Dimensions = "";
             String Weight = "";
@@ -164,8 +164,8 @@ public class Partner_Delivery_Details extends DriverBase {
             if (dataMap.containsKey("Order_Number")) {
                 OrderNumber = dataMap.get("Order_Number").trim();
             }
-            if (dataMap.containsKey("SoldBuy")) {
-                SoldBuy = dataMap.get("SoldBuy").trim();
+            if (dataMap.containsKey("EmployeeID")) {
+                EmployeeID = dataMap.get("EmployeeID").trim();
             }
             if (dataMap.containsKey("Delivery_Purpose")) {
                 DeliveryPurpose = dataMap.get("Delivery_Purpose").trim();
@@ -307,8 +307,8 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Order_Number(), OrderNumber);
-                        action.click(Page_Partner_Delivery.Dropdown_SoldBuy());
-                        action.click(Page_Partner_Delivery.List_StoreAssociate("Krishna"));
+                        action.clearSendKeys(Page_Partner_Delivery.Input_EmployeeNo(), EmployeeID);
+
 
 
                         break;
@@ -372,7 +372,7 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(),DeliveryPurpose);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Rb_Sb_Number(),RbSbNumber);
-                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(),SoldBuy);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(),EmployeeID);
 
 
                         break;
@@ -438,7 +438,7 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(), DeliveryPurpose);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Rb_Sb_Number(), RbSbNumber);
-                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(), SoldBuy);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(), EmployeeID);
                         break;
                     default:
                         break;

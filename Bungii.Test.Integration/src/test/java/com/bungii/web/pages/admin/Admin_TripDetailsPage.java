@@ -35,7 +35,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Estimated_Charge() { return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong",LocatorType.XPath);}
 
-    public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[text()='Driver Earnings']/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[contains(text(),'Driver Earnings')]/following::td[1]/strong",LocatorType.XPath);}
 
     public WebElement Text_Driver_Est_Eranings() { return findElement("//tr[19]/td/strong",LocatorType.XPath);}
 
