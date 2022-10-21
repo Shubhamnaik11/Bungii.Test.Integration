@@ -299,7 +299,7 @@ public class Admin_RevivalSteps extends DriverBase {
                     switch (deliveryStatus){
                         case "Assigning Driver(s)":
                             Thread.sleep(3000);
-                            String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(12));
+                            String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(13));
                             testStepAssert.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",
                                     "Delivery is  in " +status+ " state",
                                     "Delivery is not in " +deliveryStatus+ " state");
@@ -314,7 +314,7 @@ public class Admin_RevivalSteps extends DriverBase {
                         case "Payment Pending":
                         case "Payment Successful":
                             Thread.sleep(3000);
-                            String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(11));
+                            String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(12));
                             testStepAssert.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",
                                     "Delivery is  in " +status+ " state",
                                     "Delivery is not in " +deliveryStatus+ " state");

@@ -1186,8 +1186,10 @@ public class GeneralUtility extends DriverBase {
         action.JavaScriptClick(admin_geofencePage.Checkbox_Geofence(geofencePartial));
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
-    public void reApplyGeofenceDropdown(){
+    public void reApplyGeofenceDropdown() throws InterruptedException {
+        Thread.sleep(3000);
         action.click(admin_geofencePage.List_Geofence());
+        Thread.sleep(3000);
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
 

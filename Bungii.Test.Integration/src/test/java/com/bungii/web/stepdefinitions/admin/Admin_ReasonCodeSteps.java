@@ -1,6 +1,5 @@
 package com.bungii.web.stepdefinitions.admin;
 
-import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
@@ -9,11 +8,9 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -162,9 +159,10 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         try{
         action.click(admin_EditScheduledBungiiPage.TextBox_DriverSearch());
         action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch(),driverName);
-        Thread.sleep(1000);
-        action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
-        action.JavaScriptClick(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
+        action.waitForElement("//div[contains(.,'"+driverName+"')]");
+//       action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
+        action.clickOnDropdown();
+//      action.JavaScriptClick(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
         cucumberContextManager.setScenarioContext("Driver_Name",driverName);
         Thread.sleep(1000);
 

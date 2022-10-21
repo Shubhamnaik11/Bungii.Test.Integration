@@ -17,6 +17,7 @@ Feature: Admin_Trips
       | driver1 state|
       | Accepted  |
     And I view the all Scheduled Deliveries list on the admin portal
+    When I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -131,12 +132,14 @@ Feature: Admin_Trips
    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Deliveries list on the admin portal
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Assigning Driver(s)|
     When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled|
@@ -443,7 +446,7 @@ Feature: Admin_Trips
     | Assigning Driver(s)|
 
   #CORE-3295:Verify that 'Assigning driver(s)' status with Loading icon is shown when it is searching for driver(s) on Schedule Deliveries screen
-  @ready
+  @revive
   Scenario: Verify that 'Assigning driver(s)' status with Loading icon is shown when it is searching for driver(s) on Schedule Deliveries screen
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -573,7 +576,7 @@ Feature: Admin_Trips
     Then The delivery should be in "Admin Canceled - No Driver(s) Found" state
 
 #CORE-3381:To verify that customer trips can be revived after admin cancels
-  @regression
+  @revive
   Scenario:To verify that customer trips can be revived after admin cancels
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
@@ -661,12 +664,12 @@ Feature: Admin_Trips
   And The amount should be "Refunded" and in "voided" state
 
     #CORE-3381:To verify that admin can fully refund completed trips which were revived
-  @regression
+  @revive
   Scenario:To verify that admin can fully refund completed trips which were revived
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 8877661063 | Testcustomertywd_BppleMarkBL LutherBL|
-    And As a driver "Testdrivertywd_appledc_a_drvM WashingtonN" perform below action with respective "Solo Scheduled" Delivery
+      | NEXT_POSSIBLE | 8877661063 | Testcustomertywd_appleMarkBL LutherBL|
+    And As a driver "Testdrivertywd_appledc_a_drvM WashingtonM" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       |Accepted |
       | Enroute  |
@@ -842,6 +845,7 @@ Feature: Admin_Trips
     Then I should see the transaction charges "before" changing delivery Status
     And I click on "Close" button
     And I click on "OK Delivery Details Page" button
+    And  I search the delivery using "Pickup Reference"
     When I click on the "Change Payment status" button from the dropdown
     And the "Are you sure, you want to change the payment status?" message is displayed
     Then I should see all the information in the change payment status modal

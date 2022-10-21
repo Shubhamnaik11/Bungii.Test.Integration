@@ -357,11 +357,13 @@ public class Admin_TripsSteps extends DriverBase {
             String geofenceName = getGeofence(geofence);
             //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
             //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+            Thread.sleep(2000);
             utility.selectGeofenceDropdown(geofenceName);
 
             String pageName = action.getText(admin_LiveTripsPage.Text_Page_Header());
 
             cucumberContextManager.setScenarioContext("STATUS", status);
+            Thread.sleep(2000);
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
@@ -415,6 +417,7 @@ public class Admin_TripsSteps extends DriverBase {
                 boolean retry = true;
                 while (retry == true && retrycount > 0) {
                     try {
+                        Thread.sleep(3000);
                         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
                         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPath)));
                         retry = false;
@@ -807,7 +810,7 @@ try{
         Thread.sleep(4000);
            // action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnLiveEdit']")));
             action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//td/div/img")));
-            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//p[contains(text(),'Edit')]")));
+            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'Edit')]")));
 
             log(" I click on Edit link besides the live delivery",
                 "I have clicked on Edit link besides the live delivery", false);
@@ -959,7 +962,7 @@ try{
 
     @And("^I click on \"([^\"]*)\" radiobutton$")
     public void i_click_on_something_radiobutton(String radiobutton) throws Throwable {
-try{
+    try{
         switch (radiobutton) {
             case "Cancel entire Bungii and notify driver(s)":
                 action.click(admin_ScheduledTripsPage.RadioButton_CancelBungii());

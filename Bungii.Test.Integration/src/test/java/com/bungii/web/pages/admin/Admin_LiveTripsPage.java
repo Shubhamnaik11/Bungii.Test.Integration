@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 public class Admin_LiveTripsPage extends PageBase {
 
-    public WebElement Menu_LiveTrips () { return findElement("//span[contains(text(),'Live Deliveries')]", LocatorType.XPath); }
+    public WebElement Menu_LiveTrips () { return findElement("//a[contains(text(),'Live Deliveries')]", LocatorType.XPath); }
 
     //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
@@ -19,9 +19,9 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Button_CalculateCost() { return findElement("//button[@id='btnCost']",LocatorType.XPath);}
 
-    public WebElement RadioButton_EditDeliveryStatus() { return findElement("//span[contains(text(),'Edit Delivery Status')]",LocatorType.XPath);}
+    public WebElement RadioButton_EditDeliveryStatus() { return findElement("radio4",LocatorType.Id);}
 
-    public WebElement RadioButton_DeliveryCanceled() { return findElement("//span[contains(text(),'Delivery Canceled')]",LocatorType.XPath);}
+    public WebElement RadioButton_DeliveryCanceled() { return findElement("cancel",LocatorType.Id);}
 
     public WebElement Text_Page_Header() {return findElement("//h4[contains(text(),'Scheduled')]|//h4[contains(text(),'Live')]",LocatorType.XPath);}
 
