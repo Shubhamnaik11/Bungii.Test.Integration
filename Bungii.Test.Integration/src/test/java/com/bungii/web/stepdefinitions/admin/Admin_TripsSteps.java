@@ -3449,6 +3449,7 @@ try{
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+        }
 
     @And("^I slide the \"([^\"]*)\" to \"([^\"]*)\"$")
     public void i_slide_the_something_to_something(String sliderName, String slideBy) throws Throwable {
@@ -3474,5 +3475,4 @@ try{
     }
 
 
-}
 }
