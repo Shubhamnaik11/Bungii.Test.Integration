@@ -31,7 +31,7 @@ Feature: Admin_Live_Delivery_Edit
     When I open the live delivery details in admin portal
     Then the updated drop off address should be displayed on delivery details page
     And Delivery price is recalculated based on updated value of drop off address
-  
+
   @regression
     #stable
     Scenario: Verify editing pickup address for the Solo live delivery.
@@ -56,8 +56,16 @@ Feature: Admin_Live_Delivery_Edit
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And  I refresh the page
+    And I click on the dropdown beside scheduled bungii
+    Then I should see the "History" underlined
+    When I click on the Notes link for Live Deliveries
+    And I click on "History"
+    Then The "History" tab should be selected
+    And I should see pickup address edit history
+    And I close the Note
     When I open the live delivery details in admin portal
-    Then the updated drop off address should be displayed on delivery details page
+    And I confirm the change pickup address on delivery details page
     And Delivery price is recalculated based on updated value of drop off address
   
   @regression
@@ -148,12 +156,12 @@ Feature: Admin_Live_Delivery_Edit
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
     And I click "Track Deliveries" button on Partner Portal
-    And I select "Check / uncheck all" option from the filter
+    #And I select "Check / uncheck all" option from the filter
     And I select "Canceled" option from the filter
     And I click on "Apply" button
     When I click on the delivery based on customer name
     And I get time stamp for "Admin Cancelled" delivery step
-    Then The admin "Cancelled" delivery should be highlighted in partner portal delivery details page
+    Then The admin "Canceled" delivery should be highlighted in partner portal delivery details page
 
 
 
@@ -235,7 +243,7 @@ Feature: Admin_Live_Delivery_Edit
     And I click on "Apply" button
     When I click on the delivery based on customer name
     And I get time stamp for "Admin Completed" delivery step
-    Then The admin "Completed" delivery should be highlighted in partner portal delivery details page
+    Then The admin "Done" delivery should be highlighted in partner portal delivery details page
 
 
     Examples:

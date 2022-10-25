@@ -1349,6 +1349,19 @@ try{
     @Then("^Partner firm should receive \"([^\"]*)\" email$")
     public void partner_firm_should_receive_something_email(String emailSubject) throws Throwable {
 
+        String portalName= (String) cucumberContextManager.getScenarioContext("Portal_Name");
+        if (portalName.equalsIgnoreCase("BestBuy2 service level")){
+            String partnerPortal = PropertyUtility.getDataProperties("partner.baltimore.name");
+            if(emailSubject.contains("Initial deliveries")) {
+                String deliveryCount = emailSubject.substring(0, 3);
+                cucumberContextManager.setScenarioContext("DELIVERY_COUNT", deliveryCount);
+                emailSubject = partnerPortal + " has completed one of their initial deliveries!";
+            }
+            else{
+                emailSubject = partnerPortal + " has scheduled their first delivery!";
+            }
+        }
+
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody == null) {
              testStepAssert.isFail("Email : " + emailSubject + " not received");
@@ -1451,6 +1464,15 @@ try{
                     message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
                 }
                 //message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                break;
+            case "Best Buy #11, Baltimore, MD has completed one of their initial deliveries!":
+                String partnerPortal=PropertyUtility.getDataProperties("partner.baltimore.name");
+                String deliveryCount= (String) cucumberContextManager.getScenarioContext("DELIVERY_COUNT");
+                message = utility.getExpectedPartnerFirmInitialDeliveriesEmailContent(partnerPortal,deliveryCount);
+                break;
+            case "Best Buy #11, Baltimore, MD has scheduled their first delivery!":
+                String partnerPortalName=PropertyUtility.getDataProperties("partner.baltimore.name");
+                message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName);
                 break;
         }
         message= message.replaceAll(" ","");
@@ -3414,6 +3436,20 @@ try{
                     true);
         }
     }
+
+    @And("^I set the the time of the delivery outside bungii working hours$")
+    public void i_set_the_the_time_of_the_delivery_outside_bungii_working_hours() throws Throwable {
+        try{
+        action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
+        Thread.sleep(3000);
+        action.click(admin_EditScheduledBungiiPage.Text_LastTimeSlotAdminEdit());
+        log("I should be able to set the delivery outside bungii working hours","I could set the delivery timing outside bungii working hours",false);
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
     @And("^I slide the \"([^\"]*)\" to \"([^\"]*)\"$")
     public void i_slide_the_something_to_something(String sliderName, String slideBy) throws Throwable {
         try{
@@ -3438,4 +3474,5 @@ try{
     }
 
 
+}
 }

@@ -182,3 +182,74 @@ Scenario: Verify Driver can view Scheduled bungii during ongoing delivery
       |        Customer Name                     |    Customer Phone  |   Delivery Center        |
       |   Testcustomertywd_BppleMarkCG LutherCG  |      8877661084    |   Store                  |
       |   Testcustomertywd_BppleMarkCH LutherCH  |      8877661085    |   Warehouse              |
+
+  #CORE-3585:To verify Call and Text options in Stops sections for Pickup and Drop-off point on Bungii delivery details page for driver app
+    @ready
+  Scenario:To verify Call and Text options in Stops sections for Pickup and Drop-off point on Bungii delivery details page for driver app
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |kansas| NEXT_POSSIBLE | 8877661125 | Testcustomertywd_appleMarkDV LutherDV|
+    And As a driver "Testdrivertywd_appleks_a_drvbl Kansas_bl" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appleks_a_drvbl Kansas_bl" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+#    CORE-3585:To verify that driver is able to successfully swipe through all in progress Bungii states
+    And I swipe to check trip details
+    Then The "Call" "Icon" should be displayed
+    Then The "Text" "Icon" should be displayed
+    Then The "Pickup" "Icon" should be displayed
+    Then The "Dropoff" "Icon" should be displayed
+    And I click on "CLOSE" button
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
+    And I slide update button on "EN ROUTE" Screen
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
+    And I slide update button on "ARRIVED" Screen
+    Then Bungii driver should see "Photo Verification"
+    When Bungii driver uploads "1" image
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
+    And I slide update button on "ARRIVED" Screen
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
+    And I slide update button on "LOADING ITEM" Screen
+    Then Bungii driver should see "Photo Verification"
+    When Bungii driver uploads "1" image
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
+    And I slide update button on "LOADING ITEM" Screen
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
+    And I slide update button on "UNLOADING ITEMS" Screen
+    Then Bungii driver should see "Photo Verification"
+    When Bungii driver uploads "1" image
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
+    And I slide update button on "UNLOADING ITEMS" Screen
+    When Bungii Driver "rates customer"
+    And I click on "SUBMIT RATING" button
+    Then I should be navigated to "Bungii completed" screen

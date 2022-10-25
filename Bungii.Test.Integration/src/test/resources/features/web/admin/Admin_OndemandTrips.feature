@@ -223,8 +223,8 @@ Scenario:Verify admin is not able to edit the on demand trips when its status is
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then The "All Deliveries" should be in "Payment Pending" state
-    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    When I click on the "Change Payment status" button from the dropdown
+    And I click on the "Change Payment status" link beside scheduled bungii for "Payment Pending Deliveries"
+    #When I click on the "Change Payment status" button from the dropdown
     And the "Are you sure, you want to change the payment status?" message is displayed
     Then I should see all the information in the change payment status modal
     And I click on "Confirm Change Payment Status" button

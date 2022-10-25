@@ -29,4 +29,9 @@ public class Driver_DashboardPage extends PageBase {
     public WebElement Link_RemoveFile3(){return  findElement("//div[@id='dropzone1']/div[4]/a[text()='Remove file']", LocatorType.XPath);}
 
     public WebElement TextBox_DOB(){return  findElement("DateOfBirth", LocatorType.Id);}
+
+    public WebElement Text_BranchWalletCreated() {return findElement("//td[contains(text(),'Payment Account Status')]/following-sibling::td/strong[text()='Wallet Created']", LocatorType.XPath);}
+    public WebElement Text_BranchProcessing() {return findElement("//td[contains(text(),'Payment Account Status')]/following-sibling::td/strong[text()='Proccessing']", LocatorType.XPath);}
+    public WebElement Text_AccNotCreated() {return findElement("//div/strong[contains(text(),'Account Not Created')]", LocatorType.XPath);}
+
 }

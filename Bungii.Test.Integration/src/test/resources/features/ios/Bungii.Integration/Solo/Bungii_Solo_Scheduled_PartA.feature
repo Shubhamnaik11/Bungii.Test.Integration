@@ -677,26 +677,94 @@ Feature: Solo Scheduled Bungii Part A
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I click on start Bungii for service based delivery
+    And I swipe to check trip details
+    #CORE-3585:To verify Call and Text options in Stops sections for Pickup and Drop-off point on Bungii delivery details page for driver app
+    Then The "Delivery Details" "Header" should be displayed
+    Then The "Call" "Icon" should be displayed
+    Then The "Stops" "Text" should be displayed
+    Then The "Pickup" "Icon" should be displayed
+    Then The "Dropoff" "Icon" should be displayed
+    And I click on "Close" button
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
+   #CORE-3585:To verify that driver is able to successfully swipe through all in progress Bungii states
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     Then I should see "Pickup Instructions" popup displayed
     Then The driver "Pickup" instructions should be in markdown format
     And I click on "GOT IT" button
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
     And I slide update button on "ARRIVED" Screen
     And  Bungii driver should see "Photo Verification"
     And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
     And I slide update button on "LOADING ITEM" Screen
     And Bungii driver should see "Photo Verification"
     And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then I should see "Drop-Off Instructions" popup displayed
     Then The driver "Dropoff" instructions should be in markdown format
     And I click on "GOT IT" button
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
     And I slide update button on "UNLOADING ITEMS" Screen
     And Bungii driver should see "Photo Verification"
     And Driver adds photos to the Bungii
+    Then The "Delivery Instructions" "Icon" should be displayed
+    Then The "Item Details" "Icon" should be displayed
+    Then The "Bungii Support" "Icon" should be displayed
+    Then The "More Options" "Icon" should be displayed
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I click "Skip This Step" button on "Rate customer" screen
-    Then I should be navigated to "Bungii Completed" screen
+    And I select "4" customer rating
+    And I add comment on rate customer page
+    When I click "On To The Next One" button on "Bungii completed" screen
+    And I should be navigated to "Bungii Completed" screen
+
+#   Core-3412: Verify Photo Verification screens are shown on driver app for Customer trip when driver has accepted stacked trip
+  @ready
+  Scenario: Verify Photo Verification screens are shown on driver app for Customer trip when driver has accepted stacked trip
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | goa      | enroute      | 0.5 hour ahead |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+
+    When I Switch to "driver" application on "same" devices
+    And I view and accept virtual notification for "Driver" for "stack trip"
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I check if "Save" button is "disabled"
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    And I wait for "2" mins
+#   Core-3412: Verify uploaded photos are shown on admin portal
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I wait for "2" mins
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Vishal Bagi" customer for delivery details
+    Then The "Photos" "on admin portal" should be displayed

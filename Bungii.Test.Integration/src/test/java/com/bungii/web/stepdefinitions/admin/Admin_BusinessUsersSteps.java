@@ -1062,6 +1062,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Zoom Out":
                     action.click(admin_liveTripsPage.Button_ZoomOut());
                     break;
+                case "Pickup Date":
+                    action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
+                    break;
+                case "First Time Slot":
+                    action.click(Page_Partner_Dashboard.Text_FirstTimeSlot());
+                    break;
                 case "Filter":
                     action.click(admin_TripsPage.Button_Filter());
                     break;

@@ -165,6 +165,7 @@ public class BungiiDetailsSteps extends DriverBase {
         try {
             if (action.isAlertPresent())
                 SetupManager.getDriver().switchTo().alert().accept();
+            action.swipeUP();
             action.click(bungiiDetailsPage.Button_StartBungii());
             Thread.sleep(2000);
             if(action.isElementPresent(bungiiDetailsPage.Text_General_Instruction(true))) {
@@ -409,6 +410,29 @@ public class BungiiDetailsSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("I check if {string} button is {string}")
+    public void iCheckIfButtonIs(String type, String act)throws Throwable {
+        try{
+            switch (type){
+                case "photo verification":
+                    testStepAssert.isFalse(action.isElementPresent(bungiiDetailsPage.Tab_AddPhoto(true)),
+                            "Photo verification should not be displayed",
+                            "Photo verification pin is not be displayed",
+                            "Photo verification pin is displayed");
+                    break;
+                case "Save":
+                    testStepAssert.isFalse(bungiiDetailsPage.Button_SavePhotos().isEnabled(),
+                            "The save button should be disabled.",
+                            "The save button is enabled.");
+                    break;
+            }
+            log("I should be able to check if "+type+" is "+act,"I am able to check if "+type+" is "+act,false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }

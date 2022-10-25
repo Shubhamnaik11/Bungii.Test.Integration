@@ -55,10 +55,12 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Button_Customer_Call() { return findElement("//*[@resource-id='com.bungii.driver:id/alert_dialog_solo_driver_inprogess_tv_call_customer']/android.widget.TextView", LocatorType.XPath); }
 
     //public WebElement Button_Customer_ViewItem() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[1]", LocatorType.XPath); }
-    public WebElement Button_Customer_ViewItem() { return findElement("//*[@resource-id='com.bungii.driver:id/alert_dialog_solo_driver_inprogess_tv_view_items']/android.widget.TextView", LocatorType.XPath); }
+//    public WebElement Button_Customer_ViewItem() { return findElement("//*[@resource-id='com.bungii.driver:id/alert_dialog_solo_driver_inprogess_tv_view_items']/android.widget.TextView", LocatorType.XPath); }
+    public WebElement Button_Customer_ViewItem() { return findElement("//android.widget.RelativeLayout/android.widget.RelativeLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView", LocatorType.XPath); }
 
    // public WebElement Button_Customer_CallSupport() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[4]", LocatorType.XPath); }
-    public WebElement Button_Customer_CallSupport() { return findElement("//*[@resource-id='com.bungii.driver:id/alert_dialog_solo_driver_inprogess_tv_text_support']/android.widget.TextView", LocatorType.XPath); }
+//    public WebElement Button_Customer_CallSupport() { return findElement("//*[@resource-id='com.bungii.driver:id/alert_dialog_solo_driver_inprogess_tv_text_support']/android.widget.TextView", LocatorType.XPath); }
+    public WebElement Button_Customer_CallSupport() { return findElement("com.bungii.driver:id/driver_options_iv_camera", LocatorType.Id); }
 
     public WebElement Button_CancelImage() { return findElement("com.bungii.driver:id/activity_view_all_images_iv_cancel", LocatorType.Id); }
     public WebElement Image_BungiiItem() { return findElement("com.bungii.driver:id/viewpager_sliding_item_imageview_item", LocatorType.Id); }
@@ -133,6 +135,8 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Link_SkipRating(boolean ... ignoreException){return findElement("//*[@resource-id='com.bungii.driver:id/appCompatTextView60']",LocatorType.XPath,ignoreException);}
 
     public WebElement Button_MoreOptions(){return findElement("com.bungii.driver:id/appCompatImageView37",LocatorType.Id);}
+
+    public WebElement Button_TakePhotos(){return findElement("//android.widget.Button[@text='Take photo']",LocatorType.XPath);}
 
     public WebElement Button_DeliveryInstructions(){return findElement("com.bungii.driver:id/driver_options_container_delivery_instructions",LocatorType.Id);}
 

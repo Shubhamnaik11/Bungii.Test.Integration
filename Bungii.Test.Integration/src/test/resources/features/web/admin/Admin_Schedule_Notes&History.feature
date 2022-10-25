@@ -343,3 +343,32 @@ Feature: Admin Notes & History
     And The "Edit" link should not be displayed
     When I create multiple notes
     Then I should see the notes displayed̥
+
+  #CORE-3382
+  @ready
+  Scenario:To verify admin is able to see edit History for customer solo trip
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                       |
+      | NEXT_POSSIBLE | 8877661000     | Testcustomertywd_appleMarkA LutherA |
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    And I click on the dropdown beside scheduled bungii
+    Then I should see the "History" field not underlined
+    When I click the "Notes & History" link
+    And I click on "History"
+    Then The "History" tab should be selected
+    And I should see no history text
+    And I close the Note
+    And As a driver "Testdrivertywd_appleks_a_gruE Stark_ksOnE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+    And I wait for 2 minutes
+    When As a driver "Testdrivertywd_appleks_a_gruE Stark_ksOnE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Enroute       |
+      | Arrived            |
+      | Loading Item       |
+      | Driving To Dropoff |
+      | Unloading Item     |
+      | Bungii Completed   |
