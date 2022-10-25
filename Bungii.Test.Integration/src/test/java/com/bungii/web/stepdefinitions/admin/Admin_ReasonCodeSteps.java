@@ -124,7 +124,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     @Then("^I should see \"([^\"]*)\" section$")
     public void iShouldSeeSection(String string) throws Throwable{
         try {
-            testStepAssert.isElementDisplayed(Page_Admin_TripDetails.TitleText_TransactionHistory(),
+            testStepAssert.isElementDisplayed(Page_Admin_TripDetails.Text_TitleTransactionHistory(),
                     string + " should be displayed on page", string + " is displayed on page",
                     string + " is not displayed on page");
         } catch (Exception e) {
@@ -142,10 +142,10 @@ public class Admin_ReasonCodeSteps extends DriverBase {
             String driverEarnings = dataMap.get("Driver Testdrivertywd_appleky_a_eapi Driver One Earnings").trim();
             String bungiiEarnings = dataMap.get("Bungii Earnings").trim();
 
-            String deliveryTotalAmount = action.getText(Page_Admin_TripDetails.TransactionHistory_DeliveryTotal());
-            String customerRefundAmount = action.getText(Page_Admin_TripDetails.TransactionHistory_CustomerRefundAmount());
-            String driverEarningsAmount = action.getText(Page_Admin_TripDetails.TransactionHistory_DriverEarnings());
-            String bungiiEarningsAmount = action.getText(Page_Admin_TripDetails.TransactionHistory_BungiiEarnings());
+            String deliveryTotalAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryDeliveryTotal());
+            String customerRefundAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryCustomerRefundAmount());
+            String driverEarningsAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryDriverEarnings());
+            String bungiiEarningsAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryBungiiEarnings());
 
             testStepAssert.isEquals(deliveryTotalAmount,deliveryTotal,"Delivery total should match Actual Delivery total amount",
                     "Delivery total matches Actual Delivery total amount",
