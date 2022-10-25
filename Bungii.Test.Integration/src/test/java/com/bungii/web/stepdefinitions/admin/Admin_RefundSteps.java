@@ -654,6 +654,7 @@ try{
     @Then("^I should see the drivers sorted with the applied geofence filter$")
     public void i_should_see_the_drivers_sorted_with_the_applied_geofence_filter() throws Throwable {
         try{
+            Thread.sleep(3000);
         int validCity = 0;
         int invalidCity = 0;
         String expectedGeofenceRegion = (String) cucumberContextManager.getScenarioContext("GeofenceRegion");

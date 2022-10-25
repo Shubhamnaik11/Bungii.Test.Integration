@@ -471,9 +471,9 @@ Feature: Admin_Refund
 		And I Enter the text "Boston"
 		Then I should see "Boston" highlighted
 		When I click on the "Boston" checkbox
-		And  I search the delivery using "Pickup Reference"
+		And I search the delivery of Customer
 		Then I should see the message "No deliveries found." displayed
-		When As a driver "Testdrivertywd_appledc_a_drvL WashingtonLE" perform below action with respective "Solo Scheduled" Delivery
+		When As a driver "Testdrivertywd_appledc_a_drvL WashingtonL" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state|
 			| Accepted  |
 		    |Enroute    |
@@ -489,7 +489,7 @@ Feature: Admin_Refund
 		Then I should see "Boston" highlighted
 		When I click on the "Boston" checkbox
 		Then I should see the region of the city highlighted
-		When  I search the delivery using "Pickup Reference"
+		And I search the delivery of Customer
 		Then I should see the message "No deliveries found." displayed
 		And As a driver "Testdrivertywd_appledc_a_drvL WashingtonL" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state|
@@ -508,7 +508,7 @@ Feature: Admin_Refund
 		Then I should see "Boston" highlighted
 		And I click on the "Boston" checkbox
 		When I should see the region of the city highlighted
-		And  I search the delivery using "Pickup Reference"
+		And I search the delivery of Customer
 		Then I should see the message "No deliveries found." displayed
 
    #CORE-3009 :To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
