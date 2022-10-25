@@ -195,5 +195,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
     public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
     public WebElement Icon_CustomerHelpAdminPortal(){return  findElement("//div/span[text() =\"Customer help\"]",LocatorType.XPath);}
+    //Photo tab on admin portal
+    public List<WebElement> List_Photos(){return  findElements("//h5/following-sibling::div",LocatorType.XPath);}
 
 }

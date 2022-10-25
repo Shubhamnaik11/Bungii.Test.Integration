@@ -183,7 +183,9 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am logged in as "Testdrivertywd_applega_a_steveG Stark_altOnEG" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I slide update button on "UNLOADING ITEMS" Screen
+#    Core-3412 Verify driver is able to upload Photo verification from More Option
+    When Bungii Driver "clicks More Options"
+    When Bungii Driver "clicks take photo"
     When Bungii driver uploads "1" image
     When Bungii Driver "clicks More Options"
     And I click "Customer Signature" button on "update" screen
@@ -469,3 +471,42 @@ Feature: SoloScheduled
     And I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     And Bungii Driver "skips to rate customer"
+
+#  Core-3412 Verify Photo Verification screens are shown on driver app for Customer on demand trip
+  @ready
+  Scenario: Verify Photo Verification screens are shown on driver app for Customer on demand trip
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 8877661107     | Testcustomertywd_appleMarkDD LutherDD | 2              | Cci12345          |
+    And As a driver "Testdrivertywd_applega_a_drvaj Atlanta_aj" perform below action with respective "Solo Ondemand" trip
+      | driver1 state|
+      | Accepted |
+      | Arrived |
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_applega_a_drvaj Atlanta_aj" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "ARRIVED" Screen
+    When Bungii driver uploads "1" image
+    Then I slide update button on "ARRIVED" Screen
+
+#  Core-3412 Verify Photo verification screen is shown for partner trip which has Photo verification enabled for partner but disabled for geofence
+#  Photo verification disabled for phoenic geofence
+  @ready
+  Scenario: Verify Photo verification screen is shown for partner trip which has Photo verification enabled for partner but disabled for geofence
+    And I set the pickup address for "Equip-bid in phoenix geofence"
+    When I request Partner Portal "SOLO" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |phoenix| NEXT_POSSIBLE | 8877661101 | Testcustomertywd_appleMarkCX LutherCX|
+    And As a driver "Testdrivertywd_appleph_a_drvaw Phoenix_aw" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+      | Arrived       |
+    And I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appleph_a_drvaw Phoenix_aw" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I slide update button on "ARRIVED" Screen
+    When Bungii driver uploads "1" image
+    Then I slide update button on "ARRIVED" Screen

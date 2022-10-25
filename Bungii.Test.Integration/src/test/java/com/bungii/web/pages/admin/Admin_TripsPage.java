@@ -80,7 +80,7 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Header_Partner () { return findElement("//th[text()='Customer']/following-sibling::th[1]", LocatorType.XPath); }
 
-    public WebElement Link_ChangePaymentStatus () { return findElement("//tbody/tr/td/div/ul/li[3]", LocatorType.XPath); }
+    public WebElement Link_ChangePaymentStatus () { return findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Change Payment Status')]", LocatorType.XPath); }
 
     public WebElement Text_ChangePaymentStatusMessage () { return findElement("//div[@id=\"trip-status-change-confirm-modal\"]/div/div/div[2]/p", LocatorType.XPath); }
 
