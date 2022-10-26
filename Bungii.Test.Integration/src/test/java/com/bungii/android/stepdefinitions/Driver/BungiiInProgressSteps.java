@@ -793,6 +793,9 @@ public class BungiiInProgressSteps extends DriverBase {
                    if(!action.isElementPresent(inProgressBungiiPages.Image_UploadedImage(true))) {
                     action.click(inProgressBungiiPages.Button_AddPhoto());
                     Thread.sleep(2000);
+                       if(!action.isElementPresent(bungiiEstimatePage.Button_CameraIcon((true)))) {
+                           action.click(inProgressBungiiPages.Button_AddPhoto());
+                       }
                     action.click(bungiiEstimatePage.Button_CameraIcon());
                     Thread.sleep(2000);
                     action.click(p1);
@@ -1221,9 +1224,9 @@ public class BungiiInProgressSteps extends DriverBase {
                 case "Contact Duo Teammate":
                     By Text_ContactDuo = MobileBy.id("com.bungii.driver:id/tv_contact_duo_label");
                     By Text_TeamMate = MobileBy.id("com.bungii.driver:id/tv_teammate_label");
-                    testStepAssert.isTrue(action.isElementPresent(action.waitForExpectedElement(Text_ContactDuo)),"Contact Duo text should be displayed","Contact Duo text is displayed","Contact Duo text is not displayed");
+                    testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_ContactDuo),"Contact Duo text should be displayed","Contact Duo text is displayed","Contact Duo text is not displayed");
                     Thread.sleep(10000);
-                    testStepAssert.isTrue(action.isElementPresent(action.waitForExpectedElement(Text_TeamMate)),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
+                    testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_TeamMate),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
                     break;
             }
         } catch (Exception e) {
