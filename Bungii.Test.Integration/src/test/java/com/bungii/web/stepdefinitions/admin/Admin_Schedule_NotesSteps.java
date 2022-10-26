@@ -120,6 +120,11 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
                     action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
                     break;
+                case "Payment Pending Deliveries":
+                    Thread.sleep(4000);
+                    action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
+                    action.click(admin_TripsPage.Link_ChangePaymentStatus());
+                    break;
             }
             log("I should be able to click on "+deliveryType+" link","I could click on "+deliveryType+" link",false);
         } catch(Exception e){
