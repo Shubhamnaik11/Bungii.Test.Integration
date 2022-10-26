@@ -27,6 +27,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
@@ -157,7 +158,7 @@ public class CommonSteps extends DriverBase {
         this.driverhomepage = driverhomepage;
     }
     LiveTripsPage liveTripsPage=new LiveTripsPage();
-
+    com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage = new com.bungii.ios.pages.driver.UpdateStatusPage();
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page$")
     public void something_message_should_be_displayed_on_something_page(String messageElement, String screen) {
@@ -2294,6 +2295,7 @@ public class CommonSteps extends DriverBase {
     @And("^I Select Trip from scheduled trip$")
     public void i_select_trip_from_scheduled_trip() {
         try {
+
             String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
@@ -3789,6 +3791,24 @@ public class CommonSteps extends DriverBase {
             log("I should be able to get old latitude and longitude values of addresses.","I am able to get old latitude and longitude values of addresses.",false);
         }
         catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @Then("^The \"([^\"]*)\" \"([^\"]*)\" should not be displayed$")
+    public void the_something_something_should_not_be_displayed(String element, String strArg2) throws Throwable {
+        try{
+            switch (element){
+                case "Contact Duo Teammate":
+                    Thread.sleep(3000);
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Text_ContactDuo(true)),"Contact Duo text should not be displayed","Contact Duo text is not displayed","Contact Duo text is displayed");
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Text_TeamMate(true)),"Teammate text should not be displayed","Teammate text is not displayed","Teammate text is displayed");
+                    break;
+            }
+        }    catch(Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
