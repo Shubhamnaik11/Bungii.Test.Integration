@@ -590,6 +590,21 @@ public class ActionManager {
         return element;
     }
 
+    public boolean waitForExpectedElementToBeDisplayed(final By by) {
+        try{
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
+        WebElement element = wait.until(visibilityOfElementLocated(by));
+        logger.detail("WAITING | Visibility of element by locator -> " + by );
+        boolean isdisplayed = element.isDisplayed();
+        logger.detail("WAITING | Visibility of element by locator -> " + by +" till its Displayed");
+        return isdisplayed;
+
+    } catch (Exception Ex) {
+        return false;
+    }
+    }
+
+
     public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {
         for (int i = minutes; i > 0; i--) {
             logger.detail("WAITING | Intentional Waiting With Swipe Up | waiting for " + i + " minutes");
