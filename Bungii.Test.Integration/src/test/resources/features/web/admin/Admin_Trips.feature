@@ -6,7 +6,6 @@ Feature: Admin_Trips
     
   @sanity
   @regression
-#    @testsweta
     #test data created in base
     #changed driver name
     #First time promo code added
