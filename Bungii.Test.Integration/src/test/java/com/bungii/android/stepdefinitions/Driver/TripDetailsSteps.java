@@ -123,7 +123,7 @@ public class TripDetailsSteps extends DriverBase {
     @And("^I click on the Duo teammate image$")
     public void i_click_on_the_duo_teammate_image() throws Throwable {
         try{
-        Thread.sleep(4000);
+        Thread.sleep(6000);
         action.click(inProgressBungiiPages.Image_BungiiDuoTeammate());
         log("I should be able to click on duo teammat image","I could click on duo teammate image",false);
     }catch (Exception e) {

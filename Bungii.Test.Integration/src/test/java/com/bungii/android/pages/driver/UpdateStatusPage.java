@@ -50,4 +50,7 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Icon_Text(){return findElement("com.bungii.driver:id/appCompatImageView18",LocatorType.Id);}
     public WebElement Icon_Pickup(){return findElement("//android.view.ViewGroup/android.widget.ScrollView/androidx.appcompat.widget.LinearLayoutCompat/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.ImageView",LocatorType.XPath);}
     public WebElement Icon_DropOff(){return findElement("//android.view.ViewGroup/android.widget.ScrollView/androidx.appcompat.widget.LinearLayoutCompat/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.ImageView",LocatorType.XPath);}
+    public WebElement Text_ContactDuo(boolean...IgnoreException){return findElement("com.bungii.driver:id/tv_contact_duo_label",LocatorType.Id,IgnoreException);}
+    public WebElement Text_TeamMate(boolean... IgnoreException){return findElement("com.bungii.driver:id/tv_teammate_label",LocatorType.Id,IgnoreException);}
+
 }
