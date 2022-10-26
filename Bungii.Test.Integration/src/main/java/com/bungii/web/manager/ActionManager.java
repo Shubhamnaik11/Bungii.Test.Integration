@@ -233,6 +233,14 @@ public class ActionManager {
         executor.executeScript("window.scrollBy(0,200)","");
     }
 
+    public void JavaScriptScrollToBottom(){
+        Dimension initial_size = SetupManager.getDriver().manage().window().getSize();
+        int height = initial_size.getHeight();
+       // SetupManager.getDriver().manage().window().getSize();
+        JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+        executor.executeScript("window.scrollBy(0,"+height+")","");
+    }
+
     public void JavaScriptClear(WebElement element) {
         try{
             JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
@@ -300,6 +308,7 @@ public class ActionManager {
                 true);
     }
     }
+
     public static String getFirstSelectedOption(WebElement element)
     {
       return new Select(element).getFirstSelectedOption().getText();
@@ -429,6 +438,18 @@ catch(Exception ex)
             error("Step should be successful", "Unable to fetch background color",
                     true);
             return "Unable to fetch background color";
+        }
+    }
+    public static void waitTillElementDisplayed(WebElement element)
+    {
+        try {
+            Long DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+        }
+        catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to fetch background color",
+                    true);
         }
     }
 }

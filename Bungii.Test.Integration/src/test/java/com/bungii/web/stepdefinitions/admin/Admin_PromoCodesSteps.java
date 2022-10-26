@@ -3,6 +3,7 @@ package com.bungii.web.stepdefinitions.admin;
 import bsh.org.objectweb.asm.Constants;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
@@ -16,19 +17,17 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.And;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Optional;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class Admin_PromoCodesSteps extends DriverBase {
     Admin_PromoCodesPage admin_PromoCodesPage = new Admin_PromoCodesPage();
@@ -161,8 +160,10 @@ public class Admin_PromoCodesSteps extends DriverBase {
     public void i_search_by_code_something(String strArg1) throws Throwable {
 
         try{
+            Thread.sleep(3000);
             String Code = (String) cucumberContextManager.getScenarioContext("PROMOCODE");
             action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
+
 
         log("I search "+ Code + "prmocode" ,
                 "I have on searched "+Code+" prmocode", false);
@@ -330,7 +331,11 @@ public class Admin_PromoCodesSteps extends DriverBase {
     public void i_select_promocode_type_as_something(String promoCodeType) throws Throwable {
         try{
         Thread.sleep(5000);
-        action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
+        action.click(admin_PromoCodesPage.DropDown_PromoType());
+        Thread.sleep(1000);
+      // action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
+            Thread.sleep(10000);
+           action.click(admin_PromoCodesPage.Select_PromoType(promoCodeType));
         log("I select promocode type as "+ promoCodeType ,
                 "I have selected promocode type as "+ promoCodeType, false);
         } catch (Exception e) {
@@ -444,8 +449,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
         DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
         dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
         CreatedDate = dateFormat.format(today).toString();
-
-        xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']",Name, CreatedDate, Expires, Type, Status, Discount, Entered, Used);
+        xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']",Name, CreatedDate, Expires, Type, Status, Discount, Entered, Used);
+        System.out.println(xpath);
         Thread.sleep(5000);
        List<WebElement> listOfElements = SetupManager.getDriver().findElements(By.xpath(xpath));
        testStepAssert.isEquals(String.valueOf(listOfElements.size()),Count,"No of Codes generated should be " + Count,"No of Codes generated is " + Count, "No of Codes generated is " + String.valueOf(listOfElements.size()));
@@ -502,6 +507,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @Then("^the \"([^\"]*)\" and \"([^\"]*)\" is set to \"([^\"]*)\" by default$")
     public void the_something_and_something_is_set_to_something_by_default(String strArg1, String strArg2, String strArg3) throws Throwable {
+        Thread.sleep(2000);
         testStepAssert.isTrue(admin_PromoCodesPage.CheckBox_FilterAll().isSelected()," Checkbox Code Type All should be selected","Checkbox Code Type All is selected","Checkbox Code Type All is not selected");
         testStepAssert.isTrue(admin_PromoCodesPage.CheckBox_DateFilterAll().isSelected()," Checkbox Creation Date All should be selected","Checkbox Creation Date All is selected","Checkbox Creation Date All is not selected");
     }
@@ -563,7 +569,9 @@ try{
         List<WebElement> rowswithstatusExpired = SetupManager.getDriver().findElements(By.xpath(xpath2));
         int pageno = 2;
         while (rowswithstatusActive.size() == 0 || rowswithstatusExpired.size() == 0 ){
-            action.click(SetupManager.getDriver().findElement(By.id(String.valueOf(pageno))));
+            action.JavaScriptScrollToBottom();
+            action.click(SetupManager.getDriver().findElement(By.xpath("//a[text()='"+String.valueOf(pageno)+"']")));
+            //action.click(SetupManager.getDriver().findElement(By.xpath("//span[@class='page-link'][text()='"+String.valueOf(pageno)+"']")));
             pageno=pageno+2;
             Thread.sleep(1000);
             rowswithstatusActive = SetupManager.getDriver().findElements(By.xpath(xpath1));
@@ -584,7 +592,8 @@ try{
         try{
         switch(popup) {
             case "Add New Promocode":
-                testStepAssert.isNotElementDisplayed(admin_PromoCodesPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
+                Thread.sleep(5000);
+                testStepAssert.isNotElementDisplayed(admin_PromoCodesPage.Button_Save(true), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
                 break;
 
             case "Partners":
@@ -629,6 +638,11 @@ try{
             case "No promo codes found.":
                 testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_NoPromoCodesFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
+
+            case "No data.":
+                testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_NoPromoCodesFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                break;
+
             case "No Customers found.":
                 message="No Data.";
                 testStepAssert.isEquals(action.getText(admin_customerPage.Label_NoCustomerFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
@@ -782,10 +796,11 @@ try{
             String PromoCodeType = dataMap.get("Promo Code Type").trim();
             String PromoCodeName = dataMap.get("Promo Code Name").trim().replace("<<CurrentDateTime>>",Integer.toString(i));
             Thread.sleep(10000);
-            action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), PromoCodeType);
-            Thread.sleep(5000);
+            action.click(admin_PromoCodesPage.DropDown_PromoType());
+            action.click(admin_PromoCodesPage.Select_PromoType(PromoCodeType));
+          //  action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), PromoCodeType);
+            Thread.sleep(10000);
             action.sendKeys(admin_PromoCodesPage.TextBox_PromoCodeName(), PromoCodeName);
-
             cucumberContextManager.setScenarioContext("PROMOCODE_TYPE", PromoCodeType);
             cucumberContextManager.setScenarioContext("PROMOCODE_NAME", PromoCodeName);
 
@@ -801,7 +816,7 @@ try{
                     DateFormat dateFormatInput = new SimpleDateFormat("MM/dd/yyyy");
                     String ExpirationDate = dataMap.get("Expiration Date").trim();
                     Code = dataMap.get("Code").trim().replace("<<CurrentDateTime>>",Integer.toString(i));
-                    action.sendKeys(admin_PromoCodesPage.TextBox_PromoCode(), Code);
+                    action.sendKeys(admin_PromoCodesPage.TextBox_PromoCode(), Code.substring(0,7));
                     cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", DiscountValue);
                     cucumberContextManager.setScenarioContext("DISCOUNT_CATEGORY", DiscountCategory);
                     cucumberContextManager.setScenarioContext("EXP_DATE", dateFormatFetch.format(tomorrow).toString());
@@ -812,14 +827,14 @@ try{
                     action.sendKeys(admin_PromoCodesPage.TextBox_DiscountValue(), DiscountValue);
                     action.click(admin_PromoCodesPage.RadioButton_Dollars());
                     action.click(admin_PromoCodesPage.TextBox_PromotionExpirationDate());
-                    action.sendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(), dateFormatInput.format(tomorrow).toString());
+                    action.clearSendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(), dateFormatInput.format(tomorrow).toString());
                     break;
                 case "One Off":
                      DiscountValue = dataMap.get("Discount Value").trim();
                      DiscountCategory = dataMap.get("Discount Category").trim();
                     Code = dataMap.get("Code").trim().replace("<<CurrentDateTime>>",Integer.toString(i));
                     cucumberContextManager.setScenarioContext("EXP_DATE", "");
-                    action.sendKeys(admin_PromoCodesPage.TextBox_PromoCode(), Code);
+                    action.sendKeys(admin_PromoCodesPage.TextBox_PromoCode(), Code.substring(0,7));
                     cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", DiscountValue);
                     cucumberContextManager.setScenarioContext("DISCOUNT_CATEGORY", DiscountCategory);
                     cucumberContextManager.setScenarioContext("PROMOCODE", admin_PromoCodesPage.TextBox_PromoCode().getAttribute("value"));
@@ -830,12 +845,16 @@ try{
                     action.click(admin_PromoCodesPage.RadioButton_Percent());
                     break;
                 case "Delivery By Partner":
+                    DiscountValue=PropertyUtility.getDataProperties("partner.default.discount.value");
                     Promoter = dataMap.get("Select Promoter").trim();
                     Promotion = dataMap.get("Select Promotion").trim();
                     NoOfCodes = dataMap.get("No Of Codes").trim();
-                    action.selectElementByText(admin_PromoCodesPage.DropDown_Promoter(), Promoter);
-                    action.selectElementByText(admin_PromoCodesPage.DropDown_Promotion(), Promotion);
-                    action.sendKeys(admin_PromoCodesPage.TextBox_CodeCount(), NoOfCodes);
+                    action.click(admin_PromoCodesPage.DropDown_Promoter());
+                    action.click(admin_PromoCodesPage.DropDown_PromoterOneOff(Promoter));
+                   // action.waitTillElementDisplayed(admin_PromoCodesPage.DropDown_PromoterEvent());
+                    action.clearSendKeys(admin_PromoCodesPage.TextBox_CodeCount(), NoOfCodes);
+                    action.click(admin_PromoCodesPage.DropDown_Promotion());
+                    action.click(admin_PromoCodesPage.DropDown_PromotionOption(Promotion));
                     DateFormat dateFormatFetch1 = new SimpleDateFormat("MMM dd, yyyy");
                     Date date = new Date(admin_PromoCodesPage.TextBox_PromotionExpirationDate().getAttribute("value"));
                     cucumberContextManager.setScenarioContext("PROMOTER", Promoter);
@@ -851,9 +870,12 @@ try{
                     Promoter = dataMap.get("Select Promoter").trim();
                     Promotion = dataMap.get("Select Promotion").trim();
                     Code = dataMap.get("Code").trim().replace("<<CurrentDateTime>>",Integer.toString(i));
-                    action.selectElementByText(admin_PromoCodesPage.DropDown_Promoter(), Promoter);
-                    action.selectElementByText(admin_PromoCodesPage.DropDown_Promotion(), Promotion);
-                    action.sendKeys(admin_PromoCodesPage.TextBox_PromoCode(), Code);
+                    action.click(admin_PromoCodesPage.DropDown_Promoter());
+                   // action.selectElementByText(admin_PromoCodesPage.DropDown_Promoter(), Promoter);
+                    action.click(admin_PromoCodesPage.DropDown_PromoterOneOff(Promoter));
+                    //action.selectElementByText(admin_PromoCodesPage.DropDown_Promotion(), Promotion);
+                    action.click(admin_PromoCodesPage.DropDown_Promotion());
+                    action.click(admin_PromoCodesPage.DropDown_PromotionOption(Promotion));
                     DateFormat dateFormatFetch2 = new SimpleDateFormat("MMM dd, yyyy");
                     Date date2 = new Date(admin_PromoCodesPage.TextBox_PromotionExpirationDate().getAttribute("value"));
                     cucumberContextManager.setScenarioContext("PROMOTER", Promoter);
@@ -882,9 +904,8 @@ try{
     @And("^I uncheck \"([^\"]*)\"$")
     public void i_uncheck_something(String strArg1) throws Throwable {
         try{
-        if(admin_PromoCodesPage.CheckBox_HideExpired().isSelected())
-        action.click(admin_PromoCodesPage.CheckBox_HideExpired());
-
+            //  if(admin_PromoCodesPage.CheckBox_HideExpired().isSelected())
+               action.click(admin_PromoCodesPage.CheckBox_HideExpired());
         log("I uncheck Hide Expired filter" ,
                 "I have unchecked Hide Expired filter" , false);
     } catch (Exception e) {
@@ -1062,9 +1083,9 @@ try{
     public void the_edited_promocode_is_displayed_in_the_promocodes_grid() throws Throwable {
         try{
         String PromoCodeName=cucumberContextManager.getScenarioContext("PROMOCODE_NAME").toString();
-        String xpath=null;
-        xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",PromoCodeName);
-        testStepAssert.isElementDisplayed(action.getElementByXPath(xpath), xpath + " Element should be displayed", xpath + " Element is displayed", xpath + " Element is not displayed");
+        String editFullSentence[]=action.getText(admin_PromoCodesPage.Button_EditPromoCodeView()).split(" ");
+        String editedPromoOnly=editFullSentence[0];
+            testStepAssert.isEquals(editedPromoOnly, PromoCodeName, PromoCodeName+ " Element should be displayed", editedPromoOnly + " Element is displayed", PromoCodeName + " Element is not displayed");
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step Should be successful", "Error in viewing result set",

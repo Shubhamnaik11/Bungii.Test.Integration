@@ -8,6 +8,7 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
+    #Passed
   Scenario: Verify Add New Promocode of Type Promo
     When I click on the "New Code" Button
     And I enter following values in fields
@@ -20,6 +21,7 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
+    #Passed
   Scenario: Verify Add New Promocode of Type One Off
     When I click on the "New Code" Button
     And I enter following values in fields
@@ -33,6 +35,7 @@ Feature: Admin_Promocodes
     When I click on the "Edit" Button
     And I edit the Promo Code Name
     When I click on the "Save" Button
+    When I search by Code "O<<CurrentDateTime>>"
     Then the edited promocode is displayed in the Promocodes grid
 
   @regression
@@ -50,6 +53,7 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
+    #Passed
   Scenario: Verify Add Edit Promocode of Type Delivery By Partner Multiple
     When I click on the "New Code" Button
     And I enter following values in fields
@@ -59,6 +63,7 @@ Feature: Admin_Promocodes
     Then the "Delivery By Partner (M)" type promocode gets saved successfully and it is displayed in the Promocodes grid
 
   @regression
+    #passed
   Scenario: Verify Cancellation of Add New Promocode
     When I click on the "New Code" Button
     And I click on the "Cancel" Button on "Add New Promocode" popup
@@ -70,10 +75,11 @@ Feature: Admin_Promocodes
     Then I verify that pagination exists
     #search for invalid data
     When I search by the Code "@#$@@"
-    Then the "No promo codes found." message is displayed
+    Then the "No data. " message is displayed
 #EOC
 
   @regression
+    @sn
   Scenario: Verify Field Validations On Add New Promocode Popup Upon Blank Inputs
     When I click on the "New Code" Button
     And I select promocode type as "Delivery By Partner"
@@ -117,9 +123,7 @@ Feature: Admin_Promocodes
     And I change the "Expiration Date" to future date
     And I click on the "Save" Button
     Then the date gets saved
-
     #Promo code and name with only special characters
-
     #Not implemented so far this validation so keeping on hold
   Scenario: Verify Field Validations On Add New Promocode Popup For invalid Inputs
     When I click on the "New Code" Button
@@ -140,6 +144,7 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
+    #Passed
   Scenario: Verify Promocode Grid Filters
     When I click on "Filter" icon
     Then the "Code Type" and "Creation Date" is set to "All" by default
@@ -176,7 +181,8 @@ Feature: Admin_Promocodes
     Then the promocode grid shows the both "Active & Expired" promocodes
     
   @regression
+    #Passed
   Scenario: Verify search by XSS script on Standard Codes grid
     When I search by string "<script>alert('hello')</script>"
-    Then the "No promo codes found." message is displayed
+    Then the "No data. " message is displayed
 

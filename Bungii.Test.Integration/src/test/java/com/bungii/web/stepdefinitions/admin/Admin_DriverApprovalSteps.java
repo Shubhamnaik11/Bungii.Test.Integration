@@ -358,10 +358,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.click(admin_partnerPortalPage.Button_NewPartner());
                     break;
                 case "Edit":
-                    Name = (String) cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
-                    xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]", Name);
-                    cucumberContextManager.setScenarioContext("XPATH", xpath);
-                    SetupManager.getDriver().findElement(By.xpath(xpath)).click();
+//                    Name = (String) cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
+//                    action.click();
+//                    xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]", Name);
+//                    cucumberContextManager.setScenarioContext("XPATH", xpath);
+//                    SetupManager.getDriver().findElement(By.xpath(xpath)).click();
+                    action.click(admin_PromoCodesPage.Button_EditPromoCode());
                     break;
 //BOC
                 case "Add Payment Method":
