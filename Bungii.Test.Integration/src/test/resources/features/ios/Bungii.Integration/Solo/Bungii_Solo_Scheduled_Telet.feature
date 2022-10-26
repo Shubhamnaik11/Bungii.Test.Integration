@@ -453,7 +453,7 @@ Feature: Solo Scheduled Bungii - TELET
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       | atlanta| NEXT_POSSIBLE | 8877661078 | Testcustomertywd_BppleMarkCA LutherCA|
-    And As a driver "Testdrivertywd_applega_a_drvaf Atlanta_af" and "Testdrivertywd_applega_a_drvaf Atlanta_af" perform below action with respective "DUO SCHEDULED" trip
+    And As a driver "Testdrivertywd_applega_a_drvaf Atlanta_af" and "Testdrivertywd_applega_a_drvag Atlanta_ag" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Driving To Drop-off  |  Driving To Drop-off  |
     And I switch to "ORIGINAL" instance
@@ -465,10 +465,12 @@ Feature: Solo Scheduled Bungii - TELET
     And I connect to "extra1" using "Driver2" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_applega_a_drvaf Atlanta_af" driver
+    And I am logged in as "Testdrivertywd_applega_a_drvag Atlanta_ag" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click on "Got It" button
+    #CORE-4007 :To verify DUO Team mates animation when non control driver reaches Arrived and Control driver is yet to reach
+    Then The "Contact Duo Teammate" "Animation Text" should be displayed
     And I slide update button on "UNLOADING ITEM" Screen
     And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEM" Screen
