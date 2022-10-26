@@ -136,6 +136,8 @@ public class InProgressBungiiPages extends PageBase {
 
     public WebElement Button_MoreOptions(){return findElement("com.bungii.driver:id/appCompatImageView37",LocatorType.Id);}
 
+    public WebElement Button_TakePhotos(){return findElement("//android.widget.Button[@text='Take photo']",LocatorType.XPath);}
+
     public WebElement Button_DeliveryInstructions(){return findElement("com.bungii.driver:id/driver_options_container_delivery_instructions",LocatorType.Id);}
 
     public WebElement Text_DeliveryInstructions(){return findElement("com.bungii.driver:id/view_customer_note_markdown_instructions",LocatorType.Id);}

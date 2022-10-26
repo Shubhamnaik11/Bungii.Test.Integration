@@ -87,7 +87,10 @@ public class Partner_DeliveryPage extends PageBase {
     //Order Number
     public WebElement TextBox_Order_Number() { return findElement("//input[@data-field='Order Number']",LocatorType.XPath);}
 
-    //Sold Buy
+    //EmployeeID
+    public WebElement Input_EmployeeNo() { return findElement("(//input[@class='form-control'])[9]", LocatorType.XPath);}
+
+    //SoldBuy
     public WebElement Dropdown_SoldBuy() { return findElement("//div[@class='MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl']",LocatorType.XPath);}
 
     public WebElement List_StoreAssociate(String storeAssociate) { return findElement(String.format("//li[text()='%s']",storeAssociate),LocatorType.XPath);}
@@ -247,4 +250,7 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Confirm button on Partner logo click
     public WebElement Button_ConfirmPartnerLogoClick() {return findElement("//button[contains(text(),\"Continue\")]", LocatorType.XPath);}
+
+    public List<WebElement> Text_PartnerName() {return findElements("//tbody[@id='TripListsTBody']/tr/td[text()='Best Buy #11 - Baltimore, MD']", LocatorType.XPath);}
+
 }

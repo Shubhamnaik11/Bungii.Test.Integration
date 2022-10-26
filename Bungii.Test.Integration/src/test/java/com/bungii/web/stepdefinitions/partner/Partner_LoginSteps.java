@@ -2,12 +2,9 @@ package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
-import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.common.utilities.ScreenshotUtility;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
@@ -126,6 +123,9 @@ public class Partner_LoginSteps extends DriverBase {
                     break;
                 case "Admin":
                     //action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
+                    //String PreviousServiceLevel=Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel().getText();
+                    String PreviousServiceLevel=action.getText(Page_Admin_ScheduledTrips.Admin_DropdownServiceLevelSelected());
+                    cucumberContextManager.setScenarioContext("Old_service", PreviousServiceLevel);
                     action.selectElementByText(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(), Service_Name);
                     cucumberContextManager.setScenarioContext("Change_service", Service_Name);
                     break;
@@ -1062,5 +1062,59 @@ public class Partner_LoginSteps extends DriverBase {
 
        }
     }
+    @And("^I check if partner trips are already present$")
+    public void i_check_if_partner_trips_are_already_present() throws Throwable {
+        try{
+            String partnerPortal = PropertyUtility.getDataProperties("partner.baltimore.name");
+            List<WebElement> listOfScheduledTrip=Page_Partner_Delivery.Text_PartnerName();
+                if(listOfScheduledTrip.size()>0){
+                    logger.error("The test case will fail because trips are already present for "+partnerPortal+" portal.");
+                }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I check if \"([^\"]*)\" field accepts only integer values$")
+
+    public void i_check_if_something_field_accepts_only_integer_values(String type) throws Throwable {
+        try{
+            String alphabetValue= PropertyUtility.getDataProperties("alphabet.value");
+            String specialCharacterValues= PropertyUtility.getDataProperties("specialCharacters.value");
+            String integerValues=PropertyUtility.getDataProperties("integer.value");
+            switch (type)
+            {
+                case "Order number":
+                    action.clearSendKeys(Page_Partner_Login.Input_OrderNo(), alphabetValue);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_OrderNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_OrderNo(),specialCharacterValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_OrderNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_OrderNo(), integerValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_OrderNo()), integerValues);
+                    break;
+
+                case "Employee number":
+                    action.clearSendKeys(Page_Partner_Login.Input_EmployeeNo(), alphabetValue);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_EmployeeNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_EmployeeNo(), specialCharacterValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_EmployeeNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_EmployeeNo(), integerValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_EmployeeNo()), integerValues);
+                    break;
+            }
+
+            log("I should be able to check if "+type+" field accepts only integer value",
+                    "I am able to check if "+type+ " field accepts only integer value" , false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }
 

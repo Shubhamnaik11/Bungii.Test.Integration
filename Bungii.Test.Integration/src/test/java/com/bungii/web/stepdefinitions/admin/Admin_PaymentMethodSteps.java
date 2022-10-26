@@ -5,6 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_PaymentMethodsPage;
+import com.bungii.web.pages.partner.Partner_DashboardPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;

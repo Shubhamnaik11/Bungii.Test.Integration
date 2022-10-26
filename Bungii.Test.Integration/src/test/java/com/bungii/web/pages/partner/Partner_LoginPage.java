@@ -14,4 +14,7 @@ public class Partner_LoginPage extends PageBase {
     //Blank-Incorrect password on Sing In
     public WebElement Message_Blank_Incorrect_Password() { return findElement("//div[@class='invalid-feedback d-block text-left p-l-18']", LocatorType.XPath);}
 
+    public WebElement Input_OrderNo() { return findElement("//input[@data-field='Order Number']", LocatorType.XPath); }
+
+    public WebElement Input_EmployeeNo() { return findElement("(//input[@class='form-control'])[9]", LocatorType.XPath);}
 }

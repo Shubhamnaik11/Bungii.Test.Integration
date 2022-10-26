@@ -35,7 +35,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Estimated_Charge() { return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong",LocatorType.XPath);}
 
-    public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[text()='Driver Earnings']/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[contains(text(),'Driver Earnings')]/following::td[1]/strong",LocatorType.XPath);}
 
     public WebElement Text_Driver_Est_Eranings() { return findElement("//tr[19]/td/strong",LocatorType.XPath);}
 
@@ -78,5 +78,9 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Label_Partner() { return findElement("//table[@class='table table-striped']/tbody/tr[1]/td[1]",LocatorType.XPath);}
     public WebElement PhoneNo_Customer() {return findElement("//table[@class='table table-striped']/tbody/tr[2]/td[2])",LocatorType.XPath);}
 
-
+    public WebElement Text_TitleTransactionHistory() {return findElement("//h4[contains(text(),'Transaction history')]", LocatorType.XPath);}
+    public WebElement Text_TransactionHistoryDeliveryTotal() {return findElement("//div[@id='transactionHistory']//div[@class='col-sm-4']", LocatorType.XPath);}
+    public WebElement Text_TransactionHistoryCustomerRefundAmount() {return findElement("//div[@id='transactionHistory']//tr[1]/descendant::td[2]", LocatorType.XPath);}
+    public WebElement Text_TransactionHistoryDriverEarnings() {return findElement("//div[@id='transactionHistory']//tr[2]/descendant::td[2]", LocatorType.XPath);}
+    public WebElement Text_TransactionHistoryBungiiEarnings() {return findElement("//div[@id='transactionHistory']//tr[3]/descendant::td[2]", LocatorType.XPath);}
 }

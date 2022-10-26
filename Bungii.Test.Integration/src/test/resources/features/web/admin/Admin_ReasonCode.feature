@@ -88,6 +88,14 @@ Feature: Admin_Reason_Code
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And  I refresh the page
+    And I click on the dropdown beside scheduled bungii
+    #CORE-3382
+    When I click the "Notes & History" link
+    And I click on "History"
+    Then The "History" tab should be selected
+    And I should see edit date time history
+    And I close the Note
     Then the updated date should be displayed on delivery details page
 
 
@@ -403,6 +411,14 @@ Feature: Admin_Reason_Code
     And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
+    #CORE-3764 - QA- Transaction history not displayed for payment successful trips with changed status to Canceled
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then I should see "Transaction history" section
+    And I should see following details in the Transaction history section
+      | Delivery Total   | Customer Refund | Driver Testdrivertywd_appleky_a_eapi Driver One Earnings | Bungii Earnings |
+      |  $43.00          | $43.00          | $0.00            | $0.00         |
+    And I view All Deliveries list on the admin portal
+    And I search the delivery using "Pickup Reference"
     Then Revive button should be displayed beside the trip
     Then The "All Deliveries" should be in "<Trip Status>" state
     And The amount should be "Refunded" and in "voided" state

@@ -8,16 +8,18 @@ import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
+import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -28,6 +30,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
 
+    Admin_TripDetailsPage Page_Admin_TripDetails = new Admin_TripDetailsPage();
 
     @And("^I click on \"([^\"]*)\" in the dropdown$")
     public void i_click_on_something_in_the_dropdown(String dropdown) throws Throwable {
@@ -118,6 +121,50 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         }
     }
 
+    @Then("^I should see \"([^\"]*)\" section$")
+    public void iShouldSeeSection(String string) throws Throwable{
+        try {
+            testStepAssert.isElementDisplayed(Page_Admin_TripDetails.Text_TitleTransactionHistory(),
+                    string + " should be displayed on page", string + " is displayed on page",
+                    string + " is not displayed on page");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step. Please check logs for more details", true);
+        }
+    }
+
+    @And("I should see following details in the Transaction history section")
+    public void iShouldSeeFollowingDetailsInTheTransactionHistorySection(DataTable data) throws Throwable {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String deliveryTotal = dataMap.get("Delivery Total").trim();
+            String customerRefund = dataMap.get("Customer Refund").trim();
+            String driverEarnings = dataMap.get("Driver Testdrivertywd_appleky_a_eapi Driver One Earnings").trim();
+            String bungiiEarnings = dataMap.get("Bungii Earnings").trim();
+
+            String deliveryTotalAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryDeliveryTotal());
+            String customerRefundAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryCustomerRefundAmount());
+            String driverEarningsAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryDriverEarnings());
+            String bungiiEarningsAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryBungiiEarnings());
+
+            testStepAssert.isEquals(deliveryTotalAmount,deliveryTotal,"Delivery total should match Actual Delivery total amount",
+                    "Delivery total matches Actual Delivery total amount",
+                    "Delivery total does not match Actual Delivery total amount");
+            testStepAssert.isEquals(customerRefundAmount,customerRefund,"Customer refund should match Actual Customer refund amount",
+                    "Customer refund matches Actual Customer refund amount",
+                    "Customer refund does not match Actual Customer refund amount");
+            testStepAssert.isEquals(driverEarningsAmount,driverEarnings,"Driver earnings should match Actual Driver earnings amount",
+                    "Driver earnings matches Actual Driver earnings amount",
+                    "Driver earnings does not match Actual Driver earnings amount");
+            testStepAssert.isEquals(bungiiEarningsAmount,bungiiEarnings,"Bungii earnings should match Actual Bungii earnings amount",
+                    "Bungii earnings matches Actual Bungii earnings amount",
+                    "Bungii earnings does not match Actual Bungii earnings amount");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", " Error performing step. Please check logs for more details", true);
+        }
+    }
     @And("^I click on \"([^\"]*)\" for change time and check reason dropdown values$")
     public void i_click_on_something_for_change_time_and_check_reason_dropdown_values(String strArg1) throws Throwable {
         try {
@@ -165,6 +212,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         Thread.sleep(1000);
         action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
         action.JavaScriptClick(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
+        cucumberContextManager.setScenarioContext("Driver_Name",driverName);
         Thread.sleep(1000);
 
             log("I can add a driver on edit delivery page",
@@ -228,5 +276,4 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         }
 
     }
-
 }

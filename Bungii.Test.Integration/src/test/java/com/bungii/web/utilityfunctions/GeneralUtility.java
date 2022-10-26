@@ -105,6 +105,10 @@ public class GeneralUtility extends DriverBase {
                 partnerURL = PropertyUtility.getDataProperties("qa.floordecor130_partner.url");
                 cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.floordecor130_partner.ref"));
             }
+            else if(PP_Site.equalsIgnoreCase("Home Outlet")){
+                partnerURL = PropertyUtility.getDataProperties("qa.home.outlet.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.home.outlet.ref"));
+            }
         }
         return  partnerURL;
     }
@@ -663,6 +667,34 @@ public class GeneralUtility extends DriverBase {
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%PartnerName%",firmName);
                     s = s.replaceAll("%DeliveryCount%",deliveryCount);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+    public String getExpectedPartnerFirmFirstEmailContent(String firmName)
+    {
+        String emailMessage = "";
+        FileReader fr;
+        try{
+            if(SystemUtils.IS_OS_WINDOWS){
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalFirstScheduleDeliveryEmail.txt");
+            }
+            else{
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerPortalFirstScheduleDeliveryEmail.txt");
+            }
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%PartnerName%",firmName);
                     emailMessage += s;
                 }
 
