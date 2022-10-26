@@ -25,7 +25,7 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Text_Page_Header() {return findElement("//h4[contains(text(),'Scheduled')]|//h4[contains(text(),'Live')]",LocatorType.XPath);}
 
-    public WebElement Text_DeliveryHighlight() {return findElement("row1",LocatorType.Id);}
+    public WebElement Text_DeliveryHighlight() {return findElement("//tbody/tr[1]",LocatorType.XPath);}
 
     public WebElement Text_AllDeliveryHighlight() {return findElement("//tbody[@id =\"TripListsTBody\"]/tr[1]",LocatorType.XPath);}
 
@@ -39,13 +39,13 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Icon_LoadingIconStoppedSearching() {return findElement("//div[@class=\"driver-search complete\"]",LocatorType.XPath);}
 
-    public WebElement Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries() {return findElement("//tr[@id='row1']/td[12]",LocatorType.XPath);}
+    public WebElement Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries() {return findElement("//tr[1]/td[13]",LocatorType.XPath);}
 
     public WebElement Text_DeliveryStatusAllDeliveries() {return findElement("//tr/td[11]",LocatorType.XPath);}
 
-    public WebElement Dropdown_Icon(){return  findElement("//div/img[@id='dLabel']",LocatorType.XPath);}
+    public WebElement Dropdown_Icon(){return  findElement("//div[@class='threedoticon']/img",LocatorType.XPath);}
 
-    public WebElement Option_Edit(boolean...IgnoreException){return  findElement("btnLiveEdit",LocatorType.Id,IgnoreException);}
+    public WebElement Option_Edit(boolean...IgnoreException){return  findElement("//a[text()='Edit']",LocatorType.XPath,IgnoreException);}
 
     public WebElement Text_ScheduledDate(){return findElement("//td[4]/a",LocatorType.XPath);}
 

@@ -228,17 +228,17 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_HistoryTabInformation(int row ,int col){return  findElement(String.format("//div[@class=\"old-note\"]/table/tbody/tr[%d]/td[%d]",row,col),LocatorType.XPath);}
 
-    public WebElement Button_StopSearching(boolean...ignoreException) {return findElement("btnStopSearch",LocatorType.Id,ignoreException);}
+    public WebElement Button_StopSearching(boolean...ignoreException) {return findElement("//button[text()='Stop searching']",LocatorType.XPath,ignoreException);}
 
-    public WebElement Button_ConfirmStopSearching() {return findElement("btnConfirm",LocatorType.Id);}
+    public WebElement Button_ConfirmStopSearching() {return findElement("//button[text()='Confirm']",LocatorType.XPath);}
 
-    public WebElement Text_ConfirmationPopUp() {return findElement("//h4[contains(text(),'Confirmation')]",LocatorType.XPath);}
+    public WebElement Text_ConfirmationPopUp() {return findElement("//div/div[contains(text(),'Stop Searching?')]",LocatorType.XPath);}
 
-    public WebElement Text_SuccessPopUp() {return findElement("//p[contains(text(),'Search stopped successfully.')]",LocatorType.XPath);}
+    public WebElement Text_SuccessPopUp() {return findElement("//div[contains(text(),'Search stopped successfully.')]",LocatorType.XPath);}
 
     public WebElement Text_ErrorPopUp() {return findElement("//p[contains(text(),'Oops! something went wrong.')]",LocatorType.XPath);}
 
-    public WebElement Button_CloseConfirm() {return findElement("//div[@id='stop-search-success-modal']/div/div/div/button[text()='Close']",LocatorType.XPath);}
+    public WebElement Button_CloseConfirm() {return findElement("//button[text()='Close']",LocatorType.XPath);}
 
     public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
 

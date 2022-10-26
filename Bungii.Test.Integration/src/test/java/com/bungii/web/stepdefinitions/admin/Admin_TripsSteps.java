@@ -249,8 +249,10 @@ public class Admin_TripsSteps extends DriverBase {
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER_NAME");
         action.selectElementByText(admin_CustomerPage.Dropdown_TimeFrame(), "The Beginning of Time");
         Thread.sleep(5000);
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", tripType, customer, status);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following::td[2]", tripType, customer);
+        String actualStatus = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath)));
         testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed", "Trip is displayed", "DATA SYNCH ISSUE | Trip is not displayed");
+        testStepAssert.isEquals(status,actualStatus,"Correct status should be displayed","Correct status is displayed","Correct status is not displayed");
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -1052,7 +1054,11 @@ try{
         try {
             String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
             pickupRequest = getLinkedPickupRef(pickupRequest);
-            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            if (pickupRequest.equalsIgnoreCase("")){
+                //do nothing
+            }else {
+                cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+            }
             log("I get the new pickup reference generated",
                     "Pickupref is " + pickupRequest, false);
         }
@@ -2573,8 +2579,8 @@ try{
     public void i_stop_searching_driver() throws Throwable {
         try{
             action.click(admin_ScheduledTripsPage.Button_StopSearching());
-            Thread.sleep(3000);
-            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_ConfirmationPopUp(),
+            Thread.sleep(2000);
+            testStepVerify.isElementDisplayed(admin_ScheduledTripsPage.Text_ConfirmationPopUp(),
                     "The confirmation pop-up should be displayed",
                     "The confirmation pop-up is displayed",
                     "The confirmation pop-up is not displayed");
@@ -2586,7 +2592,8 @@ try{
                     "The stop searching driver success pop-up is not displayed");
             action.click(admin_ScheduledTripsPage.Button_CloseConfirm());
             Thread.sleep(2000);
-            action.click(admin_ScheduledTripsPage.Button_Ok());
+//            action.click(admin_ScheduledTripsPage.Button_Ok());
+
             Thread.sleep(1000);
 
             log("I should be able to stop searching driver",

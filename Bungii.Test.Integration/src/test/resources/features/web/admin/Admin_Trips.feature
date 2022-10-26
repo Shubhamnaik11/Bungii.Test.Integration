@@ -6,6 +6,7 @@ Feature: Admin_Trips
     
   @sanity
   @regression
+#    @testsweta
     #test data created in base
     #changed driver name
     #First time promo code added
@@ -27,6 +28,7 @@ Feature: Admin_Trips
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
+    When I wait for 2 minutes
     And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled Researched" Delivery
       | driver1 state|
       | Accepted  |
@@ -74,6 +76,7 @@ Feature: Admin_Trips
    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Deliveries list on the admin portal
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -81,6 +84,7 @@ Feature: Admin_Trips
       | driver1 state|
       | Enroute |
     And I view the Live Deliveries list on the admin portal
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Trip Started |
@@ -207,6 +211,7 @@ Feature: Admin_Trips
         | Bungii Completed |
     And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I select the scheduled trip on All Deliveries
     Then I view the correct Driver Earnings for geofence based pricing model

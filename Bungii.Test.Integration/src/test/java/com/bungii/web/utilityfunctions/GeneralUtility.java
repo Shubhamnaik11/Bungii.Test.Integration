@@ -1174,9 +1174,12 @@ public class GeneralUtility extends DriverBase {
         action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(),geofence);
     }
 
-    public void resetGeofenceDropdown(){
+    public void resetGeofenceDropdown() throws InterruptedException {
+        Thread.sleep(2000);
         action.click(admin_geofencePage.List_Geofence());
+        Thread.sleep(2000);
         action.click(admin_geofencePage.Button_Clear());
+        Thread.sleep(2000);
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
     public void selectGeofenceDropdown(String geofence){
