@@ -17,6 +17,7 @@ Feature: Admin_Live_Delivery_Edit
       | Arrived       |
       | Loading Item   |
     And I view the Live Deliveries list on the admin portal
+    And I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status       |
       | Loading Items |
