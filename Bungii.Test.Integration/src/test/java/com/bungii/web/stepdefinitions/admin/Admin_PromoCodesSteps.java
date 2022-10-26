@@ -46,6 +46,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
     Admin_PartnerPortalPage admin_partnerPortalPage = new Admin_PartnerPortalPage();
+    Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+
 
     @When("^I click on \"([^\"]*)\" Menu$")
     public void i_click_something_menu(String link) throws Throwable {
@@ -695,7 +697,15 @@ try{
                 }
                 testStepAssert.isEquals(action.getText(admin_TripsPage.Text_ChangePaymentStatusMessage()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
-
+            case "Your pickup is scheduled outside partner working hours.":
+                actualMessage=action.getText(admin_EditScheduledBungiiPage.Label_WarningForOutsideBungiiHoursTimeSet());
+                if(actualMessage.equalsIgnoreCase(message)){
+                    testStepAssert.isTrue(true,"Expected message '"+message+"' is displayed.","Expected message '"+message+"'is not displayed.");
+                }
+                else {
+                    testStepAssert.isFail("Expected message is not displayed.");
+                }
+                break;
         }
 } catch (Exception e) {
     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

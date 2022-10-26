@@ -156,12 +156,12 @@ Feature: Admin_Live_Delivery_Edit
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
     And I click "Track Deliveries" button on Partner Portal
-    And I select "Check / uncheck all" option from the filter
+    #And I select "Check / uncheck all" option from the filter
     And I select "Canceled" option from the filter
     And I click on "Apply" button
     When I click on the delivery based on customer name
     And I get time stamp for "Admin Cancelled" delivery step
-    Then The admin "Cancelled" delivery should be highlighted in partner portal delivery details page
+    Then The admin "Canceled" delivery should be highlighted in partner portal delivery details page
 
 
 
@@ -243,7 +243,7 @@ Feature: Admin_Live_Delivery_Edit
     And I click on "Apply" button
     When I click on the delivery based on customer name
     And I get time stamp for "Admin Completed" delivery step
-    Then The admin "Completed" delivery should be highlighted in partner portal delivery details page
+    Then The admin "Done" delivery should be highlighted in partner portal delivery details page
 
 
     Examples:

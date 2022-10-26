@@ -136,6 +136,8 @@ public class InProgressBungiiPages extends PageBase {
 
     public WebElement Button_MoreOptions(){return findElement("com.bungii.driver:id/appCompatImageView37",LocatorType.Id);}
 
+    public WebElement Button_TakePhotos(){return findElement("//android.widget.Button[@text='Take photo']",LocatorType.XPath);}
+
     public WebElement Button_DeliveryInstructions(){return findElement("com.bungii.driver:id/driver_options_container_delivery_instructions",LocatorType.Id);}
 
     public WebElement Text_DeliveryInstructions(){return findElement("com.bungii.driver:id/view_customer_note_markdown_instructions",LocatorType.Id);}
@@ -152,9 +154,9 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Text_PhotoVerificationBeforeUnloading(){return findElement("//android.widget.TextView[@text='Photo verification (before loading)']",LocatorType.XPath);}
 
     public WebElement Button_AddPhoto(){return findElement("com.bungii.driver:id/appCompatImageView19",LocatorType.Id);}
-    public WebElement Button_Save(){return findElement("com.bungii.driver:id/activity_photo_verification_btn_save",LocatorType.Id);}
+    public WebElement Button_Save(boolean...IgnoreException){return findElement("com.bungii.driver:id/activity_photo_verification_btn_save",LocatorType.Id,IgnoreException);}
 
-    public WebElement Image_UploadedImage(){return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/view_driver_captured_photo_image']",LocatorType.XPath);}
+    public WebElement Image_UploadedImage(boolean... IgnoreException){return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/view_driver_captured_photo_image']",LocatorType.XPath,IgnoreException);}
     public WebElement Tab_CustomerSignature(){return findElement("com.bungii.driver:id/activity_more_options_btn_customer_signature",LocatorType.Id);}
     public WebElement Button_Submit(){return findElement("com.bungii.driver:id/appCompatButton6",LocatorType.Id);}
 
