@@ -17,7 +17,7 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Button_UpdateBungii() { return findElement("//button[contains(text(),'UPDATE BUNGII')]",LocatorType.XPath);}
 
-    public WebElement Button_CalculateCost() { return findElement("//button[@id='btnCost']",LocatorType.XPath);}
+    public WebElement Button_CalculateCost() { return findElement("//button[text()='Calculate cost']",LocatorType.XPath);}
 
     public WebElement RadioButton_EditDeliveryStatus() { return findElement("radio4",LocatorType.Id);}
 
@@ -29,7 +29,7 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Text_AllDeliveryHighlight() {return findElement("//tbody[@id =\"TripListsTBody\"]/tr[1]",LocatorType.XPath);}
 
-    public WebElement Message_AdminCompleteConfirm() {return findElement("//div[@id='editEndTime']//following::div[2]/p[1]",LocatorType.XPath);}
+    public WebElement Message_AdminCompleteConfirm() {return findElement("//span[@class='confirm-text']",LocatorType.XPath);}
 
     public WebElement Icon_Hover() {return findElement("//tr[1]/td/a/i[@class='fa fa-exclamation']",LocatorType.XPath);}
 
