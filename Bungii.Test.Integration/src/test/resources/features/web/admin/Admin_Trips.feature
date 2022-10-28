@@ -450,7 +450,7 @@ Feature: Admin_Trips
     | Assigning Driver(s)|
 
   #CORE-3295:Verify that 'Assigning driver(s)' status with Loading icon is shown when it is searching for driver(s) on Schedule Deliveries screen
-  @revive
+  @ready
   Scenario: Verify that 'Assigning driver(s)' status with Loading icon is shown when it is searching for driver(s) on Schedule Deliveries screen
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -580,7 +580,7 @@ Feature: Admin_Trips
     Then The delivery should be in "Admin Canceled - No Driver(s) Found" state
 
 #CORE-3381:To verify that customer trips can be revived after admin cancels
-  @revive
+  @regression
   Scenario:To verify that customer trips can be revived after admin cancels
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
@@ -668,7 +668,7 @@ Feature: Admin_Trips
   And The amount should be "Refunded" and in "voided" state
 
     #CORE-3381:To verify that admin can fully refund completed trips which were revived
-  @revive
+  @regression
   Scenario:To verify that admin can fully refund completed trips which were revived
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
