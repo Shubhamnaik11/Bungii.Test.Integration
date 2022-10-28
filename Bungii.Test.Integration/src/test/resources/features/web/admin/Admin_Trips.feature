@@ -17,6 +17,7 @@ Feature: Admin_Trips
       | driver1 state|
       | Accepted  |
     And I view the all Scheduled Deliveries list on the admin portal
+    When I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -26,6 +27,7 @@ Feature: Admin_Trips
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
+    When I wait for 2 minutes
     And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled Researched" Delivery
       | driver1 state|
       | Accepted  |
@@ -73,6 +75,7 @@ Feature: Admin_Trips
    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Deliveries list on the admin portal
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -80,6 +83,7 @@ Feature: Admin_Trips
       | driver1 state|
       | Enroute |
     And I view the Live Deliveries list on the admin portal
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Trip Started |
@@ -131,12 +135,14 @@ Feature: Admin_Trips
    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Deliveries list on the admin portal
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Assigning Driver(s)|
     When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled|
@@ -193,6 +199,7 @@ Feature: Admin_Trips
       | Driving To Dropoff |
       | Unloading Item |
     And I view the Live Deliveries list on the admin portal
+    And I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Unloading Items |
@@ -203,6 +210,7 @@ Feature: Admin_Trips
         | Bungii Completed |
     And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I select the scheduled trip on All Deliveries
     Then I view the correct Driver Earnings for geofence based pricing model
@@ -664,8 +672,8 @@ Feature: Admin_Trips
   Scenario:To verify that admin can fully refund completed trips which were revived
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 8877661063 | Testcustomertywd_BppleMarkBL LutherBL|
-    And As a driver "Testdrivertywd_appledc_a_drvM WashingtonN" perform below action with respective "Solo Scheduled" Delivery
+      | NEXT_POSSIBLE | 8877661063 | Testcustomertywd_appleMarkBL LutherBL|
+    And As a driver "Testdrivertywd_appledc_a_drvM WashingtonM" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       |Accepted |
       | Enroute  |
@@ -841,6 +849,7 @@ Feature: Admin_Trips
     Then I should see the transaction charges "before" changing delivery Status
     And I click on "Close" button
     And I click on "OK Delivery Details Page" button
+    And  I search the delivery using "Pickup Reference"
     When I click on the "Change Payment status" button from the dropdown
     And the "Are you sure, you want to change the payment status?" message is displayed
     Then I should see all the information in the change payment status modal

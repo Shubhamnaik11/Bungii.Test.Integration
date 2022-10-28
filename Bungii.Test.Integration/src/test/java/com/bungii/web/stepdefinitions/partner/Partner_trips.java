@@ -1014,7 +1014,7 @@ try{
         String ExpectedDriverEstEarning= webUtility.calDriverEstEarning();
 
         testStepVerify.isEquals(ExpectedDriverEstEarning, DriverEstEarning.trim(), "Driver Est. Earning value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Driver Est. Value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning + ",(Truncate to single float point)", "Expected Est. Earning value for bungii is" + ExpectedDriverEstEarning + " and Actual value is" + DriverEstEarning);
-        action.getElementByXPath("//div[@id='btnOk']").click();
+        action.getElementByXPath("//div/a[text()='ok']").click();
         log("I should able to view the correct Driver Est. Earnings for geofence based pricing model","I am able to viewed the correct Driver Est. Earnings for geofence based pricing model", true);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -146,7 +146,13 @@ public class Admin_DriverDetails extends DriverBase{
              */
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate); // removed ss
             formattedDate= utility.getbungiiDayLightTimeValue(formattedDate);
-            XPath = String.format("//a[text()='%s']/parent::td/following-sibling::td[contains(.,'%s')]", formattedDate, status);
+            XPath = String.format("//a[text()='%s']/parent::td/following-sibling::td[8]", formattedDate);
+            String actualStatus = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath)));
+            testStepAssert.isEquals(actualStatus,status,
+                    "The delivery status should be displayed correctly.",
+                    "The delivery status is displayed correctly.",
+                    "The delivery status is not displayed correctly.");
+
         }
         else
         {
