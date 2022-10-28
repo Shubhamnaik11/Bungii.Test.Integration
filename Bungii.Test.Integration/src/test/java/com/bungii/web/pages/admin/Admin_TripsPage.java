@@ -9,7 +9,7 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Menu_Trips () { return findElement("//ul[@id='side-menu']/li/p/span[contains(text(),'Deliveries')]", LocatorType.XPath); }
 
-    public WebElement Menu_CompletedTrips () { return findElement("//span[contains(text(),'All Deliveries')]", LocatorType.XPath); }
+    public WebElement Menu_CompletedTrips () { return findElement("//a[contains(text(),'All Deliveries')]", LocatorType.XPath); }
 
     //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
@@ -60,9 +60,9 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Text_AllTripIndicator () { return findElement("//tbody[@id=\"TripListsTBody\"]/tr/td[1]/label", LocatorType.XPath); }
 
-    public WebElement RadioButton_SoloTrip () { return findElement("PickupDetails_TripType", LocatorType.Id); }
+    public WebElement RadioButton_SoloTrip () { return findElement("SOLO", LocatorType.Id); }
 
-    public WebElement RadioButton_DuoTrip () { return findElement("tripTypeDuo", LocatorType.Id); }
+    public WebElement RadioButton_DuoTrip () { return findElement("DUO", LocatorType.Id); }
 
     public WebElement CheckBox_FilterPending () { return findElement("chkStatus-3", LocatorType.Id); }
 
@@ -82,15 +82,15 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Link_ChangePaymentStatus () { return findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Change Payment Status')]", LocatorType.XPath); }
 
-    public WebElement Text_ChangePaymentStatusMessage () { return findElement("//div[@id=\"trip-status-change-confirm-modal\"]/div/div/div[2]/p", LocatorType.XPath); }
+    public WebElement Text_ChangePaymentStatusMessage () { return findElement("//div/span[contains(.,'Are you sure, you want to change the payment status?')]", LocatorType.XPath); }
 
-    public WebElement Text_CurrentStatus () { return findElement("trip-status-change-current-status", LocatorType.Id); }
+    public WebElement Text_CurrentStatus () { return findElement("//span[contains(.,'Current Status :')]/b", LocatorType.XPath); }
 
-    public WebElement Text_NewStatus () { return findElement("trip-status-change-new-status", LocatorType.Id); }
+    public WebElement Text_NewStatus () { return findElement("//span[contains(.,'New Status :')]/b", LocatorType.XPath); }
 
-    public WebElement Button_ConfirmPaymentStatusChange () { return findElement("//div[@id=\"tblTrips\"]/div[6]/div/div/div[3]/button[2]", LocatorType.XPath); }
+    public WebElement Button_ConfirmPaymentStatusChange () { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
 
-    public WebElement Button_CancelPaymentStatusChange () { return findElement("//div[@id=\"tblTrips\"]/div[6]/div/div/div[3]/button[1]", LocatorType.XPath); }
+    public WebElement Button_CancelPaymentStatusChange () { return findElement("//button[text()='Cancel']", LocatorType.XPath); }
 
     public WebElement Text_ScheduledDate(){return findElement("//td[4]/a",LocatorType.XPath);}
 

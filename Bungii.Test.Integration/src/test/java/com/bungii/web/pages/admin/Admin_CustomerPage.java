@@ -11,7 +11,7 @@ public class Admin_CustomerPage extends PageBase {
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
-    public WebElement Dropdown_TimeFrame () { return findElement("SearchForPeriod", LocatorType.Id); }
+    public WebElement Dropdown_TimeFrame () { return findElement("//div[text()='The following deliveries from:']/select", LocatorType.XPath); }
 
     public WebElement TextBox_SearchCustomer() { return findElement("SearchCriteria", LocatorType.Id); }
 

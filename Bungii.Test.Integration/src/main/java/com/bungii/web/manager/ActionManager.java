@@ -18,6 +18,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -438,6 +440,19 @@ catch(Exception ex)
             error("Step should be successful", "Unable to fetch background color",
                     true);
             return "Unable to fetch background color";
+        }
+    }
+    public void clickOnDropdown() {
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.delay(300);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            robot.delay(300);
+        } catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to select from dropdown",
+                    true);
         }
     }
     public static void waitTillElementDisplayed(WebElement element)

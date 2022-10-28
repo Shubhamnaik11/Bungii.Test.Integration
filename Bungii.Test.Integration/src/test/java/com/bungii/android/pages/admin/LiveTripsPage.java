@@ -40,7 +40,7 @@ public class LiveTripsPage extends PageBase {
 
     public WebElement Menu_LiveTrips () { return findElement("//span[contains(text(),'Live Deliveries')]", LocatorType.XPath); }
 
-    public WebElement Menu_AllDeliveries () { return findElement("//span[contains(text(),'All Deliveries')]",LocatorType.XPath);}
+    public WebElement Menu_AllDeliveries () { return findElement("//a[contains(text(),'All Deliveries')]",LocatorType.XPath);}
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
