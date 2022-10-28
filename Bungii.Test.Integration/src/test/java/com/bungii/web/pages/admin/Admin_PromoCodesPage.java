@@ -42,7 +42,7 @@ public class Admin_PromoCodesPage extends PageBase {
     public WebElement Label_CodeErrorContainer () { return findElement("PromoCodeItem_Code-error", LocatorType.Id); }
     public WebElement Label_PromoterErrorContainer () { return findElement("//label[text()='Please select Partner.']", LocatorType.XPath); }
 
-    public WebElement Label_CountErrorContainer () { return findElement("//label[text()='Please enter a value greater than or equal to 1.']", LocatorType.XPath); }
+    public WebElement Label_CountErrorContainer () { return findElement("//div[text()='Please enter a value greater than or equal to 1.']", LocatorType.XPath); }
     public WebElement TextBox_CodeCount () { return findElement("//label[text()='No of Codes:']//following-sibling::div/div/input", LocatorType.XPath); }
 
     public WebElement DropDown_Promoter () { return findElement("//label[text()='Select Partner:']//following-sibling::button", LocatorType.XPath); }
@@ -53,9 +53,9 @@ public class Admin_PromoCodesPage extends PageBase {
 
     public WebElement TextBox_PromotionExpirationDate() { return findElement("//label[text()='Expiration Date:']//following-sibling::div/div/input", LocatorType.XPath); }
 
-    public WebElement TextBox_Search() { return findElement("SearchCriteria", LocatorType.Id); }
+    public WebElement TextBox_Search() { return findElement("//input[@name='SearchCriteria']", LocatorType.XPath); }
 
-    public WebElement Button_Search() { return findElement("btnSearch", LocatorType.Id); }
+    public WebElement Button_Search() { return findElement("//button[@type='submit']", LocatorType.XPath); }
 
     public WebElement Button_Filter() { return findElement("//button[@class='btn-filter btn btn-primary']", LocatorType.XPath); }
 
@@ -90,6 +90,8 @@ public class Admin_PromoCodesPage extends PageBase {
     public WebElement Button_Apply() { return findElement("//button[text()='APPLY']", LocatorType.XPath); }
 
     public WebElement Button_Reset() { return findElement("//button[text()='RESET']", LocatorType.XPath); }
+
+    public WebElement Icon_CloseFilter() { return findElement("//button[@class='btn-close']", LocatorType.XPath); }
 
     public WebElement Label_SelectPromoCodeType() { return findElement("//label[contains(text(),'Select Promo Code Type:')]", LocatorType.XPath);}
 

@@ -8,7 +8,6 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
-    #Passed
   Scenario: Verify Add New Promocode of Type Promo
     When I click on the "New Code" Button
     And I enter following values in fields
@@ -21,7 +20,6 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
-    #Passed
   Scenario: Verify Add New Promocode of Type One Off
     When I click on the "New Code" Button
     And I enter following values in fields
@@ -39,6 +37,7 @@ Feature: Admin_Promocodes
     Then the edited promocode is displayed in the Promocodes grid
 
   @regression
+    @sn
   Scenario: Verify Add New Promocode of Type Delivery By Partner
     When I click on the "New Code" Button
     And I enter following values in fields
@@ -53,7 +52,6 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
-    #Passed
   Scenario: Verify Add Edit Promocode of Type Delivery By Partner Multiple
     When I click on the "New Code" Button
     And I enter following values in fields
@@ -63,7 +61,6 @@ Feature: Admin_Promocodes
     Then the "Delivery By Partner (M)" type promocode gets saved successfully and it is displayed in the Promocodes grid
 
   @regression
-    #passed
   Scenario: Verify Cancellation of Add New Promocode
     When I click on the "New Code" Button
     And I click on the "Cancel" Button on "Add New Promocode" popup
@@ -79,12 +76,11 @@ Feature: Admin_Promocodes
 #EOC
 
   @regression
-    @sn
   Scenario: Verify Field Validations On Add New Promocode Popup Upon Blank Inputs
     When I click on the "New Code" Button
     And I select promocode type as "Delivery By Partner"
     And I click on the "Save" Button
-    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
+#    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
     And the "Please select Partner." message is displayed for the "Select Partner" field
     And the "Please enter a value greater than or equal to 1." message is displayed for the "No of Codes" field
     When I enter "No of Codes" field with below values and click Save
@@ -97,17 +93,17 @@ Feature: Admin_Promocodes
     When I click on the "New Code" Button
     And I select promocode type as "Promo"
     And I click on the "Save" Button
-    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
+#    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
     And I click on the "Cancel" Button on "Add New Promocode" popup
     When I click on the "New Code" Button
     And I select promocode type as "One Off"
     And I click on the "Save" Button
-    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
+#    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
     And I click on the "Cancel" Button on "Add New Promocode" popup
     When I click on the "New Code" Button
     And I select promocode type as "Delivery By Partner (M)"
     And I click on the "Save" Button
-    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
+#    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
     And the "Please select Partner." message is displayed for the "Select Partner" field
     And the "Please select Partner." message is displayed for the "Select Partner" field
     And I click on the "Cancel" Button on "Add New Promocode" popup
@@ -144,7 +140,6 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
-    #Passed
   Scenario: Verify Promocode Grid Filters
     When I click on "Filter" icon
     Then the "Code Type" and "Creation Date" is set to "All" by default
@@ -181,7 +176,6 @@ Feature: Admin_Promocodes
     Then the promocode grid shows the both "Active & Expired" promocodes
     
   @regression
-    #Passed
   Scenario: Verify search by XSS script on Standard Codes grid
     When I search by string "<script>alert('hello')</script>"
     Then the "No data. " message is displayed

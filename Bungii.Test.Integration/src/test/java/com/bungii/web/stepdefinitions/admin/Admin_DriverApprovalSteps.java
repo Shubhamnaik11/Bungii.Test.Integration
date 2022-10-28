@@ -344,8 +344,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     Thread.sleep(2000);
                     break;
                 case "Save":
-                    Thread.sleep(5000);
                     action.click(admin_PromoCodesPage.Button_Save());
+                    Thread.sleep(2000);
                     break;
 //            case "New Business User":
                 case "New Partner":
