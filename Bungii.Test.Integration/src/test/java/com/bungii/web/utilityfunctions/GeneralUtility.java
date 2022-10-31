@@ -289,7 +289,7 @@ public class GeneralUtility extends DriverBase {
 
     public String GetUniqueFutureDate() {
         String newDate = null;
-        String DATE_FORMAT = "MM/dd/yyyy";
+        String DATE_FORMAT = "MM/DD/YYYY";
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         DateTimeFormatter dateFormat8 = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
@@ -311,7 +311,16 @@ public class GeneralUtility extends DriverBase {
 
         // convert LocalDateTime to date
         Date currentDatePlusOneDay = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        newDate = dateFormat.format(currentDatePlusOneDay);
+
+        String futureNewDate[] = dateFormat.format(currentDatePlusOneDay).split("/");
+        if (Integer.toString(days).length()==1){
+            String daysStartsWithZero="0"+days;
+            newDate=futureNewDate[0]+"/"+daysStartsWithZero+"/"+futureNewDate[2];
+        }
+        else {
+            newDate=futureNewDate[0]+"/"+days+"/"+futureNewDate[2];
+        }
+//        newDate = dateFormat.format(currentDatePlusOneDay);
         return newDate;
     }
 

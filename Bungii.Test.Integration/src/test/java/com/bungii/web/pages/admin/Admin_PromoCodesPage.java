@@ -23,7 +23,7 @@ public class Admin_PromoCodesPage extends PageBase {
 
     public WebElement TextBox_PromoCodeName () { return findElement("//label[text()='Standard Code Name:']/following-sibling::div/div/input", LocatorType.XPath); }
 
-    public WebElement TextBox_PromoCode () { return findElement("//label[text()='Code:']//following-sibling::div/div/input", LocatorType.XPath); }
+    public WebElement TextBox_PromoCode () { return findElement("//label[text()='No of Codes:']/following-sibling::div/div/input", LocatorType.XPath); }
 
     public WebElement TextBox_DiscountValue () { return findElement("//label[text()='Discount Value:']//following-sibling::div/div/input", LocatorType.XPath); }
 
@@ -42,8 +42,10 @@ public class Admin_PromoCodesPage extends PageBase {
     public WebElement Label_CodeErrorContainer () { return findElement("PromoCodeItem_Code-error", LocatorType.Id); }
     public WebElement Label_PromoterErrorContainer () { return findElement("//label[text()='Please select Partner.']", LocatorType.XPath); }
 
-    public WebElement Label_CountErrorContainer () { return findElement("//div[text()='Please enter a value greater than or equal to 1.']", LocatorType.XPath); }
+    public WebElement Label_CountErrorContainer (String message) { return findElement("//div[text()='"+message+"']", LocatorType.XPath); }
     public WebElement TextBox_CodeCount () { return findElement("//label[text()='No of Codes:']//following-sibling::div/div/input", LocatorType.XPath); }
+
+    public WebElement TextBox_Code () { return findElement("//label[text()='Code:']/following-sibling::div/div/input", LocatorType.XPath); }
 
     public WebElement DropDown_Promoter () { return findElement("//label[text()='Select Partner:']//following-sibling::button", LocatorType.XPath); }
 
@@ -95,7 +97,7 @@ public class Admin_PromoCodesPage extends PageBase {
 
     public WebElement Label_SelectPromoCodeType() { return findElement("//label[contains(text(),'Select Promo Code Type:')]", LocatorType.XPath);}
 
-    public WebElement Label_PromoCodeExpiryDateErrorContainer() { return findElement("PromoCodeItem_ExpiryDate-error", LocatorType.Id);}
+    public WebElement Label_PromoCodeExpiryDateErrorContainer() { return findElement("//div[text()='Please enter a valid date.']", LocatorType.XPath);}
 
     public WebElement Label_NoPromoCodesFound(){ return findElement("//tr/td[text()='No Data.']", LocatorType.XPath);}
 
