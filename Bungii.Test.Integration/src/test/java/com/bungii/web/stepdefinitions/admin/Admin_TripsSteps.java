@@ -1114,7 +1114,8 @@ try{
 //        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
 
         //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-        action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
+     //   action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
+            action.clickOnDropdown();
         Thread.sleep(1000);
         String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
         cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
