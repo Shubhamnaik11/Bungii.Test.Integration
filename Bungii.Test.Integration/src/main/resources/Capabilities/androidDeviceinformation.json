@@ -20,7 +20,7 @@
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
     "settings[waitForIdleTimeout]" : 1000,
-    "deviceOrientation": "potrait",
+    "deviceOrientation": "LANDSCAPE",
     "browserstack.networkLogsExcludeHosts" : "^(.+\\.)?gobungii-dev.com"
   },
   "extra3": {
@@ -44,7 +44,7 @@
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
     "settings[waitForIdleTimeout]" : 1000,
-    "deviceOrientation": "potrait",
+    "deviceOrientation": "LANDSCAPE",
     "browserstack.networkLogsExcludeHosts" : "^(.+\\.)?gobungii-dev.com"
   },
   "extra1": {
@@ -68,7 +68,7 @@
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
     "settings[waitForIdleTimeout]" : 1000,
-    "deviceOrientation": "potrait",
+    "deviceOrientation": "LANDSCAPE",
     "browserstack.networkLogsExcludeHosts" : "^(.+\\.)?gobungii-dev.com"
   },
   "extra2": {
@@ -92,7 +92,7 @@
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
     "settings[waitForIdleTimeout]" : 1000,
-    "deviceOrientation": "potrait",
+    "deviceOrientation": "LANDSCAPE",
     "browserstack.networkLogsExcludeHosts" : "^(.+\\.)?gobungii-dev.com"
   },
   "connection": {
