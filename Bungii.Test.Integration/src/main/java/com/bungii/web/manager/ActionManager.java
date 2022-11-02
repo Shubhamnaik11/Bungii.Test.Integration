@@ -9,6 +9,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
@@ -452,18 +453,6 @@ catch(Exception ex)
         } catch (Exception Ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
             error("Step should be successful", "Unable to select from dropdown",
-                    true);
-        }
-    }
-    public static void waitTillElementDisplayed(WebElement element)
-    {
-        try {
-            Long DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
-            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
-        }
-        catch (Exception Ex) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
-            error("Step should be successful", "Unable to fetch background color",
                     true);
         }
     }

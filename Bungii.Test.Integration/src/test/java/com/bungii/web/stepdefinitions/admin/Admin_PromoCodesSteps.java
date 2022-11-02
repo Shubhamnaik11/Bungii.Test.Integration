@@ -819,11 +819,11 @@ try{
                     DateFormat dateFormatInput = new SimpleDateFormat("MM/dd/yyyy");
                     String ExpirationDate = dataMap.get("Expiration Date").trim();
                     Code = dataMap.get("Code").trim().replace("<<CurrentDateTime>>",Integer.toString(i));
-                    action.sendKeys(admin_PromoCodesPage.TextBox_PromoCode(), Code.substring(0,7));
+                    action.sendKeys(admin_PromoCodesPage.TextBox_Code(), Code.substring(0,7));
                     cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", DiscountValue);
                     cucumberContextManager.setScenarioContext("DISCOUNT_CATEGORY", DiscountCategory);
                     cucumberContextManager.setScenarioContext("EXP_DATE", dateFormatFetch.format(tomorrow).toString());
-                    cucumberContextManager.setScenarioContext("PROMOCODE", admin_PromoCodesPage.TextBox_PromoCode().getAttribute("value"));
+                    cucumberContextManager.setScenarioContext("PROMOCODE", admin_PromoCodesPage.TextBox_Code().getAttribute("value"));
                     action.click(admin_PromoCodesPage.TextBox_DiscountValue());
                     action.clear(admin_PromoCodesPage.TextBox_DiscountValue());
                     admin_PromoCodesPage.TextBox_DiscountValue().sendKeys(Keys.BACK_SPACE);
@@ -835,10 +835,10 @@ try{
                      DiscountCategory = dataMap.get("Discount Category").trim();
                     Code = dataMap.get("Code").trim().replace("<<CurrentDateTime>>",Integer.toString(i));
                     cucumberContextManager.setScenarioContext("EXP_DATE", "");
-                    action.sendKeys(admin_PromoCodesPage.TextBox_PromoCode(), Code.substring(0,7));
+                    action.sendKeys(admin_PromoCodesPage.TextBox_Code(), Code.substring(0,7));
                     cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", DiscountValue);
                     cucumberContextManager.setScenarioContext("DISCOUNT_CATEGORY", DiscountCategory);
-                    cucumberContextManager.setScenarioContext("PROMOCODE", admin_PromoCodesPage.TextBox_PromoCode().getAttribute("value"));
+                    cucumberContextManager.setScenarioContext("PROMOCODE", admin_PromoCodesPage.TextBox_Code().getAttribute("value"));
                     action.click(admin_PromoCodesPage.TextBox_DiscountValue());
                     action.clear(admin_PromoCodesPage.TextBox_DiscountValue());
                     admin_PromoCodesPage.TextBox_DiscountValue().sendKeys(Keys.BACK_SPACE);
@@ -1066,13 +1066,13 @@ try{
     public void i_edit_the_promo_code_name() throws Throwable {
         try{
         String PromoCodeName=null;
-
         Long now = Instant.now().toEpochMilli();
         int i=now.intValue();
         PromoCodeName = "EDIT_".trim().concat(Integer.toString(i));
         cucumberContextManager.setScenarioContext("PROMOCODE_NAME", PromoCodeName);
+        Thread.sleep(3000);
         action.JavaScriptClear(admin_PromoCodesPage.TextBox_PromoCodeName());
-        action.clearSendKeys(admin_PromoCodesPage.TextBox_PromoCodeName(), PromoCodeName);
+        action.sendKeys(admin_PromoCodesPage.TextBox_PromoCodeName(), PromoCodeName);
         log("I edit the Promo Code name" ,
                 "I have edited promo Code name" , false);
     } catch (Exception e) {
