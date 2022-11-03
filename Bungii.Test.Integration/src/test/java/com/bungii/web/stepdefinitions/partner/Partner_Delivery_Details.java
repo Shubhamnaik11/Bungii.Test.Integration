@@ -127,6 +127,11 @@ public class Partner_Delivery_Details extends DriverBase {
             String SMS_Recipient3 = "";
             String DropOffContactName = "";
             String DropOffContactPhone = "";
+            String scheduledBY="";
+
+            if(dataMap.containsKey("ScheduledBy")){
+                scheduledBY = dataMap.get("ScheduledBy");
+            }
 
             if(dataMap.containsKey("Items_To_Deliver")){
                 Items_deliver = dataMap.get("Items_To_Deliver");
@@ -378,8 +383,7 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(),DeliveryPurpose);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Rb_Sb_Number(),RbSbNumber);
-                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(),EmployeeID);
-
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(),scheduledBY);
 
                         break;
                     default:
@@ -444,7 +448,7 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(), DeliveryPurpose);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Rb_Sb_Number(), RbSbNumber);
-                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(), EmployeeID);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(), scheduledBY);
                         break;
                     default:
                         break;

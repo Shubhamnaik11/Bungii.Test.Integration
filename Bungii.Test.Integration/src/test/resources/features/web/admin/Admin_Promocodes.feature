@@ -33,6 +33,7 @@ Feature: Admin_Promocodes
     When I click on the "Edit" Button
     And I edit the Promo Code Name
     When I click on the "Save" Button
+    When I search by Code "O<<CurrentDateTime>>"
     Then the edited promocode is displayed in the Promocodes grid
 
   @regression
@@ -70,7 +71,7 @@ Feature: Admin_Promocodes
     Then I verify that pagination exists
     #search for invalid data
     When I search by the Code "@#$@@"
-    Then the "No promo codes found." message is displayed
+    Then the "No data. " message is displayed
 #EOC
 
   @regression
@@ -117,9 +118,7 @@ Feature: Admin_Promocodes
     And I change the "Expiration Date" to future date
     And I click on the "Save" Button
     Then the date gets saved
-
     #Promo code and name with only special characters
-
     #Not implemented so far this validation so keeping on hold
   Scenario: Verify Field Validations On Add New Promocode Popup For invalid Inputs
     When I click on the "New Code" Button
@@ -178,5 +177,5 @@ Feature: Admin_Promocodes
   @regression
   Scenario: Verify search by XSS script on Standard Codes grid
     When I search by string "<script>alert('hello')</script>"
-    Then the "No promo codes found." message is displayed
+    Then the "No data. " message is displayed
 

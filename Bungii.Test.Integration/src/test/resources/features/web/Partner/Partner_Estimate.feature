@@ -10,9 +10,10 @@
     @regression
     @sanity
     Scenario: Verify that correct estimate cost calculated for Solo Bungii
+      #CORE-3849 changes incorporated
       When I request "Solo" Bungii trip in partner portal configured for "normal" in "washingtondc" geofence
-        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+        | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|Address_Enter|
+        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |CopyPaste    |
       And I select Pickup Date and Pickup Time on partner portal
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |09:30 AM             |

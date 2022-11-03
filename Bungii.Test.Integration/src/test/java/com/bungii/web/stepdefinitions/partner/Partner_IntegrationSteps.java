@@ -56,6 +56,7 @@ public class Partner_IntegrationSteps extends DriverBase {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String Pickup_Address;
             String Delivery_Address;
+            String addressEnter="";
             SetupManager.getDriver().manage().window().maximize();
 
             cucumberContextManager.setScenarioContext("Bungii_Type", Type);
@@ -65,6 +66,9 @@ public class Partner_IntegrationSteps extends DriverBase {
             Pickup_Address = dataMap.get("Pickup_Address");
 
             Delivery_Address = dataMap.get("Delivery_Address");
+            if(dataMap.containsKey("Address_Enter")) {
+                addressEnter = dataMap.get("Address_Enter");
+            }
 
             cucumberContextManager.setScenarioContext("PickupAddress", Pickup_Address);
             //Delivery_Address = action.getText(Page_Partner_Dashboard.SetDeliveryAddress());
@@ -87,14 +91,25 @@ public class Partner_IntegrationSteps extends DriverBase {
 
                         action.click(Page_Partner_Dashboard.Button_PickupClear());
                         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyPickup = Pickup_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), copyPickup + Keys.chord(Keys.CONTROL, "v"));
+                        }
+                        else{
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                         Thread.sleep(3000);
                         action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         Thread.sleep(3000);
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
@@ -302,14 +317,26 @@ public class Partner_IntegrationSteps extends DriverBase {
             } else if (Site.equalsIgnoreCase("service level")) {
                 switch (Type) {
                     case "Solo":
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyPickup = Pickup_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), copyPickup + Keys.chord(Keys.CONTROL, "v"));
+                        }
+                        else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        }
                         //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
                         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                         Thread.sleep(1000);
                         action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
@@ -317,15 +344,25 @@ public class Partner_IntegrationSteps extends DriverBase {
                         //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
                         break;
                     case "Duo":
-
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyPickup = Pickup_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), copyPickup + Keys.chord(Keys.CONTROL, "v"));
+                        }
+                        else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        }
                         //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
                         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                         Thread.sleep(1000);
                         action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
@@ -350,7 +387,12 @@ public class Partner_IntegrationSteps extends DriverBase {
                         // action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
@@ -366,7 +408,12 @@ public class Partner_IntegrationSteps extends DriverBase {
                         action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
@@ -385,7 +432,12 @@ public class Partner_IntegrationSteps extends DriverBase {
             else if (Site.equalsIgnoreCase("fnd multiple phone")) {
                 switch (Type) {
                     case "Solo":
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
@@ -395,7 +447,12 @@ public class Partner_IntegrationSteps extends DriverBase {
                         //Clicking on duo radio button
                         action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
                         // Thread.sleep(2000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(1000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());

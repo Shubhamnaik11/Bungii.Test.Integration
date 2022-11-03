@@ -15,7 +15,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
 
-    public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[@id='divDriversResult']/div[contains(.,'%s')]",driverName),LocatorType.XPath);}
+    public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[contains(.,'%s')]",driverName),LocatorType.XPath);}
 
     public WebElement DatePicker_ScheduledDate () { return findElement("PickupDetails_ScheduledDate", LocatorType.Id); }
 
@@ -25,7 +25,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Link_RemoveDriver() { return findElement("btnRemoveDriver", LocatorType.Id); }
 
-    public WebElement TextBox_DriverSearch() { return findElement("txtDriverSearch", LocatorType.Id); }
+    public WebElement TextBox_DriverSearch() { return findElement("//input[@placeholder='Enter driver name']", LocatorType.XPath); }
 
     public WebElement Button_Verify() { return findElement("//button[text()='VERIFY']", LocatorType.XPath); }
 
@@ -39,7 +39,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_VerifiedMessage() { return findElement("verified-message", LocatorType.Id); }
 
-    public WebElement Label_SuccessMessage() { return findElement("success-message", LocatorType.Id); }
+    public WebElement Label_SuccessMessage() { return findElement("//i[text()='Bungii Saved!']", LocatorType.XPath); }
 
     public WebElement Label_InfoMessage() { return findElement("info-message", LocatorType.Id); }
 
@@ -56,15 +56,15 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement  Button_Delivery_Details() {return findElement("//p[@class='clickable-row']",LocatorType.XPath);}
 
 
-    public WebElement Button_Close() { return findElement("//button[@class='close']/span",LocatorType.XPath);}
+    public WebElement Button_Close() { return findElement("//button[@class='btn-close']",LocatorType.XPath);}
 
     public WebElement Text_Estimated_Price() { return findElement("//td[text()='Estimated Charge']/following-sibling::td",LocatorType.XPath);}
 
     public WebElement Text_Pickup_Note() { return findElement("//td[text()='Pickup Note']/following-sibling::td",LocatorType.XPath);}
 
-    public WebElement Text_Additional_Note(boolean ...ignoreException) { return findElement("PickupDetails_PickupNote",LocatorType.Id,ignoreException);}
+    public WebElement Text_Additional_Note(boolean ...ignoreException) { return findElement("//span[text()='Special Instructions:']/following-sibling::div/textarea",LocatorType.XPath,ignoreException);}
 
-    public WebElement Text_Additional_Instructions() { return findElement("PickupDetails_SpecialInstructions",LocatorType.Id);}
+    public WebElement Text_Additional_Instructions() { return findElement("//span[text()='Special Instructions:']/following::div/textarea",LocatorType.XPath);}
 
     public WebElement RadioButton_Solo() { return findElement("//input[@value='Solo']", LocatorType.XPath); }
     public WebElement RadioButton_Duo() { return findElement("//input[@value='Duo']", LocatorType.XPath); }
@@ -91,7 +91,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_ErrorMessage() { return findElement("verify-error", LocatorType.Id); }
 
-    public WebElement Label_AdditionalNotes() { return findElement("//div/p[text() =\"Special Instructions:\"]", LocatorType.XPath); }
+    public WebElement Label_AdditionalNotes() { return findElement("//span[text()='Special Instructions:']", LocatorType.XPath); }
 
     public WebElement Text_LastTimeSlotAdminEdit() { return findElement("//div[@class=\"ui-timepicker-wrapper\"]/ul/li[96]", LocatorType.XPath); }
 

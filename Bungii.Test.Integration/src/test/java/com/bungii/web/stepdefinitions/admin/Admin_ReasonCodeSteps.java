@@ -209,9 +209,10 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         try{
         action.click(admin_EditScheduledBungiiPage.TextBox_DriverSearch());
         action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch(),driverName);
-        Thread.sleep(1000);
-        action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
-        action.JavaScriptClick(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
+        action.waitForElement("//div[contains(.,'"+driverName+"')]");
+//       action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
+        action.clickOnDropdown();
+//      action.JavaScriptClick(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
         cucumberContextManager.setScenarioContext("Driver_Name",driverName);
         Thread.sleep(1000);
 
@@ -276,4 +277,5 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         }
 
     }
+
 }

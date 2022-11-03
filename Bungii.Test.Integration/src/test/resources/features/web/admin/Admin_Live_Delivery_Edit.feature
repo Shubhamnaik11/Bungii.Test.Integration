@@ -17,6 +17,7 @@ Feature: Admin_Live_Delivery_Edit
       | Arrived       |
       | Loading Item   |
     And I view the Live Deliveries list on the admin portal
+    And I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status       |
       | Loading Items |
@@ -109,6 +110,7 @@ Feature: Admin_Live_Delivery_Edit
         | driver1 state    |
         | <DriverStatus> |
       And I view the Live Deliveries list on the admin portal
+      And I wait for 2 minutes
       Then I should be able to see the respective bungii with the below status
         |  Status       |
         | <TripStatus> |
@@ -117,7 +119,9 @@ Feature: Admin_Live_Delivery_Edit
       And I click on "Delivery Canceled" radiobutton
       And I click on "UPDATE BUNGII" button
       Then The "Pick up has been successfully canceled." message should be displayed for live delivery
+      And I wait for 2 minutes
       And I view the Deliveries list on the admin portal
+      When  I search the delivery using "Pickup Reference"
       Then The Delivery List page should display the delivery in "Driver Canceled" state
 
       Examples:
@@ -140,6 +144,7 @@ Feature: Admin_Live_Delivery_Edit
       | driver1 state    |
       | <DriverStatus> |
     And I view the Live Deliveries list on the admin portal
+    And I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status       |
       | <TripStatus> |
@@ -149,6 +154,8 @@ Feature: Admin_Live_Delivery_Edit
     And I click on "UPDATE BUNGII" button
     Then The "Pick up has been successfully canceled." message should be displayed for live delivery
     And I view the Deliveries list on the admin portal
+    And I wait for 2 minutes
+    And  I search the delivery using "Pickup Reference"
     Then The Delivery List page should display the delivery in "Driver Canceled" state
     #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery Canceled on Live deliveries
     When I navigate to "Partner" portal configured for "normal" URL
@@ -180,6 +187,7 @@ Feature: Admin_Live_Delivery_Edit
     And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" trip
       | driver1 state    |
       | <DriverStatus> |
+    And I wait for 2 minutes
     And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status       |
@@ -214,6 +222,7 @@ Feature: Admin_Live_Delivery_Edit
     And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" trip
       | driver1 state    |
       | <DriverStatus> |
+    And I wait for 2 minutes
     And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status       |

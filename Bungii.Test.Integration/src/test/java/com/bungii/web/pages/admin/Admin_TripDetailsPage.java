@@ -47,7 +47,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Partner_Delivery_Cost() { return findElement("//h2[contains(text(),'Delivery Cost')]/span/strong",LocatorType.XPath);}
 
-    public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
+    public WebElement Button_Ok() { return findElement("//a[text()='ok']",LocatorType.XPath);}
 
     public WebElement Button_Price_Override(boolean...ignoreException) { return findElement("//td/a[@id='btnAdminOverride']",LocatorType.XPath,ignoreException);}
 
