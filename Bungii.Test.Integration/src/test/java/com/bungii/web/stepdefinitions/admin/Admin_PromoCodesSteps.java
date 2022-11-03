@@ -659,7 +659,7 @@ try{
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_NoBusinessUsersFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
-            case "Phone number already exists.":
+            case " Phone number already exists":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
                 //EOC

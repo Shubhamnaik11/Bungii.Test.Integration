@@ -217,7 +217,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
         action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
         Thread.sleep(4000);
-        String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
+        String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td//button[text()='Edit']",Name,Phone,Email,Status);
         //String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/span[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
 
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
@@ -238,7 +238,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
 
-        String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
+        String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td//button[text()='Edit']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
     } catch(Exception e){
@@ -259,7 +259,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         Thread.sleep(4000);
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
         Thread.sleep(4000);
-        String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
+        String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td//button[text()='Edit']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
     } catch(Exception e){
@@ -290,9 +290,20 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     }
 
     @Then("^the card is added to the user \"([^\"]*)\"$")
-    public void the_card_is_added_to_the_user_something(String uniqueno) throws Throwable {
+    public void the_card_is_added_to_the_user_something(String message) throws Throwable {
+        try{
+            switch(message){
+                case "Payment details added successfully for partner.":
+                    testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),PropertyUtility.getMessage("payment.declined.error"),message+ " message should be displayed" ,message+ " message is displayed",message+ "  message should be displayed is not displayed");
+                    break;
+            }
 
-        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),"Payment details added successfully for Partner.","Payment details added successfully for Business User. message should be displayed" ,"Payment details added successfully for Business User. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+//        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),"Payment details added successfully for Partner.","Payment details added successfully for Business User. message should be displayed" ,"Payment details added successfully for Business User. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
     }
     @Then("^\"([^\"]*)\" message is displayed$")
     public void something_message_is_displayed(String message) throws Throwable {
@@ -829,12 +840,11 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             String Phone = cucumberContextManager.getScenarioContext("BO_PHONE").toString();
             String Email = dataMap.get("Email").trim();
             if(Phone.isEmpty())
-                Phone = generatePhoneNumber();
+            Phone = generatePhoneNumber();
             action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Active");
-
-            action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserName(), Name);
-            action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), Phone);
-            action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(), Email);
+            action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserName(), Name);
+            action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), Phone);
+            action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(), Email);
             log("I enter values on Add Business User page",
                     "I entered values on Add Business User page", false);
 
@@ -847,8 +857,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @Then("^the partner does not get saved successfully$")
     public void the_business_user_does_not_get_saved_successfully() throws Throwable {
-        testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), "Phone number already exists.", "Phone number already exists." + " should be displayed", "Phone number already exists." + " is displayed", "Need to specify message" + " is not displayed");
-
+        testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), " Phone number already exists", " Phone number already exists" + " should be displayed", " Phone number already exists" + " is displayed", " Phone number already exists" + " is not displayed");
     }
 
     @And("^I select the \"([^\"]*)\"$")

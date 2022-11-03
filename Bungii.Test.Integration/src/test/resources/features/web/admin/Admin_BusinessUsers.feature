@@ -10,6 +10,7 @@ Feature: Admin_BusinessUsers
   @sanity
   @regression
     @demo
+    #Passed
   Scenario: Verify Add Edit New Bulk Delivery Upload
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
@@ -17,7 +18,7 @@ Feature: Admin_BusinessUsers
       | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
     When I click on the "Save" Button on "Partner" popup
     Then the partner gets saved successfully and it is displayed in the "Partners" grid
-    #When I search by Name "Testcustomertywd_apple<<UniqueNo>>" in "Business Users" page
+    When I search by Name "Testcustomertywd_apple<<UniqueNo>>" in "Business Users" page
     Then the user "Testcustomertywd_appleBiz<<UniqueNo>>" is displayed in the Partners grid
     When I edit the "Phone Number" and "Email"
     And I click on the "Save" Button on "Partner" popup
@@ -53,6 +54,7 @@ Feature: Admin_BusinessUsers
 
   @sanity
   @regression
+    @sn
   Scenario: Verify Adding Payment To Bulk Delivery Upload
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
