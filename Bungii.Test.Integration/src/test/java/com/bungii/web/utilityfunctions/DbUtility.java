@@ -689,5 +689,24 @@ public class DbUtility extends DbContextManager {
         logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[1]);
         return tripLocation;
     }
+
+    public static String getPartnerPortalEmailAddress(String PartnerPortal) {
+        String emailAddress;
+        String queryStringForEmailAddress ="select email_address from bungii_admin_qa_auto.bp_store st join bungii_admin_qa_auto.bp_store_portal_setting ps on ps.bp_store_id = st.bp_store_id where st.subdomain_name like '%"+PartnerPortal+"%'";
+        emailAddress = getDataFromMySqlServer(queryStringForEmailAddress);
+        logger.detail("Default email address for partner portal  "+PartnerPortal+" is "+ emailAddress);
+        return emailAddress;
+
+    }
+
+    public static String getAllEmailAddress(String PartnerPortal) {
+        String allEmailAddresses;
+        String queryStringForEmailAddress ="select email_address  from bungii_admin_qa_auto.bp_store st join bungii_admin_qa_auto.bp_store_portal_setting ps where store_name= '"+PartnerPortal+"' limit  1";
+        allEmailAddresses = getDataFromMySqlServer(queryStringForEmailAddress);
+        logger.detail("All Email address for Partner portal   "+PartnerPortal+" are "+ allEmailAddresses);
+        return allEmailAddresses;
+
+
+    }
 }
 
