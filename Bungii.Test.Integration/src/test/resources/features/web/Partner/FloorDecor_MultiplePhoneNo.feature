@@ -9,9 +9,10 @@ Feature: FloorDecor Multiple PhoneNo
   Scenario: To verify ability to add multiple SMS recipients phone numbers on Delivery Details Screen for solo delivery
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
+    #CORE-3849 changes incorporated
     When I request "Solo" Bungii trip in partner portal configured for "fnd multiple phone" in "atlanta" geofence
-      | Pickup_Address                                 | Delivery_Address                                |
-      | 610 Holcomb Bridge Rd, Roswell, GA, US, 30076  | 610 Holcomb Bridge Rd, Roswell, GA, US, 30076   |
+      | Pickup_Address                                 | Delivery_Address                                |Address_Enter|
+      | 610 Holcomb Bridge Rd, Roswell, GA, US, 30076  | 610 Holcomb Bridge Rd, Roswell, GA, US, 30076   |CopyPaste    |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -24,8 +25,8 @@ Feature: FloorDecor Multiple PhoneNo
     When I click "Add SMS recipient" button "three times" to add more recipients
     Then New mobile recipients field should be added
     When I enter all details on "Delivery Details" for "fnd multiple phone" on partner screen
-      |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|SMS_Recipient1|SMS_Recipient2|SMS_Recipient3|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|SoldBuy|
-      |10 boxes           |20X20X20  | 1570 |Handle with care   |Testpartner N   |9998881112     |   9991119999 |   9992119999 |  9993119999  |Test Pickup        |9999999358          |Test Drop contact     |9998881112       |For decoration  |007         |FND130 |
+      |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|SMS_Recipient1|SMS_Recipient2|SMS_Recipient3|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|ScheduledBy     |
+      |10 boxes           |20X20X20  | 1570 |Handle with care   |Testpartner N   |9998881112     |   9991119999 |   9992119999 |  9993119999  |Test Pickup        |9999999358          |Test Drop contact     |9998881112       |For decoration  |007         |UserFNDMultiple |
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     And I click "Track Deliveries" button on Partner Portal
@@ -46,9 +47,10 @@ Feature: FloorDecor Multiple PhoneNo
   Scenario: To verify ability to add multiple SMS recipients phone numbers on Delivery Details Screen for duo delivery
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
+    #CORE-3849 changes incorporated
     When I request "Duo" Bungii trip in partner portal configured for "fnd multiple phone" in "atlanta" geofence
-      | Pickup_Address                                 | Delivery_Address                                |
-      | 610 Holcomb Bridge Rd, Roswell, GA, US, 30076  | 610 Holcomb Bridge Rd, Roswell, GA, US, 30076   |
+      | Pickup_Address                                 | Delivery_Address                                |Address_Enter|
+      | 610 Holcomb Bridge Rd, Roswell, GA, US, 30076  | 610 Holcomb Bridge Rd, Roswell, GA, US, 30076   |CopyPaste    |
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
@@ -61,8 +63,8 @@ Feature: FloorDecor Multiple PhoneNo
     When I click "Add SMS recipient" button "two times" to add more recipients
     Then New mobile recipients field should be added
     When I enter all details on "Delivery Details" for "fnd multiple phone" on partner screen
-      |Product_Description|Dimensions|Weight|Product_Description2|Dimensions2|Weight2|Special_Instruction|Customer_Name   |Customer_Mobile|SMS_Recipient1|SMS_Recipient2|SMS_Recipient3|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|SoldBuy|
-      |10 boxes           |20X20X20  | 1570 |    20boxes         | 10x10x10  | 1200  |Handle with care   |Testpartner N   |9998881112     |   9991119999 |   9992119999 |  9993119999  |Test Pickup        |9999999358          |Test Drop contact     |9998881112       |For decoration  |007         |FND130 |
+      |Product_Description|Dimensions|Weight|Product_Description2|Dimensions2|Weight2|Special_Instruction|Customer_Name   |Customer_Mobile|SMS_Recipient1|SMS_Recipient2|SMS_Recipient3|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|ScheduledBy     |
+      |10 boxes           |20X20X20  | 1570 |    20boxes         | 10x10x10  | 1200  |Handle with care   |Testpartner N   |9998881112     |   9991119999 |   9992119999 |  9993119999  |Test Pickup        |9999999358          |Test Drop contact     |9998881112       |For decoration  |007         |UserFNDMultiple |
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     And I click "Track Deliveries" button on Partner Portal
