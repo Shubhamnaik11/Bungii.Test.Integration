@@ -344,8 +344,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     Thread.sleep(2000);
                     break;
                 case "Save":
-                    Thread.sleep(5000);
                     action.click(admin_PromoCodesPage.Button_Save());
+                    Thread.sleep(2000);
                     break;
 //            case "New Business User":
                 case "New Partner":
@@ -359,7 +359,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     break;
                 case "Edit":
                     Name = (String) cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
-                    xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]", Name);
+                    xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td//button[contains(text(),'Edit')]", Name);
                     cucumberContextManager.setScenarioContext("XPATH", xpath);
                     SetupManager.getDriver().findElement(By.xpath(xpath)).click();
                     break;

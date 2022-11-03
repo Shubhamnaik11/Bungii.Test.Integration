@@ -9,6 +9,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
@@ -235,6 +236,14 @@ public class ActionManager {
         executor.executeScript("window.scrollBy(0,200)","");
     }
 
+    public void JavaScriptScrollToBottom(){
+        Dimension initial_size = SetupManager.getDriver().manage().window().getSize();
+        int height = initial_size.getHeight();
+       // SetupManager.getDriver().manage().window().getSize();
+        JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+        executor.executeScript("window.scrollBy(0,"+height+")","");
+    }
+
     public void JavaScriptClear(WebElement element) {
         try{
             JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
@@ -302,6 +311,7 @@ public class ActionManager {
                 true);
     }
     }
+
     public static String getFirstSelectedOption(WebElement element)
     {
       return new Select(element).getFirstSelectedOption().getText();

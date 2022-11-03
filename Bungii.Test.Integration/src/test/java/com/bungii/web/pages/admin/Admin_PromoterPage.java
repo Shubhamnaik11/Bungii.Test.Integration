@@ -7,7 +7,7 @@ public class Admin_PromoterPage extends PageBase {
 
     public WebElement Title_PromoterPage (boolean...ignoreException) { return findElement("//h4[text()='Partners']", LocatorType.XPath,ignoreException); }
 
-    public WebElement Menu_Promotion (boolean... ignoreException) { return findElement("adminmenu-promocodes-menu", LocatorType.Id,ignoreException); }
+    public WebElement Menu_Promotion (boolean... ignoreException) { return findElement("//span[text()='Promo Codes']", LocatorType.XPath,ignoreException); }
 
     public WebElement Menu_Promotion_Free_Delivery (boolean... ignoreException) { return findElement("adminmenu-free-delivery-menu", LocatorType.Id,ignoreException); }
 
