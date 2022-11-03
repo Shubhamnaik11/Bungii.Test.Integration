@@ -9,9 +9,10 @@ Feature: Floor and Decore Service Level
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "see 1 pallet and 2 pallets"
+    #CORE-3849 changes incorporated
     When I request "Solo" Bungii trip in partner portal configured for "FloorDecor service level" in "washingtondc" geofence
-      | Pickup_Address                                                                     | Delivery_Address                                                    |
-      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |
+      | Pickup_Address                                                                     | Delivery_Address                                                    |Address_Enter|
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |CopyPaste    |
     And I click "Service Level List" button on Partner Portal
     Then I should "see all the Service Level" for "Floor & Decor #240" Alias
     And I change the service level to "First Threshold" in "Partner" portal
@@ -21,8 +22,8 @@ Feature: Floor and Decore Service Level
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
-      |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|SoldBuy|
-      |20 boxes           |20X20X20  | 1570 |Handle with care   |Testartner T    |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
+      |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|ScheduledBy|
+      |20 boxes           |20X20X20  | 1570 |Handle with care   |Testartner T    |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |UserFND    |
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     And I click "Track Deliveries" button on Partner Portal
