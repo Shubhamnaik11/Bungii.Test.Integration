@@ -1108,17 +1108,18 @@ public class Partner_Delivery_Details extends DriverBase {
                     break;
                 case "team.qa.bungii@creativecapsule.com":
                     Thread.sleep(3000);
+                    String partner = PropertyUtility.getDataProperties("edited.email.address.partner.portal.name");
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Email.Text_EmailAddressOnLocationSetting()),"Email should be displayed","Email is displayed","Email is not displayed");
                     String email= action.getText(Page_PartnerManagement_Email.Text_EmailAddressOnLocationSetting());
                     String oldEmail =(String) cucumberContextManager.getScenarioContext("Old Email");
                     testStepAssert.isFalse(email.equalsIgnoreCase(oldEmail),"Email Address "+element+" should be displayed","Email Address  "+element+" is displayed","Email Address  "+oldEmail+" is displayed");
-                    String emailAddressStoredInDB = com.bungii.web.utilityfunctions.DbUtility.getPartnerPortalEmailAddress("qaauto-homeoutlet");
+                    String emailAddressStoredInDB = com.bungii.web.utilityfunctions.DbUtility.getPartnerPortalEmailAddress(partner);
                     testStepAssert.isEquals(email,emailAddressStoredInDB,"Email address should match","Email addresses match","Email address dont match");
                     break;
                 case "Invalid credentials.":
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Login.Text_InvalidCredentialsErrorMessage()),"Header should be displayed","Header is displayed","Header is not displayed");
                     String invalidUser= action.getText(Page_PartnerManagement_Login.Text_InvalidCredentialsErrorMessage());
-                    String ExpectedInvalidCredentialsErrorColor = "rgba(237, 85, 101, 1)";
+                    String ExpectedInvalidCredentialsErrorColor = PropertyUtility.getDataProperties("invalid.credentails.error.message.color");
                     String redText =Page_PartnerManagement_Login.Text_InvalidCredentialsErrorMessage().getCssValue("color");
                     testStepAssert.isEquals(invalidUser,element,element+" should be displayed",element+" is displayed",invalidUser+" is displayed");
                     testStepAssert.isEquals(redText,ExpectedInvalidCredentialsErrorColor,"The text should be red","The text is red","The text is not red");
@@ -1213,10 +1214,9 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Quote only mode":
                 case "Kiosk mode":
                 case "Quick access mode":
-                    String expectedRedCross = "rgba(255, 0, 0, 1)";
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentPartnerPortalModes(element)),element+" text should be displayed",element+" text is displayed",element+" text is not displayed");
                     String  notApplicableRedCross= Page_PartnerManagement_Location.Image_RedCross().getCssValue("color");
-                    testStepAssert.isEquals(notApplicableRedCross,expectedRedCross,"Red cross should be displayed as its not applicable for current partner portal","Red cross is displayed as its not applicable for current partner portal","Red cross is not displayed as its not applicable for current partner portal, color displayed is "+notApplicableRedCross);
+                    testStepAssert.isEquals(notApplicableRedCross,RedCross,"Red cross should be displayed as its not applicable for current partner portal","Red cross is displayed as its not applicable for current partner portal","Red cross is not displayed as its not applicable for current partner portal, color displayed is "+notApplicableRedCross);
                     break;
                 case "Live Store":
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_StatusLabel()),"Status Label should be displayed","Status Label is displayed","Status Label is not displayed");
