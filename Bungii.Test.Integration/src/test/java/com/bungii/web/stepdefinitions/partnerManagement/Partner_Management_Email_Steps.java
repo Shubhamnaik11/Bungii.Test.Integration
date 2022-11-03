@@ -10,6 +10,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class Partner_Management_Email_Steps extends DriverBase {
     ActionManager action = new ActionManager();
@@ -38,6 +39,7 @@ public class Partner_Management_Email_Steps extends DriverBase {
         cucumberContextManager.setScenarioContext("Old Email",oldEmailAddress);
         action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(),email);
         cucumberContextManager.setScenarioContext("NewEmail",email);
+        log("I should be able to add the email address "+email,"I could add the email address "+email,false);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
