@@ -1094,6 +1094,7 @@ public class Partner_Delivery_Details extends DriverBase {
                     break;
                 case "Appliance Dolly":
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_ApplianceDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
                 case "Furniture Dolly":
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_FurnitureDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
                     break;

@@ -21,8 +21,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Point;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -3456,11 +3454,15 @@ try{
         try{
         switch (slideBy){
             case "500 lbs":
-                action.slide(admin_DriverPage.Slider_VehiclePayloadmin(), 69,0);
+                int locationBasedOnCoordinatesForXVehiclePayload =Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.vehicle.payload"));
+                int locationBasedOnCoordinatesForYVehiclePayload =Integer.parseInt(PropertyUtility.getDataProperties("y.coordinate.for.vehicle.payload"));
+                action.slide(admin_DriverPage.Slider_VehiclePayloadmin(), locationBasedOnCoordinatesForXVehiclePayload,locationBasedOnCoordinatesForYVehiclePayload);
                 Thread.sleep(4000);
                 break;
             case "100 In":
-                action.slide(admin_DriverPage.Slider_VehicleBedLengthMin(), 114,0);
+                int locationBasedOnCoordinatesForXVehicleBedLength =Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.vehicle.bed.length"));
+                int locationBasedOnCoordinatesForYVehicleBedLength =Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.vehicle.bed.length"));
+                action.slide(admin_DriverPage.Slider_VehicleBedLengthMin(), locationBasedOnCoordinatesForXVehicleBedLength,locationBasedOnCoordinatesForYVehicleBedLength);
                 Thread.sleep(4000);
                 break;
         }
