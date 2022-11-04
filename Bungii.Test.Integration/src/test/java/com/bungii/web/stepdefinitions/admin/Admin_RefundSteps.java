@@ -694,7 +694,10 @@ try{
             action.JavaScriptScrolldown();
 
             if(invalidCity>0){
-                testStepAssert.isTrue(false,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
+                testStepAssert.isFail("Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
+            }
+            else {
+                testStepAssert.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
                         "Drivers profiles is displayed based on "+ expectedGeofenceRegion+" geofence" ,"Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
             }
         }
@@ -714,8 +717,12 @@ try{
             }
         }
         if(invalidCity>0){
-            testStepAssert.isTrue(false,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
+            testStepAssert.isFail("Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
+        }
+        else {
+            testStepAssert.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
                     "Drivers profiles is displayed based on "+ expectedGeofenceRegion+" geofence" ,"Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
+
         }
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
