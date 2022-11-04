@@ -19,10 +19,12 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 
@@ -861,8 +863,8 @@ public class UpdateStatusSteps extends DriverBase {
     @And("^I click on the Duo teammate image$")
     public void i_click_on_the_duo_teammate_image() throws Throwable {
         try{
-        Thread.sleep(1000);
-        action.clickBy4Points(367,443,367,448);
+        Thread.sleep(5000);
+        action.clickBy4Points(375,425,367,438);
         log("I should be able to click on duo teammate image","I could click on duo teammate image",false);
     }catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -953,6 +955,13 @@ public class UpdateStatusSteps extends DriverBase {
                     testStepAssert.isTrue(noOfPhotos==3,
                             "The photos added by driver should be displayed.",
                             "The photos added by driver are not displayed.");
+                    break;
+                case "Contact Duo Teammate":
+                    By Text_ContactDuo = MobileBy.xpath("//XCUIElementTypeStaticText[@name=\"Contact DUO\"]");
+                    By Text_TeamMate = MobileBy.xpath("//XCUIElementTypeStaticText[@name=\"Teammate\"]");
+                    testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_ContactDuo),"Contact Duo text should be displayed","Contact Duo text is displayed","Contact Duo text is not displayed");
+                    Thread.sleep(7000);
+                    testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_TeamMate),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
                     break;
             }
         } catch (Exception e) {

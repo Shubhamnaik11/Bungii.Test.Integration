@@ -162,9 +162,10 @@ Feature: Service Level
   Scenario Outline: Verify driver earning calculated for partner delivery of <Type> for Service <ServiceName> for <Distance> distance range
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
+    #CORE-3849 changes incorporated
     When I request "<Type>" Bungii trip in partner portal configured for "service level" in "washingtondc" geofence
-      | Pickup_Address                                                                     | Delivery_Address            |
-      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | <DeliveryAddress>           |
+      | Pickup_Address                                                                     | Delivery_Address            |Address_Enter|
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | <DeliveryAddress>           |CopyPaste    |
     And I click "Service Level List" button on Partner Portal
     Then I should "see all the Service Level" for "Biglots" Alias
     And I change the service level to "<ServiceName>" in "Partner" portal
@@ -193,10 +194,11 @@ Feature: Service Level
       | Assigning Driver(s) |
     And I select the partner portal scheduled trip on scheduled delivery
 
+    #CORE-3849 changes incorporated
     Examples:
-      |Type|DeliveryAddress                                                                  |ServiceName   |Distance |
-      |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
-      |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
+      |Type|DeliveryAddress                                                                  |ServiceName   |Distance |Address_Enter|
+      |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|CopyPaste    |
+      |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|CopyPaste    |
 
     #CORE-1574(Web side part)
     @ready
