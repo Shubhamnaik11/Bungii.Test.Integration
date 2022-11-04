@@ -426,7 +426,7 @@ Feature: Admin_Refund
 	Then The "Issue Refund" button should not be displayed
 
    #CORE-3380 : To verify that on Driver listing marketing filter only searched region and geofence is displayed on UI.
-	@ready
+	@regression
 	Scenario:To verify that on Driver listing marketing filter only searched region and geofence is displayed on UI
 		When I click on the "Select Geofence" dropdown
 		And I Enter the text "Washington DC"
