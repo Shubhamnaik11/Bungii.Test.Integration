@@ -548,9 +548,11 @@ Feature: Scheduled DUO Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
       | goa      | enroute     | 0.5 hour ahead | customer-duo | valid duo driver 1 | valid driver 2 |
+    When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
@@ -558,17 +560,19 @@ Feature: Scheduled DUO Bungii
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
+    #CORE-4007:To verify DUO Team mates details on Customer DUO delivery
+    Then The "Contact Duo Teammate" "Animation Text" should be displayed
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
     And I accept Alert message for "Reminder: both driver at pickup"
-    When I click on the Duo teammate image
-    Then I should see the driver vehicle information
-    And I navigate back
-
+    Then The "Contact Duo Teammate" "Animation Text" should not be displayed
 
     And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "Driver2" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
@@ -577,33 +581,46 @@ Feature: Scheduled DUO Bungii
     Then I should see the driver vehicle information
     And I navigate back
     And I slide update button on "ARRIVED" Screen
-    And I accept Alert message for "Reminder: both driver at pickup"
-    And I click on the Duo teammate image
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    When I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
+
+
+    Then I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "LOADING ITEM" Screen
+    And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
+
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "LOADING ITEM" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+    And I click on the Duo teammate image
+    Then I should see the driver vehicle information
+    And I navigate back
+
+    And I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
+    #CORE-4007:To verify DUO Team mates animation when driver is at UNLOADING ITEMS stage (iOS)
+    Then The "Contact Duo Teammate" "Animation Text" should be displayed
+    And I slide update button on "UNLOADING ITEM" Screen
+    And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
+    #CORE-4007 :To verify DUO Team mates animation is not visible when driver has COMPLETED delivery
+    Then The "Contact Duo Teammate" "Animation Text" should not be displayed
     And I should be navigated to "Rate duo teammate" screen
 
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "LOADING ITEM" Screen
-    And I click on the Duo teammate image
-    Then I should see the driver vehicle information
-    And I navigate back
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    And I click on the Duo teammate image
-    When I should see the driver vehicle information
-    And I navigate back
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I accept Alert message for "Reminder: both driver at drop off"
+    When I Switch to "driver" application on "Driver2" devices
     And I should be navigated to "Rate duo teammate" screen
 
 #CORE-3271:To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
@@ -649,11 +666,15 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "ORIGINAL" devices
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
+#    CORE-4007 :To verify DUO Team mates details for Weight based DUO Partner delivery
+    Then The "Contact Duo Teammate" "Animation Text" should be displayed
     And I slide update button on "ARRIVED" Screen
     And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
 
     And I Switch to "driver" application on "driver2" devices
+    And I swipe to check trip details
+    And I click on "CLOSE" button
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
     And I slide update button on "ARRIVED" Screen
@@ -674,6 +695,8 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then I should see "DUO LIFT" header displayed
     And I click on "GOT IT" button
+#    CORE-4007 :To verify DUO Team mates details for Weight based DUO Partner delivery
+    Then The "Contact Duo Teammate" "Animation Text" should be displayed
 
     And I Switch to "driver" application on "driver2" devices
     And I slide update button on "DRIVING TO DROP-OFF" Screen

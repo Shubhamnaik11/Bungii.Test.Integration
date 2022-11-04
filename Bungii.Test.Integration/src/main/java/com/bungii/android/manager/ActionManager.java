@@ -1,7 +1,6 @@
 package com.bungii.android.manager;
 
 import com.bungii.SetupManager;
-import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import io.appium.java_client.AppiumDriver;
@@ -18,7 +17,6 @@ import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
-import org.testng.collections.Lists;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -754,5 +752,35 @@ public class ActionManager {
         error("I Should be able to draw signature ", "Unable to draw signature ",
                 true);
     }
+    }
+
+    public boolean waitForExpectedElementToBeDisplayed(final By by) {
+        try{
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
+        WebElement element = wait.until(visibilityOfElementLocated(by));
+        boolean isdisplayed = element.isDisplayed();
+        logger.detail("WAITING | Visibility of element by locator -> " + by +" till its Displayed");
+        return isdisplayed;
+
+    } catch (Exception Ex) {
+        return false;
+    }
+    }
+
+    /**
+     * @param by Element location found by xpath etc...
+     * @return
+     * @throws NoSuchElementException
+     */
+    private ExpectedCondition<WebElement> visibilityOfElementLocated(final By by) throws NoSuchElementException {
+        return driver -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                logger.error(e.getMessage());
+            }
+            WebElement element = SetupManager.getDriver().findElement(by);
+            return element.isEnabled() ? element : null;
+        };
     }
 }
