@@ -471,9 +471,9 @@ Feature: Admin_Refund
 		And I Enter the text "Boston"
 		Then I should see "Boston" highlighted
 		When I click on the "Boston" checkbox
-		And  I search the delivery using "Pickup Reference"
+		And I search the delivery of Customer
 		Then I should see the message "No deliveries found." displayed
-		When As a driver "Testdrivertywd_appledc_a_drvL WashingtonLE" perform below action with respective "Solo Scheduled" Delivery
+		When As a driver "Testdrivertywd_appledc_a_drvL WashingtonL" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state|
 			| Accepted  |
 		    |Enroute    |
@@ -489,7 +489,7 @@ Feature: Admin_Refund
 		Then I should see "Boston" highlighted
 		When I click on the "Boston" checkbox
 		Then I should see the region of the city highlighted
-		When  I search the delivery using "Pickup Reference"
+		And I search the delivery of Customer
 		Then I should see the message "No deliveries found." displayed
 		And As a driver "Testdrivertywd_appledc_a_drvL WashingtonL" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state|
@@ -508,7 +508,7 @@ Feature: Admin_Refund
 		Then I should see "Boston" highlighted
 		And I click on the "Boston" checkbox
 		When I should see the region of the city highlighted
-		And  I search the delivery using "Pickup Reference"
+		And I search the delivery of Customer
 		Then I should see the message "No deliveries found." displayed
 
    #CORE-3009 :To verify that sub-menu with name "Active driver map" is present under geofence menu of Admin portal
@@ -518,11 +518,73 @@ Feature: Admin_Refund
 		Then The "Active Driver Map" "Link" should be displayed
 		And I click on the "Active Driver Map" link from the sidebar
 		Then The "Map" "Image" should be displayed
+		And I click on "Filter" button
+		#CORE-3848:Verify that slider for Vehicle payload displays correct details in the result
+		Then The "Vehicle Payload" "Slider" should be displayed
+		And I slide the "vehicle payload" to "500 lbs"
+		And I click on Apply button on Filter
 		And I "Unselect" all the "Equipment" checkboxes from the filter
 		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
 		And I click on the "Select Geofence" dropdown
 		And I Enter the text "Kansas"
 		When I click on the "Kansas" checkbox
+		Then The "Testdrivertywd_appleks_a_drvbg Kansas_bg" "Driver name" should be displayed
+		And Driver icon should be displayed on the map for "Testdrivertywd_appleks_a_drvbg Kansas_bg"
+		Then The "Details" "Popup" should be displayed
+		Then The drivers name "Testdrivertywd_appleks_a_drvbg Kansas_bg" phone number "9049840270" and vehicle type "Unspecified" should be displayed
+		When I clear the filter applied
+		And I refresh the page
+		And I click on the "Select Geofence" dropdown
+		And I Enter the text "Kansas"
+		When I click on the "Kansas" checkbox
+		And I click on "Filter" button
+		#CORE-3848:Verify that slider for Vehicle Bed length displays correct details in the result
+		Then The "Vehicle Bed Length" "Slider" should be displayed
+		And I slide the "Vehicle Bed Length" to "100 In"
+		And I click on Apply button on Filter
+		And I "Unselect" all the "Equipment" checkboxes from the filter
+		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+		Then The "Testdrivertywd_appleks_a_drvbf Kansas_bf" "Driver name" should be displayed
+		And Driver icon should be displayed on the map for "Testdrivertywd_appleks_a_drvbf Kansas_bf"
+		Then The "Details" "Popup" should be displayed
+		Then The drivers name "Testdrivertywd_appleks_a_drvbf Kansas_bf" phone number "9049840269" and vehicle type "Unspecified" should be displayed
+		When I clear the filter applied
+		And I refresh the page
+		And I click on the "Select Geofence" dropdown
+		And I Enter the text "Kansas"
+		When I click on the "Kansas" checkbox
+		And I click on "Filter" button
+		#CORE-3848:Verify the ON/OFF toggle for Trailer on Active Driver Map page
+		Then The "Trailer" "Button" should be displayed
+		And I click on Apply button on Filter
+		And I "Unselect" all the "Equipment" checkboxes from the filter
+		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+		And I click on "Filter" button
+		And I click on "Trailer" button
+		And I click on Apply button on Filter
+		Then The "Testdrivertywd_appleks_a_drvbe Kansas_be" "Driver name" should be displayed
+		And Driver icon should be displayed on the map for "Testdrivertywd_appleks_a_drvbe Kansas_be"
+		Then The "Details" "Popup" should be displayed
+		Then The drivers name "Testdrivertywd_appleks_a_drvbe Kansas_be" phone number "9049840268" and vehicle type "Unspecified" should be displayed
+		When I clear the filter applied
+		And I refresh the page
+		And I click on the "Select Geofence" dropdown
+		And I Enter the text "Kansas"
+		When I click on the "Kansas" checkbox
+		And I click on "Filter" button
+		#CORE-3848:Verify that all required filters are present on Active driver map page
+		Then The "Appliance Dolly" "Checkbox" should be displayed
+		Then The "Furniture Dolly" "Checkbox" should be displayed
+		Then The "Hand Dolly" "Checkbox" should be displayed
+		Then The "Lift Gate" "Checkbox" should be displayed
+		Then The "Ramp" "Checkbox" should be displayed
+		Then The "Box Truck" "Checkbox" should be displayed
+		Then The "Moving Van" "Checkbox" should be displayed
+		Then The "Pickup Truck" "Checkbox" should be displayed
+		Then The "SUV" "Checkbox" should be displayed
+		And I click on Apply button on Filter
+		And I "Unselect" all the "Equipment" checkboxes from the filter
+		And I "Unselect" all the "Vehicle Type" checkboxes from the filter
 		When I select filter "Vehicle Type" as "Box Truck"
 		And I click on Apply button on Filter
 		Then The "Testdrivertywd_appleks_a_drval Kansas_al" "Driver name" should be displayed
