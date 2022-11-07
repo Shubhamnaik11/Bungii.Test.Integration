@@ -3459,6 +3459,34 @@ try{
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+        }
 
-}
+    @And("^I slide the \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_slide_the_something_to_something(String sliderName, String slideBy) throws Throwable {
+        try{
+        switch (slideBy){
+            case "500 lbs":
+                int locationBasedOnCoordinatesForXVehiclePayload =Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.vehicle.payload"));
+                int locationBasedOnCoordinatesForYVehiclePayload =Integer.parseInt(PropertyUtility.getDataProperties("y.coordinate.for.vehicle.payload"));
+                action.slide(admin_DriverPage.Slider_VehiclePayloadmin(), locationBasedOnCoordinatesForXVehiclePayload,locationBasedOnCoordinatesForYVehiclePayload);
+                Thread.sleep(4000);
+                break;
+            case "100 In":
+                int locationBasedOnCoordinatesForXVehicleBedLength =Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.vehicle.bed.length"));
+                int locationBasedOnCoordinatesForYVehicleBedLength =Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.vehicle.bed.length"));
+                action.slide(admin_DriverPage.Slider_VehicleBedLengthMin(), locationBasedOnCoordinatesForXVehicleBedLength,locationBasedOnCoordinatesForYVehicleBedLength);
+                Thread.sleep(4000);
+                break;
+        }
+        log("I should be able to slide "+sliderName+" to be in the range of "+slideBy,
+                "I could slide "+sliderName+" to be in the range of "+slideBy,false);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
+    }
+
+
 }
