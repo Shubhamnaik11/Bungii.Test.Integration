@@ -1370,6 +1370,10 @@ try{
                 emailSubject = partnerPortal + " has scheduled their first delivery!";
             }
         }
+        if (portalName.equalsIgnoreCase("Equip-bid")){
+            String partnerPortalName = PropertyUtility.getDataProperties("partner.atlanta.equip-bid.partner.portal.name");
+            emailSubject ="UPDATE: "+partnerPortalName + " has scheduled their first delivery!";
+        }
 
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody == null) {
@@ -1482,6 +1486,10 @@ try{
             case "Best Buy #11, Baltimore, MD has scheduled their first delivery!":
                 String partnerPortalName=PropertyUtility.getDataProperties("partner.baltimore.name");
                 message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName);
+                break;
+            case "UPDATE: qauto-equip-bid, Overland Park, KS has scheduled their first delivery!":
+                String partnerPortalName1=PropertyUtility.getDataProperties("partner.aequip-bidrniture.partner.portal.name");
+                message = utility.getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(partnerPortalName1);
                 break;
         }
         message= message.replaceAll(" ","");
