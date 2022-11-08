@@ -1488,7 +1488,7 @@ try{
                 message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName);
                 break;
             case "UPDATE: qauto-equip-bid, Overland Park, KS has scheduled their first delivery!":
-                String partnerPortalName1=PropertyUtility.getDataProperties("partner.aequip-bidrniture.partner.portal.name");
+                String partnerPortalName1=PropertyUtility.getDataProperties("partner.atlanta.equip-bid.partner.portal.name");
                 message = utility.getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(partnerPortalName1);
                 break;
         }
