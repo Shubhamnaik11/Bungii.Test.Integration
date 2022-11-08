@@ -158,7 +158,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void i_enter_invalid_phone_number_and_email_field() throws Throwable {
         try{
         action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),"INVALID");
-        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),"INVALID");
+        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),"99999");
         log("I enter invalid values on Add Business User page",
                 "I entered  invalid values on Add Business User page", false);
     } catch(Exception e){
@@ -303,14 +303,13 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
-//        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),"Payment details added successfully for Partner.","Payment details added successfully for Business User. message should be displayed" ,"Payment details added successfully for Business User. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
     }
     @Then("^\"([^\"]*)\" message is displayed$")
     public void something_message_is_displayed(String message) throws Throwable {
         try{
             switch(message){
                 case "payment declined error":
-                    testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorContainer(),PropertyUtility.getMessage("payment.declined.error"),message+ " message should be displayed" ,message+ " message is displayed",message+ "  message should be displayed is not displayed");
+                    testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnInvalidCard(),PropertyUtility.getMessage("payment.declined.error"),message+ " message should be displayed" ,message+ " message is displayed",message+ "  message should be displayed is not displayed");
                     break;
             }
 
@@ -326,12 +325,16 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         Select select = new Select(admin_BusinessUsersPage.DropDown_BusinessUser());
+//        System.out.println("Expected text===="+Name);
 
         List<WebElement> dropdown = select.getOptions();
         boolean bit = false;
         for (WebElement e : dropdown) {
             if(e.getText().equals(Name))
+                Thread.sleep(2000);
+//            System.out.println(e.getText());
                 bit = true;
+
         }
         if(!bit)
         testStepAssert.isFalse(true,"Business user should be listed in dropdown since payment method is set", "Business user is not listed though payment method is set");
@@ -521,6 +524,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void i_select_user_something(String uniqueno) throws Throwable {
         try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
+        action.click(admin_BusinessUsersPage.DropDown_BusinessUser());
         action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUser(),Name);
         log("I select "+uniqueno+" from Bulk Trips page",
                 "I have selected "+uniqueno+" from Bulk Trips page", false);
@@ -857,7 +861,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @Then("^the partner does not get saved successfully$")
     public void the_business_user_does_not_get_saved_successfully() throws Throwable {
-        testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), " Phone number already exists", " Phone number already exists" + " should be displayed", " Phone number already exists" + " is displayed", " Phone number already exists" + " is not displayed");
+        testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), "Phone number already exists", " Phone number already exists" + " should be displayed", " Phone number already exists" + " is displayed", " Phone number already exists" + " is not displayed");
     }
 
     @And("^I select the \"([^\"]*)\"$")

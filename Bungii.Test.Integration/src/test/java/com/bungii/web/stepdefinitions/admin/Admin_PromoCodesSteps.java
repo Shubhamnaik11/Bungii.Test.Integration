@@ -595,7 +595,8 @@ try{
                 break;
 
             case "Partners":
-                testStepAssert.isNotElementDisplayed(admin_BusinessUsersPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
+                testStepAssert.isElementDisplayed(admin_BusinessUsersPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
+//                testStepAssert.isNotElementDisplayed(admin_BusinessUsersPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
                 break;
               //BOC
             case "Business User Payment":
@@ -1201,7 +1202,7 @@ try{
 
             case "@#$@@":
                 Thread.sleep(2000);
-                action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
+                action.clearSendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
                 break;
 
             case "Testcustomertywd_apple":

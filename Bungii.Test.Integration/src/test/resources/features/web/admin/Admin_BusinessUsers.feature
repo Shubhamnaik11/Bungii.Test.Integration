@@ -10,7 +10,6 @@ Feature: Admin_BusinessUsers
   @sanity
   @regression
     @demo
-    #Passed
   Scenario: Verify Add Edit New Bulk Delivery Upload
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
@@ -54,7 +53,6 @@ Feature: Admin_BusinessUsers
 
   @sanity
   @regression
-    @sn
   Scenario: Verify Adding Payment To Bulk Delivery Upload
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
@@ -121,7 +119,7 @@ Feature: Admin_BusinessUsers
     Then I verify that pagination exists
     #search for invalid data
     When I search by the Code "@#$@@"
-    Then the "No Partners found." message is displayed
+    Then the "No Data." message is displayed
     #EOC
 
   @regression
@@ -134,6 +132,7 @@ Feature: Admin_BusinessUsers
     And the "Oops! The email address is invalid." message is displayed for the "Email" field
 	
   @regression
+    #Failting because of ADP-500
 	#Unable to download or read from the downloads folder of VM
   Scenario: Verify Add New Business User And Add Payment Method - Field validations In Uploaded CSV For Bulk Trips
     When I click on the "New Partner" Button
