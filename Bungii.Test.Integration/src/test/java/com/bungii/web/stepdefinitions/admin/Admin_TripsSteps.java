@@ -751,11 +751,11 @@ try{
 
         if(!scheduled_time.equalsIgnoreCase("NOW")) {
             TimeZone.setDefault(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofence()));
-            DateFormat formatter = new SimpleDateFormat("MMM dd, h:mm a");
+            DateFormat formatter = new SimpleDateFormat("MMM dd,h:mm a");
             formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofence()));
             Date bungiiDate = formatter.parse(scheduled_time);
             Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
-            String formattedDate = new SimpleDateFormat("MMM dd,  hh:mm:ss a z").format(inputdate).replace("am", "AM").replace("pm", "PM");
+            String formattedDate = new SimpleDateFormat("MMM dd, hh:mm:ss a z").format(inputdate).replace("am", "AM").replace("pm", "PM");
             String xpath_scheduled_time = "//td[contains(text(),'Scheduled Time')]/following-sibling::td/strong[text()='"+ formattedDate + "']";
 
             //Verify that the time the customer scheduled the trip for is added to Trip Details page
@@ -974,7 +974,7 @@ try{
                 break;
             case "Edit Trip Details":
                 action.click(admin_EditScheduledBungiiPage.RadioButton_EditTripDetails());
-                Thread.sleep(3000);
+                Thread.sleep(5000);
                 break;
             case "Edit Delivery Status":
                 action.click(admin_LiveTripsPage.RadioButton_EditDeliveryStatus());
