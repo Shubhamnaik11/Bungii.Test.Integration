@@ -157,8 +157,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     @When("^I enter invalid phone number and email field$")
     public void i_enter_invalid_phone_number_and_email_field() throws Throwable {
         try{
-        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),"INVALID");
-        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),"99999");
+        String invalidEmailId = PropertyUtility.getDataProperties("invalid.email.id");
+        String invalidPhoneNo = PropertyUtility.getDataProperties("invalid.phone.number");
+        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),invalidEmailId);
+        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),invalidPhoneNo);
         log("I enter invalid values on Add Business User page",
                 "I entered  invalid values on Add Business User page", false);
     } catch(Exception e){
