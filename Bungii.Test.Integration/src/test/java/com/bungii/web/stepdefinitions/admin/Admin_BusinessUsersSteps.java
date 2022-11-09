@@ -1081,6 +1081,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "First Time Slot":
                     action.click(Page_Partner_Dashboard.Text_FirstTimeSlot());
                     break;
+                case "Filter":
+                    action.click(admin_TripsPage.Button_Filter());
+                    break;
+                case "Trailer":
+                    action.click(admin_DriverPage.Button_Trailer());
+                    break;
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", false);
