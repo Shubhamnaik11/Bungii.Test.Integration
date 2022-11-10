@@ -40,7 +40,7 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement DropDown_AddBusinessUserPayment( ) { return findElement("AddBusinessUserPaymentRequestModel_Reference", LocatorType.Id); }
 
-    public WebElement Button_RequestPayment( ) { return findElement("btnRequestPayment", LocatorType.Id); }
+    public WebElement Button_RequestPayment( ) { return findElement("//button[contains(text(),'Add Payment Method')]", LocatorType.XPath); }
 
     public WebElement TextBox_CreditCardNumber( ) { return findElement("credit-card-number", LocatorType.Id); }
 

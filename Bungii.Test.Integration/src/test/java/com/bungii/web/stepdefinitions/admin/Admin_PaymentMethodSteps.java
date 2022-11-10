@@ -96,12 +96,12 @@ public class Admin_PaymentMethodSteps extends DriverBase {
             try{
             switch(PageName) {
                 case "Add Partner Cards":
-                    testStepAssert.isNotElementDisplayed(admin_paymentMethodsPage.Button_Save(), PageName + " button should be hidden",
+                    testStepAssert.isNotElementDisplayed(admin_paymentMethodsPage.Button_Save(true), PageName + " button should be hidden",
                             PageName +" Popup is hidden", PageName+" Popup is not hidden");
                     break;
 
                 case "Add Bungii Cards":
-                    testStepAssert.isNotElementDisplayed(admin_paymentMethodsPage.Button_Save(), PageName + " button should be hidden",
+                    testStepAssert.isNotElementDisplayed(admin_paymentMethodsPage.Button_Save(true), PageName + " button should be hidden",
                             PageName +" button is hidden", PageName+" button is not hidden");
                     break;
             }
