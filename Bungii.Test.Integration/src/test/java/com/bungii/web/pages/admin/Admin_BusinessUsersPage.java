@@ -85,7 +85,7 @@ public class Admin_BusinessUsersPage extends PageBase {
     //BOC
     public WebElement Link_DownloadFailedCSVFile( ) { return findElement("//div[@id='validatedBulkTrips']/a[contains(text(),'Click here to download deliveries which failed validation')]", LocatorType.XPath); }
 
-    public WebElement Label_ErrorContainerPostalCode(){ return  findElement("Please fill out a postal code.')]", LocatorType.XPath);}
+    public WebElement Label_ErrorContainerPostalCode(){ return  findElement("//div[contains(text(),'Please fill out a postal code.')]", LocatorType.XPath);}
 
     public WebElement Label_PaymentMethodSavedMessage(){ return  findElement("successMessage", LocatorType.Id);}
 
