@@ -157,9 +157,9 @@ Feature: Admin_Price_Override
       | Assigning Driver(s)|
     When I view the delivery details
     And I check if "Price Override" button is displayed
-    And I click on "Price Override" button on delivery details
     And I get the old values of "Customer price" for "Service level"
     And I get the old values of "Driver cut" for "Service level"
+    And I click on "Price Override" button on delivery details
     And I increase the "Driver cut" more than "Customer price"
     And I select Reason as "Driver Incentive"
     And I click on "Save" button on price override pop-up
@@ -208,7 +208,6 @@ Feature: Admin_Price_Override
     And I should be able to see the respective bungii with the below status
       | Status           |
       | Assigning Driver(s)|
-    Then I click on "Edit" link beside live delivery
     When I view the delivery details
     And I check if "Price override" button is not present
     Then I navigate back to Scheduled Deliveries
@@ -223,7 +222,6 @@ Feature: Admin_Price_Override
     Then I should be able to see the respective bungii with the below status
       |  Status       |
       | Loading Items |
-    When I click on "Edit" link beside live delivery
     When I view the delivery details
     Then I check if "Price override" button is not present
     When I navigate back to Live Deliveries
@@ -309,7 +307,7 @@ Feature: Admin_Price_Override
     And I click on "Verify" button on Edit Scheduled bungii popup
     And I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
-    When I view the delivery details in admin portal
+    When I view the delivery details
     And I get the old values of "Customer price" for "Service level"
     And I get the old values of "Driver cut" for "Service level"
     And I wait for "2" mins
@@ -587,12 +585,12 @@ Feature: Admin_Price_Override
       And I click on "Verify" button on Edit Scheduled bungii popup
       And I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
-      When I click on "Close" button
       And I refresh the page
       And I get the new pickup reference generated
       And I view the all Scheduled Deliveries list on the admin portal
       And I wait for 2 minutes
       And I open the trip for "Testcustomertywd_BppleMarkBE LutherBE" the customer for delivery details
+      When I view the delivery details
       Then I check "Customer price" is retained after "duo to solo" conversion
       Then I check "Driver Earning" is retained after "duo to solo" conversion
 
@@ -614,7 +612,6 @@ Feature: Admin_Price_Override
       And I click on "Verify" button on Edit Scheduled bungii popup
       And I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
-      When I click on "Close" button
       And I refresh the page
       And I get the new pickup reference generated
       And I view the all Scheduled Deliveries list on the admin portal
@@ -632,6 +629,8 @@ Feature: Admin_Price_Override
       And I click on "Verify" button on Edit Scheduled bungii popup
       And I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
+      And I click on "Edit" link beside scheduled bungii
+      When I click on "Edit Trip Details" radiobutton
       Then I check if DUO option is disabled
 
 #    Core-2960 Verify customer price override and driver earnings override is retained for a fixed pricing delivery converted from DUO to SOLO when driver accepted the delivery

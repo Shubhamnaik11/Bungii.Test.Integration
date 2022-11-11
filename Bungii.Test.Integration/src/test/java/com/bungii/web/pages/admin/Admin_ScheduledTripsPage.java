@@ -30,8 +30,8 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
 
     //public WebElement Admin_Dropdown_ServiceLevel(String serviceLevel) { return findElement("//li/div/div/span[@class='service-title' and @data-name='"+serviceLevel+"']",LocatorType.XPath);}
-    public WebElement Admin_Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
-    public WebElement Admin_DropdownServiceLevelSelected() { return findElement("//select[@id='ddServiceLevelOption']/option[@selected='selected']",LocatorType.XPath);}
+    public WebElement Admin_Dropdown_ServiceLevel() { return findElement("//select[@class='service-level-mt form-select']",LocatorType.XPath);}
+    public WebElement Admin_DropdownServiceLevelSelected() { return findElement("//select[@class='service-level-mt form-select']/option[@selected]",LocatorType.XPath);}
     public WebElement Link_Grid_First_Row() { return findElement("//tr[@id='row1']/td[4]/a",LocatorType.XPath);}
     public WebElement Textbox_Drop_Off_Location () { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/div/div/input",LocatorType.XPath);}
     public WebElement Textbox_Pickup_Location () { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div[1]/div/div/input",LocatorType.XPath);}
