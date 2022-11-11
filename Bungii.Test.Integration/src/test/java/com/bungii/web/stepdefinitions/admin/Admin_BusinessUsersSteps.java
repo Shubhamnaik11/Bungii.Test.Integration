@@ -488,9 +488,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 break;
             case "Partner Cards":
             case "Bungii Cards":
+                Thread.sleep(5000);
                 switch(button) {
                     case "Save":
-                        action.click(admin_paymentMethodsPage.Button_Save());
+                        action.click(admin_paymentMethodsPage.Button_Save(false));
                         break;
                     case "Cancel":
                         action.click(admin_paymentMethodsPage.Button_Cancel());
@@ -1069,6 +1070,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
                 case "First Time Slot":
                     action.click(Page_Partner_Dashboard.Text_FirstTimeSlot());
+                    break;
+                case "Filter":
+                    action.click(admin_TripsPage.Button_Filter());
+                    break;
+                case "Trailer":
+                    action.click(admin_DriverPage.Button_Trailer());
                     break;
                 case "Save Email":
                     action.click(Page_PartnerManagement_Email.Button_Save());

@@ -654,6 +654,7 @@ try{
     @Then("^I should see the drivers sorted with the applied geofence filter$")
     public void i_should_see_the_drivers_sorted_with_the_applied_geofence_filter() throws Throwable {
         try{
+            Thread.sleep(3000);
         int validCity = 0;
         int invalidCity = 0;
         String expectedGeofenceRegion = (String) cucumberContextManager.getScenarioContext("GeofenceRegion");
@@ -693,6 +694,9 @@ try{
             action.JavaScriptScrolldown();
 
             if(invalidCity>0){
+                testStepAssert.isFail("Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
+            }
+            else {
                 testStepAssert.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
                         "Drivers profiles is displayed based on "+ expectedGeofenceRegion+" geofence" ,"Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
             }
@@ -713,8 +717,12 @@ try{
             }
         }
         if(invalidCity>0){
+            testStepAssert.isFail("Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
+        }
+        else {
             testStepAssert.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
                     "Drivers profiles is displayed based on "+ expectedGeofenceRegion+" geofence" ,"Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
+
         }
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -1084,6 +1084,9 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Testdrivertywd_appleks_a_drvam Kansas_am":
                 case "Testdrivertywd_appleks_a_drvbc Kansas_bc":
                 case "Testdrivertywd_appleks_a_drvbd Kansas_bd":
+                case "Testdrivertywd_appleks_a_drvbg Kansas_bg":
+                case "Testdrivertywd_appleks_a_drvbf Kansas_bf":
+                case "Testdrivertywd_appleks_a_drvbe Kansas_be":
                     Thread.sleep(8000);
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Text_DriverName()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Icon_DriverPosition()),"Drivers current location icon should be displayed","Drivers current location icon is displayed","Drivers current location icon is not displayed");
@@ -1101,6 +1104,43 @@ public class Partner_Delivery_Details extends DriverBase {
                     break;
                 case "Warning":
                     testStepAssert.isTrue(action.isElementPresent(admin_EditScheduledBungiiPage.Icon_Warning()),"Warning Icon should be displayed","Warning Icon is displayed","Warning Icon is not displayed");
+                    break;
+                case "Appliance Dolly":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_ApplianceDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Furniture Dolly":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_FurnitureDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Hand Dolly":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_HandDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Lift Gate":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_LiftGate()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Ramp":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_Ramp()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Box Truck":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_BoxTruck()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Moving Van":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_MovingVan()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Pickup Truck":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_PickupTruck()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "SUV":
+                    action.JavaScriptScrolldown();
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_SUV()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Vehicle Payload":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Slider_VehiclePayload()),element+" slider should be displayed",element+" slider is displayed",element+" slider is not displayed");
+                    break;
+                case "Vehicle Bed Length":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Slider_VehicleBedLength()),element+" slider should be displayed",element+" slider is displayed",element+" slider is not displayed");
+                    break;
+                case "Trailer":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Button_Trailer()),element+" button should be displayed",element+" button is displayed",element+" button is not displayed");
                     break;
                 case "Edit Email Address":
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Email.Header_EditEmailAddress()),"Header should be displayed","Header is displayed","Header is not displayed");
