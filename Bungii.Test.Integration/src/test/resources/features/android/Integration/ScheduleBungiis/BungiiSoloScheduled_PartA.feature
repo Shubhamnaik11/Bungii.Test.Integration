@@ -190,7 +190,7 @@ Feature: SoloScheduled
     When Bungii Driver "clicks More Options"
     And I click "Customer Signature" button on "update" screen
     Then I should see the "Customer signature" header "Displayed"
-    And I click "Customer Signature" button on "update" screen
+    #CORE:4665:Verify that Customer/Partner name is shown to driver if drop-off contact name was left blank in partner portal delivery creation
     Then I should see the customers name under the customer name field
 
     When I request "Solo" Bungii as a customer in "atlanta" geofence
@@ -206,9 +206,9 @@ Feature: SoloScheduled
     And I should be able to add customer signature
     And I click on "Clear Signature" button
     And I should be able to add customer signature
-    And I click "Submit Data" button on "update" screen
+    And I click "Submit" button on "update" screen
     And I slide update button on "UNLOADING ITEM" Screen
-    And I click "Skip This Step" button on "Rate customer" screen
+    And Bungii Driver "skips to rate customer"
     Then I should be navigated to "Bungii completed" screen
 
     And I wait for 2 minutes
@@ -250,10 +250,11 @@ Feature: SoloScheduled
     When Bungii driver uploads "1" image
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
-    Then I should see the customers name under the customer name field
+    #CORE-4665:Verify that drop-off contact name populates in customer name on driver app for partner portal trips
+    Then I should see the dropoff contact name under the customer name field
     And I click on "Skip Customer Signature" button
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I click "Skip This Step" button on "Rate customer" screen
+    And Bungii Driver "skips to rate customer"
     Then I should be navigated to "Bungii completed" screen
     And I wait for 2 minutes
 
@@ -510,3 +511,56 @@ Feature: SoloScheduled
     And I slide update button on "ARRIVED" Screen
     When Bungii driver uploads "1" image
     Then I slide update button on "ARRIVED" Screen
+
+#    #CORE-4665:Verify that drop-off contact name populates in customer name on driver app for partner portal trips
+#  @ready
+#  Scenario: Verify that drop-off contact name populates in customer name on driver app for partner portal trips
+#    When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
+#      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+#      | atlanta| NEXT_POSSIBLE | 8877661069 | Testcustomertywd_appleMarkBR LutherBR|
+#    And As a driver "Testdrivertywd_applega_a_steveG Stark_altOnEG" perform below action with respective "Solo Scheduled" Delivery
+#      | driver1 state|
+#      | Accepted     |
+#      | Enroute  |
+#      | Arrived |
+#      | Loading Item |
+#      | Driving To Dropoff |
+#    And I switch to "ORIGINAL" instance
+#    And I Switch to "driver" application on "same" devices
+#    And I am logged in as "Testdrivertywd_appleph_a_drvaw Phoenix_aw" driver
+#    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+#    And I slide update button on "DRIVING TO DROP OFF" Screen
+#    And I click on "Got It" button
+#    And I slide update button on "UNLOADING ITEM" Screen
+#    When Bungii driver uploads "1" image
+#    And I slide update button on "UNLOADING ITEM" Screen
+#    Then I should see the "Customer signature" header "Displayed"
+#
+#    And I click "Submit" button on "update" screen
+
+
+#  @testAllan
+#  Scenario:Verify Customer signature can be skipped on driver app
+#    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+#      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+#      |baltimore| NEXT_POSSIBLE | 8877661070 | Testcustomertywd_appleMarkBS LutherBS|
+#    And As a driver "TestDrivertywd_applemd_a_billE Stark_bltTwOE" perform below action with respective "Solo Scheduled" Delivery
+#      | driver1 state|
+#      | Accepted     |
+#      | Enroute  |
+#      | Arrived |
+#      | Loading Item |
+#      | Driving To Dropoff |
+#      | Unloading Item |
+#    And I switch to "ORIGINAL" instance
+#    And I Switch to "driver" application on "same" devices
+#    And I am logged in as "TestDrivertywd_applemd_a_billE Stark_bltTwOE" driver
+#    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+#    And I slide update button on "UNLOADING ITEM" Screen
+#    When Bungii driver uploads "1" image
+#    And I slide update button on "UNLOADING ITEMS" Screen
+#    Then I should see the "Customer signature" header "Displayed"
+#    Then I should see the customers name under the customer name field
+#    And I should be able to add the text "Signed By customer" in the signed by field
+#    And I should be able to add customer signature
+#    And I click "Submit" button on "update" screen

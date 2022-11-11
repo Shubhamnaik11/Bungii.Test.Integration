@@ -2716,7 +2716,7 @@ public class CoreServices extends DriverBase {
 
             JSONObject field4 = new JSONObject();
             field4.put("FieldRef", "f2bd90b3-6757-11ea-a4a3-00155d0a8706");
-            field4.put("FieldValue",  "Test Dropcontact");
+            field4.put("FieldValue",  "Drekoooo135");
 
             JSONObject field5 = new JSONObject();
             field5.put("FieldRef", "f2bd90d3-6757-11ea-a4a3-00155d0a8706");
@@ -2729,6 +2729,9 @@ public class CoreServices extends DriverBase {
             JSONObject field7 = new JSONObject();
             field7.put("FieldRef", "f2bd91b2-6757-11ea-a4a3-00155d0a8706");
             field7.put("FieldValue", "Krishna");
+
+            cucumberContextManager.setScenarioContext("DROPOFFCONTACTNAME",field4.get("FieldValue"));
+
 
             staticFields.put(field2);
             staticFields.put(field3);
