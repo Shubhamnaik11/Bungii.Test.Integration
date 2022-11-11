@@ -20,8 +20,8 @@ Feature: Admin_PaymentMethods
 
   @regression
   Scenario: Verify Add Payment Method in Partner Cards with Cancel
-    When I click on "Add Payment Method" button on "Partner Cards" page
     And I select "MRFM" from the "Partner Cards" dropdown
+    When I click on "Add Payment Method" button on "Partner Cards" page
     Then I click on "Cancel" button on "Partner Cards" screen
     Then The "Add Partner Cards" details screen is removed from UI
 
@@ -49,7 +49,7 @@ Feature: Admin_PaymentMethods
   @regression
   Scenario: Verify Field Validations On Add New Partner Card page Upon Blank Inputs
     When I click on "Add Payment Method" button on "Partner Cards" page
-    And I click on "Save" button on "Partner Card" screen
+    And I click on "Save" button on "Partner Cards" screen
     Then the "Please check your information and try again." message is displayed
     And the "Please fill out a card number." message is displayed for the "Card Number" field
     And the "Please fill out an expiration date." message is displayed for the "Expiration Date" field

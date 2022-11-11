@@ -486,9 +486,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 break;
             case "Partner Cards":
             case "Bungii Cards":
+                Thread.sleep(5000);
                 switch(button) {
                     case "Save":
-                        action.click(admin_paymentMethodsPage.Button_Save());
+                        action.click(admin_paymentMethodsPage.Button_Save(false));
                         break;
                     case "Cancel":
                         action.click(admin_paymentMethodsPage.Button_Cancel());
