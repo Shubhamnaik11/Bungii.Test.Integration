@@ -20,12 +20,13 @@ public class Admin_DashboardPage extends PageBase {
 
     public WebElement Menu_Dashboard () { return findElement("//span[contains(text(),'Dashboard')]", LocatorType.XPath); }
     public WebElement Icon_Search() { return findElement("btnSearchDriver", LocatorType.Id); }
+    public WebElement Icon_DriverSearch() { return findElement("//h4[text()='Recent Driver Registrations']/ancestor::div[@class='col-sm-5']/following-sibling::div/div/div/input/following-sibling::button", LocatorType.XPath); }
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement TextBox_SearchCustomer() { return findElement("SearchCriteria", LocatorType.Id); }
 
-    public WebElement Textbox_DriverSearch () { return findElement("//h4[text()='Recent Driver Registrations']/ancestor::div[@class='col-sm-6']/following-sibling::div/div/div/input",LocatorType.XPath);}
+    public WebElement Textbox_DriverSearch () { return findElement("//h4[text()='Recent Driver Registrations']/ancestor::div[@class='col-sm-5']/following-sibling::div/div/div/input",LocatorType.XPath);}
     public WebElement Link_Drivers() { return findElement("//*[@id='adminmenu-drivers-menu']/a", LocatorType.XPath); }
     public WebElement Link_Customers() { return findElement("//*[@id='adminmenu-customers']/a", LocatorType.XPath); }
     public WebElement Link_NonActiveDriver() { return findElement("//*[@id='adminmenu-customers']/a", LocatorType.XPath); }

@@ -120,7 +120,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.click(admin_GetAllBungiiDriversPage.Driver_Profile(applicantName));
                     break;
                 case "Edit":
-                    String Old_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+                    String Old_Phone_Number = action.getText(admin_GetAllBungiiDriversPage.Driver_Phone());
                     cucumberContextManager.setScenarioContext("Old_Phone", Old_Phone_Number);
                     action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Edit());
                     break;
@@ -143,7 +143,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @And("^I change the \"([^\"]*)\" phone number$")
     public void i_enter_confirm_comment_for_edited_phone_and_something_it(String strArg1) throws Throwable {
 
-        action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Phone(), PropertyUtility.getDataProperties("driver.mobile.change"));
+        action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_PhoneEntry(), PropertyUtility.getDataProperties("driver.mobile.change"));
         //action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Save());
         log("I should able to change " + strArg1 + " phone number.", "I have changed " + strArg1 + " phone number.", true);
     }
@@ -173,7 +173,6 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void i_see_updated_phone_number() throws Throwable {
         try {
             Thread.sleep(2000);
-            testStepAssert.isElementNotEnabled(admin_GetAllBungiiDriversPage.Driver_Phone(), "Driver phone field should be not enabled.", "Driver phone field is not enabled.", "Driver phone field is enabled");
             String Edited_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
 
             testStepVerify.isEquals(Edited_Phone_Number, PropertyUtility.getDataProperties("driver.mobile.change"));
@@ -188,8 +187,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @Then("^I see unchanged driver phone number$")
     public void i_see_unchanged_phone_number() throws Throwable {
         try {
-            testStepAssert.isElementNotEnabled(admin_GetAllBungiiDriversPage.Driver_Phone(), "Driver phone field should not be enabled.", "Driver phone field is not enabled.", "Driver phone field is enabled");
-            String Display_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+            String Display_Phone_Number = action.getText(admin_GetAllBungiiDriversPage.Driver_Phone());
 
             testStepVerify.isEquals(Display_Phone_Number, (String) cucumberContextManager.getScenarioContext("Old_Phone"));
             log("Driver phone number should remain un change.", "Driver phone number is unchanged.", true);

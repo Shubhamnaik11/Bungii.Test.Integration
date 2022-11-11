@@ -32,6 +32,6 @@ public class Driver_DashboardPage extends PageBase {
 
     public WebElement Text_BranchWalletCreated() {return findElement("//td[contains(text(),'Payment Account Status')]/following-sibling::td/strong[text()='Wallet Created']", LocatorType.XPath);}
     public WebElement Text_BranchProcessing() {return findElement("//td[contains(text(),'Payment Account Status')]/following-sibling::td/strong[text()='Proccessing']", LocatorType.XPath);}
-    public WebElement Text_AccNotCreated() {return findElement("//div/strong[contains(text(),'Account Not Created')]", LocatorType.XPath);}
+    public WebElement Text_AccNotCreated() {return findElement("//h4[contains(text(),'Branch Account Details')]/following-sibling::div/strong", LocatorType.XPath);}
 
 }

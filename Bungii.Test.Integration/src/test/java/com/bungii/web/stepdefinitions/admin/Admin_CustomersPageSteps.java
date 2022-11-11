@@ -225,7 +225,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                             action.clearSendKeys(admin_dashboardPage.TextBox_SearchCustomer(),customerFirstName + Keys.ENTER);
                         }else {
                             action.clearSendKeys(admin_dashboardPage.Textbox_DriverSearch(), driverFirstName);
-                            action.click(admin_dashboardPage.Icon_Search());
+                            action.click(admin_dashboardPage.Icon_DriverSearch());
                         }
                         Thread.sleep(2000);
                         break;
@@ -234,7 +234,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                             action.clearSendKeys(admin_customerPage.TextBox_SearchCustomer(), customerLastName + Keys.ENTER);
                         }else {
                             action.clearSendKeys(admin_dashboardPage.Textbox_DriverSearch(), driverLastName);
-                            action.click(admin_dashboardPage.Icon_Search());
+                            action.click(admin_dashboardPage.Icon_DriverSearch());
                         }
                         Thread.sleep(1000);
                         break;

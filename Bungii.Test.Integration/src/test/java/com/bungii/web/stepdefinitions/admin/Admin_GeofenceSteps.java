@@ -248,9 +248,9 @@ public class Admin_GeofenceSteps extends DriverBase {
 //                                action.click(admin_TripsPage.Menu_Trips());
 //                                action.click(admin_LiveTripsPage.Menu_LiveTrips());
 //                                break;
-                            case "All Deliveries" :
+                            case "Completed Deliveries" :
                                 action.click(admin_TripsPage.Menu_Trips());
-                                action.click(admin_ScheduledTripsPage.Menu_AllTrips());
+                                action.click(admin_ScheduledTripsPage.Menu_CompletedDeliveries());
                                 break;
                             case "Scheduled Deliveries" :
                                 action.click(admin_TripsPage.Menu_Trips());
