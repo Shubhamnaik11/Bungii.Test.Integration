@@ -385,7 +385,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" page should display the delivery in \"([^\"]*)\" form")
     public void the_something_page_should_display_the_delivery_in_something_form(String PagenName, String ExpectedText) throws Throwable {
         try {
-            action.click(admin_ScheduledTripsPage.Menu_AllTrips());
+            action.click(admin_ScheduledTripsPage.Menu_CompletedDeliveries());
             Thread.sleep(4000);
             String deliveryComplete = action.getText(admin_ScheduledTripsPage.Text_Delivery_Successfull());
             testStepAssert.isEquals(deliveryComplete,ExpectedText,"Delivery Status should match","Delivery status matches","Delivery status doesnt match");

@@ -973,7 +973,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
 
                 case "ISSUE REFUND":
+                    Thread.sleep(5000);
                     action.click(admin_refundsPage.Button_IssueRefund());
+                    Thread.sleep(5000);
                     break;
                 case "OK":
                     action.click(admin_refundsPage.Button_OK());

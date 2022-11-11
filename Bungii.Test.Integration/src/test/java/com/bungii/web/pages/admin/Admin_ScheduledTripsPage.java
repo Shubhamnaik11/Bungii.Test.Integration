@@ -8,7 +8,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Menu_ScheduledTrips () { return findElement("//a[contains(text(),'Scheduled Deliveries')]", LocatorType.XPath); }
 
-    public WebElement Menu_AllTrips () { return findElement("//span[contains(text(),'All Deliveries')]", LocatorType.XPath); }
+    public WebElement Menu_CompletedDeliveries () { return findElement("//a[contains(text(),'Completed Deliveries')]", LocatorType.XPath); }
 
     //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 

@@ -9,7 +9,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Button_CalculateCost () { return findElement("btnCost", LocatorType.Id); }
 
-    public WebElement Button_Cancel () { return findElement("btnCancel", LocatorType.Id); }
+    public WebElement Button_Cancel () { return findElement("//a[contains(text(),'cancel')]", LocatorType.XPath); }
 
     public WebElement Button_Confirm () { return findElement("btnConfirm", LocatorType.Id); }
 

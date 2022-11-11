@@ -7,10 +7,10 @@ public class Admin_PaymentMethodsPage extends PageBase {
 
     public WebElement Label_PartnerCardHeader () { return findElement("//h4[text()='Partner Cards']",LocatorType.XPath);}
 
-    public WebElement Menu_Partners() { return findElement("(//span[contains(text(),'Partners')])[3]", LocatorType.XPath); }
-    public WebElement Menu_PartnersSubMenu () { return findElement("//li[@id='adminmenu-paymentmethods']/a", LocatorType.XPath); }
+    public WebElement Menu_Partners() { return findElement("(//span[contains(text(),'Partners')])[2]", LocatorType.XPath); }
+    public WebElement Menu_PartnersSubMenu () { return findElement("//a[contains(text(),'Partner List')]", LocatorType.XPath); }
     public WebElement Menu_LocationsSubMenu () { return findElement("adminmenu-partner-locations-menu", LocatorType.Id); }
-    public WebElement Menu_UnlockPartnersSubMenu () { return findElement("//li[@id='adminmenu-paymentmethods']/ul/li[@id='adminmenu-unlock-partners']/a", LocatorType.XPath); }
+    public WebElement Menu_UnlockPartnersSubMenu () { return findElement("//a[contains(text(),'Unlock Portals')]", LocatorType.XPath); }
 
     public WebElement Menu_PaymentMethodsSubMenu () { return findElement("//span[contains(text(),'Portal Payments')]", LocatorType.XPath); }
 
