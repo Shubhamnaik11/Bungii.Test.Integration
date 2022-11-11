@@ -3,6 +3,7 @@ package com.bungii.web.stepdefinitions.admin;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_PaymentMethodsPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
@@ -42,9 +43,9 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                     CardExpiryDate = sdf1.format(parsedDate).toString();
                     Thread.sleep(4000);
                     CardNumber = "**** **** **** " + CardNumber.substring(11,15);
-                    String PartnerXpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/i[contains(@class, 'fa fa-check-circle text-green-alt')]", CardNumber, CardExpiryDate);
-//                testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(PartnerXpath)),PartnerXpath +" Element should be displayed",PartnerXpath+ " Element is displayed", PartnerXpath+ " Element is not displayed");
-                    testStepAssert.isElementTextEquals(admin_paymentMethodsPage.Label_SuccessMessageForPartner(), "Partner Payment Method added successfully.", "Partner Payment Method added successfully. message should be displayed", "Partner Payment Method added successfully. message is displayed", "Partner Payment Method added successfully. message should be displayed is not displayed");
+                    String PartnerXpath = String.format("//tr/td[text()='Visa ']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/i[contains(@class, ' fa fa-check-circle fa-3x default-icon')]", CardNumber, CardExpiryDate);
+                    String expectedMsg = PropertyUtility.getMessage("partner.card.success.message");
+                    testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_SuccessMessageForPartner()), expectedMsg, expectedMsg+ " message should be displayed", expectedMsg+ " message is displayed", expectedMsg + " message is not displayed");
                     cucumberContextManager.setScenarioContext("XPath", PartnerXpath);
                     break;
                 case "Bungii Cards":
@@ -54,7 +55,7 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                     BungiiCardExpiryDate = sdf1.format(parsedDate).toString();
                     Thread.sleep(4000);
                     BungiiCardNumber = "**** **** **** " + BungiiCardNumber.substring(11,15);
-                    String BungiiXpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/i[contains(@class, 'fa fa-check-circle text-green-alt')]", BungiiCardNumber, BungiiCardExpiryDate);
+                    String BungiiXpath = String.format("//tr/td[text()='Visa ']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/i[contains(@class, ' fa fa-check-circle fa-3x default-icon')]", BungiiCardNumber, BungiiCardExpiryDate);
                     testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(BungiiXpath)), BungiiXpath + " Element should be displayed", BungiiXpath + " Element is displayed", BungiiXpath + " Element is not displayed");
                     cucumberContextManager.setScenarioContext("XPath", BungiiXpath);
                     break;
@@ -96,12 +97,12 @@ public class Admin_PaymentMethodSteps extends DriverBase {
             try{
             switch(PageName) {
                 case "Add Partner Cards":
-                    testStepAssert.isNotElementDisplayed(admin_paymentMethodsPage.Button_Save(), PageName + " button should be hidden",
+                    testStepAssert.isNotElementDisplayed(admin_paymentMethodsPage.Button_Save(true), PageName + " button should be hidden",
                             PageName +" Popup is hidden", PageName+" Popup is not hidden");
                     break;
 
                 case "Add Bungii Cards":
-                    testStepAssert.isNotElementDisplayed(admin_paymentMethodsPage.Button_Save(), PageName + " button should be hidden",
+                    testStepAssert.isNotElementDisplayed(admin_paymentMethodsPage.Button_Save(true), PageName + " button should be hidden",
                             PageName +" button is hidden", PageName+" button is not hidden");
                     break;
             }
