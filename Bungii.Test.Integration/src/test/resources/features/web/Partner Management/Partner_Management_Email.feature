@@ -1,4 +1,5 @@
 @web
+@partnermanagement
 Feature: Adding Email In Partner Management
 
   Background:
@@ -16,15 +17,14 @@ Feature: Adding Email In Partner Management
     #CORE-3817:To verify same email id can be added/ edited for the partner on Partner management portal
     And I click on the "Edit Email" Button
     Then The "Edit Email Address" "Header" should be displayed
-    When I add "bungiiauto@gmail.com" as the new email
+    When I add "Team QAs secondary email address" as the new email
     And I click on "Save Email" button
-    Then The "bungiiauto@gmail.com" "Email" should be displayed
+    Then The "Team QAs secondary email address" "Email" should be displayed
     And I click on the "Edit Email" Button
     Then The "Edit Email Address" "Header" should be displayed
-    When I add "team.qa.bungii@creativecapsule.com" as the new email
+    When I add "Team QAs primary email address" as the new email
     And I click on "Save Email" button
-    Then The "team.qa.bungii@creativecapsule.com" "Email" should be displayed
-
+    Then The "Team QAs primary email address" "Email" should be displayed
 
 #CORE-3817:To verify adding of email id field in the partner management portal for a management node
   @ready
@@ -33,7 +33,7 @@ Feature: Adding Email In Partner Management
     And I click on the "Partner location" link
     Then The "Management" "Location Type text" should be displayed
     And I click on the "Add Email Address" Button
-    When I add "allan.fernandes@creativecapsule.com" as the new email
+    When I add "Team QAs test email address" as the new email
     And I click on "Save Email" button
     Then All email addresses should be displayed for the mentioned partner
 

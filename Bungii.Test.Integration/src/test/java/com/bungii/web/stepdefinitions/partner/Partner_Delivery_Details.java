@@ -1052,6 +1052,7 @@ public class Partner_Delivery_Details extends DriverBase {
     @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
     public void the_something_something_should_be_displayed(String element, String text) throws Throwable {
         try{
+            String oldEmail =(String) cucumberContextManager.getScenarioContext("Old Email");
             String RedCross = PropertyUtility.getDataProperties("red.cross.color");
             String expectedGreenCross =  PropertyUtility.getDataProperties("green.tick.color");
             switch (element){
@@ -1106,12 +1107,11 @@ public class Partner_Delivery_Details extends DriverBase {
                     String uiHeader= action.getText(Page_PartnerManagement_Email.Header_EditEmailAddress());
                     testStepAssert.isEquals(uiHeader,element,"Header with text "+element+" should be displayed","Header with text "+element+" is displayed","Header with text "+uiHeader+" is displayed");
                     break;
-                case "team.qa.bungii@creativecapsule.com":
+                case "Team QAs primary email address":
                     Thread.sleep(3000);
                     String partner = PropertyUtility.getDataProperties("edited.email.address.partner.portal.name");
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Email.Text_EmailAddressOnLocationSetting()),"Email should be displayed","Email is displayed","Email is not displayed");
                     String email= action.getText(Page_PartnerManagement_Email.Text_EmailAddressOnLocationSetting());
-                    String oldEmail =(String) cucumberContextManager.getScenarioContext("Old Email");
                     testStepAssert.isFalse(email.equalsIgnoreCase(oldEmail),"Email Address "+element+" should be displayed","Email Address  "+element+" is displayed","Email Address  "+oldEmail+" is displayed");
                     String emailAddressStoredInDB = com.bungii.web.utilityfunctions.DbUtility.getPartnerPortalEmailAddress(partner);
                     testStepAssert.isEquals(email,emailAddressStoredInDB,"Email address should match","Email addresses match","Email address dont match");
@@ -1196,10 +1196,10 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Duo":
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DuoRowForEarliestScheduleTimeTable()),"Duo row name should be displayed","Duo row name is displayed","Duo row name is not displayed");
                     break;
-                case "BUNGIIAUTO@GMAIL.COM":
+                case "Team QAs secondary email address":
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_EmailLabel()),"Email Label should be displayed","Email Label is displayed","Email Label is not displayed");
                     String emailOnLocationSetting = action.getText(Page_PartnerManagement_Location.Text_EmailOnPartnerSetting()).toLowerCase();
-                    testStepAssert.isEquals(emailOnLocationSetting,element.toLowerCase(),element+" Email should be displayed",element+" Email is displayed",emailOnLocationSetting+" Email is displayed");
+                    testStepAssert.isEquals(emailOnLocationSetting,oldEmail.toLowerCase(),oldEmail+" Email should be displayed",oldEmail+" Email is displayed",emailOnLocationSetting+" Email is displayed");
                     break;
                 case "1641 Cobb Pkwy SE Marietta GA 30060":
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_PickupAddressLabel()),"Pickup address Label should be displayed","Pickup address Label is displayed","Pickup address Label is not displayed");

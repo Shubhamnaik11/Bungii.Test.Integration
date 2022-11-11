@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.partnerManagement;
 
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.partnerManagement.PartnerManagement_Email;
 import cucumber.api.java.en.And;
@@ -37,9 +38,21 @@ public class Partner_Management_Email_Steps extends DriverBase {
         Thread.sleep(3000);
         String oldEmailAddress = action.getAttributeValue(Page_PartnerManagement_Email.Text_OldEmailAddress());
         cucumberContextManager.setScenarioContext("Old Email",oldEmailAddress);
-        action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(),email);
-        cucumberContextManager.setScenarioContext("NewEmail",email);
-        log("I should be able to add the email address "+email,"I could add the email address "+email,false);
+        switch (email){
+            case "Team QAs primary email address":
+                action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(), PropertyUtility.getDataProperties("team.qas.first.email.address"));
+                cucumberContextManager.setScenarioContext("NewEmail",PropertyUtility.getDataProperties("team.qas.first.email.address"));
+                break;
+            case "Team QAs secondary email address":
+                action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(),PropertyUtility.getDataProperties("team.qas.second.email.address"));
+                cucumberContextManager.setScenarioContext("NewEmail",PropertyUtility.getDataProperties("team.qas.second.email.address"));
+                break;
+            case "Team QAs test email address":
+                action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(),PropertyUtility.getDataProperties("team.qas.test.email.address"));
+                cucumberContextManager.setScenarioContext("NewEmail",PropertyUtility.getDataProperties("team.qas.second.email.address"));
+                break;
+        }
+        log("I should be able to add the email address "+cucumberContextManager.getScenarioContext("NewEmail"),"I could add the email address "+cucumberContextManager.getScenarioContext("NewEmail"),false);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -58,7 +71,6 @@ public class Partner_Management_Email_Steps extends DriverBase {
             if(differentEmailAddresses.contentEquals(newlyAddedEmail)){
                 testStepAssert.isTrue(true,"Newly added Email "+newlyAddedEmail+ " should be present ","Newly added Email "+newlyAddedEmail+ " is present ","Newly added Email "+differentEmailAddresses+ " is not present ");
                 isNewlyAddedEmailPresent =true;
-                break;
             }
 
         }

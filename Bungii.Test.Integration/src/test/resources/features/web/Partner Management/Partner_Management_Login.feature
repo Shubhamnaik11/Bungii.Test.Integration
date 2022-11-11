@@ -1,4 +1,5 @@
 @web
+@partnermanagement
 Feature: Partner Management login
 
   Background:

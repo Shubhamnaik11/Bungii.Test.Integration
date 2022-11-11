@@ -697,7 +697,7 @@ try{
                 break;
             case "Your pickup is scheduled outside partner working hours.":
                 actualMessage=action.getText(admin_EditScheduledBungiiPage.Label_WarningForOutsideBungiiHoursTimeSet());
-                if(actualMessage.equalsIgnoreCase(message)){
+                if(actualMessage.equals(message)){
                     testStepAssert.isTrue(true,"Expected message '"+message+"' is displayed.","Expected message '"+message+"'is not displayed.");
                 }
                 else {

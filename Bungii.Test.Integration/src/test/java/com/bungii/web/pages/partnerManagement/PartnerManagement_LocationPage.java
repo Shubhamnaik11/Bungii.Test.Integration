@@ -14,7 +14,7 @@ public class PartnerManagement_LocationPage extends PageBase {
 
     //All available partner location on PM
     public List<WebElement> List_AllPartners() { return findElements("//div[@class =\"menu\"]/div/div[@class=\"menu-item\"]/div[1]", LocatorType.XPath); }
-                                                                                //div[@class="menu"]/div[2]/div[2]/div[1]
+
     //Arrow button to go 1 step inside
     public WebElement Link_AccessChildLocation() { return findElement("//div[@class =\"menu\"]/div[2]/div[2]/div[2]", LocatorType.XPath); }
 

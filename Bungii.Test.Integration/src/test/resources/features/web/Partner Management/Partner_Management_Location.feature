@@ -1,4 +1,5 @@
 @web
+@partnermanagement
 Feature: Partner Management Location
 
   Background:
@@ -84,7 +85,6 @@ Feature: Partner Management Location
     Then The "Enterprise Partner" "Location Type text" should be displayed
 
   @ready
-    #merge with geofence setting for parent
   Scenario:To verify the Geofence setting are displayed for Partner CHILD location
     When I search for "Cort Furniture" partner on partner management
     When I click on the "Arrow" link
