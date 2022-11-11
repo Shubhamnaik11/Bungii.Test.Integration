@@ -190,7 +190,7 @@ Feature: SoloScheduled
     When Bungii Driver "clicks More Options"
     And I click "Customer Signature" button on "update" screen
     Then I should see the "Customer signature" header "Displayed"
-    #CORE:4665:Verify that Customer/Partner name is shown to driver if drop-off contact name was left blank in partner portal delivery creation
+    #CORE:4665:Verify that Customer or Partner name is shown to driver if drop-off contact name was left blank in partner portal delivery creation
     Then I should see the customers name under the customer name field
 
     When I request "Solo" Bungii as a customer in "atlanta" geofence
