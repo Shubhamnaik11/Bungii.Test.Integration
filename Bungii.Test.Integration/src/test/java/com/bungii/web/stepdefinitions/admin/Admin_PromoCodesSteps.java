@@ -702,6 +702,10 @@ try{
                     testStepAssert.isFail("Expected message is not displayed.");
                 }
                 break;
+
+            case "Please check your information and try again.":
+                testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerPayWithCard()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
         }
 } catch (Exception e) {
     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -936,24 +940,45 @@ try{
                 testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerEmail().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
 //BOC
-            case "Please fill out a card number.":
-                testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerCarNumber().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+            case "Card Number":
+                switch (message){
+                    case "This card number is not valid." :
+                        testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerInvalidCarNumber()),message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                        break;
+                    case "Please fill out a card number.":
+                        testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorContainerCarNumber()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                        break;
+                }
                 break;
 
-            case "Please fill out an expiration date.":
-                testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerExpiryDate().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+            case "Expiration Date":
+                switch (message){
+                    case "This expiration date is not valid." :
+                        testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerInvalidExpiryDate()),message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                        break;
+                    case "Please fill out an expiration date.":
+                        testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorContainerExpiryDate()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                        break;
+                }
                 break;
 
-            case "Please fill out a CVV.":
-                testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerCVV().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+            case "CVV":
+                switch (message){
+                    case "This security code is not valid." :
+                        testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerInvalidCVV()),message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                        break;
+                    case "Please fill out a CVV.":
+                        testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerCVV().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                        break;
+                }
                 break;
 
-            case "Please fill out a postal code.":
+            case "Postal Code":
                 testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerPostalCode().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
                 //EOC
             case "Please check your information and try again.":
-                testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerPayWithCard().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerPayWithCard()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
             case "This card number is not valid.":
                 testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerInvalidCarNumber().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
