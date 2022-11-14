@@ -50,6 +50,4 @@ Feature: Equibid Partner Portal
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |kansas| NEXT_POSSIBLE | 8877661097 | Testcustomertywd_appleMarkCT LutherCT|
     And I wait for 2 minutes
-    And I wait for 2 minutes
-    And I wait for 2 minutes
     Then Partner firm should receive "2nd-Initial Email For Scheduled Delivery Before First Delivery" email
