@@ -1284,6 +1284,19 @@ public class GeneralUtility extends DriverBase {
         action.click(admin_DriverPage.Checkbox_SUV());
     }
 
+    public String NavigateToPartnerManagementLogin(){
+        String partnerURL = GetPartnerManagementUrl();
+        action.deleteAllCookies();
+        action.navigateTo(partnerURL);
+        return partnerURL;
+    }
+    public String GetPartnerManagementUrl() {
+        String partnerManagementURL = null;
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("QA_AUTO_AWS"))
+            partnerManagementURL = PropertyUtility.getDataProperties("qa.auto.partner.management.url");
+        return partnerManagementURL;
+    }
 
 }
 

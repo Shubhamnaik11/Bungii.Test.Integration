@@ -9,6 +9,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LocationPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -47,6 +48,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
     Admin_PartnerPortalPage admin_partnerPortalPage = new Admin_PartnerPortalPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+    PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
 
 
     @When("^I click on \"([^\"]*)\" Menu$")
@@ -272,7 +274,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     break;
                 case "Driver Trips":
                     String driver = (String) cucumberContextManager.getScenarioContext("DRIVER");
-                    String xpath = String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Driver Deliveries']", driver);
+                    String xpath = String.format("//td[contains(text(),'%s')]/following-sibling::td/div/a/img[@title='Driver Deliveries']", driver);
 //                    action.waitUntilIsElementExistsAndDisplayed(admin_DriverPage.Icon_DriverTrips(xpath), (long) 5000);
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
                     break;
@@ -695,12 +697,26 @@ try{
                 break;
             case "Your pickup is scheduled outside partner working hours.":
                 actualMessage=action.getText(admin_EditScheduledBungiiPage.Label_WarningForOutsideBungiiHoursTimeSet());
+                if(actualMessage.equals(message)){
+                    testStepAssert.isTrue(true,"Expected message '"+message+"' is displayed.","Expected message '"+message+"'is not displayed.");
+                }
+                else {
+                    testStepAssert.isFail("Expected message is not displayed.");
+                }
+                break;
+            case "No data found for the search filter. Click here to clear":
+                Thread.sleep(3000);
+                actualMessage=action.getText(Page_PartnerManagement_Location.Text_NoDataFound());
                 if(actualMessage.equalsIgnoreCase(message)){
                     testStepAssert.isTrue(true,"Expected message '"+message+"' is displayed.","Expected message '"+message+"'is not displayed.");
                 }
                 else {
                     testStepAssert.isFail("Expected message is not displayed.");
                 }
+                break;
+
+            case "Please check your information and try again.":
+                testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerPayWithCard()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
         }
 } catch (Exception e) {
@@ -936,24 +952,45 @@ try{
                 testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerEmail().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
 //BOC
-            case "Please fill out a card number.":
-                testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerCarNumber().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+            case "Card Number":
+                switch (message){
+                    case "This card number is not valid." :
+                        testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerInvalidCarNumber()),message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                        break;
+                    case "Please fill out a card number.":
+                        testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorContainerCarNumber()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                        break;
+                }
                 break;
 
-            case "Please fill out an expiration date.":
-                testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerExpiryDate().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+            case "Expiration Date":
+                switch (message){
+                    case "This expiration date is not valid." :
+                        testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerInvalidExpiryDate()),message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                        break;
+                    case "Please fill out an expiration date.":
+                        testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorContainerExpiryDate()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                        break;
+                }
                 break;
 
-            case "Please fill out a CVV.":
-                testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerCVV().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+            case "CVV":
+                switch (message){
+                    case "This security code is not valid." :
+                        testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerInvalidCVV()),message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                        break;
+                    case "Please fill out a CVV.":
+                        testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerCVV().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                        break;
+                }
                 break;
 
-            case "Please fill out a postal code.":
+            case "Postal Code":
                 testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerPostalCode().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
                 //EOC
             case "Please check your information and try again.":
-                testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerPayWithCard().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerPayWithCard()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
             case "This card number is not valid.":
                 testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerInvalidCarNumber().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
