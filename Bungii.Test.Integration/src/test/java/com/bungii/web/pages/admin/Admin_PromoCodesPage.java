@@ -9,7 +9,7 @@ public class Admin_PromoCodesPage extends PageBase {
 
     public WebElement Title_StandardcodesPage (boolean...ignoreException) { return findElement("//h4[text()='Standard Codes']", LocatorType.XPath,ignoreException); }
 
-    public WebElement Menu_Marketing (boolean... ignoreException) { return findElement("adminmenu-marketing", LocatorType.Id,ignoreException); }
+    public WebElement Menu_Marketing (boolean... ignoreException) { return findElement("//span[text()='Marketing']", LocatorType.XPath,ignoreException); }
 
     public WebElement Button_NewCode () { return findElement("//button[text()='New Code']", LocatorType.XPath); }
 

@@ -182,10 +182,10 @@ public class Admin_ReferralSourceSteps extends DriverBase {
         List<List<String>> CurrentGridData =  new ArrayList<>();
 
         switch(strArg1) {
-    case "Referral Source":
+    case "Referral Sources":
         CurrentGridData = paginateAndGetGridData(5);
     switch (field) {
-        case "Source":
+        case "Sources":
             Collections.sort(DefaultGridData.get(0));
             if (sortOrder.equals("Ascending")) {
                 testStepAssert.isTrue(DefaultGridData.get(0).equals(CurrentGridData.get(0)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
@@ -381,10 +381,10 @@ public class Admin_ReferralSourceSteps extends DriverBase {
     public void the_something_message_is_displayed_beside_something_field(String message, String field) throws Throwable {
 try{
         switch(field) {
-            case "From Date":
+            case "From Date is required":
                 testStepAssert.isElementTextEquals(admin_ReferralSourcePage.Label_FromDateError(), message, "From date is required should be displayed", "From date is required is displayed", "From date is required is not displayed");
                 break;
-            case "To Date":
+            case "To Date is required":
             testStepAssert.isElementTextEquals(admin_ReferralSourcePage.Label_ToDateError(), message, message + " should be displayed", message+ " is displayed", message+" is not displayed");
         break;
         }
