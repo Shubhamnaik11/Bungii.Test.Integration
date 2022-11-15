@@ -2672,7 +2672,7 @@ public class CoreServices extends DriverBase {
 
         }
         else if(Partner_Portal.equalsIgnoreCase("BestBuy2 service level")) {
-
+            String dropOffContactName =PropertyUtility.getDataProperties("best.buy11.partner.portal.dropOff.contact.name");
 //            //customer name
             JSONArray customFields = new JSONArray();
 
@@ -2716,7 +2716,7 @@ public class CoreServices extends DriverBase {
 
             JSONObject field4 = new JSONObject();
             field4.put("FieldRef", "f2bd90b3-6757-11ea-a4a3-00155d0a8706");
-            field4.put("FieldValue",  "Drekoooo135");
+            field4.put("FieldValue", dropOffContactName );
 
             JSONObject field5 = new JSONObject();
             field5.put("FieldRef", "f2bd90d3-6757-11ea-a4a3-00155d0a8706");
