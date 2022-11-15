@@ -39,17 +39,13 @@ public class Partner_Management_Email_Steps extends DriverBase {
         String oldEmailAddress = action.getAttributeValue(Page_PartnerManagement_Email.Text_OldEmailAddress());
         cucumberContextManager.setScenarioContext("Old Email",oldEmailAddress);
         switch (email){
-            case "Team QAs primary email address":
-                action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(), PropertyUtility.getDataProperties("team.qas.first.email.address"));
-                cucumberContextManager.setScenarioContext("NewEmail",PropertyUtility.getDataProperties("team.qas.first.email.address"));
+            case "Primary email address":
+                action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(), PropertyUtility.getDataProperties("qa.auto.test.email.address"));
+                cucumberContextManager.setScenarioContext("NewEmail",PropertyUtility.getDataProperties("qa.auto.test.email.address"));
                 break;
-            case "Team QAs secondary email address":
-                action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(),PropertyUtility.getDataProperties("team.qas.second.email.address"));
-                cucumberContextManager.setScenarioContext("NewEmail",PropertyUtility.getDataProperties("team.qas.second.email.address"));
-                break;
-            case "Team QAs test email address":
-                action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(),PropertyUtility.getDataProperties("team.qas.test.email.address"));
-                cucumberContextManager.setScenarioContext("NewEmail",PropertyUtility.getDataProperties("team.qas.second.email.address"));
+            case "Secondary email address":
+                action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(),PropertyUtility.getDataProperties("DriverEmail"));
+                cucumberContextManager.setScenarioContext("NewEmail",PropertyUtility.getDataProperties("DriverEmail"));
                 break;
         }
         log("I should be able to add the email address "+cucumberContextManager.getScenarioContext("NewEmail"),"I could add the email address "+cucumberContextManager.getScenarioContext("NewEmail"),false);
