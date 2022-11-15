@@ -44,10 +44,10 @@ Feature: Equibid Partner Portal
   Scenario: To verify that 2nd email is sent to configured email IDs when a new delivery is scheduled with date/time earlier than 1st delivery (Partner portal)
     When I request Partner Portal "Solo" Trip for "Equip-bid" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |kansas| NEXT_POSSIBLE_THIRD_SLOT | 8877661125 | Testcustomertywd_appleMarkDV LutherDV|
+      |kansas| NEXT_POSSIBLE_THIRD_SLOT | 8877661132 | Testcustomertywd_appleMarkEC LutherEC|
     And I wait for 1 minutes
     When I request Partner Portal "Solo" Trip for "Equip-bid" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |kansas| NEXT_POSSIBLE | 8877661097 | Testcustomertywd_appleMarkCT LutherCT|
+      |kansas| NEXT_POSSIBLE | 8877661133 | Testcustomertywd_appleMarkED LutherED|
     And I wait for 2 minutes
     Then Partner firm should receive "2nd-Initial Email For Scheduled Delivery Before First Delivery" email
