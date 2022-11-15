@@ -8,6 +8,7 @@ Feature: Admin_ReferralSource
 
   @sanity
   @regression
+    @sn11
   Scenario: Verify Referral Source Grid Calculations
     Then the "Percentage of total(Accounts Created)" should display accurate value for each Source
     And  the "Percentage of total(Trips Completed)" should display accurate value for each Source
