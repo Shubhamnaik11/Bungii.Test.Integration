@@ -52,18 +52,19 @@ public class Admin_ReferralSourceSteps extends DriverBase {
         String sort = null;
         Thread.sleep(5000);
     switch (grid) {
-        case "Referral Source":
+        case "Referral Sources":
 
             switch (header) {
-                case "Source":
+                case "Sources":
                     DefaultGridData = paginateAndGetGridData(5);
-                    sort = admin_ReferralSourcePage.Header_Source().getAttribute("class");
+                    action.click(admin_ReferralSourcePage.Header_Source());
+                    sort = admin_ReferralSourcePage.Header_Source().getAttribute("aria-label");
                     if (sortOrder.equals("Ascending")) {
-                        if (!sort.equals("sorting_asc")) {
+                        if (!sort.equals("Sources sort asc")) {
                             action.click(admin_ReferralSourcePage.Header_Source());
                         }
                     } else {
-                        if (!sort.equals("sorting_desc")) {
+                        if (!sort.equals("Sources sort desc")) {
                             action.click(admin_ReferralSourcePage.Header_Source());
                         }
                     }
