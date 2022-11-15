@@ -1256,7 +1256,7 @@ public class BungiiInProgressSteps extends DriverBase {
     @Then("^I should see the dropoff contact name under the customer name field$")
     public void i_should_see_the_dropoff_contact_name_under_the_customer_name_field() throws Throwable {
         try{
-        String dropoffContactName = cucumberContextManager.getScenarioContext("DROPOFFCONTACTNAME").toString().substring(0, 30);
+        String dropoffContactName = cucumberContextManager.getScenarioContext("DROPOFFCONTACTNAME").toString();
         String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp());
         testStepAssert.isEquals(customerName,dropoffContactName,dropoffContactName+ "Should be displayed",customerName+ "is displayed",dropoffContactName+ "is not displayed");
     }    catch(Exception e) {
