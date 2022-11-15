@@ -28,7 +28,7 @@ Feature: Admin_CustomersPage
 
     When I navigate to following pages one by one
       |Page |
-      | All Deliveries |
+      |Completed Deliveries|
     And I enter "customers" "first name" in the "Deliveries search" box as "Testcustomertywd_appleuHWLbz"
     Then I should see "customer first name" listed on the "Deliveries" page
     When I enter "customers" "last name" in the "Deliveries search" box as "Stark"

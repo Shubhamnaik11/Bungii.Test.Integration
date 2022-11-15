@@ -22,7 +22,7 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Grid_TripList () { return findElement("tblTripList",LocatorType.Id);}
 
-    public WebElement Dropdown_SearchForPeriod () { return  findElement("SearchForPeriod", LocatorType.Id);}
+    public WebElement Dropdown_SearchForPeriod () { return  findElement("//select[@class='user-trip-dropdown form-select']", LocatorType.XPath);}
 
     public WebElement Label_SuccessTripCount () {return  findElement("//h1[@class='text-success']",LocatorType.XPath); }
 
