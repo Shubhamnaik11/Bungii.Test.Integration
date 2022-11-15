@@ -1115,7 +1115,8 @@ try{
 
         //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
      //   action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
-            action.clickOnDropdown();
+//            action.clickOnDropdown();
+            SetupManager.getDriver().findElement(By.xpath("//div[@class='autocomplete-dropdown-container']/div/span[contains(text(),'"+arg1+"')]")).click();
         Thread.sleep(1000);
         String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
         cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
