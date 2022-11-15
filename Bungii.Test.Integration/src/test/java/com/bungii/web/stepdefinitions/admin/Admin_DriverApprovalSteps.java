@@ -11,6 +11,9 @@ import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_DrivePage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_PickUpInfoPage;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_Email;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LocationPage;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LoginPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -44,6 +47,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Driver_DrivePage driver_drivePage = new Driver_DrivePage();
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
+    PartnerManagement_Email Page_PartnerManagement_Email = new PartnerManagement_Email();
+    PartnerManagement_LoginPage Page_PartnerManagement_Login = new PartnerManagement_LoginPage();
+    PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
 
     @Given("^I am logged in as Admin$")
     public void i_am_logged_in_as_admin() throws Throwable {
@@ -370,6 +376,22 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
                 case "Scale":
                     action.click(admin_GeofencePage.Button_Scale());
+                    break;
+                case "Edit Email":
+                    action.click(Page_PartnerManagement_Email.Button_EditEmail());
+                    break;
+                case "Login":
+                    action.click(Page_PartnerManagement_Login.Button_Login());
+                    Thread.sleep(5000);
+                    break;
+                case "Clear filter":
+                    action.click(Page_PartnerManagement_Location.Button_ClearFilter());
+                    break;
+                case "Logout":
+                    action.click(Page_PartnerManagement_Login.Button_Logout());
+                    break;
+                case "Add Email Address":
+                    action.click(Page_PartnerManagement_Email.Button_AddEmailAddress());
                     break;
             }
             log("I click on the " + arg0 + " button",

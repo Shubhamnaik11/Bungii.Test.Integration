@@ -9,6 +9,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LocationPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -47,6 +48,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
     Admin_PartnerPortalPage admin_partnerPortalPage = new Admin_PartnerPortalPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+    PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
 
 
     @When("^I click on \"([^\"]*)\" Menu$")
@@ -695,6 +697,16 @@ try{
                 break;
             case "Your pickup is scheduled outside partner working hours.":
                 actualMessage=action.getText(admin_EditScheduledBungiiPage.Label_WarningForOutsideBungiiHoursTimeSet());
+                if(actualMessage.equals(message)){
+                    testStepAssert.isTrue(true,"Expected message '"+message+"' is displayed.","Expected message '"+message+"'is not displayed.");
+                }
+                else {
+                    testStepAssert.isFail("Expected message is not displayed.");
+                }
+                break;
+            case "No data found for the search filter. Click here to clear":
+                Thread.sleep(3000);
+                actualMessage=action.getText(Page_PartnerManagement_Location.Text_NoDataFound());
                 if(actualMessage.equalsIgnoreCase(message)){
                     testStepAssert.isTrue(true,"Expected message '"+message+"' is displayed.","Expected message '"+message+"'is not displayed.");
                 }

@@ -12,6 +12,7 @@ import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_DetailsPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_Email;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -64,6 +65,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
+    PartnerManagement_Email Page_PartnerManagement_Email = new PartnerManagement_Email();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -1076,6 +1078,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
                 case "Trailer":
                     action.click(admin_DriverPage.Button_Trailer());
+                    break;
+                case "Save Email":
+                    action.click(Page_PartnerManagement_Email.Button_Save());
+                    Thread.sleep(3000);
                     break;
             }
             log("I click on the "+Name+" button",
