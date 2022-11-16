@@ -11,15 +11,15 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Changed_Time() { return findElement("//tr[@id='row1']/td[5]/a", LocatorType.XPath); }
 
-    public WebElement Dropdown_ScheduledDate_Time() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
+    public WebElement Dropdown_ScheduledDate_Time() { return findElement("//select[@class='timepicker form-control']/option[3]", LocatorType.XPath); }
 
-    public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
+    public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("reason form-select",LocatorType.ClassName, ignoreException); }
 
     public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[contains(.,'%s')]",driverName),LocatorType.XPath);}
 
     public WebElement DatePicker_ScheduledDate () { return findElement("PickupDetails_ScheduledDate", LocatorType.Id); }
 
-    public WebElement TimePicker_Time () { return findElement("PickupDetails_ScheduledTime", LocatorType.Id); }
+    public WebElement TimePicker_Time () { return findElement("timepicker form-control", LocatorType.ClassName); }
 
     public WebElement List_TimeFrame (String time) { return findElement("//div/ul/li[text()='"+time+"']", LocatorType.XPath); }
 
