@@ -66,6 +66,10 @@ public class DriverRegistrationSteps extends DriverBase {
                 action.refreshPage();
                 Thread.sleep(1000);
                 break;
+            case "Partner Management":
+                utility.NavigateToPartnerManagementLogin();;
+                Thread.sleep(1000);
+                break;
         }
         pass("I should be navigate to " + page,
                 "I am navigate to " + page, false);

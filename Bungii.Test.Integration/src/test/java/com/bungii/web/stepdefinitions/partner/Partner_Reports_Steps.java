@@ -4,10 +4,13 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.Admin_DashboardPage;
 import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.pages.partner.Partner_Done;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_Email;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LocationPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -42,6 +45,9 @@ public class Partner_Reports_Steps extends DriverBase {
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     Partner_DashboardPage Page_Partner_Dashboard = new Partner_DashboardPage();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
+    PartnerManagement_Email Page_PartnerManagement_Email = new PartnerManagement_Email();
+    PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
+    Admin_DashboardPage admin_DashboardPage = new Admin_DashboardPage();
 
 
     @And("^I store the delivery details$")
@@ -116,6 +122,31 @@ public class Partner_Reports_Steps extends DriverBase {
             case "Sort City":
                 Thread.sleep(2000);
                 action.click(admin_DriverPage.Link_SortCity());
+                break;
+            case "Partner location":
+                action.click(Page_PartnerManagement_Email.Link_PartnerLocationSelectFromSideBar());
+                break;
+            case "Arrow":
+                Thread.sleep(3000);
+                action.click(Page_PartnerManagement_Location.Link_AccessChildLocation());
+                break;
+            case "Partners":
+                action.click(Page_PartnerManagement_Location.Link_Partners());
+                break;
+            case "Partner Portal":
+            case "First Child Partner":
+                action.click(Page_PartnerManagement_Location.Link_FirstChildPartner());
+                break;
+            case "Clear text":
+                action.click(Page_PartnerManagement_Location.Link_ClearText());
+                break;
+            case "Partner Settings":
+                action.click(admin_DashboardPage.Link_PartnerSettings());
+                Thread.sleep(6000);
+                action.switchToTab(1);
+                break;
+            case "PARTNERS":
+                action.click(admin_DashboardPage.Link_Partners());
                 break;
         }
         log("I should be able to click on the" + text +" button","I could click on the" + text +" button",false);
