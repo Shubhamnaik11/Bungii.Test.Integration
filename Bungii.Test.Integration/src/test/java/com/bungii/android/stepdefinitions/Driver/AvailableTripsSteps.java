@@ -598,5 +598,19 @@ public class AvailableTripsSteps extends DriverBase {
                 true);
     }
     }
+
+    @Then("^The \"([^\"]*)\" should match$")
+    public void the_something_should_match(String strArg1) throws Throwable {
+        switch (strArg1){
+            case "Arrival time":
+//
+
+                break;
+            case "Expected time at drop-off":
+
+//                 [Projected Start Time] + ([Projected LoadUnload Time] / 3) + [Projected Drive Time] + 40
+                break;
+        }
+    }
 }
 

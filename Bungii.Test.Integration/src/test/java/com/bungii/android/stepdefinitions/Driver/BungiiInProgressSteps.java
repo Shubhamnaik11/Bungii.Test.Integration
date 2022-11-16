@@ -1228,6 +1228,16 @@ public class BungiiInProgressSteps extends DriverBase {
                     Thread.sleep(10000);
                     testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_TeamMate),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
                     break;
+                case "Arrival time at pickup":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_ArivalTimeAtPickup()),"Arrival Time at pickup label should be displayed","Arrival Time at pickup label is displayed","Arrival Time at pickup label is not displayed");
+                    String expectedTextAtPickup = action.getText(updateStatusPage.Text_ArivalTimeAtPickup());
+                    testStepAssert.isEquals(expectedTextAtPickup, element, element + " Text should be displayed", element + " Text is displayed", expectedTextAtPickup + "is displayed");
+                    break;
+                case "Expected time at drop-off":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_ArivalTimeAtPickup()),"Expected time at drop-off label should be displayed","Expected time at drop-off label is displayed","Expected time at drop-off label is not displayed");
+                    String expectedTextAtDropOff = action.getText(updateStatusPage.Text_ExpectedTimeAtDropOff());
+                    testStepAssert.isEquals(expectedTextAtDropOff, element, element + " Text should be displayed", element + " Text is displayed", expectedTextAtDropOff + "is displayed");
+                    break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

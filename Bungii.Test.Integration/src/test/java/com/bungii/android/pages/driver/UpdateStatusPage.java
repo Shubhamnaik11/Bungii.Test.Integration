@@ -52,5 +52,7 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Icon_DropOff(){return findElement("//android.view.ViewGroup/android.widget.ScrollView/androidx.appcompat.widget.LinearLayoutCompat/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.ImageView",LocatorType.XPath);}
     public WebElement Text_ContactDuo(boolean...IgnoreException){return findElement("com.bungii.driver:id/tv_contact_duo_label",LocatorType.Id,IgnoreException);}
     public WebElement Text_TeamMate(boolean... IgnoreException){return findElement("com.bungii.driver:id/tv_teammate_label",LocatorType.Id,IgnoreException);}
+    public WebElement Text_ArivalTimeAtPickup(){return findElement("com.bungii.driver:id/tv_pickup_arrival_time_label",LocatorType.Id);}
+    public WebElement Text_ExpectedTimeAtDropOff(){return findElement("com.bungii.driver:id/tv_drop_off_expected_time_label",LocatorType.Id);}
 
 }

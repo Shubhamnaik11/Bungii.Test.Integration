@@ -473,7 +473,7 @@
       And I slide update button on "UNLOADING ITEMS" Screen
 
     #CORE-3271:To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
-      @ready
+      @testAllan
     Scenario:To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
       When I request Partner Portal "Solo" Trip for "Equip-bid" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -484,10 +484,17 @@
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Partner portal Trip from available trip
       Then I should see "CUSTOMER HELP" header displayed
+        #
+      Then The "Arrival time at pickup" "Text" should be displayed
+      Then The "Expected time at drop-off" "Text" should be displayed
+      Then The "Arrival time" should match
       When I accept selected Bungii
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from driver scheduled trip
       Then I should see "CUSTOMER HELP" header displayed
+        #
+      Then The "Arrival time at pickup" "Text" should be displayed
+      Then The "Expected time at drop-off" "Text" should be displayed
       And I start selected Bungii
       Then Bungii driver should see "General Instructions"
       And I slide update button on "EN ROUTE" Screen
