@@ -11,6 +11,9 @@ import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_DrivePage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_PickUpInfoPage;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_Email;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LocationPage;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LoginPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -44,6 +47,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Driver_DrivePage driver_drivePage = new Driver_DrivePage();
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
+    PartnerManagement_Email Page_PartnerManagement_Email = new PartnerManagement_Email();
+    PartnerManagement_LoginPage Page_PartnerManagement_Login = new PartnerManagement_LoginPage();
+    PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
 
     @Given("^I am logged in as Admin$")
     public void i_am_logged_in_as_admin() throws Throwable {
@@ -120,7 +126,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.click(admin_GetAllBungiiDriversPage.Driver_Profile(applicantName));
                     break;
                 case "Edit":
-                    String Old_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+                    String Old_Phone_Number = action.getText(admin_GetAllBungiiDriversPage.Driver_Phone());
                     cucumberContextManager.setScenarioContext("Old_Phone", Old_Phone_Number);
                     action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Edit());
                     break;
@@ -143,7 +149,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @And("^I change the \"([^\"]*)\" phone number$")
     public void i_enter_confirm_comment_for_edited_phone_and_something_it(String strArg1) throws Throwable {
 
-        action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Phone(), PropertyUtility.getDataProperties("driver.mobile.change"));
+        action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_PhoneEntry(), PropertyUtility.getDataProperties("driver.mobile.change"));
         //action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Save());
         log("I should able to change " + strArg1 + " phone number.", "I have changed " + strArg1 + " phone number.", true);
     }
@@ -173,7 +179,6 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void i_see_updated_phone_number() throws Throwable {
         try {
             Thread.sleep(2000);
-            testStepAssert.isElementNotEnabled(admin_GetAllBungiiDriversPage.Driver_Phone(), "Driver phone field should be not enabled.", "Driver phone field is not enabled.", "Driver phone field is enabled");
             String Edited_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
 
             testStepVerify.isEquals(Edited_Phone_Number, PropertyUtility.getDataProperties("driver.mobile.change"));
@@ -188,8 +193,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @Then("^I see unchanged driver phone number$")
     public void i_see_unchanged_phone_number() throws Throwable {
         try {
-            testStepAssert.isElementNotEnabled(admin_GetAllBungiiDriversPage.Driver_Phone(), "Driver phone field should not be enabled.", "Driver phone field is not enabled.", "Driver phone field is enabled");
-            String Display_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+            String Display_Phone_Number = action.getText(admin_GetAllBungiiDriversPage.Driver_Phone());
 
             testStepVerify.isEquals(Display_Phone_Number, (String) cucumberContextManager.getScenarioContext("Old_Phone"));
             log("Driver phone number should remain un change.", "Driver phone number is unchanged.", true);
@@ -372,6 +376,22 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
                 case "Scale":
                     action.click(admin_GeofencePage.Button_Scale());
+                    break;
+                case "Edit Email":
+                    action.click(Page_PartnerManagement_Email.Button_EditEmail());
+                    break;
+                case "Login":
+                    action.click(Page_PartnerManagement_Login.Button_Login());
+                    Thread.sleep(5000);
+                    break;
+                case "Clear filter":
+                    action.click(Page_PartnerManagement_Location.Button_ClearFilter());
+                    break;
+                case "Logout":
+                    action.click(Page_PartnerManagement_Login.Button_Logout());
+                    break;
+                case "Add Email Address":
+                    action.click(Page_PartnerManagement_Email.Button_AddEmailAddress());
                     break;
             }
             log("I click on the " + arg0 + " button",
