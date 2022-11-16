@@ -7,9 +7,9 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Menu_BusinessUsers () { return findElement("//span[contains(text(),'Bulk Delivery Upload')]", LocatorType.XPath); }
 
-    public WebElement Menu_BusinessUsersPayment () { return findElement("adminmenu-businessusers-payment", LocatorType.Id); }
+    public WebElement Menu_BusinessUsersPayment () { return findElement("//a[text()='Partner Payment']", LocatorType.XPath); }
 
-    public WebElement Menu_BulkTrips () { return findElement("adminmenu-businessusers-bulkbungii", LocatorType.Id); }
+    public WebElement Menu_BulkTrips () { return findElement("//a[text()='Upload Deliveries']", LocatorType.XPath); }
 
     public WebElement Header_BusinessUsers () { return findElement("//h4[contains(text(),'Partners')]", LocatorType.XPath); }
 
@@ -17,7 +17,7 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement TextBox_Search ( ) { return findElement("SearchCriteria", LocatorType.Id); }
 
-    public WebElement Button_Cancel ( ) { return findElement("//button[contains(text(),'Cancel')]", LocatorType.XPath); }
+    public WebElement Button_Cancel ( ) { return findElement("//button[text()='Cancel']", LocatorType.XPath); }
 
     public WebElement Button_Save ( ) { return findElement("//button[contains(text(),'Save')]", LocatorType.XPath); }
 
@@ -25,20 +25,20 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement DropDown_BusinessUserIsActive( ) { return findElement("//label[contains(text(),'Status:')]/parent::div/select", LocatorType.XPath); }
 
-    public WebElement TextBox_BusinessUserPhoneNo ( ) { return findElement("//label[contains(text(),'Phone number:')]/following-sibling::div/div/input", LocatorType.XPath); }
+    public WebElement TextBox_BusinessUserPhoneNo ( ) { return findElement("//label[text()='Phone Number:']//following-sibling::div/div/input", LocatorType.XPath); }
 
-    public WebElement TextBox_BusinessUserEmailAddress( ) { return findElement("//label[contains(text(),'Email:')]/following-sibling::div/div/input", LocatorType.XPath); }
+    public WebElement TextBox_BusinessUserEmailAddress( ) { return findElement("//label[text()='Email:']//following-sibling::div/div/input", LocatorType.XPath); }
 
     //public WebElement Label_ErrorContainer( ) { return findElement("error-summary-modal", LocatorType.Id); }
-    public WebElement Label_ErrorContainer( ) { return findElement("//span[@class='field-validation-error error']", LocatorType.XPath); }
+    public WebElement Label_ErrorContainer( ) { return findElement("//p[text()=' Phone number already exists']", LocatorType.XPath); }
 
-    public WebElement Label_ErrorContainerPhone( ) { return findElement("BusinessUser_PhoneNo-error", LocatorType.Id); }
+    public WebElement Label_ErrorContainerPhone( ) { return findElement("//div[text()='Oops! The phone number is invalid.']", LocatorType.XPath); }
 
-    public WebElement Label_ErrorContainerEmail( ) { return findElement("BusinessUser_EmailAddress-error", LocatorType.Id); }
+    public WebElement Label_ErrorContainerEmail( ) { return findElement("//div[text()='Oops! The email address is invalid.']", LocatorType.XPath); }
 
-    public WebElement DropDown_BusinessUser( ) { return findElement("Reference", LocatorType.Id); }
+    public WebElement DropDown_BusinessUser( ) { return findElement("//select[@class='form-select']", LocatorType.XPath); }
 
-    public WebElement DropDown_AddBusinessUserPayment( ) { return findElement("AddBusinessUserPaymentRequestModel_Reference", LocatorType.Id); }
+    public WebElement DropDown_AddBusinessUserPayment( ) { return findElement("//select[@class='form-select']", LocatorType.XPath); }
 
     public WebElement Button_RequestPayment( ) { return findElement("//button[contains(text(),'Add Payment Method')]", LocatorType.XPath); }
 
@@ -50,32 +50,32 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement TextBox_PostalCode( ) { return findElement("postal-code", LocatorType.Id); }
 
-    public WebElement Button_PaymentSave( ) { return findElement("btnSave", LocatorType.Id); }
+    public WebElement Button_PaymentSave( ) { return findElement("//button[text()='Save']", LocatorType.XPath); }
 
     public WebElement Button_PaymentCancel( ) { return findElement("btnCancel", LocatorType.Id); }
 
     public WebElement CheckBox_Default( ) { return findElement("AddBusinessUserPaymentRequestModel_IsDefault", LocatorType.Id); }
 
-    public WebElement Label_SuccessMessage( ) { return findElement("successMessage", LocatorType.Id); }
+    public WebElement Label_SuccessMessage( ) { return findElement("//span[text()='Payment details added successfully for partner.']", LocatorType.XPath); }
 
     public WebElement Frame_Braintree( ) { return findElement("braintree-hosted-field-number", LocatorType.Id); }
 
-    public WebElement Label_BulkTripSuccess( ) { return findElement("error", LocatorType.Id); }
+    public WebElement Label_BulkTripSuccess( ) { return findElement("//div[text()='Deliveries have been requested successfully.']", LocatorType.XPath); }
 
     public WebElement Button_Ok( ) { return findElement("//button[text()='OK']", LocatorType.XPath); }
 
-    public WebElement Button_Confirm( ) { return findElement("btnConfirm", LocatorType.Id); }
+    public WebElement Button_Confirm( ) { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
 
-    public WebElement Button_Upload( ) { return findElement("//input[@value='Upload']", LocatorType.XPath); }
+    public WebElement Button_Upload( ) { return findElement("//button[text()='Upload']", LocatorType.XPath); }
 
-    public WebElement Input_DataFile( ) { return findElement("dataFile", LocatorType.Id); }
+    public WebElement Input_DataFile( ) { return findElement("(//input[@class='form-control'])[1]", LocatorType.XPath); }
 
-    public WebElement Input_ImageFile( ) { return findElement("imageFile", LocatorType.Id); }
+    public WebElement Input_ImageFile( ) { return findElement("(//input[@class='form-control'])[2]", LocatorType.XPath); }
 
 //BOC
     public WebElement Label_PayWithCard(){ return  findElement("//div[@class='braintree-sheet__text']", LocatorType.XPath);}
 
-    public WebElement Label_NoBusinessUsersFound(){ return findElement("//h5[@class='margintop11'][contains(text(),'No Partners found.')]", LocatorType.XPath);}
+    public WebElement Label_NoBusinessUsersFound(){ return findElement("//td[text()='No Data.']", LocatorType.XPath);}
 
     public WebElement Label_ErrorContainerCarNumber(){ return  findElement("//div[contains(text(),'Please fill out a card number.')]", LocatorType.XPath);}
 
@@ -83,7 +83,7 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Label_ErrorContainerCVV(){ return  findElement("//div[contains(text(),'Please fill out a CVV.')]", LocatorType.XPath);}
     //BOC
-    public WebElement Link_DownloadFailedCSVFile( ) { return findElement("//div[@id='validatedBulkTrips']/a[contains(text(),'Click here to download deliveries which failed validation')]", LocatorType.XPath); }
+    public WebElement Link_DownloadFailedCSVFile( ) { return findElement("//a[text()='Click here to download deliveries which failed validation']", LocatorType.XPath); }
 
     public WebElement Label_ErrorContainerPostalCode(){ return  findElement("//div[contains(text(),'Please fill out a postal code.')]", LocatorType.XPath);}
 
@@ -94,5 +94,8 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Label_ErrorOnBulkTripsPage(){ return findElement("//div[@class='error mb10']", LocatorType.XPath);}
     //EOC
+
+    public WebElement Label_ErrorOnInvalidCard(){ return findElement("//span[@class='text-error']", LocatorType.XPath);}
+
 
 }
