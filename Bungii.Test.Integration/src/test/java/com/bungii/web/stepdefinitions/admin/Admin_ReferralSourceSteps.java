@@ -381,7 +381,7 @@ public class Admin_ReferralSourceSteps extends DriverBase {
     @Then("^the \"([^\"]*)\" message is displayed beside \"([^\"]*)\" field$")
     public void the_something_message_is_displayed_beside_something_field(String message, String field) throws Throwable {
 try{
-        switch(field) {
+        switch(message) {
             case "From Date is required":
                 testStepAssert.isElementTextEquals(admin_ReferralSourcePage.Label_FromDateError(), message, "From date is required should be displayed", "From date is required is displayed", "From date is required is not displayed");
                 break;
