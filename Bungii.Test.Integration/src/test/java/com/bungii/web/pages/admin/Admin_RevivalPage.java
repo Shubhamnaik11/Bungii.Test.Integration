@@ -17,7 +17,7 @@ public class Admin_RevivalPage extends PageBase {
 
     public WebElement Label_PickupCustomer() { return findElement("//div[contains(.,'Customer :')]/b[2]", LocatorType.XPath); }
 
-    public WebElement Label_PickupPartnerPortal() { return findElement("revive-pickup-partner-portal", LocatorType.Id); }
+    public WebElement Label_PickupPartnerPortal() { return findElement("//body[1]/div[3]/div[1]/div[1]/div[2]/div[1]/div[1]/span[1]", LocatorType.XPath); }
 
     public WebElement Link_ChangeDeliveryStatus(boolean...ignoreException) { return findElement("//tr/td/a/img", LocatorType.XPath,ignoreException); }
 
