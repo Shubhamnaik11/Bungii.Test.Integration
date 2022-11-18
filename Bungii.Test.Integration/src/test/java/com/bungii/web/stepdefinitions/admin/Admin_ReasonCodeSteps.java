@@ -65,10 +65,12 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         try{
         switch (scheduleDate) {
             case "Time":
+                    String time = (String) cucumberContextManager.getScenarioContext("SCHEDULED_BUNGII_TIME");
+                    time=time.substring(8,16);
                     action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
                     Thread.sleep(3000);
-                    action.click(admin_EditScheduledBungiiPage.Dropdown_ScheduledDate_Time());
-                    String timeChanged = action.getAttributeValue(admin_EditScheduledBungiiPage.TimePicker_Time());
+                    action.click(admin_EditScheduledBungiiPage.Dropdown_ScheduledDate_Time(time));
+                    String timeChanged = action.getText(admin_EditScheduledBungiiPage.Dropdown_ScheduledDate_Time(time));
                     cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
                     break;
             case "Date":
@@ -76,7 +78,10 @@ public class Admin_ReasonCodeSteps extends DriverBase {
                     Thread.sleep(1000);
                     action.click(admin_EditScheduledBungiiPage.Changed_Date());
                     String dateChanged = action.getAttributeValue(admin_EditScheduledBungiiPage.DatePicker_ScheduledDate());
-                    cucumberContextManager.setScenarioContext("Date_Changed", dateChanged);
+                    Date date1=new SimpleDateFormat("MM/dd/yyyy").parse(dateChanged);
+                    String date= String.valueOf(date1);
+                    date =date.substring(4,10)+", "+date.substring(24);
+                    cucumberContextManager.setScenarioContext("Date_Changed", date);
                     break;
 
             default: break;
@@ -247,7 +252,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     public void the_updated_time_should_be_displayed_on_delivery_details_page() throws Throwable {
         try {
             String expectedTime = (String) cucumberContextManager.getScenarioContext("Time_Changed");
-            //action.refreshPage();
+            action.refreshPage();
             String actualTime = action.getText(admin_EditScheduledBungiiPage.Changed_Time());
             testStepAssert.isTrue(actualTime.contains(expectedTime), "Correct time need to be display", "Correct time is display", "Incorrect time is displayed");
         }
@@ -263,12 +268,9 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     public void the_updated_date_should_be_displayed_on_delivery_details_page() throws Throwable {
         try {
             String expectedDate = (String) cucumberContextManager.getScenarioContext("Date_Changed");
-            Date date1=new SimpleDateFormat("MM/dd/yyyy").parse(expectedDate);
-            String date= String.valueOf(date1);
-            date =date.substring(4,10)+", "+date.substring(24);
             action.refreshPage();
             String actualDate = action.getText(admin_EditScheduledBungiiPage.Changed_Time());
-            testStepAssert.isTrue(actualDate.contains(date), "Correct date need to be display", "Correct date is display", "Incorrect date is displayed");
+            testStepAssert.isTrue(actualDate.contains(expectedDate), "Correct date need to be display", "Correct date is display", "Incorrect date is displayed");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

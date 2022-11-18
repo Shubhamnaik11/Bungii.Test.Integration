@@ -135,7 +135,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_Delivery_Successfull(){return  findElement("//tbody/tr/td[contains(text() ,\"Payment Successful\")]",LocatorType.XPath);}
 
     public WebElement Text_Delivery_TripStarted(){return  findElement("//tbody/tr/td[contains(text() ,\"Trip Started\")]",LocatorType.XPath);}
-    public WebElement Dropdown_Notes_History(){return  findElement("showNotes",LocatorType.Id);}
+    public WebElement Dropdown_Notes_History(){return  findElement("//body/div[@id='popover-basic']/div[2]/div[3]",LocatorType.XPath);}
 
     public WebElement Text_NotesEmpty_Message(){return  findElement("notes-tab",LocatorType.Id);}
 
@@ -161,7 +161,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_ConfirmDeleteNote(){return  findElement("//div/a[text() =\"Yes\"]",LocatorType.XPath);}
 
-    public WebElement Button_NoteClose(){return  findElement("//div[@id=\"CustomerServiceNotes\"]/div/button/span[text() =\"×\"]",LocatorType.XPath);}
+    public WebElement Button_NoteClose(){return  findElement("//button[@class='btn-close']",LocatorType.XPath);}
 
     public WebElement Text_EditNote_TextArea(){return  findElement("//div[1]/div/textarea",LocatorType.XPath);}
 
@@ -205,11 +205,11 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Header_HistoryNewValue(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr/th[3]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryEventValue(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[1]",LocatorType.XPath);}
+    public WebElement Text_HistoryEventValue(){return findElement("//td[text()='Date Time Edit']",LocatorType.XPath);}
 
-    public WebElement Text_HistoryOldValueData(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[2]",LocatorType.XPath);}
+    public WebElement Text_HistoryOldValueData(){return findElement("//td[text()='Date Time Edit']/following-sibling::td[1]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryNewValueData(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[3]",LocatorType.XPath);}
+    public WebElement Text_HistoryNewValueData(){return findElement("//td[text()='Date Time Edit']/following-sibling::td[2]",LocatorType.XPath);}
 
     public WebElement Text_HistoryEditedTime(){return findElement("//div[@id=\"history-tab\"]/div/label",LocatorType.XPath);}
 
