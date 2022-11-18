@@ -190,7 +190,7 @@ Feature: SoloScheduled
     When Bungii Driver "clicks More Options"
     And I click "Customer Signature" button on "update" screen
     Then I should see the "Customer signature" header "Displayed"
-    And I click "Customer Signature" button on "update" screen
+    #CORE:4665:Verify that Customer or Partner name is shown to driver if drop-off contact name was left blank in partner portal delivery creation
     Then I should see the customers name under the customer name field
 
     When I request "Solo" Bungii as a customer in "atlanta" geofence
@@ -206,9 +206,9 @@ Feature: SoloScheduled
     And I should be able to add customer signature
     And I click on "Clear Signature" button
     And I should be able to add customer signature
-    And I click "Submit Data" button on "update" screen
+    And I click "Submit" button on "update" screen
     And I slide update button on "UNLOADING ITEM" Screen
-    And I click "Skip This Step" button on "Rate customer" screen
+    And Bungii Driver "skips to rate customer"
     Then I should be navigated to "Bungii completed" screen
 
     And I wait for 2 minutes
@@ -250,10 +250,11 @@ Feature: SoloScheduled
     When Bungii driver uploads "1" image
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
-    Then I should see the customers name under the customer name field
+    #CORE-4665:Verify that drop-off contact name populates in customer name on driver app for partner portal trips
+    Then I should see the dropoff contact name under the customer name field
     And I click on "Skip Customer Signature" button
     And I slide update button on "UNLOADING ITEMS" Screen
-    And I click "Skip This Step" button on "Rate customer" screen
+    And Bungii Driver "skips to rate customer"
     Then I should be navigated to "Bungii completed" screen
     And I wait for 2 minutes
 
