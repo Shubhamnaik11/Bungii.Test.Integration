@@ -7,9 +7,9 @@ import java.util.List;
 
 public class Admin_GeofencePage extends PageBase {
 
-    public WebElement Menu_Geofences () { return findElement("//p/span[text()='Geofences']", LocatorType.XPath); }
+    public WebElement Menu_Geofences () { return findElement("//span[text()='Geofences']", LocatorType.XPath); }
 
-    public WebElement Menu_Attributes(){return findElement("//p/span[text()='Attributes']", LocatorType.XPath);}
+    public WebElement Menu_Attributes(){return findElement("//a[text()='Attributes']", LocatorType.XPath);}
 
     public WebElement Header_Geofences() { return findElement("//div/h4", LocatorType.XPath); }
 

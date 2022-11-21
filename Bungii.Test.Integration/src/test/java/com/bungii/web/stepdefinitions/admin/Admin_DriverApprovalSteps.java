@@ -375,6 +375,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 //EOC
 
                 case "Scale":
+                    Thread.sleep(5000);
                     action.click(admin_GeofencePage.Button_Scale());
                     break;
                 case "Edit Email":
