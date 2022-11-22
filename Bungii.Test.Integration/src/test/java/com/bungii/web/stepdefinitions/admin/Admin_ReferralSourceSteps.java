@@ -126,38 +126,39 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                     switch (header) {
                         case "Name":
                             DefaultGridData = paginateAndGetGridData(3);
-                            sort = admin_PromoterPage.Header_Name().getAttribute("onclick");
+                            action.click(admin_PromoterPage.Header_Name());
+                           sort = admin_PromoterPage.Header_Name().getAttribute("aria-label");
                             if (sortOrder.equals("Ascending")) {
-                                if (!sort.contains("ASC")) {
+                                if (!sort.contains("Name sort asc")) {
                                     action.click(admin_PromoterPage.Header_Name());
                                }
                             } else {
-                               if (!sort.contains("DESC")) {
+                               if (!sort.contains("Name sort desc")) {
                                     action.click(admin_PromoterPage.Header_Name());
                                }
                             }
 
                             break;
                         case "Created":
-                            sort = admin_PromoterPage.Header_Created().getAttribute("onclick");
+                            sort = admin_PromoterPage.Header_Created().getAttribute("aria-label");
                             if (sortOrder.equals("Ascending")) {
-                                if (!sort.contains("ASC")) {
+                                if (!sort.contains("Created sort asc")) {
                                     action.click(admin_PromoterPage.Header_Created());
                                 }
                             } else {
-                                if (!sort.contains("DESC")) {
+                                if (!sort.contains("Created sort desc")) {
                                     action.click(admin_PromoterPage.Header_Created());
                                 }
                             }
                             break;
                         case "Code Initials":
-                            sort = admin_PromoterPage.Header_CodeInitials().getAttribute("onclick");
+                            sort = admin_PromoterPage.Header_CodeInitials().getAttribute("aria-label");
                             if (sortOrder.equals("Ascending")) {
-                                if (!sort.contains("ASC")) {
+                                if (!sort.contains("Code Initials  sort asc")) {
                                     action.click(admin_PromoterPage.Header_CodeInitials());
                                 }
                             } else {
-                                if (!sort.contains("DESC")) {
+                                if (!sort.contains("Code Initials  sort desc")) {
                                     action.click(admin_PromoterPage.Header_CodeInitials());
                                 }
                             }

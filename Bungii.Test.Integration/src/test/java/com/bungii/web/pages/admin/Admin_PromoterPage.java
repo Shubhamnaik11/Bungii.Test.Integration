@@ -9,7 +9,7 @@ public class Admin_PromoterPage extends PageBase {
 
     public WebElement Menu_Promotion (boolean... ignoreException) { return findElement("//span[text()='Promo Codes']", LocatorType.XPath,ignoreException); }
 
-    public WebElement Menu_Promotion_Free_Delivery (boolean... ignoreException) { return findElement("adminmenu-free-delivery-menu", LocatorType.Id,ignoreException); }
+    public WebElement Menu_Promotion_Free_Delivery (boolean... ignoreException) { return findElement("//a[text()='Free Delivery Codes']", LocatorType.XPath,ignoreException); }
 
     public WebElement Menu_PromoterPayment (boolean... ignoreException) { return findElement("adminmenu-promoters-payment", LocatorType.Id,ignoreException); }
 
@@ -65,10 +65,10 @@ public class Admin_PromoterPage extends PageBase {
 
     public WebElement TextBox_PostalCode( ) { return findElement("postal-code", LocatorType.Id); }
 
-    public WebElement Header_Name () { return findElement("//th[contains(text(),'Name')]/span", LocatorType.XPath); }
+    public WebElement Header_Name() { return findElement("//th[text()='Name']", LocatorType.XPath); }
 
-    public WebElement Header_Created () { return findElement("//th[contains(text(),'Created')]/span", LocatorType.XPath); }
+    public WebElement Header_Created () { return findElement("//th[contains(text(),'Created')]", LocatorType.XPath); }
 
-    public WebElement Header_CodeInitials () { return findElement("//th[contains(text(),'Code Initials')]/span", LocatorType.XPath); }
+    public WebElement Header_CodeInitials () { return findElement("//th[contains(text(),'Code Initials')]", LocatorType.XPath); }
 
 }
