@@ -135,17 +135,17 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_Delivery_Successfull(){return  findElement("//tbody/tr/td[contains(text() ,\"Payment Successful\")]",LocatorType.XPath);}
 
     public WebElement Text_Delivery_TripStarted(){return  findElement("//tbody/tr/td[contains(text() ,\"Trip Started\")]",LocatorType.XPath);}
-    public WebElement Dropdown_Notes_History(){return  findElement("showNotes",LocatorType.Id);}
+    public WebElement Dropdown_Notes_History(){return  findElement("//span[text()='Notes']",LocatorType.XPath);}
 
-    public WebElement Text_NotesEmpty_Message(){return  findElement("notes-tab",LocatorType.Id);}
+    public WebElement Text_NotesEmpty_Message(){return  findElement("//span[text()='No notes available. Please start entering notes to appear here.']",LocatorType.XPath);}
 
     public WebElement Text_HistoryEmptyMessage(){return  findElement("history-tab",LocatorType.Id);}
 
-    public WebElement Textbox_AddNote(){return  findElement("newNote",LocatorType.Id);}
+    public WebElement Textbox_AddNote(){return  findElement("//textarea[@type='text']",LocatorType.XPath);}
 
-    public WebElement Button_SaveNote(){return  findElement("saveNote",LocatorType.Id);}
+    public WebElement Button_SaveNote(){return  findElement("//button[text()='Save']",LocatorType.XPath);}
 
-    public WebElement Text_FirstSavedNote(){return  findElement("//div[1][@class =\"note\"]/div/p",LocatorType.XPath);}
+    public WebElement Text_FirstSavedNote(){return  findElement("//div[1][@class =\"note\"]/div/span",LocatorType.XPath);}
 
     public WebElement Text_AdminName(){return  findElement("//div[2]/p[1]/strong",LocatorType.XPath);}
 
@@ -161,7 +161,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_ConfirmDeleteNote(){return  findElement("//div/a[text() =\"Yes\"]",LocatorType.XPath);}
 
-    public WebElement Button_NoteClose(){return  findElement("//div[@id=\"CustomerServiceNotes\"]/div/button/span[text() =\"×\"]",LocatorType.XPath);}
+    public WebElement Button_NoteClose(){return  findElement("//button[@class='btn-close']",LocatorType.XPath);}
 
     public WebElement Text_EditNote_TextArea(){return  findElement("//div[1]/div/textarea",LocatorType.XPath);}
 
@@ -169,7 +169,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_Notes(){return  findElement("//td/div/ul/li/p/span[text() =\"Notes\"]",LocatorType.XPath);}
 
-    public WebElement Link_History(){return  findElement("//td/div/ul/li/p/span[text() =\"History\"]",LocatorType.XPath);}
+    public WebElement Link_History(){return  findElement("//span[text()='History']",LocatorType.XPath);}
 
     public List<WebElement> List_Notes(){return  findElements("//div[@class ='note']/div/p",LocatorType.XPath);}
 
@@ -195,7 +195,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_NewScheduleDeliveryDate(String newDate){return  findElement(String.format("//tbody/tr/td/a[text()=\"%s\"]",newDate),LocatorType.XPath);}
 
-    public WebElement Button_History(){return findElement("history-tab-btn",LocatorType.Id);}
+    public WebElement Button_History(){return findElement("//h5[text()='History']",LocatorType.XPath);}
 
     public WebElement Text_AdminNameHistoryTab(){return findElement("//div[@id=\"history-tab\"]/div/h5",LocatorType.XPath);}
 
