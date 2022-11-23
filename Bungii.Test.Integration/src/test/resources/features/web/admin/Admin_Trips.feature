@@ -138,6 +138,11 @@ Feature: Admin_Trips
     And I open the delivery in a new browser tab
     Then I should see "Delivery Details" header
     And I close Delivery details page
+    When I view All Deliveries list on the admin portal
+    And I search the delivery of Customer
+    And I open the delivery in a new browser tab
+    Then I should see "Delivery Details" header
+    And I close Delivery details page
     And I view the Deliveries list on the admin portal
     And I search the delivery of Customer
     And The delivery should not be highlighted in "Blue" for "All Deliveries"

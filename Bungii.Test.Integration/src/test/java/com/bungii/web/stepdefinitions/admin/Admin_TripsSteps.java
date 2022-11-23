@@ -186,8 +186,7 @@ public class Admin_TripsSteps extends DriverBase {
     public void iOpenTheDeliveryInANewBrowserTab() throws Throwable {
         try{
             action.rightClickOpenNewTab(admin_ScheduledTripsPage.Link_BungiiDate());
-            ArrayList<String> tabs = new ArrayList<> (driver.getWindowHandles());
-            driver.switchTo().window(tabs.get(1));
+            action.switchToTab(1);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -215,8 +214,7 @@ public class Admin_TripsSteps extends DriverBase {
     public void iCloseDeliveryDetailsPage() throws Throwable {
         try{
             driver.close();
-            ArrayList<String> tabs = new ArrayList<> (driver.getWindowHandles());
-            driver.switchTo().window(tabs.get(0));
+            action.switchToTab(0);
             log("Delivery details page should be opened in a new tab",
                     "Delivery details page is opened in new a tab");
         } catch(Exception e){
