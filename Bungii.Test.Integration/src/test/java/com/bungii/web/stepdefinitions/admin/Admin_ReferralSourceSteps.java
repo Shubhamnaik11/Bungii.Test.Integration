@@ -141,6 +141,7 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                             break;
                         case "Created":
                             sort = admin_PromoterPage.Header_Created().getAttribute("aria-label");
+                            action.click(admin_PromoterPage.Header_Created());
                             if (sortOrder.equals("Ascending")) {
                                 if (!sort.contains("Created sort asc")) {
                                     action.click(admin_PromoterPage.Header_Created());
@@ -153,13 +154,14 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                             break;
                         case "Code Initials":
                             sort = admin_PromoterPage.Header_CodeInitials().getAttribute("aria-label");
+                            action.click(admin_PromoterPage.Header_CodeInitials());
                             if (sortOrder.equals("Ascending")) {
                                 if (!sort.contains("Code Initials  sort asc")) {
                                     action.click(admin_PromoterPage.Header_CodeInitials());
                                 }
                             } else {
                                 if (!sort.contains("Code Initials  sort desc")) {
-                                    action.click(admin_PromoterPage.Header_CodeInitials());
+//                                    action.click(admin_PromoterPage.Header_CodeInitials());
                                 }
                             }
 
@@ -269,7 +271,8 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                 if (sortOrder.equals("Ascending")) {
                     testStepAssert.isTrue(dateList.equals(CurrentGridData.get(1)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
                 } else {
-                    Collections.reverse(dateList);
+                    Collections.reverse(DefaultGridData.get(1));
+//                    Collections.reverse(dateList);
                   testStepAssert.isTrue(dateList.equals(CurrentGridData.get(1)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
                 }
                 break;
