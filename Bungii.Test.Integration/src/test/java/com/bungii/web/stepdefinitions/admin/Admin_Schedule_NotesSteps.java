@@ -342,13 +342,15 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @And("^I log into another \"([^\"]*)\" portal in a new tab$")
     public void i_log_into_another_something_portal_in_a_new_tab(String strArg1) throws Throwable {
         try {
-            String adminURL = "https://qaauto-portal.gobungii-dev.com/Admin/Login";
+            String adminURL = "https://qaauto-portal-v2.gobungii-dev.com/login";
             Thread.sleep(2000);
             action.openNewTab();
             action.navigateTo(adminURL);
             action.sendKeys(Page_AdminLogin.TextBox_Phone(), "9765330125");
             action.sendKeys(Page_AdminLogin.TextBox_Password(),"cci12345");
+            Thread.sleep(2000);
             action.click(Page_AdminLogin.Button_AdminLogin());
+            Thread.sleep(2000);
             cucumberContextManager.setScenarioContext("ADMIN2_NAME",action.getText(admin_ScheduledTripsPage.Text_AdminName()));
             log("I should be able to open new tab and login to admin portal","I should be able to open new tab and login to admin portal",false);
         } catch(Exception e){
@@ -680,13 +682,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                 case "Notes":
                     Thread.sleep(1000);
                     boolean notesNotUnderlined = admin_ScheduledTripsPage.Link_Notes().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
-                    testStepAssert.isTrue(notesNotUnderlined, "Notes should not be underlined", "Notes is not underlined", "Notes in Underlined");
+                    testStepAssert.isFalse(notesNotUnderlined, "Notes should not be underlined", "Notes is not underlined", "Notes in Underlined");
                     break;
 
                 case "History":
                     Thread.sleep(1000);
                     boolean historyNotUnderlined = admin_ScheduledTripsPage.Link_History().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
-                    testStepAssert.isTrue(historyNotUnderlined, "History should not be underlined", "History is not underlined", "History is Underlined");
+                    testStepAssert.isFalse(historyNotUnderlined, "History should not be underlined", "History is not underlined", "History is Underlined");
                     break;
             }
             } catch(Exception e){

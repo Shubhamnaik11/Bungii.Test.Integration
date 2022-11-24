@@ -167,7 +167,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_NoteUpdate(){return  findElement("//div/div/button[text() =\"Update\"]",LocatorType.XPath);}
 
-    public WebElement Link_Notes(){return  findElement("//td/div/ul/li/p/span[text() =\"Notes\"]",LocatorType.XPath);}
+    public WebElement Link_Notes(){return  findElement("//span[text()='Notes']",LocatorType.XPath);}
 
     public WebElement Link_History(){return  findElement("//span[text()='History']",LocatorType.XPath);}
 
