@@ -141,7 +141,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_HistoryEmptyMessage(){return  findElement("history-tab",LocatorType.Id);}
 
-    public WebElement Textbox_AddNote(){return  findElement("//textarea[@type='text']",LocatorType.XPath);}
+    public WebElement Textbox_AddNote(){return  findElement("ExpiryDate",LocatorType.Id);}
 
     public WebElement Button_SaveNote(){return  findElement("//button[text()='Save']",LocatorType.XPath);}
 
@@ -171,17 +171,17 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_History(){return  findElement("//span[text()='History']",LocatorType.XPath);}
 
-    public List<WebElement> List_Notes(){return  findElements("//div[@class ='note']/div/p",LocatorType.XPath);}
+    public List<WebElement> List_Notes(){return  findElements("//div[@class ='note']/div/span",LocatorType.XPath);}
 
     public List<WebElement> List_AllNotes(){return  findElements("//div[@class ='note']",LocatorType.XPath);}
 
-    public WebElement Text_AdminCreatedNotes(int note) { return findElement(String.format("//div[%s][@class ='note']/div/p",note), LocatorType.XPath); }
+    public WebElement Text_AdminCreatedNotes(int note) { return findElement(String.format("//div[%s][@class ='note']/div/span",note), LocatorType.XPath); }
 
     public WebElement Text_AdminNames(int admin) { return findElement(String.format("//div[%s][@class ='note']/h5",admin), LocatorType.XPath); }
 
     public WebElement Text_NoteTime(){return  findElement("//div[1][@class =\"note\"]/label",LocatorType.XPath);}
 
-    public WebElement Text_DeliveryStatus(String status) { return findElement(String.format("//tbody/tr/td[contains(text() ,'%s')]",status), LocatorType.XPath); }
+    public WebElement Text_DeliveryStatus(String status) { return findElement(String.format("//td[contains(text(),'%s')]",status), LocatorType.XPath); }
 
     public WebElement Button_View(){return  findElement("//div/button[text() =\"View\"]",LocatorType.XPath);}
 

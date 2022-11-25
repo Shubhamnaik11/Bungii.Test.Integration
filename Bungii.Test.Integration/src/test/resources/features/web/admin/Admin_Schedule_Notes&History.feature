@@ -62,6 +62,7 @@ Feature: Admin Notes & History
 
 
   @regression
+    #Passed
   Scenario:To verify the Notes-Customer service notes of Admin1 can be edited by Admin1 only
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                       |
@@ -274,8 +275,8 @@ Feature: Admin Notes & History
     And I click "GET ESTIMATE" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
-      | Items_To_Deliver | Special_Instruction | Customer_Name | Customer_Mobile | Pickup_Contact_Name | Pickup_Contact_Phone | Drop_Off_Contact_Name | Drop_Contact_Phone | Order_Number | SoldBuy |
-      | 5067400          | Handle with care    | Testpartner U | 9998881111      | Test Pickup         | 9999999359           | Test Dropcontact      | 9998881112         | ON1          | Krishna |
+      | Items_To_Deliver | Special_Instruction | Customer_Name | Customer_Mobile | Pickup_Contact_Name | Pickup_Contact_Phone | Drop_Off_Contact_Name | Drop_Contact_Phone | Order_Number | EmployeeID |
+      | 5067400          | Handle with care    | Testpartner U | 9998881111      | Test Pickup         | 9999999359           | Test Dropcontact      | 9998881112         | ON1          | 12345 |
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
@@ -316,6 +317,7 @@ Feature: Admin Notes & History
 
 
   @regression
+    #Passed
   Scenario:To verify the Notes-Customer service notes of Admin1 can be added multiple times after ADMIN2 has added Notes to the same delivery
     When  I am logged in as TestAdmin
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence

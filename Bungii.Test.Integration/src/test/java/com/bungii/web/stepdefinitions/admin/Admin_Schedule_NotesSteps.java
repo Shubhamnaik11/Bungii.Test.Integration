@@ -350,7 +350,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             action.sendKeys(Page_AdminLogin.TextBox_Password(),"cci12345");
             Thread.sleep(2000);
             action.click(Page_AdminLogin.Button_AdminLogin());
-            Thread.sleep(2000);
+            Thread.sleep(3000);
             cucumberContextManager.setScenarioContext("ADMIN2_NAME",action.getText(admin_ScheduledTripsPage.Text_AdminName()));
             log("I should be able to open new tab and login to admin portal","I should be able to open new tab and login to admin portal",false);
         } catch(Exception e){
@@ -375,7 +375,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     public void the_something_link_should_not_be_displayed(String strArg1) throws Throwable {
         try {
             Thread.sleep(1000);
-            testStepAssert.isFalse(action.isElementPresent(
+            testStepAssert.isTrue(action.isElementPresent(
                     admin_ScheduledTripsPage.Link_EditNote_NotDisplayed(true)),"Edit link should not be displayed","Edit link is not displayed", "Edit link is  displayed");
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -539,9 +539,9 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     testStepAssert.isEquals(scheduledStatus,status,"Delivery Status should be set to Scheduled ","Delivery Status is set to Scheduled ","Delivery Status is not set to Scheduled");
                     break;
                 case "Trip Started":
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                     String tripStartedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
-                    Thread.sleep(1000);
+                    Thread.sleep(3000);
                     testStepAssert.isEquals(tripStartedStatus,status,"Delivery Status should be set to Trip Started  ","Delivery Status is Trip Started ","Delivery Status is not set to Trip Started");
                     break;
                 case  "Driver(s) Arrived":
@@ -593,10 +593,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @When("^I create multiple notes$")
     public void i_create_multiple_notes() throws Throwable {
         try {
-            Thread.sleep(1000);
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Textbox_AddNote(),(long)3000);
             action.clearSendKeys(admin_ScheduledTripsPage.Textbox_AddNote(),"Added Customer Note");
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Button_SaveNote(),(long)3000);
             action.click(admin_ScheduledTripsPage.Button_SaveNote());
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Textbox_AddNote(),(long)3000);
             action.clearSendKeys(admin_ScheduledTripsPage.Textbox_AddNote(),"Added note by admin");
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Button_SaveNote(),(long)3000);
             action.click(admin_ScheduledTripsPage.Button_SaveNote());
             log("I should be able to create multiple notes","I could create multiple notes",false);
         } catch(Exception e){

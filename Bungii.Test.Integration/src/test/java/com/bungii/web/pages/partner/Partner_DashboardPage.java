@@ -44,6 +44,8 @@ public class Partner_DashboardPage extends PageBase {
     //Delivery Address
     public WebElement Dropdown_Delivery_Address() { return findElement("dropValue",LocatorType.Id);}
 
+    public WebElement Icon_SearchPickupAdd() { return findElement("pickupAddSearchIcon",LocatorType.Id);}
+
     //Delivery Address List
     public WebElement List_Delivery_Address() { return findElement("//div[contains(@class,'pac-container pac-logo')]/div[1]/span[2]",LocatorType.XPath);}
 

@@ -88,7 +88,6 @@ public class Partner_IntegrationSteps extends DriverBase {
                     case "Solo":
                         //action.click(Page_Partner_Dashboard.Partner_Solo());
                         action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
-
                         action.click(Page_Partner_Dashboard.Button_PickupClear());
                         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                         if(addressEnter.equalsIgnoreCase("CopyPaste")) {
@@ -114,9 +113,7 @@ public class Partner_IntegrationSteps extends DriverBase {
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
-
-                        Thread.sleep(5000);
-
+                        Thread.sleep(8000);
                         action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
                         switch (Load_Unload) {
                             case "15 minutes":
@@ -525,9 +522,11 @@ public class Partner_IntegrationSteps extends DriverBase {
                         //action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         //Thread.sleep(2000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address);
+                        action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
+                        Thread.sleep(3000);
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                        Thread.sleep(5000);
+                        Thread.sleep(3000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                         //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
