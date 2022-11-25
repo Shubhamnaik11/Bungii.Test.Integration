@@ -14,7 +14,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Button_Submit () { return findElement("CustomerCancel", LocatorType.Name); }
 
-    public WebElement Textbox_CancellationFee () { return findElement("Primary", LocatorType.Id); }
+    public WebElement Textbox_CancellationFee () { return findElement("cancelationFee", LocatorType.Id); }
 
     public WebElement Label_Drop_Off_Location () { return findElement("//span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
 
@@ -40,7 +40,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement DropdownResult (String address) { return findElement(String.format("//div[contains(.,'%s')]",address),LocatorType.XPath);}
 
-    public WebElement DropdownPickupResult (String address) { return findElement(String.format("//div[@id='divPickupPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
+    public WebElement DropdownPickupResult () { return findElement(String.format("//div[@class='autocomplete-dropdown-container']/div[1]/span"),LocatorType.XPath);}
 
     public WebElement DropOff_Address() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
 
