@@ -485,7 +485,7 @@ public class Partner_LoginSteps extends DriverBase {
                     }else if (PP_Site.equalsIgnoreCase("Cort service level")) {
                         testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
                     }
-                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.Text_Pickup_DateTime(),(long)5000);
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.Text_Pickup_DateTime(),(long)7000);
                     String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
                     System.out.println("Result of Pickup date time= "+PickupDateTime);
 
@@ -514,7 +514,7 @@ public class Partner_LoginSteps extends DriverBase {
                     else {
                         Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
                     }
-                    Thread.sleep(2000);
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Done.Text_Schedule_Done_Success_Header(), (long)7000);
                     testStepVerify.isEquals(action.getText(Page_Partner_Done.Text_Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
                     String PickupRequest = new DbUtility().getPickupRef(Customer_Phone);
                     String PickupToken = new DbUtility().getPickupToken(PickupRequest);

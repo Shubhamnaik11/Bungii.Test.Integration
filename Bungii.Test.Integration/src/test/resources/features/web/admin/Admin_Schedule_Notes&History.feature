@@ -213,6 +213,7 @@ Feature: Admin Notes & History
 
 
   @ready
+    @sn
 # driver crash
   Scenario: To verify the Notes-Customer service notes field is displayed on delivery details page for Weight based pricing portal
     When I navigate to "Partner" portal configured for "FloorDecor service level"
@@ -232,7 +233,7 @@ Feature: Admin Notes & History
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
-      | Product_Description | Dimensions | Weight | Special_Instruction | Customer_Name | Customer_Mobile | Pickup_Contact_Name | Pickup_Contact_Phone | Drop_Off_Contact_Name | Drop_Contact_Phone | Delivery_Purpose | Rb_Sb_Number | SoldBuy |
+      | Product_Description | Dimensions | Weight | Special_Instruction | Customer_Name | Customer_Mobile | Pickup_Contact_Name | Pickup_Contact_Phone | Drop_Off_Contact_Name | Drop_Contact_Phone | Delivery_Purpose | Rb_Sb_Number | ScheduledBy |
       | 20 boxes            | 20X20X20   | 1570   | Handle with care    | Testartner T  | 9998881111      | Test Pickup         | 9999999359           | Test Dropcontact      | 9998881112         | For decoration   | 007          | FND166  |
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
