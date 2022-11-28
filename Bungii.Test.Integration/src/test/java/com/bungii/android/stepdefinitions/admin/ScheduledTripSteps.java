@@ -22,11 +22,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -542,6 +545,7 @@ public class ScheduledTripSteps extends DriverBase {
 	@And("^I select the live trip for \"([^\"]*)\" customer$")
 	public void i_select_the_live_trip_for_something_customer(String custName) throws Throwable {
 		try {
+			Thread.sleep(4000);
 			String pickupReference= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupReference);
 
@@ -1336,10 +1340,11 @@ public class ScheduledTripSteps extends DriverBase {
 			action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
 			//action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
 			Thread.sleep(3000);
-			action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location()," ");
-			Thread.sleep(4000);
+//			action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location()," ");
+//			Thread.sleep(4000);
 			//action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-			action.JavaScriptClick(scheduledTripsPage.DropdownResult(arg1));
+//			action.JavaScriptClick(scheduledTripsPage.DropdownResult(arg1));
+			action.clickOnDropdown();
 			Thread.sleep(1000);
 			String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
 			cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
@@ -1440,6 +1445,7 @@ public class ScheduledTripSteps extends DriverBase {
 			String actualMessage = null;
 			switch (message){
 				case "Your changes are good to be saved.":
+					Thread.sleep(3000);
 					actualMessage=action.getText(scheduledTripsPage.Text_VerifyChangesSavedMessage());
 					break;
 
@@ -1946,6 +1952,20 @@ public class ScheduledTripSteps extends DriverBase {
 		catch(Exception e){
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error("Step should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+	}
+
+	public void clickOnDropdown() {
+		try {
+			Robot robot = new Robot();
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.delay(300);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+			robot.delay(300);
+		} catch (Exception Ex) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+			error("Step should be successful", "Unable to select from dropdown",
 					true);
 		}
 	}

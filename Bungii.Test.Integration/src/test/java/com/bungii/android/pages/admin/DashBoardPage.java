@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 public class DashBoardPage extends PageBase {
 
     public WebElement Button_Trips() {
-        return findElement("adminmenu-trips", LocatorType.Id);
+        return findElement("//div/ul[@id=\"side-menu\"]/li/p/span[text()=\"Deliveries\"][1]", LocatorType.XPath);
     }
 
     public WebElement Button_PromoCode() {

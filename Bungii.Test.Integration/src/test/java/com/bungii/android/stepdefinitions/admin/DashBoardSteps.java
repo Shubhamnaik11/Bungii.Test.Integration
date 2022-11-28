@@ -32,9 +32,10 @@ public class DashBoardSteps extends DriverBase {
                    // action.click(dashBoardPage.Button_ScheduledTrips());
                     break;
                 case "live trips":
-                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=False");
-                    //action.click(dashBoardPage.Button_Trips());
-                    //action.click(dashBoardPage.Button_LiveTrips());
+                    Thread.sleep(12000);
+//                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("login","")+"BungiiReports/Trips?isComplete=0");
+                    action.click(dashBoardPage.Button_Trips());
+//                    action.click(dashBoardPage.Button_LiveTrips());
 
                     break;
                 case "promo code":

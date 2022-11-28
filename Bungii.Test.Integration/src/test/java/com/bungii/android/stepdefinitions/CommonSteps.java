@@ -988,10 +988,13 @@ public class CommonSteps extends DriverBase {
                 action.click(estimatePage.Button_Cancel());
             else if(strArg1.equalsIgnoreCase("View"))
                 action.click(estimatePage.Button_AcceptRequest());
-            else
-                action.click(estimatePage.Button_OK());
+            else {
+//                action.click(estimatePage.Button_OK());
+                if (action.isNotificationAlertDisplayed()) {
+                    utility.acceptNotificationAlert();
+                }
 
-
+            }
             log("I should able to click " + strArg1 + "on Alert Message",
                     "I clicked " + strArg1 + "on Alert Message", true);
         } catch (Exception e) {
