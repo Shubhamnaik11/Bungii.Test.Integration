@@ -52,6 +52,8 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Dropdown_Reason () { return findElement("ddEditDeliveryRemark", LocatorType.Id); }
 
+    public WebElement Dropdown_ChangeAddress (String address) { return findElement("//div[@class='autocomplete-dropdown-container']/div/span[contains(text(),'"+address+"')]", LocatorType.XPath); }
+
     //changed by Richa
     //public WebElement RadioButton_CancelBungii () { return findElement("//span[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input", LocatorType.XPath); }
     public WebElement RadioButton_CancelBungii () { return findElement("//label[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input", LocatorType.XPath); }

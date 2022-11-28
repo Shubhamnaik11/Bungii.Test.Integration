@@ -1115,7 +1115,8 @@ try{
 
         //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
      //   action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
-            action.clickOnDropdown();
+//            action.clickOnDropdown();
+        action.click(admin_ScheduledTripsPage.Dropdown_ChangeAddress(arg1));
         Thread.sleep(1000);
         String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
         cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
@@ -1130,22 +1131,22 @@ try{
     }
 
     @Then("^I change the pickup address to \"([^\"]*)\"$")
-    public void i_change_the_pickup_address_to_something(String arg1) throws Throwable {
+    public void i_change_the_pickup_address_to_something(String address) throws Throwable {
 
         try{
-        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location(),arg1);
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location(),address);
         //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
         Thread.sleep(1000);
         action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location()," ");
 
         //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-        action.JavaScriptClick(admin_ScheduledTripsPage.DropdownPickupResult(arg1));
+        action.JavaScriptClick(admin_ScheduledTripsPage.DropdownPickupResult(address));
         Thread.sleep(1000);
         String Change_Address = action.getText(admin_ScheduledTripsPage.Pickup_Address());
         cucumberContextManager.setScenarioContext("Change_Pickup",Change_Address);
 
-        log("I change the pickup address to "+arg1,
-                "I have changed the pickup address to "+arg1);
+        log("I change the pickup address to "+address,
+                "I have changed the pickup address to "+address);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -1370,6 +1371,10 @@ try{
                 emailSubject = partnerPortal + " has scheduled their first delivery!";
             }
         }
+        if (portalName.equalsIgnoreCase("Equip-bid")){
+            String partnerPortalName = PropertyUtility.getDataProperties("partner.atlanta.equip-bid.partner.portal.name");
+            emailSubject ="UPDATE: "+partnerPortalName + " has scheduled their first delivery!";
+        }
 
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody == null) {
@@ -1445,6 +1450,9 @@ try{
             }
 
         }
+        if(emailSubject.contains("UPDATE: qauto-equip-bid")) {
+            emailSubject =PropertyUtility.getDataProperties("updated.first.email.of.partner.portal.text");
+        }
         String message = null;
         switch (emailSubject) {
             case "Bungii Delivery Pickup Scheduled":
@@ -1482,6 +1490,10 @@ try{
             case "Best Buy #11, Baltimore, MD has scheduled their first delivery!":
                 String partnerPortalName=PropertyUtility.getDataProperties("partner.baltimore.name");
                 message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName);
+                break;
+            case "Updated First Partner Portal Mail":
+                String partnerPortalName1=PropertyUtility.getDataProperties("partner.atlanta.equip-bid.partner.portal.name");
+                message = utility.getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(partnerPortalName1);
                 break;
         }
         message= message.replaceAll(" ","");

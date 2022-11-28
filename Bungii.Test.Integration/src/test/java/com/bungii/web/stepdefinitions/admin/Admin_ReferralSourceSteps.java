@@ -52,18 +52,19 @@ public class Admin_ReferralSourceSteps extends DriverBase {
         String sort = null;
         Thread.sleep(5000);
     switch (grid) {
-        case "Referral Source":
+        case "Referral Sources":
 
             switch (header) {
-                case "Source":
+                case "Sources":
                     DefaultGridData = paginateAndGetGridData(5);
-                    sort = admin_ReferralSourcePage.Header_Source().getAttribute("class");
+                    action.click(admin_ReferralSourcePage.Header_Source());
+                    sort = admin_ReferralSourcePage.Header_Source().getAttribute("aria-label");
                     if (sortOrder.equals("Ascending")) {
-                        if (!sort.equals("sorting_asc")) {
+                        if (!sort.equals("Sources sort asc")) {
                             action.click(admin_ReferralSourcePage.Header_Source());
                         }
                     } else {
-                        if (!sort.equals("sorting_desc")) {
+                        if (!sort.equals("Sources sort desc")) {
                             action.click(admin_ReferralSourcePage.Header_Source());
                         }
                     }
@@ -182,10 +183,10 @@ public class Admin_ReferralSourceSteps extends DriverBase {
         List<List<String>> CurrentGridData =  new ArrayList<>();
 
         switch(strArg1) {
-    case "Referral Source":
+    case "Referral Sources":
         CurrentGridData = paginateAndGetGridData(5);
     switch (field) {
-        case "Source":
+        case "Sources":
             Collections.sort(DefaultGridData.get(0));
             if (sortOrder.equals("Ascending")) {
                 testStepAssert.isTrue(DefaultGridData.get(0).equals(CurrentGridData.get(0)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
@@ -380,11 +381,11 @@ public class Admin_ReferralSourceSteps extends DriverBase {
     @Then("^the \"([^\"]*)\" message is displayed beside \"([^\"]*)\" field$")
     public void the_something_message_is_displayed_beside_something_field(String message, String field) throws Throwable {
 try{
-        switch(field) {
-            case "From Date":
+        switch(message) {
+            case "From Date is required":
                 testStepAssert.isElementTextEquals(admin_ReferralSourcePage.Label_FromDateError(), message, "From date is required should be displayed", "From date is required is displayed", "From date is required is not displayed");
                 break;
-            case "To Date":
+            case "To Date is required":
             testStepAssert.isElementTextEquals(admin_ReferralSourcePage.Label_ToDateError(), message, message + " should be displayed", message+ " is displayed", message+" is not displayed");
         break;
         }
