@@ -473,10 +473,16 @@ Feature: Service Level
     When I navigate to "Admin" portal
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
-    And I search the delivery using "ExternalOrderId" as "Admin1"
+    And I search the delivery using "ExternalOrderId" as "Admin4"
     Then I should be able to see the respective bungii with the status
       | Status            |
       | Assigning Driver(s) |
+    And  I search the delivery using "Pickup Reference"
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s) |
+    And I search the delivery using "Invalid ExternalOrderId" as "Admin5"
+    Then I should see "No Deliveries found." message
     When As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
@@ -486,6 +492,12 @@ Feature: Service Level
     Then I should be able to see the respective bungii with the status
       | Status    |
       | Trip Started |
+    And  I search the delivery using "Pickup Reference"
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s) |
+    And I search the delivery using "Invalid ExternalOrderId" as "Admin5"
+    Then I should see "No Deliveries found." message
     When As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Arrived       |
@@ -495,18 +507,11 @@ Feature: Service Level
       | Bungii Completed |
     And I wait for 2 minutes
     Then The "All Deliveries" page should display the delivery in "Payment Successful" form
+    And I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" page should display the delivery in "Payment Successful" form
+    And I search the delivery using "Invalid ExternalOrderId" as "Admin5"
+    Then I should see "No Deliveries found." message
 
-#     Core-4246 Verify searching delivery using Invalid External order id on Admin portal
-    When I navigate to "Admin" portal
-    And I view the all Scheduled Deliveries list on the admin portal
-    And I search the delivery using "InvalidExternalOrderId" as "Admin1"
-    Then I should see "No Deliveries found." message
-    When I view the Live Deliveries list on  admin portal
-    And I search the delivery using "InvalidExternalOrderId" as "Admin1"
-    Then I should see "No Deliveries found." message
-    When I view All Deliveries list on the admin portal
-    And I search the delivery using "InvalidExternalOrderId" as "Admin1"
-    Then I should see "No Deliveries found." message
 
 
 

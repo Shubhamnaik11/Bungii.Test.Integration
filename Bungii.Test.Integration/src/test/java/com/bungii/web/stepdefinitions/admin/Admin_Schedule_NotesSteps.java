@@ -62,6 +62,15 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     Thread.sleep(1000);
                     action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
                     break;
+                case  "Admin4":
+                    Thread.sleep(2000);
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("ExternalOrderId") + Keys.ENTER);
+                    break;
+                case "Admin5":
+                    Thread.sleep(2000);
+                    String invalidExternalODerNumber = PropertyUtility.getDataProperties("invalid.order.number");
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), invalidExternalODerNumber+Keys.ENTER);
+
             }
             log("I should be able to search delivery as " + admin,"I could search delivery as " + admin,false);
         } catch(Exception e){
