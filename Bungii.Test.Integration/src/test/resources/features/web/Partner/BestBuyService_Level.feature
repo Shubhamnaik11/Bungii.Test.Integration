@@ -469,3 +469,56 @@ Feature: Service Level
     And I check if "Employee number" field accepts only integer values
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
+#     Core-4246 Verify searching delivery using external order id on Admin portal
+    When I navigate to "Admin" portal
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery using "ExternalOrderId" as "Admin1"
+    Then I should be able to see the respective bungii with the status
+      | Status            |
+      | Assigning Driver(s) |
+    When As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on  admin portal
+    Then I should be able to see the respective bungii with the status
+      | Status    |
+      | Trip Started |
+    When As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Arrived       |
+      | Loading Item  |
+      | Driving To Dropoff |
+      | Unloading Item |
+      | Bungii Completed |
+    And I wait for 2 minutes
+    Then The "All Deliveries" page should display the delivery in "Payment Successful" form
+
+#     Core-4246 Verify searching delivery using Invalid External order id on Admin portal
+    When I navigate to "Admin" portal
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery using "InvalidExternalOrderId" as "Admin1"
+    Then I should see "No Deliveries found." message
+    When I view the Live Deliveries list on  admin portal
+    And I search the delivery using "InvalidExternalOrderId" as "Admin1"
+    Then I should see "No Deliveries found." message
+    When I view All Deliveries list on the admin portal
+    And I search the delivery using "InvalidExternalOrderId" as "Admin1"
+    Then I should see "No Deliveries found." message
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
