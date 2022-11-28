@@ -708,5 +708,54 @@ public class DbUtility extends DbContextManager {
 
 
     }
+    public static String[] getArrivalTimeAndLoadingUnloadingTime(String Pickup_Reference) {
+        String trackingID ;
+        String[] ArrivalAndLoadingUnloadingTimeAndEstTime = new String[4];
+        String toGetTrackingId="select pickup_token from pickupdetails where PickupRef = '"+Pickup_Reference+"'";
+        trackingID = getDataFromMySqlServer(toGetTrackingId);
+        logger.detail("Tracking Id for "+Pickup_Reference+" is "+ trackingID);
+        String toGetDeliveryCreatedTime="select created_on from pickupdetails where PickupRef = '"+Pickup_Reference+"'";
+        String toGetEstTime="select EstTime from pickupdetails where PickupRef = '"+Pickup_Reference+"'";
+        ArrivalAndLoadingUnloadingTimeAndEstTime[0] = getDataFromMySqlServer(toGetEstTime);
+        logger.detail("EstTime for "+Pickup_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTime[0]);
+        String queryStringForarrivalTime ="SELECT pickupdate FROM bungii_reports_qa_auto.factpickup where pickup_token='"+trackingID+"'";
+        String queryStringForLoadingUnloadingTime ="SELECT loadingunloadingtime  FROM bungii_reports_qa_auto.factpickup where pickup_token='"+trackingID+"'";
+        ArrivalAndLoadingUnloadingTimeAndEstTime[1]=getDataFromMySqlServer(queryStringForarrivalTime);
+        ArrivalAndLoadingUnloadingTimeAndEstTime[2]=getDataFromMySqlServer(queryStringForLoadingUnloadingTime);
+        ArrivalAndLoadingUnloadingTimeAndEstTime[3]=getDataFromMySqlServer(toGetDeliveryCreatedTime);
+        logger.detail("The expected Arrival time for the delivery having pickup refernce "+Pickup_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTime[1]);
+        logger.detail("The expected Loading/Unloading time for the delivery having pickup refernce "+Pickup_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTime[2]);
+        logger.detail("The delivery created time for having pickup refernce "+Pickup_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTime[3]);
+
+        return ArrivalAndLoadingUnloadingTimeAndEstTime;
+    }
+
+    public static String getAdminEditTime(String pickUpID) {
+        String time = "";
+        String queryString = "select created_on from pickup_history where pickupid="+pickUpID+" limit 1";
+        time = getDataFromMySqlServer(queryString);
+
+        logger.detail("For pickUpID " + pickUpID + " admin edit time is " + time);
+        return time;
+    }
+
+    public static String getTELETfromDb(String custRef) {
+        String telet = "";
+        String queryString = "SELECT TELET FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
+        telet = getDataFromMySqlServer(queryString);
+
+        logger.detail("For customer reference is " + custRef + " TELET time is " + telet);
+        return telet;
+}
+
+    public static String getTelet(String pickupRef) {
+        String custRef = "";
+        String queryString = "select Telet from pickupdetails where PickupRef ='"+pickupRef+"'";
+        custRef = getDataFromMySqlServer(queryString);
+        logger.detail("Telet for pickup reference " + pickupRef + " is " + custRef);
+        return custRef;
+    }
+
+
 }
 
