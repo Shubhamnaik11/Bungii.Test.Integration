@@ -65,6 +65,8 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_DriversPage admin_Driverspage = new Admin_DriversPage();
 
+    WebDriver driver = SetupManager.getDriver();
+
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -180,6 +182,47 @@ public class Admin_TripsSteps extends DriverBase {
     }
     }
 
+    @And("^I open the delivery in a new browser tab$")
+    public void iOpenTheDeliveryInANewBrowserTab() throws Throwable {
+        try{
+            action.rightClickOpenNewTab(admin_ScheduledTripsPage.Link_BungiiDate());
+            action.switchToTab(1);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I should see \"([^\"]*)\" header$")
+    public void iShouldSeeHeader(String header) throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(admin_TripDetailsPage.Text_DeliveryDetailsHeader(),
+                    "Page header should match " + header,
+                    "Page header is matching " + header, "Page header is not matching " + header);
+            Thread.sleep(1000);
+            log("Delivery details page should be opened in a new tab",
+                    "Delivery details page is opened in new a tab");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I close Delivery details page$")
+    public void iCloseDeliveryDetailsPage() throws Throwable {
+        try{
+            driver.close();
+            action.switchToTab(0);
+            log("Delivery details page should be opened in a new tab",
+                    "Delivery details page is opened in new a tab");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @Then("^I should be able to see the Trip Requested count incremented in Customers Grid$")
     public void i_should_be_able_to_see_the_trip_requested_count_incremented_in_customers_grid() throws Throwable {
         try{
