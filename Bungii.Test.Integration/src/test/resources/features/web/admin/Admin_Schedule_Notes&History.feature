@@ -95,7 +95,6 @@ Feature: Admin Notes & History
 
 
   @ready
-
   Scenario: To verify the Notes-Customer service notes field is displayed on delivery details page for Geofence based pricing portal.
     When I navigate to "Partner" portal configured for "normal"
     And I enter "valid" password on Partner Portal
