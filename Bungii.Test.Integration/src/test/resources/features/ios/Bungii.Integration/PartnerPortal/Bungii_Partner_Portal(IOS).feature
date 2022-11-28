@@ -485,6 +485,25 @@ Feature: Partner Portal Cases integration with IOS
     And I Select Trip from scheduled trip
     Then I should see "CUSTOMER HELP" header displayed
     And I start selected Bungii
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And  I wait for 1 minutes
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_appleMarkCT LutherCT" customer
+    And I Select "Edit Trip Details" option
+    And I edit the drop off address
+    Then I change the drop off address to "4800 East 63rd Street, Kansas City"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I swipe to check trip details
+    Then The "admin edits dropoff Address" should match
+    And I click on "Close" button
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     And Driver adds photos to the Bungii
@@ -492,7 +511,9 @@ Feature: Partner Portal Cases integration with IOS
     And I slide update button on "LOADING ITEM" Screen
     And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
+    Then The "DROP-OFF(Expected time)" "Label" should be displayed
     And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then The "DROP-OFF(Expected time)" "Label" should be displayed
     And I slide update button on "UNLOADING ITEMS" Screen
     And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
@@ -599,3 +620,69 @@ Feature: Partner Portal Cases integration with IOS
     And I select the live trip for "Testcustomertywd_BppleMarkDH LutherDH" customer for delivery details
     Then I check if miles are updated for "drop-off" in "driving to dropoff"
     Then I check if correct "customer price-driving to dropoff" is displayed on delivery details
+
+
+  @testAllan
+  Scenario:testing1
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appleks_a_drvbg Kansas_bg" driver
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |kansas| NEXT_POSSIBLE | 8877661097 | Testcustomertywd_appleMarkCT LutherCT|
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    Then The "Arrival time at pickup" "Text" should be displayed
+    Then The "Expected time at drop-off" "Text" should be displayed
+    Then The "Arrival time" should match
+    Then The "Expected time at drop-off" should match
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then The "Arrival time at pickup" "Text" should be displayed
+    Then The "Expected time at drop-off" "Text" should be displayed
+    Then The "Arrival time" should match
+    Then The "Expected time at drop-off" should match
+    And I start selected Bungii
+    Then The "PICKUP(Arrival time)" "Label" should be displayed
+    And I slide update button on "EN ROUTE" Screen
+    Then The "PICKUP(Arrival time)" "Label" should be displayed
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And  I wait for 1 minutes
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_appleMarkCT LutherCT" customer
+    And I Select "Edit Trip Details" option
+    And I edit the drop off address
+    Then I change the drop off address to "4800 East 63rd Street, Kansas City"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I swipe to check trip details
+    Then The "driver at arrival state" should match
+    And I click on "Close" button
+    Then I save the dropoff latitude and longitude of the first delivery
+
+    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer |
+    And I wait for 1 minutes
+    Then The "stacked bungii" should match
+    Then The "Stacked delivery dropOff range" should match
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    Then The "PICKUP(Arrival time)" "Label" should be displayed
+    And I slide update button on "LOADING ITEM" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen

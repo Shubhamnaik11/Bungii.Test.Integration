@@ -96,5 +96,13 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Icon_DropOff(){return findElement("//XCUIElementTypeImage[@name=\"icon-stop-drop-off\"]",LocatorType.XPath);}
 	public WebElement Text_ContactDuo(boolean...IgnoreException){return findElement("//XCUIElementTypeStaticText[@name=\"Contact DUO\"]",LocatorType.XPath,IgnoreException);}
 	public WebElement Text_TeamMate(boolean... IgnoreException){return findElement("//XCUIElementTypeStaticText[@name=\"Teammate\"]",LocatorType.XPath,IgnoreException);}
+	public WebElement Label_ArivalTimeAtPickup(){return findElement("",LocatorType.Id);}
+	public WebElement Label_ExpectedTimeAtDropOff(){return findElement("",LocatorType.Id);}
+	public WebElement ArrivalTimeAtPickupValue(){return findElement("",LocatorType.Id);}
+	public WebElement Text_ExpectedTimeAtDropOff(){return findElement("",LocatorType.Id);}
+	public WebElement Label_Pickup(){return findElement("",LocatorType.Id);}
+	public WebElement Label_ArrivalTime(){return findElement("",LocatorType.Id);}
+	public WebElement Text_ArrivalTimeValue(){return findElement("",LocatorType.Id);}
+	public WebElement Text_DropOffRangeFromDeliveryDetails(){return findElement("",LocatorType.XPath);}
 
 }

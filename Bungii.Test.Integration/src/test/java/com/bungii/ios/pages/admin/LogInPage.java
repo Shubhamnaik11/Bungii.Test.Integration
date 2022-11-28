@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 public class LogInPage extends PageBase {
 
     public WebElement TextBox_Phone() {
-        return findElement("//label[text()='Cell Phone number']/following-sibling::input[@name='PhoneNo']", LocatorType.XPath);
+        return findElement("phoneno", LocatorType.Id);
     }
 
     public WebElement TextBox_Phoned(boolean ... ignoreException) {
@@ -15,11 +15,11 @@ public class LogInPage extends PageBase {
     }
 
     public WebElement TextBox_Pass() {
-        return findElement("//label[text()='Password']/following-sibling::input[@name='Password']", LocatorType.XPath);
+        return findElement("password", LocatorType.Id);
     }
 
     public WebElement Button_LogIn() {
-        return findElement("//button[text()='LOG IN']", LocatorType.XPath);
+        return findElement("login", LocatorType.Id);
     }
 
 }

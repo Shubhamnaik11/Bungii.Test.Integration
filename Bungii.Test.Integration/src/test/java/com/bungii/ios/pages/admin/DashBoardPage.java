@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 public class DashBoardPage extends PageBase {
 
     public WebElement Button_Trips() {
-        return findElement("adminmenu-trips", LocatorType.Id);
+        return findElement("//ul[@id=\"side-menu\"]/li/p/span[text()=\"Deliveries\"]", LocatorType.XPath);
     }
 
     public WebElement Button_PromoCode() {
@@ -28,7 +28,7 @@ public class DashBoardPage extends PageBase {
     }
 
     public WebElement Button_LiveTrips() {
-        return findElement("adminmenu-livetrips", LocatorType.Id);
+        return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Live Deliveries\"]", LocatorType.XPath);
     }
     public WebElement Button_Deliveries() {
         return findElement("adminmenu-completedtrips", LocatorType.Id);
