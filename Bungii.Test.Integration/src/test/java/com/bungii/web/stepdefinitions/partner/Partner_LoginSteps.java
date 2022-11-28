@@ -164,6 +164,7 @@ public class Partner_LoginSteps extends DriverBase {
                 case "GET QUOTE":
                 case "GET ESTIMATE":
                     action.click(Page_Partner_Dashboard.Button_Get_Estimate());
+                    Thread.sleep(3000);
                     break;
                 case "Continue":
                     String Partner_Portal_Site = (String) cucumberContextManager.getScenarioContext("PP_Site");
@@ -187,6 +188,7 @@ public class Partner_LoginSteps extends DriverBase {
                     action.JavaScriptScrolldown();
                     action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
                     cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME", System.currentTimeMillis() / 1000L);
+
                     break;
                 case "New Bungii":
                     action.click(Page_Partner_Delivery.Button_New_Bungii());
@@ -483,8 +485,9 @@ public class Partner_LoginSteps extends DriverBase {
                     }else if (PP_Site.equalsIgnoreCase("Cort service level")) {
                         testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
                     }
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.Text_Pickup_DateTime(),(long)5000);
                     String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
-
+                    System.out.println("Result of Pickup date time= "+PickupDateTime);
 
                     String[] splitDate = PickupDateTime.split(" ", 2);
                     String Month = splitDate[0].substring(0, 3);
@@ -511,7 +514,7 @@ public class Partner_LoginSteps extends DriverBase {
                     else {
                         Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
                     }
-
+                    Thread.sleep(2000);
                     testStepVerify.isEquals(action.getText(Page_Partner_Done.Text_Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
                     String PickupRequest = new DbUtility().getPickupRef(Customer_Phone);
                     String PickupToken = new DbUtility().getPickupToken(PickupRequest);

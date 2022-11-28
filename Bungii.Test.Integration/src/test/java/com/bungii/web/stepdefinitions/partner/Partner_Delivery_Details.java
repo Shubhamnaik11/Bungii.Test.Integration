@@ -63,6 +63,7 @@ public class Partner_Delivery_Details extends DriverBase {
             cucumberContextManager.setScenarioContext("CUSTOMER", CustomerName);
             //cucumberContextManager.setScenarioContext("Customer", CustomerName);
             String CustomerMobile = dataMap.get("Customer_Mobile").trim();
+            System.out.println("Customer mbl no is= "+CustomerMobile);
             cucumberContextManager.setScenarioContext("CustomerPhone", CustomerMobile);
             String PickupContactName = dataMap.get("Pickup_Contact_Name").trim();
             cucumberContextManager.setScenarioContext("PickupContactName",PickupContactName);
@@ -76,11 +77,14 @@ public class Partner_Delivery_Details extends DriverBase {
                         //action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(),SpecialInstruction);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
                         //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                        action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_Customer_Mobile(), (long) 5000);
                         action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_Customer_Mobile(), (long) 5000);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
 
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
                         action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_Customer_Mobile(), (long) 5000);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
 
                         String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());

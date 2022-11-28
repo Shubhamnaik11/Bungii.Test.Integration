@@ -538,13 +538,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     Thread.sleep(1000);
                     testStepAssert.isEquals(scheduledStatus,status,"Delivery Status should be set to Scheduled ","Delivery Status is set to Scheduled ","Delivery Status is not set to Scheduled");
                     break;
-                case "Trip Started":
+                case "Trip Started":
                     Thread.sleep(5000);
                     String tripStartedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
                     Thread.sleep(3000);
                     testStepAssert.isEquals(tripStartedStatus,status,"Delivery Status should be set to Trip Started  ","Delivery Status is Trip Started ","Delivery Status is not set to Trip Started");
                     break;
-                case  "Driver(s) Arrived":
+                case  "Driver(s) Arrived":
                     Thread.sleep(2000);
                     String driversArrivedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
                     Thread.sleep(1000);
@@ -556,13 +556,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     Thread.sleep(1000);
                     testStepAssert.isEquals(loadingItemStatus,status,"Delivery Status should be set to Loading Item","Delivery Status is Loading Item","Delivery Status is not set to Loading Item");
                     break;
-                case "Driving To Dropoff":
+                case "Driving To Dropoff":
                     Thread.sleep(2000);
                     String drivingToDropoffStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(drivingToDropoffStatus,status,"Delivery Status should be set to Driving To Dropoff ","Delivery Status is Driving To Dropoff","Delivery Status is not set to Driving To Dropoff");
                     break;
-                case "Unloading Items":
+                case "Unloading Items":
                     Thread.sleep(2000);
                     String unloadingItemsStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
                     Thread.sleep(1000);

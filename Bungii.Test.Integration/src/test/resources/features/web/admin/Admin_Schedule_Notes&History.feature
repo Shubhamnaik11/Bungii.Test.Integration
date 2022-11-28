@@ -95,6 +95,7 @@ Feature: Admin Notes & History
 
 
   @ready
+
   Scenario: To verify the Notes-Customer service notes field is displayed on delivery details page for Geofence based pricing portal.
     When I navigate to "Partner" portal configured for "normal"
     And I enter "valid" password on Partner Portal
@@ -215,7 +216,8 @@ Feature: Admin Notes & History
   @ready
 # driver crash
   Scenario: To verify the Notes-Customer service notes field is displayed on delivery details page for Weight based pricing portal
-    When I navigate to the "Partner" portal configured for "FloorDecor service level" URL
+    When I navigate to "Partner" portal configured for "FloorDecor service level"
+#    When I navigate to the "Partner" portal configured for "FloorDecor service level" URL
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "see 1 pallet and 2 pallets"
