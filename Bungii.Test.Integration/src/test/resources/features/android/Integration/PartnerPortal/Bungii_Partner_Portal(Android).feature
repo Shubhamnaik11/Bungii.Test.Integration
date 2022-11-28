@@ -588,7 +588,7 @@
       And I wait for 1 minutes
       And I click on "View Request" button
       Then The "stacked bungii" should match
-      Then The "Stacked dropOff range" should match
+      Then The "Stacked delivery dropOff range" should match
       And I click on "Accept" button
       And I click on "OK" button
       And I slide update button on "ARRIVED" Screen
@@ -605,15 +605,15 @@
 
 #     @testAllan
 #    Scenario:testing1
-#       When I switch to "ORIGINAL" instance
-#       When I Switch to "driver" application on "same" devices
-#       And I am logged in as "Testdrivertywd_appleks_a_drvbh Kansas_bh" driver
-#       And I tap on "Go Online button" on Driver Home page
-#       When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
-#         | Bungii Time   | Customer Phone | Customer Name |
-#         | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer |
-#       And I wait for 1 minutes
-#       And I click on "View Request" button
-#       And I wait for 1 minutes
-#       Then The "Ondemand bungii" should match
-#        Then The "Ondemand dropOff range" should match
+       When I switch to "ORIGINAL" instance
+       When I Switch to "driver" application on "same" devices
+       And I am logged in as "Testdrivertywd_appleks_a_drvbh Kansas_bh" driver
+       And I tap on "Go Online button" on Driver Home page
+       When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+         | Bungii Time   | Customer Phone | Customer Name |
+         | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer |
+       And I wait for 1 minutes
+       And I click on "View Request" button
+       And I wait for 1 minutes
+       Then The "Ondemand bungii" should match
+       Then The "Ondemand delivery dropOff range" should match

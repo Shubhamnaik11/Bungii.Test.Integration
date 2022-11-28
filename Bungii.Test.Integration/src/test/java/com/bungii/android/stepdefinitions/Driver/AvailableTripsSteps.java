@@ -706,8 +706,8 @@ public class AvailableTripsSteps extends DriverBase {
                         "Expected On demand Arrival time for stacked delivery is  "+ondemandArrivalTime+" +/- 5 minutes max");
                 break;
             case "Expected time at drop-off":
-            case "Stacked dropOff range":
-            case "Ondemand dropOff range":
+            case "Stacked delivery dropOff range":
+            case "Ondemand delivery dropOff range":
             case "driver at arrival state":
             case"admin edits dropoff Address":
                 if(strArg1.contentEquals("Expected time at drop-off")){
@@ -718,7 +718,7 @@ public class AvailableTripsSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("Hours",hours);
                     cucumberContextManager.setScenarioContext("Minutes",minutes);
                 }
-                else if((strArg1.contentEquals("Stacked dropOff range"))||(strArg1.contentEquals("Ondemand dropOff range"))){
+                else if((strArg1.contentEquals("Stacked delivery dropOff range"))||(strArg1.contentEquals("Ondemand delivery dropOff range"))){
                     String dropOffRangeTime = ConvertTimeToCST(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
                     String[] createdDeliveryInHoursAndMinutess =dropOffRangeTime.substring(0, dropOffRangeTime.length() - 3).split(":");
                     String hours= createdDeliveryInHoursAndMinutess[0];
