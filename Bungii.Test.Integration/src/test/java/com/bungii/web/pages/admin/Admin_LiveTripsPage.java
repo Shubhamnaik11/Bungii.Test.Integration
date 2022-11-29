@@ -49,7 +49,7 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Text_ScheduledDate(){return findElement("//td[4]/a",LocatorType.XPath);}
 
-    public WebElement Button_LoadMap() {return findElement("load-map-btn",LocatorType.Id);}
+    public WebElement Button_LoadMap() {return findElement("//button[text()='Load map']",LocatorType.XPath);}
 
     public WebElement Button_ZoomOut() {return findElement("//button[@title='Zoom out']",LocatorType.XPath);}
 
