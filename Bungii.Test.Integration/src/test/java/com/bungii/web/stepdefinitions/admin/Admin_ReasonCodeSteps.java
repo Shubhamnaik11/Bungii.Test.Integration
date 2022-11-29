@@ -216,8 +216,8 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch(),driverName);
         action.waitForElement("//div[contains(.,'"+driverName+"')]");
 //       action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
-        action.clickOnDropdown();
-//      action.JavaScriptClick(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
+//        action.clickOnDropdown();
+        action.click(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
         cucumberContextManager.setScenarioContext("Driver_Name",driverName);
         Thread.sleep(1000);
 
