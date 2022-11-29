@@ -342,7 +342,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @And("^I log into another \"([^\"]*)\" portal in a new tab$")
     public void i_log_into_another_something_portal_in_a_new_tab(String strArg1) throws Throwable {
         try {
-            String adminURL = "https://qaauto-portal-v2.gobungii-dev.com/login";
+            String adminURL = PropertyUtility.getDataProperties("qa.admin.url");
             Thread.sleep(2000);
             action.openNewTab();
             action.navigateTo(adminURL);

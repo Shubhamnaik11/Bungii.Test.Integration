@@ -513,7 +513,6 @@ public class Partner_LoginSteps extends DriverBase {
                     }
                     action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.Text_Pickup_DateTime(),(long)7000);
                     String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
-                    System.out.println("Result of Pickup date time= "+PickupDateTime);
 
                     String[] splitDate = PickupDateTime.split(" ", 2);
                     String Month = splitDate[0].substring(0, 3);
