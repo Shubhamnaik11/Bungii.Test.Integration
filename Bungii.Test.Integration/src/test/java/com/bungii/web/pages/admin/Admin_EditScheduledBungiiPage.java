@@ -7,19 +7,19 @@ import org.openqa.selenium.WebElement;
 
 public class Admin_EditScheduledBungiiPage extends PageBase {
 
-    public WebElement Changed_Date() { return findElement("//td[@class=' ui-datepicker-days-cell-over  ui-datepicker-current-day ui-datepicker-today']/following::td[2]/a", LocatorType.XPath); }
+    public WebElement Changed_Date() { return findElement("//div[@aria-selected='true']/following::div[2]", LocatorType.XPath); }
 
-    public WebElement Changed_Time() { return findElement("//tr[@id='row1']/td[5]/a", LocatorType.XPath); }
+    public WebElement Changed_Time() { return findElement("//td[6]/a", LocatorType.XPath); }
 
-    public WebElement Dropdown_ScheduledDate_Time() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
+    public WebElement Dropdown_ScheduledDate_Time(String time) { return findElement("//select[@class='timepicker form-control']/option[contains(text(),'"+time+"')]/following-sibling::option[2]", LocatorType.XPath); }
 
-    public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
+    public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("//select[@class='reason form-select']",LocatorType.XPath, ignoreException); }
 
     public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[contains(.,'%s')]",driverName),LocatorType.XPath);}
 
-    public WebElement DatePicker_ScheduledDate () { return findElement("PickupDetails_ScheduledDate", LocatorType.Id); }
+    public WebElement DatePicker_ScheduledDate () { return findElement("//input[@placeholder='MM/DD/YYYY']", LocatorType.XPath); }
 
-    public WebElement TimePicker_Time () { return findElement("PickupDetails_ScheduledTime", LocatorType.Id); }
+    public WebElement TimePicker_Time () { return findElement("//select[@class='timepicker form-control']", LocatorType.XPath); }
 
     public WebElement List_TimeFrame (String time) { return findElement("//div/ul/li[text()='"+time+"']", LocatorType.XPath); }
 
