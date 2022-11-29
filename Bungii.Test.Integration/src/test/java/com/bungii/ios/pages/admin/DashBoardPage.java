@@ -24,7 +24,7 @@ public class DashBoardPage extends PageBase {
     }
 
     public WebElement Button_ScheduledTrips() {
-        return findElement("adminmenu-scheduledtrips", LocatorType.Id);
+        return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Scheduled Deliveries\"]", LocatorType.XPath);
     }
 
     public WebElement Button_LiveTrips() {

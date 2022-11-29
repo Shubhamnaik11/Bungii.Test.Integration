@@ -27,9 +27,10 @@ public class DashBoardSteps extends DriverBase {
             Thread.sleep(5000);
             switch (option.toLowerCase()) {
                 case "scheduled trip":
-                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
-                   // action.click(dashBoardPage.Button_Trips());
-                   // action.click(dashBoardPage.Button_ScheduledTrips());
+//                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
+                    action.click(dashBoardPage.Button_Trips());
+                    Thread.sleep(5000);
+                    action.click(dashBoardPage.Button_ScheduledTrips());
                     break;
                 case "live trips":
                     Thread.sleep(12000);
