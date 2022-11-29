@@ -213,7 +213,6 @@ Feature: Admin Notes & History
 
 
   @ready
-    @sn
 # driver crash
   Scenario: To verify the Notes-Customer service notes field is displayed on delivery details page for Weight based pricing portal
     When I navigate to "Partner" portal configured for "FloorDecor service level"
@@ -243,7 +242,7 @@ Feature: Admin Notes & History
     And I search the delivery using "Pickup Reference" as "Admin1"
     Then I should be able to see the respective bungii with the status
       | Status            |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on the "Notes & History" link beside scheduled bungii for "Schedule Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
