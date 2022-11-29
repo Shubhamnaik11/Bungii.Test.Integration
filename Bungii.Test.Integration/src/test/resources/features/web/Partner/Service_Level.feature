@@ -317,3 +317,39 @@ Feature: Service Level
       |Solo|1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
       |Duo |1601 Kirkwood Highway, Wilmington, United States, Delaware, 19805                |Curbside      |Above 100|
 
+ #    Core - 3842 Verify that Estimated Delivery time is displayed correctly on delivery details of weight based Partner portal
+  @ready
+  Scenario: Verify that Estimated Delivery time is displayed correctly on delivery details of weight based Partner portal
+    When I navigate to "Partner" portal configured for "FloorDecor service level" URL
+    And I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "see 1 pallet and 2 pallets"
+    When I request "Solo" Bungii trip in partner portal configured for "FloorDecor service level" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |
+    And I click "Service Level List" button on Partner Portal
+    Then I should "see all the Service Level" for "Floor & Decor #240" Alias
+    And I change the service level to "First Threshold" in "Partner" portal
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    And I click "Continue" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
+      |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|ScheduledBy|
+      |20 boxes           |20X20X20  | 1570 |Handle with care   |Testcustomertywd_appleNewQR Customer  |9999999117     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
+    And I click "Schedule Bungii" button on Partner Portal
+    Then I should "see Done screen"
+    And I click "Track Deliveries" button on Partner Portal
+    Then I should "see the trip in the Delivery List"
+    And I select the Scheduled Bungii from Delivery List
+    Then I should "see the service name"
+    And I calculate the estimated delivery time for "weight based"
+    And I check if correct "estimated time weight based Partner portal" is displayed
+    When I navigate to "Admin" portal configured for "QA" URL
+    And I view the partner portal Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      | Assigning Driver(s)|
+    When I view the delivery details
+    Then I check if correct "estimated time on admin portal" is displayed
