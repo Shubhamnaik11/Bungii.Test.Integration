@@ -62,6 +62,7 @@ Feature: Admin_Promoter
 
   @sanity
   @regression
+    #Issue logged ADP-708
   Scenario: Verify Adding Payment To Promoter
     When I click on the "New Partners" Button
     And I enter following values in fields in "Add New Partner" popup
