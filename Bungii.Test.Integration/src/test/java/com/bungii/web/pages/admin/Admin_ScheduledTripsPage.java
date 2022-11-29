@@ -14,7 +14,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Button_Submit () { return findElement("CustomerCancel", LocatorType.Name); }
 
-    public WebElement Textbox_CancellationFee () { return findElement("Primary", LocatorType.Id); }
+    public WebElement Textbox_CancellationFee () { return findElement("cancelationFee", LocatorType.Id); }
 
     public WebElement Label_Drop_Off_Location () { return findElement("//span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
 
@@ -40,7 +40,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement DropdownResult (String address) { return findElement(String.format("//div[contains(.,'%s')]",address),LocatorType.XPath);}
 
-    public WebElement DropdownPickupResult (String address) { return findElement(String.format("//div[@id='divPickupPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
+    public WebElement DropdownPickupResult () { return findElement(String.format("//div[@class='autocomplete-dropdown-container']/div[1]/span"),LocatorType.XPath);}
 
     public WebElement DropOff_Address() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
 
@@ -135,7 +135,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_Delivery_Successfull(){return  findElement("//tbody/tr/td[contains(text() ,\"Payment Successful\")]",LocatorType.XPath);}
 
     public WebElement Text_Delivery_TripStarted(){return  findElement("//tbody/tr/td[contains(text() ,\"Trip Started\")]",LocatorType.XPath);}
-    public WebElement Dropdown_Notes_History(){return  findElement("showNotes",LocatorType.Id);}
+    public WebElement Dropdown_Notes_History(){return  findElement("//body/div[@id='popover-basic']/div[2]/div[3]",LocatorType.XPath);}
 
     public WebElement Text_NotesEmpty_Message(){return  findElement("notes-tab",LocatorType.Id);}
 
@@ -161,7 +161,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_ConfirmDeleteNote(){return  findElement("//div/a[text() =\"Yes\"]",LocatorType.XPath);}
 
-    public WebElement Button_NoteClose(){return  findElement("//div[@id=\"CustomerServiceNotes\"]/div/button/span[text() =\"×\"]",LocatorType.XPath);}
+    public WebElement Button_NoteClose(){return  findElement("//button[@class='btn-close']",LocatorType.XPath);}
 
     public WebElement Text_EditNote_TextArea(){return  findElement("//div[1]/div/textarea",LocatorType.XPath);}
 
@@ -205,11 +205,11 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Header_HistoryNewValue(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr/th[3]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryEventValue(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[1]",LocatorType.XPath);}
+    public WebElement Text_HistoryEventValue(){return findElement("//td[text()='Date Time Edit']",LocatorType.XPath);}
 
-    public WebElement Text_HistoryOldValueData(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[2]",LocatorType.XPath);}
+    public WebElement Text_HistoryOldValueData(){return findElement("//td[text()='Date Time Edit']/following-sibling::td[1]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryNewValueData(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[3]",LocatorType.XPath);}
+    public WebElement Text_HistoryNewValueData(){return findElement("//td[text()='Date Time Edit']/following-sibling::td[2]",LocatorType.XPath);}
 
     public WebElement Text_HistoryEditedTime(){return findElement("//div[@id=\"history-tab\"]/div/label",LocatorType.XPath);}
 
@@ -254,4 +254,5 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_DeliveryMiles(){return  findElement("//td[text()='Delivery Distance']/following::td[1]/strong",LocatorType.XPath);}
 
+    public WebElement Link_BungiiDate() {return findElement("//tr[1]/td/a[contains(@href,'tripRef')]", LocatorType.XPath);}
 }

@@ -58,12 +58,24 @@ Feature: Admin_Trips
     #And I view the Scheduled Trips list on the admin portal
     And I wait for "2" mins
     And I view the Live Deliveries list on the admin portal
+    And I search the delivery of Customer
+    # CORE-4434 - Browser not detecting a delivery in "Delivery List" page as a link
+    And I open the delivery in a new browser tab
+    Then I should see "Delivery Details" header
+    And I close Delivery details page
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Assigning Driver(s)|
     When I search the delivery of Customer
     Then I should see the delivery highlighted in "Blue"
     When I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery of Customer
+    # CORE-4434 - Browser not detecting a delivery in "Delivery List" page as a link
+    And I open the delivery in a new browser tab
+    Then I should see "Delivery Details" header
+    And I close Delivery details page
+    And I view the all Scheduled Deliveries list on the admin portal
     And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
@@ -121,6 +133,17 @@ Feature: Admin_Trips
       | Bungii Completed |
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
+    And I search the delivery of Customer
+    # CORE-4434 - Browser not detecting a delivery in "Delivery List" page as a link
+    And I open the delivery in a new browser tab
+    Then I should see "Delivery Details" header
+    And I close Delivery details page
+    When I view All Deliveries list on the admin portal
+    And I search the delivery of Customer
+    And I open the delivery in a new browser tab
+    Then I should see "Delivery Details" header
+    And I close Delivery details page
+    And I view the Deliveries list on the admin portal
     And I search the delivery of Customer
     And The delivery should not be highlighted in "Blue" for "All Deliveries"
     And Customer should receive "Your Bungii Receipt" email
@@ -585,7 +608,7 @@ Feature: Admin_Trips
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
     | NEXT_POSSIBLE | 8877661062 | Testcustomertywd_BppleMarkBK LutherBK|
-   And As a driver "Testdrivertywd_appledc_a_drvN WashingtonM" perform below action with respective "Solo Scheduled" Delivery
+   And As a driver "Testdrivertywd_appledc_a_drvM WashingtonM" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
     |Accepted |
     And I wait for 2 minutes

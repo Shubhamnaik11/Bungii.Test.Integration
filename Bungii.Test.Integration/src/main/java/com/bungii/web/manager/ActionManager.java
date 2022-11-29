@@ -472,4 +472,21 @@ catch(Exception ex)
                     true);
         }
     }
+
+    public void rightClickOpenNewTab(WebElement element) {
+        try{
+            WebDriver driver = SetupManager.getDriver();
+            Actions action = new Actions(driver);
+            action.keyDown(Keys.LEFT_CONTROL)
+                    .click(element)
+                    .keyUp(Keys.LEFT_CONTROL)
+                    .build()
+                    .perform();
+            logger.detail("Clicked on " + element + " and opened page in a new tab");
+        } catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to Click",
+                    true);
+        }
+    }
 }
