@@ -608,7 +608,7 @@ Feature: Admin_Trips
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
     | NEXT_POSSIBLE | 8877661062 | Testcustomertywd_BppleMarkBK LutherBK|
-   And As a driver "Testdrivertywd_appledc_a_drvN WashingtonM" perform below action with respective "Solo Scheduled" Delivery
+   And As a driver "Testdrivertywd_appledc_a_drvM WashingtonM" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
     |Accepted |
     And I wait for 2 minutes

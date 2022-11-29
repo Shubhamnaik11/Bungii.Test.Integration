@@ -1180,10 +1180,10 @@ try{
         action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location(),address);
         //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
         Thread.sleep(1000);
-        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location()," ");
+       // action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location()," ");
 
         //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-        action.JavaScriptClick(admin_ScheduledTripsPage.DropdownPickupResult(address));
+        action.click(admin_ScheduledTripsPage.DropdownPickupResult());
         Thread.sleep(1000);
         String Change_Address = action.getText(admin_ScheduledTripsPage.Pickup_Address());
         cucumberContextManager.setScenarioContext("Change_Pickup",Change_Address);

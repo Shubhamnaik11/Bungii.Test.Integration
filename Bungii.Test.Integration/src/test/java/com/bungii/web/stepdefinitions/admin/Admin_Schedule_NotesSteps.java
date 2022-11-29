@@ -808,21 +808,18 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     public void i_should_see_edit_date_time_history() throws Throwable {
         try
         {
-         String DateChanged=(String) cucumberContextManager.getScenarioContext("Date_Changed");
-            Date date1=new SimpleDateFormat("MM/dd/yyyy").parse(DateChanged);
-            String date= String.valueOf(date1);
-            date =date.substring(4,10)+", "+date.substring(24);
-            String[] dateN=date.split(",");
-        String TimeChanged=(String) cucumberContextManager.getScenarioContext("Time_Changed");
-        String OldScheduleTime=(String)cucumberContextManager.getScenarioContext("BUNGII_TIME");
-        String ACtualnewdate=action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData());
-        String ACtualOlddate=action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData());
-        ACtualOlddate= ACtualOlddate.replace(":00 AM"," AM");
-        ACtualnewdate=ACtualnewdate.replace(":00 AM"," AM");
-        testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_DateTimeEdit")),"event should be shown","Event not shown");
-        testStepAssert.isTrue((ACtualOlddate).contains(OldScheduleTime),"OldValueData should be shown","Old Value Data not shown");
-        testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(dateN[0]),"New Value data should be shown","New Value Data not shown");
-        testStepAssert.isTrue((ACtualnewdate).contains(TimeChanged),"New Value data should be shown","New Value Data not shown");
+            String DateChanged=(String) cucumberContextManager.getScenarioContext("Date_Changed");
+            String[] dateN=DateChanged.split(",");
+            String TimeChanged=(String) cucumberContextManager.getScenarioContext("Time_Changed");
+            String OldScheduleTime=(String)cucumberContextManager.getScenarioContext("BUNGII_TIME");
+            String ACtualnewdate=action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData());
+            String ACtualOlddate=action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData());
+            ACtualOlddate= ACtualOlddate.replace(":00 AM"," AM");
+            ACtualnewdate=ACtualnewdate.replace(":00 AM"," AM");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_DateTimeEdit")),"event should be shown","Event not shown");
+            testStepAssert.isTrue((ACtualOlddate).contains(OldScheduleTime),"Old Value Data should be shown","Old Value Data not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(dateN[0]),"New Value data should be shown","New Value Data not shown");
+            testStepAssert.isTrue((ACtualnewdate).contains(TimeChanged),"New Value data should be shown","New Value Data not shown");
 
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
