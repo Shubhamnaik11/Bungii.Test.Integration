@@ -485,7 +485,6 @@ public class Partner_LoginSteps extends DriverBase {
                     }
                     String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
 
-
                     String[] splitDate = PickupDateTime.split(" ", 2);
                     String Month = splitDate[0].substring(0, 3);
                     splitDate[0] = Month + " ";

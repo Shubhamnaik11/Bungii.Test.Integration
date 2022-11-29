@@ -460,7 +460,7 @@ Feature: Service Level
     And I click "GET ESTIMATE" button on Partner Portal
     And I click "Continue" button on Partner Portal
 #      Core - 3367 Verify that Order number field accepts only integer values on configured Best buy Partner portal site.
-#    And I check in the db the number of timeslots available "before schedule for best buy"
+    And I check in the db the number of timeslots available "before schedule for best buy"
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
       |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Order_Number|EmployeeID     |
