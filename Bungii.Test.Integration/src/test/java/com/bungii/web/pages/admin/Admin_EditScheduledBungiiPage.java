@@ -15,7 +15,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("//select[@class='reason form-select']",LocatorType.XPath, ignoreException); }
 
-    public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[contains(.,'%s')]",driverName),LocatorType.XPath);}
+    public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[contains(text(),'%s')]",driverName),LocatorType.XPath);}
 
     public WebElement DatePicker_ScheduledDate () { return findElement("//input[@placeholder='MM/DD/YYYY']", LocatorType.XPath); }
 
