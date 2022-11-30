@@ -374,8 +374,8 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @And("^The \"([^\"]*)\" link should not be displayed$")
     public void the_something_link_should_not_be_displayed(String strArg1) throws Throwable {
         try {
-            Thread.sleep(1000);
-            testStepAssert.isTrue(action.isElementPresent(
+            Thread.sleep(2000);
+            testStepAssert.isFalse(action.isElementPresent(
                     admin_ScheduledTripsPage.Link_EditNote_NotDisplayed(true)),"Edit link should not be displayed","Edit link is not displayed", "Edit link is  displayed");
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -597,7 +597,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             action.clearSendKeys(admin_ScheduledTripsPage.Textbox_AddNote(),"Added Customer Note");
             action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Button_SaveNote(),(long)3000);
             action.click(admin_ScheduledTripsPage.Button_SaveNote());
-            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Textbox_AddNote(),(long)3000);
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Textbox_AddNote(),(long)5000);
             action.clearSendKeys(admin_ScheduledTripsPage.Textbox_AddNote(),"Added note by admin");
             action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Button_SaveNote(),(long)3000);
             action.click(admin_ScheduledTripsPage.Button_SaveNote());
@@ -684,14 +684,14 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             switch (link) {
                 case "Notes":
                     Thread.sleep(1000);
-                    boolean notesNotUnderlined = admin_ScheduledTripsPage.Link_Notes().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
-                    testStepAssert.isFalse(notesNotUnderlined, "Notes should not be underlined", "Notes is not underlined", "Notes in Underlined");
+                    boolean notesNotUnderlined = admin_ScheduledTripsPage.Link_Notes().getCssValue("border-bottom").contentEquals("0px none rgb(0, 0, 0)");
+                    testStepAssert.isTrue(notesNotUnderlined, "Notes should not be underlined", "Notes is not underlined", "Notes in Underlined");
                     break;
 
                 case "History":
                     Thread.sleep(1000);
-                    boolean historyNotUnderlined = admin_ScheduledTripsPage.Link_History().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
-                    testStepAssert.isFalse(historyNotUnderlined, "History should not be underlined", "History is not underlined", "History is Underlined");
+                    boolean historyNotUnderlined = admin_ScheduledTripsPage.Link_History().getCssValue("border-bottom").contentEquals("0px none rgb(0, 0, 0)");
+                    testStepAssert.isTrue(historyNotUnderlined, "History should not be underlined", "History is not underlined", "History is Underlined");
                     break;
             }
             } catch(Exception e){

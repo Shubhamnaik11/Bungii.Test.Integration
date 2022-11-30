@@ -155,7 +155,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_EditNote(){return  findElement("//div/a[text() =\"Edit\"]",LocatorType.XPath);}
 
-    public WebElement Link_EditNote_NotDisplayed(boolean...ignoreException){return  findElement("//div/a[text() =\"Edit\"]",LocatorType.XPath,ignoreException); }
+    public WebElement Link_EditNote_NotDisplayed(boolean...ignoreException){return  findElement("(//div/a[text() =\"Edit\"])[2]",LocatorType.XPath,ignoreException); }
 
     public WebElement Link_DeleteNote(){return  findElement("//div/a[text() =\"Delete\"]",LocatorType.XPath);}
 
