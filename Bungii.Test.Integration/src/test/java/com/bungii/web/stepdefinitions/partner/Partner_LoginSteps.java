@@ -179,7 +179,13 @@ public class Partner_LoginSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("Estimated_Delivery_Time", Estimated_Delivery_Time);
 
                         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
-                    } else {
+                    }
+                    else if(Partner_Portal_Site.equalsIgnoreCase("FloorDecor service level")){
+                        String Estimated_Delivery_Time=action.getText(Page_Partner_Dashboard.Label_EstDeliveryTime());
+                        cucumberContextManager.setScenarioContext("Estimated_Delivery_Time", Estimated_Delivery_Time);
+                        action.click(Page_Partner_Dashboard.Button_Continue());
+                    }
+                    else {
                         action.click(Page_Partner_Dashboard.Button_Continue());
                     }
                     break;
@@ -251,6 +257,7 @@ public class Partner_LoginSteps extends DriverBase {
     public void i_calculate_the_estimated_delivery_time_for_something(String portalType) throws Throwable {
         try {
             DateFormat formatter = new SimpleDateFormat("HH:mm");
+            int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
             switch (portalType){
                 case "geofence based portal":
                     String scheduledDate= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
@@ -261,7 +268,7 @@ public class Partner_LoginSteps extends DriverBase {
                     int  loadUnloadTime = Math.round(Float.valueOf(dbUtility.getLoadUnloadTime(pickUpId)));
                     int calLoadUnload=loadUnloadTime/3;
                     int projectedDriveTime= Integer.parseInt(dbUtility.getProjectedDriverTime(pickUpId));
-                    int minutes=calLoadUnload+projectedDriveTime+40;
+                    int minutes=calLoadUnload+projectedDriveTime+driverTime;
                     utility.calculateEstDeliveryTime(minutes,timeValue);
                     break;
 
@@ -274,7 +281,7 @@ public class Partner_LoginSteps extends DriverBase {
                     int  loadUnloadTime1 = Math.round(Float.valueOf(dbUtility.getLoadUnloadTime(newPickUpId)));
                     int calLoadUnload1=loadUnloadTime1/3;
                     int projectedDriveTime1= Integer.parseInt(dbUtility.getProjectedDriverTime(newPickUpId));
-                    int mins=calLoadUnload1+projectedDriveTime1+40;
+                    int mins=calLoadUnload1+projectedDriveTime1+driverTime;
                     utility.calculateEstDeliveryTime(mins,timeValue1);
                     String lowerRange= (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
                     String upperRange= (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
@@ -307,9 +314,27 @@ public class Partner_LoginSteps extends DriverBase {
                     int  sumLoadUnload = (int) (default_Pickup_Time+default_Dropoff_time);
                     int loadUnload=sumLoadUnload/3;
                     int projectedDriveTime2= Integer.parseInt(dbUtility.getProjectedDriverTime(pickUpReference));
-                    int min=loadUnload+projectedDriveTime2+40;
+                    int min=loadUnload+projectedDriveTime2+driverTime;
                     utility.calculateEstDeliveryTime(min,timeValue2);
                     break;
+
+                case "weight based":
+                    String scheduledTime= (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
+                    String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String serviceLevel = (String) cucumberContextManager.getScenarioContext("Selected_service");
+                    String time2=scheduledTime.substring(16,20);
+                    Time timevalue = new Time(formatter.parse(time2).getTime());
+                    long defaultPickupTime = dbUtility.getDefaultPickupTime(serviceLevel, "floordecor166");
+                    defaultPickupTime = utility.Milliseconds_To_Minutes(defaultPickupTime);
+                    long defaultDropoffTime = dbUtility.getDefaultDropoffTime(serviceLevel, "floordecor166");
+                    defaultDropoffTime = utility.Milliseconds_To_Minutes(defaultDropoffTime);
+                    int  sumLoadUnload1 = (int) (defaultPickupTime+defaultDropoffTime);
+                    int loadUnload1=sumLoadUnload1/3;
+                    int projectedDriveTime3= Integer.parseInt(dbUtility.getProjectedDriverTime(pickUpRef));
+                    int minute=loadUnload1+projectedDriveTime3+driverTime;
+                    utility.calculateEstDeliveryTime(minute,timevalue);
+                    break;
+
             }
             log("I should be able to calculate the correct estimated delivery time range","I am able to calculate the correct estimated delivery time range",false);
 
@@ -342,6 +367,7 @@ public class Partner_LoginSteps extends DriverBase {
                            "Estimated delivery time displayed on partner portal delivery details and while creating trip are not the same.");
                    break;
 
+               case "estimated time weight based Partner portal":
                case "estimated time fixed distance based Partner portal":
                    String calLowerRange1 = (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
                    String calUpperRange1 = (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");

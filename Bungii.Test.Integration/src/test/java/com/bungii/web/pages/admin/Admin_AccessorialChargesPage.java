@@ -5,12 +5,12 @@ import org.openqa.selenium.WebElement;
 
 public class Admin_AccessorialChargesPage extends PageBase {
 
-    public WebElement TextBox_AccessorialAmount() { return findElement("AccessorialFeeAmount", LocatorType.Name); }
-    public WebElement TextBox_AccessorialDriver1Cut() { return findElement("fee-type-driverOneShare", LocatorType.Name); }
+    public WebElement TextBox_AccessorialAmount() { return findElement("formHorizontalAmount", LocatorType.Id); }
+    public WebElement TextBox_AccessorialDriver1Cut() { return findElement("formHorizontalDriverShare", LocatorType.Id); }
     public WebElement TextBox_Comment() { return findElement("Comment", LocatorType.Name); }
-    public WebElement DropDown_AccessorialFeeType() { return findElement("AccessorialFeeType", LocatorType.Name); }
+    public WebElement DropDown_AccessorialFeeType() { return findElement("formHorizontalFeeType", LocatorType.Id); }
     public WebElement Button_Save() { return findElement("//button[text()='Save']", LocatorType.XPath); }
-    public WebElement Button_Confirm() { return findElement("//button[text()='Confirm' and @class='btn btn-primary']", LocatorType.XPath); }
+    public WebElement Button_Confirm() { return findElement("//button[text()='Confirm' and @class='save-btn btn btn-primary']", LocatorType.XPath); }
     public WebElement Header_Section(boolean...ignoreException) { return findElement("//h4[text()='Accessorial Charges']", LocatorType.XPath,ignoreException); }
     public WebElement Error_AccessoricalCharges() { return findElement("accessorial-fee-error", LocatorType.Name); }
     public WebElement Message_Mandatory() { return findElement("//div[@id='accessorial-charge']/label[2]", LocatorType.XPath); }
