@@ -63,7 +63,6 @@ public class Partner_Delivery_Details extends DriverBase {
             cucumberContextManager.setScenarioContext("CUSTOMER", CustomerName);
             //cucumberContextManager.setScenarioContext("Customer", CustomerName);
             String CustomerMobile = dataMap.get("Customer_Mobile").trim();
-            System.out.println("Customer mbl no is= "+CustomerMobile);
             cucumberContextManager.setScenarioContext("CustomerPhone", CustomerMobile);
             String PickupContactName = dataMap.get("Pickup_Contact_Name").trim();
             cucumberContextManager.setScenarioContext("PickupContactName",PickupContactName);
