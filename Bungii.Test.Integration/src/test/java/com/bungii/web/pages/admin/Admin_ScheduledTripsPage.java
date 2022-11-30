@@ -54,23 +54,23 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Dropdown_ChangeAddress (String address) { return findElement("//div[@class='autocomplete-dropdown-container']/div/span[contains(text(),'"+address+"')]", LocatorType.XPath); }
 
-    //changed by Richa
+
     //public WebElement RadioButton_CancelBungii () { return findElement("//span[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input", LocatorType.XPath); }
     public WebElement RadioButton_CancelBungii () { return findElement("//label[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input", LocatorType.XPath); }
 
     public WebElement RadioButton_RemoveDriver () { return findElement("radio1", LocatorType.Id); }//richa
 
     //public WebElement Button_RemoveDrivers () { return findElement("(//input[@value='Remove Driver(s)'])[2]", LocatorType.XPath); }
-    public WebElement Button_RemoveDrivers () { return findElement("//button/strong[contains(text(),'Remove') and @class!='disabled']", LocatorType.XPath); }//Richa
+    public WebElement Button_RemoveDrivers () { return findElement("//button/strong[contains(text(),'Remove') and @class!='disabled']", LocatorType.XPath); }
 
     //public WebElement Button_Research () { return findElement("(//input[@value='Re-search'])[2]", LocatorType.XPath); }
-    public WebElement Button_Research () { return findElement("//strong[contains(text(),'Re-search a driver')]", LocatorType.XPath); }//Richa
+    public WebElement Button_Research () { return findElement("//strong[contains(text(),'Re-search a driver')]", LocatorType.XPath); }
 
     //public WebElement Checkbox_driver (String driver) { return findElement("(//div/label[contains(.,'"+driver+"')])[2]/input[1]", LocatorType.XPath); }
     public WebElement Checkbox_driver () { return findElement("checkbox0", LocatorType.Id); }//richa
 
     public WebElement Label_SuccessMessage () { return findElement("SuccessMessage", LocatorType.Id); }
-    //changed by Richa
+
     public WebElement Label_CancelSuccessMessage () { return findElement("//span[@id='cancel-success-message']/i[2]", LocatorType.XPath); }
 
     public WebElement Label_CancelSuccessMessageLive () { return findElement("//i[contains(text(),'Pick up has been successfully canceled.')]", LocatorType.XPath); }
@@ -87,7 +87,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Checkbox_NonControlDriverEdit () { return findElement( "//*[@id='editTripDrivers']/tbody/tr[2]/td//input", LocatorType.XPath);}
 
-    public WebElement Button_RemoveDriversEdit () { return findElement("//sup/following-sibling::strong[text()='Remove']", LocatorType.XPath); }//Richa
+    public WebElement Button_RemoveDriversEdit () { return findElement("//sup/following-sibling::strong[text()='Remove']", LocatorType.XPath); }
 
     public WebElement Label_DriverRemovalSuccessMessage () { return findElement( "//i[text()='Driver(s) removed successfully']" , LocatorType.XPath); }
 
