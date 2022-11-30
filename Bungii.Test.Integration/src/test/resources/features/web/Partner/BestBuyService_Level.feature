@@ -444,7 +444,6 @@ Feature: Service Level
     Then The revive button should not be displayed
 
   @ready
-    @sn
       #stable
   Scenario: Verify that Order number field accepts only integer values on configured Best buy Partner portal site.
     When I enter "valid" password on Partner Portal
@@ -471,7 +470,7 @@ Feature: Service Level
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
 #     Core-4246 Verify searching delivery using external order id on Admin portal
-    When I navigate to "Admin" portal
+    When  I am logged in as Admin
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     And I search the delivery using "ExternalOrderId" as "Admin4"
