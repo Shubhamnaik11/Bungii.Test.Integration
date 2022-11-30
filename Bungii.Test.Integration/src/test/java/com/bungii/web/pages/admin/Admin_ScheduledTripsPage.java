@@ -58,7 +58,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     //public WebElement RadioButton_CancelBungii () { return findElement("//span[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input", LocatorType.XPath); }
     public WebElement RadioButton_CancelBungii () { return findElement("//label[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input", LocatorType.XPath); }
 
-    public WebElement RadioButton_RemoveDriver () { return findElement("radio1", LocatorType.Id); }//richa
+    public WebElement RadioButton_RemoveDriver () { return findElement("radio1", LocatorType.Id); }
 
     //public WebElement Button_RemoveDrivers () { return findElement("(//input[@value='Remove Driver(s)'])[2]", LocatorType.XPath); }
     public WebElement Button_RemoveDrivers () { return findElement("//button/strong[contains(text(),'Remove') and @class!='disabled']", LocatorType.XPath); }
@@ -67,7 +67,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Button_Research () { return findElement("//strong[contains(text(),'Re-search a driver')]", LocatorType.XPath); }
 
     //public WebElement Checkbox_driver (String driver) { return findElement("(//div/label[contains(.,'"+driver+"')])[2]/input[1]", LocatorType.XPath); }
-    public WebElement Checkbox_driver () { return findElement("checkbox0", LocatorType.Id); }//richa
+    public WebElement Checkbox_driver () { return findElement("checkbox0", LocatorType.Id); }
 
     public WebElement Label_SuccessMessage () { return findElement("SuccessMessage", LocatorType.Id); }
 
