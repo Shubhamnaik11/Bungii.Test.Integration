@@ -7,6 +7,7 @@ Feature: Admin_Promoter
     Then I should be directed to "Promoters Page"
 
   @regression
+    #Issue Raised ADP-618 as for 'Name' field attribute value is not changing though the 'Name' field is in ascending order
     #Failing due to pagination bar appears on Partners list
   Scenario: Verify Promoter Grid Sort ASC DESC
     When I click on "Name" header "Ascending" on "Promoter" grid
