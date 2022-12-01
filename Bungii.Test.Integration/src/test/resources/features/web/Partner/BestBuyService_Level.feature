@@ -478,11 +478,11 @@ Feature: Service Level
       | Status            |
       | Assigning Driver(s) |
     And  I search the delivery using "Pickup Reference"
-    Then I should be able to see the respective bungii with the below status
+    Then I should be able to see the respective bungii with the status
       |  Status |
       | Assigning Driver(s) |
     And I search the delivery using "Invalid ExternalOrderId" as "Admin5"
-    Then I should see "No Deliveries found." message
+    Then I should see the message "No deliveries found." displayed
     When As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
@@ -493,11 +493,11 @@ Feature: Service Level
       | Status    |
       | Trip Started |
     And  I search the delivery using "Pickup Reference"
-    Then I should be able to see the respective bungii with the below status
+    Then I should be able to see the respective bungii with the status
       |  Status |
-      | Assigning Driver(s) |
+      | Trip Started |
     And I search the delivery using "Invalid ExternalOrderId" as "Admin5"
-    Then I should see "No Deliveries found." message
+    Then I should see the message "No deliveries found." displayed
     When As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Arrived       |
@@ -507,10 +507,11 @@ Feature: Service Level
       | Bungii Completed |
     And I wait for 2 minutes
     Then The "All Deliveries" page should display the delivery in "Payment Successful" form
-    And I search the delivery using "Pickup Reference"
+    And I search the delivery using "ExternalOrderId" as "Admin4"
+    And  I search the delivery using "Pickup Reference"
     Then The "All Deliveries" page should display the delivery in "Payment Successful" form
     And I search the delivery using "Invalid ExternalOrderId" as "Admin5"
-    Then I should see "No Deliveries found." message
+    Then I should see the message "No deliveries found." displayed
 
 
 
