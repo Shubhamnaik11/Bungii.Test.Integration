@@ -62,7 +62,6 @@ Feature: Admin Notes & History
 
 
   @regression
-    #Passed
   Scenario:To verify the Notes-Customer service notes of Admin1 can be edited by Admin1 only
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                       |
@@ -317,7 +316,6 @@ Feature: Admin Notes & History
 
 
   @regression
-    #Passed
   Scenario:To verify the Notes-Customer service notes of Admin1 can be added multiple times after ADMIN2 has added Notes to the same delivery
     When  I am logged in as TestAdmin
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
@@ -349,7 +347,6 @@ Feature: Admin Notes & History
 
   #CORE-3382
   @ready
-    #Passed
   Scenario:To verify admin is able to see edit History for customer solo trip
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                       |
