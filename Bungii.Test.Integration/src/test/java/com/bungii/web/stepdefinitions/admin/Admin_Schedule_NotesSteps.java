@@ -545,7 +545,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     Thread.sleep(1000);
                     testStepAssert.isEquals(scheduledStatus,status,"Delivery Status should be set to Scheduled ","Delivery Status is set to Scheduled ","Delivery Status is not set to Scheduled");
                     break;
-                case "Trip Started":
+                case "Trip Started":
                     Thread.sleep(2000);
                     String tripStartedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
                     Thread.sleep(1000);

@@ -479,7 +479,7 @@ Feature: Service Level
       | Assigning Driver(s) |
     And  I search the delivery using "Pickup Reference"
     Then I should be able to see the respective bungii with the status
-      |  Status |
+      | Status            |
       | Assigning Driver(s) |
     And I search the delivery using "Invalid ExternalOrderId" as "Admin5"
     Then I should see the message "No deliveries found." displayed
@@ -489,12 +489,12 @@ Feature: Service Level
       | Enroute       |
     And I wait for 2 minutes
     And I view the Live Deliveries list on  admin portal
-    Then I should be able to see the respective bungii with the status
-      | Status    |
+    Then I should be able to see the respective bungii with the below status
+      | Status |
       | Trip Started |
     And  I search the delivery using "Pickup Reference"
-    Then I should be able to see the respective bungii with the status
-      |  Status |
+    Then I should be able to see the respective bungii with the below status
+      | Status |
       | Trip Started |
     And I search the delivery using "Invalid ExternalOrderId" as "Admin5"
     Then I should see the message "No deliveries found." displayed
@@ -506,19 +506,13 @@ Feature: Service Level
       | Unloading Item |
       | Bungii Completed |
     And I wait for 2 minutes
-    Then The "All Deliveries" page should display the delivery in "Payment Successful" form
+    When I view All Deliveries list on the admin portal
     And I search the delivery using "ExternalOrderId" as "Admin4"
+    Then The "All Deliveries" page should display the delivery in "Payment Successful" form
     And  I search the delivery using "Pickup Reference"
     Then The "All Deliveries" page should display the delivery in "Payment Successful" form
     And I search the delivery using "Invalid ExternalOrderId" as "Admin5"
     Then I should see the message "No deliveries found." displayed
-
-
-
-
-
-
-
 
 
 
