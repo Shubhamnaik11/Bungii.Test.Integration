@@ -61,6 +61,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 else {
                     cucumberContextManager.setScenarioContext("TripType", "PartnerTrip");
                 }
+                Thread.sleep(5000);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
@@ -304,13 +305,13 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
             String message = DataList.get(i).get("Message").trim();
 
             if(amount.equalsIgnoreCase("Blank")) {
-                action.clear(admin_accessorialChargesPage.TextBox_AccessorialAmount());
+                admin_accessorialChargesPage.TextBox_AccessorialAmount().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
             }
             else{
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
             }
             if(driver_cut.equalsIgnoreCase("Blank")){
-                action.clear(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut());
+                admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
             }else{
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
             }
@@ -321,8 +322,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
             }
             if(comment.equalsIgnoreCase("Blank")) {
-                action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(),"");
-                Thread.sleep(2000);
+                admin_accessorialChargesPage.TextBox_Comment().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
             }
             else {
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
@@ -504,9 +504,9 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         action.refreshPage();
 
         Thread.sleep(2000);
-        action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
-        action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
-        action.click(Page_AdminLogin.Button_AdminLogin());
+        //action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
+        //action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
+        //action.click(Page_AdminLogin.Button_AdminLogin());
         log("I should be able to click on the Delivery details link and get the total earning value and navigate back to admin portal",
                 "I could click on the Delivery details link and get the total earning value and navigate back to admin portal");
     } catch(Exception e){
