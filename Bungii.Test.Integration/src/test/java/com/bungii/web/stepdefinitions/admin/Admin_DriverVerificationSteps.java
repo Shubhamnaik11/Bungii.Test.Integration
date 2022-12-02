@@ -54,8 +54,8 @@ public class Admin_DriverVerificationSteps extends DriverBase {
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration(),"I accept Driver licence expiration","I accepted Driver licence expiration","Error in accepting Driver licence expiration");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage(),"I accept Driver insuration image","I accepted Driver insuration image","Error in accepting Driver insuration image");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration(),"I accept Driver insuration expiration","I accepted Driver insuration expiration","Error in accepting Driver insuration expiration");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber(),"I accept Driver routing number","I accepted Driver routing number","Error in accepting Driver routing number");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber(),"I accept Driver account number","I accepted Driver account number","Error in accepting Driver account number");
+                //testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber(),"I accept Driver routing number","I accepted Driver routing number","Error in accepting Driver routing number");
+                //testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber(),"I accept Driver account number","I accepted Driver account number","Error in accepting Driver account number");
                 break;
 
             case "reject":
@@ -78,8 +78,8 @@ public class Admin_DriverVerificationSteps extends DriverBase {
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LicenseExpiration(),"I reject Driver licence expiration","I rejected Driver licence expiration","Error in rejecting Driver licence expiration");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_InsuranceImage(),"I reject Driver insuration image","I rejected Driver insuration image","Error in rejecting Driver insuration image");
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_InsuranceExpiration(),"I reject Driver insuration expiration","I rejected Driver insuration expiration","Error in rejecting Driver insuration expiration");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_RoutingNumber(),"I reject Driver routing number","I rejected Driver routing number","Error in rejecting Driver routing number");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_AccountNumber(),"I reject Driver account number","I rejected Driver account number","Error in rejecting Driver account number");
+                //testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_RoutingNumber(),"I reject Driver routing number","I rejected Driver routing number","Error in rejecting Driver routing number");
+                //testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_AccountNumber(),"I reject Driver account number","I rejected Driver account number","Error in rejecting Driver account number");
                 break;
         }
         } catch(Exception e){

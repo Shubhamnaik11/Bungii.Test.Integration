@@ -21,6 +21,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -63,6 +64,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @And("^there is a pending application for driver verification$")
     public void there_is_a_pending_driver_verification() throws Throwable {
+        Thread.sleep(3000);
         testStepAssert.isElementDisplayed(adminMenuLinksPage.Menu_Dashboard(true), "I should be naviagate to Admin Dashboard", "I was navigated to admin Dashboard", "Admin Dashboard is not visible");
         //WebAssertionManager.ElementDisplayed(adminDashboardPage.RecentDriverRegistrations);
         testStepAssert.isElementDisplayed(adminDashboardPage.PendingVerification().get(0), "There should be Pending application", "There is Pending application", "There is not Pending application");
@@ -301,8 +303,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
             action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
             action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber())) {
+                action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
+            }
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber())) {
+                action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+            }
             log("I verify and approve all the verification fields",
                     "I have verified and approved all the verification fields", false);
         } catch (Exception e) {
@@ -329,8 +335,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.click(admin_DriverVerificationPage.Button_DriverResentButton());
                     break;
                 case "Cancel":
-                    if(action.isElementPresent(admin_GeofencePage.Text_GeoHistory())){
-                        action.click(admin_GeofencePage.Button_GeofenceCancel());
+                     if (action.isElementPresent(admin_GeofencePage.Text_GeoHistory(true))) {
+                         action.click(admin_GeofencePage.Button_GeofenceCancel());
                     }
                     else {
                         action.click(admin_DriverVerificationPage.Button_Cancel());
@@ -523,7 +529,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @Then("^the status of the field resets to default$")
     public void theStatusOfTheFieldResetsToDefault() throws Throwable {
-        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(), "I check status field ", "Element is not displayed", "Element is displayed");
+        Thread.sleep(3000);
+        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(true), "I check status field ", "Element is not displayed", "Element is displayed");
 
     }
 
@@ -550,8 +557,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
             action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
             action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber())) {
+                action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
+            }
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber())) {
+                action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+            }
             log("I can verify all the fields except DOB",
                     "I have verified all the fields except DOB");
         } catch (Exception e) {

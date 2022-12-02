@@ -44,8 +44,12 @@ public class Admin_DriverResendApplicationSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+        if(action.isElementPresent(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber())) {
+            action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
+        }
+        if(action.isElementPresent(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber())) {
+            action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+        }
         log("I verify and reject the invalid verification fields",
                 "I have verified and reject the invalid verification fields", false);
     } catch(Exception e){

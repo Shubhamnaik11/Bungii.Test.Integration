@@ -14,7 +14,7 @@ public class Admin_GetAllBungiiDriversPage extends PageBase {
     public WebElement GridRow_BungiiResentToDriver (String name) { return findElement("//td[contains(text(),'"+name+"')]/following-sibling::td[text()='Re-sent to Driver']", LocatorType.XPath); }
     public WebElement GridRow_BungiiPendingVerification (String name) { return findElement("//td[contains(text(),'"+name+"')]/following-sibling::td[text()='Pending Verification']", LocatorType.XPath); }
 
-    public WebElement GridRow_PendingVerificationLink (String name) { return findElement("//td[contains(text(),'"+name+"')]/following-sibling::td[text()='Pending Verification']/following-sibling::td[2]/a", LocatorType.XPath); }
+    public WebElement GridRow_PendingVerificationLink (String name) { return findElement("//td[contains(text(),'"+name+"')]/following-sibling::td[text()='Pending Verification']/following-sibling::td/div[1]/*[2]", LocatorType.XPath); }
     public WebElement Driver_Profile (String name) { return findElement("//td[contains(text(),'"+name+"')]/following-sibling::td/div/a/img[@title='Profile']", LocatorType.XPath); }
     public WebElement Driver_Mobile_Edit() { return findElement("//td[contains(text(),'Phone Number')]/following-sibling::td/div/div/img[@title='Edit Phone']",LocatorType.XPath);}
     public WebElement Driver_Phone(boolean...ignoreException) { return findElement("//td[contains(text(),'Phone Number')]/following-sibling::td/div/div/div/strong",LocatorType.XPath,ignoreException);}
