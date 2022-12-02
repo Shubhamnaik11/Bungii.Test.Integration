@@ -3996,6 +3996,7 @@ public class CommonSteps extends DriverBase {
 
                 int convertHoursToMinutes = (Integer.parseInt( hours)*60) +Integer.parseInt( minutes) ;
 
+
                 int unloadingLoadingTime = (int) Float.parseFloat(ArrivalTimeAndUnloadingLoadingTime[2]);
                 int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+40;
                 final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");

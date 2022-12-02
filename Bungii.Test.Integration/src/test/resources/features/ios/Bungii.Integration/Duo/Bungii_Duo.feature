@@ -624,7 +624,7 @@ Feature: Scheduled DUO Bungii
     And I should be navigated to "Rate duo teammate" screen
 
 #CORE-3271:To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
-#  @testAllan  @duo  have to work on this
+  @ready @duo
   Scenario: To verify that DUO lift icon is displayed on driver app for all duo partner deliveries
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -643,43 +643,60 @@ Feature: Scheduled DUO Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
-#    And I Select Partner portal Trip from available trip
-#    Then The "Arrival time at pickup" "Text" should be displayed
-#    Then The "Expected time at drop-off" "Text" should be displayed
+    And I Select Partner portal Trip from available trip
+    #CORE:4122:To verify verbiage "ARRIVAL TIME AT PICKUP” on Scheduled delivery request details page for driver
+    Then The "Arrival time at pickup" "Text" should be displayed
+    Then The "Expected time at drop-off" "Text" should be displayed
     Then The "Arrival time" should match
-    Then The "Expected time at drop-off" should match
+    Then The "Expected time at drop-off for duo" should match
     And I select "Pallet-1" from items
     Then I should see "DUO LIFT" header displayed
     And I accept selected Bungii
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
-    Then I should see "DUO LIFT" header displayed
-    And I start selected Bungii
 
     And I Switch to "driver" application on "driver2" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
-#    Then The "Arrival time at pickup" "Text" should be displayed
-#    Then The "Expected time at drop-off" "Text" should be displayed
+    Then The "Arrival time at pickup" "Text" should be displayed
+    Then The "Expected time at drop-off" "Text" should be displayed
     Then The "Arrival time" should match
-    Then The "Expected time at drop-off" should match
+    Then The "Expected time at drop-off for duo" should match
     And I select "Pallet-2" from items
     Then I should see "DUO LIFT" header displayed
     When I accept selected Bungii
+
+    And I Switch to "driver" application on "driver2" devices
+    When I Switch to "driver" application on "ORIGINAL" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then The "Arrival time at pickup" "Text" should be displayed
+    Then The "Expected time at drop-off" "Text" should be displayed
+    Then The "Arrival time" should match
+    Then The "Expected time at drop-off for duo" should match
+    Then I should see "DUO LIFT" header displayed
+    And I start selected Bungii
+
+
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    Then The "Arrival time at pickup" "Text" should be displayed
+    Then The "Expected time at drop-off" "Text" should be displayed
+    Then The "Arrival time" should match
+    Then The "Expected time at drop-off for duo" should match
     And I Select Trip from scheduled trip
     Then I should see "DUO LIFT" header displayed
     And I start selected Bungii
 
     When I Switch to "driver" application on "ORIGINAL" devices
+    #CORE:4122:To verify Arrival Time/ Expected time values on various states of duo scheduled in progress Bungii
     Then The "PICKUP(Arrival time)" "Label" should be displayed
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
+    Then The "PICKUP(Arrival time)" "Label" should be displayed
 #    CORE-4007 :To verify DUO Team mates details for Weight based DUO Partner delivery
     Then The "Contact Duo Teammate" "Animation Text" should be displayed
     And I slide update button on "ARRIVED" Screen
     And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
+    Then The "PICKUP(Arrival time)" "Label" should be displayed
 
     And I Switch to "driver" application on "driver2" devices
     And I swipe to check trip details
@@ -687,9 +704,11 @@ Feature: Scheduled DUO Bungii
     Then The "PICKUP(Arrival time)" "Label" should be displayed
     When I slide update button on "EN ROUTE" Screen
     And I click on "GOT IT" button
+    Then The "PICKUP(Arrival time)" "Label" should be displayed
     And I slide update button on "ARRIVED" Screen
     And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
+    Then The "PICKUP(Arrival time)" "Label" should be displayed
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "LOADING ITEM" Screen
@@ -708,12 +727,14 @@ Feature: Scheduled DUO Bungii
     And I click on "GOT IT" button
 #    CORE-4007 :To verify DUO Team mates details for Weight based DUO Partner delivery
     Then The "Contact Duo Teammate" "Animation Text" should be displayed
+    Then The "DROP-OFF(Expected time)" "Label" should be displayed
 
     And I Switch to "driver" application on "driver2" devices
     Then The "DROP-OFF(Expected time)" "Label" should be displayed
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then I should see "DUO LIFT" header displayed
     And I click on "GOT IT" button
+    Then The "DROP-OFF(Expected time)" "Label" should be displayed
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEMS" Screen

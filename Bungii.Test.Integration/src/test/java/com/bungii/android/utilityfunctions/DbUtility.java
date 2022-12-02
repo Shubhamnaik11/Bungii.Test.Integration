@@ -421,4 +421,43 @@ public class DbUtility extends DbContextManager {
         return timeStamp;
 
     }
+
+    public static long getDefaultPickupTime(String Service_Name, String SubDomain) {
+        long default_Pickup_Time = 0;
+        String queryString = "select sl.default_pickup_time\n" +
+                "from bp_service_level sl\n" +
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id =sl.bp_config_version_id\n" +
+                "join bp_store st on st.bp_store_id = fnm.bp_store_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and service_name='" + Service_Name + "' and subdomain_name like '%" + SubDomain + "%'";
+
+        String default_Pickup_Time_Db = getDataFromMySqlMgmtServer(queryString);
+        if (default_Pickup_Time_Db != null) {
+            default_Pickup_Time = Long.parseLong(default_Pickup_Time_Db);
+            logger.detail("Default Pickup Time=  " + default_Pickup_Time + " for Service: " + Service_Name);
+        } else {
+            logger.error("Default pickup time is not fetch for service " + Service_Name + " for SubDomain " + SubDomain);
+        }
+
+
+        return default_Pickup_Time;
+    }
+
+    public static long getDefaultDropoffTime(String Service_Name, String SubDomain) {
+        long default_Dropoff_Time = 0;
+        String queryString = "select sl.default_dropoff_time\n" +
+                "from bp_service_level sl\n" +
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id =sl.bp_config_version_id\n" +
+                "join bp_store st on st.bp_store_id = fnm.bp_store_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and service_name='" + Service_Name + "' and subdomain_name like '%" + SubDomain + "%'";
+
+        String default_Dropoff_Time_Db = getDataFromMySqlMgmtServer(queryString);
+        if (default_Dropoff_Time_Db != null) {
+            default_Dropoff_Time = Long.parseLong(default_Dropoff_Time_Db);
+            logger.detail("Default Dropoff Time=  " + default_Dropoff_Time + " for Service: " + Service_Name);
+        } else {
+            logger.error("Default Dropoff time is not fetch for service " + Service_Name + " for SubDomain " + SubDomain);
+        }
+
+        return default_Dropoff_Time;
+    }
 }

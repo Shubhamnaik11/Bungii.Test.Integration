@@ -1248,7 +1248,7 @@ public class BungiiInProgressSteps extends DriverBase {
                     testStepVerify.isEquals(completeText, element, element + " Text should be displayed", element + " Text is displayed", completeText + "is displayed");
                     String arrivalTimeOnUIValue = action.getText(updateStatusPage.Text_ArrivalTimeValue());
                     String properArrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
-                    testStepVerify.isEquals(arrivalTimeOnUIValue, arrivalTimeOnUIValue,"The arrival time should be "+properArrivalTime,
+                    testStepAssert.isEquals(arrivalTimeOnUIValue, properArrivalTime,"The arrival time should be "+properArrivalTime,
                             "The arrival time is "+properArrivalTime,"The arrival is not "+properArrivalTime+" ,The time is "+properArrivalTime);
                     break;
                 case "DROP-OFF(Expected time)":
