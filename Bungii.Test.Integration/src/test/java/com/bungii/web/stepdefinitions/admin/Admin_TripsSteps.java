@@ -1387,11 +1387,11 @@ try{
 
     public String getGeofence(String geofence) {
         String geofenceName = "";
-        switch (geofence) {
+        switch (geofence.toLowerCase()) {
             case "washingtondc":
                 geofenceName = "Washington DC";
                 break;
-            case "Kansas":
+            case "kansas":
                 geofenceName = "Kansas";
                 break;
 

@@ -966,9 +966,11 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Trip Started |
+    And I click on "Date Filter" button on the "Live deliveries" page
     When I change filter to "Tomorrow" on Live deliveries
     And  I search the delivery using "Pickup Reference"
     Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
     When I change filter to "All" on Live deliveries
     And  I search the delivery using "Pickup Reference"
     Then I should be able to see the respective bungii with the below status

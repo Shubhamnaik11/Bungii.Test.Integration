@@ -178,12 +178,14 @@ try{
         switch (page)
         {
             case "Events":
-
                 switch (button) {
                     case "New Event":
                         action.click(admin_PromoterPage.Button_NewPromotion());
                         break;
-
+                }
+                break;
+            case "Live deliveries":
+                switch (button) {
                     case "Date Filter":
                         action.click(adminTripsPage.Dropdown_DateFilter());
                         break;
