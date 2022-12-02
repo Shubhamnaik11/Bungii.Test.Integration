@@ -177,4 +177,39 @@ Then I should be navigated to "Home" screen
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-  
+
+    @ready
+      #added driver need to add new customer
+  Scenario:testing1
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appleks_a_drvbm Kansas_bm" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer |
+    And I wait for 1 minutes
+    And I view and accept virtual notification for "Driver" for "on demand trip"
+    When I Switch to "driver" application on "same" devices
+    Then The "Ondemand bungii" should match
+    And I swipe to check trip details
+    Then The "Ondemand delivery dropOff range" should match
+    And I click on "Close" button
+    Then The "PICKUP(Arrival time)" "Label" should be displayed
+    And I slide update button on "EN ROUTE" Screen
+    Then The "PICKUP(Arrival time)" "at Arrival screen" should be displayed
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    Then The "PICKUP(Arrival time)" "at Loading Items screen" should be displayed
+    And I slide update button on "LOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEMS" Screen
+    Then The "DROP-OFF(Expected time)" "Label" should be displayed
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then The "DROP-OFF(Expected time)" "at Unloading Items screen" should be displayed
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen

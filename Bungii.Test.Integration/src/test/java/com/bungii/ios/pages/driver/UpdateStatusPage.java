@@ -96,13 +96,21 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Icon_DropOff(){return findElement("//XCUIElementTypeImage[@name=\"icon-stop-drop-off\"]",LocatorType.XPath);}
 	public WebElement Text_ContactDuo(boolean...IgnoreException){return findElement("//XCUIElementTypeStaticText[@name=\"Contact DUO\"]",LocatorType.XPath,IgnoreException);}
 	public WebElement Text_TeamMate(boolean... IgnoreException){return findElement("//XCUIElementTypeStaticText[@name=\"Teammate\"]",LocatorType.XPath,IgnoreException);}
-	public WebElement Label_ArivalTimeAtPickup(){return findElement("",LocatorType.Id);}
-	public WebElement Label_ExpectedTimeAtDropOff(){return findElement("",LocatorType.Id);}
-	public WebElement ArrivalTimeAtPickupValue(){return findElement("",LocatorType.Id);}
-	public WebElement Text_ExpectedTimeAtDropOff(){return findElement("",LocatorType.Id);}
-	public WebElement Label_Pickup(){return findElement("",LocatorType.Id);}
-	public WebElement Label_ArrivalTime(){return findElement("",LocatorType.Id);}
-	public WebElement Text_ArrivalTimeValue(){return findElement("",LocatorType.Id);}
-	public WebElement Text_DropOffRangeFromDeliveryDetails(){return findElement("",LocatorType.XPath);}
+	public WebElement Label_ArivalTimeAtPickup(){return findElement("Arrival time at Pickup",LocatorType.AccessibilityId);}
+	public WebElement Label_ExpectedTimeAtDropOff(){return findElement("Expected time at drop-off",LocatorType.AccessibilityId);}
+	public WebElement ArrivalTimeAtPickupValue(){return findElement("//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+	public WebElement ArrivalTimeAtPickupValueForStacked(){return findElement("//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+	public WebElement Text_ExpectedTimeAtDropOffForStacked(){return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
 
+	public WebElement Text_ExpectedTimeAtDropOff(){return findElement("//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+	public WebElement Label_Pickup(){return findElement("PICKUP",LocatorType.AccessibilityId);}
+	public WebElement Label_ArrivalTime(){return findElement("(Arrival time)",LocatorType.AccessibilityId);}
+	public WebElement Label_DropOff(){return findElement("DROP-OFF",LocatorType.AccessibilityId);}
+	public WebElement Label_ExpectedTime(){return findElement("(Expected time)",LocatorType.AccessibilityId);}
+	public WebElement Text_ArrivalTimeValue(){return findElement("//XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[3]",LocatorType.XPath);}
+	public WebElement Text_ArrivalTimeForDifferentStates(){return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[3]",LocatorType.XPath);}
+	public WebElement Text_DropOffRangeFromDeliveryDetails(){return findElement("//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeStaticText[1]",LocatorType.XPath);}
+	public WebElement Text_DropOffRangeFromDeliveryDetailsForChanges(){return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeStaticText[1]",LocatorType.XPath);}
+
+	public WebElement Button_ScheduledBungiiFromMoreOptions(){return findElement("Scheduled Bungiis",LocatorType.AccessibilityId);}
 }

@@ -723,6 +723,9 @@ public class CommonSteps extends DriverBase {
                 case "SUBMIT DATA":
                     action.click(driverUpdateStatusPage.Button_Submit());
                     break;
+                case "AVAILABLE BUNGII ICON":
+                    action.clickBy2Points(38,74);
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name",
                             "UnImplemented Step");
@@ -1890,8 +1893,15 @@ public class CommonSteps extends DriverBase {
         try {
             switch (option) {
                 case "Edit Trip Details":
-                    Thread.sleep(10000);
-                    action.click(scheduledTripsPage.RadioBox_EditTrip());
+                    String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+                    if(editLiveDelivery.contentEquals("Edit Live Bungii")){
+                        action.click(scheduledTripsPage.RadioBox_EditTrip());
+                        Thread.sleep(10000);
+                    }
+                    else {
+                        action.click(scheduledTripsPage.RadioBox_EditTripForScheduled());
+                        Thread.sleep(10000);
+                    }
                     break;
                 case "Research Driver":
                     action.click(scheduledTripsPage.RadioBox_Research());
@@ -1913,9 +1923,16 @@ public class CommonSteps extends DriverBase {
     @And("^I edit the drop off address$")
     public void i_edit_the_drop_off_address() throws Throwable {
         try{
-            testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
-            action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address());
+            String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+            if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address());
+            }
+            else {
+                testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location_For_Scheduled(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address_For_scheduled());
 
+            }
             log("I edit the drop off address ",
                     "I have edited the dropoff address ");
         } catch(Exception e){
@@ -1952,18 +1969,23 @@ public class CommonSteps extends DriverBase {
     public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
 
         try{
-            action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
-            //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
-            Thread.sleep(3000);
-//            action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location()," ");
-
-            //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-//            action.JavaScriptClick(scheduledTripsPage.DropdownResult(arg1));
-//            Thread.sleep(1000);
-            action.clickOnDropdown();
-            String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
-            cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
-
+            String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+            if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(), arg1);
+                Thread.sleep(3000);
+                action.clickOnDropdown();
+                Thread.sleep(1000);
+                String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
+                cucumberContextManager.setScenarioContext("Change_Drop_Off", Change_Address);
+            }
+            else {
+                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location_For_Scheduled(), arg1);
+                Thread.sleep(3000);
+                action.clickOnDropdown();
+                Thread.sleep(1000);
+                String Change_Address = action.getText(scheduledTripsPage.DropOff_Address_For_Scheduled());
+                cucumberContextManager.setScenarioContext("Change_Drop_Off", Change_Address);
+            }
             log("I change the dropoff address to "+arg1,
                     "I have changed the dropoff address to "+arg1);
         } catch(Exception e){
@@ -1975,6 +1997,7 @@ public class CommonSteps extends DriverBase {
     @And("^I select the live trip for \"([^\"]*)\" customer$")
     public void i_select_the_live_trip_for_something_customer(String custName) throws Throwable {
         try {
+//            cucumberContextManager.setScenarioContext("PICKUP_REQUEST","937c4f5b-c95d-18f0-2ca6-f0d9ec7ba1fb");
             String pickupReference= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
             action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupReference);
 
@@ -1988,7 +2011,7 @@ public class CommonSteps extends DriverBase {
 
             Thread.sleep(25000);
 
-            action.click(scheduledTripsPage.Icon_Dropdown());
+            action.JavaScriptClick(scheduledTripsPage.Icon_Dropdown());
             action.click(scheduledTripsPage.Option_Edit());
 
 
@@ -3863,7 +3886,7 @@ public class CommonSteps extends DriverBase {
 //              for Stacked bungii  formula -->  ongoing Pickup TELET + Driver ongoing Drop-off to New Pickup
                 int finalValue = (int) (deliveryCreatedTimeInMinutes + Math.round(timeFromDropOffTo2ndDeliveryPickup[0]/60));
 
-                String arrivalTimeForStackedRequest= action.getText(updateStatusPage.ArrivalTimeAtPickupValue());
+                String arrivalTimeForStackedRequest= action.getText(updateStatusPage.ArrivalTimeAtPickupValueForStacked());
                 String calculatedStackedDeliveryRequestTime =LocalTime.MIN.plus(Duration.ofMinutes( finalValue)).toString();
 
                 if (calculatedStackedDeliveryRequestTime.startsWith("0")) {
@@ -3901,20 +3924,20 @@ public class CommonSteps extends DriverBase {
                 String arrivalTimeBasedOnCalculation = LocalTime.MIN.plus(Duration.ofMinutes( timeToCoverDistanceInMinutes)).toString();
 
 
-                String arrivalTimeForOndemand= action.getText(updateStatusPage.ArrivalTimeAtPickupValue());
+                String arrivalTimeForOndemand= action.getText(updateStatusPage.Text_ArrivalTimeValue());
 
                 if (arrivalTimeBasedOnCalculation.startsWith("0")) {
                     String hourWithoutZero = arrivalTimeBasedOnCalculation.replaceFirst("0", "");
-                    cucumberContextManager.setScenarioContext("OndemandDeliveryArrivalTime", hourWithoutZero);
+                    cucumberContextManager.setScenarioContext("ArrivalTime", hourWithoutZero);
                 } else {
-                    cucumberContextManager.setScenarioContext("OndemandDeliveryArrivalTime", arrivalTimeBasedOnCalculation);
+                    cucumberContextManager.setScenarioContext("ArrivalTime", arrivalTimeBasedOnCalculation);
                 }
-                String ondemandArrivalTime =(String) cucumberContextManager.getScenarioContext("OndemandDeliveryArrivalTime");
+                String ondemandArrivalTime =(String) cucumberContextManager.getScenarioContext("ArrivalTime");
 
 
                 testStepVerify.isEquals(arrivalTimeForOndemand.substring(0,arrivalTimeForOndemand.length()-3),ondemandArrivalTime,
                         "Expected On demand Arrival time for stacked delivery should be "+ondemandArrivalTime+" +/- 5 minutes max",
-                        "Expected On demand Arrival time for stacked delivery is  "+ondemandArrivalTime+" +/- 5 minutes max");
+                        "Expected On demand Arrival time for stacked delivery on ui is  "+ondemandArrivalTime+" +/- 5 minutes max");
                 break;
             case "Expected time at drop-off":
             case "Stacked delivery dropOff range":
@@ -4002,13 +4025,20 @@ public class CommonSteps extends DriverBase {
 
                 }
 
-                if((strArg1.contentEquals("driver at arrival state")) || strArg1.contentEquals("admin edits dropoff Address")){
+                if((strArg1.contentEquals("driver at arrival state")) || strArg1.contentEquals("admin edits dropoff Address")|| strArg1.contentEquals("Ondemand delivery dropOff range")){
                     action.swipeUP();
                     action.swipeUP();
                     Thread.sleep(2000);
-                    String expectedDroffTimeRange= action.getText(updateStatusPage.Text_DropOffRangeFromDeliveryDetails());
+                    String expectedDroffTimeRange= action.getText(updateStatusPage.Text_DropOffRangeFromDeliveryDetailsForChanges());
                     cucumberContextManager.setScenarioContext("DropoffTime",expectedDroffTimeRange);
 
+                }
+                else if(strArg1.contentEquals("Stacked delivery dropOff range")){
+                    action.swipeUP();
+                    action.swipeUP();
+                    Thread.sleep(2000);
+                    String expectedDroffTimeRange= action.getText(updateStatusPage.Text_ExpectedTimeAtDropOffForStacked());
+                    cucumberContextManager.setScenarioContext("DropoffTime",expectedDroffTimeRange);
                 }
                 else{
                     String expectedDroffTimeRange= action.getText(updateStatusPage.Text_ExpectedTimeAtDropOff());
@@ -4065,7 +4095,16 @@ public class CommonSteps extends DriverBase {
         cal.setTime(dt);
         int unroundedMinutes = cal.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 5;
-        cal.add(Calendar.MINUTE, mod < 3 ? -mod : (5-mod));
+        if (mod ==0){
+            ; cal.add(Calendar.MINUTE,(0-mod));
+        }
+        else  if ( (mod>=1) && (mod < 3) ){
+            cal.add(Calendar.MINUTE,(5-mod));
+        }
+        else {
+            cal.add(Calendar.MINUTE,(5-mod));
+        }
+
         String hourAndMinute = formatter.format(cal.getTime());
         logger.detail("The rounded up time for "+ IncorrectTime+ " time is "+ hourAndMinute);
         return hourAndMinute;

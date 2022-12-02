@@ -6,7 +6,8 @@ import org.openqa.selenium.WebElement;
 public class TripDetailsPage extends PageBase {
 //	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
-	public WebElement Button_Accept() { return findElement("ACCEPT", LocatorType.AccessibilityId); }
+    	public WebElement Button_Accept() { return findElement("ACCEPT", LocatorType.AccessibilityId); }
+//	public WebElement Button_Accept() { return findElement("Accept", LocatorType.AccessibilityId); }
 	public WebElement Text_Distance() { return findElement("//XCUIElementTypeStaticText[contains(@name,'miles')]", PageBase.LocatorType.XPath); }
 	public WebElement Text_EstimatedEarnings() { return findElement("//XCUIElementTypeStaticText[@name='EARNINGS']/following::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
 	public WebElement Text_ScheduledDateTime() { return findElement("//XCUIElementTypeStaticText[@name='WHEN']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
