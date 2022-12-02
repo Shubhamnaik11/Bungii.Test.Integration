@@ -3544,4 +3544,40 @@ try{
     }
 
 
+    @When("The {string} is set to {string} by default")
+    public void theIsSetToByDefault(String Date_Filter, String All) {
+            action.waitUntilIsElementExistsAndDisplayed(admin_TripsPage.Dropdown_FilterAll(),(long) 3000);
+              testStepAssert.isTrue(admin_TripsPage.Dropdown_FilterAll().isSelected(), "Date Filter Type All should be selected","Date Filter Type is Set to All by default","Date Filter Type is not Set to All by default");
+        }
+
+    @Then("I should see All Filter Options in dropdown")
+    public void iShouldSeeAllFilterOptionsInDropdown() {
+        try {
+            boolean dropdownAll=admin_TripsPage.Dropdown_FilterAll().isDisplayed();
+            boolean dropdownToday=admin_TripsPage.Dropdown_FilterToday().isDisplayed();
+            boolean dropdownTomarrow=admin_TripsPage.Dropdown_FilterTomarrow().isDisplayed();
+            testStepAssert.isTrue(dropdownAll,"Dropdown with All filter type should be displayed","Dropdown with All filter type is displayed","Dropdown with All filter type is not displayed");
+            testStepAssert.isTrue(dropdownToday,"Dropdown with Today filter type should be displayed","Dropdown with Today filter type is displayed","Dropdown with Today filter type is not displayed");
+            testStepAssert.isTrue(dropdownTomarrow,"Dropdown with Tomarrow filter type should be displayed","Dropdown with Tomarrow filter type is displayed","Dropdown with Tomarrow filter type is not displayed");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+    @When("I change filter to {string} on Live deliveries")
+    public void iChangeFilterToOnLiveDeliveries(String filter) {
+            try{
+                action.selectElementByText(admin_TripsPage.Dropdown_DateFilter(),filter);
+                log("I select filter from All Deliveries on the admin portal",
+                        "I selected filter "+filter+" from All Deliveries on the admin portal", false);
+            } catch(Exception e){
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step should be successful", "Error performing step,Please check logs for more details",
+                        true);
+            }
+
+    }
 }

@@ -96,4 +96,12 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Link_DeliveryDetails() {return findElement("//a[contains(text(),'Delivery Details')]",LocatorType.XPath);}
 
+    public  WebElement Dropdown_DateFilter() { return findElement("//select[@class='user-trip-dropdown form-select']", LocatorType.XPath);}
+
+    public WebElement Dropdown_FilterAll() {return findElement("//option[contains(text(),'All')]",LocatorType.XPath);}
+
+    public WebElement Dropdown_FilterToday() {return findElement("//option[contains(text(),'Today')]",LocatorType.XPath);}
+
+    public WebElement Dropdown_FilterTomarrow() {return findElement("//option[contains(text(),'Tomorrow')]",LocatorType.XPath);}
+
 }

@@ -942,3 +942,49 @@ Feature: Admin_Trips
     When I change filter to "The Beginning of Time" on All deliveries
     And I search the delivery based on customer "first name with space in front and back"
     Then The "All Deliveries" should be in "Driver Canceled" state
+
+#CORE-4009: Date filter in Live Deliveries page of AP
+  @sn
+  Scenario: To verify the Date filter in Live Deliveries page of Admin Portal
+    When I view the Live Deliveries list on the admin portal
+    Then The "Date Filter" is set to "All" by default
+    When I click on "Date Filter" button on the "Live deliveries" page
+    Then  I should see All Filter Options in dropdown
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                       |
+      | NEXT_POSSIBLE | 8877661000     | Testcustomertywd_appleMarkA LutherA |
+    And I wait for 2 minutes
+    And As a driver "Testdrivertywd_appleks_a_gruE Stark_ksOnE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute      |
+    And I wait for 2 minutes
+    When I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference"
+    Then The "Live deliveries" should be in "Trip Started" state
+    When I change filter to "Tomarrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference"
+
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference"
+    Then The "Live deliveries" should be in "Trip Started" state
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                       |
+      |  1_DAY_LATER | 8877661000     | Testcustomertywd_appleMarkA LutherA |
+    And I wait for 2 minutes
+    And As a driver "Testdrivertywd_appleks_a_gruE Stark_ksOnE" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+    And I wait for 2 minutes
+    When I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomarrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference"
+    Then The "Live deliveries" should be in "Assigning Driver(s)" state
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference"
+    Then The "Live deliveries" should be in "Assigning Driver(s)" state
+
+
