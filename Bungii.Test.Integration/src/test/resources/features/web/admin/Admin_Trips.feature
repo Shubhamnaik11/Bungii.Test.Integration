@@ -963,13 +963,17 @@ Feature: Admin_Trips
     And I click on "Date Filter" button on the "Live deliveries" page
     When I change filter to "Today" on Live deliveries
     And  I search the delivery using "Pickup Reference"
-    Then The "Live deliveries" should be in "Trip Started" state
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Trip Started |
     When I change filter to "Tomorrow" on Live deliveries
     And  I search the delivery using "Pickup Reference"
     Then I should see the message "No deliveries found." displayed
     When I change filter to "All" on Live deliveries
     And  I search the delivery using "Pickup Reference"
-    Then The "Live deliveries" should be in "Trip Started" state
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Trip Started |
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                       |
       |  1_DAY_LATER | 8877661000     | Testcustomertywd_appleMarkA LutherA |
@@ -986,9 +990,12 @@ Feature: Admin_Trips
     And I click on "Date Filter" button on the "Live deliveries" page
     When I change filter to "Tomorrow" on Live deliveries
     And  I search the delivery using "Pickup Reference"
-    Then The "Live deliveries" should be in "Assigning Driver(s)" state
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Assigning Driver(s)|
     When I change filter to "All" on Live deliveries
     And  I search the delivery using "Pickup Reference"
-    Then The "Live deliveries" should be in "Assigning Driver(s)" state
-
-
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Assigning Driver(s)|
+#    Then The "Live deliveries" should be in "Assigning Driver(s)" state
