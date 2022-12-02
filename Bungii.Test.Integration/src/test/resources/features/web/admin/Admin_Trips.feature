@@ -964,9 +964,9 @@ Feature: Admin_Trips
     When I change filter to "Today" on Live deliveries
     And  I search the delivery using "Pickup Reference"
     Then The "Live deliveries" should be in "Trip Started" state
-    When I change filter to "Tomarrow" on Live deliveries
+    When I change filter to "Tomorrow" on Live deliveries
     And  I search the delivery using "Pickup Reference"
-
+    Then I should see the message "No deliveries found." displayed
     When I change filter to "All" on Live deliveries
     And  I search the delivery using "Pickup Reference"
     Then The "Live deliveries" should be in "Trip Started" state
@@ -980,7 +980,11 @@ Feature: Admin_Trips
     And I wait for 2 minutes
     When I view the Live Deliveries list on  admin portal
     And I click on "Date Filter" button on the "Live deliveries" page
-    When I change filter to "Tomarrow" on Live deliveries
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference"
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
     And  I search the delivery using "Pickup Reference"
     Then The "Live deliveries" should be in "Assigning Driver(s)" state
     When I change filter to "All" on Live deliveries

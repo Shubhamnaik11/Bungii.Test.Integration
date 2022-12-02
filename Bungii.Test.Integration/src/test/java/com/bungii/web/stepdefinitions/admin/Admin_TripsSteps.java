@@ -3555,7 +3555,7 @@ try{
         try {
             boolean dropdownAll=admin_TripsPage.Dropdown_FilterAll().isDisplayed();
             boolean dropdownToday=admin_TripsPage.Dropdown_FilterToday().isDisplayed();
-            boolean dropdownTomarrow=admin_TripsPage.Dropdown_FilterTomarrow().isDisplayed();
+            boolean dropdownTomarrow=admin_TripsPage.Dropdown_FilterTomorrow().isDisplayed();
             testStepAssert.isTrue(dropdownAll,"Dropdown with All filter type should be displayed","Dropdown with All filter type is displayed","Dropdown with All filter type is not displayed");
             testStepAssert.isTrue(dropdownToday,"Dropdown with Today filter type should be displayed","Dropdown with Today filter type is displayed","Dropdown with Today filter type is not displayed");
             testStepAssert.isTrue(dropdownTomarrow,"Dropdown with Tomarrow filter type should be displayed","Dropdown with Tomarrow filter type is displayed","Dropdown with Tomarrow filter type is not displayed");
