@@ -3570,6 +3570,7 @@ try{
     @When("I change filter to {string} on Live deliveries")
     public void iChangeFilterToOnLiveDeliveries(String filter) {
             try{
+                Thread.sleep(3000);
                 action.selectElementByText(admin_TripsPage.Dropdown_DateFilter(),filter);
                 log("I select filter from All Deliveries on the admin portal",
                         "I selected filter "+filter+" from All Deliveries on the admin portal", false);
@@ -3579,5 +3580,20 @@ try{
                         true);
             }
 
+    }
+
+    @And("I search the delivery using {string} in {string} Page")
+    public void iSearchTheDeliveryUsingInPage(String arg0, String arg1) {
+        try{
+        String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        action.waitUntilIsElementExistsAndDisplayed(adminTripsPage.TextBox_Search(), (long) 3000);
+        action.clearSendKeys(adminTripsPage.TextBox_Search(), pickupRef + Keys.ENTER);
+        log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
+    }
+    catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 }

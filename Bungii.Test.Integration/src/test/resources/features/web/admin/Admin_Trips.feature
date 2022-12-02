@@ -962,17 +962,17 @@ Feature: Admin_Trips
     When I view the Live Deliveries list on  admin portal
     And I click on "Date Filter" button on the "Live deliveries" page
     When I change filter to "Today" on Live deliveries
-    And  I search the delivery using "Pickup Reference"
-    Then I should be able to see the respective bungii with the status
-      | Status            |
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the below status
+      | Status |
       | Trip Started |
     And I click on "Date Filter" button on the "Live deliveries" page
     When I change filter to "Tomorrow" on Live deliveries
-    And  I search the delivery using "Pickup Reference"
+    And  And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
     Then I should see the message "No deliveries found." displayed
     And I click on "Date Filter" button on the "Live deliveries" page
     When I change filter to "All" on Live deliveries
-    And  I search the delivery using "Pickup Reference"
+    And  And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Trip Started |

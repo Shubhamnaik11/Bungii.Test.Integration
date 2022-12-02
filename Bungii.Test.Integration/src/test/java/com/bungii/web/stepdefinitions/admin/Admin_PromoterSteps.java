@@ -187,6 +187,7 @@ try{
             case "Live deliveries":
                 switch (button) {
                     case "Date Filter":
+                        Thread.sleep(3000);
                         action.click(adminTripsPage.Dropdown_DateFilter());
                         break;
                 }
