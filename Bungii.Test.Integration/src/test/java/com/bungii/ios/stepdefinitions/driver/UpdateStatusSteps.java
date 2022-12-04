@@ -993,7 +993,7 @@ public class UpdateStatusSteps extends DriverBase {
                     }
                     String arrivalTimeOnUI = (String) cucumberContextManager.getScenarioContext("ArrivalTimeFromUI");
                     String properArrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
-                    testStepVerify.isEquals(properArrivalTime, arrivalTimeOnUI,"The arrival time should be "+properArrivalTime,
+                    testStepAssert.isEquals(properArrivalTime, arrivalTimeOnUI,"The arrival time should be "+properArrivalTime,
                             "The arrival time is "+properArrivalTime,"The arrival is not "+properArrivalTime+" ,The time is "+properArrivalTime);
                     break;
                 case "DROP-OFF(Expected time)":

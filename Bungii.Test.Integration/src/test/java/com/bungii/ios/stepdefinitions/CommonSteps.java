@@ -3843,6 +3843,7 @@ public class CommonSteps extends DriverBase {
 
     @Then("^The \"([^\"]*)\" should match$")
     public void the_something_should_match(String strArg1) throws Throwable {
+        try{
         String pickupReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTime(pickupReference);
         switch (strArg1){
@@ -3944,6 +3945,7 @@ public class CommonSteps extends DriverBase {
             case "Ondemand delivery dropOff range":
             case "driver at arrival state":
             case"admin edits dropoff Address":
+            case "Expected time at drop-off for duo":
                 if(strArg1.contentEquals("Expected time at drop-off")){
                     String arrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
                     String[] hoursAndMinutes =arrivalTime.substring(0, arrivalTime.length() - 3).split(":");
@@ -3995,9 +3997,14 @@ public class CommonSteps extends DriverBase {
                 String minutes =(String) cucumberContextManager.getScenarioContext("Minutes");
 
                 int convertHoursToMinutes = (Integer.parseInt( hours)*60) +Integer.parseInt( minutes) ;
-
-
-                int unloadingLoadingTime = (int) Float.parseFloat(ArrivalTimeAndUnloadingLoadingTime[2]);
+                if (strArg1.contentEquals("Expected time at drop-off for duo")) {
+                    String serviceBasedTime = (String) cucumberContextManager.getScenarioContext("ServiceBasedTotalTime");
+                    cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme", serviceBasedTime);
+                } else {
+                    int unloadingLoadingTimeWithoutServiceLevel = (int) Float.parseFloat(ArrivalTimeAndUnloadingLoadingTime[2]);
+                    cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme", unloadingLoadingTimeWithoutServiceLevel);
+                }
+                int unloadingLoadingTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("ServiceTimeOrUnloadingLoadingTIme"));
                 int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+40;
                 final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
 
@@ -4069,11 +4076,17 @@ public class CommonSteps extends DriverBase {
                         "The  incorrect dropOff time range displayed is  "+UITimeRange);
                 break;
         }
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 
     @Then("^I save the dropoff latitude and longitude of the first delivery$")
     public void i_save_the_dropoff_latitude_and_longitude_of_the_first_delivery() throws Throwable {
+        try{
         String pickupReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String teletTimeInDb = DbUtility.getTelet(pickupReference);
         String convertedTeletTime = ConvertTimeToCST(teletTimeInDb.substring(0, teletTimeInDb.length() - 4).split(" "));
@@ -4087,6 +4100,11 @@ public class CommonSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("onlyDropOffLong",location1PickupAndDropOffLatLong[3]);;
         log("I should be able to save the dropoff latitide and longitude of the first delivery",
                 "I could save the dropoff latitide and longitude of the first delivery",false);
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     private String roundedUpTime(String IncorrectTime) throws ParseException {

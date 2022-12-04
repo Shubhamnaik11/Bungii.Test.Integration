@@ -178,16 +178,16 @@ Then I should be navigated to "Home" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
+      #CORE-4122:To verify Arrival Time/ Expected time values on various states of on demand in progress Bungii
     @ready
-      #added driver need to add new customer
-  Scenario:testing1
+  Scenario: To verify Arrival Time/ Expected time values on various states of on demand in progress Bungii
     When I Switch to "driver" application on "same" devices
     And I am logged in as "Testdrivertywd_appleks_a_drvbm Kansas_bm" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999103     | Testcustomertywd_appleNewQC Customer |
+      | NEXT_POSSIBLE | 8877661138     | Testcustomertywd_appleMarkEI LutherEI |
     And I wait for 1 minutes
     And I view and accept virtual notification for "Driver" for "on demand trip"
     When I Switch to "driver" application on "same" devices
