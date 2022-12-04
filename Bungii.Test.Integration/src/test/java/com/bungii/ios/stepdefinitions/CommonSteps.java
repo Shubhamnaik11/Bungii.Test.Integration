@@ -4082,6 +4082,115 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^The \"([^\"]*)\" for customer delivery should match$")
+    public void the_something_for_customer_delivery_should_match(String strArg1) throws Throwable {
+        try{
+        String custPhone = (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        String custRef = DbUtility.getCustomerRefference(custPhone);
+        String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTimeForCustomer(custRef);
+        switch (strArg1){
+            case "Arrival time":
+                String calculatedArrivalTime = ConvertTimeToCST(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+
+                if(calculatedArrivalTime.startsWith("0")){
+
+                    String hourWithoutZero =calculatedArrivalTime.replaceFirst("0","");
+                    cucumberContextManager.setScenarioContext("ArrivalTime",hourWithoutZero);
+                }
+
+                else {
+                    cucumberContextManager.setScenarioContext("ArrivalTime",calculatedArrivalTime);
+                }
+
+                String arrivalTimeOnUi= action.getText(updateStatusPage.ArrivalTimeAtPickupValueForStacked());
+                String properArrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+
+                testStepAssert.isEquals(arrivalTimeOnUi,properArrivalTime,"The arrival time should be "+ properArrivalTime,
+                        "The arrival time time is  "+properArrivalTime,
+                        "The  incorrect arrival time displayed is  "+properArrivalTime);
+                break;
+            case "Expected time at drop-off":
+                if(strArg1.contentEquals("Expected time at drop-off")){
+                    String arrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+                    String[] hoursAndMinutes =arrivalTime.substring(0, arrivalTime.length() - 3).split(":");
+                    String hours = hoursAndMinutes[0];
+                    String minutes = hoursAndMinutes[1];
+                    cucumberContextManager.setScenarioContext("Hours",hours);
+                    cucumberContextManager.setScenarioContext("Minutes",minutes);
+                    // for scheduled deliveries formula -->
+                    // [Projected start time] + ([Projected LoadUnload Time] / 3) + [Projected Drive Time] + 40
+                }
+                String hours =(String) cucumberContextManager.getScenarioContext("Hours");
+                String minutes =(String) cucumberContextManager.getScenarioContext("Minutes");
+
+                int convertHoursToMinutes = (Integer.parseInt( hours)*60) +Integer.parseInt( minutes) ;
+                if(strArg1.contentEquals("Expected time at drop-off for duo")){
+                    String serviceBasedTime = (String) cucumberContextManager.getScenarioContext("ServiceBasedTotalTime");
+                    cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme",serviceBasedTime);
+                }
+                else {
+                    int unloadingLoadingTimeWithoutServiceLevel = (int) Float.parseFloat(ArrivalTimeAndUnloadingLoadingTime[2]);
+                    cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme",unloadingLoadingTimeWithoutServiceLevel);
+                }
+                int unloadingLoadingTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("ServiceTimeOrUnloadingLoadingTIme"));
+                int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+40;
+                final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
+
+                String roundedTime =roundedUpTime(LocalTime.MIN.plus(Duration.ofMinutes( totalMinutes)).toString());
+                LocalTime TimeInhours =LocalTime.parse(roundedTime);
+                String plus1Hour = formatTochangeChangeTo12Hours.format(formatTochangeChangeTo12Hours.parse(String.valueOf(TimeInhours.plusHours(1)))) ;
+                String minus1Hour = formatTochangeChangeTo12Hours.format(formatTochangeChangeTo12Hours.parse(String.valueOf(TimeInhours.minusHours(1)))) ;
+                cucumberContextManager.setScenarioContext("Timeplus1hour",plus1Hour);
+                cucumberContextManager.setScenarioContext("Timeminus1hour",minus1Hour);
+
+                String timeOneHourAhead = (String) cucumberContextManager.getScenarioContext("Timeplus1hour");
+                String timeOneHourBack =(String) cucumberContextManager.getScenarioContext("Timeminus1hour") ;
+
+                if (timeOneHourAhead.startsWith("0")) {
+                    String hourWithoutZero = timeOneHourAhead.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("StartingDropOffTimeRange", hourWithoutZero);
+                } else {
+                    cucumberContextManager.setScenarioContext("StartingDropOffTimeRange", timeOneHourAhead);
+
+                }
+                if (timeOneHourBack.startsWith("0")) {
+                    String hourWithoutZero = timeOneHourBack.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("EndingDropOffTimeRange", hourWithoutZero);
+                } else {
+                    cucumberContextManager.setScenarioContext("EndingDropOffTimeRange", timeOneHourBack);
+
+                }
+
+                String expectedDroffTimeRange= action.getText(updateStatusPage.Text_ExpectedTimeAtDropOffForStacked());
+                String startingTimeRange =(String) cucumberContextManager.getScenarioContext("StartingDropOffTimeRange");
+                String endingTimeRange =(String) cucumberContextManager.getScenarioContext("EndingDropOffTimeRange");
+
+                if(expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")){
+
+                    String onlyTimeRange = expectedDroffTimeRange.replace("PM","").replace("AM","").replace(" ","");;
+                    cucumberContextManager.setScenarioContext("UITimeRange",onlyTimeRange);
+                }
+                else {
+                    String onlyTimeRange = expectedDroffTimeRange.substring(0, expectedDroffTimeRange.length()-3).replace(" ","");
+                    cucumberContextManager.setScenarioContext("UITimeRange",onlyTimeRange);
+                }
+
+                String UITimeRange = (String) cucumberContextManager.getScenarioContext("UITimeRange");
+                String calculatedDropoffTimeRange =endingTimeRange +"-"+startingTimeRange;
+                cucumberContextManager.setScenarioContext("DropOffRangeCalculated",calculatedDropoffTimeRange);
+                System.out.println("drop of range "+calculatedDropoffTimeRange);
+                testStepAssert.isEquals(UITimeRange,calculatedDropoffTimeRange,"The dropOff time range should be "+ calculatedDropoffTimeRange,
+                        "The dropOff time range is  "+calculatedDropoffTimeRange,
+                        "The  incorrect dropOff time range displayed is  "+UITimeRange);
+
+                break;
+        }
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
 
     @Then("^I save the dropoff latitude and longitude of the first delivery$")
@@ -4106,6 +4215,7 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+
 
     private String roundedUpTime(String IncorrectTime) throws ParseException {
         DateFormat formatter = new SimpleDateFormat("hh:mm");
@@ -4132,7 +4242,16 @@ public class CommonSteps extends DriverBase {
     private String ConvertTimeToCST(String[] uctToCstTime) {
         String date[] = uctToCstTime[0].split("-");
         String time[] = uctToCstTime[1].split(":");
-        ZonedDateTime instant1 = ZonedDateTime.of(Integer.parseInt(date[0]),Integer.parseInt(date[1]),Integer.parseInt(date[2]),Integer.parseInt(time[0]),Integer.parseInt(time[1]),Integer.parseInt(time[2]),0, ZoneId.of("UTC"));
+        if(time[2].contains(".")){
+            String seconds = time[2].substring(0,time[2].length()-4);
+            cucumberContextManager.setScenarioContext("SecondsWithoutPointValue",seconds);
+        }
+        else {
+            cucumberContextManager.setScenarioContext("SecondsWithoutPointValue",time[2]);
+
+        }
+        String seconds = (String) cucumberContextManager.getScenarioContext("SecondsWithoutPointValue");
+        ZonedDateTime instant1 = ZonedDateTime.of(Integer.parseInt(date[0]),Integer.parseInt(date[1]),Integer.parseInt(date[2]),Integer.parseInt(time[0]),Integer.parseInt(time[1]),Integer.parseInt(seconds),0, ZoneId.of("UTC"));
         ZonedDateTime instantInUTC = instant1.withZoneSameInstant(ZoneId.of("America/Chicago"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
         String timeInCST = instantInUTC.format(formatter);
