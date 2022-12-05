@@ -104,4 +104,6 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Dropdown_FilterTomorrow() {return findElement("//option[contains(text(),'Tomorrow')]",LocatorType.XPath);}
 
+    public WebElement Header_LiveDeliveries() {return findElement("//h4[contains(text(),'Live Delivery List')]",LocatorType.XPath);}
+
 }
