@@ -29,7 +29,6 @@ Feature: Partner Management login
     Then The "Logout" "Button" should be displayed
     Then The "Search" "Textbox" should be displayed
 
-
   @ready
   Scenario:To verify Logout button is displayed below Username on Partner Listing page
     And I add credentials of "Valid user"
@@ -37,7 +36,6 @@ Feature: Partner Management login
     Then The "Dashboard" "Header" should be displayed
     And I click on the "Logout" Button
     And The "Welcome to Bungii Partner Management" "Header" should be displayed
-    
   @ready
   Scenario:To verify Valid user can login to Partner Management portal using Admin Portal
     When I am logged in as Admin
