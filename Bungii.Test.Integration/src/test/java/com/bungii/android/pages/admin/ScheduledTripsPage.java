@@ -40,8 +40,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_Submit(boolean ...ignoreException) {
         return findElement("CustomerCancel", LocatorType.Name, ignoreException);
     }
-    //changes as per v2contains(text(),'Edit drop off Location')
-//    public WebElement Label_Drop_Off_Location () { return findElement("//div[@class=\"live-edit\"]/div/div[4]/div[1]/span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
+    //changes as per v2
     public WebElement Label_Drop_Off_Location () { return findElement("//div[@class=\"live-edit\"]/div/div[4]/div[1]/span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
     public WebElement Label_Drop_Off_Location_For_Scheduled () { return findElement("//span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
     public WebElement Button_Edit_Drop_Off_Address () { return findElement("//div[@class=\"live-edit\"]/div/div[4]/div[2]/div/div[2]/img[@title='Edit drop off Location']",LocatorType.XPath);}

@@ -3,7 +3,7 @@
 Feature: Partner Management login
 
   Background:
-   Given  I navigate to "Partner Management"
+    Given  I navigate to "Partner Management"
 
   @ready
   Scenario Outline: To verify the invalid/valid user credentials cannot/can access directly to Partner Management Portal
@@ -28,6 +28,7 @@ Feature: Partner Management login
     Then The "User Profile" "Image" should be displayed
     Then The "Logout" "Button" should be displayed
     Then The "Search" "Textbox" should be displayed
+
 
   @ready
   Scenario:To verify Logout button is displayed below Username on Partner Listing page

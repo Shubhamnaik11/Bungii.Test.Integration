@@ -682,13 +682,13 @@ Feature: Partner Portal Cases integration with IOS
     When I request Partner Portal "Solo" Trip for "Equip-bid" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |kansas| NEXT_POSSIBLE | 8877661139 | Testcustomertywd_appleMarkEJ LutherEJ|
-    And As a driver "Testdrivertywd_appleks_a_drvbm Kansas_bm" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appleks_a_drvbn Kansas_bn" perform below action with respective "Solo Scheduled" trip
       | driver1 state |
       | Accepted      |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_appleks_a_drvbm Kansas_bm" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drvbn Kansas_bn" driver
    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I open first Trip from driver scheduled trip
@@ -704,7 +704,7 @@ Feature: Partner Portal Cases integration with IOS
    And I log in to admin portal
    And  I wait for 1 minutes
    And I Select "live trips" from admin sidebar
-   And I select the live trip for "Testcustomertywd_appleMarkCT LutherCT" customer
+   And I select the live trip for "Testcustomertywd_appleMarkEJ LutherEJ" customer
    And I Select "Edit Trip Details" option
    And I edit the drop off address
    Then I change the drop off address to "4800 East 63rd Street, Kansas City"
