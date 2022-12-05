@@ -181,7 +181,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_NoteTime(){return  findElement("//div[1][@class =\"note\"]/label",LocatorType.XPath);}
 
-    public WebElement Text_DeliveryStatus(String status) { return findElement(String.format("//tbody/tr/td[contains(text() ,'%s')]",status), LocatorType.XPath); }
+    public WebElement Text_DeliveryStatus(String status) { return findElement(String.format("//td[contains(text(),'%s')]",status), LocatorType.XPath); }
 
     public WebElement Button_View(){return  findElement("//div/button[text() =\"View\"]",LocatorType.XPath);}
 
