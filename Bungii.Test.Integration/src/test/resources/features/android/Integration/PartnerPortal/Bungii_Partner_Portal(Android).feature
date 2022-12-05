@@ -491,6 +491,20 @@
        Then I should see "CUSTOMER HELP" header displayed
        And I tap on "ACCEPT" on driver Trip details Page
 
+      #Issue raised ADP-744
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And  I wait for 2 minutes
+      And I Select "Scheduled Trip" from admin sidebar
+      And I open the trip for "Testcustomertywd_appleMarkCT LutherCT" the customer
+      And I Select "Edit Trip Details" option
+      And I edit the drop off address
+      Then I change the drop off address to "6700 Lewis Road, Kansas City"
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
       And I Select "SCHEDULED BUNGIIS" from driver App menu
