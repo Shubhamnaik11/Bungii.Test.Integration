@@ -312,7 +312,7 @@ Feature: Admin_Reason_Code
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
-      |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|SoldBuy|
+      |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|ScheduledBy|
       |20 boxes           |20X20X20  | 1570 |Handle with care   |Testcustomertywd_appleNewQR Customer  |9999999117     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
