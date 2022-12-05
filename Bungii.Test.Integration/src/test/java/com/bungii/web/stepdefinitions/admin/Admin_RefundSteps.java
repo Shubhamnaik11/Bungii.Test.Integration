@@ -202,8 +202,9 @@ public class Admin_RefundSteps extends DriverBase {
     public void the_something_section_should_be_displayed(String header) throws Throwable {
        try{
            testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header, "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
-        String driverEarning = action.getText(admin_refundsPage.Label_Driver()).trim().replace("$","");
-        String bungiiEarning = action.getText(admin_refundsPage.Label_Bungii()).trim().replace("$","");
+           admin_refundsPage.TextBox_RefundAmount().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));;
+        String driverEarning = action.getAttributeValue(admin_refundsPage.Label_Driver());
+        String bungiiEarning = action.getAttributeValue(admin_refundsPage.Label_Bungii());
         cucumberContextManager.setScenarioContext("DRIVER_EARNINGS_BEFORE",driverEarning);
         cucumberContextManager.setScenarioContext("BUNGII_EARNINGS_BEFORE",bungiiEarning);
     } catch(Exception e){
@@ -323,7 +324,7 @@ try{
         String refundPercentage = (String)  cucumberContextManager.getScenarioContext("REFUND_PERCENTAGE");
         Double totalCustomerCharge = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")))-Double.parseDouble(String.valueOf((cucumberContextManager.getScenarioContext("REFUND_AMOUNT"))));
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_OriginalDeliveryCharge()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")), "Origional Delivery Charge should be displayed", "Origional Delivery Charge is displayed","Origional Delivery Charge is not displayed");
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundPercentage()),"(- "+String.valueOf(refundPercentage)+" % )", "Customer Refund Percentage should be displayed", "Customer Refund Percentage is displayed","Customer Refund Percentage is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundPercentage()),"(-"+String.valueOf(refundPercentage)+" %)", "Customer Refund Percentage should be displayed", "Customer Refund Percentage is displayed","Customer Refund Percentage is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundAmount()),"-$"+df.format(Double.valueOf((String)cucumberContextManager.getScenarioContext("REFUND_AMOUNT"))), "Customer Refund Amount should be displayed", "Customer Refund Amount is displayed","Customer Refund Amount is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_TotalCustomerCharge()),"$"+df.format(totalCustomerCharge), "Total Customer Charge should be displayed", "Total Customer Charge is displayed","Total Customer Charge is not displayed");
         } catch(Exception e){
@@ -360,7 +361,7 @@ try{
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverAfterRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS")), "Driver Earnings After should be displayed", "Driver Earnings After is displayed","Driver Earnings Aftere is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiBeforeRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS_BEFORE")), "Bungii Earnings Before should be displayed", "Bungii Earnings Before is displayed","Bungii Earnings Before is not displayed");
         if(bungiiEarnings>=0)
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiAfterRefund()),"$"+df.format(bungiiEarnings), "Bungii Earnings After should be displayed", "Bungii Earnings After is displayed","Bungii Earnings After is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiAfterRefund()),"($"+df.format(bungiiEarnings)+")", "Bungii Earnings After should be displayed", "Bungii Earnings After is displayed","Bungii Earnings After is not displayed");
          else
             testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiAfterRefund()),"- ($"+df.format(bungiiEarnings).toString().replace("-","")+")", "Bungii Earnings After should be displayed", "Bungii Earnings After is displayed","Bungii Earnings After is not displayed");
         } catch(Exception e){
