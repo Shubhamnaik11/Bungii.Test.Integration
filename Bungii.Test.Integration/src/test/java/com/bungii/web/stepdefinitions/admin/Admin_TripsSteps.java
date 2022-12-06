@@ -3546,8 +3546,14 @@ try{
 
     @When("The {string} is set to {string} by default")
     public void theIsSetToByDefault(String Date_Filter, String All) {
+        try {
             action.waitUntilIsElementExistsAndDisplayed(admin_TripsPage.Dropdown_FilterAll(),(long) 3000);
-              testStepAssert.isTrue(admin_TripsPage.Dropdown_FilterAll().isSelected(), "Date Filter Type All should be selected","Date Filter Type is Set to All by default","Date Filter Type is not Set to All by default");
+            testStepAssert.isTrue(admin_TripsPage.Dropdown_FilterAll().isSelected(), "Date Filter Type All should be selected","Date Filter Type is Set to All by default","Date Filter Type is not Set to All by default");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
         }
 
     @Then("I should see All Filter Options in dropdown")
