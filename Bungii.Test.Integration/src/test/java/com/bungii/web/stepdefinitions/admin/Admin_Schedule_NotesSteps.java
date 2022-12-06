@@ -74,9 +74,9 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
 
 
     @And("^I search the delivery using \"([^\"]*)\"$")
-    public void i_search_the_delivery_using_something(String newpickupRef) throws Throwable {
+    public void i_search_the_delivery_using_something(String searchParameter) throws Throwable {
         try {
-            switch (newpickupRef){
+            switch (searchParameter){
                 case "Pickup Reference":
                     action.refreshPage();
                     cucumberContextManager.setScenarioContext("ADMIN1_NAME", action.getText(admin_ScheduledTripsPage.Text_AdminName()));
