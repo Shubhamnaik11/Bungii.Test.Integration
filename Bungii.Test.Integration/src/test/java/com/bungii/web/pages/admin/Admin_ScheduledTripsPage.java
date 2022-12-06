@@ -255,4 +255,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_DeliveryMiles(){return  findElement("//td[text()='Delivery Distance']/following::td[1]/strong",LocatorType.XPath);}
 
     public WebElement Link_BungiiDate() {return findElement("//tr[1]/td/a[contains(@href,'tripRef')]", LocatorType.XPath);}
+
+    public WebElement Text_EstimatedDeliveryTime() {return findElement("//td[text()=\"Estimated Delivery Time\"]/following-sibling::td/strong", LocatorType.XPath);}
+
+    public WebElement Text_ScheduledDelivery() {return findElement("//td[text()=\"Scheduled Time\"]/following-sibling::td/strong", LocatorType.XPath);}
+
 }

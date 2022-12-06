@@ -175,7 +175,7 @@ Feature: Admin_Delivery_Type_Change
 	Then Under Driver Details: for both Driver 1 and 2 : "Add driver below or Bungii driver search will continue" should be displayed
 	And I should see Bungii Type as "DUO" in "Edit Trip Details" section
   
-  @regression
+  @testAllan
   Scenario: Verify Admin can Change delivery from Duo to Solo
 	When I request "duo" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
@@ -193,7 +193,7 @@ Feature: Admin_Delivery_Type_Change
 	And I click on "VERIFY" button
 	And the "Your changes are good to be saved." message is displayed
 	Then I click on "SAVE CHANGES" button
-	And the "Bungii Saved!" message is displayed
+#	And the "Bungii Saved!" message is displayed
 	When I click on "Close" button
 	And I refresh the page
 	And I get the new pickup reference generated
@@ -207,6 +207,12 @@ Feature: Admin_Delivery_Type_Change
 	And I should be able to see the respective bungii with the below status
 	  |  Status |
 	  | Assigning Driver(s) |
+	 #CORE-4152:Verify that estimated delivery time is calculated correctly when admin edits changes type of customer trip from duo-solo
+	When I click on the "Delivery Details" button from the dropdown
+	Then The "Scheduled Time" for customer delivery should match
+	Then The "Estimated Delivery Time" for customer delivery should match
+	And I view the all Scheduled Deliveries list on the admin portal
+	When  I search the delivery using "Pickup Reference"
 	And I click on "Edit" link beside scheduled bungii
 	Then Under Drivers: for Driver 1: "Bungii driver is being searched" should be displayed
 	And I should see Bungii Type as "SOLO" in "Research Scheduled Bungii" section
