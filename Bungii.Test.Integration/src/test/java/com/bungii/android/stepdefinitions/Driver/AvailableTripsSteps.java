@@ -617,7 +617,7 @@ public class AvailableTripsSteps extends DriverBase {
             String[] ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTime(pickupReference);
             switch (strArg1) {
                 case "Arrival time":
-                    String calculatedArrivalTime = ConvertTimeToCST(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+                    String calculatedArrivalTime = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
 
                     if (calculatedArrivalTime.startsWith("0")) {
 
@@ -669,7 +669,7 @@ public class AvailableTripsSteps extends DriverBase {
                             "Expected Arrival time for stacked delivery is  " + stackedArrivalTime + " +/- 5 minutes max");
                     break;
                 case "Ondemand bungii":
-                    String onDemandArrivalTIme = ConvertTimeToCST(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+                    String onDemandArrivalTIme = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
                     String[] createdDeliveryInHoursAndMinutes = onDemandArrivalTIme.substring(0, onDemandArrivalTIme.length() - 3).split(":");
                     String onlyHour = createdDeliveryInHoursAndMinutes[0];
                     String onlyMinute = createdDeliveryInHoursAndMinutes[1];
@@ -719,7 +719,7 @@ public class AvailableTripsSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("Hours", hours);
                         cucumberContextManager.setScenarioContext("Minutes", minutes);
                     } else if ((strArg1.contentEquals("Stacked delivery dropOff range")) || (strArg1.contentEquals("Ondemand delivery dropOff range"))) {
-                        String dropOffRangeTime = ConvertTimeToCST(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+                        String dropOffRangeTime = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
                         String[] createdDeliveryInHoursAndMinutess = dropOffRangeTime.substring(0, dropOffRangeTime.length() - 3).split(":");
                         String hours = createdDeliveryInHoursAndMinutess[0];
                         String minutes = createdDeliveryInHoursAndMinutess[1];
@@ -730,7 +730,7 @@ public class AvailableTripsSteps extends DriverBase {
                         String changedDeliveryDetailsTime[] = DbUtility.getStatusTimestamp(pickupRef).split(" ");
                         String removedValueFromDot = changedDeliveryDetailsTime[1].substring(0, changedDeliveryDetailsTime[1].length() - 4);
                         changedDeliveryDetailsTime[1] = removedValueFromDot;
-                        String arrivalStateAdminEdit = ConvertTimeToCST(changedDeliveryDetailsTime);
+                        String arrivalStateAdminEdit = ConvertTimeToTheRequiredGeoFence(changedDeliveryDetailsTime);
                         String[] hoursAndMinutes = arrivalStateAdminEdit.substring(0, arrivalStateAdminEdit.length() - 3).split(":");
                         String hours = hoursAndMinutes[0];
                         String minutes = hoursAndMinutes[1];
@@ -739,7 +739,7 @@ public class AvailableTripsSteps extends DriverBase {
                     } else if ((strArg1.contentEquals("admin edits dropoff Address"))) {
                         String pickupId = DbUtility.getPickupId(pickupReference);
                         String changedDeliveryDetailsTime[] = DbUtility.getAdminEditTime(pickupId).split(" ");
-                        String z = ConvertTimeToCST(changedDeliveryDetailsTime);
+                        String z = ConvertTimeToTheRequiredGeoFence(changedDeliveryDetailsTime);
                         String[] hoursAndMinutes = z.substring(0, z.length() - 3).split(":");
                         String hours = hoursAndMinutes[0];
                         String minutes = hoursAndMinutes[1];
@@ -834,7 +834,7 @@ public class AvailableTripsSteps extends DriverBase {
         try{
         String pickupReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String teletTimeInDb = DbUtility.getTelet(pickupReference);
-        String convertedTeletTime = ConvertTimeToCST(teletTimeInDb.substring(0, teletTimeInDb.length() - 4).split(" "));
+        String convertedTeletTime = ConvertTimeToTheRequiredGeoFence(teletTimeInDb.substring(0, teletTimeInDb.length() - 4).split(" "));
         String[] tcreatedDeliveryInHoursAndMinutes =convertedTeletTime.substring(0, convertedTeletTime.length() - 3).split(":");
         String onlyHours = tcreatedDeliveryInHoursAndMinutes[0];
         String onlyMinutes = tcreatedDeliveryInHoursAndMinutes[1];
@@ -877,7 +877,7 @@ public class AvailableTripsSteps extends DriverBase {
         String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTimeForCustomer(custRef);
         switch (strArg1){
             case "Arrival time":
-                String calculatedArrivalTime = ConvertTimeToCST(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+                String calculatedArrivalTime = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
 
                 if (calculatedArrivalTime.startsWith("0")) {
 
@@ -981,13 +981,22 @@ public class AvailableTripsSteps extends DriverBase {
         cal.setTime(dt);
         int unroundedMinutes = cal.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 5;
-        cal.add(Calendar.MINUTE, mod < 3 ? -mod : (5-mod));
+        if (mod ==0){
+            ; cal.add(Calendar.MINUTE,(0-mod));
+        }
+        else  if ( (mod>=1) && (mod < 3) ){
+            cal.add(Calendar.MINUTE,(5-mod));
+        }
+        else {
+            cal.add(Calendar.MINUTE,(5-mod));
+        }
+
         String hourAndMinute = formatter.format(cal.getTime());
         logger.detail("The rounded up time for "+ IncorrectTime+ " time is "+ hourAndMinute);
         return hourAndMinute;
     }
 
-    private String ConvertTimeToCST(String[] uctToCstTime) {
+    private String ConvertTimeToTheRequiredGeoFence(String[] uctToCstTime) {
         String date[] = uctToCstTime[0].split("-");
         String time[] = uctToCstTime[1].split(":");
         if(time[2].contains(".")){
@@ -1000,10 +1009,11 @@ public class AvailableTripsSteps extends DriverBase {
         }
         String seconds = (String) cucumberContextManager.getScenarioContext("SecondsWithoutPointValue");
         ZonedDateTime instant1 = ZonedDateTime.of(Integer.parseInt(date[0]),Integer.parseInt(date[1]),Integer.parseInt(date[2]),Integer.parseInt(time[0]),Integer.parseInt(time[1]),Integer.parseInt(seconds),0,ZoneId.of("UTC"));
-        ZonedDateTime instantInUTC = instant1.withZoneSameInstant(ZoneId.of("America/Chicago"));
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        ZonedDateTime instantInUTC = instant1.withZoneSameInstant(ZoneId.of(geofenceLabel));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-        String timeInCST = instantInUTC.format(formatter);
-        return timeInCST;
+        String convertedTime = instantInUTC.format(formatter);
+        return convertedTime;
     }
 }
 
