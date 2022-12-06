@@ -505,10 +505,15 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     }
 
     @And("^I navigate to \"([^\"]*)\" portal$")
-    public void i_navigate_to_something_portal(String strArg1) throws Throwable {
+    public void i_navigate_to_something_portal(String portal) throws Throwable {
         try {
             ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
-            SetupManager.getDriver().switchTo().window(tabs.get(0));
+            if(portal.equalsIgnoreCase("Driver")){
+                action.switchToTab(1);
+            }
+            else {
+                action.switchToTab(0);
+            }
             action.refreshPage();
             log("I should be able to switch the tab back to admin portal","I could switch the tab back to admin portal",false);
         } catch(Exception e){
