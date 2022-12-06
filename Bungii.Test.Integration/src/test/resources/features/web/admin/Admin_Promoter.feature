@@ -7,6 +7,7 @@ Feature: Admin_Promoter
     Then I should be directed to "Promoters Page"
 
   @regression
+    #Issue Raised ADP-618 as for 'Name' field attribute value is not changing though the 'Name' field is in ascending order
     #Failing due to pagination bar appears on Partners list
   Scenario: Verify Promoter Grid Sort ASC DESC
     When I click on "Name" header "Ascending" on "Promoter" grid
@@ -36,6 +37,7 @@ Feature: Admin_Promoter
 
   @sanity
   @regression
+    #Issue logged ADP-695
   Scenario: Verify Adding Promotion To Promoter And Adding Promocodes to Promotion
     When I click on the "New Partners" Button
     And I enter following values in fields in "Add New Partner" popup
@@ -61,6 +63,7 @@ Feature: Admin_Promoter
 
   @sanity
   @regression
+    #Issue logged ADP-708
   Scenario: Verify Adding Payment To Promoter
     When I click on the "New Partners" Button
     And I enter following values in fields in "Add New Partner" popup
@@ -95,8 +98,6 @@ Feature: Admin_Promoter
     And I click on "Save" button on "Promoter Cards" screen
     Then "payment declined error" message is displayed
 
-
-
   @regression
   Scenario: Verify Cancellation of Add New Promoter
     When I click on the "New Partners" Button
@@ -104,6 +105,7 @@ Feature: Admin_Promoter
     Then the "Add New Partner" popup gets removed from UI
 
   @regression
+   #Issue logged ADP-694
   Scenario: Verify Field Validations Of Add New Promoter
     When I click on the "New Partners" Button
     When I click on the "Save" Button on "Add New Partner" popup

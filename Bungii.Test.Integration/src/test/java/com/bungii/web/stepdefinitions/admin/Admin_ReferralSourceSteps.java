@@ -126,9 +126,10 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                     switch (header) {
                         case "Name":
                             DefaultGridData = paginateAndGetGridData(3);
-                            sort = admin_PromoterPage.Header_Name().getAttribute("onclick");
+                           sort = admin_PromoterPage.Header_Name().getAttribute("aria-label");
                             if (sortOrder.equals("Ascending")) {
                                 if (!sort.contains("ASC")) {
+                                    action.click(admin_PromoterPage.Header_Name());
                                     action.click(admin_PromoterPage.Header_Name());
                                }
                             } else {
@@ -139,9 +140,10 @@ public class Admin_ReferralSourceSteps extends DriverBase {
 
                             break;
                         case "Created":
-                            sort = admin_PromoterPage.Header_Created().getAttribute("onclick");
+                            sort = admin_PromoterPage.Header_Created().getAttribute("aria-label");
                             if (sortOrder.equals("Ascending")) {
                                 if (!sort.contains("ASC")) {
+                                    action.click(admin_PromoterPage.Header_Created());
                                     action.click(admin_PromoterPage.Header_Created());
                                 }
                             } else {
@@ -151,9 +153,10 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                             }
                             break;
                         case "Code Initials":
-                            sort = admin_PromoterPage.Header_CodeInitials().getAttribute("onclick");
+                            sort = admin_PromoterPage.Header_CodeInitials().getAttribute("aria-label");
                             if (sortOrder.equals("Ascending")) {
                                 if (!sort.contains("ASC")) {
+                                    action.click(admin_PromoterPage.Header_CodeInitials());
                                     action.click(admin_PromoterPage.Header_CodeInitials());
                                 }
                             } else {
