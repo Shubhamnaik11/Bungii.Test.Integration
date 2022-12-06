@@ -62,14 +62,6 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     Thread.sleep(1000);
                     action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
                     break;
-                case  "Admin4":
-                    Thread.sleep(2000);
-                    action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("ExternalOrderId") + Keys.ENTER);
-                    break;
-                case "Admin5":
-                    Thread.sleep(2000);
-                    String invalidExternalODerNumber = PropertyUtility.getDataProperties("invalid.order.number");
-                    action.clearSendKeys(adminTripsPage.TextBox_Search(), invalidExternalODerNumber+Keys.ENTER);
 
             }
             log("I should be able to search delivery as " + admin,"I could search delivery as " + admin,false);
@@ -84,11 +76,25 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @And("^I search the delivery using \"([^\"]*)\"$")
     public void i_search_the_delivery_using_something(String newpickupRef) throws Throwable {
         try {
-            action.refreshPage();
-            cucumberContextManager.setScenarioContext("ADMIN1_NAME", action.getText(admin_ScheduledTripsPage.Text_AdminName()));
-            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            Thread.sleep(2000);
-            action.clearSendKeys(adminTripsPage.TextBox_Search(), pickupRef + Keys.ENTER);
+            switch (newpickupRef){
+                case "Pickup Reference":
+                    action.refreshPage();
+                    cucumberContextManager.setScenarioContext("ADMIN1_NAME", action.getText(admin_ScheduledTripsPage.Text_AdminName()));
+                    String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    Thread.sleep(2000);
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), pickupRef + Keys.ENTER);
+                    break;
+                case "ExternalOrderId":
+                    Thread.sleep(2000);
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("ExternalOrderId") + Keys.ENTER);
+                    break;
+                case "Invalid ExternalOrderId":
+                    Thread.sleep(2000);
+                    String invalidExternalODerNumber = PropertyUtility.getDataProperties("invalid.order.number");
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), invalidExternalODerNumber+Keys.ENTER);
+                    break;
+            }
+
             log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
