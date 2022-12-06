@@ -343,11 +343,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     public void i_log_into_another_something_portal_in_a_new_tab(String strArg1) throws Throwable {
         try {
             String adminURL = PropertyUtility.getDataProperties("qa.admin.url");
+            String loginId = PropertyUtility.getDataProperties("admin.login.id");
+            String password = PropertyUtility.getDataProperties("admin.login.password");
             Thread.sleep(2000);
             action.openNewTab();
             action.navigateTo(adminURL);
-            action.sendKeys(Page_AdminLogin.TextBox_Phone(), "9765330125");
-            action.sendKeys(Page_AdminLogin.TextBox_Password(),"cci12345");
+            action.sendKeys(Page_AdminLogin.TextBox_Phone(), loginId);
+            action.sendKeys(Page_AdminLogin.TextBox_Password(),password);
             Thread.sleep(2000);
             action.click(Page_AdminLogin.Button_AdminLogin());
             Thread.sleep(3000);
