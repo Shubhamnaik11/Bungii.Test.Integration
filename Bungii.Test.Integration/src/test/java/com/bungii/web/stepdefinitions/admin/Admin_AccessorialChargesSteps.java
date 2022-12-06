@@ -305,13 +305,13 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
             String message = DataList.get(i).get("Message").trim();
 
             if(amount.equalsIgnoreCase("Blank")) {
-                admin_accessorialChargesPage.TextBox_AccessorialAmount().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+                action.clearAllText(admin_accessorialChargesPage.TextBox_AccessorialAmount());
             }
             else{
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
             }
             if(driver_cut.equalsIgnoreCase("Blank")){
-                admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+                action.clearAllText(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut());
             }else{
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
             }
@@ -322,7 +322,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
             }
             if(comment.equalsIgnoreCase("Blank")) {
-                admin_accessorialChargesPage.TextBox_Comment().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+                action.clearAllText(admin_accessorialChargesPage.TextBox_Comment());
             }
             else {
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);

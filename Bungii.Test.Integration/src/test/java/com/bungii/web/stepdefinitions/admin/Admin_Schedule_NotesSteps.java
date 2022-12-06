@@ -509,10 +509,10 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
         try {
             ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
             if(portal.equalsIgnoreCase("Driver")){
-                SetupManager.getDriver().switchTo().window(tabs.get(1));
+                action.switchToTab(1);
             }
             else {
-                SetupManager.getDriver().switchTo().window(tabs.get(0));
+                action.switchToTab(0);
             }
             action.refreshPage();
             log("I should be able to switch the tab back to admin portal","I could switch the tab back to admin portal",false);
