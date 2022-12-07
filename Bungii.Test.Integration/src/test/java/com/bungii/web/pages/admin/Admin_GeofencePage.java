@@ -23,11 +23,11 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Label_GeoName(boolean...ignoreException) { return findElement("GeofenceSettings_0__Name", LocatorType.Id,ignoreException); }
 
-    public WebElement Dropdown_Timezone() { return findElement("//h4[text()='Geo (Region, Time-zone & Status)']/following-sibling::div[1]/div[2]", LocatorType.XPath); }
+    public WebElement Dropdown_Timezone() { return findElement("(//select[@class='form-select'])[2]", LocatorType.XPath); }
 
     public WebElement Dropdown_Region() { return findElement("//h4[text()='Geo (Region, Time-zone & Status)']/following-sibling::div[1]/div[1]", LocatorType.XPath); }
 
-    public WebElement Dropdown_Status() { return findElement("//h4[text()='Geo (Region, Time-zone & Status)']/following-sibling::div[1]/div[3]", LocatorType.XPath); }
+    public WebElement Dropdown_Status() { return findElement("(//select[@class='form-select'])[3]", LocatorType.XPath); }
 
     public WebElement Button_Scale() { return findElement("//button[text()='Scale']", LocatorType.XPath); }
 

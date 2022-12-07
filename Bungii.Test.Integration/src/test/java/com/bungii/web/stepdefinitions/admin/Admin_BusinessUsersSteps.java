@@ -103,7 +103,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     String GeoTimeZone = dataMap.get("Geo-TimeZone").trim();
                     String GeoStatus = dataMap.get("Geo-Status").trim();
 
+                    action.click(admin_GeofencePage.Dropdown_Timezone());
                     action.selectElementByText(admin_GeofencePage.Dropdown_Timezone(), GeoTimeZone);
+                    action.click(admin_GeofencePage.Dropdown_Status());
                     action.selectElementByText(admin_GeofencePage.Dropdown_Status(), GeoStatus);
 
                     action.sendKeys(admin_GeofencePage.TextBox_Primary(), Primary);
@@ -120,8 +122,6 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("GF_SECONDARY",Secondary);
                     cucumberContextManager.setScenarioContext("GF_GEOTIMEZONE", GeoTimeZone);
                     cucumberContextManager.setScenarioContext("GF_STATUS", GeoStatus);
-
-
 
                 break;
             case "Geofence Attributes" :
