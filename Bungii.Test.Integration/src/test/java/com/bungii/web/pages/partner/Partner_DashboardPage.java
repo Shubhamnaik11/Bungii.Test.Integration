@@ -44,6 +44,9 @@ public class Partner_DashboardPage extends PageBase {
     //Delivery Address
     public WebElement Dropdown_Delivery_Address() { return findElement("dropValue",LocatorType.Id);}
 
+    public WebElement Icon_PickupAddSearch_Address() { return findElement("pickupAddSearchIcon",LocatorType.Id);}
+
+
     //Delivery Address List
     public WebElement List_Delivery_Address() { return findElement("//div[contains(@class,'pac-container pac-logo')]/div[1]/span[2]",LocatorType.XPath);}
 
@@ -108,6 +111,7 @@ public class Partner_DashboardPage extends PageBase {
     //Blank message for load unload time
     public WebElement Message_Blank_LoadUnload_Time() { return findElement("//div[contains(text(),'Load Time is required.')]",LocatorType.XPath);}
 
+    public WebElement Icon_SearchPickupAdd() { return findElement("pickupAddSearchIcon",LocatorType.Id);}
     //Highlighted fields message
     public WebElement Message_Highlighted_Fields() { return findElement("//div[contains(text(),'Please verify the highlighted fields above.')]",LocatorType.XPath);}
 
