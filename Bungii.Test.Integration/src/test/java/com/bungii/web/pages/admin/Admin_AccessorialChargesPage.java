@@ -17,11 +17,11 @@ public class Admin_AccessorialChargesPage extends PageBase {
    public WebElement GridRow(String feeType) { return findElement(String.format("//td[text()='%s']/following-sibling::td",feeType), LocatorType.XPath); }
    public WebElement ExcessWaitTime() { return findElement("//div/h4/a[contains(text(),\"Excess Wait Time\")]", LocatorType.XPath); }
     public WebElement GridRowTotal(String total) { return findElement(String.format("//td/strong[text()='%s']/parent::td/following-sibling::td",total), LocatorType.XPath); }
-    public WebElement Error_AccessorialFeeAmount() { return findElement("fee-amount-error", LocatorType.Id); }
-    public WebElement Error_AccessorialFeeDriverCut() { return findElement("fee-type-driverOneShare-error", LocatorType.Id); }
-    public WebElement Error_AccessorialFeeType() { return findElement("fee-type-error", LocatorType.Id); }
-    public WebElement Error_AccessorialFeeComment() { return findElement("fee-comment-error", LocatorType.Id); }
-    public WebElement Text_DiffAccessorial(int Index ) { return findElement(String.format("//div[%d]/div/h4/a",Index) ,LocatorType.XPath);}
-    public WebElement Text_DriverCut(String AmountType) { return findElement(String.format("//div/div[@id = 'collapse-%s']/div/div/div",AmountType) ,LocatorType.XPath);}
+    public WebElement Error_AccessorialFeeAmount() { return findElement("//label[contains(text(),'Amount*')]/following-sibling::div/div/div", LocatorType.XPath); }
+    public WebElement Error_AccessorialFeeDriverCut() { return findElement("//input[@id='formHorizontalDriverShare']/following-sibling::div", LocatorType.XPath); }
+    public WebElement Error_AccessorialFeeType() { return findElement("//label[contains(text(),'FeeType*')]/following-sibling::div/div", LocatorType.XPath); }
+    public WebElement Error_AccessorialFeeComment() { return findElement("//label[contains(text(),'Comment*')]/following-sibling::div/div", LocatorType.XPath); }
+    public WebElement Text_DiffAccessorial(int Index ) { return findElement(String.format("//div[%d]/button[@class='btn btn-link']",Index) ,LocatorType.XPath);}
+    public WebElement Text_DriverCut(int Index) { return findElement(String.format("//div[%d]/button[@class='btn btn-link']/following-sibling::div/div[1]",Index) ,LocatorType.XPath);}
 
 }

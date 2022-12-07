@@ -1170,7 +1170,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         try{
             switch (action){
                 case "driver location":
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                     String driver = (String)cucumberContextManager.getScenarioContext("DRIVER_1");
                     testStepAssert.isElementDisplayed(admin_liveTripsPage.Image_DriverLocation(driver),
                             "The driver live location pin should be displayed.",
