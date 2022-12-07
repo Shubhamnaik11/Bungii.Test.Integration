@@ -409,6 +409,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         break;
                     case "Cancel":
                         action.click(admin_BusinessUsersPage.Button_BulkTripCancel());
+                        break;
+                    case "Ok":
+                        action.click(admin_BusinessUsersPage.Button_Ok());
+                        break;
                 }
                 break;
             case "Free Delivery Credit Card":
@@ -439,6 +443,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         break;
                 }
                 break;
+
             }
 
         log("I select "+button+" from "+page+ " page",

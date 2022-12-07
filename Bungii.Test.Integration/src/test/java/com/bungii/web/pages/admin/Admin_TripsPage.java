@@ -96,4 +96,5 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Link_DeliveryDetails() {return findElement("//a[contains(text(),'Delivery Details')]",LocatorType.XPath);}
 
+    public WebElement Text_ScheduledTime(String customerName) {return findElement("//span[contains(text(),'"+customerName+"')]//parent::td//parent::tr//td[6]//a",LocatorType.XPath);}
 }
