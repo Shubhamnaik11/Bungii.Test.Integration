@@ -111,6 +111,7 @@ public class Partner_DashboardPage extends PageBase {
     //Blank message for load unload time
     public WebElement Message_Blank_LoadUnload_Time() { return findElement("//div[contains(text(),'Load Time is required.')]",LocatorType.XPath);}
 
+    public WebElement Icon_SearchPickupAdd() { return findElement("pickupAddSearchIcon",LocatorType.Id);}
     //Highlighted fields message
     public WebElement Message_Highlighted_Fields() { return findElement("//div[contains(text(),'Please verify the highlighted fields above.')]",LocatorType.XPath);}
 
