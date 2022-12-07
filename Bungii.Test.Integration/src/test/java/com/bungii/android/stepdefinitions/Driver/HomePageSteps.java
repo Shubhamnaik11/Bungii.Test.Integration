@@ -368,6 +368,12 @@ public class HomePageSteps extends DriverBase {
                             "The referral icon $ is displayed",
                             "The referral icon $ is not displayed");
                     break;
+                case "i":
+                    testStepAssert.isElementDisplayed(driverHomePage.Icon_Earnings(),
+                            "The referral icon i should be displayed",
+                            "The referral icon i is displayed",
+                            "The referral icon i is not displayed");
+                    break;
             }
             log("I should be able to see the icon","I am able to see the icon",false);
 
@@ -527,6 +533,13 @@ public class HomePageSteps extends DriverBase {
                             "The branch app button should be displayed",
                             "The branch app button is displayed",
                             "The branch app button is not displayed");
+                    break;
+                case "changed payment":
+                    String defaultMethod= (String) cucumberContextManager.getScenarioContext("DEFAULT_PAYMENT");
+                    testStepAssert.isEquals(earningsPage.Button_PaymentSetting().getAttribute("text"),defaultMethod,
+                            "The selected payment method should not updated to default when driver logs out from app",
+                            "The selected payment method is not updated to default when driver logs out from app",
+                            "The selected payment method is updated to default when driver logs out from app");
                     break;
             }
             log("I should be able to check if "+button+" button is displayed","I am able to check if "+button+" button is displayed",false);
