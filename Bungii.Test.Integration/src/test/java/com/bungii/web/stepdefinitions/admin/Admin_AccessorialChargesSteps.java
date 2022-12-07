@@ -61,6 +61,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 else {
                     cucumberContextManager.setScenarioContext("TripType", "PartnerTrip");
                 }
+                Thread.sleep(5000);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
@@ -175,7 +176,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                         String excessWaitTime = feeType.replace(" ", "");
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(1));
                         Thread.sleep(2000);
-                        String entireDriverCutForExcessWaitime[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(excessWaitTime)).split("\\$");
+                        String entireDriverCutForExcessWaitime[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(1)).split("\\$");
 
                         String  properDriverCutForExcessWaitTime =entireDriverCutForExcessWaitime[1];
                         cucumberContextManager.setScenarioContext("ExcessWaitCut",properDriverCutForExcessWaitTime.trim());
@@ -186,7 +187,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(2));
                         Thread.sleep(2000);
 
-                        String entireDriverCutForCancelation[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(cancellation)).split("\\$");
+                        String entireDriverCutForCancelation[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(2)).split("\\$");
                         String  properDriverCutForCancelation=entireDriverCutForCancelation[1];
                         cucumberContextManager.setScenarioContext("CancellationCut",properDriverCutForCancelation.trim());
                         testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("CancellationCut"), "Cancelation driver cut charges should match","Cancelation driver cut charges match","Cancelation driver cut charges dont match");
@@ -196,7 +197,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(3));
                         Thread.sleep(2000);
 
-                        String entireDriverCutForMountainous[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(mountainous)).split("\\$");
+                        String entireDriverCutForMountainous[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(3)).split("\\$");
                         String properDriverCutForMountainous=entireDriverCutForMountainous[1];
                         cucumberContextManager.setScenarioContext("MountainousCut",properDriverCutForMountainous.trim());
                         testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("MountainousCut"), "Mountainous driver cut charges should match","Mountainous driver cut charges match","Mountainous driver cut charges dont match");
@@ -206,7 +207,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                         action.click(admin_accessorialChargesPage.Text_DiffAccessorial(4));
                         Thread.sleep(2000);
 
-                        String entireDriverCutForOther[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(other)).split("\\$");
+                        String entireDriverCutForOther[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(4)).split("\\$");
                         String properDriverCutValueForOther =entireDriverCutForOther[1];
                         cucumberContextManager.setScenarioContext("OtherCut",properDriverCutValueForOther.trim());
                         testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("OtherCut"), "Other driver cut charges should match","Other driver cut charges match","Other driver cut charges dont match");
@@ -304,24 +305,24 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
             String message = DataList.get(i).get("Message").trim();
 
             if(amount.equalsIgnoreCase("Blank")) {
-                action.clear(admin_accessorialChargesPage.TextBox_AccessorialAmount());
+                action.clearAllText(admin_accessorialChargesPage.TextBox_AccessorialAmount());
             }
             else{
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
             }
             if(driver_cut.equalsIgnoreCase("Blank")){
-                action.clear(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut());
+                action.clearAllText(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut());
             }else{
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
             }
             if(feeType.equalsIgnoreCase("Blank")) {
-                action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), "-- Select Fee Type --");
+                action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), "--Select Fee Type--");
             }
             else{
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
             }
             if(comment.equalsIgnoreCase("Blank")) {
-                action.clear(admin_accessorialChargesPage.TextBox_Comment());
+                action.clearAllText(admin_accessorialChargesPage.TextBox_Comment());
             }
             else {
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
@@ -339,7 +340,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 case "COMMENT":
                     testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Error_AccessorialFeeComment(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                     break;
-                case "Driver Amount":
+                case "DRIVER AMOUNT":
                     testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Error_AccessorialFeeDriverCut(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                     break;
             }
@@ -503,9 +504,9 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         action.refreshPage();
 
         Thread.sleep(2000);
-        action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
-        action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
-        action.click(Page_AdminLogin.Button_AdminLogin());
+        //action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
+        //action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
+        //action.click(Page_AdminLogin.Button_AdminLogin());
         log("I should be able to click on the Delivery details link and get the total earning value and navigate back to admin portal",
                 "I could click on the Delivery details link and get the total earning value and navigate back to admin portal");
     } catch(Exception e){

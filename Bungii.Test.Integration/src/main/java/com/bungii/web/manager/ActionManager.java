@@ -54,6 +54,21 @@ public class ActionManager {
         }
     }
 
+    public void clearAllText(WebElement element) {
+        try {
+            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+            Thread.sleep(2000);
+            element.sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+            logger.detail("Delete all text in element -> " + getElementDetails(element));
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to delete all text in element -> " + getElementDetails(element),
+                    true);
+        }
+    }
+
     /**
      * @param element , locator of field
      * @param text    , Text value that is to be sent
@@ -469,6 +484,23 @@ catch(Exception ex)
         } catch (Exception Ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
             error("Step should be successful", "Unable to select from dropdown",
+                    true);
+        }
+    }
+
+    public void rightClickOpenNewTab(WebElement element) {
+        try{
+            WebDriver driver = SetupManager.getDriver();
+            Actions action = new Actions(driver);
+            action.keyDown(Keys.LEFT_CONTROL)
+                    .click(element)
+                    .keyUp(Keys.LEFT_CONTROL)
+                    .build()
+                    .perform();
+            logger.detail("Clicked on " + element + " and opened page in a new tab");
+        } catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to Click",
                     true);
         }
     }
