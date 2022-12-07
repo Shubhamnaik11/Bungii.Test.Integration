@@ -110,13 +110,15 @@ Feature: Admin_OndemandTrips
   @regression
   Scenario:  Verify Search On Delivery List
     When I click on "Deliveries > All Deliveries" Menu
-    And I search by client name "Testcustomertywd_appleNewMF Customer"
-    Then All the clients named "Testcustomertywd_appleNewMF Customer" should be displayed on the delivery list grid
+    And I change filter to "The Beginning of Time" on All deliveries
+    And I search by client name "Vishal"
+    Then All the clients named "Vishal" should be displayed on the delivery list grid
 
   @regression
+    #Issue Raised ADP-683
     #stable
   Scenario: Verify Filters On Delivery List
-    When I click on "Deliveries > All Deliveries" Menu
+    When I click on "Deliveries > All DeliveriesPage" Menu
     And I click on "Filter" icon on "All Deliveries" Page
     Then All statuses except "Price Estimated" are selected
     And All types and categories are selected
