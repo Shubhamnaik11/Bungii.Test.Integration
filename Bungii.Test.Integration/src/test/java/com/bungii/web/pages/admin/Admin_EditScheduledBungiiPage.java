@@ -77,19 +77,19 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_Driver2MessageOnEdit(boolean...ignoreException) { return findElement("//tr/td[contains(.,'Driver 2: Add driver below or Bungii driver search will continue')]", LocatorType.XPath,ignoreException); }
 
-    public WebElement Label_DeliveryTypeOnResearch() { return findElement("//div[@class='tripDrivers row']/p[contains(text(),'Type')]/following-sibling::p[1]", LocatorType.XPath); }
+    public WebElement Label_DeliveryTypeOnResearch() { return findElement("//div[@class='tripDrivers']/div/div[2]/div[3]/span", LocatorType.XPath); }
 
-    public WebElement Label_DeliveryTypeOnCancel() { return findElement("//div[@class='cancelFees row']/p[contains(text(),'Type')]/following-sibling::p[1]", LocatorType.XPath); }
+    public WebElement Label_DeliveryTypeOnCancel() { return findElement("//div[@class='tripDrivers']/div/div[2]/div[3]/span", LocatorType.XPath); }
 
-    public WebElement Label_Driver1NameOnResearch() { return findElement("//div[@id='tripDriverDetails']/div[1]/span[1]", LocatorType.XPath); }
+    public WebElement Label_Driver1NameOnResearch() { return findElement("//div[@class='driver-checkbox']/following-sibling::span[1]", LocatorType.XPath); }
 
     public WebElement Label_Driver2NameOnResearch(boolean...ignoreException) { return findElement("//div[@id='tripDriverDetails']/div[2]/span[1]", LocatorType.XPath,ignoreException); }
 
-    public WebElement Label_Driver1NameOnEdit() { return findElement("//table[@id='editTripDrivers']/tbody/tr[1]/td/table/tbody/tr/td[2]", LocatorType.XPath); }
+    public WebElement Label_Driver1NameOnEdit() { return findElement("//div[@class='driver-checkbox w1']/following-sibling::span[1]", LocatorType.XPath); }
 
     public WebElement Label_Driver2NameOnEdit(boolean...ignoreException) { return findElement("//table[@id='editTripDrivers']/tbody/tr[2]/td/table/tbody/tr/td[2]", LocatorType.XPath,ignoreException); }
 
-    public WebElement Label_ErrorMessage() { return findElement("verify-error", LocatorType.Id); }
+    public WebElement Label_ErrorMessage() { return findElement("//h6[@id='input-valid-message']/i", LocatorType.XPath); }
 
     public WebElement Label_AdditionalNotes() { return findElement("//span[text()='Special Instructions:']", LocatorType.XPath); }
 
