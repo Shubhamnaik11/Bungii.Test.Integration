@@ -525,10 +525,12 @@ public class Partner_IntegrationSteps extends DriverBase {
                         //action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         //Thread.sleep(2000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
-                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+//                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address);
+//                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                        action.click(Page_Partner_Dashboard.Icon_PickupAddSearch_Address());
                         Thread.sleep(5000);
-                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+//                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                         //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
                         break;

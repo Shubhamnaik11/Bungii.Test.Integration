@@ -174,6 +174,7 @@ public class Partner_Delivery_Details extends DriverBase {
             }
             if (dataMap.containsKey("Order_Number")) {
                 OrderNumber = dataMap.get("Order_Number").trim();
+                cucumberContextManager.setScenarioContext("ExternalOrderId", OrderNumber);
             }
             if (dataMap.containsKey("EmployeeID")) {
                 EmployeeID = dataMap.get("EmployeeID").trim();
