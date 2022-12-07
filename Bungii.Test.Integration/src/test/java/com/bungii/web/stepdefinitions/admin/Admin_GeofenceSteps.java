@@ -131,14 +131,12 @@ public class Admin_GeofenceSteps extends DriverBase {
     @Then("^the geofence gets saved successfully and it is displayed in the \"([^\"]*)\" grid$")
     public void the_geofence_gets_saved_successfully_and_it_is_displayed_in_the_something_grid(String strArg1) throws Throwable {
         try{
-
         String Name = (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
         String Timezone = (String) cucumberContextManager.getScenarioContext("GF_GEOTIMEZONE");
         String Status = (String) cucumberContextManager.getScenarioContext("GF_STATUS");
 
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",Name,Status,Timezone);
         cucumberContextManager.setScenarioContext("XPATH", Xpath);
-        ;
         testStepAssert.isElementDisplayed(admin_GeofencePage.Row_geofenceList(Name,Status,Timezone),"Geofence should be listed in grid", "Geofence is listed in grid","Geofence is not listed in grid");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

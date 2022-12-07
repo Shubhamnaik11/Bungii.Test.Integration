@@ -45,7 +45,7 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Button_Edit() { return findElement("btnEdit", LocatorType.Id); }
 
-    public WebElement Button_Settings() { return findElement("btnEditSettings", LocatorType.Id); }
+    public WebElement Button_Settings() { return findElement("//button[contains(text(),'Settings')]", LocatorType.XPath); }
 
 
     public WebElement Label_CustomerFAQLink() { return findElement("//td[contains(text(),'Customer FAQ link')]//following-sibling::td[2]", LocatorType.XPath); }
