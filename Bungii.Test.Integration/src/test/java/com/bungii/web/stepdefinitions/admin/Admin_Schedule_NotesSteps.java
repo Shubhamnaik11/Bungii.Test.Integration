@@ -343,8 +343,8 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     public void i_log_into_another_something_portal_in_a_new_tab(String strArg1) throws Throwable {
         try {
             String adminURL = PropertyUtility.getDataProperties("qa.admin.url");
-            String loginId = PropertyUtility.getDataProperties("admin.login.id");
-            String password = PropertyUtility.getDataProperties("admin.login.password");
+            String loginId = PropertyUtility.getDataProperties("admin.user2");
+            String password = PropertyUtility.getDataProperties("admin.password");
             Thread.sleep(2000);
             action.openNewTab();
             action.navigateTo(adminURL);
