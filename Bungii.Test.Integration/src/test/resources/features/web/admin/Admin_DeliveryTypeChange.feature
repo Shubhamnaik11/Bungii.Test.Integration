@@ -248,7 +248,7 @@ Feature: Admin_Delivery_Type_Change
 	  Then I should be able to see the respective bungii with the below Delivery Type
 		  | Type |
 		  | Duo |
-#	  And the cost of the delivery should be zero
+	  And the cost of the delivery should be zero
 	  When I view the delivery details
 	  Then I confirm that Driver Est. Earnings for the delivery remain same
 	  And I navigate back to Scheduled Deliveries
