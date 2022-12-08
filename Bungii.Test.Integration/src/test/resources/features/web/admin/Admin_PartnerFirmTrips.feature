@@ -8,6 +8,7 @@ Feature: Admin_PartnerFirmTrips
   @sanity
   @regression
       #test data created in base
+    #passed for v2
   Scenario: Verify Partner Firm Upon Driver Acceptance And Removal Research - Duo Scheduled
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -32,6 +33,7 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
   
   @regression
+    #passed for v2
   Scenario: Verify Partner Firm Scheduled  - Ondemand Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
@@ -48,6 +50,7 @@ Feature: Admin_PartnerFirmTrips
     #Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @regression
+    #passed for v2
   Scenario: Verify Partner Firm Scheduled  - Solo Ondemand
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -65,6 +68,7 @@ Feature: Admin_PartnerFirmTrips
   @regression
     #stable
       #test data created in base
+    #passed for v2
   Scenario: Verify Partner Firm Cancellation - Duo Scheduled
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -97,6 +101,7 @@ Feature: Admin_PartnerFirmTrips
   @regression
     #stable
     #test data created in base
+    #passed for v2
   Scenario: Verify Partner Firm Upon Driver Acceptance And Remove Research - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -121,6 +126,7 @@ Feature: Admin_PartnerFirmTrips
   @regression
     #stable
     #test data created in base
+    #passed for v2
   Scenario: Verify Partner When Cancel Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -148,7 +154,7 @@ Feature: Admin_PartnerFirmTrips
   @regression
     @testpath
     #Create driver in base
-    #scenario is pending for xpath
+    @cf
   Scenario: Verify Partner Scheduled - Solo Scheduled Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
@@ -183,6 +189,7 @@ Feature: Admin_PartnerFirmTrips
   @regression
     #stable
     #test data created in base
+    #passed for v2
   Scenario: Verify Partner Firm For Long Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -206,6 +213,7 @@ Feature: Admin_PartnerFirmTrips
   @ready
     #failed in sprint 49 regression
     #test data created in base
+    #passed for v2
   Scenario: Verify Partner Firm For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -237,6 +245,7 @@ Feature: Admin_PartnerFirmTrips
     #failed in sprint 49 regression
     #test data created in base
     #changed driver name
+    #passed for v2
   Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
