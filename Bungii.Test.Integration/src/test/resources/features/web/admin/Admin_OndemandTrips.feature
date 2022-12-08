@@ -110,13 +110,15 @@ Feature: Admin_OndemandTrips
   @regression
   Scenario:  Verify Search On Delivery List
     When I click on "Deliveries > All Deliveries" Menu
+    And I change filter to "The Beginning of Time" on All deliveries
     And I search by client name "Vishal"
     Then All the clients named "Vishal" should be displayed on the delivery list grid
 
   @regression
+    #Issue Raised ADP-683
     #stable
   Scenario: Verify Filters On Delivery List
-    When I click on "Deliveries > All Deliveries" Menu
+    When I click on "Deliveries > All DeliveriesPage" Menu
     And I click on "Filter" icon on "All Deliveries" Page
     Then All statuses except "Price Estimated" are selected
     And All types and categories are selected
@@ -167,29 +169,29 @@ Feature: Admin_OndemandTrips
     Then the triplist grid shows the results by type "Scheduled Category"
 
 #Core 2968 -To verify that admin can add Accessorial fee for driver cancelled on demand trip
-@regression
-Scenario:To verify that admin can add Accessorial fee for driver cancelled on demand trip
- When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
-| Bungii Time   | Customer Phone | Customer Name |
-| NEXT_POSSIBLE | 8877661116 | Testcustomertywd_appleMarkDM LutherDM|
-And As a driver "Testdrivertywd_appledc_a_drvI WashingtonI" perform below action with respective "Solo Ondemand" Delivery
-| driver1 state|
-|Accepted      |
-When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvI WashingtonI"
-And I wait for 2 minutes
-And I view the Deliveries list on the admin portal
-When  I search the delivery using "Pickup Reference"
-And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-Then I should see "Accessorial Charges" section displayed
-When I add following accessorial charges and save it
-| Amount   | Fee Type         | Comment                           | Driver Cut |
-|  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
-|   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
-|  25.65   | Mountainous      | Charges due to mountainous reason | 10.0       |
-|  100     | Other            | Charges due to other reasons      | 20         |
-And I should see following details in the Accessorial charges section
-| Excess Wait Time | Cancelation | Mountainous | Other | Total   |
-| $10              | $20.5       | $25.65      | $100  | $156.15 |
+  @regression
+  Scenario:To verify that admin can add Accessorial fee for driver cancelled on demand trip
+    When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
+    | Bungii Time   | Customer Phone | Customer Name |
+    | NEXT_POSSIBLE | 8877661116 | Testcustomertywd_appleMarkDM LutherDM|
+    And As a driver "Testdrivertywd_appledc_a_drvI WashingtonI" perform below action with respective "Solo Ondemand" Delivery
+    | driver1 state|
+    |Accepted      |
+    When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvI WashingtonI"
+    And I wait for 2 minutes
+    And I view the Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then I should see "Accessorial Charges" section displayed
+    When I add following accessorial charges and save it
+    | Amount   | Fee Type         | Comment                           | Driver Cut |
+    |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
+    |   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
+    |  25.65   | Mountainous      | Charges due to mountainous reason | 10.0       |
+    |  100     | Other            | Charges due to other reasons      | 20         |
+    And I should see following details in the Accessorial charges section
+    | Excess Wait Time | Cancelation | Mountainous | Other | Total   |
+    | $10              | $20.5       | $25.65      | $100  | $156.15 |
 
   #CORE-3295:Verify admin is not able to edit the on demand trips when its status is assigning driver on Live deliveries screen
   @regression
@@ -207,6 +209,7 @@ Scenario:Verify admin is not able to edit the on demand trips when its status is
 
 #CORE-2584:To verify the customer ON DEMAND delivery marked as Payment successful from payment unsuccessful
  @ready
+   #Issue Raised ADP-722
   Scenario:To verify the customer ON DEMAND delivery marked as Payment successful from payment unsuccessful
     When I request "Solo Ondemand" Bungii as a customer in "phoenix" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -224,7 +227,7 @@ Scenario:Verify admin is not able to edit the on demand trips when its status is
     And  I search the delivery using "Pickup Reference"
     Then The "All Deliveries" should be in "Payment Pending" state
     And I click on the "Change Payment status" link beside scheduled bungii for "Payment Pending Deliveries"
-    #When I click on the "Change Payment status" button from the dropdown
+#    When I click on the "Change Payment status" button from the dropdown
     And the "Are you sure, you want to change the payment status?" message is displayed
     Then I should see all the information in the change payment status modal
     And I click on "Confirm Change Payment Status" button
