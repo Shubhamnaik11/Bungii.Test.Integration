@@ -107,7 +107,6 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_Admin_TrackingId(){return  findElement("//div/h4[3]",LocatorType.XPath);}
 
-
     public WebElement Dropdown_LiveDelivery_Details(){return  findElement("//div/ul/li/a[text()=\"Delivery Details\"]",LocatorType.XPath);}
     public WebElement List_ViewEdit(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Edit')]",LocatorType.XPath);}
     public WebElement Dropdown_Edit_DeliveryDetails(){return  findElement("//label/span[text()='Edit Delivery Details']",LocatorType.XPath);}
