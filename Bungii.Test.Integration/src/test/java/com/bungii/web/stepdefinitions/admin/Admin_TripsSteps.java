@@ -659,7 +659,7 @@ public class Admin_TripsSteps extends DriverBase {
     @When("^I change filter to \"([^\"]*)\" on All deliveries$")
     public void i_change_filter_to_something_on_all_deliveries(String filter) throws Throwable {
         try{
-        Thread.sleep(5000);
+        action.waitUntilIsElementExistsAndDisplayed(liveTripsPage.Dropdown_SearchForPeriod(), (long) 5000);
         action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),filter);
         Thread.sleep(5000);
         log("I select filter from All Deliveries on the admin portal",
@@ -2008,13 +2008,13 @@ try{
             List<WebElement> rows = null;
             switch (filter) {
                 case "Payment Unsuccessful Status":
-                    xpath = String.format("//td[contains(.,'Payment Pending')]");
+                    xpath = String.format("//td[contains(text(),'Payment Pending')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Payment Successful Status":
-                    xpath = String.format("//td[contains(.,'Payment Successful')]");
+                    xpath = String.format("//td[contains(text(),'Payment Successful')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
