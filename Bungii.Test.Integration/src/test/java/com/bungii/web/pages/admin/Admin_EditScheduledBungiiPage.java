@@ -27,9 +27,11 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement TextBox_DriverSearch() { return findElement("//input[@placeholder='Enter driver name']", LocatorType.XPath); }
 
-    public WebElement Button_Verify() { return findElement("//button[text()='VERIFY']", LocatorType.XPath); }
+    public WebElement Button_Verify() { return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath); }
+    public WebElement Button_Verify_For_Live() { return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath); }
 
-    public WebElement Button_Save() { return findElement("//button[text()='SAVE']", LocatorType.XPath); }
+
+    public WebElement Button_Save() { return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath); }
 
     public WebElement Button_Undo() { return findElement("//button[@onclick='UndoTripChanges()']", LocatorType.Id); }
 
@@ -44,6 +46,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement Label_InfoMessage() { return findElement("info-message", LocatorType.Id); }
 
     public WebElement RadioButton_EditTripDetails() { return findElement("//label[text()='Edit Delivery Details']/preceding-sibling::input", LocatorType.XPath); }
+    public WebElement RadioButton_EditTripDetails_For_Live() { return findElement("radio5", LocatorType.Id); }
 
     public WebElement List_DriverSearchResult (String driverName) { return findElement("//div[@id='divDriversResult']/div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
 
@@ -99,4 +102,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Icon_Warning() { return findElement("//div/small[@id=\"warning-message\"]/i", LocatorType.XPath); }
 
+    public WebElement Icon_Dropdown(){return  findElement("threedoticon",LocatorType.ClassName);}
+
+    public WebElement Option_Edit(){return  findElement("//div/a[text()=\"Edit\"]",LocatorType.XPath);}
 }

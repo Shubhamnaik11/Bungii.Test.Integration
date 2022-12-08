@@ -851,13 +851,14 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" for customer delivery should match$")
     public void the_something_for_customer_delivery_should_match(String strArg1) throws Throwable {
         try{
-//            String custPhone ="8877661001";
+//            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","washingtondc");
+//            String custPhone ="9999999207";
             String custPhone = (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
             String custRef = DbUtility.getCustomerRefference(custPhone);
             String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTimeForCustomer(custRef);
             switch (strArg1){
                 case "Scheduled Time":
-                    String calculatedArrivalTime = ConvertTimeToCST(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+                    String calculatedArrivalTime = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
 
                     if (calculatedArrivalTime.startsWith("0")) {
 
@@ -886,6 +887,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                             "The  incorrect arrival time displayed is  " + properArrivalTime);
                     break;
                 case "Estimated Delivery Time":
+                case "Estimate dropOff time after admin live edit":
                     if(strArg1.contentEquals("Estimated Delivery Time")){
                         String arrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
                         String[] hoursAndMinutes =arrivalTime.substring(0, arrivalTime.length() - 3).split(":");
@@ -896,6 +898,18 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                         // for scheduled deliveries formula -->
                         // [Projected start time] + ([Projected LoadUnload Time] / 3) + [Projected Drive Time] + 40
                     }
+                    else if ((strArg1.contentEquals("Estimate dropOff time after admin live edit"))) {
+                String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                String changedDeliveryDetailsTime[] = DbUtility.getStatusTimestamp(pickupRef).split(" ");
+                String removedValueFromDot = changedDeliveryDetailsTime[1].substring(0, changedDeliveryDetailsTime[1].length() - 4);
+                changedDeliveryDetailsTime[1] = removedValueFromDot;
+                String arrivalStateAdminEdit = ConvertTimeToTheRequiredGeoFence(changedDeliveryDetailsTime);
+                String[] hoursAndMinutes = arrivalStateAdminEdit.substring(0, arrivalStateAdminEdit.length() - 3).split(":");
+                String hours = hoursAndMinutes[0];
+                String minutes = hoursAndMinutes[1];
+                cucumberContextManager.setScenarioContext("Hours", hours);
+                cucumberContextManager.setScenarioContext("Minutes", minutes);
+            }
                     String hours =(String) cucumberContextManager.getScenarioContext("Hours");
                     String minutes =(String) cucumberContextManager.getScenarioContext("Minutes");
 
@@ -960,7 +974,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
         return hourAndMinute;
     }
 
-    private String ConvertTimeToCST(String[] uctToCstTime) {
+    private String ConvertTimeToTheRequiredGeoFence(String[] uctToCstTime) {
         String date[] = uctToCstTime[0].split("-");
         String time[] = uctToCstTime[1].split(":");
         if(time[2].contains(".")){

@@ -459,6 +459,12 @@ Feature: Admin_Reason_Code
     And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
+    #CORE-4152:Verify that Estimated Delivery time is displayed correctly on all deliveries details page of Admin portal
+    When I click on the "Delivery Details" button from the dropdown
+    Then The "Scheduled Time" for customer delivery should match
+    Then The "Estimated Delivery Time" for customer delivery should match
+    And I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I search the delivery of Customer and view it
     When I add following accessorial charges and save it

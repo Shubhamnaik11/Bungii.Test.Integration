@@ -641,7 +641,7 @@ public class Admin_TripsSteps extends DriverBase {
         try{
             //Thread.sleep(120000);
             action.click(admin_TripsPage.Menu_Trips());
-            action.click(liveTripsPage.Menu_AllDeliveries());
+            action.click(admin_TripsPage.Menu_AllDeliveries());
             //action.click(admin_LiveTripsPage.Menu_LiveTrips());
             SetupManager.getDriver().navigate().refresh();
             action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
@@ -854,9 +854,10 @@ try{
         try{
         Thread.sleep(4000);
            // action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnLiveEdit']")));
-            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//td/div/img")));
-            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'Edit')]")));
-
+//            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//td/div/img")));
+//            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'Edit')]")));
+            action.click(admin_EditScheduledBungiiPage.Icon_Dropdown());
+            action.click(admin_EditScheduledBungiiPage.Option_Edit());
             log(" I click on Edit link besides the live delivery",
                 "I have clicked on Edit link besides the live delivery", false);
         } catch(Exception e){
@@ -1016,8 +1017,15 @@ try{
                 action.click(admin_ScheduledTripsPage.RadioButton_RemoveDriver());
                 break;
             case "Edit Trip Details":
-                action.click(admin_EditScheduledBungiiPage.RadioButton_EditTripDetails());
-                Thread.sleep(5000);
+                String editLiveDelivery = action.getText(admin_ScheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+                if(editLiveDelivery.contentEquals("Edit Live Bungii")){
+                    action.click(admin_EditScheduledBungiiPage.RadioButton_EditTripDetails_For_Live());
+                    Thread.sleep(10000);
+                }
+                else {
+                    action.click(admin_EditScheduledBungiiPage.RadioButton_EditTripDetails());
+                    Thread.sleep(10000);
+                }
                 break;
             case "Edit Delivery Status":
                 action.click(admin_LiveTripsPage.RadioButton_EditDeliveryStatus());
@@ -1116,10 +1124,16 @@ try{
     @And("^I edit the drop off address$")
     public void i_edit_the_drop_off_address() throws Throwable {
         try{
-        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
-        action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
-        Thread.sleep(1000);
-        cucumberContextManager.setScenarioContext("OLD_DROPOFF_LOCATION",action.getText(admin_ScheduledTripsPage.DropOff_Address()));
+            String editLiveDelivery = action.getText(admin_ScheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+            if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location_For_Live(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address_For_Live());
+            }
+            else {
+                testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
+
+            }
         if(action.isElementPresent(admin_EditScheduledBungiiPage.Text_Additional_Note(true))) {
             cucumberContextManager.setScenarioContext("OLD_ADDITION_NOTE", action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note()));
         }
@@ -1151,20 +1165,33 @@ try{
     public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
 
         try{
-        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
+
         //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
 //        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
 
         //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
      //   action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
 //            action.clickOnDropdown();
-        action.click(admin_ScheduledTripsPage.Dropdown_ChangeAddress(arg1));
-        Thread.sleep(1000);
-        String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
-        cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
 
-        log("I change the dropoff address to "+arg1,
+            String editLiveDelivery = action.getText(admin_ScheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+            if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location_For_Live(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location_For_Live(),arg1);
+                Thread.sleep(1000);
+                action.click(admin_ScheduledTripsPage.Dropdown_ChangeAddress(arg1));
+                String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address_For_Live());
+                cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
+            }
+            else {
+                action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
+                Thread.sleep(1000);
+                action.click(admin_ScheduledTripsPage.Dropdown_ChangeAddress(arg1));
+                Thread.sleep(1000);
+                String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
+                cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
+            }
+                log("I change the dropoff address to "+arg1,
                 "I have changed the dropoff address to "+arg1);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -2203,7 +2230,10 @@ try{
                 action.click(admin_EditScheduledBungiiPage.Button_Save());
                 break;
             case "Verify":
-                action.click(admin_EditScheduledBungiiPage.Button_Verify());
+                String editLiveDelivery = action.getText(admin_ScheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+                if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                    action.click(admin_EditScheduledBungiiPage.Button_Verify_For_Live());
+                }
                 break;
             case "Undo":
                 action.click(admin_EditScheduledBungiiPage.Button_Undo());
