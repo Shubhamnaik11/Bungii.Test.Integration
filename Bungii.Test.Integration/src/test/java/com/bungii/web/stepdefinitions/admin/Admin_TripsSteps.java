@@ -2234,6 +2234,9 @@ try{
                 if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
                     action.click(admin_EditScheduledBungiiPage.Button_Verify_For_Live());
                 }
+                else {
+                    action.click(admin_EditScheduledBungiiPage.Button_Verify());
+                }
                 break;
             case "Undo":
                 action.click(admin_EditScheduledBungiiPage.Button_Undo());

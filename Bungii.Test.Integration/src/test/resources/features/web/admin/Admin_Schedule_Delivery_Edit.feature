@@ -27,6 +27,14 @@ Feature: Admin_Schedule_Delivery_Edit
       Then "Bungii Saved!" message should be displayed
       And I wait for "2" mins
       And  I refresh the page
+      And I get the new pickup reference generated
+      And  I search the delivery using "Pickup Reference"
+      #CORE-4152:Verify that estimated delivery time is calculated correctly when admin edits scheduled address of customer trip
+      When I click on the "Delivery Details" button from the dropdown
+      Then The "Scheduled Time" for customer delivery should match
+      Then The "Estimated Delivery Time" for customer delivery should match
+      And I view the all Scheduled Deliveries list on the admin portal
+      And  I search the delivery using "Pickup Reference"
       And I click on the dropdown beside scheduled bungii
       Then I should see the "History" underlined
       #CORE-3382

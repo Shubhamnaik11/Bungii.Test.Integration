@@ -851,8 +851,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" for customer delivery should match$")
     public void the_something_for_customer_delivery_should_match(String strArg1) throws Throwable {
         try{
-//            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","washingtondc");
-//            String custPhone ="9999999207";
+            int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
             String custPhone = (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
             String custRef = DbUtility.getCustomerRefference(custPhone);
             String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTimeForCustomer(custRef);
@@ -915,7 +914,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
 
                     int convertHoursToMinutes = (Integer.parseInt( hours)*60) +Integer.parseInt( minutes) ;
                     int unloadingLoadingTimeWithoutServiceLevel = (int) Float.parseFloat(ArrivalTimeAndUnloadingLoadingTime[2]);
-                    int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTimeWithoutServiceLevel/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+40;
+                    int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTimeWithoutServiceLevel/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+driverTime;
                     final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
 
                     String roundedTime =roundedUpTime(LocalTime.MIN.plus(Duration.ofMinutes( totalMinutes)).toString());

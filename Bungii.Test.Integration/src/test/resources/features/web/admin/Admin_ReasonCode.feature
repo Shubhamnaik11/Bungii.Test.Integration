@@ -597,3 +597,41 @@ Feature: Admin_Reason_Code
     And I refresh the page
     And I click on "Load" button
     Then I check if "driver location-duo" is updated for live trip
+
+
+  #Core-4152: To verify updated projected estimated delivery time for trips revived canceled or after payment status change
+  @ready
+  Scenario: To verify updated projected estimated delivery time for trips revived canceled or after payment status change
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 8877661143 | Testcustomertywd_appleMarkEN LutherEN|
+    And As a driver "Testdrivertywd_appledc_a_drvZ WashingtonZ" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      |Accepted |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
+      | Bungii Completed |
+    And I wait for 2 minutes
+    And  I view the Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    And I select "Admin Canceled" from the dropdown
+    And I select "Customer initiated - other reason" as the reason from the reason dropdown
+    And I click on "Confirm" button
+    And I click on "Cancel Status" button
+    And I wait for 2 minutes
+    #CORE-4152:Verify that Estimated Delivery time is displayed correctly on all deliveries details page of Admin portal
+    And I view the Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then Revive button should be displayed beside the trip
+    When I click on "Revive" button
+    Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+    When I click on "Confirm" button on Revival Popup
+    And I wait for 2 minutes
+    And I view the all Scheduled Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+    When I click on the "Delivery Details" button from the dropdown
+    Then The "Scheduled Time" for customer delivery should match
+    Then The "Estimated Delivery Time" for customer delivery should match
