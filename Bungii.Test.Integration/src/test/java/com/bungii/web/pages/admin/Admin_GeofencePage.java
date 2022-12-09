@@ -43,10 +43,9 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Label_NameErrorContainer() { return findElement("Name-error", LocatorType.Id); }
 
-    public WebElement Button_Edit() { return findElement("btnEdit", LocatorType.Id); }
+    public WebElement Button_Edit() { return findElement("(//a[text()='cancel']//following-sibling::button)[1]", LocatorType.XPath); }
 
-    public WebElement Button_Settings() { return findElement("//button[contains(text(),'Settings')]", LocatorType.XPath); }
-
+    public WebElement Button_Settings() { return findElement("(//a[text()='cancel']//following-sibling::button)[2]", LocatorType.XPath); }
 
     public WebElement Label_CustomerFAQLink() { return findElement("//td[contains(text(),'Customer FAQ link')]//following-sibling::td[2]", LocatorType.XPath); }
 
@@ -64,22 +63,22 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Label_TripCostPerMinute() { return findElement("//td[contains(text(),'Trip cost per minute')]//following-sibling::td[2]", LocatorType.XPath); }
 
-    public WebElement Checkbox_Solo() {return  findElement("//label[normalize-space()=\"1 Driver\"][1]/input[@name='attributeValueScheduledNoOfDrivers'][1]",LocatorType.XPath);}
+    public WebElement Checkbox_Solo() {return  findElement("(//tr/td[text()='Driver FAQ link']//following-sibling::td/div/input)[1]",LocatorType.XPath);}
 
-    public WebElement Checkbox_Duo() {return  findElement("//label[normalize-space()=\"2 Drivers\"][1]/input[@name='attributeValueScheduledNoOfDrivers'][1]", LocatorType.XPath);}
+    public WebElement Checkbox_Duo() {return  findElement("(//tr/td[text()='Driver FAQ link']//following-sibling::td/div/input)[2]", LocatorType.XPath);}
     public WebElement Button_Next() {return  findElement("//a/span[text()='Next']", LocatorType.XPath);}
 
-    public WebElement Checkbox_OnDemand() {return findElement("//label[normalize-space()=\"1 Driver\"][1]/input[@name='attributeValueOnDemandNoOfDrivers'][1]", LocatorType.XPath);}
+    public WebElement Checkbox_OnDemand() {return findElement("//tr/td[text()='Trip cost per mile']//following-sibling::td/div/input", LocatorType.XPath);}
 
     public WebElement Label_SettingsError() {return  findElement("//p[text()=\"Active geofence should allow either Scheduled or On demand trip.\"]", LocatorType.XPath);}
 
-    public WebElement Button_SaveGeofenceSettings() {return findElement("btnCreateAttribute" , LocatorType.Id);}
+    public WebElement Button_SaveGeofenceSettings() {return findElement("//button[text()='Save']" , LocatorType.XPath);}
 
     public WebElement Select_ChicagoGeofence() { return findElement("//tbody[@id='NewApplicantsTBody']/tr/td[contains(text(),'Chicago')]", LocatorType.XPath);}
 
-    public WebElement TextBox_MinimumScheduledtimeforduo(){return findElement("attributeValueEarliestScheduleTimeDuo",LocatorType.Id);}
-    public WebElement TextBox_MinimumScheduledtimeforsolo(){return findElement("attributeValueEarliestScheduleTimeSolo",LocatorType.Id);}
+    public WebElement TextBox_MinimumScheduledtimeforduo(){return findElement("//td[text()='Minimum scheduled time for Duo trip']",LocatorType.XPath);}
 
+    public WebElement TextBox_MinimumScheduledtimeforsolo(){return findElement("//td[text()='Minimum scheduled time for Solo trip']",LocatorType.XPath);}
 
     public WebElement Text_ErrorScheduleTimeForDuo() { return findElement("attributeValueEarliestScheduleTimeDuo-error", LocatorType.Id);}
     public WebElement Text_ErrorScheduleTimeForSolo() { return findElement("attributeValueEarliestScheduleTimeSolo-error", LocatorType.Id);}
@@ -88,7 +87,7 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Select_GoaGeofence() { return findElement("//tbody[@id='NewApplicantsTBody']/tr/td[contains(text(),'Goa')]\n", LocatorType.XPath);}
 
-    public WebElement TextBox_Bunggi_Cut_Rate() { return findElement("attributeValueBungiiCutPerDelivery",LocatorType.Id);}
+    public WebElement TextBox_Bunggi_Cut_Rate() { return findElement("//div[@class=\"row\"][1]/div[1]/div/div[1]/div/input",LocatorType.XPath);}
     public WebElement TextBox_Driver_Cut_Rate() { return findElement("attributeValueDiverCutPerDelivery",LocatorType.Id);}
 
     public WebElement TextError_BunggiCut() { return findElement("//label[@id='attributeValueBungiiCutPerDelivery-error']",LocatorType.XPath);}
@@ -106,7 +105,7 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Checkbox_Geofence(String geofence , boolean... ignoreException) {return findElements(String.format("//span[contains(.,'%s')]/preceding::span/span",geofence) , LocatorType.XPath).get(0);}
     public WebElement Checkbox_GeofenceLabel(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]",geofence) , LocatorType.XPath, ignoreException);}
 
-    public WebElement Button_DownloadZipCodes() {return findElement("btnDownloadZipcodes" , LocatorType.Id);}
+    public WebElement Button_DownloadZipCodes() {return findElement("//a[text()='Download Zip Codes']" , LocatorType.XPath);}
     public List<WebElement> List_RowCount() {return findElements("//tbody[@id='NewApplicantsTBody']/tr[@class='clickable-row']/td[2]" , LocatorType.XPath);}
     public WebElement List_ActiveGeofence(int i) {return findElement("//tbody[@id='NewApplicantsTBody']/tr["+i+"]/td[2]" , LocatorType.XPath);}
 

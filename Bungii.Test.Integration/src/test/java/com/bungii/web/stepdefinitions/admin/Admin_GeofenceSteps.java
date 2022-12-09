@@ -68,7 +68,7 @@ public class Admin_GeofenceSteps extends DriverBase {
                         action.click(admin_GeofencePage.Button_Cancel());
                         break;
                     case "Settings":
-                        action.click((admin_GeofencePage.Button_Settings()));
+                        action.click(admin_GeofencePage.Button_Settings());
                         break;
                 }
             break;
@@ -118,6 +118,7 @@ public class Admin_GeofenceSteps extends DriverBase {
     @When("^I edit the geofence \"([^\"]*)\"$")
     public void i_edit_the_geofence(String geofenceName) throws Throwable {
         try{
+        action.waitUntilIsElementExistsAndDisplayed(admin_GeofencePage.Button_Edit(),(long)3000 );
         action.click(admin_GeofencePage.Button_Edit());
         log("I edit the geofence "+ geofenceName ,
                 "I have edited the geofence "+ geofenceName, false);
@@ -403,6 +404,7 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @Then("^I cannot uncheck \"([^\"]*)\" for \"([^\"]*)\" settings when \"([^\"]*)\" is checked$")
     public void i_cannot_uncheck_something_for_something_settings_when_something_is_checked(String strArg1, String strArg2, String strArg3) throws Throwable {
+        Thread.sleep(3000);
         testStepAssert.isElementEnabled(admin_GeofencePage.Checkbox_Solo(),"Solo Checkbox should be enabled","Solo Checkbox is enabled","Solo Checkbox is not enabled");
     }
 
@@ -665,7 +667,6 @@ public class Admin_GeofenceSteps extends DriverBase {
         try{
         Thread.sleep(2000);
         String loadGeoFenceAttributesUrl = PropertyUtility.getDataProperties("qa.attributes.url").concat("/GetSecuredGeofenceAttributes");
-
         action.navigateTo(loadGeoFenceAttributesUrl);
         action.click(admin_geofenceAtrributesPage.Button_NewAttribute());
         log("I load Geofence Attributes Page and Click on New Attributes button",
@@ -980,6 +981,9 @@ try{
             switch (status) {
                 case "deactivate":
                     action.click(admin_GeofencePage.Button_Edit());
+                    Thread.sleep(2000);
+                    action.click(admin_GeofencePage.Dropdown_Status());
+                    Thread.sleep(2000);
                     action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Inactive");
                     action.click(admin_GeofencePage.Button_Save());
                     cucumberContextManager.setScenarioContext("DEACTIVATED_GEOFENCE",geofenceName);
