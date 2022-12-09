@@ -201,7 +201,6 @@ Feature: Admin_Geofence
     And I change the value of "Minimum scheduled time for Duo trip" to "30" minutes
     And I click on the "Save" Button on "Geofence Settings" Screen
     Then Enter value should get saved and error message is not displayed
-
     And I click on the "Settings" Button on "Geofence" Screen
     And I change the value of "Minimum scheduled time for Solo trip" to "29" minutes
     And I click on the "Save" Button on "Geofence Settings" Screen
@@ -211,6 +210,7 @@ Feature: Admin_Geofence
     Then Enter value should get saved and error message is not displayed
 
   @regression
+    #Creating 'New Attribute' functionality through admin is removed from admin Portal V2
   Scenario: Verify and add new attribute in Geofence Attributes page
     When I load Geofence Attributes Page and Click on New Attributes button
     And I enter following values in "Geofence Attributes" fields
@@ -223,6 +223,7 @@ Feature: Admin_Geofence
 #      Then I logout of Admin Portal
 
   @regression
+  #Creating 'New Attribute' functionality through admin is removed from admin Portal V2
   Scenario: Verify and check attributes are empty
     When I load Geofence Attributes Page and Click on New Attributes button
     And I enter following values in "GeofenceAttributes" fields
@@ -232,6 +233,7 @@ Feature: Admin_Geofence
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
 
   @regression
+  #Creating 'New Attribute' functionality through admin is removed from admin Portal V2
   Scenario: Verify Field Validations on Geofence Attributes page
     When I load Geofence Attributes Page and Click on New Attributes button
     And I click on the "Save" Button on "GeofenceAttributes" Screen
@@ -258,6 +260,7 @@ Feature: Admin_Geofence
       Then I check that correct Driver cut calculated based on Bungii Cut Per Delivery
   
   @regression
+    #Creating 'New Attribute' functionality through admin is removed from admin Portal V2
   Scenario: Verify An application error has occured message is not displayed when user keeps label field blank on Geofence Attributes page
     When I load Geofence Attributes Page and Click on New Attributes button
     And I enter following values in "Geofence Attributes" fields
@@ -268,8 +271,9 @@ Feature: Admin_Geofence
 
 # Core-3843 Verify that only active geofence zip codes are downloaded in csv file
   @regression
+    #Issue Raised ADP-751
     Scenario: Verify that only active geofence zip codes are downloaded in csv file
-#     Core-3843 Verify the download option on geofence listing page of admin portal
+     Core-3843 Verify the download option on geofence listing page of admin portal
       When I click on "Download Zip Codes" button
 #     Core-3843 Verify that only active geofence zip codes are downloaded in csv file
       And I verify if "only active geofence zip codes" are downloaded

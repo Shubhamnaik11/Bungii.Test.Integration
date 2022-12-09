@@ -105,7 +105,7 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Checkbox_Geofence(String geofence , boolean... ignoreException) {return findElements(String.format("//span[contains(.,'%s')]/preceding::span/span",geofence) , LocatorType.XPath).get(0);}
     public WebElement Checkbox_GeofenceLabel(String geofence , boolean... ignoreException) {return findElement(String.format("//span[contains(.,'%s')]",geofence) , LocatorType.XPath, ignoreException);}
 
-    public WebElement Button_DownloadZipCodes() {return findElement("//a[text()='Download Zip Codes']" , LocatorType.XPath);}
+    public WebElement Button_DownloadZipCodes() {return findElement("//div[@class='geofence-form col-sm-5']/following-sibling::div/a/span" , LocatorType.XPath);}
     public List<WebElement> List_RowCount() {return findElements("//tbody[@id='NewApplicantsTBody']/tr[@class='clickable-row']/td[2]" , LocatorType.XPath);}
     public WebElement List_ActiveGeofence(int i) {return findElement("//tbody[@id='NewApplicantsTBody']/tr["+i+"]/td[2]" , LocatorType.XPath);}
 

@@ -520,6 +520,7 @@ public class Admin_GeofenceSteps extends DriverBase {
                     xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
 
             }
+        action.waitUntilIsElementExistsAndDisplayed(admin_GeofencePage.findElement(xpath, PageBase.LocatorType.XPath), (long) 3000);
         action.click(admin_GeofencePage.findElement(xpath, PageBase.LocatorType.XPath));
         log("I click on the geofence" ,
                 "I have clicked on the geofence", false);
@@ -980,16 +981,19 @@ try{
         try{
             switch (status) {
                 case "deactivate":
-                    action.click(admin_GeofencePage.Button_Edit());
-                    Thread.sleep(2000);
+//                    action.click(admin_GeofencePage.Button_Edit());
+                    Thread.sleep(5000);
                     action.click(admin_GeofencePage.Dropdown_Status());
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                     action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Inactive");
                     action.click(admin_GeofencePage.Button_Save());
                     cucumberContextManager.setScenarioContext("DEACTIVATED_GEOFENCE",geofenceName);
                     break;
                 case "activate":
-                    action.click(admin_GeofencePage.Button_Edit());
+//                    action.click(admin_GeofencePage.Button_Edit());
+                    Thread.sleep(5000);
+                    action.click(admin_GeofencePage.Dropdown_Status());
+                    Thread.sleep(5000);
                     action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Active");
                     action.click(admin_GeofencePage.Button_Save());
                     cucumberContextManager.setScenarioContext("ACTIVATED_GEOFENCE",geofenceName);
