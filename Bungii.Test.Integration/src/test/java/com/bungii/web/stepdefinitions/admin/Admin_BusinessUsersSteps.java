@@ -984,6 +984,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
                 case "SAVE CHANGES":
                     action.click(admin_potentialPartnersPage.Button_SaveChanges());
+                    Thread.sleep(5000);
                     break;
 
                 case "Close":
