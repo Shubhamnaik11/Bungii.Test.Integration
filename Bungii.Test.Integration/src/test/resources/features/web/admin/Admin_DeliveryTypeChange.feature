@@ -132,6 +132,8 @@ Feature: Admin_Delivery_Type_Change
 	  | Unloading Item |
 	  | Bungii Completed |
 	And I view All Deliveries list on the admin portal
+	And I wait for 2 minutes
+	And I search the delivery of Customer
 	Then The Delivery List page should display the delivery in "Payment Successful" state
   
   @regression
@@ -239,7 +241,7 @@ Feature: Admin_Delivery_Type_Change
 	  Then I should be able to see the respective bungii with the below status
 		  |  Status |
 		  | Assigning Driver(s) |
-	  And I view the searched delivery
+	  When I view the delivery details
 	  Then I note the Driver Est. Earnings for the search delivery
 	  And I navigate back to Scheduled Deliveries
 	  And I click on "Edit" link beside scheduled bungii
@@ -259,7 +261,7 @@ Feature: Admin_Delivery_Type_Change
 		  | Type |
 		  | Duo |
 	  And the cost of the delivery should be zero
-	  And I view the searched delivery
+	  When I view the delivery details
 	  Then I confirm that Driver Est. Earnings for the delivery remain same
 	  And I navigate back to Scheduled Deliveries
 	  And I click on "Edit" link beside scheduled bungii
@@ -279,7 +281,7 @@ Feature: Admin_Delivery_Type_Change
 		  | Type |
 		  | Solo |
 	  And the cost of the delivery should be zero
-	  And I view the searched delivery
+	  When I view the delivery details
 	  Then I confirm that Driver Est. Earnings for the delivery remain same
   	  And I navigate back to Scheduled Deliveries
 	  Then I should be able to see the respective bungii with the below status
