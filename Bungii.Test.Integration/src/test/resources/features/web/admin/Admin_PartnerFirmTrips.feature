@@ -148,7 +148,6 @@ Feature: Admin_PartnerFirmTrips
   @regression
     @testpath
     #Create driver in base
-    @cf
   Scenario: Verify Partner Scheduled - Solo Scheduled Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
@@ -163,7 +162,7 @@ Feature: Admin_PartnerFirmTrips
       | Accepted  |
     #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
      ##################
-    And I view the Scheduled Deliveries list on the admin portal
+     And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
