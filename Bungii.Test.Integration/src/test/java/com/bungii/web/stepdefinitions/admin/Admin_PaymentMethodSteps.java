@@ -30,7 +30,7 @@ public class Admin_PaymentMethodSteps extends DriverBase {
         Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
 
         @Then("^The \"([^\"]*)\" gets saved successfully and it is displayed in the grid$")
-        public void the_something_gets_saved_successfully_and_it_displayed_in_the_grid(String pageName) throws Throwable {
+        public void the_something_gets_saved_successfully_and_it_is_displayed_in_the_grid(String pageName) throws Throwable {
             try{
             SimpleDateFormat sdf = new SimpleDateFormat("MM/yy");
             SimpleDateFormat sdf1 = new SimpleDateFormat("MM/yyyy");
