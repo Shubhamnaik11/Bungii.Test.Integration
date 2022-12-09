@@ -148,7 +148,7 @@ Feature: Admin_PartnerFirmTrips
   @regression
     @testpath
     #Create driver in base
-    #xpath is duplicate will work on it
+    @cf
   Scenario: Verify Partner Scheduled - Solo Scheduled Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     And I select business user "Testcustomertywd_apple-Jd1"

@@ -24,7 +24,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement List_TimeFrame (String time) { return findElement("//div/ul/li[text()='"+time+"']", LocatorType.XPath); }
 
-    public WebElement Link_RemoveDriver() { return findElement("//body/div[3]/div[1]/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[7]/button[1]/strong[1]", LocatorType.XPath); }
+    public WebElement Link_RemoveDriver() { return findElement("//span[text()='Driver Details:']/parent::div/following-sibling::div[2]/button", LocatorType.XPath); }
 
     public WebElement TextBox_DriverSearch() { return findElement("//input[@placeholder='Enter driver name']", LocatorType.XPath); }
 
@@ -34,7 +34,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Button_Undo() { return findElement("//button[@onclick='UndoTripChanges()']", LocatorType.Id); }
 
-    public WebElement Checkbox_Driver (String driverName) { return findElement("checkbox0", LocatorType.Id); }
+    public WebElement Checkbox_Driver (String driverName) { return findElement("//div[@class='driver-checkbox w1']/input", LocatorType.XPath); }
 
     public WebElement Label_VerifyError() { return findElement("verify-error", LocatorType.Id); }
 
@@ -46,7 +46,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement RadioButton_EditTripDetails() { return findElement("//label[text()='Edit Delivery Details']/preceding-sibling::input", LocatorType.XPath); }
 
-    public WebElement List_DriverSearchResult (String driverName) { return findElement("//div[@id='divDriversResult']/div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
+    public WebElement List_DriverSearchResult (String driverName) { return findElement("//input[@placeholder='Enter driver name']", LocatorType.XPath); }
 
     public WebElement TickMarkDate () { return findElement("//i[@class='fa fa-check dateValidity text-green-alt success-icon']", LocatorType.XPath); }
 
