@@ -105,6 +105,11 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_TripsPage.Menu_CompletedTrips());
                break;
 
+           case "Deliveries > All DeliveriesPage" :
+               action.click(admin_TripsPage.Menu_Trips());
+               action.click(admin_TripsPage.Menu_AllTrips());
+               break;
+
            case "Drivers":
                action.click(admin_DriverPage.Menu_Drivers());
                break;
@@ -597,7 +602,8 @@ try{
                 break;
 
             case "Partners":
-                testStepAssert.isNotElementDisplayed(admin_BusinessUsersPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
+                testStepAssert.isElementDisplayed(admin_BusinessUsersPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
+//                testStepAssert.isNotElementDisplayed(admin_BusinessUsersPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
                 break;
               //BOC
             case "Business User Payment":
@@ -661,7 +667,7 @@ try{
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_NoBusinessUsersFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
-            case "Phone number already exists.":
+            case " Phone number already exists":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
                 //EOC
@@ -1238,7 +1244,7 @@ try{
 
             case "@#$@@":
                 Thread.sleep(2000);
-                action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
+                action.clearSendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
                 break;
 
             case "Testcustomertywd_apple":

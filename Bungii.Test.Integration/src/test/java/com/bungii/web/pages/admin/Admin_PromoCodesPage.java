@@ -9,7 +9,7 @@ public class Admin_PromoCodesPage extends PageBase {
 
     public WebElement Title_StandardcodesPage (boolean...ignoreException) { return findElement("//h4[text()='Standard Codes']", LocatorType.XPath,ignoreException); }
 
-    public WebElement Menu_Marketing (boolean... ignoreException) { return findElement("adminmenu-marketing", LocatorType.Id,ignoreException); }
+    public WebElement Menu_Marketing (boolean... ignoreException) { return findElement("//span[text()='Marketing']", LocatorType.XPath,ignoreException); }
 
     public WebElement Button_NewCode () { return findElement("//button[text()='New Code']", LocatorType.XPath); }
 
@@ -102,9 +102,9 @@ public class Admin_PromoCodesPage extends PageBase {
     public WebElement Label_NoPromoCodesFound(){ return findElement("//tr/td[text()='No Data.']", LocatorType.XPath);}
 
     //BOC
-    public WebElement Button_PreviousPage() { return findElement("//a[@id='link_Prev']/span[1]", LocatorType.XPath); }
+    public WebElement Button_PreviousPage() { return findElement("//span[text()='First']", LocatorType.XPath); }
 
-    public WebElement Button_NextPage() { return findElement("//a[@id='link_Next']/span[1]", LocatorType.XPath); }
+    public WebElement Button_NextPage() { return findElement("//span[text()='Last']", LocatorType.XPath); }
     //EOC
 
     public WebElement Button_EditPromoCode() { return findElement("//button[text()='Edit']", LocatorType.XPath); }

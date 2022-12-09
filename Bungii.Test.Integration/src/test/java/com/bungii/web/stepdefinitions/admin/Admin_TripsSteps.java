@@ -65,6 +65,8 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_DriversPage admin_Driverspage = new Admin_DriversPage();
 
+    WebDriver driver = SetupManager.getDriver();
+
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -180,6 +182,47 @@ public class Admin_TripsSteps extends DriverBase {
     }
     }
 
+    @And("^I open the delivery in a new browser tab$")
+    public void iOpenTheDeliveryInANewBrowserTab() throws Throwable {
+        try{
+            action.rightClickOpenNewTab(admin_ScheduledTripsPage.Link_BungiiDate());
+            action.switchToTab(1);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I should see \"([^\"]*)\" header$")
+    public void iShouldSeeHeader(String header) throws Throwable {
+        try{
+            testStepAssert.isElementDisplayed(admin_TripDetailsPage.Text_DeliveryDetailsHeader(),
+                    "Page header should match " + header,
+                    "Page header is matching " + header, "Page header is not matching " + header);
+            Thread.sleep(1000);
+            log("Delivery details page should be opened in a new tab",
+                    "Delivery details page is opened in new a tab");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I close Delivery details page$")
+    public void iCloseDeliveryDetailsPage() throws Throwable {
+        try{
+            driver.close();
+            action.switchToTab(0);
+            log("Delivery details page should be opened in a new tab",
+                    "Delivery details page is opened in new a tab");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @Then("^I should be able to see the Trip Requested count incremented in Customers Grid$")
     public void i_should_be_able_to_see_the_trip_requested_count_incremented_in_customers_grid() throws Throwable {
         try{
@@ -616,7 +659,7 @@ public class Admin_TripsSteps extends DriverBase {
     @When("^I change filter to \"([^\"]*)\" on All deliveries$")
     public void i_change_filter_to_something_on_all_deliveries(String filter) throws Throwable {
         try{
-        Thread.sleep(5000);
+        action.waitUntilIsElementExistsAndDisplayed(liveTripsPage.Dropdown_SearchForPeriod(), (long) 5000);
         action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),filter);
         Thread.sleep(5000);
         log("I select filter from All Deliveries on the admin portal",
@@ -1115,7 +1158,8 @@ try{
 
         //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
      //   action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
-            action.clickOnDropdown();
+//            action.clickOnDropdown();
+        action.click(admin_ScheduledTripsPage.Dropdown_ChangeAddress(arg1));
         Thread.sleep(1000);
         String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
         cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
@@ -1130,22 +1174,22 @@ try{
     }
 
     @Then("^I change the pickup address to \"([^\"]*)\"$")
-    public void i_change_the_pickup_address_to_something(String arg1) throws Throwable {
+    public void i_change_the_pickup_address_to_something(String address) throws Throwable {
 
         try{
-        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location(),arg1);
+        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location(),address);
         //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
         Thread.sleep(1000);
-        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location()," ");
+       // action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location()," ");
 
         //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-        action.JavaScriptClick(admin_ScheduledTripsPage.DropdownPickupResult(arg1));
+        action.click(admin_ScheduledTripsPage.DropdownPickupResult());
         Thread.sleep(1000);
         String Change_Address = action.getText(admin_ScheduledTripsPage.Pickup_Address());
         cucumberContextManager.setScenarioContext("Change_Pickup",Change_Address);
 
-        log("I change the pickup address to "+arg1,
-                "I have changed the pickup address to "+arg1);
+        log("I change the pickup address to "+address,
+                "I have changed the pickup address to "+address);
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -1370,6 +1414,10 @@ try{
                 emailSubject = partnerPortal + " has scheduled their first delivery!";
             }
         }
+        if (portalName.equalsIgnoreCase("Equip-bid")){
+            String partnerPortalName = PropertyUtility.getDataProperties("partner.atlanta.equip-bid.partner.portal.name");
+            emailSubject ="UPDATE: "+partnerPortalName + " has scheduled their first delivery!";
+        }
 
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody == null) {
@@ -1445,6 +1493,9 @@ try{
             }
 
         }
+        if(emailSubject.contains("UPDATE: qauto-equip-bid")) {
+            emailSubject =PropertyUtility.getDataProperties("updated.first.email.of.partner.portal.text");
+        }
         String message = null;
         switch (emailSubject) {
             case "Bungii Delivery Pickup Scheduled":
@@ -1482,6 +1533,10 @@ try{
             case "Best Buy #11, Baltimore, MD has scheduled their first delivery!":
                 String partnerPortalName=PropertyUtility.getDataProperties("partner.baltimore.name");
                 message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName);
+                break;
+            case "Updated First Partner Portal Mail":
+                String partnerPortalName1=PropertyUtility.getDataProperties("partner.atlanta.equip-bid.partner.portal.name");
+                message = utility.getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(partnerPortalName1);
                 break;
         }
         message= message.replaceAll(" ","");
@@ -1953,13 +2008,13 @@ try{
             List<WebElement> rows = null;
             switch (filter) {
                 case "Payment Unsuccessful Status":
-                    xpath = String.format("//td[contains(.,'Payment Pending')]");
+                    xpath = String.format("//td[contains(text(),'Payment Pending')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Payment Successful Status":
-                    xpath = String.format("//td[contains(.,'Payment Successful')]");
+                    xpath = String.format("//td[contains(text(),'Payment Successful')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
