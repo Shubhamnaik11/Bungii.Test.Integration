@@ -111,8 +111,9 @@ And I should get following error for following accessorial charges fields values
 |100000000000  | 1          | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
 | 1000         | 32         | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
 | 10.5689      | -100       | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
-| -10          | Blank      | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
-| -1.56        | 231        | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
+| -10          | Blank      | Excess Wait Time | Charges due to excess waiting | Driver Amount | Please enter driver cut. |
+| -1.56        | 231        | Excess Wait Time | Charges due to excess waiting | Driver Amount | Driver cut cannot be more than total accessorial fees.|
+| -1.56        | -10        | Excess Wait Time | Charges due to excess waiting | Driver Amount | Driver cut can contain at most 3 digits and 2 decimals.|
 
 #Core 2968 -To verify that admin can add accessorial fees to driver cancelled partner delivery
 @regression
@@ -173,7 +174,7 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 | Cancelation      | 4.5        |
 | Mountainious     | 10         |
 | Other            | 20         |
-And I login to driver portal on a new tab with driver phone number "9049840210"
+And I navigate to "Driver" portal
 Then The accessorial charges cut should be displayed in total earnings
 
 #CORE-3381 : To verify that admin can add accessorial charges for partner canceled deliveries after revival

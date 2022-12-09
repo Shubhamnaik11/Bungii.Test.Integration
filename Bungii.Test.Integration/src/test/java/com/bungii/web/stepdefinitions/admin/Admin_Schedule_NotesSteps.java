@@ -62,6 +62,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     Thread.sleep(1000);
                     action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
                     break;
+
             }
             log("I should be able to search delivery as " + admin,"I could search delivery as " + admin,false);
         } catch(Exception e){
@@ -73,13 +74,27 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
 
 
     @And("^I search the delivery using \"([^\"]*)\"$")
-    public void i_search_the_delivery_using_something(String newpickupRef) throws Throwable {
+    public void i_search_the_delivery_using_something(String searchParameter) throws Throwable {
         try {
-            action.refreshPage();
-            cucumberContextManager.setScenarioContext("ADMIN1_NAME", action.getText(admin_ScheduledTripsPage.Text_AdminName()));
-            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            Thread.sleep(2000);
-            action.clearSendKeys(adminTripsPage.TextBox_Search(), pickupRef + Keys.ENTER);
+            switch (searchParameter){
+                case "Pickup Reference":
+                    action.refreshPage();
+                    cucumberContextManager.setScenarioContext("ADMIN1_NAME", action.getText(admin_ScheduledTripsPage.Text_AdminName()));
+                    String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    Thread.sleep(2000);
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), pickupRef + Keys.ENTER);
+                    break;
+                case "ExternalOrderId":
+                    Thread.sleep(2000);
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("ExternalOrderId") + Keys.ENTER);
+                    break;
+                case "Invalid ExternalOrderId":
+                    Thread.sleep(2000);
+                    String invalidExternalODerNumber = PropertyUtility.getDataProperties("invalid.order.number");
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), invalidExternalODerNumber+Keys.ENTER);
+                    break;
+            }
+
             log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -342,13 +357,17 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @And("^I log into another \"([^\"]*)\" portal in a new tab$")
     public void i_log_into_another_something_portal_in_a_new_tab(String strArg1) throws Throwable {
         try {
-            String adminURL = "https://qaauto-portal.gobungii-dev.com/Admin/Login";
+            String adminURL = PropertyUtility.getDataProperties("qa.admin.url");
+            String loginId = PropertyUtility.getDataProperties("admin.user2");
+            String password = PropertyUtility.getDataProperties("admin.password");
             Thread.sleep(2000);
             action.openNewTab();
             action.navigateTo(adminURL);
-            action.sendKeys(Page_AdminLogin.TextBox_Phone(), "9765330125");
-            action.sendKeys(Page_AdminLogin.TextBox_Password(),"cci12345");
+            action.sendKeys(Page_AdminLogin.TextBox_Phone(), loginId);
+            action.sendKeys(Page_AdminLogin.TextBox_Password(),password);
+            Thread.sleep(2000);
             action.click(Page_AdminLogin.Button_AdminLogin());
+            Thread.sleep(3000);
             cucumberContextManager.setScenarioContext("ADMIN2_NAME",action.getText(admin_ScheduledTripsPage.Text_AdminName()));
             log("I should be able to open new tab and login to admin portal","I should be able to open new tab and login to admin portal",false);
         } catch(Exception e){
@@ -372,7 +391,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @And("^The \"([^\"]*)\" link should not be displayed$")
     public void the_something_link_should_not_be_displayed(String strArg1) throws Throwable {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             testStepAssert.isFalse(action.isElementPresent(
                     admin_ScheduledTripsPage.Link_EditNote_NotDisplayed(true)),"Edit link should not be displayed","Edit link is not displayed", "Edit link is  displayed");
         } catch(Exception e){
@@ -505,10 +524,15 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     }
 
     @And("^I navigate to \"([^\"]*)\" portal$")
-    public void i_navigate_to_something_portal(String strArg1) throws Throwable {
+    public void i_navigate_to_something_portal(String portal) throws Throwable {
         try {
             ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
-            SetupManager.getDriver().switchTo().window(tabs.get(0));
+            if(portal.equalsIgnoreCase("Driver")){
+                action.switchToTab(1);
+            }
+            else {
+                action.switchToTab(0);
+            }
             action.refreshPage();
             log("I should be able to switch the tab back to admin portal","I could switch the tab back to admin portal",false);
         } catch(Exception e){
@@ -536,13 +560,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     Thread.sleep(1000);
                     testStepAssert.isEquals(scheduledStatus,status,"Delivery Status should be set to Scheduled ","Delivery Status is set to Scheduled ","Delivery Status is not set to Scheduled");
                     break;
-                case "Trip Started":
-                    Thread.sleep(2000);
+                case "Trip Started":
+                    Thread.sleep(5000);
                     String tripStartedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
-                    Thread.sleep(1000);
+                    Thread.sleep(3000);
                     testStepAssert.isEquals(tripStartedStatus,status,"Delivery Status should be set to Trip Started  ","Delivery Status is Trip Started ","Delivery Status is not set to Trip Started");
                     break;
-                case  "Driver(s) Arrived":
+                case  "Driver(s) Arrived":
                     Thread.sleep(2000);
                     String driversArrivedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
                     Thread.sleep(1000);
@@ -554,13 +578,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     Thread.sleep(1000);
                     testStepAssert.isEquals(loadingItemStatus,status,"Delivery Status should be set to Loading Item","Delivery Status is Loading Item","Delivery Status is not set to Loading Item");
                     break;
-                case "Driving To Dropoff":
+                case "Driving To Dropoff":
                     Thread.sleep(2000);
                     String drivingToDropoffStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(drivingToDropoffStatus,status,"Delivery Status should be set to Driving To Dropoff ","Delivery Status is Driving To Dropoff","Delivery Status is not set to Driving To Dropoff");
                     break;
-                case "Unloading Items":
+                case "Unloading Items":
                     Thread.sleep(2000);
                     String unloadingItemsStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
                     Thread.sleep(1000);
@@ -591,10 +615,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @When("^I create multiple notes$")
     public void i_create_multiple_notes() throws Throwable {
         try {
-            Thread.sleep(1000);
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Textbox_AddNote(),(long)3000);
             action.clearSendKeys(admin_ScheduledTripsPage.Textbox_AddNote(),"Added Customer Note");
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Button_SaveNote(),(long)3000);
             action.click(admin_ScheduledTripsPage.Button_SaveNote());
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Textbox_AddNote(),(long)5000);
             action.clearSendKeys(admin_ScheduledTripsPage.Textbox_AddNote(),"Added note by admin");
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Button_SaveNote(),(long)3000);
             action.click(admin_ScheduledTripsPage.Button_SaveNote());
             log("I should be able to create multiple notes","I could create multiple notes",false);
         } catch(Exception e){
@@ -679,13 +706,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             switch (link) {
                 case "Notes":
                     Thread.sleep(1000);
-                    boolean notesNotUnderlined = admin_ScheduledTripsPage.Link_Notes().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
+                    boolean notesNotUnderlined = admin_ScheduledTripsPage.Link_Notes().getCssValue("border-bottom").contentEquals("0px none rgb(0, 0, 0)");
                     testStepAssert.isTrue(notesNotUnderlined, "Notes should not be underlined", "Notes is not underlined", "Notes in Underlined");
                     break;
 
                 case "History":
                     Thread.sleep(1000);
-                    boolean historyNotUnderlined = admin_ScheduledTripsPage.Link_History().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
+                    boolean historyNotUnderlined = admin_ScheduledTripsPage.Link_History().getCssValue("border-bottom").contentEquals("0px none rgb(0, 0, 0)");
                     testStepAssert.isTrue(historyNotUnderlined, "History should not be underlined", "History is not underlined", "History is Underlined");
                     break;
             }

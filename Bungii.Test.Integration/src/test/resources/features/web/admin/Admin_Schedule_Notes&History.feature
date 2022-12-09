@@ -6,6 +6,7 @@ Feature: Admin Notes & History
 
   @testing
   @ready
+  #Issue raised ADP-662
   Scenario: To verify Notes-Customer service notes can be added, edited and deleted  by admin1
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                       |
@@ -213,7 +214,7 @@ Feature: Admin Notes & History
   @ready
 # driver crash
   Scenario: To verify the Notes-Customer service notes field is displayed on delivery details page for Weight based pricing portal
-    When I navigate to the "Partner" portal configured for "FloorDecor service level" URL
+    When I navigate to "Partner" portal configured for "FloorDecor service level" URL
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "see 1 pallet and 2 pallets"
@@ -229,8 +230,8 @@ Feature: Admin Notes & History
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
-      | Product_Description | Dimensions | Weight | Special_Instruction | Customer_Name | Customer_Mobile | Pickup_Contact_Name | Pickup_Contact_Phone | Drop_Off_Contact_Name | Drop_Contact_Phone | Delivery_Purpose | Rb_Sb_Number | SoldBuy |
-      | 20 boxes            | 20X20X20   | 1570   | Handle with care    | Testartner T  | 9998881111      | Test Pickup         | 9999999359           | Test Dropcontact      | 9998881112         | For decoration   | 007          | FND166  |
+      | Product_Description | Dimensions | Weight | Special_Instruction | Customer_Name | Customer_Mobile | Pickup_Contact_Name | Pickup_Contact_Phone | Drop_Off_Contact_Name | Drop_Contact_Phone | Delivery_Purpose | Rb_Sb_Number | ScheduledBy |
+      | 20 boxes            | 20X20X20   | 100   | Handle with care    | Testartner T  | 9998881111      | Test Pickup         | 9999999359           | Test Dropcontact      | 9998881112         | For decoration   | 007          | FND166  |
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
     When I navigate to "Admin" portal
@@ -239,11 +240,11 @@ Feature: Admin Notes & History
     And I search the delivery using "Pickup Reference" as "Admin1"
     Then I should be able to see the respective bungii with the status
       | Status            |
-      | Searching Drivers |
+      | Assigning Driver(s) |
     When I click on the "Notes & History" link beside scheduled bungii for "Schedule Deliveries"
     Then I should see the following text message "No notes available. Please start entering notes to appear here." displayed
     And I close the Note
-    When As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" Delivery
+    When As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I wait for 2 minutes
@@ -273,8 +274,8 @@ Feature: Admin Notes & History
     And I click "GET ESTIMATE" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter all details on "Delivery Details" for "BestBuy service level" on partner screen
-      | Items_To_Deliver | Special_Instruction | Customer_Name | Customer_Mobile | Pickup_Contact_Name | Pickup_Contact_Phone | Drop_Off_Contact_Name | Drop_Contact_Phone | Order_Number | SoldBuy |
-      | 5067400          | Handle with care    | Testpartner U | 9998881111      | Test Pickup         | 9999999359           | Test Dropcontact      | 9998881112         | ON1          | Krishna |
+      | Items_To_Deliver | Special_Instruction | Customer_Name | Customer_Mobile | Pickup_Contact_Name | Pickup_Contact_Phone | Drop_Off_Contact_Name | Drop_Contact_Phone | Order_Number | EmployeeID |
+      | 5067400          | Handle with care    | Testpartner U | 9998881111      | Test Pickup         | 9999999359           | Test Dropcontact      | 9998881112         | ON1          | 12345 |
     Then I should "see Delivery Cost: N/A on Delivery Details screen"
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
