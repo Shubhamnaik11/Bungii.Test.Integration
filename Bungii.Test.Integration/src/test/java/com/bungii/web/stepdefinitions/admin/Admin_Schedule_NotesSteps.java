@@ -524,7 +524,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     }
 
     @And("^I navigate to \"([^\"]*)\" portal$")
-    public void i_navigate_to_something_portal(String strArg1) throws Throwable {
+    public void i_navigate_to_something_portal(String portal) throws Throwable {
         try {
             ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
             if(portal.equalsIgnoreCase("Driver")){
@@ -574,31 +574,31 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     break;
                 case "Trip Started":
                     Thread.sleep(5000);
-                    String tripStartedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
+                    String tripStartedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
                     Thread.sleep(3000);
                     testStepAssert.isEquals(tripStartedStatus,status,"Delivery Status should be set to Trip Started  ","Delivery Status is Trip Started ","Delivery Status is not set to Trip Started");
                     break;
                 case  "Driver(s) Arrived":
                     Thread.sleep(2000);
-                    String driversArrivedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
+                    String driversArrivedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(driversArrivedStatus,status,"Delivery Status should be set to  Driver(s) Arrived","Delivery Status is set to Driver(s) Arrived ","Delivery Status is not set to Driver(s) Arrived");
                     break;
                 case  "Loading Item":
                     Thread.sleep(2000);
-                    String loadingItemStatus= action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
+                    String loadingItemStatus= action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(loadingItemStatus,status,"Delivery Status should be set to Loading Item","Delivery Status is Loading Item","Delivery Status is not set to Loading Item");
                     break;
                 case "Driving To Dropoff":
                     Thread.sleep(2000);
-                    String drivingToDropoffStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
+                    String drivingToDropoffStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(drivingToDropoffStatus,status,"Delivery Status should be set to Driving To Dropoff ","Delivery Status is Driving To Dropoff","Delivery Status is not set to Driving To Dropoff");
                     break;
                 case "Unloading Items":
                     Thread.sleep(2000);
-                    String unloadingItemsStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
+                    String unloadingItemsStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(unloadingItemsStatus,status,"Delivery Status should be set to Unloading Items ","Delivery Status is Unloading Items","Delivery Status is not set to Unloading Items");
                     break;
