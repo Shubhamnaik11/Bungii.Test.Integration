@@ -1,117 +1,107 @@
 package com.bungii.web.pages.admin;
 
 import com.bungii.common.core.PageBase;
-import io.appium.java_client.MobileElement;
 import org.openqa.selenium.WebElement;
 
 public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Title_DriverVerificationPage (boolean...ignoreException) { return findElement("//h4[contains(text(),'Driver verification')]", LocatorType.XPath,ignoreException); }
 
-    public WebElement getElementDriverVerification(String field,boolean status,boolean...ignoreException){
-        String var = "glyphicon glyphicon-remove";
-        if(status){
-            var = "glyphicon glyphicon-ok";
-        }
-        return findElement("//td[text()='"+field+"']/following-sibling::td[2]/div/button/span[@class='"+var+"']", LocatorType.XPath,ignoreException);
-        //return findElement("//td[contains(text(),'"+field+"')]/following-sibling::td[2]/div/button/span[@class='"+var+"']", LocatorType.XPath,ignoreException);
-    }
+    public WebElement Verify_Approve_DriverPic () { return getTextElement_DriverVerification("Driver Picture",true); }
 
-    public WebElement Verify_Approve_DriverPic () { return getElementDriverVerification("Driver Picture",true); }
+    public WebElement Verify_Approve_DriverFirstName () { return getTextElement_DriverVerification("First Name",true); }
 
-    public WebElement Verify_Approve_DriverFirstName () { return getElementDriverVerification("First Name",true); }
+    public WebElement Verify_Approve_DriverLastName () { return getTextElement_DriverVerification("Last Name",true); }
 
-    public WebElement Verify_Approve_DriverLastName () { return getElementDriverVerification("Last Name",true); }
+    public WebElement Verify_Approve_DriverStreetAddress () { return getTextElement_DriverVerification("Street address",true); }
 
-    public WebElement Verify_Approve_DriverStreetAddress () { return getElementDriverVerification("Street address",true); }
+    public WebElement Verify_Approve_DriverCity () { return getTextElement_DriverVerification("City",true); }
 
-    public WebElement Verify_Approve_DriverCity () { return getElementDriverVerification("City",true); }
+    public WebElement Verify_Approve_DriverState () { return getTextElement_DriverVerification("State",true); }
 
-    public WebElement Verify_Approve_DriverState () { return getElementDriverVerification("State",true); }
-
-    public WebElement Verify_Approve_DriverZip () { return getElementDriverVerification("Zip code",true); }
+    public WebElement Verify_Approve_DriverZip () { return getTextElement_DriverVerification("Zip code",true); }
 
     //public WebElement Verify_Approve_DriverSSN () { return findElement("//*[@id='btnok_8']", LocatorType.XPath); }
 
-    public WebElement Verify_Approve_DriverBirthday () { return getElementDriverVerification("Birthday",true) ;}
+    public WebElement Verify_Approve_DriverBirthday () { return getTextElement_DriverVerification("Birthday",true) ;}
 
-    public WebElement Verify_Approve_DriverPickupImages () { return getElementDriverVerification("Pickup images",true);}
+    public WebElement Verify_Approve_DriverPickupImages () { return getTextElement_DriverVerification("Pickup images",true);}
 
-    public WebElement Verify_Approve_DriverPickupMake () { return getElementDriverVerification("Pickup make",true);}
+    public WebElement Verify_Approve_DriverPickupMake () { return getTextElement_DriverVerification("Pickup make",true);}
 
-    public WebElement Verify_Approve_DriverPickupModel () { return getElementDriverVerification("Pickup model",true);}
+    public WebElement Verify_Approve_DriverPickupModel () { return getTextElement_DriverVerification("Pickup model",true);}
 
-    public WebElement Verify_Approve_DriverPickupYear () { return getElementDriverVerification("Pickup year",true); }
+    public WebElement Verify_Approve_DriverPickupYear () { return getTextElement_DriverVerification("Pickup year",true); }
 
-    public WebElement Verify_Approve_DriverPickupLicense () { return getElementDriverVerification("Pickup license number",true); }
+    public WebElement Verify_Approve_DriverPickupLicense () { return getTextElement_DriverVerification("Pickup license number",true); }
 
-    public WebElement Verify_Approve_DriverLicenseImage () { return getElementDriverVerification("License image",true); }
+    public WebElement Verify_Approve_DriverLicenseImage () { return getTextElement_DriverVerification("License image",true); }
 
-    public WebElement Verify_Approve_DriverLicenseNumber () { return getElementDriverVerification("License number",true); }
+    public WebElement Verify_Approve_DriverLicenseNumber () { return getTextElement_DriverVerification("License number",true); }
 
-    public WebElement Verify_Approve_DriverLicenseExpiration () { return getElementDriverVerification("License expiration",true); }
+    public WebElement Verify_Approve_DriverLicenseExpiration () { return getTextElement_DriverVerification("License expiration",true); }
 
-    public WebElement Verify_Approve_DriverInsuranceImage () { return getElementDriverVerification("Insurance image",true); }
+    public WebElement Verify_Approve_DriverInsuranceImage () { return getTextElement_DriverVerification("Insurance image",true); }
 
-    public WebElement Verify_Approve_DriverInsurationExpiration () { return getElementDriverVerification("Insurance Expiration",true); }
+    public WebElement Verify_Approve_DriverInsurationExpiration () { return getTextElement_DriverVerification("Insurance Expiration",true); }
 
-    public WebElement Verify_Approve_DriverRoutingNumber () { return getElementDriverVerification("Routing Number",true, true); }
+    public WebElement Verify_Approve_DriverRoutingNumber () { return getTextElement_DriverVerification("Routing Number",true, true); }
 
-    public WebElement Verify_Approve_DriverAccountNumber () { return getElementDriverVerification("Account Number",true, true); }
+    public WebElement Verify_Approve_DriverAccountNumber () { return getTextElement_DriverVerification("Account Number",true, true); }
 
     public WebElement Button_DriverApproveApplication () { return findElement("//*[@id='btnapprove']", LocatorType.XPath, true); }
 
     public WebElement Button_DriverConfirmApproval () { return findElement("//*[@id='btnapproveagree']", LocatorType.XPath); }
 
-    public WebElement Verify_Reject_DriverPicture () { return getElementDriverVerification("Driver Picture",false); }
+    public WebElement Verify_Reject_DriverPicture () { return getTextElement_DriverVerification("Driver Picture",false); }
 
-    public WebElement Verify_Reject_FirstName () { return getElementDriverVerification("First Name",false); }
+    public WebElement Verify_Reject_FirstName () { return getTextElement_DriverVerification("First Name",false); }
 
-    public WebElement Verify_Reject_LastName () { return getElementDriverVerification("Last Name",false); }
+    public WebElement Verify_Reject_LastName () { return getTextElement_DriverVerification("Last Name",false); }
 
-    public WebElement Verify_Reject_StreetAddress () { return getElementDriverVerification("Street address",false); }
+    public WebElement Verify_Reject_StreetAddress () { return getTextElement_DriverVerification("Street address",false); }
 
-    public WebElement Verify_Reject_City () { return getElementDriverVerification("City",false); }
+    public WebElement Verify_Reject_City () { return getTextElement_DriverVerification("City",false); }
 
-    public WebElement Verify_Reject_State () { return getElementDriverVerification("State",false); }
+    public WebElement Verify_Reject_State () { return getTextElement_DriverVerification("State",false); }
 
-    public WebElement Verify_Reject_ZipCode () { return getElementDriverVerification("Zip code",false); }
+    public WebElement Verify_Reject_ZipCode () { return getTextElement_DriverVerification("Zip code",false); }
 
     //public WebElement Verify_Reject_SSN () { return findElement("//*[@id='btnremove_8']", LocatorType.XPath); }
 
-    public WebElement Verify_Reject_Birthday () { return getElementDriverVerification("Birthday",false); }
+    public WebElement Verify_Reject_Birthday () { return getTextElement_DriverVerification("Birthday",false); }
 
-    public WebElement Verify_Reject_DriverPickupImages () { return getElementDriverVerification("Pickup images",false); }
+    public WebElement Verify_Reject_DriverPickupImages () { return getTextElement_DriverVerification("Pickup images",false); }
 
-    public WebElement Verify_Reject_PickupMake () { return getElementDriverVerification("Pickup make",false); }
+    public WebElement Verify_Reject_PickupMake () { return getTextElement_DriverVerification("Pickup make",false); }
 
-    public WebElement Verify_Reject_PickupModel () { return getElementDriverVerification("Pickup model",false); }
+    public WebElement Verify_Reject_PickupModel () { return getTextElement_DriverVerification("Pickup model",false); }
 
-    public WebElement Verify_Reject_PickupYear () { return getElementDriverVerification("Pickup year",false); }
+    public WebElement Verify_Reject_PickupYear () { return getTextElement_DriverVerification("Pickup year",false); }
 
-    public WebElement Verify_Reject_PickupLicenseNumber () { return getElementDriverVerification("Pickup license number",false); }
+    public WebElement Verify_Reject_PickupLicenseNumber () { return getTextElement_DriverVerification("Pickup license number",false); }
 
-    public WebElement Verify_Reject_LicenseImage () { return getElementDriverVerification("License image",false); }
+    public WebElement Verify_Reject_LicenseImage () { return getTextElement_DriverVerification("License image",false); }
 
-    public WebElement Verify_Reject_LicenseNumber () { return getElementDriverVerification("License number",false); }
+    public WebElement Verify_Reject_LicenseNumber () { return getTextElement_DriverVerification("License number",false); }
 
-    public WebElement Verify_Reject_LicenseExpiration () { return getElementDriverVerification("License expiration",false); }
+    public WebElement Verify_Reject_LicenseExpiration () { return getTextElement_DriverVerification("License expiration",false); }
 
-    public WebElement Verify_Reject_InsuranceImage () { return getElementDriverVerification("Insurance image",false); }
+    public WebElement Verify_Reject_InsuranceImage () { return getTextElement_DriverVerification("Insurance image",false); }
 
-    public WebElement Verify_Reject_InsuranceExpiration () { return getElementDriverVerification("Insurance Expiration",false); }
+    public WebElement Verify_Reject_InsuranceExpiration () { return getTextElement_DriverVerification("Insurance Expiration",false); }
 
-    public WebElement Verify_Reject_RoutingNumber () { return getElementDriverVerification("Routing Number",false,true); }
+    public WebElement Verify_Reject_RoutingNumber () { return getTextElement_DriverVerification("Routing Number",false,true); }
 
-    public WebElement Verify_Reject_AccountNumber () { return getElementDriverVerification("Account Number",false, true); }
+    public WebElement Verify_Reject_AccountNumber () { return getTextElement_DriverVerification("Account Number",false, true); }
 
     public WebElement Status_Accepted (boolean...ignoreException) { return findElement("//td[text()='Driver Picture']/following-sibling::td[2]/div/input[@name ='AcceptedRejected']", LocatorType.XPath, ignoreException); }
 
-    public WebElement Textinput_ReasonforRejection_Birthday () { return findElement("//td[text()='Birthday']/following-sibling::td[2]/div/input[@name ='AcceptedRejected']", LocatorType.XPath); }
+    public WebElement Textinput_ReasonforRejection_Birthday () { return getInputElement_DriverVerification("Birthday","AcceptedRejected"); }
 
-    public WebElement Textinput_ReasonforRejection_DriverPicture () { return findElement("//td[text()='Driver Picture']/following-sibling::td[2]/div/input[@name ='AcceptedRejected']", LocatorType.XPath); }
+    public WebElement Textinput_ReasonforRejection_DriverPicture () { return getInputElement_DriverVerification("Driver Picture","AcceptedRejected"); }
 
-    public WebElement Textinput_ReasonforRejection_PickupImages () { return findElement("//td[text()='Pickup images']/following-sibling::td[2]/div/input[@name ='AcceptedRejected']", LocatorType.XPath); }
+    public WebElement Textinput_ReasonforRejection_PickupImages () { return getInputElement_DriverVerification("Pickup images","AcceptedRejected"); }
 
     public WebElement Button_DriverResentButton () { return findElement("//button[text()='Resend Application']", LocatorType.XPath, true); }
 

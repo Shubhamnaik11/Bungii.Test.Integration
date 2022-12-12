@@ -1,12 +1,10 @@
 package com.bungii.common.core;
 
 import com.bungii.SetupManager;
-import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.ThreadLocalStepDefinitionMatch;
 import io.appium.java_client.MobileBy;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -255,4 +253,16 @@ public class PageBase extends DriverBase {
         TagName,
         XPath, AccessibilityId, Predicate, ClassChain
     }
+    public WebElement getTextElement_DriverVerification(String field, boolean status, boolean...ignoreException){
+        String var = "glyphicon glyphicon-remove";
+        if(status){
+            var = "glyphicon glyphicon-ok";
+        }
+        return findElement("//td[text()='"+field+"']/following-sibling::td[2]/div/button/span[@class='"+var+"']", LocatorType.XPath,ignoreException);
+        //return findElement("//td[contains(text(),'"+field+"')]/following-sibling::td[2]/div/button/span[@class='"+var+"']", LocatorType.XPath,ignoreException);
+   }
+
+   public WebElement getInputElement_DriverVerification(String field, String var, boolean...ignoreException){
+        return findElement("//td[text()='"+field+"']/following-sibling::td[2]/div/input[@name ='"+var+"']", LocatorType.XPath,ignoreException);
+   }
 }
