@@ -11,6 +11,8 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Menu_CompletedTrips () { return findElement("//a[contains(text(),'Completed Deliveries')]", LocatorType.XPath); }
 
+    public WebElement Menu_AllTrips () { return findElement("//a[contains(text(),'All Deliveries')]", LocatorType.XPath); }
+
     //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }

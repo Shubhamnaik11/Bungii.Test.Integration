@@ -124,7 +124,7 @@ public class Admin_PromoterSteps extends DriverBase {
         String Status = (String)cucumberContextManager.getScenarioContext("STATUS");
         action.clearSendKeys(admin_PromoterPage.TextBox_Search(),PromoterName+Keys.ENTER);
 
-        String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/span[text()='%s']",PromoterName, CodeInitials, Description, Status);
+        String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']",PromoterName, CodeInitials, Description, Status);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
         } catch(Exception e){
@@ -141,7 +141,7 @@ public class Admin_PromoterSteps extends DriverBase {
     try{
         Thread.sleep(4000);
         String xpath = (String) cucumberContextManager.getScenarioContext("XPath");
-        action.click(SetupManager.getDriver().findElement(By.xpath(xpath)).findElement(By.xpath("parent::td/following-sibling::td/button[@id='btnEditPromotionDetails']")));
+        action.click(SetupManager.getDriver().findElement(By.xpath(xpath)).findElement(By.xpath("//a[text()='Details']")));
         log("I click on Details link" ,
                 "I have clicked on Details link", false);
     } catch(Exception e){
@@ -162,7 +162,7 @@ public class Admin_PromoterSteps extends DriverBase {
         String Status = (String)cucumberContextManager.getScenarioContext("STATUS");
         Thread.sleep(6000);
         i_search_by_promoter_name_something(PromoterName);
-        String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/span[text()='%s']",PromoterName, CodeInitials, Description, Status);
+        String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']",PromoterName, CodeInitials, Description, Status);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
     } catch(Exception e){
@@ -348,7 +348,7 @@ try{
     @Then("^the card is added to the promoter \"([^\"]*)\"$")
     public void the_card_is_added_to_the_promoter_something(String currentdatetime) throws Throwable {
 
-        testStepAssert.isElementTextEquals(admin_PromoterPage.Label_SuccessMessage(),"Payment details added successfully for partner.","Payment details added successfully for partner. message should be displayed" ,"Payment details added successfully for partner. message is displayed","Payment details added successfully for partner. message should be displayed is not displayed");
+        testStepAssert.isElementTextEquals(admin_PromoterPage.Label_SuccessMessage(),"Bungii Payment Method added successfully.","Payment details added successfully for partner. message should be displayed" ,"Payment details added successfully for partner. message is displayed","Payment details added successfully for partner. message should be displayed is not displayed");
 
     }
     private String uniqid() {

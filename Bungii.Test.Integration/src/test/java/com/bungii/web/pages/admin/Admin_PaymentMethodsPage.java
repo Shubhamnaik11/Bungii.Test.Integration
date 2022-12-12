@@ -36,7 +36,7 @@ public class Admin_PaymentMethodsPage extends PageBase {
 
     public WebElement Button_Cancel () { return findElement("//button[contains(text(),'Cancel')]", LocatorType.XPath); }
 
-    public WebElement Label_SuccessMessageForPartner() { return findElement("//span[contains(text(),'Payment details added successfully for partner.')]", LocatorType.XPath); }
+    public WebElement Label_SuccessMessageForPartner() { return findElement("//span[contains(text(),'Partner Payment Method added successfully.')]", LocatorType.XPath); }
 
     public WebElement Label_SuccessMessageForBungii() { return findElement("//span[contains(text(),'Bungii Payment Method added successfully.')]", LocatorType.XPath); }
 
