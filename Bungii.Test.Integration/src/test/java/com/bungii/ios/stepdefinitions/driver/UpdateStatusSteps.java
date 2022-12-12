@@ -912,7 +912,7 @@ public class UpdateStatusSteps extends DriverBase {
                     action.clickBy2Points(Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.i.icon")),Integer.parseInt(PropertyUtility.getDataProperties("y.coordinate.for.i.icon")));
                     action.clickBy2Points(Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.i.icon")),Integer.parseInt(PropertyUtility.getDataProperties("y.coordinate.for.i.icon")));
                     Thread.sleep(3000);
-                    testStepVerify.isEquals(action.getText(liveTripsPage.Text_EarningsInfo()),PropertyUtility.getDataProperties("earnings.alert.info"),
+                    testStepVerify.isEquals(action.getText(liveTripsPage.Text_EarningsInfo()),PropertyUtility.getDataProperties("ios.earnings.alert.info"),
                             "Correct alert message should be displayed.",
                             "Correct alert message is displayed.",
                             "Correct alert message is not displayed.");
