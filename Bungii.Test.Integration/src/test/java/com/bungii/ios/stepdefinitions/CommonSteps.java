@@ -1997,7 +1997,6 @@ public class CommonSteps extends DriverBase {
     @And("^I select the live trip for \"([^\"]*)\" customer$")
     public void i_select_the_live_trip_for_something_customer(String custName) throws Throwable {
         try {
-//            cucumberContextManager.setScenarioContext("PICKUP_REQUEST","937c4f5b-c95d-18f0-2ca6-f0d9ec7ba1fb");
             String pickupReference= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
             action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupReference);
 
@@ -3844,7 +3843,8 @@ public class CommonSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" should match$")
     public void the_something_should_match(String strArg1) throws Throwable {
         try{
-        String pickupReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+         int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
+         String pickupReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTime(pickupReference);
         switch (strArg1){
             case "Arrival time":
@@ -4005,7 +4005,7 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme", unloadingLoadingTimeWithoutServiceLevel);
                 }
                 int unloadingLoadingTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("ServiceTimeOrUnloadingLoadingTIme"));
-                int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+40;
+                int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+driverTime;
                 final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
 
                 String roundedTime =roundedUpTime(LocalTime.MIN.plus(Duration.ofMinutes( totalMinutes)).toString());
@@ -4057,7 +4057,7 @@ public class CommonSteps extends DriverBase {
                 String startingTimeRange =(String) cucumberContextManager.getScenarioContext("StartingDropOffTimeRange");
                 String endingTimeRange =(String) cucumberContextManager.getScenarioContext("EndingDropOffTimeRange");
 
-                if(expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")){
+                if(expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")||expectedDroffTimeRange.contains("pm") && expectedDroffTimeRange.contains("am")){
 
                     String onlyTimeRange = expectedDroffTimeRange.replace("PM","").replace("AM","").replace(" ","");;
                     cucumberContextManager.setScenarioContext("UITimeRange",onlyTimeRange);
@@ -4070,7 +4070,6 @@ public class CommonSteps extends DriverBase {
                 String UITimeRange = (String) cucumberContextManager.getScenarioContext("UITimeRange");
                 String calculatedDropoffTimeRange =endingTimeRange +"-"+startingTimeRange;
                 cucumberContextManager.setScenarioContext("DropOffRangeCalculated",calculatedDropoffTimeRange);
-                System.out.println("drop of range "+calculatedDropoffTimeRange);
                 testStepAssert.isEquals(UITimeRange,calculatedDropoffTimeRange,"The dropOff time range should be "+ calculatedDropoffTimeRange,
                         "The dropOff time range is  "+calculatedDropoffTimeRange,
                         "The  incorrect dropOff time range displayed is  "+UITimeRange);
@@ -4085,6 +4084,7 @@ public class CommonSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" for customer delivery should match$")
     public void the_something_for_customer_delivery_should_match(String strArg1) throws Throwable {
         try{
+        int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
         String custPhone = (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         String custRef = DbUtility.getCustomerRefference(custPhone);
         String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTimeForCustomer(custRef);
@@ -4133,7 +4133,7 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme",unloadingLoadingTimeWithoutServiceLevel);
                 }
                 int unloadingLoadingTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("ServiceTimeOrUnloadingLoadingTIme"));
-                int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+40;
+                int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+driverTime;
                 final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
 
                 String roundedTime =roundedUpTime(LocalTime.MIN.plus(Duration.ofMinutes( totalMinutes)).toString());
@@ -4165,7 +4165,7 @@ public class CommonSteps extends DriverBase {
                 String startingTimeRange =(String) cucumberContextManager.getScenarioContext("StartingDropOffTimeRange");
                 String endingTimeRange =(String) cucumberContextManager.getScenarioContext("EndingDropOffTimeRange");
 
-                if(expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")){
+                if(expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")||expectedDroffTimeRange.contains("pm") && expectedDroffTimeRange.contains("am")){
 
                     String onlyTimeRange = expectedDroffTimeRange.replace("PM","").replace("AM","").replace(" ","");;
                     cucumberContextManager.setScenarioContext("UITimeRange",onlyTimeRange);
@@ -4178,7 +4178,6 @@ public class CommonSteps extends DriverBase {
                 String UITimeRange = (String) cucumberContextManager.getScenarioContext("UITimeRange");
                 String calculatedDropoffTimeRange =endingTimeRange +"-"+startingTimeRange;
                 cucumberContextManager.setScenarioContext("DropOffRangeCalculated",calculatedDropoffTimeRange);
-                System.out.println("drop of range "+calculatedDropoffTimeRange);
                 testStepAssert.isEquals(UITimeRange,calculatedDropoffTimeRange,"The dropOff time range should be "+ calculatedDropoffTimeRange,
                         "The dropOff time range is  "+calculatedDropoffTimeRange,
                         "The  incorrect dropOff time range displayed is  "+UITimeRange);

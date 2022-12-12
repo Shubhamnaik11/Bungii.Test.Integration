@@ -613,6 +613,7 @@ public class AvailableTripsSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" should match$")
     public void the_something_should_match(String strArg1) throws Throwable {
         try {
+            int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
             String pickupReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
             String[] ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTime(pickupReference);
             switch (strArg1) {
@@ -648,7 +649,7 @@ public class AvailableTripsSteps extends DriverBase {
                     String[] pickUpLocationOfSecondDelivery = new String[2];
                     pickUpLocationOfSecondDelivery[0] = (String) cucumberContextManager.getScenarioContext("onlyDropOffLat");
                     pickUpLocationOfSecondDelivery[1] = (String) cucumberContextManager.getScenarioContext("onlyDropOffLong");
-                    ;
+
 
                     long[] timeFromDropOffTo2ndDeliveryPickup = new GoogleMaps().getDurationInTraffic(dropLocationOfFirstDelivery, pickUpLocationOfSecondDelivery);
                     int finalValue = (int) (deliveryCreatedTimeInMinutes + Math.round(timeFromDropOffTo2ndDeliveryPickup[0] / 60));
@@ -759,7 +760,7 @@ public class AvailableTripsSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme", unloadingLoadingTimeWithoutServiceLevel);
                     }
                     int unloadingLoadingTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("ServiceTimeOrUnloadingLoadingTIme"));
-                    int totalMinutes = convertHoursToMinutes + (unloadingLoadingTime / 3) + (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0])) + 40;
+                    int totalMinutes = convertHoursToMinutes + (unloadingLoadingTime / 3) + (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0])) + driverTime;
                     final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
 
                     String roundedTime = roundedUpTime(LocalTime.MIN.plus(Duration.ofMinutes(totalMinutes)).toString());
@@ -803,7 +804,7 @@ public class AvailableTripsSteps extends DriverBase {
                     String startingTimeRange = (String) cucumberContextManager.getScenarioContext("StartingDropOffTimeRange");
                     String endingTimeRange = (String) cucumberContextManager.getScenarioContext("EndingDropOffTimeRange");
 
-                    if (expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")) {
+                    if (expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")||expectedDroffTimeRange.contains("pm") && expectedDroffTimeRange.contains("am")) {
 
                         String onlyTimeRange = expectedDroffTimeRange.replace("PM", "").replace("AM", "").replace(" ", "");
                         ;
@@ -872,6 +873,7 @@ public class AvailableTripsSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" for customer delivery should match$")
     public void the_something_for_customer_delivery_should_match(String strArg1) throws Throwable {
         try{
+        int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
         String custPhone = (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         String custRef = DbUtility.getCustomerRefference(custPhone);
         String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTimeForCustomer(custRef);
@@ -918,7 +920,7 @@ public class AvailableTripsSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme",unloadingLoadingTimeWithoutServiceLevel);
                 }
                 int unloadingLoadingTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("ServiceTimeOrUnloadingLoadingTIme"));
-                int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+40;
+                int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+driverTime;
                 final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
 
                 String roundedTime =roundedUpTime(LocalTime.MIN.plus(Duration.ofMinutes( totalMinutes)).toString());
@@ -949,7 +951,7 @@ public class AvailableTripsSteps extends DriverBase {
                 String startingTimeRange = (String) cucumberContextManager.getScenarioContext("StartingDropOffTimeRange");
                 String endingTimeRange = (String) cucumberContextManager.getScenarioContext("EndingDropOffTimeRange");
 
-                if (expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")) {
+                if (expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")||expectedDroffTimeRange.contains("pm") && expectedDroffTimeRange.contains("am")) {
 
                     String onlyTimeRange = expectedDroffTimeRange.replace("PM", "").replace("AM", "").replace(" ", "");
                     ;

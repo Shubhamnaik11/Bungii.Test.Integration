@@ -1978,19 +1978,4 @@ public class ScheduledTripSteps extends DriverBase {
 					true);
 		}
 	}
-
-	public void clickOnDropdown() {
-		try {
-			Robot robot = new Robot();
-			robot.keyPress(KeyEvent.VK_ENTER);
-			robot.delay(300);
-			robot.keyRelease(KeyEvent.VK_ENTER);
-			robot.delay(300);
-		} catch (Exception Ex) {
-			logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
-			error("Step should be successful", "Unable to select from dropdown",
-					true);
-		}
-	}
-
 }
