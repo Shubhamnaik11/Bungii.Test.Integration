@@ -956,7 +956,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     String expectedDroffTimeRange = action.getText(admin_ScheduledTripsPage.Text_EstimatedDeliveryTime());
 
 
-                    if (expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM") || expectedDroffTimeRange.contains("AM") || expectedDroffTimeRange.contains("PM")) {
+                    if (expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM") || expectedDroffTimeRange.contains("AM") || expectedDroffTimeRange.contains("PM") ||expectedDroffTimeRange.contains("pm") && expectedDroffTimeRange.contains("am")) {
 
                         String onlyTimeRange = expectedDroffTimeRange.replace("PM", "").replace("AM", "").replace(" ", "");
                         cucumberContextManager.setScenarioContext("UITimeRange", onlyTimeRange);
