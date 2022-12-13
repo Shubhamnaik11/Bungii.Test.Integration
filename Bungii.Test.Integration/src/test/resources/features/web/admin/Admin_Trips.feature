@@ -973,3 +973,4 @@ Feature: Admin_Trips
     And  I search the delivery using "Pickup Reference"
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I check if "same day payment i" icon is displayed
+    Then I verify correct disbursement type is set in db
