@@ -50,6 +50,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     PartnerManagement_Email Page_PartnerManagement_Email = new PartnerManagement_Email();
     PartnerManagement_LoginPage Page_PartnerManagement_Login = new PartnerManagement_LoginPage();
     PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
+    Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
 
     @Given("^I am logged in as Admin$")
     public void i_am_logged_in_as_admin() throws Throwable {
@@ -258,6 +259,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 case "Unlock Partners Page":
                     testStepAssert.isElementDisplayed(admin_partnersPage.Label_Unlock_Partners(), "I should be navigated to " + screen, "I am navigated to " + screen, "I am not navigates to " + screen);
                     break;
+                case "Geofence Attributes Page":
+                    testStepAssert.isElementDisplayed(admin_geofenceAtrributesPage.Label_Geofence_Attributes(), "I should be navigated to " + screen, "I am navigated to " + screen, "I am not navigates to " + screen);
+                    break;
+
 
             }
         } catch (Exception e) {

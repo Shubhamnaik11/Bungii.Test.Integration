@@ -1175,4 +1175,18 @@ try{
                     true);
         }
     }
+
+    @When("I load Geofence Attributes Page")
+    public void iLoadGeofenceAttributesPage() {
+        try{
+            action.waitUntilIsElementExistsAndDisplayed(admin_geofenceAtrributesPage.Menu_Attributes(), (long) 3000);
+            action.click(admin_geofenceAtrributesPage.Menu_Attributes());
+            log("I load Geofence Attributes Page",
+                    "I have loaded Geofence Attributes Page", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+    }
 }

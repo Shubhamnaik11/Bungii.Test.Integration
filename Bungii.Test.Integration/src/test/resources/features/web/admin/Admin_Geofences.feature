@@ -210,39 +210,41 @@ Feature: Admin_Geofence
     Then Enter value should get saved and error message is not displayed
 
   @regression
-    #Creating 'New Attribute' functionality through admin is removed from admin Portal V2
   Scenario: Verify and add new attribute in Geofence Attributes page
-    When I load Geofence Attributes Page and Click on New Attributes button
-    And I enter following values in "Geofence Attributes" fields
-      | Key                                              | Default-Value                   | Description  | Label|
-      | BusinessFAQ   | BusinessFAQ        | This is Business FAQ Link | BusinessFAQ |
-    And I click on the "Save" Button on "GeofenceAttributes" Screen
-    Then The geofence Attributes gets saved successfully and it is displayed in the grid
-    When I search by Name "BusinessFAQ" in "GeofenceAttributes" page geofence
-    And I check the Searched result is displayed correctly
+    When I load Geofence Attributes Page
+    Then I should be directed to "Geofence Attributes Page"
+    #Creating 'New Attribute' functionality through admin is removed from admin Portal V2
+#    When I load Geofence Attributes Page and Click on New Attributes button
+#    And I enter following values in "Geofence Attributes" fields
+#      | Key                                              | Default-Value                   | Description  | Label|
+#      | BusinessFAQ   | BusinessFAQ        | This is Business FAQ Link | BusinessFAQ |
+#    And I click on the "Save" Button on "GeofenceAttributes" Screen
+#    Then The geofence Attributes gets saved successfully and it is displayed in the grid
+#    When I search by Name "BusinessFAQ" in "GeofenceAttributes" page geofence
+#    And I check the Searched result is displayed correctly
 #      Then I logout of Admin Portal
 
-  @regression
-  #Creating 'New Attribute' functionality through admin is removed from admin Portal V2
-  Scenario: Verify and check attributes are empty
-    When I load Geofence Attributes Page and Click on New Attributes button
-    And I enter following values in "GeofenceAttributes" fields
-      | Key                                              | Default-Value                   | Description  | Label|
-      |      |        |  | |
-    When I click on the "Save" Button on "GeofenceAttributes" Screen
-    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+    #Creating 'New Attribute' functionality through admin is removed from admin Portal V2
+#  @regression
+#  Scenario: Verify and check attributes are empty
+#    When I load Geofence Attributes Page and Click on New Attributes button
+#    And I enter following values in "GeofenceAttributes" fields
+#      | Key                                              | Default-Value                   | Description  | Label|
+#      |      |        |  | |
+#    When I click on the "Save" Button on "GeofenceAttributes" Screen
+#    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
 
-  @regression
   #Creating 'New Attribute' functionality through admin is removed from admin Portal V2
-  Scenario: Verify Field Validations on Geofence Attributes page
-    When I load Geofence Attributes Page and Click on New Attributes button
-    And I click on the "Save" Button on "GeofenceAttributes" Screen
-    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
-    And I enter following values in "Geofence Attributes" fields
-      | Key                                              | Default-Value                   | Description  | Label|
-      | BusinessFAQ      | BusinessFAQ        |  | |
-    And I click on the "Save" Button on "GeofenceAttributes" Screen
-    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+#  @regression
+#  Scenario: Verify Field Validations on Geofence Attributes page
+#    When I load Geofence Attributes Page and Click on New Attributes button
+#    And I click on the "Save" Button on "GeofenceAttributes" Screen
+#    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+#    And I enter following values in "Geofence Attributes" fields
+#      | Key                                              | Default-Value                   | Description  | Label|
+#      | BusinessFAQ      | BusinessFAQ        |  | |
+#    And I click on the "Save" Button on "GeofenceAttributes" Screen
+#    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
 
     @regression
       #Issue Raised ADP-749
@@ -258,22 +260,21 @@ Feature: Admin_Geofence
       Then I see "Below Zero Bungii rate" validation error message.
       And I set "Valid" % Bungii Cut Per Delivery for the geofence
       Then I check that correct Driver cut calculated based on Bungii Cut Per Delivery
-  
-  @regression
+
     #Creating 'New Attribute' functionality through admin is removed from admin Portal V2
-  Scenario: Verify An application error has occured message is not displayed when user keeps label field blank on Geofence Attributes page
-    When I load Geofence Attributes Page and Click on New Attributes button
-    And I enter following values in "Geofence Attributes" fields
-      | Key              | Default-Value                   | Description  | Label|
-      | Attr1            | Attr                            |  Desc       |      |
-    And I click on the "Save" Button on "GeofenceAttributes" Screen
-    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+#  @regression
+#  Scenario: Verify An application error has occured message is not displayed when user keeps label field blank on Geofence Attributes page
+#    When I load Geofence Attributes Page and Click on New Attributes button
+#    And I enter following values in "Geofence Attributes" fields
+#      | Key              | Default-Value                   | Description  | Label|
+#      | Attr1            | Attr                            |  Desc       |      |
+#    And I click on the "Save" Button on "GeofenceAttributes" Screen
+#    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
 
 # Core-3843 Verify that only active geofence zip codes are downloaded in csv file
   @regression
     #Issue Raised ADP-751
     Scenario: Verify that only active geofence zip codes are downloaded in csv file
-     Core-3843 Verify the download option on geofence listing page of admin portal
       When I click on "Download Zip Codes" button
 #     Core-3843 Verify that only active geofence zip codes are downloaded in csv file
       And I verify if "only active geofence zip codes" are downloaded
