@@ -758,6 +758,25 @@ public class CommonStepsDriver extends DriverBase {
                 case "Branch app":
                     action.click(driversPage.Button_BranchWallet());
                     break;
+                case "Payment Setting":
+                    cucumberContextManager.setScenarioContext("DEFAULT_PAYMENT",driversPage.Button_PaymentSetting().getAttribute("name"));
+                    action.click(driversPage.Button_PaymentSetting());
+                    break;
+                case "Change default payment":
+                    String defaultMethod= (String) cucumberContextManager.getScenarioContext("DEFAULT_PAYMENT");
+                    if(defaultMethod.equalsIgnoreCase("same day")){
+                        action.clickBy2Points(319,405);
+                        cucumberContextManager.setScenarioContext("DEFAULT_PAYMENT", "2x week");
+                    }
+                    else{
+                        action.clickBy2Points(320,494);
+                        cucumberContextManager.setScenarioContext("DEFAULT_PAYMENT","same day");
+                    }
+                    action.click(driverHomePage.Button_Confirm());
+                    break;
+                case "Close Payment Settings":
+                    action.click(driverHomePage.Button_Close());
+                    break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }
@@ -1069,6 +1088,40 @@ public class CommonStepsDriver extends DriverBase {
                     break;
             }
             log("I should be able to check details in db","I am able to check details in db",false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("I verify the elements of payment setting screen page")
+    public void iVerifyTheElementsOfPaymentSettingScreenPage()throws Throwable {
+        try{
+            testStepAssert.isTrue(action.isElementPresent(driverHomePage.Text_PaymentSetting()),
+                    "Payment Setting should be displayed.",
+                    "Payment Setting is not displayed.");
+
+            String expectedInfo = PropertyUtility.getDataProperties("payment.setting.info");
+            testStepVerify.isTrue(action.getText(driverHomePage.Text_PaymentSettingInfo()).contains(expectedInfo),
+                    "Payment setting info displayed should be correct.",
+                    "Payment setting info displayed is correct.",
+                    "Payment setting info displayed is incorrect.");
+
+            testStepAssert.isTrue(action.isElementPresent(driverHomePage.Option_2xWeek()),
+                    "The option for twice a week should be displayed.",
+                    "The option for twice a week is not displayed.");
+            testStepAssert.isTrue(action.isElementPresent(driverHomePage.Option_SameDay()),
+                    "The option for same day should be displayed.",
+                    "The option for same day is not displayed.");
+
+            testStepAssert.isTrue(action.isElementPresent(driverHomePage.Button_Close()),
+                    "The close button should be displayed.",
+                    "The close button is not displayed.");
+
+            testStepAssert.isTrue(action.isElementPresent(driverHomePage.Button_Confirm()),
+                    "The confirm button should be displayed.",
+                    "The confirm button is not displayed.");
+
         }
         catch (Exception e){
             logger.error("Error performing step", e);

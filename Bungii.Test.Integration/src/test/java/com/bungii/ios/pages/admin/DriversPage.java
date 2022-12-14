@@ -32,5 +32,8 @@ public class DriversPage extends PageBase {
     public WebElement Button_GetBranchApp() {
         return findElement("//XCUIElementTypeLink[@name=\"Get The App\"]", LocatorType.XPath);
     }
+    public WebElement Button_PaymentSetting() {
+        return findElement("//XCUIElementTypeButton[@name=\"Branch wallet\"]/following-sibling::XCUIElementTypeStaticText[3]", LocatorType.XPath);
+    }
 
 }

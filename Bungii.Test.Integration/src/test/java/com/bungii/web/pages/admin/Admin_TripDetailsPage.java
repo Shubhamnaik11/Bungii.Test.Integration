@@ -43,6 +43,8 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Icon_Price_Override(){ return findElement("//img[@alt='price-overridden']",LocatorType.XPath);}
 
+    public WebElement Icon_DriverEarnings(){ return findElement("//td[text()='Driver Earnings']/img",LocatorType.XPath);}
+
     public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[@id='divDriversResult']/div[contains(.,'%s')]",driverName),LocatorType.XPath);}
 
     public WebElement Text_Partner_Delivery_Cost() { return findElement("//h2[contains(text(),'Delivery Cost')]/span/strong",LocatorType.XPath);}
@@ -85,4 +87,5 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Text_TransactionHistoryBungiiEarnings() {return findElement("//div[@id='transactionHistory']//tr[3]/descendant::td[2]", LocatorType.XPath);}
 
     public WebElement Text_DeliveryDetailsHeader() {return findElement("//h4[contains(.,'Delivery Details')]", LocatorType.XPath);}
+    public WebElement Icon_DriverSameDayPayment(String driverName,boolean...ignoreException) {return findElement("//td[contains(.,'"+driverName+"')]/img", LocatorType.XPath,ignoreException);}
 }
