@@ -6,12 +6,12 @@ import org.openqa.selenium.WebElement;
 public class TripDetailsPage extends PageBase {
 //	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
-	public WebElement Button_Accept() { return findElement("ACCEPT", LocatorType.AccessibilityId); }
+	public WebElement Button_Accept() { return findElement("//XCUIElementTypeButton[@name=\" Accept\"]", LocatorType.XPath); }
 	public WebElement Text_Distance() { return findElement("//XCUIElementTypeStaticText[contains(@name,'miles')]", PageBase.LocatorType.XPath); }
-	public WebElement Text_EstimatedEarnings() { return findElement("//XCUIElementTypeStaticText[@name='EARNINGS']/following::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
+	public WebElement Text_EstimatedEarnings() { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 	public WebElement Text_ScheduledDateTime() { return findElement("//XCUIElementTypeStaticText[@name='WHEN']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 //	public WebElement Text_ScheduledTime () { return findElement("//XCUIElementTypeStaticText[@name='Trip Scheduled Time']/following::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
-	public WebElement Text_EstimatedEarningsSchedule() { return findElement("//XCUIElementTypeTable/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[5]", LocatorType.XPath); }
+	public WebElement Text_EstimatedEarningsSchedule() { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath); }
 
 	public WebElement Text_DriverVehicleModel() { return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[3]", LocatorType.XPath); }
 

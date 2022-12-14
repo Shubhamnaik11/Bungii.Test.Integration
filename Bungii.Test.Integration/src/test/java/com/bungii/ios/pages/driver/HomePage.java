@@ -144,4 +144,10 @@ public class HomePage extends PageBase {
 
     public WebElement Header_ReferralHistory(){return findElement("//XCUIElementTypeOther[@name=\"REFERRAL HISTORY\"]", LocatorType.XPath);}
 
+    public WebElement Text_PaymentSetting() { return findElement("//XCUIElementTypeStaticText[@name='Payment settings']", LocatorType.XPath);}
+    public WebElement Text_PaymentSettingInfo() { return findElement("//XCUIElementTypeStaticText[@name='Would you like to change the default payment settings for your future deliveries?']", LocatorType.XPath);}
+    public WebElement Option_2xWeek() { return findElement("//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='2x week']", LocatorType.XPath);}
+    public WebElement Option_SameDay() { return findElement("//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='Same day*']", LocatorType.XPath);}
+    public WebElement Button_Close() { return findElement("//XCUIElementTypeButton[@name='Close']", LocatorType.XPath);}
+    public WebElement Button_Confirm() { return findElement("//XCUIElementTypeButton[@name='Confirm']", LocatorType.XPath);}
 }

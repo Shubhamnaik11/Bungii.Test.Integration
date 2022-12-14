@@ -908,6 +908,15 @@ public class UpdateStatusSteps extends DriverBase {
                 case "Back":
                     action.click(liveTripsPage.Button_Back());
                     break;
+                case "i earning":
+                    action.clickBy2Points(Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.i.icon")),Integer.parseInt(PropertyUtility.getDataProperties("y.coordinate.for.i.icon")));
+                    action.clickBy2Points(Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.i.icon")),Integer.parseInt(PropertyUtility.getDataProperties("y.coordinate.for.i.icon")));
+                    Thread.sleep(3000);
+                    testStepVerify.isEquals(action.getText(liveTripsPage.Text_EarningsInfo()),PropertyUtility.getDataProperties("ios.earnings.alert.info"),
+                            "Correct alert message should be displayed.",
+                            "Correct alert message is displayed.",
+                            "Correct alert message is not displayed.");
+                    break;
             }
             log("I should be able to click on the icon","I am able to click on the icon",false);
 
