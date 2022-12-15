@@ -50,7 +50,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Dropdown_CancellationReason () { return findElement("//select[@class='form-select']", LocatorType.XPath); }
 
-    public WebElement Dropdown_Reason () { return findElement("ddEditDeliveryRemark", LocatorType.Id); }
+    public WebElement Dropdown_Reason () { return findElement("//select[@class='reason form-select']", LocatorType.XPath); }
 
     public WebElement Dropdown_ChangeAddress (String address) { return findElement("//div[@class='autocomplete-dropdown-container']/div/span[contains(text(),'"+address+"')]", LocatorType.XPath); }
 

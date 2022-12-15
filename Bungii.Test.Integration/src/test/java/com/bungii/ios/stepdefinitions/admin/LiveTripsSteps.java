@@ -42,6 +42,7 @@ public class LiveTripsSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+    DriversPage driverPage = new DriversPage();
     @Then("^I select trip from live trips$")
     public void i_select_trip_from_live_trips() throws Throwable {
         try {
@@ -541,6 +542,13 @@ public class LiveTripsSteps extends DriverBase {
                             "The branch app button should be displayed",
                             "The branch app button is displayed",
                             "The branch app button is not displayed");
+                    break;
+                case "changed payment":
+                    String defaultMethod= (String) cucumberContextManager.getScenarioContext("DEFAULT_PAYMENT");
+                    testStepAssert.isEquals(driverPage.Button_PaymentSetting().getAttribute("name"),defaultMethod,
+                            "The selected payment method should not updated to default when driver logs out from app",
+                            "The selected payment method is not updated to default when driver logs out from app",
+                            "The selected payment method is updated to default when driver logs out from app");
                     break;
             }
             log("I should be able to check if "+button+" button is displayed","I am able to check if "+button+" button is displayed",false);

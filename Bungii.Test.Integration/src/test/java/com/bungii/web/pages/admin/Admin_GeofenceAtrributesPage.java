@@ -23,4 +23,9 @@ public class Admin_GeofenceAtrributesPage extends PageBase{
     public WebElement Link_Logout(){return  findElement("//a[.='log out']", PageBase.LocatorType.XPath);}
 
     public WebElement Label_ErrorTextOnEmpty() { return findElement("error-summary-modal", PageBase.LocatorType.Id); }
+
+    public WebElement Label_Geofence_Attributes () { return findElement("//h4[contains(text(),'Geofence Attributes')]",LocatorType.XPath);}
+
+    public WebElement Menu_Attributes () { return findElement("//a[contains(text(),'Attributes')]",LocatorType.XPath);}
+
 }

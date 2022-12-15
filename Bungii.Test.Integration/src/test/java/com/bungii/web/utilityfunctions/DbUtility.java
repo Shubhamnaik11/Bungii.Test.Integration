@@ -708,5 +708,18 @@ public class DbUtility extends DbContextManager {
 
 
     }
+    public static String getDisbursementType(String pickUpRef,String driverPhone) {
+        String disbursementType;
+        String driverId;
+        String queryString = "Select Id from driver where phone= "+driverPhone;
+        driverId = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("The driver Id for "+driverPhone+" is "+driverId);
+        String queryString1 ="select disbursement_type from payment_trans_disburse_branch where payment_transaction_id in (select Id from paymenttransaction where clientgroupref in ('"+pickUpRef+"')) and driver_id="+driverId;
+        disbursementType = getDataFromMySqlMgmtServer(queryString1);
+        logger.detail("The disbursement type for "+driverId+" is "+disbursementType);
+        return disbursementType;
+
+
+    }
 }
 

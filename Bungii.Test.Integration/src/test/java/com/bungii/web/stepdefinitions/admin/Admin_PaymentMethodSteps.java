@@ -44,8 +44,7 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                     Thread.sleep(4000);
                     CardNumber = "**** **** **** " + CardNumber.substring(11,15);
                     String PartnerXpath = String.format("//tr/td[text()='Visa ']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/i[contains(@class, ' fa fa-check-circle fa-3x default-icon')]", CardNumber, CardExpiryDate);
-                    String expectedMsg = PropertyUtility.getMessage("partner.card.success.message");
-                    testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_SuccessMessageForPartner()), expectedMsg, expectedMsg+ " message should be displayed", expectedMsg+ " message is displayed", expectedMsg + " message is not displayed");
+                    testStepAssert.isElementDisplayed(admin_paymentMethodsPage.Label_SuccessMessageForPartner(), "Partner Payment Method added successfully. message should be displayed", "Partner Payment Method added successfully. message is displayed", "Partner Payment Method added successfully. message is not displayed");
                     cucumberContextManager.setScenarioContext("XPath", PartnerXpath);
                     break;
                 case "Bungii Cards":
@@ -77,7 +76,7 @@ public class Admin_PaymentMethodSteps extends DriverBase {
             try{
             switch(PageName) {
                 case "partner Cards":
-                    testStepAssert.isElementTextEquals(admin_paymentMethodsPage.Label_SuccessMessageForPartner(),"Payment details added successfully for partner.","Payment details added successfully for partner. message should be displayed" ,"Payment details added successfully for partner. message is displayed","Payment details added successfully for partner. message should be displayed is not displayed");
+                    testStepAssert.isElementDisplayed(admin_paymentMethodsPage.Label_SuccessMessageForPartner(),"'Partner Payment Method added successfully. message should be displayed" ,"'Partner Payment Method added successfully. message is displayed","'Partner Payment Method added successfully. message should be displayed is not displayed");
                     break;
 
                 case "Bungii Cards":

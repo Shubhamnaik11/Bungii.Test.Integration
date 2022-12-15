@@ -970,6 +970,7 @@ try{
                 break;
 
             case "Expiration Date":
+                Thread.sleep(4000);
                 switch (message){
                     case "This expiration date is not valid." :
                         testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerInvalidExpiryDate()),message, message + " should be displayed", message + " is displayed", message + " is not displayed");
