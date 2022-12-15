@@ -1129,10 +1129,12 @@ try{
             String editLiveDelivery = action.getText(admin_ScheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
             if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
                 testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location_For_Live(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                cucumberContextManager.setScenarioContext("OLD_DROPOFF_LOCATION",action.getText(admin_ScheduledTripsPage.Text_Pickup_Address_For_Live()));
                 action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address_For_Live());
             }
             else {
                 testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                cucumberContextManager.setScenarioContext("OLD_DROPOFF_LOCATION",action.getText(admin_ScheduledTripsPage.DropOff_Address()));
                 action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
 
             }
