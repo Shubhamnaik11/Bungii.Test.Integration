@@ -45,6 +45,8 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement DropOff_Address() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
 
     public WebElement Pickup_Address() { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
+    public WebElement Text_Pickup_Address_For_Live() { return findElements("//img[@title='Edit Pickup Location']/ancestor::div[2]/div/label",LocatorType.XPath).get(1);}
+
 
     public WebElement Textbox_CancellationComment () { return findElement("Secondary", LocatorType.Id); }
 
@@ -107,8 +109,8 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_Admin_TrackingId(){return  findElement("//div/h4[3]",LocatorType.XPath);}
 
-    public WebElement Dropdown_LiveDelivery_Details(){return  findElement("//div/ul/li/a[text()=\"Delivery Details\"]",LocatorType.XPath);}
-    public WebElement List_ViewEdit(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Edit')]",LocatorType.XPath);}
+    public WebElement Dropdown_LiveDelivery_Details(){return  findElement("//a[text()=\"Delivery Details\"]",LocatorType.XPath);}
+    public WebElement List_ViewEdit(){return  findElement("//div/a[text()='Edit']",LocatorType.XPath);}
     public WebElement Dropdown_Edit_DeliveryDetails(){return  findElement("//label/span[text()='Edit Delivery Details']",LocatorType.XPath);}
 
     public WebElement Link_Edit_dropOffLocation(){return  findElement("//div/img[@class=\"cursor editDropoffAddress\"]",LocatorType.XPath);}
@@ -264,6 +266,5 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Label_Pickup_Location_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[3]/div/span[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
     public WebElement Textbox_Pickup_Location_For_Live () { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div[1]/div[@class=\"address-textbox\"]/div/input",LocatorType.XPath);}
     public WebElement Button_Edit_Pickup_Address_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[3]/div[2]/div/div[2]/img[@title='Edit Pickup Location']",LocatorType.XPath);}
-    public WebElement Pickup_Address_For_Live() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/label[@class=\"address2\"]",LocatorType.XPath);}
 
 }

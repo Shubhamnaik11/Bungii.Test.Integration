@@ -1235,16 +1235,16 @@ try{
                 action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location_For_Live(),address);
                 Thread.sleep(1000);
                 action.click(admin_ScheduledTripsPage.Dropdown_ChangeAddress(address));
-//                String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address_For_Live());
-//                cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
+                String Change_Address = action.getText(admin_ScheduledTripsPage.Text_Pickup_Address_For_Live());
+                cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
             }
             else {
                 action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location(),address);
                 Thread.sleep(1000);
                 action.click(admin_ScheduledTripsPage.Dropdown_ChangeAddress(address));
                 Thread.sleep(1000);
-//                String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
-//                cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
+                String Change_Address = action.getText(admin_ScheduledTripsPage.Pickup_Address());
+                cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
             }
         log("I change the pickup address to "+address,
                 "I have changed the pickup address to "+address);
@@ -3418,7 +3418,9 @@ try{
             }
             else {
                 action.click(admin_ScheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", custName), PageBase.LocatorType.XPath));
-                action.click(admin_ScheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'Delivery Details')]", custName), PageBase.LocatorType.XPath));
+//                action.click(admin_ScheduledTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'Delivery Details')]", custName), PageBase.LocatorType.XPath));
+                action.click(admin_ScheduledTripsPage.List_ViewDeliveries());
+
             }
             log("I should be able to open delivery details for the customer",
                     "I am able to open delivery details for the customer",false);
