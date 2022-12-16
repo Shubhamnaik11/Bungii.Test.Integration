@@ -137,5 +137,9 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Label_HeaderPopup() { return findElement("//p[text()='Are you sure you want to revive the trip?']", LocatorType.XPath); }
     public WebElement Label_PickupId() { return findElement("revive-pickup-id", LocatorType.Id); }
     public WebElement Label_PickupCustomer() { return findElement("revive-pickup-customer", LocatorType.Id); }
+    public WebElement Menu_Trips () { return findElement("//ul[@id='side-menu']/li/p/span[contains(text(),'Deliveries')]", LocatorType.XPath); }
+    public WebElement Dropdown_SearchForPeriod () { return findElement("//div[text()='The following deliveries from:']/select", LocatorType.XPath); }
+    public WebElement Menu_AllDeliveries () { return findElement("//a[contains(text(),'Completed Deliveries')]",LocatorType.XPath);}
+    public WebElement Text_DeliveryStatus(int number) { return findElement(String.format("//tbody/tr/td[%d]",number), LocatorType.XPath);}
 
 }
