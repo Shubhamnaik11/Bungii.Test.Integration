@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_DriversPage;
@@ -165,7 +166,7 @@ public class Admin_DriverDetails extends DriverBase{
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
             char[] delimiters = { ' ', '_' };
-            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : WordUtils.capitalizeFully(tripType[0], delimiters), driver, customer);
+            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : WordUtils.capitalizeFully(tripType[0], delimiters), driver, customer);
 
         }
 
@@ -266,6 +267,32 @@ public class Admin_DriverDetails extends DriverBase{
                 }
                 action.click(admin_TripDetailsPage.Button_Cancel());
             } catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I verify correct disbursement type is set in db")
+    public void iVerifyCorrectDisbursementTypeIsSetInDb() throws Throwable{
+        try
+        {
+            String pickUpRef= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String driverOne= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String driverTwo= (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
+            String disbursmentTypeDriverOne = dbUtility.getDisbursementType(pickUpRef,driverOne);
+            String disbursmentTypeDriverTwo = dbUtility.getDisbursementType(pickUpRef,driverTwo);
+            testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
+                    "Correct disbursement type value should be set for same day payment setting",
+                    "Correct disbursement type value is set for same day payment setting",
+                    "Incorrect disbursement type value is set for same day payment setting");
+            testStepAssert.isEquals(disbursmentTypeDriverTwo, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
+                    "Correct disbursement type value should be set for weekly payment setting",
+                    "Correct disbursement type value is set for weekly payment setting",
+                    "Incorrect disbursement type value is set for weekly payment setting");
+
+        }
+        catch(Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);

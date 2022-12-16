@@ -42,7 +42,7 @@ public class AvailableTripsPage extends PageBase {
 
     public List<WebElement> Image_SelectBungiis()  {return findElements("com.bungii.driver:id/row_available_pickup_container",LocatorType.Id);}
 
-    public WebElement Partner_Name() { return findElement("//*[@resource-id='com.bungii.driver:id/content_business_partner_tv_partner_name']", LocatorType.XPath);}
+    public WebElement Partner_Name() { return findElement("com.bungii.driver:id/tv_business_partner", LocatorType.Id);}
 
     public WebElement Partner_Name_For_Enroute() { return findElement("//*[@resource-id='com.bungii.driver:id/appCompatTextView27']", LocatorType.XPath);}
 
@@ -50,8 +50,8 @@ public class AvailableTripsPage extends PageBase {
 
     public WebElement Text_FromHomeMiles() { return findElement("com.bungii.driver:id/row_available_pickup_textview_time_home", LocatorType.Id);}
 
-    public WebElement Text_DriverEarning() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView[2]", LocatorType.XPath);}
-    public WebElement Text_DriverEarningSchedulePage() { return findElement("//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView[2]", LocatorType.XPath);}
+    public WebElement Text_DriverEarning() { return findElement("com.bungii.driver:id/tv_earnings", LocatorType.Id);}
+    public WebElement Text_DriverEarningSchedulePage() { return findElement("com.bungii.driver:id/tv_earnings", LocatorType.Id);}
 
     public WebElement Text_RejectionPopup(boolean...ignoreException) {return findElement("com.bungii.driver:id/appCompatTextView21",LocatorType.Id,ignoreException);}
 

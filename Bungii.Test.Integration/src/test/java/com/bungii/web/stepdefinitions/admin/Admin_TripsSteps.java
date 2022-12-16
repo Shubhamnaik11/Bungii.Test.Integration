@@ -5,6 +5,7 @@ import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.*;
@@ -659,7 +660,7 @@ public class Admin_TripsSteps extends DriverBase {
     @When("^I change filter to \"([^\"]*)\" on All deliveries$")
     public void i_change_filter_to_something_on_all_deliveries(String filter) throws Throwable {
         try{
-        Thread.sleep(5000);
+        action.waitUntilIsElementExistsAndDisplayed(liveTripsPage.Dropdown_SearchForPeriod(), (long) 5000);
         action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),filter);
         Thread.sleep(5000);
         log("I select filter from All Deliveries on the admin portal",
@@ -832,6 +833,8 @@ try{
     }
 
     }
+
+
 
     @When("^I click on \"([^\"]*)\" link beside scheduled bungii$")
     public void i_click_on_something_link_beside_scheduled_bungii(String link) throws Throwable {
@@ -1211,6 +1214,7 @@ try{
                 true);
     }
     }
+
 
     @When("^I view the delivery details in admin portal$")
     public void i_view_the_delivery_details_in_admin() throws Throwable {
@@ -2008,13 +2012,13 @@ try{
             List<WebElement> rows = null;
             switch (filter) {
                 case "Payment Unsuccessful Status":
-                    xpath = String.format("//td[contains(.,'Payment Pending')]");
+                    xpath = String.format("//td[contains(text(),'Payment Pending')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Payment Successful Status":
-                    xpath = String.format("//td[contains(.,'Payment Successful')]");
+                    xpath = String.format("//td[contains(text(),'Payment Successful')]");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
@@ -2164,11 +2168,14 @@ try{
     @And("^I update the Scheduled date of the trip by 15 minutes$")
     public void i_update_the_scheduled_date_of_the_trip_by_15_minutes()  {
         try{
-        String value = admin_EditScheduledBungiiPage.TimePicker_Time().getAttribute("value");
+        //String value = admin_EditScheduledBungiiPage.TimePicker_Time().getAttribute("text");
+            String time = (String) cucumberContextManager.getScenarioContext("SCHEDULED_TIME");
+            time=time.substring(13,21);
             action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
-            LocalTime time= LocalTime.parse(value, DateTimeFormatter.ofPattern("hh:mm a"));
-        value = time.plusMinutes(15).format(DateTimeFormatter.ofPattern("hh:mm a")).toString();
-        action.click(admin_EditScheduledBungiiPage.List_TimeFrame(value));
+            Thread.sleep(3000);
+            action.click(admin_EditScheduledBungiiPage.Dropdown_Scheduled_Time_By_15(time));
+            String timeChanged = action.getText(admin_EditScheduledBungiiPage.Dropdown_Scheduled_Time_By_15(time));
+            //cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
         log("I update the Scheduled date of the trip by 15 minutes",
                 "I have updated the Scheduled date of the trip by 15 minutes", false);
     } catch(Exception e){
@@ -2946,6 +2953,12 @@ try{
                     String onlyCustomerLastNameWithSpace = " " + customerFullName[0] + " ";
                     action.clearSendKeys(adminTripsPage.TextBox_Search(), onlyCustomerLastNameWithSpace + Keys.ENTER);
                     break;
+                default:
+                    String pickUpID = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), pickUpID);
+                    action.click(admin_ScheduledTripsPage.Button_Search());
+                    break;
+
             }
             log("I should be able to search the delivery based on customers "+text,
                     "I could  search the delivery based on customers "+text,false);
@@ -3544,4 +3557,16 @@ try{
     }
 
 
+    @And("I get the scheduled time of the trip")
+    public void iGetTheScheduledTimeOfTheTrip() {
+        try{
+            String customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME");
+            cucumberContextManager.setScenarioContext("SCHEDULED_TIME",action.getText(admin_TripsPage.Text_ScheduledTime(customerName)));
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

@@ -13,6 +13,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Dropdown_ScheduledDate_Time(String time) { return findElement("//select[@class='timepicker form-control']/option[contains(text(),'"+time+"')]/following-sibling::option[2]", LocatorType.XPath); }
 
+    public WebElement Dropdown_Scheduled_Time_By_15(String time) { return findElement("//select[@class='timepicker form-control']/option[contains(text(),'"+time+"')]/following-sibling::option[1]", LocatorType.XPath);}
     public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("//select[@class='reason form-select']",LocatorType.XPath, ignoreException); }
 
     public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[contains(text(),'%s')]",driverName),LocatorType.XPath);}
@@ -23,7 +24,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement List_TimeFrame (String time) { return findElement("//div/ul/li[text()='"+time+"']", LocatorType.XPath); }
 
-    public WebElement Link_RemoveDriver() { return findElement("btnRemoveDriver", LocatorType.Id); }
+    public WebElement Link_RemoveDriver() { return findElement("//span[text()='Driver Details:']/parent::div/following-sibling::div[2]/button", LocatorType.XPath); }
 
     public WebElement TextBox_DriverSearch() { return findElement("//input[@placeholder='Enter driver name']", LocatorType.XPath); }
 
@@ -33,7 +34,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Button_Undo() { return findElement("//button[@onclick='UndoTripChanges()']", LocatorType.Id); }
 
-    public WebElement Checkbox_Driver (String driverName) { return findElement("//td[text()='"+driverName+"']/ancestor::tr/td/label/input", LocatorType.XPath); }
+    public WebElement Checkbox_Driver (String driverName) { return findElement("//div[@class='driver-checkbox w1']/input", LocatorType.XPath); }
 
     public WebElement Label_VerifyError() { return findElement("verify-error", LocatorType.Id); }
 
@@ -45,7 +46,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement RadioButton_EditTripDetails() { return findElement("//label[text()='Edit Delivery Details']/preceding-sibling::input", LocatorType.XPath); }
 
-    public WebElement List_DriverSearchResult (String driverName) { return findElement("//div[@id='divDriversResult']/div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
+    public WebElement List_DriverSearchResult (String driverName) { return findElement("//input/following-sibling::div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
 
     public WebElement TickMarkDate () { return findElement("//i[@class='fa fa-check dateValidity text-green-alt success-icon']", LocatorType.XPath); }
 
@@ -69,27 +70,27 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement RadioButton_Solo() { return findElement("SOLO", LocatorType.Id); }
     public WebElement RadioButton_Duo() { return findElement("DUO", LocatorType.Id); }
 
-    public WebElement Label_Driver1MessageOnResearch() { return findElement("//div[@id='tripDriverDetails']/div/span[contains(.,'Driver 1: Bungii driver is being searched')]", LocatorType.XPath); }
+    public WebElement Label_Driver1MessageOnResearch() { return findElement("//div[@class='driver-research']/span[contains(.,'Driver 1: Bungii driver is being searched')]", LocatorType.XPath); }
 
-    public WebElement Label_Driver2MessageOnResearch(boolean...ignoreException) { return findElement("//div[@id='tripDriverDetails']/div/span[contains(.,'Driver 2: Bungii driver is being searched')]", LocatorType.XPath,ignoreException); }
+    public WebElement Label_Driver2MessageOnResearch(boolean...ignoreException) { return findElement("//div[@class='driver-research']/span[contains(.,'Driver 2: Bungii driver is being searched')]", LocatorType.XPath,ignoreException); }
 
-    public WebElement Label_Driver1MessageOnEdit() { return findElement("//tr/td[contains(.,'Driver 1: Add driver below or Bungii driver search will continue')]", LocatorType.XPath); }
+    public WebElement Label_Driver1MessageOnEdit() { return findElement("//span[contains(.,'Driver 1:Add driver below or Bungii driver search will continue')]", LocatorType.XPath); }
 
-    public WebElement Label_Driver2MessageOnEdit(boolean...ignoreException) { return findElement("//tr/td[contains(.,'Driver 2: Add driver below or Bungii driver search will continue')]", LocatorType.XPath,ignoreException); }
+    public WebElement Label_Driver2MessageOnEdit(boolean...ignoreException) { return findElement("//span[contains(.,'Driver 2:Add driver below or Bungii driver search will continue')]", LocatorType.XPath,ignoreException); }
 
-    public WebElement Label_DeliveryTypeOnResearch() { return findElement("//div[@class='tripDrivers row']/p[contains(text(),'Type')]/following-sibling::p[1]", LocatorType.XPath); }
+    public WebElement Label_DeliveryTypeOnResearch() { return findElement("//div[@class='tripDrivers']/div/div[2]/div[3]/span", LocatorType.XPath); }
 
-    public WebElement Label_DeliveryTypeOnCancel() { return findElement("//div[@class='cancelFees row']/p[contains(text(),'Type')]/following-sibling::p[1]", LocatorType.XPath); }
+    public WebElement Label_DeliveryTypeOnCancel() { return findElement("//div[@class='tripDrivers']/div/div[2]/div[3]/span", LocatorType.XPath); }
 
-    public WebElement Label_Driver1NameOnResearch() { return findElement("//div[@id='tripDriverDetails']/div[1]/span[1]", LocatorType.XPath); }
+    public WebElement Label_Driver1NameOnResearch() { return findElement("//div[@class='driver-checkbox']/following-sibling::span[1]", LocatorType.XPath); }
 
     public WebElement Label_Driver2NameOnResearch(boolean...ignoreException) { return findElement("//div[@id='tripDriverDetails']/div[2]/span[1]", LocatorType.XPath,ignoreException); }
 
-    public WebElement Label_Driver1NameOnEdit() { return findElement("//table[@id='editTripDrivers']/tbody/tr[1]/td/table/tbody/tr/td[2]", LocatorType.XPath); }
+    public WebElement Label_Driver1NameOnEdit() { return findElement("//div[@class='driver-checkbox w1']/following-sibling::span[1]", LocatorType.XPath); }
 
     public WebElement Label_Driver2NameOnEdit(boolean...ignoreException) { return findElement("//table[@id='editTripDrivers']/tbody/tr[2]/td/table/tbody/tr/td[2]", LocatorType.XPath,ignoreException); }
 
-    public WebElement Label_ErrorMessage() { return findElement("verify-error", LocatorType.Id); }
+    public WebElement Label_ErrorMessage() { return findElement("//h6[@id='input-valid-message']/i", LocatorType.XPath); }
 
     public WebElement Label_AdditionalNotes() { return findElement("//span[text()='Special Instructions:']", LocatorType.XPath); }
 

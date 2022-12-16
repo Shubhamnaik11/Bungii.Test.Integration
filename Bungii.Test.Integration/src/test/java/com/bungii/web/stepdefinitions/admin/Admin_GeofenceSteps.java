@@ -68,7 +68,7 @@ public class Admin_GeofenceSteps extends DriverBase {
                         action.click(admin_GeofencePage.Button_Cancel());
                         break;
                     case "Settings":
-                        action.click((admin_GeofencePage.Button_Settings()));
+                        action.click(admin_GeofencePage.Button_Settings());
                         break;
                 }
             break;
@@ -118,6 +118,7 @@ public class Admin_GeofenceSteps extends DriverBase {
     @When("^I edit the geofence \"([^\"]*)\"$")
     public void i_edit_the_geofence(String geofenceName) throws Throwable {
         try{
+        action.waitUntilIsElementExistsAndDisplayed(admin_GeofencePage.Button_Edit(),(long)3000 );
         action.click(admin_GeofencePage.Button_Edit());
         log("I edit the geofence "+ geofenceName ,
                 "I have edited the geofence "+ geofenceName, false);
@@ -131,14 +132,12 @@ public class Admin_GeofenceSteps extends DriverBase {
     @Then("^the geofence gets saved successfully and it is displayed in the \"([^\"]*)\" grid$")
     public void the_geofence_gets_saved_successfully_and_it_is_displayed_in_the_something_grid(String strArg1) throws Throwable {
         try{
-
         String Name = (String) cucumberContextManager.getScenarioContext("GF_GEONAME");
         String Timezone = (String) cucumberContextManager.getScenarioContext("GF_GEOTIMEZONE");
         String Status = (String) cucumberContextManager.getScenarioContext("GF_STATUS");
 
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",Name,Status,Timezone);
         cucumberContextManager.setScenarioContext("XPATH", Xpath);
-        ;
         testStepAssert.isElementDisplayed(admin_GeofencePage.Row_geofenceList(Name,Status,Timezone),"Geofence should be listed in grid", "Geofence is listed in grid","Geofence is not listed in grid");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -405,6 +404,7 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @Then("^I cannot uncheck \"([^\"]*)\" for \"([^\"]*)\" settings when \"([^\"]*)\" is checked$")
     public void i_cannot_uncheck_something_for_something_settings_when_something_is_checked(String strArg1, String strArg2, String strArg3) throws Throwable {
+        Thread.sleep(3000);
         testStepAssert.isElementEnabled(admin_GeofencePage.Checkbox_Solo(),"Solo Checkbox should be enabled","Solo Checkbox is enabled","Solo Checkbox is not enabled");
     }
 
@@ -520,6 +520,7 @@ public class Admin_GeofenceSteps extends DriverBase {
                     xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
 
             }
+        action.waitUntilIsElementExistsAndDisplayed(admin_GeofencePage.findElement(xpath, PageBase.LocatorType.XPath), (long) 3000);
         action.click(admin_GeofencePage.findElement(xpath, PageBase.LocatorType.XPath));
         log("I click on the geofence" ,
                 "I have clicked on the geofence", false);
@@ -667,7 +668,6 @@ public class Admin_GeofenceSteps extends DriverBase {
         try{
         Thread.sleep(2000);
         String loadGeoFenceAttributesUrl = PropertyUtility.getDataProperties("qa.attributes.url").concat("/GetSecuredGeofenceAttributes");
-
         action.navigateTo(loadGeoFenceAttributesUrl);
         action.click(admin_geofenceAtrributesPage.Button_NewAttribute());
         log("I load Geofence Attributes Page and Click on New Attributes button",
@@ -981,13 +981,19 @@ try{
         try{
             switch (status) {
                 case "deactivate":
-                    action.click(admin_GeofencePage.Button_Edit());
+//                    action.click(admin_GeofencePage.Button_Edit());
+                    Thread.sleep(5000);
+                    action.click(admin_GeofencePage.Dropdown_Status());
+                    Thread.sleep(5000);
                     action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Inactive");
                     action.click(admin_GeofencePage.Button_Save());
                     cucumberContextManager.setScenarioContext("DEACTIVATED_GEOFENCE",geofenceName);
                     break;
                 case "activate":
-                    action.click(admin_GeofencePage.Button_Edit());
+//                    action.click(admin_GeofencePage.Button_Edit());
+                    Thread.sleep(5000);
+                    action.click(admin_GeofencePage.Dropdown_Status());
+                    Thread.sleep(5000);
                     action.selectElementByText(admin_GeofencePage.Dropdown_Status(),"Active");
                     action.click(admin_GeofencePage.Button_Save());
                     cucumberContextManager.setScenarioContext("ACTIVATED_GEOFENCE",geofenceName);
@@ -1166,6 +1172,20 @@ try{
         catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @When("I load Geofence Attributes Page")
+    public void iLoadGeofenceAttributesPage() {
+        try{
+            action.waitUntilIsElementExistsAndDisplayed(admin_geofenceAtrributesPage.Menu_Attributes(), (long) 3000);
+            action.click(admin_geofenceAtrributesPage.Menu_Attributes());
+            log("I load Geofence Attributes Page",
+                    "I have loaded Geofence Attributes Page", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
                     true);
         }
     }

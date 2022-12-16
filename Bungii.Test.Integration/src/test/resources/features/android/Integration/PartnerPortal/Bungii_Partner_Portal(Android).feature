@@ -17,9 +17,16 @@
     And I check if variable sign is shown under "available bungii details"
 
     Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
+#   Core-4524: Verify that icon 'i' is displayed next to Delivery earnings and on clicking on it pop-up is displayed
+    And I check if "i" icon is displayed
+    And I click on "i earning" icon
+    And I click on "Close Payment Settings" button
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
+    And I check if "i" icon is displayed
+    And I click on "i earning" icon
+    And I click on "Close Payment Settings" button
     And I check if variable sign is shown under "schedule bungii details"
     Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
     And I start selected Bungii

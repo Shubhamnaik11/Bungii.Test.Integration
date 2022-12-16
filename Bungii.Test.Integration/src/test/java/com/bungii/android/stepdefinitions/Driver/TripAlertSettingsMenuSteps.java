@@ -460,6 +460,25 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Branch app":
                     action.click(earningsPage.Button_BranchWallet());
                     break;
+                case "Payment Setting":
+                    cucumberContextManager.setScenarioContext("DEFAULT_PAYMENT",earningsPage.Button_PaymentSetting().getAttribute("text"));
+                    action.click(earningsPage.Button_PaymentSetting());
+                    break;
+                case "Close Payment Settings":
+                    action.click(earningsPage.Button_Close());
+                    break;
+                case "Change default payment":
+                    String defaultMethod= (String) cucumberContextManager.getScenarioContext("DEFAULT_PAYMENT");
+                    if(defaultMethod.equalsIgnoreCase("same day")){
+                        action.click(earningsPage.Checkbox_TwiceWeek());
+                        cucumberContextManager.setScenarioContext("DEFAULT_PAYMENT", "2x week");
+                    }
+                    else{
+                        action.click(earningsPage.Checkbox_SameDay());
+                        cucumberContextManager.setScenarioContext("DEFAULT_PAYMENT","same day");
+                    }
+                    action.click(earningsPage.Button_Confirm());
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }
