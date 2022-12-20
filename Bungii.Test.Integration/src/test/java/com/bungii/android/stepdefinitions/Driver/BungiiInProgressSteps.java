@@ -4,6 +4,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.pages.driver.UpdateStatusPage;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
@@ -59,6 +60,7 @@ public class BungiiInProgressSteps extends DriverBase {
     GeneralUtility GeneralUtility = new GeneralUtility();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
+    LoginPage driverLogInPage = new LoginPage();
 
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
@@ -1227,6 +1229,9 @@ public class BungiiInProgressSteps extends DriverBase {
                     testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_ContactDuo),"Contact Duo text should be displayed","Contact Duo text is displayed","Contact Duo text is not displayed");
                     Thread.sleep(10000);
                     testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_TeamMate),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
+                    break;
+                case "Bungii: The Ultimate Side Hustle":
+                    testStepAssert.isTrue(action.isElementPresent(driverLogInPage.Label_TheUltimateSideHustle()),"Bungii: The Ultimate Side Hustle should be displayed","Bungii: The Ultimate Side Hustle is displayed","Bungii: The Ultimate Side Hustle is not displayed");
                     break;
             }
         } catch (Exception e) {

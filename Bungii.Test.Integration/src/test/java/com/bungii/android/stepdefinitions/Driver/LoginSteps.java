@@ -618,6 +618,9 @@ public class LoginSteps extends DriverBase {
                 case "FORGOT PASSWORD":
                     action.click(driverLogInPage.Button_ForgotPassword());
                     break;
+                case "START AN APPLICATION HERE":
+                    action.clickBy2Points(498,1131);
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

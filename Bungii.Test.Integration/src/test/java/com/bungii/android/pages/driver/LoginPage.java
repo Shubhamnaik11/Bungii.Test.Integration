@@ -21,7 +21,7 @@ public class LoginPage extends PageBase {
     public WebElement Text_LoginError() { return findElement("com.bungii.driver:id/textinput_error", LocatorType.Id); }
     public WebElement Text_LoginError2() { return findElements("com.bungii.driver:id/textinput_error", LocatorType.Id).get(1); }
     public WebElement Button_ForgotPassword(boolean ...ignoreException) { return findElement("com.bungii.driver:id/login_button_forgot_password", LocatorType.Id,ignoreException); }
-
+    public WebElement Label_TheUltimateSideHustle() { return findElement("//android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.webkit.WebView/android.view.View/android.view.View[3]/android.view.View/android.view.View[1]/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[1]/android.widget.TextView", LocatorType.XPath); }
     public WebElement Text_PendingDriverLoginError() { return findElement("//android.widget.TextView[@resource-id='com.bungii.driver:id/snackbar_text'", LocatorType.XPath); }
 
 }
