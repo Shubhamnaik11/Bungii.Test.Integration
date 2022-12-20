@@ -333,7 +333,7 @@ Scenario: Verify that same delivery is shown for other driver under Deliveries s
   Then I should be able to see the respective bungii with the below status
     |  Status |
     | Assigning Driver(s) |
-  And Click on "Edit" button
+  And I click on "Edit" link beside live delivery
   When I click on "Edit Trip Details" radiobutton
   And I assign driver "Testdrivertywd_appledc_a_web Sundarm" for the trip
   And I click on "VERIFY" button
@@ -359,6 +359,6 @@ Scenario: Verify that same delivery is shown for other driver under Deliveries s
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
-    And Click on "Edit" button
+    And I click on "Edit" link beside live delivery
     When I click on "Edit Trip Details" radiobutton
     Then I should not get alert as "Customer has ongoing trip"
