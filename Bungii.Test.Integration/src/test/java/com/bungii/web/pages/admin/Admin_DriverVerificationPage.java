@@ -7,7 +7,8 @@ public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Title_DriverVerificationPage (boolean...ignoreException) { return findElement("//h4[contains(text(),'Driver verification')]", LocatorType.XPath,ignoreException); }
 
-    public WebElement Verify_Approve_DriverPic () { return getTextElement_DriverVerification("Driver Picture",true); }
+    //public WebElement Verify_Approve_DriverPic () { return getTextElement_DriverVerification("Driver Picture",true); }
+    public WebElement Verify_Approve_DriverDetails (String field, boolean status, boolean...ignoreException) { return getTextElement_DriverVerification("Driver Picture",true); }
 
     public WebElement Verify_Approve_DriverFirstName () { return getTextElement_DriverVerification("First Name",true); }
 
