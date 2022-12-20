@@ -83,6 +83,7 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Text_TitleTransactionHistory() {return findElement("//h4[contains(text(),'Transaction history')]", LocatorType.XPath);}
     public WebElement Text_TransactionHistoryDeliveryTotal() {return findElement("//div[@id='transactionHistory']//div[@class='col-sm-4']", LocatorType.XPath);}
     public WebElement Text_TransactionHistoryCustomerRefundAmount() {return findElement("//div[@id='transactionHistory']//tr[1]/descendant::td[2]", LocatorType.XPath);}
+    public WebElement Text_TrackingId() {return findElement("//h4[contains(text(),'Tracking Id:')]",LocatorType.XPath);}
     public WebElement Text_TransactionHistoryDriverEarnings() {return findElement("//div[@id='transactionHistory']//tr[2]/descendant::td[2]", LocatorType.XPath);}
     public WebElement Text_TransactionHistoryBungiiEarnings() {return findElement("//div[@id='transactionHistory']//tr[3]/descendant::td[2]", LocatorType.XPath);}
 

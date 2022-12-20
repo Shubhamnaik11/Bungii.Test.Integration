@@ -214,6 +214,8 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void i_start_selected_bungii_for_something(String type) throws Throwable {
      try{
          switch (type){
+             case "Tile Shop":
+             case "Equip-bid":
              case "floor and decor":
                  Thread.sleep(3000);
                  action.scrollToBottom();

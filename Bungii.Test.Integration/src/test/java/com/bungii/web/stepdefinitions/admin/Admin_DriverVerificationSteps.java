@@ -8,12 +8,10 @@ import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_MenuLinksPage;
 import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
 import com.bungii.web.pages.driver.Driver_DetailsPage;
-import com.bungii.web.utilityfunctions.*;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.hamcrest.beans.PropertyUtil;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -35,51 +33,52 @@ public class Admin_DriverVerificationSteps extends DriverBase {
         switch(p0)
         {
             case "accept":
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPic(),"I accept Driver Pic","I accepted Driver Pic","Error in accepting Driver pic");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverFirstName(),"I accept Driver Firstname","I accepted Driver Firstname","Error in accepting Driver Firstname");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLastName(),"I accept Driver Lastname","I accepted Driver Lastname","Error in accepting Driver Lastname");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress(),"I accept Driver street address","I accepted Driver street address","Error in accepting Driver street address");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverCity(),"I accept Driver city","I accepted Driver city","Error in accepting Driver city");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverState(),"I accept Driver State","I accepted Driver State","Error in accepting Driver State");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverZip(),"I accept Driver ZIP","I accepted Driver ZIP","Error in accepting Driver ZIP");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",true),"I accept Driver Pic","I accepted Driver Pic","Error in accepting Driver pic");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",true),"I accept Driver Pic","I accepted Driver Pic","Error in accepting Driver pic");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("First Name",true),"I accept Driver Firstname","I accepted Driver Firstname","Error in accepting Driver Firstname");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Last Name",true),"I accept Driver Lastname","I accepted Driver Lastname","Error in accepting Driver Lastname");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Street address",true),"I accept Driver street address","I accepted Driver street address","Error in accepting Driver street address");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("City",true),"I accept Driver city","I accepted Driver city","Error in accepting Driver city");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("State",true),"I accept Driver State","I accepted Driver State","Error in accepting Driver State");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Zip code",true),"I accept Driver ZIP","I accepted Driver ZIP","Error in accepting Driver ZIP");
                // testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverSSN(),"I accept Driver SSN","I accepted Driver SSN","Error in accepting Driver SSN");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverBirthday(),"I accept Driver birthday","I accepted Driver birthday","Error in accepting Driver birthday");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages(),"I accept Driver pickup images","I accepted Driver pickup images","Error in accepting Driver pickup images");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake(),"I accept Driver pickup make","I accepted Driver pickup make","Error in accepting Driver pickup make");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel(),"I accept Driver pickup model","I accepted Driver pickup model","Error in accepting Driver pickup model");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear(),"I accept Driver pickup year","I accepted Driver pickup year","Error in accepting Driver pickup year");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense(),"I accept Driver pickup licence","I accepted Driver pickup licence","Error in accepting Driver pickup licence");;
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage(),"I accept Driver licence image","I accepted Driver licence image","Error in accepting Driver licence image");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber(),"I accept Driver licence number","I accepted Driver licence number","Error in accepting Driver licence number");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration(),"I accept Driver licence expiration","I accepted Driver licence expiration","Error in accepting Driver licence expiration");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage(),"I accept Driver insuration image","I accepted Driver insuration image","Error in accepting Driver insuration image");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration(),"I accept Driver insuration expiration","I accepted Driver insuration expiration","Error in accepting Driver insuration expiration");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber(),"I accept Driver routing number","I accepted Driver routing number","Error in accepting Driver routing number");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber(),"I accept Driver account number","I accepted Driver account number","Error in accepting Driver account number");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Birthday",true),"I accept Driver birthday","I accepted Driver birthday","Error in accepting Driver birthday");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Pickup images",true),"I accept Driver pickup images","I accepted Driver pickup images","Error in accepting Driver pickup images");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Pickup make",true),"I accept Driver pickup make","I accepted Driver pickup make","Error in accepting Driver pickup make");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Pickup model",true),"I accept Driver pickup model","I accepted Driver pickup model","Error in accepting Driver pickup model");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Pickup year",true),"I accept Driver pickup year","I accepted Driver pickup year","Error in accepting Driver pickup year");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Pickup license number",true),"I accept Driver pickup licence","I accepted Driver pickup licence","Error in accepting Driver pickup licence");;
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("License image",true),"I accept Driver licence image","I accepted Driver licence image","Error in accepting Driver licence image");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("License number",true),"I accept Driver licence number","I accepted Driver licence number","Error in accepting Driver licence number");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("License expiration",true),"I accept Driver licence expiration","I accepted Driver licence expiration","Error in accepting Driver licence expiration");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Insurance image",true),"I accept Driver insuration image","I accepted Driver insuration image","Error in accepting Driver insuration image");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Insurance Expiration",true),"I accept Driver insuration expiration","I accepted Driver insuration expiration","Error in accepting Driver insuration expiration");
+                //testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber(),"I accept Driver routing number","I accepted Driver routing number","Error in accepting Driver routing number");
+                //testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber(),"I accept Driver account number","I accepted Driver account number","Error in accepting Driver account number");
                 break;
 
             case "reject":
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_DriverPicture(),"I reject Driver Pic","I rejected Driver Pic","Error in rejecting Driver pic");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_FirstName(),"I reject Driver Firstname","I rejected Driver Firstname","Error in rejecting Driver Firstname");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LastName(),"I reject Driver Lastname","I rejected Driver Lastname","Error in rejecting Driver Lastname");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_StreetAddress(),"I reject Driver street address","I rejected Driver street address","Error in rejecting Driver street address");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_City(),"I reject Driver city","I rejected Driver city","Error in rejecting Driver city");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_State(),"I reject Driver State","I rejected Driver State","Error in rejecting Driver State");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_ZipCode(),"I reject Driver ZIP","I rejected Driver ZIP","Error in rejecting Driver ZIP");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",true),"I reject Driver Pic","I rejected Driver Pic","Error in rejecting Driver pic");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("First Name",true),"I reject Driver Firstname","I rejected Driver Firstname","Error in rejecting Driver Firstname");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Last Name",true),"I reject Driver Lastname","I rejected Driver Lastname","Error in rejecting Driver Lastname");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Street address",true),"I reject Driver street address","I rejected Driver street address","Error in rejecting Driver street address");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("City",true),"I reject Driver city","I rejected Driver city","Error in rejecting Driver city");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("State",true),"I reject Driver State","I rejected Driver State","Error in rejecting Driver State");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Zip code",true),"I reject Driver ZIP","I rejected Driver ZIP","Error in rejecting Driver ZIP");
                // testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_SSN(),"I reject Driver SSN","I rejected Driver SSN","Error in rejecting Driver SSN");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_Birthday(),"I reject Driver birthday","I rejected Driver birthday","Error in rejecting Driver birthday");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_DriverPickupImages(),"I reject Driver pickup images","I rejected Driver pickup images","Error in rejecting Driver pickup images");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupMake(),"I reject Driver pickup make","I rejected Driver pickup make","Error in rejecting Driver pickup make");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupModel(),"I reject Driver pickup model","I rejected Driver pickup model","Error in rejecting Driver pickup model");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupYear(),"I reject Driver pickup year","I rejected Driver pickup year","Error in rejecting Driver pickup year");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupLicenseNumber(),"I reject Driver pickup licence","I rejected Driver pickup licence","Error in rejecting Driver pickup licence");;
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LicenseImage(),"I reject Driver licence image","I rejected Driver licence image","Error in rejecting Driver licence image");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LicenseNumber(),"I reject Driver licence number","I rejected Driver licence number","Error in rejecting Driver licence number");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LicenseExpiration(),"I reject Driver licence expiration","I rejected Driver licence expiration","Error in rejecting Driver licence expiration");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_InsuranceImage(),"I reject Driver insuration image","I rejected Driver insuration image","Error in rejecting Driver insuration image");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_InsuranceExpiration(),"I reject Driver insuration expiration","I rejected Driver insuration expiration","Error in rejecting Driver insuration expiration");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_RoutingNumber(),"I reject Driver routing number","I rejected Driver routing number","Error in rejecting Driver routing number");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_AccountNumber(),"I reject Driver account number","I rejected Driver account number","Error in rejecting Driver account number");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Birthday",true),"I reject Driver birthday","I rejected Driver birthday","Error in rejecting Driver birthday");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Pickup images",true),"I reject Driver pickup images","I rejected Driver pickup images","Error in rejecting Driver pickup images");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Pickup make",true),"I reject Driver pickup make","I rejected Driver pickup make","Error in rejecting Driver pickup make");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Pickup model",true),"I reject Driver pickup model","I rejected Driver pickup model","Error in rejecting Driver pickup model");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Pickup year",true),"I reject Driver pickup year","I rejected Driver pickup year","Error in rejecting Driver pickup year");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Pickup license number",true),"I reject Driver pickup licence","I rejected Driver pickup licence","Error in rejecting Driver pickup licence");;
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("License image",true),"I reject Driver licence image","I rejected Driver licence image","Error in rejecting Driver licence image");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("License number",true),"I reject Driver licence number","I rejected Driver licence number","Error in rejecting Driver licence number");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("License expiration",true),"I reject Driver licence expiration","I rejected Driver licence expiration","Error in rejecting Driver licence expiration");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Insurance image",true),"I reject Driver insuration image","I rejected Driver insuration image","Error in rejecting Driver insuration image");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_DriverDetails("Insurance Expiration",true),"I reject Driver insuration expiration","I rejected Driver insuration expiration","Error in rejecting Driver insuration expiration");
+                //testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_RoutingNumber(),"I reject Driver routing number","I rejected Driver routing number","Error in rejecting Driver routing number");
+                //testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_AccountNumber(),"I reject Driver account number","I rejected Driver account number","Error in rejecting Driver account number");
                 break;
         }
         } catch(Exception e){
@@ -93,7 +92,8 @@ public class Admin_DriverVerificationSteps extends DriverBase {
     @And("^I verify and approve the \"([^\"]*)\" field$")
     public void i_verify_and_approve_the_something_field(String strArg1) throws Throwable {
         try{
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",true));
+        //action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
         log("I verify and approve the "+strArg1+" field",
                 "I verified and approve the "+strArg1+" field", false);
     } catch(Exception e){
@@ -109,10 +109,12 @@ public class Admin_DriverVerificationSteps extends DriverBase {
         switch(strArg1)
         {
             case "Birthday":
-                action.click(admin_DriverVerificationPage.Verify_Reject_Birthday());
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Birthday",false));
+                //action.click(admin_DriverVerificationPage.Verify_Reject_Birthday());
                 break;
             case "Driver Picture":
-                action.click( admin_DriverVerificationPage.Verify_Reject_DriverPicture());
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",false));
+                //action.click( admin_DriverVerificationPage.Verify_Reject_DriverPicture());
                 break;
         }
         log("I verify and reject the "+strArg1+" field",
@@ -134,7 +136,7 @@ public class Admin_DriverVerificationSteps extends DriverBase {
                 break;
 
             case "rejected":
-                action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(),"Invalid DOB");
+                action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Birthday","AcceptedRejected"),"Invalid DOB");
                 log("I enter rejection reason in field",
                         "I have entered rejection reason in field", false);
                 break;
@@ -157,7 +159,8 @@ public class Admin_DriverVerificationSteps extends DriverBase {
     @And("^I click and reset the status of \"([^\"]*)\" field$")
     public void i_click_and_reset_the_status_of_something_field(String strArg1) throws Throwable {
         try{
-        action.click(admin_DriverVerificationPage.Verify_Reject_DriverPicture());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",false));
+        //action.click(admin_DriverVerificationPage.Verify_Reject_DriverPicture());
         log("I click and reset the status of "+strArg1+" field",
                 "I clicked and reseted the status of "+strArg1+" field", false);
         } catch(Exception e){
@@ -183,7 +186,8 @@ public class Admin_DriverVerificationSteps extends DriverBase {
     @And("^I click and reset the Rejected status of \"([^\"]*)\" field$")
     public void i_click_and_reset_the_rejected_status_of_something_field(String strArg1) throws Throwable {
         try{
-        action.click(admin_DriverVerificationPage.Verify_Reject_DriverPicture());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",false));
+        //action.click(admin_DriverVerificationPage.Verify_Reject_DriverPicture());
         log("I click and reset the Rejected status of "+strArg1+" field",
                 "I clicked and reseted the Rejected status of "+strArg1+" field", false);
     } catch(Exception e){
