@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 public class Admin_MenuLinksPage extends PageBase {
 
-    public WebElement Menu_Dashboard (boolean... ignoreException) { return findElement("adminmenu-dashboard", LocatorType.Id,ignoreException); }
+    public WebElement Menu_Dashboard (boolean... ignoreException) { return findElement("//h4[text()='Dashboard']", LocatorType.XPath,ignoreException); }
 
     public WebElement Menu_Customers () { return findElement("adminmenu-customers", LocatorType.Id); }
 
