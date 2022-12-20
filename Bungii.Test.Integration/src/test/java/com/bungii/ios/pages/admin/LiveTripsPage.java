@@ -64,4 +64,6 @@ public class LiveTripsPage extends PageBase{
     public WebElement Text_ReferralHeader () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath); }
     public WebElement Button_Invite () { return findElement("//XCUIElementTypeButton[@name=\"INVITE\"]", LocatorType.XPath); }
 
+    public WebElement Text_EarningsInfo () { return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
+
 }

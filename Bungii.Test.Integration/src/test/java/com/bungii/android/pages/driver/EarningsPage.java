@@ -44,5 +44,17 @@ public class EarningsPage extends PageBase {
     public WebElement Screen_DefaultBrowser() {
         return findElement("//android.widget.TextView[@text='Sign in to find the latest Android apps, games, movies, music, & more']", LocatorType.XPath);
     }
+    public WebElement Button_PaymentSetting() {
+        return findElement("com.bungii.driver:id/tv_disbursement_type", LocatorType.Id);
+    }
+    public WebElement Text_PaymentSetting() { return findElement("com.bungii.driver:id/tv_payment_settings_label", LocatorType.Id);}
+    public WebElement Text_PaymentSettingInfo() { return findElement("com.bungii.driver:id/tv_payment_settings_info", LocatorType.Id);}
+    public WebElement Option_2xWeek() { return findElement("//android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[1]/android.view.ViewGroup", LocatorType.XPath);}
+    public WebElement Option_SameDay() { return findElement("//android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[2]/android.view.ViewGroup", LocatorType.XPath);}
+    public WebElement Button_Close() { return findElement("com.bungii.driver:id/tv_close", LocatorType.Id);}
+    public WebElement Button_Confirm() { return findElement("com.bungii.driver:id/tv_confirm", LocatorType.Id);}
+    public WebElement Checkbox_TwiceWeek() { return findElement("//androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[1]/android.view.ViewGroup/android.widget.ImageView", LocatorType.XPath);}
+    public WebElement Checkbox_SameDay() { return findElement("//androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[2]/android.view.ViewGroup/android.widget.ImageView", LocatorType.XPath);}
+
 
 }

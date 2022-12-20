@@ -1062,3 +1062,34 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the status
       | Status       |
       | Assigning Driver(s) |
+# Driver with Same day payment setting:9049840342
+  @ready
+  Scenario:Verify that 'i' icon is displayed on delivery details page for those drivers who has selected same day payment
+    When I request "duo" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 8877661144 | Testcustomertywd_appleMarkEO LutherEO|
+    And I wait for 2 minutes
+    When I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    When I view the delivery details
+    And I check if "i" icon is displayed
+    When As a driver "Testdrivertywd_appledc_a_drvaa Washingtonaa" and "Testdrivertywd_appledc_a_drvm Driver" perform below action with respective "Duo Scheduled" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+      | Enroute       | Enroute       |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Delivery Details" button from the dropdown
+    And I check if "i" icon is displayed
+    When As a driver "Testdrivertywd_appledc_a_drvaa Washingtonaa" and "Testdrivertywd_appledc_a_drvm Driver" perform below action with respective "Duo Scheduled" trip
+      | driver1 state | driver2 state |
+      |Bungii Completed  |Bungii Completed  |
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then I check if "same day payment i" icon is displayed
+    Then I verify correct disbursement type is set in db
