@@ -188,7 +188,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_TripIndicator(boolean...ignoreException){return  findElement("//tr[@id=\"row1\"]/td[1]/label",LocatorType.XPath,ignoreException);}
 
-    public WebElement Text_ScheduledTripDate(){return  findElement("//td[@class=\"no-word-break\"]/a",LocatorType.XPath);}
+    public WebElement Text_ScheduledTripDate(){return  findElement("//tr[1]/td[6]/a",LocatorType.XPath);}
 
     public WebElement Link_EditScheduleTripCalenderNextMonth(){return  findElement("//div/a[2]/span[1]",LocatorType.XPath);}
 

@@ -11,7 +11,7 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Menu_Attributes(){return findElement("//a[text()='Attributes']", LocatorType.XPath);}
 
-    public WebElement Header_Geofences() { return findElement("//div/h4", LocatorType.XPath); }
+    public WebElement Header_Geofences() { return findElement("//div[@id='page-wrapper']/div/h4", LocatorType.XPath); }
 
     public WebElement Header_Attributes() { return findElement("//div/h4", LocatorType.XPath); }
 

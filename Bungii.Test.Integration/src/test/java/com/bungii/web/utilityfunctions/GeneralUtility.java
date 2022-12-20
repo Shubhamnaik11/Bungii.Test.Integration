@@ -738,6 +738,71 @@ public class GeneralUtility extends DriverBase {
         return emailMessage;
     }
 
+    public String getExpectedPartnerDeliveryScheduledBeyondSecondaryPolyline(String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone,String tracking_Id)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DeliveryScheduledBeyondSecondaryPolyline.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%ScheduledDate%",scheduled_Date)
+                            .replaceAll("%PickupAddress%",pickup_Address)
+                            .replaceAll("%DropupAddress%",dropup_Address)
+                            .replaceAll("%CustomerName%",customer_Name)
+                            .replaceAll("%CustomerPhone%",customer_Phone)
+                            .replaceAll("%ItemsToDeliver%",items_To_Deliver)
+                            .replaceAll("%PickupContactName%",pickup_Contact_Name)
+                            .replaceAll("%PickupContactPhone%",pickup_Contact_Phone)
+                            .replaceAll("%TrackingId%",tracking_Id);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to read email for Partner Cancel delivery with driver",
+                    true);
+        }
+
+        return emailMessage;
+    }
+
+    public String getExpectedDeliveryScheduledBeyondSecondaryPolyline(String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String tracking_Id)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerDeliveryScheduledBeyondSecondaryPolyline.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%ScheduledDate%",scheduled_Date)
+                            .replaceAll("%PickupAddress%",pickup_Address)
+                            .replaceAll("%DropupAddress%",dropup_Address)
+                            .replaceAll("%CustomerName%",customer_Name)
+                            .replaceAll("%CustomerPhone%",customer_Phone)
+                            .replaceAll("%TrackingId%",tracking_Id);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to read email for Partner Cancel delivery with driver",
+                    true);
+        }
+
+        return emailMessage;
+    }
+
     public String getExpectedPartnerPortalCanceledEmailContentWithDriver(String partner_Name,String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String driverName,String driverPhone,String driverLicencePlate,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone)
     {
         String emailMessage = "";
@@ -997,6 +1062,7 @@ public class GeneralUtility extends DriverBase {
         {
                 case "Washington DC":
                 case "washingtondc":
+                case "newjersey":
                 timezone = "EST";
                 break;
             case "goa":

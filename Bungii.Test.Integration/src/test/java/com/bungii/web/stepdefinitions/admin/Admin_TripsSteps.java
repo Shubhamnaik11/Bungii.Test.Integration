@@ -1456,7 +1456,9 @@ try{
             case "Kansas":
                 geofenceName = "Kansas";
                 break;
-
+            case "newjersey":
+                geofenceName = "North New Jersey";
+                break;
         }
         return geofenceName;
     }
@@ -1634,10 +1636,20 @@ try{
         }
 
          String Scheduled_Date = (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
-        String Scheduled_Date_Split[] = Scheduled_Date.split("at ");
-        String Str1 = Scheduled_Date_Split[0];
-        String Str2 = Scheduled_Date_Split[1];
-         //Scheduled_Date =Scheduled_Date.replaceAll("at ","");
+            String Str1;
+            String Str2;
+            if(Scheduled_Date.contains("at")) {
+                String Scheduled_Date_Split[] = Scheduled_Date.split("at ");
+                Str1 = Scheduled_Date_Split[0];
+                Str2 = Scheduled_Date_Split[1];
+            }
+            else{
+                //String Scheduled_Date_Split[] = Scheduled_Date.substring(0,11);
+                Str1 = Scheduled_Date.substring(0,13);
+                Str2 = Scheduled_Date.substring(13);
+            }
+
+            //Scheduled_Date =Scheduled_Date.replaceAll("at ","");
         // SimpleDateFormat sdfd = new SimpleDateFormat("MMM dd, YYYY HH:mm aa z",Locale.ENGLISH);
         SimpleDateFormat sdfd = new SimpleDateFormat("HH:mm aa z",Locale.ENGLISH);
          sdfd.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -1680,6 +1692,25 @@ try{
                     message = utility.getExpectedPartnerPortalCanceledEmailContentWithDriver(Partner_Name, New_Scheduled_Date, Pickup_Address, Dropup_Address, Customer_Name, Customer_Phone, Driver_Name, Driver_Phone, Driver_Licence_Plate, Items_To_Deliver, Pickup_Contact_Name, Pickup_Contact_Phone);
 
                 }
+                break;
+            case "Partner Delivery scheduled beyond secondary polyline":
+                Pickup_Address = (String) cucumberContextManager.getScenarioContext("PickupAddress");
+                Dropup_Address = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
+                Customer_Name = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
+                Items_To_Deliver = (String) cucumberContextManager.getScenarioContext("Item_Name");
+                Pickup_Contact_Name = (String) cucumberContextManager.getScenarioContext("PickupContactName");
+                Pickup_Contact_Phone = (String) cucumberContextManager.getScenarioContext("PickupContactPhone");
+                String Tracking_Id = (String) cucumberContextManager.getScenarioContext("TRACKINGID_SUMMARY");
+                message = utility.getExpectedPartnerDeliveryScheduledBeyondSecondaryPolyline(New_Scheduled_Date, Pickup_Address, Dropup_Address, Customer_Name, Customer_Phone, Items_To_Deliver, Pickup_Contact_Name, Pickup_Contact_Phone, Tracking_Id);
+                break;
+            case "Delivery scheduled beyond secondary polyline":
+                Pickup_Address = PropertyUtility.getDataProperties("email.newjersey.pickup.address");
+                Dropup_Address = PropertyUtility.getDataProperties("email.newjersey.dropoff.address");
+                Customer_Name = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                Customer_Phone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+                String Tracking_Id1 = (String) cucumberContextManager.getScenarioContext("TRACKINGID_SUMMARY");
+                message = utility.getExpectedDeliveryScheduledBeyondSecondaryPolyline(New_Scheduled_Date, Pickup_Address, Dropup_Address, Customer_Name, Customer_Phone, Tracking_Id1);
                 break;
         }
         message= message.replaceAll(" ","");
@@ -3636,4 +3667,28 @@ try{
                     true);
         }
     }
+
+    @And("I note the trip details")
+    public void iNoteTheTripDetails() {
+        try{
+            String ScheduledDateTime = action.getText(admin_ScheduledTripsPage.Text_ScheduledTripDate());
+            cucumberContextManager.setScenarioContext("Partner_Schedule_Time",ScheduledDateTime);
+            action.click(admin_ScheduledTripsPage.Text_ScheduledTripDate());
+            String trackingId= action.getText(admin_TripDetailsPage.Text_TrackingId());
+            String trackingId1[] = trackingId.split(":");
+            cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY",trackingId1[1]);
+            String pickup = action.getText(admin_TripDetailsPage.Text_Pickup_Location());
+            cucumberContextManager.setScenarioContext("PickupAddress",pickup);
+            String dropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
+            cucumberContextManager.setScenarioContext("Delivery_Address",dropOff);
+
+
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+
+        }
+    }
+
 }
