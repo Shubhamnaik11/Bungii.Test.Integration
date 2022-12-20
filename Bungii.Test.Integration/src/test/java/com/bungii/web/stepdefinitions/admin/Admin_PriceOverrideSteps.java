@@ -266,13 +266,37 @@ public class Admin_PriceOverrideSteps extends DriverBase {
     }
 
     @Then("^I check if \"([^\"]*)\" icon is displayed$")
-    public void i_check_if_something_icon_is_displayed(String strArg1) throws Throwable {
+    public void i_check_if_something_icon_is_displayed(String icon) throws Throwable {
        try{
-           action.refreshPage();
-           testStepAssert.isElementDisplayed(admin_tripDetailsPage.Icon_Price_Override(),
-                   "I should be able to see price override icon displayed",
-                   "I could see price override icon displayed",
-                   "Price override icon is not displayed");
+           switch (icon)
+           {
+               case "Price Override":
+                   action.refreshPage();
+                   testStepAssert.isElementDisplayed(admin_tripDetailsPage.Icon_Price_Override(),
+                           "I should be able to see price override icon displayed",
+                           "I could see price override icon displayed",
+                           "Price override icon is not displayed");
+                   break;
+               case "i":
+                   testStepAssert.isElementDisplayed(admin_tripDetailsPage.Icon_DriverEarnings(),
+                           "I should be able to see i icon displayed",
+                           "I could see i icon displayed",
+                           "i icon is not displayed");
+                   break;
+               case "same day payment i":
+                   String driverOne= (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                   String driverTwo= (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+                   testStepAssert.isElementDisplayed(admin_tripDetailsPage.Icon_DriverSameDayPayment(driverOne),
+                           "I should be able to see i icon next to driver with same day payment setting.",
+                           "I am able to see i icon next to driver with same day payment setting.",
+                           "i icon is not displayed next to driver with same day payment setting.");
+                   testStepAssert.isFalse(action.isElementPresent(admin_tripDetailsPage.Icon_DriverSameDayPayment(driverTwo,true)),
+                           "i icon should not be present next to driver with weekly payment setting.",
+                           "i icon is not present next to driver with weekly payment setting.",
+                           "i icon is displayed next to driver with weekly payment setting.");
+                   break;
+           }
+
        }
        catch(Exception e){
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
