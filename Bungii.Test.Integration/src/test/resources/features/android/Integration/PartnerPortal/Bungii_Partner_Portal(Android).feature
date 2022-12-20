@@ -517,5 +517,22 @@
       And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
       Then "Customer Help" icon should be displayed in all deliveries details page
 
-
-
+    @ready
+    Scenario:To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
+      When I Switch to "driver" application on "same" devices
+      And I am logged in as "Testdrivertywd_appleks_a_drvbh Kansas_bh" driver
+      When I request Partner Portal "SOLO" Trip for "Floor and Decor 106" partner
+        |Geofence| Bungii Time   | Customer Phone | Customer Name |
+        |Atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
+      And I Select Trip from available trip
+      When I accept selected Bungii
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      And I Select Trip from driver scheduled trip
+      And I start selected Bungii
+      Then Bungii driver should see "General Instructions"
+      And I slide update button on "EN ROUTE" Screen
+      And I slide update button on "ARRIVED" Screen
+      And the "Scan the item(s) barcode before loading & after unloading." message is displayed
+      When I click on "Scan item barcode" button
+      When I click on "Allow" button
