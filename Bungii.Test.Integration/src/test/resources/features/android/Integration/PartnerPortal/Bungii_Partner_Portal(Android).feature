@@ -517,22 +517,58 @@
       And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
       Then "Customer Help" icon should be displayed in all deliveries details page
 
-    @ready
-    Scenario:To verify that SOLO lift with customer Help is displayed on driver app for partner delivery that was scheduled with checkbox selected
+    #CORE-4398:Verify driver is able to scan barcode only for configured partner
+    @testAllan
+    Scenario:Verify driver is able to scan barcode only for configured partner
       When I Switch to "driver" application on "same" devices
-      And I am logged in as "Testdrivertywd_appleks_a_drvbh Kansas_bh" driver
+      And I am logged in as "Testdrivertywd_applega_a_drvak Atlanta_ak" driver
+      #CORE-4398:Verify barcode scanning for solo trip
       When I request Partner Portal "SOLO" Trip for "Floor and Decor 106" partner
         |Geofence| Bungii Time   | Customer Phone | Customer Name |
-        |Atlanta| NEXT_POSSIBLE | 9999999208 | Testcustomertywd_appleNewU Customer|
+        |atlanta| NEXT_POSSIBLE | 8877661148 | Testcustomertywd_appleMarkES LutherES|
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
-      When I accept selected Bungii
+      And I tap on "ACCEPT" on driver Trip details Page
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from driver scheduled trip
       And I start selected Bungii
       Then Bungii driver should see "General Instructions"
       And I slide update button on "EN ROUTE" Screen
-      And I slide update button on "ARRIVED" Screen
+      Then The "Barcode" "Image" should be displayed
       And the "Scan the item(s) barcode before loading & after unloading." message is displayed
+      And I click on "GOT IT" button
+      Then The "Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts." "Notification" should be displayed
+      #CORE-4398:Verify barcode scanning with combination of Photo verification
+      #CORE-4398:Verify driver is able to scan barcode from More option
+      When Bungii Driver "clicks More Options"
+      Then The "Scan Item barcode" "Button" should be displayed
       When I click on "Scan item barcode" button
       When I click on "Allow" button
+      Then The "BARCODE SCANNER" "Header" should be displayed
+      Then The "Scan barcode" "Text" should be displayed
+      And the "Hold steady and center the barcode to scan. You need to scan any one item to proceed" message is displayed
+      Then The "Skip" "Button" should be displayed
+      When I click on "Skip" button
+      #CORE-4398:Verify Notification messages shown to driver when barcode is enabled
+      And I slide update button on "ARRIVED" Screen
+      When Bungii driver uploads "1" image
+      And I slide update button on "ARRIVED" Screen
+      And I slide update button on "LOADING ITEM" Screen
+      When Bungii driver uploads "1" image
+      And I slide update button on "LOADING ITEM" Screen
+      And I slide update button on "DRIVING TO DROP-OFF" Screen
+      And I click on "GOT IT" button
+      When Bungii Driver "clicks More Options"
+      Then The "Scan Item barcode" "Button" should be displayed
+      When I click on "Scan item barcode" button
+      Then The "BARCODE SCANNER" "Header" should be displayed
+      Then The "Scan barcode" "Text" should be displayed
+      And the "Hold steady and center the barcode to scan. You need to scan any one item to proceed" message is displayed
+      Then The "Skip" "Button" should be displayed
+      #CORE-4398:Verify driver is allowed to skip barcode scanning
+      When I click on "Skip" button
+      #CORE-4398:Verify Notification messages shown to driver when barcode is enabled
+      Then The "Please take photos and scan item(s) barcode after unloading, just ‘slide to complete Bungii’ and follow the prompts" "Notification" should be displayed
+      And I slide update button on "UNLOADING ITEMS" Screen
+      When Bungii driver uploads "1" image
+      And I slide update button on "UNLOADING ITEMS" Screen

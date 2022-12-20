@@ -2256,6 +2256,13 @@ public class CommonSteps extends DriverBase {
                 case "Bungii Saved!":
                     actualMessage=action.getText(scheduledTripsPage.Text_SuccessMessage());
                     break;
+                case "Scan the item(s) barcode before loading & after unloading":
+                    actualMessage=action.getText(updateStatusPage.Text_BarcodeInstructions());
+                    break;
+
+                case "Hold steady and center the barcode to scan. You need to scan any one item to proceed":
+                    actualMessage=action.getText(updateStatusPage.Text_BarCodeScanningInstructions());
+                    break;
                 default:
                     error("UnImplemented Step or incorrect option.", "UnImplemented Step");
                     break;

@@ -58,6 +58,7 @@ public class CommonStepsDriver extends DriverBase {
     DashBoardPage admin_dashboardPage = new DashBoardPage();
     DriversPage driversPage = new DriversPage();
     AvailableTripsPage availableTripsPage;
+    private UpdateStatusPage updateStatusPage = new UpdateStatusPage();
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
@@ -776,6 +777,15 @@ public class CommonStepsDriver extends DriverBase {
                     break;
                 case "Close Payment Settings":
                     action.click(driverHomePage.Button_Close());
+                    break;
+                case "Scan item barcode":
+                    action.click(updateStatusPage.Button_ScanItemBarCode());
+                    break;
+                case "Allow":
+                    action.clickAlertButton("OK");;
+                    break;
+                case "Skip":
+                    action.click(updateStatusPage.Button_SkipBarCode());
                     break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);

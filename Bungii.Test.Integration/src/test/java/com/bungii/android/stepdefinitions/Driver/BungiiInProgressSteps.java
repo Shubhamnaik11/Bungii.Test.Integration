@@ -1252,6 +1252,14 @@ public class BungiiInProgressSteps extends DriverBase {
                 case "Skip":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Button_SkipBarCode()),"Skip barcode button should be displayed","Skip barcode button is displayed","Skip barcode button is not displayed");
                     break;
+                case "Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.":
+                case "Please take photos and scan item(s) barcode after unloading, just ‘slide to complete Bungii’ and follow the prompts":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_NotificationTextOnArrivalAndUnloadingItemsForBarCode()),"Notification should be displayed","Notification is displayed","Notification is not displayed");
+                    String notificationText = action.getText(updateStatusPage.Text_NotificationTextOnArrivalAndUnloadingItemsForBarCode());
+                    testStepAssert.isEquals(notificationText,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

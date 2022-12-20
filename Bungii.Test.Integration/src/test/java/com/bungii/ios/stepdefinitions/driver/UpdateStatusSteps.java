@@ -972,6 +972,43 @@ public class UpdateStatusSteps extends DriverBase {
                     Thread.sleep(7000);
                     testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_TeamMate),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
                     break;
+                case "Barcode":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Image_Barcode()),"Barcode Image should be displayed","Barcode Image is displayed","Barcode Image is not displayed");
+                    break;
+                case "Scan Item barcode":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Button_ScanItemBarCode()),"Scan item barcode should be displayed","Scan item barcode is displayed","Scan item barcode is not displayed");
+                    break;
+                case "BARCODE SCANNER":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Header_BarcodeScanner()),"Header should be displayed","Header is displayed","Header is not displayed");
+                    String textFromUi = action.getText(updateStatusPage.Header_BarcodeScanner());
+                    testStepAssert.isEquals(textFromUi,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
+                case "Scan barcode":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_ScanBarCode()),"Scan barcode text should be displayed","Scan barcode text is displayed","Scan barcode text is not displayed");
+                    String expectedText = action.getText(updateStatusPage.Text_ScanBarCode());
+                    testStepAssert.isEquals(expectedText,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
+                case "Skip":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Button_SkipBarCode()),"Skip barcode button should be displayed","Skip barcode button is displayed","Skip barcode button is not displayed");
+                    break;
+                case "Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_NotificationTextOnLoadingItemsForBarCode()),"Notification should be displayed","Notification is displayed","Notification is not displayed");
+                    String notificationText = action.getText(updateStatusPage.Text_NotificationTextOnLoadingItemsForBarCode());
+                    testStepAssert.isEquals(notificationText,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
+                case "Please take photos and scan item(s) barcode after unloading, just ‘slide to complete Bungii’ and follow the prompts":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_NotificationTextOnUnloadingForBarCode()),"Notification should be displayed","Notification is displayed","Notification is not displayed");
+                    String notificationMessage = action.getText(updateStatusPage.Text_NotificationTextOnUnloadingForBarCode());
+                    testStepAssert.isEquals(notificationMessage,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
