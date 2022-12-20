@@ -363,4 +363,114 @@ public class DbUtility extends DbContextManager {
         logger.detail("The wallet info for driver: " +wallet);
         return wallet;
     }
+
+    public static String[] getArrivalTimeAndLoadingUnloadingTime(String Pickup_Reference) {
+        String trackingID ;
+        String[] ArrivalAndLoadingUnloadingTimeAndEstTime = new String[3];
+        String toGetTrackingId="select pickup_token from pickupdetails where PickupRef = '"+Pickup_Reference+"'";
+        trackingID = getDataFromMySqlServer(toGetTrackingId);
+        logger.detail("Tracking Id for "+Pickup_Reference+" is "+ trackingID);
+        String toGetEstTime="select EstTime from pickupdetails where PickupRef = '"+Pickup_Reference+"'";
+        ArrivalAndLoadingUnloadingTimeAndEstTime[0] = getDataFromMySqlServer(toGetEstTime);
+        logger.detail("EstTime for "+Pickup_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTime[0]);
+        String queryStringForarrivalTime ="SELECT pickupdate FROM bungii_reports_qa_auto.factpickup where pickup_token='"+trackingID+"'";
+        String queryStringForLoadingUnloadingTime ="SELECT loadingunloadingtime  FROM bungii_reports_qa_auto.factpickup where pickup_token='"+trackingID+"'";
+        ArrivalAndLoadingUnloadingTimeAndEstTime[1]=getDataFromMySqlServer(queryStringForarrivalTime);
+        ArrivalAndLoadingUnloadingTimeAndEstTime[2]=getDataFromMySqlServer(queryStringForLoadingUnloadingTime);
+        logger.detail("The expected Arrival time for the delivery having pickup refernce "+Pickup_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTime[1]);
+        logger.detail("The expected Loading/Unloading time for the delivery having pickup refernce "+Pickup_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTime[2]);
+        return ArrivalAndLoadingUnloadingTimeAndEstTime;
+    }
+
+    public static String getTelet(String pickupRef) {
+        String custRef = "";
+        String queryString = "select Telet from pickupdetails where PickupRef ='"+pickupRef+"'";
+        custRef = getDataFromMySqlServer(queryString);
+        logger.detail("Telet for pickup reference " + pickupRef + " is " + custRef);
+        return custRef;
+    }
+    public static String getPickupId(String pickupRef) {
+        String pickupid = "";
+        String queryString = "SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef + "'";
+        pickupid = getDataFromMySqlServer(queryString);
+        logger.detail("Pickupid  " + pickupid + " of pickupref " + pickupRef);
+        return pickupid;
+    }
+
+    public static String[] getLatAndLonPickupAndDropLocation(String reference){
+        String pickupID = getPickupId(reference);
+        String tripLocation[] = new String[4];
+        tripLocation[0]=    getDataFromMySqlServer("select PickupLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[1]=    getDataFromMySqlServer("select PickupLong from pickupdropaddress  where PickupID= "+pickupID);
+        tripLocation[2]=    getDataFromMySqlServer("select DropOffLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[3]=    getDataFromMySqlServer("select DropOffLong from pickupdropaddress  where PickupID= "+pickupID);
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]+","+tripLocation[1]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[2]+","+tripLocation[3]);
+        return tripLocation;
+    }
+
+    public static String getStatusTimestamp(String Pickup_Reference) {
+        String timeStamp;
+        String tripStatus;
+        String queryStringForPickupTripStatus ="select tripevents.TripStatus from tripevents join pickupdetails on tripevents.PickupID=pickupdetails.PickupID where PickupRef ='"+Pickup_Reference+ "' order by TripStatus desc limit 1";
+        tripStatus = getDataFromMySqlServer(queryStringForPickupTripStatus);
+        logger.detail("TripStatus is "+tripStatus+ " for pickup reference "+ Pickup_Reference);
+        String queryStringForTime = "select StatusTimestamp from tripevents where TripStatus ='"+tripStatus+"'";
+        timeStamp = getDataFromMySqlServer(queryStringForTime);
+        logger.detail("StatusTimestamp is "+timeStamp+ " for pickup reference "+ Pickup_Reference);
+        return timeStamp;
+
+    }
+
+    public static long getDefaultPickupTime(String Service_Name, String SubDomain) {
+        long default_Pickup_Time = 0;
+        String queryString = "select sl.default_pickup_time\n" +
+                "from bp_service_level sl\n" +
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id =sl.bp_config_version_id\n" +
+                "join bp_store st on st.bp_store_id = fnm.bp_store_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and service_name='" + Service_Name + "' and subdomain_name like '%" + SubDomain + "%'";
+
+        String default_Pickup_Time_Db = getDataFromMySqlMgmtServer(queryString);
+        if (default_Pickup_Time_Db != null) {
+            default_Pickup_Time = Long.parseLong(default_Pickup_Time_Db);
+            logger.detail("Default Pickup Time=  " + default_Pickup_Time + " for Service: " + Service_Name);
+        } else {
+            logger.error("Default pickup time is not fetch for service " + Service_Name + " for SubDomain " + SubDomain);
+        }
+
+
+        return default_Pickup_Time;
+    }
+
+    public static long getDefaultDropoffTime(String Service_Name, String SubDomain) {
+        long default_Dropoff_Time = 0;
+        String queryString = "select sl.default_dropoff_time\n" +
+                "from bp_service_level sl\n" +
+                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id =sl.bp_config_version_id\n" +
+                "join bp_store st on st.bp_store_id = fnm.bp_store_id\n" +
+                "where fnm.bp_setting_fn_id = 3 and service_name='" + Service_Name + "' and subdomain_name like '%" + SubDomain + "%'";
+
+        String default_Dropoff_Time_Db = getDataFromMySqlMgmtServer(queryString);
+        if (default_Dropoff_Time_Db != null) {
+            default_Dropoff_Time = Long.parseLong(default_Dropoff_Time_Db);
+            logger.detail("Default Dropoff Time=  " + default_Dropoff_Time + " for Service: " + Service_Name);
+        } else {
+            logger.error("Default Dropoff time is not fetch for service " + Service_Name + " for SubDomain " + SubDomain);
+        }
+
+        return default_Dropoff_Time;
+    }
+    public static String[] getArrivalTimeAndLoadingUnloadingTimeForCustomer(String Cust_Reference) {
+        String[] ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer = new String[4];
+        String toGetEstTime="SELECT EstTime FROM pickupdetails WHERE CustomerRef ='"+Cust_Reference+"'order by pickupid desc limit 1";
+        ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[0] = getDataFromMySqlServer(toGetEstTime);
+        logger.detail("EstTime for "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[0]);
+        String queryStringForarrivalTime ="SELECT  ScheduledTimestamp FROM pickupdetails WHERE CustomerRef='"+Cust_Reference+"' order by pickupid desc limit 1";
+        String queryStringForLoadingUnloadingTime ="SELECT  loadingunloadingtime FROM pickupdetails WHERE CustomerRef='"+Cust_Reference+"'order by pickupid desc limit 1";
+        ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[1]=getDataFromMySqlServer(queryStringForarrivalTime);
+        ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[2]=getDataFromMySqlServer(queryStringForLoadingUnloadingTime);
+        logger.detail("The expected Arrival time for the delivery having customer refernce "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[1]);
+        logger.detail("The expected Loading/Unloading time for the delivery having customer refernce "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[2]);
+        return ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer;
+    }
 }

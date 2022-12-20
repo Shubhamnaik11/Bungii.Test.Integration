@@ -19,7 +19,7 @@ public class LogInPage extends PageBase {
     }
 
     public WebElement Button_LogIn() {
-        return findElement("//button[text()='LOG IN']", LocatorType.XPath);
+        return findElement("login", LocatorType.Id);
     }
 
 }
