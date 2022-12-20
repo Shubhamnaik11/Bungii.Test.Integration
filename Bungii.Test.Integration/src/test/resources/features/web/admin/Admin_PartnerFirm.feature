@@ -310,7 +310,6 @@ Feature: Admin_PartnerFirm
     Then I wait for "2" mins
     When I click on "Potential Partners > Assign Partner" Menu
     And I select "Kansas" geofence
-    And I click on "APPLY" button
     Then I verify that the point of interests fields are populated
     When I get the count of "Pickup Trips"
     And I click on "View Trips" hyperlink
