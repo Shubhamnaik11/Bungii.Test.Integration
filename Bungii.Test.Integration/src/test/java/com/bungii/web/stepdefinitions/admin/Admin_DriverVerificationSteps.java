@@ -139,6 +139,7 @@ public class Admin_DriverVerificationSteps extends DriverBase {
                         "I have entered rejection reason in field", false);
                 break;
             case "No Driver(s) Found":
+                Thread.sleep(3000);
                 testStepAssert.isEquals(admin_scheduledTripsPage.Text_TripStatus().getText(),"No Driver(s) Found",
                         "The status should be No Driver(s) Found",
                         "The status is No Driver(s) Found",

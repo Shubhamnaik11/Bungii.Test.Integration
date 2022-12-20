@@ -876,7 +876,7 @@ try{
         Expected_Change_DropOff = Expected_Change_DropOff.replace(",","");
         String Display_Change_DropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
         //testStepVerify.isEquals(Expected_Change_DropOff,Display_Change_DropOff);
-        testStepAssert.isTrue(Display_Change_DropOff.contains(Expected_Change_DropOff),"Correct address need to display","Correct address is display","Incorrect address is displayed");
+        testStepVerify.isTrue(Display_Change_DropOff.contains(Expected_Change_DropOff),"Correct address need to display","Correct address is display","Incorrect address is displayed");
         testStepAssert.isFalse(Expected_Change_DropOff.contentEquals((String) cucumberContextManager.getScenarioContext("OLD_DROPOFF_LOCATION")),"Dropoff Address should be changed","Dropoff address is changed","Dropoff address is not changed");
         log(" I confirm the change drop off address on delivery details page",
                 "I have confirmed the change drop off address on delivery details page", false);

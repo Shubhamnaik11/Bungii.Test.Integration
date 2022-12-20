@@ -204,11 +204,11 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Header_HistoryNewValue(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr/th[3]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryEventValue(){return findElement("//td[text()='Driver Removed']",LocatorType.XPath);}
+    public WebElement Text_HistoryEventValue(){return findElement("//tr/th[text()='Event']/following::tr/td[1]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryOldValueData(){return findElement("//td[text()='Driver Removed']/following-sibling::td[1]",LocatorType.XPath);}
+    public WebElement Text_HistoryOldValueData(){return findElement("//tr/th[text()='Event']/following::tr/td[2]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryNewValueData(){return findElement("//td[text()='Driver Removed']/following-sibling::td[2]",LocatorType.XPath);}
+    public WebElement Text_HistoryNewValueData(){return findElement("//tr/th[text()='Event']/following::tr/td[3]",LocatorType.XPath);}
 
     public WebElement Text_HistoryEditedTime(){return findElement("//div[@id=\"history-tab\"]/div/label",LocatorType.XPath);}
 
