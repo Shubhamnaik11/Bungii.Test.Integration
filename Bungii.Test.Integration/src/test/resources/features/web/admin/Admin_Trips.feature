@@ -1093,3 +1093,18 @@ Feature: Admin_Trips
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I check if "same day payment i" icon is displayed
     Then I verify correct disbursement type is set in db
+
+     #CORE-4520
+  @ready
+  Scenario: Verify that admin received outside secondary polyline email for partner delivery
+    When I request "duo" Bungii as a customer in "newjersey" geofence
+      | Bungii Time   | Customer Phone | Customer Name                  | Polyline  |
+      | NEXT_POSSIBLE | 9999995001     | Testcustomertywd_appleweb CustZ| Secondary |
+    And I wait for "2" mins
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery based on customer "first name"
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    And I note the trip details
+    Then Admin should receive the "Delivery scheduled beyond secondary polyline" email

@@ -40,11 +40,16 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_Submit(boolean ...ignoreException) {
         return findElement("CustomerCancel", LocatorType.Name, ignoreException);
     }
-    public WebElement Label_Drop_Off_Location () { return findElement("//p[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
-    public WebElement Button_Edit_Drop_Off_Address () { return findElement("//img[@title='Edit drop off location']",LocatorType.XPath);}
-    public WebElement Textbox_Drop_Off_Location () { return findElement("PickupDetails_DestinationAddress",LocatorType.Id);}
+    //changes as per v2
+    public WebElement Label_Drop_Off_Location () { return findElement("//div[@class=\"live-edit\"]/div/div[4]/div[1]/span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
+    public WebElement Label_Drop_Off_Location_For_Scheduled () { return findElement("//span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
+    public WebElement Button_Edit_Drop_Off_Address () { return findElement("//div[@class=\"live-edit\"]/div/div[4]/div[2]/div/div[2]/img[@title='Edit drop off Location']",LocatorType.XPath);}
+    public WebElement Button_Edit_Drop_Off_Address_For_scheduled () { return findElement("//img[@title='Edit drop off Location']",LocatorType.XPath);}
+    public WebElement Textbox_Drop_Off_Location () { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/div[@class=\"address-textbox\"]/div/input",LocatorType.XPath);}
+    public WebElement Textbox_Drop_Off_Location_For_Scheduled () { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/div/div/input",LocatorType.XPath);}
     public WebElement DropdownResult (String address) { return findElement(String.format("//div[@id='divPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
-    public WebElement DropOff_Address() { return findElement("//label[@id='lblDestinationAddress']",LocatorType.XPath);}
+    public WebElement DropOff_Address() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/label[@class=\"address2\"]",LocatorType.XPath);}
+    public WebElement DropOff_Address_For_Scheduled() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
     public WebElement Label_Pickup_Location () { return findElement("//p[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
     public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit pickup location']",LocatorType.XPath);}
     public WebElement Textbox_Pickup_Location () { return findElement("PickupDetails_PickupOriginAddress",LocatorType.Id);}
@@ -57,8 +62,8 @@ public class ScheduledTripsPage extends PageBase {
     }
     public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria",LocatorType.Id);}
     public WebElement Label_Message(){return  findElement("//p[@id='cancel-success-message']/i[2]",LocatorType.XPath);}
-    public WebElement Icon_Dropdown(){return  findElement("//div/img[@id='dLabel']",LocatorType.XPath);}
-    public WebElement Option_Edit(){return  findElement("btnLiveEdit",LocatorType.Id);}
+    public WebElement Icon_Dropdown(){return  findElement("threedoticon",LocatorType.ClassName);}
+    public WebElement Option_Edit(){return  findElement("//div/a[text()=\"Edit\"]",LocatorType.XPath);}
 
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
     public WebElement Button_Research() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[2]", LocatorType.XPath); }
@@ -73,7 +78,8 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement CheckBox_Driver1_Edit() {return findElement("//tr[1]/td/label/input", LocatorType.XPath); }
     public WebElement CheckBox_Driver2_Edit() {return findElement("//tr[2]/td/label/input", LocatorType.XPath); }
     public WebElement Button_Remove_Edit() {return findElement("btnRemoveDriver", LocatorType.Id); }
-    public WebElement RadioBox_EditTrip() {return findElement("//label[contains(@class,'adminEditTrip')]/span", LocatorType.XPath);}
+    public WebElement RadioBox_EditTrip() {return findElement("radio5", LocatorType.Id);}
+    public WebElement RadioBox_EditTripForScheduled() {return findElement("radio3", LocatorType.Id);}
     public WebElement Text_EditTripType() {return findElement("//div[@class='CancelComments row']/p[2]", LocatorType.XPath);}
     public WebElement Calendar_EditTripDetailsScheduledDate() {return findElement("PickupDetails_ScheduledDate", LocatorType.Id);}
     public WebElement Calendar_NextDate() {return findElement("//td[@data-handler='selectDay'][1]/following-sibling::td[1]/a", LocatorType.XPath);}
@@ -82,7 +88,9 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement Time_EditTripDetailsTime(){return findElement("PickupDetails_ScheduledTime", LocatorType.Id);}
     public WebElement TextBox_DriverSearch() {return findElement("txtDriverSearch", LocatorType.Id);}
-    public WebElement Button_VerifyDriver(){return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
+    public WebElement Button_VerifyDriver(){return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
+    public WebElement Button_VerifyDriverForScheduled(){return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
+
     public WebElement Select_TestDriver(){return findElement("//div[@id='divDriversResult']/div[@class='pac-item'][1]", LocatorType.XPath);}
 
     public WebElement Text_EditTrpDetailsDriver1Name(){return findElement("//table[@id='editTripDrivers']/tbody/tr[1]/td/table/tbody/tr/td[3]", LocatorType.XPath);} //3 is correct index
@@ -94,9 +102,11 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement Text_Driver1Name(){ return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_tv_drivername_value']", LocatorType.XPath).get(0);}
     public WebElement Text_Driver2Name(){ return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_tv_drivername_value']", LocatorType.XPath).get(1);}
-    public WebElement Text_VerifyChangesSavedMessage() {return findElement("//p[@id='verified-message']/i[2]", LocatorType.XPath);}
-    public WebElement Button_SaveChanges(){return findElement("//button[@class='btn btn-primary ml15 saveTrip']", LocatorType.XPath);}
-    public WebElement Text_SuccessMessage(){return findElement("//p[@id='success-message']/i[2]", LocatorType.XPath);}
+     //v2 changes
+    public WebElement Text_VerifyChangesSavedMessage() {return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
+    public WebElement Button_SaveChanges(){return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath);}
+
+    public WebElement Text_SuccessMessage(){return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
     public WebElement Label_IconTextMessage(){return findElement("//table[@id='editTripDrivers']/tbody/tr/td/table/tbody/tr/td", LocatorType.XPath);}
     public WebElement Label_StaticText(){return findElement("//em", LocatorType.XPath);}
 
@@ -182,8 +192,8 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_Cancel() { return findElement("//button[text()='Cancel']", LocatorType.XPath); }
     public WebElement Button_Submit () { return findElement("CustomerCancel", LocatorType.Name); }
 
-    public WebElement RadioButton_PalletOne() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.RadioButton", LocatorType.XPath);}
-    public WebElement RadioButton_PalletTwo() {return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.RadioButton", LocatorType.XPath);}
+    public WebElement RadioButton_PalletOne() {return findElement("//androidx.recyclerview.widget.RecyclerView[@resource-id='com.bungii.driver:id/rv_pallet_list']/android.view.ViewGroup[1]/android.widget.RadioButton[1]", LocatorType.XPath);}
+    public WebElement RadioButton_PalletTwo() {return findElement("//androidx.recyclerview.widget.RecyclerView[@resource-id='com.bungii.driver:id/rv_pallet_list']/android.view.ViewGroup[2]/android.widget.RadioButton[1]", LocatorType.XPath);}
     public WebElement Text_PalletOne() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[1]", LocatorType.XPath); }
     public WebElement Text_PalletTwo() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.TextView[1]", LocatorType.XPath); }
     public WebElement Text_PalletOneWeight() { return findElement("//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]", LocatorType.XPath); }
@@ -197,5 +207,6 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Icon_CustomerHelpAdminPortal(){return  findElement("//div/span[text() =\"Customer help\"]",LocatorType.XPath);}
     //Photo tab on admin portal
     public List<WebElement> List_Photos(){return  findElements("//h5/following-sibling::div",LocatorType.XPath);}
+     public WebElement Header_EditLiveBungiiOrEditScheduledBungii(){return  findElement("exampleModalLongTitle",LocatorType.Id);}
 
 }

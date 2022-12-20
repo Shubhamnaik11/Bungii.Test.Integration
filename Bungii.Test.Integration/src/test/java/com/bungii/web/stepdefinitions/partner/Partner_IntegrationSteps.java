@@ -82,6 +82,7 @@ public class Partner_IntegrationSteps extends DriverBase {
             //cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("PP_Site", Site);
+            cucumberContextManager.setScenarioContext("Portal_Name",Site);
             Thread.sleep(10000);
             if (Site.equalsIgnoreCase("normal")) {
                 switch (Type) {

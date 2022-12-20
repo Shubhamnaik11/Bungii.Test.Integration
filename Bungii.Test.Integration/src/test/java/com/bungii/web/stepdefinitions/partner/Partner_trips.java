@@ -313,6 +313,7 @@ try{
             strTime=strTime.replace("am","AM").replace("pm","PM");
 
         cucumberContextManager.setScenarioContext("Scheduled_Time", strTime);
+        cucumberContextManager.setScenarioContext("BUNGII_TIME",strTime);
 
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
