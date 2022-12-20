@@ -1,7 +1,9 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
+import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.web.manager.ActionManager;
 import cucumber.api.java.en.When;
@@ -11,7 +13,7 @@ import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_DriverResendApplicationSteps extends DriverBase {
-    PageBase pageBase = new PageBase();
+    Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_DriverResendApplicationSteps.class);
 
@@ -19,35 +21,35 @@ public class Admin_DriverResendApplicationSteps extends DriverBase {
     @When("^I verify and reject the invalid verification fields$")
     public void i_verify_and_reject_the_invalid_verification_fields() throws Throwable {
         try{
-            action.click(pageBase.getTextElement_DriverVerification("Driver Picture",true));
-            action.click(pageBase.getTextElement_DriverVerification("First Name",true));
-            action.click(pageBase.getTextElement_DriverVerification("Last Name",true));
-            action.click(pageBase.getTextElement_DriverVerification("Street address",true));
-            action.click(pageBase.getTextElement_DriverVerification("City",true));
-            action.click(pageBase.getTextElement_DriverVerification("State",true));
-            action.click(pageBase.getTextElement_DriverVerification("Zip code",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("First Name",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Last Name",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Street address",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("City",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("State",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Zip code",true));
             //  action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
 
-            action.click(pageBase.getTextElement_DriverVerification("Birthday",false));
-            action.sendKeys(pageBase.getInputElement_DriverVerification("Birthday","AcceptedRejected"), "Invalid DOB");
-            action.click(pageBase.getTextElement_DriverVerification("Pickup images",false));
-            action.sendKeys(pageBase.getInputElement_DriverVerification("Pickup images","AcceptedRejected"), "Invalid Pickup Images");
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Birthday",false));
+            action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Birthday","AcceptedRejected"), "Invalid DOB");
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup images",false));
+            action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Pickup images","AcceptedRejected"), "Invalid Pickup Images");
 
-            action.click(pageBase.getTextElement_DriverVerification("Pickup make",true));
-            action.click(pageBase.getTextElement_DriverVerification("Pickup model",true));
-            action.click(pageBase.getTextElement_DriverVerification("Pickup year",true));
-            action.click(pageBase.getTextElement_DriverVerification("Pickup license number",true));
-            action.click(pageBase.getTextElement_DriverVerification("License image",true));
-            action.click(pageBase.getTextElement_DriverVerification("License number",true));
-            action.click(pageBase.getTextElement_DriverVerification("License expiration",true));
-            action.click(pageBase.getTextElement_DriverVerification("Insurance image",true));
-            action.click(pageBase.getTextElement_DriverVerification("Insurance Expiration",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup make",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup model",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup year",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup license number",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License image",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License number",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License expiration",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Insurance image",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Insurance Expiration",true));
 
-            if(action.isElementPresent(pageBase.getTextElement_DriverVerification("Routing Number",true, true))) {
-                action.click(pageBase.getTextElement_DriverVerification("Routing Number",true));
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_DriverDetails("Routing Number",true, true))) {
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Routing Number",true));
             }
-            if(action.isElementPresent(pageBase.getTextElement_DriverVerification("Account Number",true,true))) {
-                action.click(pageBase.getTextElement_DriverVerification("Account Number",true));
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_DriverDetails("Account Number",true,true))) {
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Account Number",true));
             }
 
             log("I verify and reject the invalid verification fields",

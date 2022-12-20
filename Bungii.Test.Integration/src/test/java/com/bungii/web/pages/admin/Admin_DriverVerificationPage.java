@@ -8,7 +8,7 @@ public class Admin_DriverVerificationPage extends PageBase {
     public WebElement Title_DriverVerificationPage (boolean...ignoreException) { return findElement("//h4[contains(text(),'Driver verification')]", LocatorType.XPath,ignoreException); }
 
     //public WebElement Verify_Approve_DriverPic () { return getTextElement_DriverVerification("Driver Picture",true); }
-    public WebElement Verify_Approve_DriverDetails (String field, boolean status, boolean...ignoreException) { return getTextElement_DriverVerification("Driver Picture",true); }
+    public WebElement Verify_DriverDetails(String field, boolean status, boolean...ignoreException) { return getTextElement_DriverVerification(field,status,ignoreException); }
 
     public WebElement Verify_Approve_DriverFirstName () { return getTextElement_DriverVerification("First Name",true); }
 
@@ -98,8 +98,8 @@ public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Status_Accepted (boolean...ignoreException) { return findElement("//td[text()='Driver Picture']/following-sibling::td[2]/div/input[@name ='AcceptedRejected']", LocatorType.XPath, ignoreException); }
 
-    public WebElement Textinput_ReasonforRejection_Birthday () { return getInputElement_DriverVerification("Birthday","AcceptedRejected"); }
-
+    //public WebElement Textinput_ReasonforRejection_Birthday () { return getInputElement_DriverVerification("Birthday","AcceptedRejected"); }
+    public WebElement Textinput_ReasonforReject_DriverDetails (String field, String var, boolean...ignoreException) { return getInputElement_DriverVerification(field,var,ignoreException); }
     public WebElement Textinput_ReasonforRejection_DriverPicture () { return getInputElement_DriverVerification("Driver Picture","AcceptedRejected"); }
 
     public WebElement Textinput_ReasonforRejection_PickupImages () { return getInputElement_DriverVerification("Pickup images","AcceptedRejected"); }
