@@ -58,7 +58,7 @@ public class CommonStepsDriver extends DriverBase {
     DashBoardPage admin_dashboardPage = new DashBoardPage();
     DriversPage driversPage = new DriversPage();
     AvailableTripsPage availableTripsPage;
-    private UpdateStatusPage updateStatusPage = new UpdateStatusPage();
+    com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage = new com.bungii.ios.pages.driver.UpdateStatusPage();
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
@@ -697,7 +697,15 @@ public class CommonStepsDriver extends DriverBase {
                     action.click(driverBungiiCompletedPage.Button_GoOffline());
                     break;
                 case "VERIFY":
-                    action.click(scheduledTripsPage.Button_VerifyDriver());
+                    String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+                    if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                        Thread.sleep(5000);
+                        action.click(scheduledTripsPage.Button_VerifyDriver());
+                    }
+                    else {
+                        Thread.sleep(5000);
+                        action.click(scheduledTripsPage.Button_VerifyDriverForScheduled());
+                    }
                     break;
                 case "SAVE CHANGES":
                     action.click(scheduledTripsPage.Button_SaveChanges());
@@ -777,6 +785,9 @@ public class CommonStepsDriver extends DriverBase {
                     break;
                 case "Close Payment Settings":
                     action.click(driverHomePage.Button_Close());
+                    break;
+                case "Scheduled Bungii":
+                    action.click(updateStatusPage.Button_ScheduledBungiiFromMoreOptions());
                     break;
                 case "Scan item barcode":
                     action.click(updateStatusPage.Button_ScanItemBarCode());

@@ -2207,4 +2207,8 @@ Thread.sleep(5000);
         }
         return partnerURL;
     }
+    public long Milliseconds_To_Minutes(long milliseconds){
+        long minutes = (milliseconds / 1000) / 60;
+        return minutes;
+    }
 }

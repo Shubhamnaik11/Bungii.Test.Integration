@@ -972,6 +972,72 @@ public class UpdateStatusSteps extends DriverBase {
                     Thread.sleep(7000);
                     testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_TeamMate),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
                     break;
+                case "Arrival time at pickup":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ArivalTimeAtPickup()),"Arrival Time at pickup label should be displayed","Arrival Time at pickup label is displayed","Arrival Time at pickup label is not displayed");
+                    String expectedTextAtPickup = action.getText(updateStatusPage.Label_ArivalTimeAtPickup());
+                    testStepAssert.isEquals(expectedTextAtPickup, element, element + " Text should be displayed", element + " Text is displayed", expectedTextAtPickup + "is displayed");
+                    break;
+                case "Expected time at drop-off":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ExpectedTimeAtDropOff()),"Expected time at drop-off label should be displayed","Expected time at drop-off label is displayed","Expected time at drop-off label is not displayed");
+                    String expectedTextAtDropOff = action.getText(updateStatusPage.Label_ExpectedTimeAtDropOff());
+                    testStepAssert.isEquals(expectedTextAtDropOff, element, element + " Text should be displayed", element + " Text is displayed", expectedTextAtDropOff + "is displayed");
+                    break;
+                case "PICKUP(Arrival time)":
+                    action.swipeDown();
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_Pickup()),"Pickup label should be displayed","Pickup label is displayed","Pickup label is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ArrivalTime()),"Arrival time label should be displayed","Arrival time label is displayed","Arrival time label is not displayed");
+
+                    String pickupText = action.getText(updateStatusPage.Label_Pickup());
+                    String arrivalTimeText = action.getText(updateStatusPage.Label_ArrivalTime());
+                    String completeText =pickupText +arrivalTimeText;
+                    testStepVerify.isEquals(completeText, element, element + " Text should be displayed", element + " Text is displayed", completeText + "is displayed");
+                    if(strArg2.equals("at Enroute screen")||strArg2.equals("at Arrival screen")||strArg2.equals("at Loading Items screen")){
+                        String arrivalTimeOnUIValue = action.getText(updateStatusPage.Text_ArrivalTimeForDifferentStates());
+                        cucumberContextManager.setScenarioContext("ArrivalTimeFromUI",arrivalTimeOnUIValue.substring(0,arrivalTimeOnUIValue.length()-3));
+                    }
+                    else {
+                        String arrivalTimeOnUIValue = action.getText(updateStatusPage.Text_ArrivalTimeValue());
+                        cucumberContextManager.setScenarioContext("ArrivalTimeFromUI",arrivalTimeOnUIValue.substring(0,arrivalTimeOnUIValue.length()-3));
+
+                    }
+                    String arrivalTimeOnUI = (String) cucumberContextManager.getScenarioContext("ArrivalTimeFromUI");
+                    String properArrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+                    testStepAssert.isEquals(properArrivalTime, arrivalTimeOnUI,"The arrival time should be "+properArrivalTime,
+                            "The arrival time is "+properArrivalTime,"The arrival is not "+properArrivalTime+" ,The time is "+properArrivalTime);
+                    break;
+                case "DROP-OFF(Expected time)":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_DropOff()),"Dropoff label should be displayed","Dropoff label is displayed","Dropoff label is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ExpectedTime()),"Expected time label should be displayed","Expected time label is displayed","Expected time label is not displayed");
+
+                    String dropOffText = action.getText(updateStatusPage.Label_DropOff());
+                    String expectedTimeText = action.getText(updateStatusPage.Label_ExpectedTime());
+                    String entireText =dropOffText +expectedTimeText;
+                    testStepAssert.isEquals(entireText, element, element + " Text should be displayed", element + " Text is displayed", entireText + "is displayed");
+                    if(strArg2.equals("at Unloading Items screen")){
+                        String expectedTimeForDropOff = action.getText(updateStatusPage.Text_ArrivalTimeForDifferentStates());
+
+                        cucumberContextManager.setScenarioContext("DropOffFromUI",expectedTimeForDropOff);
+                    }
+                    else {
+                        String expectedTimeForDropOff = action.getText(updateStatusPage.Text_ArrivalTimeValue());
+                        cucumberContextManager.setScenarioContext("DropOffFromUI",expectedTimeForDropOff);
+
+                    }
+                    String dropOffRangeOnUIValue =(String) cucumberContextManager.getScenarioContext("DropOffFromUI");
+                    if(dropOffRangeOnUIValue.contains("PM") && dropOffRangeOnUIValue.contains("AM")){
+
+                        String onlyTimeRange = dropOffRangeOnUIValue.replace("PM","").replace("AM","").replace(" ","");;
+                        cucumberContextManager.setScenarioContext("DropOffUiTime",onlyTimeRange);
+                    }
+                    else {
+                        String onlyTimeRange = dropOffRangeOnUIValue.substring(0, dropOffRangeOnUIValue.length()-3).replace(" ","");
+                        cucumberContextManager.setScenarioContext("DropOffUiTime",onlyTimeRange);
+                    }
+                    String expectedDropOffRangeFromUI =(String) cucumberContextManager.getScenarioContext("DropOffUiTime");
+                    String dropOffRangeBasedOnCalculation = (String) cucumberContextManager.getScenarioContext("DropOffRangeCalculated");
+                    testStepAssert.isEquals(expectedDropOffRangeFromUI, dropOffRangeBasedOnCalculation,"The arrival time should be "+dropOffRangeBasedOnCalculation,
+                            "The arrival time is "+dropOffRangeBasedOnCalculation,"The arrival is not "+expectedDropOffRangeFromUI+" ,The time is "+dropOffRangeBasedOnCalculation);
+                    break;
                 case "Barcode":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Image_Barcode()),"Barcode Image should be displayed","Barcode Image is displayed","Barcode Image is not displayed");
                     break;

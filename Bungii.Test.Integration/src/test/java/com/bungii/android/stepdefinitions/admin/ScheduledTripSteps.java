@@ -23,11 +23,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -545,6 +548,7 @@ public class ScheduledTripSteps extends DriverBase {
 	@And("^I select the live trip for \"([^\"]*)\" customer$")
 	public void i_select_the_live_trip_for_something_customer(String custName) throws Throwable {
 		try {
+			Thread.sleep(4000);
 			String pickupReference= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 			action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),pickupReference);
 
@@ -588,14 +592,16 @@ public class ScheduledTripSteps extends DriverBase {
                 error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
             }*/
 
-			List<WebElement> rows_editicon = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]),PageBase.LocatorType.XPath);
-			List<WebElement> rows_editlink = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Edit')]",name[0]),PageBase.LocatorType.XPath);
-
-			if(rows_editicon.size()>0)
-			{
-				rows_editicon.get(0).click();
-				rows_editlink.get(0).click();
-			}
+//			List<WebElement> rows_editicon = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]),PageBase.LocatorType.XPath);
+//			List<WebElement> rows_editlink = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Edit')]",name[0]),PageBase.LocatorType.XPath);
+//
+//			if(rows_editicon.size()>0)
+//			{
+//				rows_editicon.get(0).click();
+//				rows_editlink.get(0).click();
+//			}
+			action.click(scheduledTripsPage.Icon_Dropdown());
+			action.click(scheduledTripsPage.Option_Edit());
 
 			pass("I should able to open trip", "I viewed scheduled delivery",
 					false);
@@ -1123,8 +1129,17 @@ public class ScheduledTripSteps extends DriverBase {
 		try {
 			switch (option) {
 				case "Edit Trip Details":
-					Thread.sleep(10000);
-					action.click(scheduledTripsPage.RadioBox_EditTrip());
+					String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+					if(editLiveDelivery.contentEquals("Edit Live Bungii")){
+						action.click(scheduledTripsPage.RadioBox_EditTrip());
+						Thread.sleep(10000);
+					}
+					else {
+						action.click(scheduledTripsPage.RadioBox_EditTripForScheduled());
+						Thread.sleep(10000);
+					}
+
+
 					break;
 				case "Research Driver":
 					action.click(scheduledTripsPage.RadioBox_Research());
@@ -1322,9 +1337,16 @@ public class ScheduledTripSteps extends DriverBase {
 	@And("^I edit the drop off address$")
 	public void i_edit_the_drop_off_address() throws Throwable {
 		try{
-			testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
-			action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address());
+			String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+			if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+				testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+				action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address());
+			}
+			else {
+				testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location_For_Scheduled(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+				action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address_For_scheduled());
 
+			}
 			log("I edit the drop off address ",
 					"I have edited the dropoff address ");
 		} catch(Exception e){
@@ -1337,17 +1359,23 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
 
 		try{
-			action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
-			//action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
-			Thread.sleep(3000);
-			action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location()," ");
-			Thread.sleep(4000);
-			//action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-			action.JavaScriptClick(scheduledTripsPage.DropdownResult(arg1));
-			Thread.sleep(1000);
-			String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
-			cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
-
+			String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+			if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+				action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(), arg1);
+				Thread.sleep(3000);
+				action.clickOnDropdown();
+				Thread.sleep(1000);
+				String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
+				cucumberContextManager.setScenarioContext("Change_Drop_Off", Change_Address);
+			}
+			else {
+				action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location_For_Scheduled(), arg1);
+				Thread.sleep(3000);
+				action.clickOnDropdown();
+				Thread.sleep(1000);
+				String Change_Address = action.getText(scheduledTripsPage.DropOff_Address_For_Scheduled());
+				cucumberContextManager.setScenarioContext("Change_Drop_Off", Change_Address);
+			}
 			log("I change the dropoff address to "+arg1,
 					"I have changed the dropoff address to "+arg1);
 		} catch(Exception e){
@@ -1444,6 +1472,7 @@ public class ScheduledTripSteps extends DriverBase {
 			String actualMessage = null;
 			switch (message){
 				case "Your changes are good to be saved.":
+					Thread.sleep(3000);
 					actualMessage=action.getText(scheduledTripsPage.Text_VerifyChangesSavedMessage());
 					break;
 
@@ -1965,5 +1994,4 @@ public class ScheduledTripSteps extends DriverBase {
 					true);
 		}
 	}
-
 }

@@ -542,6 +542,22 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
+                case "Testdrivertywd_appleks_a_drvbo Kansas_bo":
+                    phone = PropertyUtility.getDataProperties("Kansas.driver63.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("baltimore.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver63.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "Testdrivertywd_appleks_a_drvbp Kansas_bp":
+                    phone = PropertyUtility.getDataProperties("Kansas.driver64.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("baltimore.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver64.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
                 case "testdrivertywd_applega_a_drvak atlanta_ak":
                     phone = PropertyUtility.getDataProperties("atlanta.driver21.phone");
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
