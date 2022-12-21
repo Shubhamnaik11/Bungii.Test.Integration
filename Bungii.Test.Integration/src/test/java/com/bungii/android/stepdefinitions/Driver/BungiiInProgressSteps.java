@@ -1294,9 +1294,22 @@ public class BungiiInProgressSteps extends DriverBase {
                             element +" Text is displayed ",
                             element +" Text is not displayed ");
                     break;
-
                 case "Skip":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Button_SkipBarCode()),"Skip barcode button should be displayed","Skip barcode button is displayed","Skip barcode button is not displayed");
+                    break;
+                case "Scan the item(s) barcode before loading & after unloading":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_BarcodeInstructions()),"Notification should be displayed","Notification is displayed","Notification is not displayed");
+                    String arrivalStateNotificationText=action.getText(updateStatusPage.Text_BarcodeInstructions());
+                    testStepAssert.isEquals(arrivalStateNotificationText,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
+                case "Hold steady and center the barcode to scan. You need to scan any one item to proceed":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_BarCodeScanningInstructions()),"Skip barcode button should be displayed","Skip barcode button is displayed","Skip barcode button is not displayed");
+                    String arrivalStateInstructions=action.getText(updateStatusPage.Text_BarCodeScanningInstructions());
+                    testStepAssert.isEquals(arrivalStateInstructions,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
                     break;
                 case "Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.":
                 case "Please take photos and scan item(s) barcode after unloading, just ‘slide to complete Bungii’ and follow the prompts":
