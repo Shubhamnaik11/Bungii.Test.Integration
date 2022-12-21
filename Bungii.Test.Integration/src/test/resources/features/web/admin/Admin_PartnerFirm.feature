@@ -354,11 +354,9 @@ Scenario: Verify that same delivery is shown for other driver under Deliveries s
     And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state     |
       | Accepted          |
+    And I wait for 2 minutes
     And I view the Scheduled Deliveries list on the admin portal
     And I search the delivery of Customer
-    Then I should be able to see the respective bungii with the below status
-      |  Status |
-      | Scheduled |
-    And I click on "Edit" link beside live delivery
-    When I click on "Edit Trip Details" radiobutton
+    And I click on the "Edit" button from the dropdown
+    And I click on "Edit Trip Details" radiobutton
     Then I should not get alert as "Customer has ongoing trip"
