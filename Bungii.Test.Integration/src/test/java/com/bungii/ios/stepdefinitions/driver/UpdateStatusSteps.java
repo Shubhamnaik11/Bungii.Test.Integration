@@ -47,6 +47,7 @@ public class UpdateStatusSteps extends DriverBase {
     private EstimatePage estimatePage;
     private BungiiDetailsPage bungiiDetailsPage;
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
+    private com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage;
 
 
     public UpdateStatusSteps(BungiiDetailsPage bungiiDetailsPage,EstimatePage estimatePage,UpdateStatusPage updateStatusPage, MessagesPage messagesPage,TripDetailsPage tripDetailsPage,com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage) {
@@ -56,6 +57,7 @@ public class UpdateStatusSteps extends DriverBase {
         this.messagesPage = messagesPage;
         this.tripDetailsPage= tripDetailsPage;
         this.driverUpdateStatusPage = driverUpdateStatusPage;
+        this.driverForgotPasswordPage= driverForgotPasswordPage;
     }
 
     @Then("^I check ETA of \"([^\"]*)\"$")
@@ -1037,6 +1039,9 @@ public class UpdateStatusSteps extends DriverBase {
                     String dropOffRangeBasedOnCalculation = (String) cucumberContextManager.getScenarioContext("DropOffRangeCalculated");
                     testStepAssert.isEquals(expectedDropOffRangeFromUI, dropOffRangeBasedOnCalculation,"The arrival time should be "+dropOffRangeBasedOnCalculation,
                             "The arrival time is "+dropOffRangeBasedOnCalculation,"The arrival is not "+expectedDropOffRangeFromUI+" ,The time is "+dropOffRangeBasedOnCalculation);
+                    break;
+                case "Bungii: The Ultimate Side Hustle":
+                    testStepAssert.isTrue(action.isElementPresent(driverForgotPasswordPage.Label_BungiiTheUltimateSideHustle()),"Bungii: The Ultimate Side Hustle should be displayed","Bungii: The Ultimate Side Hustle is displayed","Bungii: The Ultimate Side Hustle is not displayed");
                     break;
             }
         } catch (Exception e) {
