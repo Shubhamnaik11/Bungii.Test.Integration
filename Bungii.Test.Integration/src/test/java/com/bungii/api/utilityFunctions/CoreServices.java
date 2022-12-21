@@ -1520,7 +1520,6 @@ public class CoreServices extends DriverBase {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(dt);
             int mnts = calendar.get(Calendar.MINUTE);
-
             calendar.set(Calendar.MINUTE, mnts - 15);
             int unroundedMinutes = calendar.get(Calendar.MINUTE);
             int mod = unroundedMinutes % 15;
@@ -1538,6 +1537,12 @@ public class CoreServices extends DriverBase {
             String strdate = formatterForLocalTimezone.format(calendar.getTime());
 
             cucumberContextManager.setScenarioContext("BUNGII_TIME",strdate);
+        }
+        else if(Bungii_Time.equalsIgnoreCase("1_DAY_LATER")) {
+            nextAvailableBungii = utility.getDaysLaterTime(1);
+        }
+        else if(Bungii_Time.equalsIgnoreCase("4_DAY_LATER")) {
+            nextAvailableBungii = utility.getDaysLaterTime(4);
         }
 
         if(Geofence.equalsIgnoreCase("Kansas")) {
