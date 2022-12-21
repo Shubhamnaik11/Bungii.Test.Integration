@@ -119,6 +119,11 @@ public class CoreServices extends DriverBase {
             dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.drop.longitude")));
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.pickup.latitude")));
             pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.pickup.longitude")));
+        }else if (geoFence.equalsIgnoreCase("newjersey")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("newjersey.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("newjersey.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("newjersey.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("newjersey.pickup.longitude")));
         }else if (geoFence.equalsIgnoreCase("phoenix")) {
             dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("phoenix.drop.latitude")));
             dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("phoenix.drop.longitude")));
@@ -253,7 +258,7 @@ public class CoreServices extends DriverBase {
         JSONObject dropOffCordinate = new JSONObject();
         JSONObject pickUpAddress = new JSONObject();
         JSONObject pickUpCordinate = new JSONObject();
-        if (geoFence.equalsIgnoreCase("nashville")||geoFence.equalsIgnoreCase("goa")||geoFence.equalsIgnoreCase("kansas")||geoFence.equalsIgnoreCase("boston")||geoFence.contains("atlanta")||geoFence.equalsIgnoreCase("baltimore") ||geoFence.equalsIgnoreCase("miami")||geoFence.equalsIgnoreCase("denver")||geoFence.equalsIgnoreCase("washingtondc")||geoFence.equalsIgnoreCase("phoenix")) {
+        if (geoFence.equalsIgnoreCase("nashville")||geoFence.equalsIgnoreCase("newjersey")||geoFence.equalsIgnoreCase("goa")||geoFence.equalsIgnoreCase("kansas")||geoFence.equalsIgnoreCase("boston")||geoFence.contains("atlanta")||geoFence.equalsIgnoreCase("baltimore") ||geoFence.equalsIgnoreCase("miami")||geoFence.equalsIgnoreCase("denver")||geoFence.equalsIgnoreCase("washingtondc")||geoFence.equalsIgnoreCase("phoenix")) {
             dropOffAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address1"));
             dropOffAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address2"));
             dropOffAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.city"));
@@ -1515,7 +1520,6 @@ public class CoreServices extends DriverBase {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(dt);
             int mnts = calendar.get(Calendar.MINUTE);
-
             calendar.set(Calendar.MINUTE, mnts - 15);
             int unroundedMinutes = calendar.get(Calendar.MINUTE);
             int mod = unroundedMinutes % 15;
@@ -1533,6 +1537,12 @@ public class CoreServices extends DriverBase {
             String strdate = formatterForLocalTimezone.format(calendar.getTime());
 
             cucumberContextManager.setScenarioContext("BUNGII_TIME",strdate);
+        }
+        else if(Bungii_Time.equalsIgnoreCase("1_DAY_LATER")) {
+            nextAvailableBungii = utility.getDaysLaterTime(1);
+        }
+        else if(Bungii_Time.equalsIgnoreCase("4_DAY_LATER")) {
+            nextAvailableBungii = utility.getDaysLaterTime(4);
         }
 
         if(Geofence.equalsIgnoreCase("Kansas")) {

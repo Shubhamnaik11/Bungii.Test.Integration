@@ -11,7 +11,7 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Menu_Attributes(){return findElement("//a[text()='Attributes']", LocatorType.XPath);}
 
-    public WebElement Header_Geofences() { return findElement("//div/h4", LocatorType.XPath); }
+    public WebElement Header_Geofences() { return findElement("//div[@id='page-wrapper']/div/h4", LocatorType.XPath); }
 
     public WebElement Header_Attributes() { return findElement("//div/h4", LocatorType.XPath); }
 
@@ -110,7 +110,7 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement List_ActiveGeofence(int i) {return findElement("//tbody[@id='NewApplicantsTBody']/tr["+i+"]/td[2]" , LocatorType.XPath);}
 
     public WebElement Row_GeofenceName(String geoName) { return findElement("//td[contains(text(),'"+geoName+"')]",LocatorType.XPath);}
-    public WebElement Text_GeoHistory() {return findElement("//h4[contains(text(),'Geo-History')]",LocatorType.XPath);}
+    public WebElement Text_GeoHistory(boolean...ignoreException) {return findElement("//h4[contains(text(),'Geo-History')]",LocatorType.XPath, ignoreException);}
     public List<WebElement> Rows_GeoHistoryLogs() { return findElements("//tbody[@id='GeofenceHistoryTBody']/tr[@class='geo-tr']",LocatorType.XPath);}
     public WebElement Text_SrNo() { return findElement("//th[contains(text(),'Sr.No.')]",LocatorType.XPath);}
     public WebElement Text_ModifiedDate() { return findElement("//th[contains(text(),'Modified Date')]",LocatorType.XPath);}

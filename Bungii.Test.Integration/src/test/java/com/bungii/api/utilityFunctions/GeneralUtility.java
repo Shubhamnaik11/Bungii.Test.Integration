@@ -131,4 +131,27 @@ public class GeneralUtility extends DriverBase {
         String actualKey = geofenceName + "." + partialKey;
         return PropertyUtility.getGeofenceData(actualKey);
     }
+
+    public String[] getDaysLaterTime(int days)
+    {
+        String[] rtnArray = new String[2];
+        int bufferTimeToStartTrip = 0;
+        Calendar calendar = Calendar.getInstance();
+        int mnts = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.DATE, days);
+        calendar.set(Calendar.MINUTE, mnts+ 45);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 15;
+        calendar.add(Calendar.MINUTE, (15 - mod));
+        calendar.set(Calendar.SECOND, 0);
+        Date nextQuatter = calendar.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = sdf.format(nextQuatter);
+        String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
+        rtnArray[0] = formattedDate+".000";
+        rtnArray[1] = wait;
+        cucumberContextManager.setScenarioContext("BUNGII_UTC", rtnArray[0]);
+        return rtnArray;
+    }
 }
