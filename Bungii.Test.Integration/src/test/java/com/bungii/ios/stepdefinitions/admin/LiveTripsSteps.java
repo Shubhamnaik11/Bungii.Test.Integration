@@ -50,9 +50,9 @@ public class LiveTripsSteps extends DriverBase {
             action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);
-            action.click(liveTripsPage.Button_StartDateSort());Thread.sleep(2000);
+            //action.click(liveTripsPage.Button_StartDateSort());Thread.sleep(2000);
             action.click(liveTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/img", custName), PageBase.LocatorType.XPath));
-            action.click(liveTripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td/div/ul/li/*[contains(text(),'Delivery Details')]", custName),PageBase.LocatorType.XPath));
+            action.click(liveTripsPage.Link_DeliveryDetails());
 
         }
         catch (Throwable e) {
