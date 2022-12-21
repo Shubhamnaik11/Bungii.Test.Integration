@@ -224,9 +224,3 @@ Scenario: To verify that admin can add accessorial charges for partner canceled 
 	Then The Below accessorial charges should be present in the db
 		| Excess Wait Time | Cancelation | Mountainous | Other |
 		| 10.00            | 20.50      | 25.65        | 100.00 |
-
-@testAllan
-Scenario: Api call for bar code partner
-	When I request Partner Portal "SOLO" Trip for "Floor and Decor 106" partner
-	|Geofence| Bungii Time   | Customer Phone | Customer Name |
-	|atlanta  | NEXT_POSSIBLE | 8877661064     | Testcustomertywd_BppleMarkBM LutherBM|
