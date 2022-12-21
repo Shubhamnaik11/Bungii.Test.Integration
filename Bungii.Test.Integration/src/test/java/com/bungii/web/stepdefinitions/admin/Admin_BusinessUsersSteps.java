@@ -103,7 +103,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     String GeoTimeZone = dataMap.get("Geo-TimeZone").trim();
                     String GeoStatus = dataMap.get("Geo-Status").trim();
 
+                    action.click(admin_GeofencePage.Dropdown_Timezone());
                     action.selectElementByText(admin_GeofencePage.Dropdown_Timezone(), GeoTimeZone);
+                    action.click(admin_GeofencePage.Dropdown_Status());
                     action.selectElementByText(admin_GeofencePage.Dropdown_Status(), GeoStatus);
 
                     action.sendKeys(admin_GeofencePage.TextBox_Primary(), Primary);
@@ -120,8 +122,6 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("GF_SECONDARY",Secondary);
                     cucumberContextManager.setScenarioContext("GF_GEOTIMEZONE", GeoTimeZone);
                     cucumberContextManager.setScenarioContext("GF_STATUS", GeoStatus);
-
-
 
                 break;
             case "Geofence Attributes" :
@@ -409,6 +409,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         break;
                     case "Cancel":
                         action.click(admin_BusinessUsersPage.Button_BulkTripCancel());
+                        break;
+                    case "Ok":
+                        action.click(admin_BusinessUsersPage.Button_Ok());
+                        break;
                 }
                 break;
             case "Free Delivery Credit Card":
@@ -439,6 +443,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         break;
                 }
                 break;
+
             }
 
         log("I select "+button+" from "+page+ " page",
@@ -1039,7 +1044,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     action.click(admin_revivalPage.Button_CloseStatus());
                     break;
                 case "Download Zip Codes":
+                    Thread.sleep(3000);
                     action.click(admin_GeofencePage.Button_DownloadZipCodes());
+                    Thread.sleep(3000);
                     break;
                 case "History":
                     action.click(admin_ScheduledTripsPage.Button_History());

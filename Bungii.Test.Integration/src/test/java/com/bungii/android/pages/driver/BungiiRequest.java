@@ -24,7 +24,8 @@ public class BungiiRequest extends PageBase {
     public WebElement Alert_NewBungiiRequestMessage(boolean ignoreException){return findElement("com.bungii.driver:id/appCompatTextView34",LocatorType.Id);}
 
     //------On Demand Request
-    public WebElement Button_Accept() { return findElement("com.bungii.driver:id/activity_pickup_request_accept_bungii_button", LocatorType.Id); }
+//    public WebElement Button_Accept() { return findElement("com.bungii.driver:id/activity_pickup_request_accept_bungii_button", LocatorType.Id); }
+    public WebElement Button_Accept() { return findElement("com.bungii.driver:id/btn_accept_bungii", LocatorType.Id); }
 
     public WebElement Button_Reject(boolean ...ignoreException) { return findElement("com.bungii.driver:id/activity_pickup_request_reject_bungii_button", LocatorType.Id,ignoreException); }
 
@@ -53,7 +54,8 @@ public class BungiiRequest extends PageBase {
     public WebElement Text_DistanceValue() { return findElements("//android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath).get(8);}
     public WebElement Button_StartBungii(boolean...ignoreException) { return findElement("//android.widget.Button[@text='START BUNGII']", LocatorType.XPath,ignoreException);}
     public WebElement Button_CancelBungii() { return findElement("com.bungii.driver:id/scheduled_bungii_details_tv_cancel_bungii", LocatorType.Id);}
-    public WebElement Button_Start() { return findElement("com.bungii.driver:id/activity_driver_scheduled_bungii_details_btn_start_trip", LocatorType.Id);}
+//    public WebElement Button_Start() { return findElement("com.bungii.driver:id/activity_driver_scheduled_bungii_details_btn_start_trip", LocatorType.Id);}
+    public WebElement Button_Start() { return findElement("com.bungii.driver:id/btn_start_bungii", LocatorType.Id);}
 
     public WebElement Text_CustomerNote(){return findElement("//androidx.recyclerview.widget.RecyclerView/following::android.widget.TextView[2]", LocatorType.XPath);}
 
@@ -62,7 +64,7 @@ public class BungiiRequest extends PageBase {
 
     public WebElement Alert_ViewRequest() {return findElement("com.bungii.driver:id/appCompatButton2",LocatorType.Id);}
 
-    public WebElement Button_No_Thanks() {return findElement("//android.widget.TextView[@resource-id='com.bungii.driver:id/appCompatTextView33']",LocatorType.Id);}
+    public WebElement Button_No_Thanks() {return findElement("com.bungii.driver:id/appCompatTextView33",LocatorType.Id);}
 
     public WebElement Notification_AddressChanged() { return findElement("//android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout",LocatorType.XPath);}
     public WebElement Button_NotificationOk() { return findElement("//android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.Button",LocatorType.XPath);}

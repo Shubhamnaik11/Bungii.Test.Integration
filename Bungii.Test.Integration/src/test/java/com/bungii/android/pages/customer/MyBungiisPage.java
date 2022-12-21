@@ -35,7 +35,7 @@ public class MyBungiisPage extends PageBase {
 
     public WebElement Text_TotalEarnings(){return findElement("com.bungii.driver:id/appCompatTextView6", LocatorType.Id);}
     public WebElement Text_TotalTips(){return findElement("com.bungii.driver:id/appCompatTextView6", LocatorType.Id);}
-    public WebElement Button_ItemizedEarnings(){return findElement("//android.widget.RelativeLayout/android.widget.LinearLayout/android.view.ViewGroup[4]/android.widget.Button", LocatorType.XPath);}
+    public WebElement Button_ItemizedEarnings(){return findElement("com.bungii.driver:id/activity_earnings_itemized_earnings_btn", LocatorType.Id);}
     public WebElement Text_ItemizedEarnings(){return findElement("//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]", LocatorType.XPath);}
     public WebElement Icon_DriverEarnings(){return findElement("//tbody[@id='NewApplicantsTBody']/tr/td/a/img[@title='Driver Earnings']", LocatorType.XPath);}
     public WebElement Link_ViewTrips(){return findElement("//div/a[text()='View']", LocatorType.XPath);}

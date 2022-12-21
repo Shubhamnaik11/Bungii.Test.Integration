@@ -265,6 +265,7 @@ public class DashBoardSteps extends DriverBase {
                     break;
                 case "live trips":
                     action.click(dashBoardPage.Button_Trips());
+                    Thread.sleep(3000);
                     action.click(dashBoardPage.Button_LiveTrips());
                     break;
                 case "trips":

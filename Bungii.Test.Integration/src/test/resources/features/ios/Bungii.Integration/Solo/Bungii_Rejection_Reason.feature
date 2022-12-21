@@ -20,6 +20,11 @@ Feature: Rejection Popup on Driver App
         When I Switch to "driver" application on "same" devices
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from available trip
+      #CORE-4122: arrival time and drop off values displayed correctly for customer delivery
+        Then The "Arrival time at Pickup" "Text" should be displayed
+        Then The "Expected time at drop-off" "Text" should be displayed
+        Then The "Arrival time" for customer delivery should match
+        Then The "Expected time at drop-off" for customer delivery should match
         And I click on the back button and verify the rejection popup
         And I check if all reasons are displayed on rejection popup
         And I click on "CANCEL" button on rejection popup

@@ -13,6 +13,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Dropdown_ScheduledDate_Time(String time) { return findElement("//select[@class='timepicker form-control']/option[contains(text(),'"+time+"')]/following-sibling::option[2]", LocatorType.XPath); }
 
+    public WebElement Dropdown_Scheduled_Time_By_15(String time) { return findElement("//select[@class='timepicker form-control']/option[contains(text(),'"+time+"')]/following-sibling::option[1]", LocatorType.XPath);}
     public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("//select[@class='reason form-select']",LocatorType.XPath, ignoreException); }
 
     public WebElement Dropdown_Driver_Result (String driverName) { return findElement(String.format("//div[contains(text(),'%s')]",driverName),LocatorType.XPath);}
@@ -23,7 +24,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement List_TimeFrame (String time) { return findElement("//div/ul/li[text()='"+time+"']", LocatorType.XPath); }
 
-    public WebElement Link_RemoveDriver() { return findElement("btnRemoveDriver", LocatorType.Id); }
+    public WebElement Link_RemoveDriver() { return findElement("//span[text()='Driver Details:']/parent::div/following-sibling::div[2]/button", LocatorType.XPath); }
 
     public WebElement TextBox_DriverSearch() { return findElement("//input[@placeholder='Enter driver name']", LocatorType.XPath); }
 
@@ -35,7 +36,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Button_Undo() { return findElement("//button[@onclick='UndoTripChanges()']", LocatorType.Id); }
 
-    public WebElement Checkbox_Driver (String driverName) { return findElement("//td[text()='"+driverName+"']/ancestor::tr/td/label/input", LocatorType.XPath); }
+    public WebElement Checkbox_Driver (String driverName) { return findElement("//div[@class='driver-checkbox w1']/input", LocatorType.XPath); }
 
     public WebElement Label_VerifyError() { return findElement("verify-error", LocatorType.Id); }
 
@@ -48,7 +49,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement RadioButton_EditTripDetails() { return findElement("//label[text()='Edit Delivery Details']/preceding-sibling::input", LocatorType.XPath); }
     public WebElement RadioButton_EditTripDetails_For_Live() { return findElement("radio5", LocatorType.Id); }
 
-    public WebElement List_DriverSearchResult (String driverName) { return findElement("//div[@id='divDriversResult']/div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
+    public WebElement List_DriverSearchResult (String driverName) { return findElement("//input/following-sibling::div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
 
     public WebElement TickMarkDate () { return findElement("//i[@class='fa fa-check dateValidity text-green-alt success-icon']", LocatorType.XPath); }
 
@@ -101,6 +102,9 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement Label_WarningForOutsideBungiiHoursTimeSet() { return findElement("//div/small[@id=\"warning-message\"]/em", LocatorType.XPath); }
 
     public WebElement Icon_Warning() { return findElement("//div/small[@id=\"warning-message\"]/i", LocatorType.XPath); }
+    public WebElement Button_Verify_For_Live() { return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath); }
+    public WebElement RadioButton_EditTripDetails_For_Live() { return findElement("radio5", LocatorType.Id); }
+
 
     public WebElement Icon_Dropdown(){return  findElement("threedoticon",LocatorType.ClassName);}
 

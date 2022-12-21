@@ -35,11 +35,16 @@ Feature: Driver Earnings
       And I am logged in as "Testdrivertywd_appleks_a_drvu Kansas_u" driver
       And I Select "EARNINGS" from driver App menu
 
+         #    Core-4524 Verify the UI and functionality of Payment setting screen
+      And I click on "Payment Setting" button
+      And I verify the elements of payment setting screen page
+      And I click on "Close Payment Settings" button
+
          #    Core-2372  Verify UI of earnings page on driver app
       And I verify all the elements on earnings page
       And I get "Itemized Earnings" from earnings page
 
-        #    Core-2469  Verify UI of itemized earnings page on driver app
+        #     Core-2469  Verify UI of itemized earnings page on driver app
       And I verify all the elements on itemized earnings page
       Then I compare with earnings from admin portal for "solo driver"
 
@@ -253,6 +258,18 @@ Feature: Driver Earnings
     And I am on the LOG IN page on driver app
     And I am logged in as "Testdrivertywd_appleks_a_drvu Kansas_u" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+ #   Core-4524: Verify that selected payment method is not updated to default when driver logs out from app
+    And I Select "EARNINGS" from driver App menu
+    And I click on "Payment Setting" button
+    And I click on "Change default payment" button
+    When I Select "ACCOUNT" from driver App menu
+    And the "ACCOUNT" page is opened
+    When I Select "LOGOUT" from ACCOUNT menu
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Testdrivertywd_appleks_a_drvu Kansas_u" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "EARNINGS" from driver App menu
+    Then I check if "changed payment" button is displayed
  #   Validating Driver not registered for Branch app in Db
     And I check "no branch registration" in db
     And I Select "EARNINGS" from driver App menu
