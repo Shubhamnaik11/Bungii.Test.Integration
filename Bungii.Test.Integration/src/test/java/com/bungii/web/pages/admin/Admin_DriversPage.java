@@ -40,7 +40,7 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Text_AllPageNumber(boolean...ignoreException) {return findElement("//li[@class=\"page-item\"]/a",LocatorType.XPath,ignoreException);}
 
-    public WebElement Link_ActiveDriverMap() {return findElement("adminmenu-active-driver-map",LocatorType.Id);}
+    public WebElement Link_ActiveDriverMap() {return findElement("//li/a[text()=\"Active Driver Map\"]",LocatorType.XPath);}
 
     public WebElement Image_Map() {return findElement("map",LocatorType.Id);}
 
@@ -55,8 +55,8 @@ public class Admin_DriversPage extends PageBase {
     public WebElement Checkbox_PickupTruck() {return findElement("chkVehicleType-1",LocatorType.Id);}
     public WebElement Checkbox_SUV() {return findElement("chkVehicleType-4",LocatorType.Id);}
 
-    public WebElement Text_DriverName(boolean...IgnoreException) {return findElement("//div[@id=\"driverList\"]/div",LocatorType.XPath,IgnoreException);}
-    public WebElement Icon_DriverPosition() {return findElement("//div[@id=\"driverList\"]/div/span/img",LocatorType.XPath);}
+    public WebElement Text_DriverName(boolean...IgnoreException) {return findElement("//div[@class=\"driver-list\"]/div",LocatorType.XPath,IgnoreException);}
+    public WebElement Icon_DriverPosition() {return findElement("//div[@class=\"driver-list\"]/div/span/img",LocatorType.XPath);}
 
     public WebElement Label_DriverStatus() {return findElement("//div/h4[text()=\"Driver Status\"]",LocatorType.XPath);}
 
@@ -87,5 +87,17 @@ public class Admin_DriversPage extends PageBase {
     public WebElement Slider_VehiclePayloadmin() {return findElement("payloadLeft",LocatorType.Id);}
 
     public WebElement Button_Trailer() {return findElement("switch-slider",LocatorType.ClassName);}
+
+    public WebElement Text_OnlineDrivers() {return findElement("//strong[text()=\"Online Drivers\"]",LocatorType.XPath);}
+
+    public WebElement Button_OnlineDrivers() {return findElement("custom-switch",LocatorType.Id);}
+
+    public WebElement Text_ActivatedDate() {return findElement("//strong[text()=\"Activated Date\"]",LocatorType.XPath);}
+
+    public WebElement Textbox_ActivatedDate() {return findElement("//strong[text()=\"Activated Date\"]/parent::div/div/div/input",LocatorType.XPath);}
+
+    public WebElement Text_MostRecentDelivery() {return findElement("//strong[text()=\"Most Recent Delivery\"]",LocatorType.XPath);}
+
+    public WebElement Textbox_MostRecentDelivery() {return findElement("//strong[text()=\"Most Recent Delivery\"]/parent::div/div/div/input",LocatorType.XPath);}
 
 }

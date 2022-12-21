@@ -1091,6 +1091,7 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Testdrivertywd_appleks_a_drvbg Kansas_bg":
                 case "Testdrivertywd_appleks_a_drvbf Kansas_bf":
                 case "Testdrivertywd_appleks_a_drvbe Kansas_be":
+                case "":
                     Thread.sleep(8000);
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Text_DriverName()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Icon_DriverPosition()),"Drivers current location icon should be displayed","Drivers current location icon is displayed","Drivers current location icon is not displayed");
@@ -1329,6 +1330,21 @@ public class Partner_Delivery_Details extends DriverBase {
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentTripSetting(element)),element+" row name should be displayed",element+" row name is displayed",element+" row name is not displayed");
                     String  PartnerSpecificSettingsTick= Page_PartnerManagement_Location.Image_GreenCross().getCssValue("color");
                     testStepAssert.isEquals(PartnerSpecificSettingsTick,expectedGreenCross,"Green tick should be displayed as its applicable for current partner portal","Green tick is displayed as its applicable for current partner portal","Green ticks is not displayed as its  applicable for current partner portal, color displayed in rgba is  "+PartnerSpecificSettingsTick);
+                    break;
+                case "Online Drivers":
+                     String onlineDriversText = action.getText(admin_DriverPage.Text_OnlineDrivers());
+                     testStepAssert.isEquals(onlineDriversText,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Button_OnlineDrivers()),element+" button  should be displayed",element+" button is displayed",element+" button is not displayed");
+                    break;
+                case "Activated Date":
+                    String activatedDateText = action.getText(admin_DriverPage.Text_ActivatedDate());
+                    testStepAssert.isEquals(activatedDateText,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Textbox_ActivatedDate()),element+" Textbox should be displayed",element+" Textbox is displayed",element+" Textbox is not displayed");
+                    break;
+                case "Most Recent Delivery":
+                    String mRD = action.getText(admin_DriverPage.Text_MostRecentDelivery());
+                    testStepAssert.isEquals(mRD,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Textbox_MostRecentDelivery()),element+" Textbox should be displayed",element+" Textbox is displayed",element+" Textbox is not displayed");
                     break;
             }
     } catch (Exception e) {
