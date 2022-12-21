@@ -305,12 +305,22 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "VERIFY":
-                    action.javaScriptScrollDown(scheduledTripsPage.Button_VerifyDriver());
-                    action.click(scheduledTripsPage.Button_VerifyDriver());
+                    String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+                    if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                        action.javaScriptScrollDown(scheduledTripsPage.Button_VerifyDriver());
+                        Thread.sleep(5000);
+                        action.click(scheduledTripsPage.Button_VerifyDriver());
+                    }
+                    else {
+                        action.javaScriptScrollDown(scheduledTripsPage.Button_VerifyDriverForScheduled());
+                        Thread.sleep(5000);
+                        action.click(scheduledTripsPage.Button_VerifyDriverForScheduled());
+                    }
                     break;
 
                 case "SAVE CHANGES":
                     action.javaScriptScrollDown(scheduledTripsPage.Button_SaveChanges());
+                    Thread.sleep(5000);
                     action.click(scheduledTripsPage.Button_SaveChanges());
                     break;
 

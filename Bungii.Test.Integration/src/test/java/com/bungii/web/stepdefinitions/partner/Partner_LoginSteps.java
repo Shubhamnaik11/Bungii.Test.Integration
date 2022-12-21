@@ -528,7 +528,7 @@ public class Partner_LoginSteps extends DriverBase {
                     }
                     PickupDateTime = PickupDateTime.replaceAll("[()]", "");
                     cucumberContextManager.setScenarioContext("PickupDateTime", PickupDateTime); //This will be used further
-
+                    cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY", action.getText(Page_Partner_Dashboard.Text_Summary_TrackingId()));
                     break;
                 case "see Done screen":
                     String Customer_Phone="";

@@ -64,6 +64,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @And("^there is a pending application for driver verification$")
     public void there_is_a_pending_driver_verification() throws Throwable {
+        Thread.sleep(3000);
         testStepAssert.isElementDisplayed(adminMenuLinksPage.Menu_Dashboard(true), "I should be naviagate to Admin Dashboard", "I was navigated to admin Dashboard", "Admin Dashboard is not visible");
         //WebAssertionManager.ElementDisplayed(adminDashboardPage.RecentDriverRegistrations);
         testStepAssert.isElementDisplayed(adminDashboardPage.PendingVerification().get(0), "There should be Pending application", "There is Pending application", "There is not Pending application");
@@ -287,27 +288,32 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @And("^I verify and approve all the verification fields$")
     public void i_verify_and_approve_all_the_verification_fields() throws Throwable {
         try {
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("First Name",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Last Name",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Street address",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("City",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("State",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Zip code",true));
             // action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverBirthday());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Birthday",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup images",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup make",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup model",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup year",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup license number",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License image",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License number",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License expiration",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Insurance image",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Insurance Expiration",true));
+
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_DriverDetails("Routing Number",true, true))) {
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Routing Number",true));
+            }
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_DriverDetails("Account Number",true,true))) {
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Account Number",true));
+            }
             log("I verify and approve all the verification fields",
                     "I have verified and approved all the verification fields", false);
         } catch (Exception e) {
@@ -334,8 +340,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.click(admin_DriverVerificationPage.Button_DriverResentButton());
                     break;
                 case "Cancel":
-                    if(action.isElementPresent(admin_GeofencePage.Text_GeoHistory())){
-                        action.click(admin_GeofencePage.Button_GeofenceCancel());
+                     if (action.isElementPresent(admin_GeofencePage.Text_GeoHistory(true))) {
+                         action.click(admin_GeofencePage.Button_GeofenceCancel());
                     }
                     else {
                         action.click(admin_DriverVerificationPage.Button_Cancel());
@@ -514,10 +520,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         try {
             switch (arg0) {
                 case "Accepted":
-                    testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Status_Accepted(), "I check status of the field ", "Status is accepted", "Field is not accepted");
+                    testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Drive Picture","AcceptedRejected"), "I check status of the field ", "Status is accepted", "Field is not accepted");
                     break;
                 case "Rejected":
-                    testStepAssert.isElementValueEquals(admin_DriverVerificationPage.Status_Accepted(), "", "I check status of the field ", "Status is rejected", "Field is not rejected");
+                    testStepAssert.isElementValueEquals(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Drive Picture","AcceptedRejected"), "", "I check status of the field ", "Status is rejected", "Field is not rejected");
                     break;
             }
         } catch (Exception e) {
@@ -529,35 +535,41 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @Then("^the status of the field resets to default$")
     public void theStatusOfTheFieldResetsToDefault() throws Throwable {
-        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(), "I check status field ", "Element is not displayed", "Element is displayed");
+        Thread.sleep(3000);
+        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Drive Picture","AcceptedRejected",true), "I check status field ", "Element is not displayed", "Element is displayed");
 
     }
 
     @And("^I verify all the fields except \"([^\"]*)\"$")
     public void i_verify_all_the_fields_except_something(String strArg1) throws Throwable {
         try {
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("First Name",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Last Name",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Street address",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("City",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("State",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Zip code",true));
             // action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
-            action.click(admin_DriverVerificationPage.Verify_Reject_Birthday());
-            action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(), "Invalid DOB");
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Birthday",false));
+            action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Birthday","AcceptedRejected"), "Invalid DOB");
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup images",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup make",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup model",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup year",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup license number",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License image",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License number",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License expiration",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Insurance image",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Insurance Expiration",true));
+
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_DriverDetails("Routing Number",true, true))) {
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Routing Number",true));
+            }
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_DriverDetails("Account Number",true,true))) {
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Account Number",true));
+            }
             log("I can verify all the fields except DOB",
                     "I have verified all the fields except DOB");
         } catch (Exception e) {

@@ -29,6 +29,11 @@ Then I wait for "2" mins
 And I Switch to "driver" application on "same" devices
 And I Select "AVAILABLE BUNGIIS" from driver App menu
 And I Select Trip from available trip
+  #CORE-4122: arrival time and drop off values displayed correctly for customer delivery
+Then The "Arrival time at Pickup" "Text" should be displayed
+Then The "Expected time at drop-off" "Text" should be displayed
+Then The "Arrival time" for customer delivery should match
+Then The "Expected time at drop-off" for customer delivery should match
 When I click "ACCEPT" button on Bungii Request screen
 
 And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"

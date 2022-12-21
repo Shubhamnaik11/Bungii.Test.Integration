@@ -991,7 +991,6 @@ public class CommonSteps extends DriverBase {
             else
                 action.click(estimatePage.Button_OK());
 
-
             log("I should able to click " + strArg1 + "on Alert Message",
                     "I clicked " + strArg1 + "on Alert Message", true);
         } catch (Exception e) {
