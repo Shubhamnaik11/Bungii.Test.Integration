@@ -943,6 +943,125 @@ Feature: Admin_Trips
     And I search the delivery based on customer "first name with space in front and back"
     Then The "All Deliveries" should be in "Driver Canceled" state
 
+  #CORE-4009: Date filter in Live Deliveries page of AP for Customer & Partner portal trips
+  @ready
+  Scenario: To verify the Date filter in Live Deliveries page of Admin Portal
+    When I view the Live Deliveries list on the admin portal
+    Then The "Date Filter" is set to "All" by default
+    When I click on "Date Filter" button on the "Live deliveries" page
+    Then  I should see All Filter Options in dropdown
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                       |
+      | NEXT_POSSIBLE | 8877661141     | Testcustomertywd_appleMarkEL LutherEL|
+    And I wait for 2 minutes
+    And As a driver "Testdrivertywd_appleks_a_drvbq Kansas_bq" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute      |
+    And I wait for 2 minutes
+    When I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Trip Started |
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Trip Started |
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |kansas| NEXT_POSSIBLE | 8877661145 | Testcustomertywd_appleMarkEP LutherEP|
+    And I wait for 2 minutes
+    When As a driver "Testdrivertywd_appleks_a_drvbr Kansas_br" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute      |
+    When I navigate to "Admin" portal
+    And I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Trip Started |
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Trip Started |
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                       |
+      |  1_DAY_LATER | 8877661142   | Testcustomertywd_appleMarkEM LutherEM |
+    And I wait for 2 minutes
+    When I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Assigning Driver(s) |
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Assigning Driver(s) |
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |kansas| 1_DAY_LATER | 8877661146 | Testcustomertywd_appleMarkEQ LutherEQ|
+    And I wait for 2 minutes
+    When I navigate to "Admin" portal
+    And I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Assigning Driver(s) |
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Assigning Driver(s) |
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |kansas| 4_DAY_LATER | 8877661147 | Testcustomertywd_appleMarkER LutherER|
+    And I wait for 2 minutes
+    When I navigate to "Admin" portal
+    And I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Assigning Driver(s) |
 # Driver with Same day payment setting:9049840342
   @ready
   Scenario:Verify that 'i' icon is displayed on delivery details page for those drivers who has selected same day payment

@@ -1449,11 +1449,11 @@ try{
 
     public String getGeofence(String geofence) {
         String geofenceName = "";
-        switch (geofence) {
+        switch (geofence.toLowerCase()) {
             case "washingtondc":
                 geofenceName = "Washington DC";
                 break;
-            case "Kansas":
+            case "kansas":
                 geofenceName = "Kansas";
                 break;
             case "newjersey":
@@ -3651,6 +3651,66 @@ try{
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
                 true);
 
+    }
+    }
+
+
+    @When("The {string} is set to {string} by default")
+    public void theIsSetToByDefault(String Date_Filter, String All) {
+        try {
+            action.waitUntilIsElementExistsAndDisplayed(admin_TripsPage.Dropdown_FilterAll(),(long) 3000);
+            testStepAssert.isTrue(admin_TripsPage.Dropdown_FilterAll().isSelected(), "Date Filter Type All should be selected","Date Filter Type is Set to All by default","Date Filter Type is not Set to All by default");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        }
+
+    @Then("I should see All Filter Options in dropdown")
+    public void iShouldSeeAllFilterOptionsInDropdown() {
+        try {
+            boolean dropdownAll=admin_TripsPage.Dropdown_FilterAll().isDisplayed();
+            boolean dropdownToday=admin_TripsPage.Dropdown_FilterToday().isDisplayed();
+            boolean dropdownTomarrow=admin_TripsPage.Dropdown_FilterTomorrow().isDisplayed();
+            testStepAssert.isTrue(dropdownAll,"Dropdown with All filter type should be displayed","Dropdown with All filter type is displayed","Dropdown with All filter type is not displayed");
+            testStepAssert.isTrue(dropdownToday,"Dropdown with Today filter type should be displayed","Dropdown with Today filter type is displayed","Dropdown with Today filter type is not displayed");
+            testStepAssert.isTrue(dropdownTomarrow,"Dropdown with Tomarrow filter type should be displayed","Dropdown with Tomarrow filter type is displayed","Dropdown with Tomarrow filter type is not displayed");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+    @When("I change filter to {string} on Live deliveries")
+    public void iChangeFilterToOnLiveDeliveries(String filter) {
+            try{
+                Thread.sleep(3000);
+                action.selectElementByText(admin_TripsPage.Dropdown_DateFilter(),filter);
+                log("I select filter from All Deliveries on the admin portal",
+                        "I selected filter "+filter+" from All Deliveries on the admin portal", false);
+            } catch(Exception e){
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step should be successful", "Error performing step,Please check logs for more details",
+                        true);
+            }
+
+    }
+
+    @And("I search the delivery using {string} in {string} Page")
+    public void iSearchTheDeliveryUsingInPage(String arg0, String arg1) {
+        try{
+        String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        action.waitUntilIsElementExistsAndDisplayed(adminTripsPage.TextBox_Search(), (long) 3000);
+        action.clearSendKeys(adminTripsPage.TextBox_Search(), pickupRef + Keys.ENTER);
+        log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
+    }
+    catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
     }
     }
 
