@@ -47,7 +47,6 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement Label_InfoMessage() { return findElement("info-message", LocatorType.Id); }
 
     public WebElement RadioButton_EditTripDetails() { return findElement("//label[text()='Edit Delivery Details']/preceding-sibling::input", LocatorType.XPath); }
-    public WebElement RadioButton_EditTripDetails_For_Live() { return findElement("radio5", LocatorType.Id); }
 
     public WebElement List_DriverSearchResult (String driverName) { return findElement("//input/following-sibling::div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
 
@@ -102,7 +101,6 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement Label_WarningForOutsideBungiiHoursTimeSet() { return findElement("//div/small[@id=\"warning-message\"]/em", LocatorType.XPath); }
 
     public WebElement Icon_Warning() { return findElement("//div/small[@id=\"warning-message\"]/i", LocatorType.XPath); }
-    public WebElement Button_Verify_For_Live() { return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath); }
     public WebElement RadioButton_EditTripDetails_For_Live() { return findElement("radio5", LocatorType.Id); }
 
 

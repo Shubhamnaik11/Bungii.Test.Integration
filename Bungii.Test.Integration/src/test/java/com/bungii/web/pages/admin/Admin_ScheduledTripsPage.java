@@ -17,17 +17,14 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Textbox_CancellationFee () { return findElement("cancelationFee", LocatorType.Id); }
 
     public WebElement Label_Drop_Off_Location () { return findElement("//span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
-    public WebElement Textbox_Drop_Off_Location_For_Live () { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/div[@class=\"address-textbox\"]/div/input",LocatorType.XPath);}
 
     public WebElement Label_Pickup_Location () { return findElement("//span[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
-    public WebElement Label_Drop_Off_Location_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[4]/div[1]/span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
 
     public WebElement Label_Market () { return findElement("//th[text()='Market']",LocatorType.XPath);}
 
     public WebElement Label_Delivery_Portal () { return findElement("//th[text()='Delivery Type']",LocatorType.XPath);}
 
     public WebElement Button_Edit_Drop_Off_Address () { return findElement("//img[@title='Edit drop off Location']",LocatorType.XPath);}
-    public WebElement Button_Edit_Drop_Off_Address_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[4]/div[2]/div/div[2]/img[@title='Edit drop off Location']",LocatorType.XPath);}
 
     public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit Pickup Location']",LocatorType.XPath);}
 
@@ -46,7 +43,6 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement DropdownPickupResult () { return findElement(String.format("//div[@class='autocomplete-dropdown-container']/div[1]/span"),LocatorType.XPath);}
 
     public WebElement DropOff_Address() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
-    public WebElement DropOff_Address_For_Live() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/label[@class=\"address2\"]",LocatorType.XPath);}
 
     public WebElement Pickup_Address() { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
     public WebElement Text_Pickup_Address_For_Live() { return findElements("//img[@title='Edit Pickup Location']/ancestor::div[2]/div/label",LocatorType.XPath).get(1);}
@@ -59,7 +55,6 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Dropdown_Reason () { return findElement("//select[@class='reason form-select']", LocatorType.XPath); }
 
     public WebElement Dropdown_ChangeAddress (String address) { return findElement("//div[@class='autocomplete-dropdown-container']/div/span[contains(text(),'"+address+"')]", LocatorType.XPath); }
-    public WebElement Dropdown_ChangeAddress_For_Live (String address) { return findElement("//div[@class='autocomplete-dropdown-container']/div/span[contains(text(),'"+address+"')]", LocatorType.XPath); }
 
 
     //public WebElement RadioButton_CancelBungii () { return findElement("//span[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input", LocatorType.XPath); }
@@ -271,13 +266,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Label_Pickup_Location_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[3]/div/span[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
     public WebElement Textbox_Pickup_Location_For_Live () { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div[1]/div[@class=\"address-textbox\"]/div/input",LocatorType.XPath);}
     public WebElement Button_Edit_Pickup_Address_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[3]/div[2]/div/div[2]/img[@title='Edit Pickup Location']",LocatorType.XPath);}
-
-
-
     public WebElement Text_EstimatedDeliveryTime() {return findElement("//td[text()=\"Estimated Delivery Time\"]/following-sibling::td/strong", LocatorType.XPath);}
 
     public WebElement Text_ScheduledDelivery() {return findElement("//td[text()=\"Scheduled Time\"]/following-sibling::td/strong", LocatorType.XPath);}
 
-    public WebElement Header_EditLiveBungiiOrEditScheduledBungii(){return  findElement("exampleModalLongTitle",LocatorType.Id);}
 
 }

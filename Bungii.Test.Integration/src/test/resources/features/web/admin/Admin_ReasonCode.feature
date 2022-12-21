@@ -26,6 +26,12 @@ Feature: Admin_Reason_Code
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
     Then the updated time should be displayed on delivery details page
+    #CORE-4152: Estimated delivery time is correct when admin edits Scheduled date/time
+    And I view the all Scheduled Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+    When I click on the "Delivery Details" button from the dropdown
+    Then The "Scheduled Time" for customer delivery should match
+    Then The "Estimated Delivery Time" for customer delivery should match
 
   @ready
   Scenario: Verify Reason dropdown from Duo re-schedule delivery when no Driver accepts,initiated by Customer and Admin edits only time
