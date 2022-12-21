@@ -1491,10 +1491,6 @@ public class ScheduledTripSteps extends DriverBase {
 				case "Please check the date/time selected. You cannot select a past date/time.":
 					actualMessage=action.getText(scheduledTripsPage.Text_ConflictMessageError());
                     break;
-
-				case "Seems like there was a problem scanning the barcode. Click continue to skip scanning.":
-					actualMessage=action.getText(updateStatusPage.Text_ErrorMessageOnClickingSkipScanning());
-					break;
 				default:
 					error("UnImplemented Step or incorrect option.", "UnImplemented Step");
 					break;

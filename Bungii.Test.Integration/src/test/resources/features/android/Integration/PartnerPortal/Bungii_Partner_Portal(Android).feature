@@ -681,21 +681,21 @@
      And I slide update button on "UNLOADING ITEMS" Screen
 
     #CORE-4398:Verify driver is able to scan barcode only for configured partner
-    @testAllan
+    @ready
     Scenario:Verify driver is able to scan barcode only for configured partner
       When I Switch to "driver" application on "same" devices
       And I am logged in as "Testdrivertywd_applega_a_drvak Atlanta_ak" driver
       #CORE-4398:Verify barcode scanning for solo trip
-#      When I request Partner Portal "SOLO" Trip for "Floor and Decor 106" partner
-#        |Geofence| Bungii Time   | Customer Phone | Customer Name |
-#        |atlanta| NEXT_POSSIBLE | 8877661148 | Testcustomertywd_appleMarkES LutherES|
-#      And I Select "AVAILABLE BUNGIIS" from driver App menu
-#      And I Select Trip from available trip
-#      And I tap on "ACCEPT" on driver Trip details Page
-#      And I Select "SCHEDULED BUNGIIS" from driver App menu
-#      And I Select Trip from driver scheduled trip
-#      And I start selected Bungii for "floor and decor 106"
-#      Then Bungii driver should see "General Instructions"
+      When I request Partner Portal "SOLO" Trip for "Floor and Decor 106" partner
+        |Geofence| Bungii Time   | Customer Phone | Customer Name |
+        |atlanta| NEXT_POSSIBLE | 8877661148 | Testcustomertywd_appleMarkES LutherES|
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
+      And I Select Trip from available trip
+      And I tap on "ACCEPT" on driver Trip details Page
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      And I Select Trip from driver scheduled trip
+      And I start selected Bungii for "floor and decor 106"
+      Then Bungii driver should see "General Instructions"
       And I slide update button on "EN ROUTE" Screen
       Then The "Barcode" "Image" should be displayed
       Then The "Scan the item(s) barcode before loading & after unloading." "Instruction" should be displayed
@@ -709,7 +709,7 @@
       When I click on "Allow" button
       Then The "BARCODE SCANNER" "Header" should be displayed
       Then The "Scan barcode" "Text" should be displayed
-      Then The "Hold steady and center the barcode to scan. You need to scan any one item to proceed" "Instruction" should be displayed
+      Then The "Hold steady and center the barcode to scan.You need to scan any one item to proceed" "Instruction" should be displayed
       Then The "Skip" "Button" should be displayed
       When I click on "Skip" button
       #CORE-4398:Verify Notification messages shown to driver when barcode is enabled

@@ -106,7 +106,7 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_ScanItemBarCode(){return findElement("Scan item barcode",LocatorType.AccessibilityId);}
 	public WebElement Header_BarcodeScanner(){return findElement( "//XCUIElementTypeOther[@name=\"BARCODE SCANNER\"]",LocatorType.XPath);}
 	public WebElement Text_ScanBarCode(){return findElement("Scan barcode",LocatorType.AccessibilityId);}
-	public WebElement Text_BarCodeScanningInstructions(){return findElement( "//XCUIElementTypeStaticText[@name=\"Hold steady and center the barcode to scan. You need to scan any one item to proceed.\"]",LocatorType.Id);}
+	public WebElement Text_BarCodeScanningInstructions(){return findElement( "//XCUIElementTypeStaticText[@name=\"Hold steady and center the barcode to scan. You need to scan any one item to proceed.\"]",LocatorType.XPath);}
 	public WebElement Button_SkipBarCode(){return findElement( "Skip",LocatorType.AccessibilityId);}
 	public WebElement Text_NotificationTextOnLoadingItemsForBarCode(){return findElement("//XCUIElementTypeStaticText[@name=\"Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.\"]",LocatorType.XPath);}
 	public WebElement Text_NotificationTextOnUnloadingForBarCode(){return findElement("//XCUIElementTypeStaticText[@name=\"Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.\"]",LocatorType.XPath);}

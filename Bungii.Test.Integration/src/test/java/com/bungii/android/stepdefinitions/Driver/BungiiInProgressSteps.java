@@ -1297,17 +1297,17 @@ public class BungiiInProgressSteps extends DriverBase {
                 case "Skip":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Button_SkipBarCode()),"Skip barcode button should be displayed","Skip barcode button is displayed","Skip barcode button is not displayed");
                     break;
-                case "Scan the item(s) barcode before loading & after unloading":
+                case "Scan the item(s) barcode before loading & after unloading.":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_BarcodeInstructions()),"Notification should be displayed","Notification is displayed","Notification is not displayed");
-                    String arrivalStateNotificationText=action.getText(updateStatusPage.Text_BarcodeInstructions());
-                    testStepAssert.isEquals(arrivalStateNotificationText,element,element +" Text should be displayed ",
+                    String arrivalStateNotificationText=action.getText(updateStatusPage.Text_BarcodeInstructions()).replace("\n","");
+                    testStepAssert.isEquals(arrivalStateNotificationText.replace("\n",""),element,element +" Text should be displayed ",
                             element +" Text is displayed ",
                             element +" Text is not displayed ");
                     break;
-                case "Hold steady and center the barcode to scan. You need to scan any one item to proceed":
+                case "Hold steady and center the barcode to scan.You need to scan any one item to proceed.":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_BarCodeScanningInstructions()),"Skip barcode button should be displayed","Skip barcode button is displayed","Skip barcode button is not displayed");
                     String arrivalStateInstructions=action.getText(updateStatusPage.Text_BarCodeScanningInstructions());
-                    testStepAssert.isEquals(arrivalStateInstructions,element,element +" Text should be displayed ",
+                    testStepAssert.isEquals(arrivalStateInstructions.replace("\n",""),element,element +" Text should be displayed ",
                             element +" Text is displayed ",
                             element +" Text is not displayed ");
                     break;
