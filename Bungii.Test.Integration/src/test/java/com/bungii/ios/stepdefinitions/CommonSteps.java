@@ -3392,7 +3392,7 @@ public class CommonSteps extends DriverBase {
             logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
             action.click(loginPage.Button_Login());
 
-            Thread.sleep(2000);
+            Thread.sleep(4000);
 
             NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar(true));
 
