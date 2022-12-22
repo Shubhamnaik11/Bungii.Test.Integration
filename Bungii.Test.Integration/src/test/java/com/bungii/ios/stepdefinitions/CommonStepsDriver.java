@@ -161,9 +161,9 @@ public class CommonStepsDriver extends DriverBase {
                     break;
                 case "ITEMIZED EARNINGS":
                     action.click(driverHomePage.Link_Itemized_Earnings());
-                        break;
+                    break;
                 case "START AN APPLICATION HERE":
-                    action.clickBy2Points(230,514);
+                    action.clickBy2Points(220,514);
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
