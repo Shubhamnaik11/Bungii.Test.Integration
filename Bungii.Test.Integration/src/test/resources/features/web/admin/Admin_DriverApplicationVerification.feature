@@ -8,6 +8,7 @@ Feature: Admin_DriverApplicationVerification
   @knownissue
   @email
       #test data created in base
+    #raised bug ADP-740 for approve button not available on v2
   Scenario: Verify Driver Application Approval - NonFountain
     When I click "Verify" button against the "John MwrB" applicant
     Then I should be directed to "Driver Verification Page"
@@ -23,6 +24,7 @@ Feature: Admin_DriverApplicationVerification
   @knownissue
     #test data created in base
   @email
+    #raised bug ADP-740 for rejecting without entering the reason
   Scenario: Verify Driver Application Rejection - NonFountain
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
@@ -84,6 +86,7 @@ Feature: Admin_DriverApplicationVerification
   @ready
     #moved in sprint 49 to ready as it needs fix
     #test data created in base
+    #raised bug ADP-737 for resend button not functioning
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
     When I click "Verify" button against the "Drake Martin" applicant
     And I verify all the fields except "Date of Birth"
@@ -110,6 +113,7 @@ Feature: Admin_DriverApplicationVerification
   
   @knownissue
     #test data created in base. driver is having sneha email
+    #raised bug ADP-737 for resend button not functioning
   Scenario: Verify Driver Application Resend Application - NonFountain
     When I click "Verify" button against the "James KbpK" applicant
     Then I should be directed to "Driver Verification Page"

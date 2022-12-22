@@ -20,7 +20,7 @@ public class LiveTripsPage extends PageBase{
     public WebElement Text_TripPayment(){return  findElement("//td[text()='Delivery Payment']/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Link_ManuallyEndBungii () { return findElement("btnEndPickup", LocatorType.Id); }
     //public WebElement Image_Three_Dot(){return findElement("//img[@id='dLabel']",LocatorType.XPath);}
-    //public WebElement Link_View_Delivery_Details(){return findElement("//a[contains(text(),'View Delivery Details')]",LocatorType.XPath);}
+    public WebElement Link_DeliveryDetails(){return findElement("//a[contains(text(),'Delivery Details')]",LocatorType.XPath);}
     public WebElement Button_RowOneAll(){return  findElement("//tr[1]/td[3]", LocatorType.XPath);}
 
     public WebElement Textbox_PickupEndDate () { return findElement("pickupEndDate", LocatorType.Id); }
