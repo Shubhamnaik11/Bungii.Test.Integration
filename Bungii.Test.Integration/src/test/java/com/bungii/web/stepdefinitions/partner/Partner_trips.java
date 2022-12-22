@@ -68,8 +68,6 @@ public class Partner_trips extends DriverBase {
     //private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
     //com.bungii.web.utilityfunctions.GeneralUtility utility = new com.bungii.web.utilityfunctions.GeneralUtility();
 
-    WebDriver driver = SetupManager.getDriver();
-
     @When("^I request for \"([^\"]*)\" Bungii trip in partner portal$")
     public void i_request_something_bungii_trip_in_partner_portal(String Type, DataTable data) throws InterruptedException {
         try{
@@ -1250,8 +1248,7 @@ try{
     @Then("^I should be redirected to \"([^\"]*)\" tab$")
     public void i_should_be_redirected_to_tab(String string) {
         try {
-            ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
-            SetupManager.getDriver().switchTo().window(tabs.get(1));
+            action.switchToTab(1);
             testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Text_QuoteRequestPageHeader(),
                     "Quote Request page should be displayed",
                     "Quote Request page should is displayed", "Quote Request page should is not displayed");
@@ -1265,9 +1262,7 @@ try{
     @Then("^I close the Quote Request tab$")
     public void i_close_the_Quote_Request_tab() {
         try {
-            driver.close();
-            ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
-            SetupManager.getDriver().switchTo().window(tabs.get(0));
+            action.switchToTab(0);
             testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Text_CustomQuotesHeader(),
                     "Get Quote page should be displayed",
                     "Get Quote page is displayed", "Get Quote page is not displayed");
