@@ -19,6 +19,5 @@ public class ForgotPasswordPage extends PageBase {
     public WebElement Button_Continue() { return findElement("CONTINUE", PageBase.LocatorType.AccessibilityId); }
     public WebElement Button_Resend() { return findElement("RESEND", PageBase.LocatorType.AccessibilityId); }
 
-    public WebElement Label_BungiiTheUltimateSideHustle() { return findElement("//XCUIElementTypeLink[@name=\"Instagram \uF16D\"]", LocatorType.XPath); }
-
+    public WebElement Label_BungiiTheUltimateSideHustle() { return findElement("//XCUIElementTypeOther[@name=\"Bungii: The Ultimate Side Hustle.\"]", LocatorType.XPath); }
 }

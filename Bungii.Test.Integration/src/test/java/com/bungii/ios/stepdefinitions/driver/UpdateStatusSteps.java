@@ -10,6 +10,7 @@ import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.LiveTripsPage;
 import com.bungii.ios.pages.customer.EstimatePage;
 import com.bungii.ios.pages.driver.BungiiDetailsPage;
+import com.bungii.ios.pages.driver.ForgotPasswordPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
@@ -47,8 +48,6 @@ public class UpdateStatusSteps extends DriverBase {
     private EstimatePage estimatePage;
     private BungiiDetailsPage bungiiDetailsPage;
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
-    private com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage;
-
 
     public UpdateStatusSteps(BungiiDetailsPage bungiiDetailsPage,EstimatePage estimatePage,UpdateStatusPage updateStatusPage, MessagesPage messagesPage,TripDetailsPage tripDetailsPage,com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage) {
         this.bungiiDetailsPage = bungiiDetailsPage;
@@ -57,8 +56,8 @@ public class UpdateStatusSteps extends DriverBase {
         this.messagesPage = messagesPage;
         this.tripDetailsPage= tripDetailsPage;
         this.driverUpdateStatusPage = driverUpdateStatusPage;
-        this.driverForgotPasswordPage= driverForgotPasswordPage;
     }
+    ForgotPasswordPage driverforgotPasswordPage=new ForgotPasswordPage();
 
     @Then("^I check ETA of \"([^\"]*)\"$")
     public void i_check_eta_of_something(String strArg1){
@@ -1041,7 +1040,7 @@ public class UpdateStatusSteps extends DriverBase {
                             "The arrival time is "+dropOffRangeBasedOnCalculation,"The arrival is not "+expectedDropOffRangeFromUI+" ,The time is "+dropOffRangeBasedOnCalculation);
                     break;
                 case "Bungii: The Ultimate Side Hustle":
-                    testStepAssert.isTrue(action.isElementPresent(driverForgotPasswordPage.Label_BungiiTheUltimateSideHustle()),"Bungii: The Ultimate Side Hustle should be displayed","Bungii: The Ultimate Side Hustle is displayed","Bungii: The Ultimate Side Hustle is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(driverforgotPasswordPage.Label_BungiiTheUltimateSideHustle()),"Bungii: The Ultimate Side Hustle should be displayed","Bungii: The Ultimate Side Hustle is displayed","Bungii: The Ultimate Side Hustle is not displayed");
                     break;
             }
         } catch (Exception e) {
