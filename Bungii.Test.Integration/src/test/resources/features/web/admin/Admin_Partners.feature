@@ -28,6 +28,7 @@ Feature: Admin_Partners_Business_And_EAPI
     And I click "SIGN IN" button on Partner Portal
     Then I should "see 1 pallet and 2 pallets"
 
+#  Unlock Partner feature not present on AdminPortal V2 yet
 #  Scenario: Verify Add New Partner
 #    When I click on the "New Portal Parter" Button
 #    And I enter following values in fields in "Add Partner" screen
