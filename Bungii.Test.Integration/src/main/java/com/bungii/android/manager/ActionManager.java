@@ -783,18 +783,4 @@ public class ActionManager {
             return element.isEnabled() ? element : null;
         };
     }
-    public void clickBy2Points(int Point1,int Point2) throws InterruptedException {
-        try {
-            AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
-            TouchAction touchAction = new TouchAction(driver);
-            PointOption pointStart = PointOption.point(Point1, Point2);
-            touchAction.press(pointStart).release().perform();
-            Thread.sleep(7000);
-        }
-        catch (Exception ex){
-            logger.error("ACTION FAILED | Error performing step | Could not click on the desired position by 2 points -> ", ExceptionUtils.getStackTrace(ex));
-            error("Click on element based on 2 points -> ", "Unable to click the element based on 2 points-> " ,
-                    true);
-        }
-    }
 }
