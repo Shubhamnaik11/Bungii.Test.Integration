@@ -342,6 +342,11 @@ public class CommonSteps extends DriverBase {
                            "The status should be offline",
                            "The status is not offline");
                    break;
+               case "Processing":
+                   testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Text_ProcessingStatus()),
+                           "The status should be processing",
+                           "The status is not processing");
+                   break;
            }
        }
        catch (Exception e) {
@@ -3392,7 +3397,7 @@ public class CommonSteps extends DriverBase {
             logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
             action.click(loginPage.Button_Login());
 
-            Thread.sleep(2000);
+            Thread.sleep(4000);
 
             NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar(true));
 

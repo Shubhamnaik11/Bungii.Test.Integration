@@ -42,6 +42,7 @@ Feature: Admin_Trips
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
+    When I wait for 2 minutes
     When I view All Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And The first time promo code should get released
@@ -298,6 +299,7 @@ Feature: Admin_Trips
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for 2 minutes
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
 
@@ -1090,6 +1092,8 @@ Feature: Admin_Trips
     And I wait for 2 minutes
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
+#  Core-4556: Verify status of the trip is payment successful after driver completes the trip: Same day payment (Customer card)
+    Then The "All Deliveries" should be in "Payment Successful" state
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I check if "same day payment i" icon is displayed
     Then I verify correct disbursement type is set in db

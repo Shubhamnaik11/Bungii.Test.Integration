@@ -51,6 +51,7 @@ public class BungiiCompletedPage extends PageBase {
 		public WebElement Button_GoOffline(){return findElement("//XCUIElementTypeButton[@name=\"Go Offline\"]",LocatorType.XPath);}
 		public WebElement Slider_Online(){return findElement("//XCUIElementTypeStaticText[@name=\"ONLINE\"]",LocatorType.XPath);}
 		public WebElement Slider_Offline(){return findElement("//XCUIElementTypeStaticText[@name=\"OFFLINE\"]",LocatorType.XPath);}
+		public WebElement Text_ProcessingStatus(){return findElement("//XCUIElementTypeStaticText[@name=\"Processing\"]",LocatorType.XPath);}
 
 
 }
