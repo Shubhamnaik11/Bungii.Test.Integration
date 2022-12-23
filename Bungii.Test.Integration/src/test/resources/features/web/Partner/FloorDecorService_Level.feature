@@ -70,6 +70,14 @@ Feature: Floor and Decore Service Level
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
     Then I should "see 1 pallet and 2 pallets"
+    # CORE-4102: Custom Quotes link more apparent
+    And I should see partner disclaimer info
+    And I should see "Custom Quotes" title
+    And I should see Custom Quotes description
+    And I should see "fill out this form" link
+    And I click on fill out this form link
+    Then I should be redirected to "Quote Request" tab
+    And I close the Quote Request tab
     When I request "Solo" Bungii trip in partner portal configured for "FloorDecor service level" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |

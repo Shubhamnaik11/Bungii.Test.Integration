@@ -1,12 +1,15 @@
 package com.bungii.ios.stepdefinitions.driver;
 
 import com.bungii.SetupManager;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import com.bungii.ios.pages.driver.BungiiRequestPage;
 import com.bungii.ios.stepdefinitions.customer.SignupSteps;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -18,6 +21,7 @@ public class BungiiRequestSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(SignupSteps.class);
     ActionManager action = new ActionManager();
     private BungiiRequestPage bungiiRequestPage=new BungiiRequestPage();
+    DbUtility dbUtility = new DbUtility();
     @Then("\"([^\"]*)\" should be displayed on Bungii request screen")
     public void i_click_something_button_on_forgot_password_screen_on_driver_app(String option) {
         try {
@@ -91,5 +95,46 @@ public class BungiiRequestSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @And("I check the status for {string} in db")
+    public void iCheckTheStatusForInDb(String checkingParameter) {
+    try {
+        String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        switch (checkingParameter) {
+            case "same day payment":
+            String driverOne = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String disbursmentTypeDriverOne = dbUtility.getDisbursementType(pickUpRef, driverOne);
+            testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
+                    "Correct disbursement type value should be set for same day payment setting",
+                    "Correct disbursement type value is set for same day payment setting",
+                    "Incorrect disbursement type value is set for same day payment setting");
+            break;
+            case "same day payment-external reference":
+                String externalReference = dbUtility.getExternalRefernce(pickUpRef);
+                testStepAssert.isTrue(externalReference==null,
+                        "The external reference should be null.",
+                        "The external reference is null.");
+            break;
+            case "weekly payment":
+                String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+                String disbursmentTypeDriver = dbUtility.getDisbursementType(pickUpRef,driver);
+                testStepAssert.isEquals(disbursmentTypeDriver, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
+                        "Correct disbursement type value should be set for weekly payment setting",
+                        "Correct disbursement type value is set for weekly payment setting",
+                        "Incorrect disbursement type value is set for weekly payment setting");
+            break;
+            case "weekly payment-external reference":
+                String externalRef = dbUtility.getExternalRefernce(pickUpRef);
+                testStepAssert.isTrue(externalRef!=null,
+                        "The external reference should not be null.",
+                        "The external reference is null.");
+            break;
+        }
+    }
+    catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
 }

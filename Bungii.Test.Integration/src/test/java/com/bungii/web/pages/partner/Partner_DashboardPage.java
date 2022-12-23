@@ -312,5 +312,18 @@ public class Partner_DashboardPage extends PageBase {
     //Patner portal calender sunday disabled
     public WebElement Button_SundayDisabled() { return findElement("//div[@class=\"left\"]/div[@class=\"item excluded\"]",LocatorType.XPath);}
 
+    //Partner portal disclaimer
+    public WebElement Text_PartnerPortalDisclaimer() { return findElement("//ul[contains(@class,'partner-disclaimer-mge')]", LocatorType.XPath);}
 
+    //Partner portal custom quotes section tile
+    public WebElement Text_CustomQuotesHeader() { return findElement("//h5[contains(text(),'Custom Quotes')]", LocatorType.XPath);}
+
+    //Partner portal custom quotes description
+    public WebElement Text_CustomQuotesDescription() { return findElement("//div[contains(text(),'For more than 2 pallets')]", LocatorType.XPath);}
+
+    //Partner portal custom quotes link
+    public WebElement Link_CustomQuotesForm() { return findElement("//a[contains(text(), 'fill out this form')]", LocatorType.XPath);}
+
+    //Quote request header title
+    public WebElement Text_QuoteRequestPageHeader() { return findElement("//h1[contains(text(),'Quote Request')]", LocatorType.XPath);}
 }

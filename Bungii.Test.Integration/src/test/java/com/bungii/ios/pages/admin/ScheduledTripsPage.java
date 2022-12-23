@@ -146,4 +146,9 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_VerifyDriverForScheduled(){return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
     public WebElement Image_ThreeDots () {return findElement("//tr[1]/td[14]/div/img",LocatorType.XPath);}
 
+    public WebElement Menu_Trips () { return findElement("//ul[@id='side-menu']/li/p/span[contains(text(),'Deliveries')]", LocatorType.XPath); }
+    public WebElement Dropdown_SearchForPeriod () { return findElement("//div[text()='The following deliveries from:']/select", LocatorType.XPath); }
+    public WebElement Menu_AllDeliveries () { return findElement("//a[contains(text(),'Completed Deliveries')]",LocatorType.XPath);}
+    public WebElement Text_DeliveryStatus(int number) { return findElement(String.format("//tbody/tr/td[%d]",number), LocatorType.XPath);}
+
 }
