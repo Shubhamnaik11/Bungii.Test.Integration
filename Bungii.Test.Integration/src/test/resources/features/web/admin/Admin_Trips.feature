@@ -1092,6 +1092,8 @@ Feature: Admin_Trips
     And I wait for 2 minutes
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
+#  Core-4556: Verify status of the trip is payment successful after driver completes the trip: Same day payment (Customer card)
+    Then The "All Deliveries" should be in "Payment Successful" state
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I check if "same day payment i" icon is displayed
     Then I verify correct disbursement type is set in db
