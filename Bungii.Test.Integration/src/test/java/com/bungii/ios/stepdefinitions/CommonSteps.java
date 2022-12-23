@@ -1725,6 +1725,12 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
+                case "valid nashville3":
+                    userName = PropertyUtility.getDataProperties("nashville.customer3.phone");
+                    password = PropertyUtility.getDataProperties("nashville.customer3.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer3.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
                 case "valid nashville first time":
                     userName = PropertyUtility.getDataProperties("nashville.common.customer.phone");
                     password = PropertyUtility.getDataProperties("nashville.common.customer.password");
@@ -3253,6 +3259,7 @@ public class CommonSteps extends DriverBase {
             switch (option.toLowerCase()) {
                 case "scheduled deliveries":
                     action.click(dashBoardPage.Button_Trips());
+                    Thread.sleep(3000);
                     action.click(dashBoardPage.Button_ScheduledTrips());
                     break;
                 case "live deliveries":
