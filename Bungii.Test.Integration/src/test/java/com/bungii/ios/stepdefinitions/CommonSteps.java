@@ -342,6 +342,11 @@ public class CommonSteps extends DriverBase {
                            "The status should be offline",
                            "The status is not offline");
                    break;
+               case "Processing":
+                   testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Text_ProcessingStatus()),
+                           "The status should be processing",
+                           "The status is not processing");
+                   break;
            }
        }
        catch (Exception e) {

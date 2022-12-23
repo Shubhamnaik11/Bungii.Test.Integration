@@ -24,13 +24,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.StaleElementReferenceException;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -71,8 +67,6 @@ public class Partner_trips extends DriverBase {
     //ActionManager action = new ActionManager();
     //private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
     //com.bungii.web.utilityfunctions.GeneralUtility utility = new com.bungii.web.utilityfunctions.GeneralUtility();
-
-
 
     @When("^I request for \"([^\"]*)\" Bungii trip in partner portal$")
     public void i_request_something_bungii_trip_in_partner_portal(String Type, DataTable data) throws InterruptedException {
@@ -1184,6 +1178,97 @@ try{
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I should see partner disclaimer info$")
+    public void i_should_see_partner_disclaimer_info() {
+        try {
+            testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Text_PartnerPortalDisclaimer(),
+                    "Partner Portal Disclaimer should be displayed",
+                    "Partner Portal Disclaimer is displayed", "Partner Portal Disclaimer is not displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing Quotes only page",
+                    true);
+        }
+    }
+
+    @Then("^I should see \"([^\"]*)\" title$")
+    public void i_should_see_title(String string) {
+        try {
+            testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_CustomQuotesHeader()), string,
+                    "Custom Quotes title should be displayed", "Custom Quotes title is displayed",
+                    "Custom Quotes title is not displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing Quotes only page",
+                    true);
+        }
+    }
+
+    @Then("^I should see Custom Quotes description$")
+    public void i_should_see_Custom_Quotes_description() {
+        try {
+            testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Text_CustomQuotesDescription(),
+                    "Custom Quotes description should be displayed",
+                    "Custom Quotes description is displayed", "Custom Quotes description is not displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing Quotes only page",
+                    true);
+        }
+    }
+
+    @Then("^I should see \"([^\"]*)\" link$")
+    public void i_should_see_link(String string) {
+        try {
+            testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Link_CustomQuotesForm()), string,
+                    "Fill out this form link should be displayed",
+                    "Fill out this form link is displayed", "Fill out this form link is not displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing Quotes only page",
+                    true);
+        }
+    }
+
+    @Then("^I click on fill out this form link$")
+    public void i_click_on_fill_out_this_form_link() {
+        try {
+            action.click(Page_Partner_Dashboard.Link_CustomQuotesForm());
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing Quotes only page",
+                    true);
+        }
+    }
+
+    @Then("^I should be redirected to \"([^\"]*)\" tab$")
+    public void i_should_be_redirected_to_tab(String string) {
+        try {
+            action.switchToTab(1);
+            testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Text_QuoteRequestPageHeader(),
+                    "Quote Request page should be displayed",
+                    "Quote Request page should is displayed", "Quote Request page should is not displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing Quotes only page",
+                    true);
+        }
+    }
+
+    @Then("^I close the Quote Request tab$")
+    public void i_close_the_Quote_Request_tab() {
+        try {
+            action.switchToTab(0);
+            testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Text_CustomQuotesHeader(),
+                    "Get Quote page should be displayed",
+                    "Get Quote page is displayed", "Get Quote page is not displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing Quotes only page",
                     true);
         }
     }
