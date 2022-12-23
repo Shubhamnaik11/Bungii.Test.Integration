@@ -932,6 +932,7 @@ public class UpdateStatusSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
     public void the_something_something_should_be_displayed(String element, String strArg2) throws Throwable {
         try{
+            String expectedText = "";
             switch (element){
                 case "Delivery Details":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Header_DeliveryDetails()),"Delivery Details Header should be displayed","Delivery Details Header is displayed","Delivery Details Header is not displayed");
@@ -1040,7 +1041,8 @@ public class UpdateStatusSteps extends DriverBase {
                             "The arrival time is "+dropOffRangeBasedOnCalculation,"The arrival is not "+expectedDropOffRangeFromUI+" ,The time is "+dropOffRangeBasedOnCalculation);
                     break;
                 case "Bungii: The Ultimate Side Hustle":
-                    testStepAssert.isTrue(action.isElementPresent(driverforgotPasswordPage.Label_BungiiTheUltimateSideHustle()),"Bungii: The Ultimate Side Hustle should be displayed","Bungii: The Ultimate Side Hustle is displayed","Bungii: The Ultimate Side Hustle is not displayed");
+                    expectedText = PropertyUtility.getMessage("driver.navigation.bungii.the.ultimate.side.hustle");
+                    testStepAssert.isTrue(action.isElementPresent(driverforgotPasswordPage.Label_BungiiTheUltimateSideHustle()),expectedText+" should be displayed",expectedText+" is displayed",expectedText+" is not displayed");
                     break;
             }
         } catch (Exception e) {

@@ -1196,6 +1196,7 @@ public class BungiiInProgressSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
     public void the_something_something_should_be_displayed(String element, String strArg2) throws Throwable {
         try{
+            String expectedText = "";
             Thread.sleep(5000);
             switch (element){
                 case "Delivery Instructions":
@@ -1231,7 +1232,8 @@ public class BungiiInProgressSteps extends DriverBase {
                     testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_TeamMate),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
                     break;
                 case "Bungii: The Ultimate Side Hustle":
-                    testStepAssert.isTrue(action.isElementPresent(driverLogInPage.Label_TheUltimateSideHustle()),"Bungii: The Ultimate Side Hustle should be displayed","Bungii: The Ultimate Side Hustle is displayed","Bungii: The Ultimate Side Hustle is not displayed");
+                    expectedText = PropertyUtility.getMessage("driver.navigation.bungii.the.ultimate.side.hustle");
+                    testStepAssert.isTrue(action.isElementPresent(driverLogInPage.Label_TheUltimateSideHustle()),expectedText+" should be displayed",expectedText+" is displayed",expectedText+" is not displayed");
                     break;
                 case "Arrival time at pickup":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ArivalTimeAtPickup()),"Arrival Time at pickup label should be displayed","Arrival Time at pickup label is displayed","Arrival Time at pickup label is not displayed");
