@@ -163,7 +163,7 @@ public class CommonStepsDriver extends DriverBase {
                     action.click(driverHomePage.Link_Itemized_Earnings());
                     break;
                 case "START AN APPLICATION HERE":
-                    action.clickBy2Points(220,514);
+                    action.click(driverForgotPasswordPage.Button_StartAnApplicationHere());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
