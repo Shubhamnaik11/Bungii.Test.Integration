@@ -1494,6 +1494,8 @@ try{
         String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String driverPhone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
         String driverLicencePlate = PropertyUtility.getDataProperties("partnerfirm.driver1.LicencePlate");
+        String driverName1 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+        String driverPhone1 = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
         String name = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME");
         String customerName = null;
         String customerPhone = null;
@@ -1537,8 +1539,8 @@ try{
 
                 if(hasDST){
 
-                    int hr1 = date1.getHours() + 1;
-                    date1.setHours(hr1);
+//                    int hr1 = date1.getHours() + 1;
+//                    date1.setHours(hr1);
                     pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
                     //pickupdate.replaceAll("EST","EDT");
                     //emailBody.replaceAll("EST","EDT");
@@ -1563,12 +1565,18 @@ try{
         String message = null;
         switch (emailSubject) {
             case "Bungii Delivery Pickup Scheduled":
-               // message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
-                if(hasDST){
-                    message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                String bungiiType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+                if (bungiiType.equalsIgnoreCase("solo")) {
+                    // message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                    if (hasDST) {
+                        message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
 //                    message= message.replaceAll("EST","EDT");
-                }else {
-                    message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                    } else {
+                        message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                    }
+                } else {
+                    message = utility.getExpectedPartnerFirmDuoScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, driverName1, driverPhone1, supportNumber, firmName);
+//                    message= message.replaceAll("EST","EDT");
                 }
                 break;
             case "Bungii Delivery Pickup Updated":

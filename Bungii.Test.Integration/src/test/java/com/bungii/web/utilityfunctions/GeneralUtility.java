@@ -2,6 +2,7 @@ package com.bungii.web.utilityfunctions;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -29,11 +30,7 @@ import org.openqa.selenium.WebElement;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Base64;
 import org.apache.commons.io.IOUtils;
 import java.nio.file.Files;
@@ -66,51 +63,45 @@ public class GeneralUtility extends DriverBase {
     Admin_GeofencePage admin_geofencePage = new Admin_GeofencePage();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
 
-    private String GetPartnerUrl(String PP_Site){
+    private String GetPartnerUrl(String PP_Site) {
         String partnerURL = null;
-        cucumberContextManager.setScenarioContext("SiteUrl",PP_Site);
-        String environment =PropertyUtility.getProp("environment");
-        if(environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS")){
-            if(PP_Site.equalsIgnoreCase("normal")){
+        cucumberContextManager.setScenarioContext("SiteUrl", PP_Site);
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("QA_AUTO") || environment.equalsIgnoreCase("QA_AUTO_AWS")) {
+            if (PP_Site.equalsIgnoreCase("normal")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
-                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.partner.ref"));
-            }else if(PP_Site.equalsIgnoreCase("service level")){
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("service level")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.service_level_partner.url");
-                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.service_level_partner.ref"));
-            }else if(PP_Site.equalsIgnoreCase("FloorDecor service level")){
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("FloorDecor service level")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.fnd_service_level_partner.url");
-                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref"));
-            }
-            else if(PP_Site.equalsIgnoreCase("kiosk mode")){
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("kiosk mode")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
-                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
-            }else if(PP_Site.equalsIgnoreCase("BestBuy service level")){
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("BestBuy service level")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.url");
-                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.ref"));
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.bestbuy.service_level_partner.ref"));
 
-            }
-            else if(PP_Site.equalsIgnoreCase("Cort service level")){
+            } else if (PP_Site.equalsIgnoreCase("Cort service level")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.cort_service_level_partner.url");
-                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.cort_service_level_partner.ref"));
-             }   
-            else if(PP_Site.equalsIgnoreCase("BestBuy2 service level")){
-                 partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");
-                 cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref"));
-            }
-            else if (PP_Site.equalsIgnoreCase("Equip-bid")) {
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.cort_service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("BestBuy2 service level")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.bestbuy2.service_level_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("Equip-bid")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.equip-bid.url");
                 cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.equip-bid.ref"));
-            }
-            else if(PP_Site.equalsIgnoreCase("fnd multiple phone")){
+            } else if (PP_Site.equalsIgnoreCase("fnd multiple phone")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.floordecor130_partner.url");
-                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.floordecor130_partner.ref"));
-            }
-            else if(PP_Site.equalsIgnoreCase("Home Outlet")){
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.floordecor130_partner.ref"));
+            } else if (PP_Site.equalsIgnoreCase("Home Outlet")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.home.outlet.url");
-                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.home.outlet.ref"));
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.home.outlet.ref"));
             }
         }
-        return  partnerURL;
+        return partnerURL;
     }
 
     private String GetDriverUrl() {
@@ -118,7 +109,7 @@ public class GeneralUtility extends DriverBase {
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))
             driverURL = PropertyUtility.getDataProperties("dev.driver.url");
-        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS"))
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO") || environment.equalsIgnoreCase("QA_AUTO_AWS"))
             driverURL = PropertyUtility.getDataProperties("qa.driver.url");
         if (environment.equalsIgnoreCase("STAGE"))
             driverURL = PropertyUtility.getDataProperties("stage.driver.url");
@@ -130,29 +121,32 @@ public class GeneralUtility extends DriverBase {
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))
             adminURL = PropertyUtility.getDataProperties("dev.admin.url");
-        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS"))
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO") || environment.equalsIgnoreCase("QA_AUTO_AWS"))
             adminURL = PropertyUtility.getDataProperties("qa.admin.url");
         if (environment.equalsIgnoreCase("STAGE"))
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");
         return adminURL;
     }
+
     public String GetBungiiUrl() {
         String adminURL = null;
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))
             adminURL = PropertyUtility.getDataProperties("dev.bungii.url");
-        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO")||environment.equalsIgnoreCase("QA_AUTO_AWS"))
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO") || environment.equalsIgnoreCase("QA_AUTO_AWS"))
             adminURL = PropertyUtility.getDataProperties("qa.bungii.url");
         if (environment.equalsIgnoreCase("STAGE"))
             adminURL = PropertyUtility.getDataProperties("stage.bungii.url");
         return adminURL;
     }
+
     public String getCurrentUrl() throws InterruptedException {
 
         Thread.sleep(5000);
         String adminURL = SetupManager.getObject().getCurrentUrl();
         return adminURL;
     }
+
     public void DriverLogin(String Phone, String Password) {
         String driverURL = GetDriverUrl();
 
@@ -169,7 +163,7 @@ public class GeneralUtility extends DriverBase {
         action.navigateTo(driverURL);
     }
 
-    public String NavigateToPartnerLogin(String Site){
+    public String NavigateToPartnerLogin(String Site) {
 
         String partnerURL = GetPartnerUrl(Site);
         action.deleteAllCookies();
@@ -185,16 +179,19 @@ public class GeneralUtility extends DriverBase {
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
+
     public void NavigateToAdminPortal() throws InterruptedException {
         String adminURL = GetAdminUrl();
         Thread.sleep(2000);
         action.navigateTo(adminURL);
     }
+
     public void NavigateToBungiiPortal() throws InterruptedException {
         String bungiiURL = GetBungiiUrl();
         Thread.sleep(2000);
         action.navigateTo(bungiiURL);
     }
+
     public void AdminLoginFromPartner() throws InterruptedException {
         String adminURL = GetAdminUrl();
         Thread.sleep(2000);
@@ -206,14 +203,14 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void NavigateDriverRatingWebLink() throws InterruptedException {
-        String URL = (String)cucumberContextManager.getScenarioContext("PartnerPortalURL");
+        String URL = (String) cucumberContextManager.getScenarioContext("PartnerPortalURL");
         String Pickup_Id = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
         String pickup_Token = DbUtility.getPickupToken(Pickup_Id);
-        URL = URL.replace("login","Pickup/"+pickup_Token);
+        URL = URL.replace("login", "Pickup/" + pickup_Token);
         action.openNewTab();
         action.navigateTo(URL);
         Thread.sleep(5000);
-        
+
     }
 
     public void TestAdminLogin() {
@@ -224,6 +221,7 @@ public class GeneralUtility extends DriverBase {
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.testpassword"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
+
     public void DriverLogout() {
         action.click(driver_dashboardPage.Link_Logout());
     }
@@ -270,7 +268,7 @@ public class GeneralUtility extends DriverBase {
     public String GetUniqueLastName() {
         String Lastname = RandomGeneratorUtility.getData("{RANDOM_STRING}", 4);
         Lastname.toLowerCase();
-        Lastname=Convert(Lastname);
+        Lastname = Convert(Lastname);
         Lastname = StringUtils.capitalize(Lastname.toLowerCase());
         return Lastname;
 
@@ -313,12 +311,11 @@ public class GeneralUtility extends DriverBase {
         Date currentDatePlusOneDay = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 
         String futureNewDate[] = dateFormat.format(currentDatePlusOneDay).split("/");
-        if (Integer.toString(days).length()==1){
-            String daysStartsWithZero="0"+days;
-            newDate=futureNewDate[0]+"/"+daysStartsWithZero+"/"+futureNewDate[2];
-        }
-        else {
-            newDate=futureNewDate[0]+"/"+days+"/"+futureNewDate[2];
+        if (Integer.toString(days).length() == 1) {
+            String daysStartsWithZero = "0" + days;
+            newDate = futureNewDate[0] + "/" + daysStartsWithZero + "/" + futureNewDate[2];
+        } else {
+            newDate = futureNewDate[0] + "/" + days + "/" + futureNewDate[2];
         }
 //        newDate = dateFormat.format(currentDatePlusOneDay);
         return newDate;
@@ -348,7 +345,7 @@ public class GeneralUtility extends DriverBase {
             char ch = CHAR_LIST.charAt(number);
             randStr.append(ch);
         }
-        System.out.println("String of special characters: "+randStr);
+        System.out.println("String of special characters: " + randStr);
         return randStr.toString();
     }
 
@@ -376,21 +373,20 @@ public class GeneralUtility extends DriverBase {
 
                 System.out.println("***********");
                 Message msg = recentMessages[i - 1];
-             //   System.out.println(msg.getMessageNumber());
+                //   System.out.println(msg.getMessageNumber());
                 String subject = msg.getSubject();//important value
                 String from = String.valueOf(msg.getFrom()[0]).toLowerCase();
                 String recipient = String.valueOf(msg.getAllRecipients()[0]);
 
                 System.out.println("Subject: " + subject + " | Date: " + msg.getReceivedDate());
                 // System.out.println("From: " + msg.getFrom()[0]);
-               // System.out.println("To: " + msg.getAllRecipients()[0]);//important value
+                // System.out.println("To: " + msg.getAllRecipients()[0]);//important value
                 System.out.println();
-               // System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
-                if ((from.contains(fromAddress.toLowerCase())) && (subject.contains(expectedSubject)) && (recipient.contains(expectedToAddress)))
-                {
-                   // String EmailContent = msg.getContent().toString();
-                    emailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
-                    emailUtility.deleteEmailWithSubject(expectedSubject,null);
+                // System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
+                if ((from.contains(fromAddress.toLowerCase())) && (subject.contains(expectedSubject)) && (recipient.contains(expectedToAddress))) {
+                    // String EmailContent = msg.getContent().toString();
+                    emailContent = emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
+                    emailUtility.deleteEmailWithSubject(expectedSubject, null);
                     return emailContent;
                 }
             }
@@ -461,7 +457,7 @@ public class GeneralUtility extends DriverBase {
             System.out.println("No of Total recent Messages : " + recentMessages.length);
             String fromAddress = PropertyUtility.getEmailProperties("email.from.address");
             boolean emailFound = false;
-            String surveylink ="";
+            String surveylink = "";
             for (int i = recentMessages.length; i > 0; i--) {
 
                 System.out.println("MESSAGE " + (i) + ":");
@@ -474,10 +470,9 @@ public class GeneralUtility extends DriverBase {
                 System.out.println("To: " + msg.getAllRecipients()[0]);//important value
                 System.out.println("Date: " + msg.getReceivedDate());
                 System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
-                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress)))
-                {
-                    surveylink =  emailUtility.getURLFromMessage((javax.mail.internet.MimeMessage) msg);
-                    emailUtility.deleteEmailWithSubject(expectedSubject,null);
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress))) {
+                    surveylink = emailUtility.getURLFromMessage((javax.mail.internet.MimeMessage) msg);
+                    emailUtility.deleteEmailWithSubject(expectedSubject, null);
                     return surveylink;
                 }
             }
@@ -503,7 +498,7 @@ public class GeneralUtility extends DriverBase {
 
         Date target;
         Date date = new Date();
-        if(TimeZone.getTimeZone("America/New_York").inDaylightTime(date))
+        if (TimeZone.getTimeZone("America/New_York").inDaylightTime(date))
             date = DateUtils.setHours(date, date.getHours() + 1); //set 1 hour later if daylight savings is set
 
         int minutes = ((int) Math.ceil(date.getMinutes() / 15d) * 15 + 30);
@@ -518,29 +513,29 @@ public class GeneralUtility extends DriverBase {
 
 
         String pickupTime = pickuptimeformatter.format(target);
-        cucumberContextManager.setScenarioContext("PICKUP_TIME" , pickupTime);
-        cucumberContextManager.setScenarioContext("TIMEZONE" , timezone);
+        cucumberContextManager.setScenarioContext("PICKUP_TIME", pickupTime);
+        cucumberContextManager.setScenarioContext("TIMEZONE", timezone);
 
         String newFilePath = new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\BulkTrip_Runtime_" + dateformatterFile.format(date) + ".csv";
         String Line;
         String encoding = "UTF-8";
         try {
             List<String> inputLines = Files.readAllLines(Paths.get(filePath), UTF_8);
-            ArrayList<String> address = getPartnerFirmAddress (timezone);
+            ArrayList<String> address = getPartnerFirmAddress(timezone);
             List<String> fixedLines = new ArrayList<>(inputLines.size());
 
             for (String line : inputLines) {
                 fixedLines.add(line.replace("DATE_TO_REPLACE", dateformatter.format(target))
                         .replace("TIME_TO_REPLACE", timeformatter.format(target))
                         .replace("PICKUPADDRESS_TO_REPLACE", address.get(0))
-                        .replace("DROPOFFADDRESS_TO_REPLACE",  address.get(1))
+                        .replace("DROPOFFADDRESS_TO_REPLACE", address.get(1))
                         .replace("NOOFDRIVERS_TO_REPLACE", String.valueOf(noOfDrivers))
                         .replace("TIMEZONE_TO_REPLACE", timezone)
                         .replace("CUSTOMERNAME_TO_REPLACE", customerName)
                         .replace("CUSTOMERPHONE_TO_REPLACE", customerPhone)
                         .replace("LOAD_TO_REPLACE", "15"));
             }
-            logger.detail("File Request Row : " + fixedLines );
+            logger.detail("File Request Row : " + fixedLines);
             Files.write(Paths.get(newFilePath), fixedLines, UTF_8, CREATE);
 
         } catch (Exception ex) {
@@ -549,29 +544,66 @@ public class GeneralUtility extends DriverBase {
         }
         return newFilePath;
     }
-    private ArrayList<String> getPartnerFirmAddress (String timezone) {
+
+    private ArrayList<String> getPartnerFirmAddress(String timezone) {
         ArrayList<String> address = new ArrayList<String>();
-             switch (timezone) {
-                 case "EST":
-                 case "America/New_York":
-                 address.add((String) PropertyUtility.getDataProperties("washington.Partner.Firm.Pickup.Address"));
-                 address.add((String) PropertyUtility.getDataProperties("washington.Partner.Firm.Dropoff.Address"));
-                 break;
+        switch (timezone) {
+            case "EST":
+            case "America/New_York":
+                address.add((String) PropertyUtility.getDataProperties("washington.Partner.Firm.Pickup.Address"));
+                address.add((String) PropertyUtility.getDataProperties("washington.Partner.Firm.Dropoff.Address"));
+                break;
 
-             }
-            return address;
+        }
+        return address;
     }
 
-    public String getExpectedPartnerFirmScheduledEmailContent(String pickupdate, String customerName, String customerPhone, String customerEmail, String driverName, String driverPhone, String driverLicencePlate, String supportNumber, String firmName)
-    {
+    public String getExpectedPartnerFirmScheduledEmailContent(String pickupdate, String customerName, String customerPhone, String customerEmail, String driverName, String driverPhone, String driverLicencePlate, String supportNumber, String firmName) {
         String emailMessage = "";
         FileReader fr;
-        try{
-            if(SystemUtils.IS_OS_WINDOWS){
-                 fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerFirmScheduledEmail.txt");
+        try {
+            {
+                if (SystemUtils.IS_OS_WINDOWS) {
+                    fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PartnerFirmScheduledEmail.txt");
+                } else {
+                    fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/PartnerFirmScheduledEmail.txt");
+                }
+                String s;
+                try (
+
+                        BufferedReader br = new BufferedReader(fr)) {
+
+                    while ((s = br.readLine()) != null) {
+                        s = s.replaceAll("%TimeStamp%", pickupdate)
+                                .replaceAll("%CustomerName%", customerName)
+                                .replaceAll("%CustomerPhone%", customerPhone)
+                                .replaceAll("%CustomerEmail%", customerEmail)
+                                .replaceAll("%DriverName%", driverName)
+                                .replaceAll("%DriverPhone%", driverPhone)
+                                .replaceAll("%DriverLicencePlate%", driverLicencePlate)
+                                .replaceAll("%SupportNumber%", supportNumber)
+                                .replaceAll("%FirmName%", firmName);
+                        emailMessage += s;
+                    }
+                }
             }
-            else {
-                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerFirmScheduledEmail.txt");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+
+    public String getExpectedPartnerFirmDuoScheduledEmailContent(String pickupdate, String customerName, String customerPhone, String customerEmail, String driverName, String driverPhone, String driverLicencePlate, String driverName1, String driverPhone1, String supportNumber, String firmName) throws IOException {
+
+    String emailMessage ="";
+    FileReader fr;
+        try {
+        {
+            if (SystemUtils.IS_OS_WINDOWS) {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PartnerFirmDuoScheduledEmail.txt");
+            } else {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/PartnerFirmDuoScheduledEmail.txt");
             }
             String s;
             try (
@@ -580,30 +612,34 @@ public class GeneralUtility extends DriverBase {
 
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%TimeStamp%", pickupdate)
-                        .replaceAll("%CustomerName%",customerName)
-                            .replaceAll("%CustomerPhone%",customerPhone)
-                            .replaceAll("%CustomerEmail%",customerEmail)
-                            .replaceAll("%DriverName%",driverName)
-                            .replaceAll("%DriverPhone%",driverPhone)
-                            .replaceAll("%DriverLicencePlate%",driverLicencePlate)
-                            .replaceAll("%SupportNumber%",supportNumber)
-                            .replaceAll("%FirmName%",firmName);
+                            .replaceAll("%CustomerName%", customerName)
+                            .replaceAll("%CustomerPhone%", customerPhone)
+                            .replaceAll("%CustomerEmail%", customerEmail)
+                            .replaceAll("%DriverName%", driverName)
+                            .replaceAll("%DriverPhone%", driverPhone)
+                            .replaceAll("%DriverLicencePlate%", driverLicencePlate)
+                            .replaceAll("%DriverName1%", driverName1)
+                            .replaceAll("%DriverPhone1%", driverPhone1)
+                            .replaceAll("%SupportNumber%", supportNumber)
+                            .replaceAll("%FirmName%", firmName);
                     emailMessage += s;
                 }
-
             }
-        }catch(Exception e){
-            e.printStackTrace();
         }
+    }catch(
+    Exception e)
 
+    {
+        e.printStackTrace();
+    }
         return emailMessage;
     }
-    public String getExpectedPartnerFirmUpdatedEmailContent(String pickupdate, String customerName, String customerPhone, String customerEmail, String driverName, String driverPhone, String driverLicencePlate, String supportNumber, String firmName)
-    {
+
+    public String getExpectedPartnerFirmUpdatedEmailContent(String pickupdate, String customerName, String customerPhone, String customerEmail, String driverName, String driverPhone, String driverLicencePlate, String supportNumber, String firmName) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerFirmUpdatedEmail.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PartnerFirmUpdatedEmail.txt");
             String s;
             try (
 
@@ -611,91 +647,61 @@ public class GeneralUtility extends DriverBase {
 
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%TimeStamp%", pickupdate)
-                            .replaceAll("%CustomerName%",customerName)
-                            .replaceAll("%CustomerPhone%",customerPhone)
-                            .replaceAll("%CustomerEmail%",customerEmail)
-                            .replaceAll("%DriverName%",driverName)
-                            .replaceAll("%DriverPhone%",driverPhone)
-                            .replaceAll("%DriverLicencePlate%",driverLicencePlate)
-                            .replaceAll("%SupportNumber%",supportNumber)
-                            .replaceAll("%FirmName%",firmName);
+                            .replaceAll("%CustomerName%", customerName)
+                            .replaceAll("%CustomerPhone%", customerPhone)
+                            .replaceAll("%CustomerEmail%", customerEmail)
+                            .replaceAll("%DriverName%", driverName)
+                            .replaceAll("%DriverPhone%", driverPhone)
+                            .replaceAll("%DriverLicencePlate%", driverLicencePlate)
+                            .replaceAll("%SupportNumber%", supportNumber)
+                            .replaceAll("%FirmName%", firmName);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return emailMessage;
     }
-    public String getExpectedPartnerFirmCanceledEmailContent( String customerName, String customerPhone, String customerEmail, String driverName, String supportNumber, String firmName)
-    {
+
+    public String getExpectedPartnerFirmCanceledEmailContent(String customerName, String customerPhone, String customerEmail, String driverName, String supportNumber, String firmName) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerFirmCanceledEmail.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PartnerFirmCanceledEmail.txt");
             String s;
             try (
 
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%CustomerName%",customerName)
-                            .replaceAll("%CustomerPhone%",customerPhone)
-                            .replaceAll("%CustomerEmail%",customerEmail)
-                            .replaceAll("%DriverName%",driverName)
-                            .replaceAll("%SupportNumber%",supportNumber)
-                            .replaceAll("%FirmName%",firmName);
+                    s = s.replaceAll("%CustomerName%", customerName)
+                            .replaceAll("%CustomerPhone%", customerPhone)
+                            .replaceAll("%CustomerEmail%", customerEmail)
+                            .replaceAll("%DriverName%", driverName)
+                            .replaceAll("%SupportNumber%", supportNumber)
+                            .replaceAll("%FirmName%", firmName);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return emailMessage;
     }
-    public String getExpectedPartnerFirmInitialDeliveriesEmailContent(String firmName,String deliveryCount)
-    {
-        String emailMessage = "";
-        FileReader fr;
-        try{
-            if(SystemUtils.IS_OS_WINDOWS){
-                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalIntialDeliveriesEmail.txt");
-            }
-            else{
-                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerPortalIntialDeliveriesEmail.txt");
-            }
-            String s;
-            try (
 
-                    BufferedReader br = new BufferedReader(fr)) {
-
-                while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%PartnerName%",firmName);
-                    s = s.replaceAll("%DeliveryCount%",deliveryCount);
-                    emailMessage += s;
-                }
-
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        return emailMessage;
-    }
-    public String getExpectedPartnerFirmFirstEmailContent(String firmName)
-    {
+    public String getExpectedPartnerFirmInitialDeliveriesEmailContent(String firmName, String deliveryCount) {
         String emailMessage = "";
         FileReader fr;
-        try{
-            if(SystemUtils.IS_OS_WINDOWS){
-                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalFirstScheduleDeliveryEmail.txt");
-            }
-            else{
-                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerPortalFirstScheduleDeliveryEmail.txt");
+        try {
+            if (SystemUtils.IS_OS_WINDOWS) {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PartnerPortalIntialDeliveriesEmail.txt");
+            } else {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/PartnerPortalIntialDeliveriesEmail.txt");
             }
             String s;
             try (
@@ -703,67 +709,94 @@ public class GeneralUtility extends DriverBase {
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%PartnerName%",firmName);
+                    s = s.replaceAll("%PartnerName%", firmName);
+                    s = s.replaceAll("%DeliveryCount%", deliveryCount);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return emailMessage;
     }
-    public String getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(String firmName)
-    {
+
+    public String getExpectedPartnerFirmFirstEmailContent(String firmName) {
         String emailMessage = "";
         FileReader fr;
-        try{
-            fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalSecondEmailForScheduledDeliveryBeforeFirstDelivery.txt");
+        try {
+            if (SystemUtils.IS_OS_WINDOWS) {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PartnerPortalFirstScheduleDeliveryEmail.txt");
+            } else {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/PartnerPortalFirstScheduleDeliveryEmail.txt");
+            }
             String s;
             try (
 
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%PartnerName%",firmName);
+                    s = s.replaceAll("%PartnerName%", firmName);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return emailMessage;
     }
 
-    public String getExpectedPartnerDeliveryScheduledBeyondSecondaryPolyline(String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone,String tracking_Id)
-    {
+    public String getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(String firmName) {
         String emailMessage = "";
-
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DeliveryScheduledBeyondSecondaryPolyline.txt");
+        FileReader fr;
+        try {
+            fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PartnerPortalSecondEmailForScheduledDeliveryBeforeFirstDelivery.txt");
             String s;
             try (
 
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%ScheduledDate%",scheduled_Date)
-                            .replaceAll("%PickupAddress%",pickup_Address)
-                            .replaceAll("%DropupAddress%",dropup_Address)
-                            .replaceAll("%CustomerName%",customer_Name)
-                            .replaceAll("%CustomerPhone%",customer_Phone)
-                            .replaceAll("%ItemsToDeliver%",items_To_Deliver)
-                            .replaceAll("%PickupContactName%",pickup_Contact_Name)
-                            .replaceAll("%PickupContactPhone%",pickup_Contact_Phone)
-                            .replaceAll("%TrackingId%",tracking_Id);
+                    s = s.replaceAll("%PartnerName%", firmName);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception ex){
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+
+    public String getExpectedPartnerDeliveryScheduledBeyondSecondaryPolyline(String scheduled_Date, String pickup_Address, String dropup_Address, String customer_Name, String customer_Phone, String items_To_Deliver, String pickup_Contact_Name, String pickup_Contact_Phone, String tracking_Id) {
+        String emailMessage = "";
+
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\DeliveryScheduledBeyondSecondaryPolyline.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%ScheduledDate%", scheduled_Date)
+                            .replaceAll("%PickupAddress%", pickup_Address)
+                            .replaceAll("%DropupAddress%", dropup_Address)
+                            .replaceAll("%CustomerName%", customer_Name)
+                            .replaceAll("%CustomerPhone%", customer_Phone)
+                            .replaceAll("%ItemsToDeliver%", items_To_Deliver)
+                            .replaceAll("%PickupContactName%", pickup_Contact_Name)
+                            .replaceAll("%PickupContactPhone%", pickup_Contact_Phone)
+                            .replaceAll("%TrackingId%", tracking_Id);
+                    emailMessage += s;
+                }
+
+            }
+        } catch (Exception ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Unable to read email for Partner Cancel delivery with driver",
                     true);
@@ -772,29 +805,28 @@ public class GeneralUtility extends DriverBase {
         return emailMessage;
     }
 
-    public String getExpectedDeliveryScheduledBeyondSecondaryPolyline(String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String tracking_Id)
-    {
+    public String getExpectedDeliveryScheduledBeyondSecondaryPolyline(String scheduled_Date, String pickup_Address, String dropup_Address, String customer_Name, String customer_Phone, String tracking_Id) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerDeliveryScheduledBeyondSecondaryPolyline.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\CustomerDeliveryScheduledBeyondSecondaryPolyline.txt");
             String s;
             try (
 
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%ScheduledDate%",scheduled_Date)
-                            .replaceAll("%PickupAddress%",pickup_Address)
-                            .replaceAll("%DropupAddress%",dropup_Address)
-                            .replaceAll("%CustomerName%",customer_Name)
-                            .replaceAll("%CustomerPhone%",customer_Phone)
-                            .replaceAll("%TrackingId%",tracking_Id);
+                    s = s.replaceAll("%ScheduledDate%", scheduled_Date)
+                            .replaceAll("%PickupAddress%", pickup_Address)
+                            .replaceAll("%DropupAddress%", dropup_Address)
+                            .replaceAll("%CustomerName%", customer_Name)
+                            .replaceAll("%CustomerPhone%", customer_Phone)
+                            .replaceAll("%TrackingId%", tracking_Id);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Unable to read email for Partner Cancel delivery with driver",
                     true);
@@ -803,35 +835,34 @@ public class GeneralUtility extends DriverBase {
         return emailMessage;
     }
 
-    public String getExpectedPartnerPortalCanceledEmailContentWithDriver(String partner_Name,String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String driverName,String driverPhone,String driverLicencePlate,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone)
-    {
+    public String getExpectedPartnerPortalCanceledEmailContentWithDriver(String partner_Name, String scheduled_Date, String pickup_Address, String dropup_Address, String customer_Name, String customer_Phone, String driverName, String driverPhone, String driverLicencePlate, String items_To_Deliver, String pickup_Contact_Name, String pickup_Contact_Phone) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalCanceledEmailWithDriver.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PartnerPortalCanceledEmailWithDriver.txt");
             String s;
             try (
 
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%PartnerName%",partner_Name)
-                            .replaceAll("%ScheduledDate%",scheduled_Date)
-                            .replaceAll("%PickupAddress%",pickup_Address)
-                            .replaceAll("%DropupAddress%",dropup_Address)
-                            .replaceAll("%CustomerName%",customer_Name)
-                            .replaceAll("%CustomerPhone%",customer_Phone)
-                            .replaceAll("%DriverName%",driverName)
-                            .replaceAll("%DriverPhone%",driverPhone)
-                            .replaceAll("%DriverLicencePlate%",driverLicencePlate)
-                            .replaceAll("%ItemsToDeliver%",items_To_Deliver)
-                            .replaceAll("%PickupContactName%",pickup_Contact_Name)
-                            .replaceAll("%PickupContactPhone%",pickup_Contact_Phone);
+                    s = s.replaceAll("%PartnerName%", partner_Name)
+                            .replaceAll("%ScheduledDate%", scheduled_Date)
+                            .replaceAll("%PickupAddress%", pickup_Address)
+                            .replaceAll("%DropupAddress%", dropup_Address)
+                            .replaceAll("%CustomerName%", customer_Name)
+                            .replaceAll("%CustomerPhone%", customer_Phone)
+                            .replaceAll("%DriverName%", driverName)
+                            .replaceAll("%DriverPhone%", driverPhone)
+                            .replaceAll("%DriverLicencePlate%", driverLicencePlate)
+                            .replaceAll("%ItemsToDeliver%", items_To_Deliver)
+                            .replaceAll("%PickupContactName%", pickup_Contact_Name)
+                            .replaceAll("%PickupContactPhone%", pickup_Contact_Phone);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Unable to read email for Partner Cancel delivery with driver",
                     true);
@@ -840,32 +871,31 @@ public class GeneralUtility extends DriverBase {
         return emailMessage;
     }
 
-    public String getExpectedPartnerPortalCanceledEmailContentWithoutDriver(String partner_Name,String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone)
-    {
+    public String getExpectedPartnerPortalCanceledEmailContentWithoutDriver(String partner_Name, String scheduled_Date, String pickup_Address, String dropup_Address, String customer_Name, String customer_Phone, String items_To_Deliver, String pickup_Contact_Name, String pickup_Contact_Phone) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalCanceledEmailWithoutDriver.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PartnerPortalCanceledEmailWithoutDriver.txt");
             String s;
             try (
 
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%PartnerName%",partner_Name)
-                            .replaceAll("%ScheduledDate%",scheduled_Date)
-                            .replaceAll("%PickupAddress%",pickup_Address)
-                            .replaceAll("%DropupAddress%",dropup_Address)
-                            .replaceAll("%CustomerName%",customer_Name)
-                            .replaceAll("%CustomerPhone%",customer_Phone)
-                            .replaceAll("%ItemsToDeliver%",items_To_Deliver)
-                            .replaceAll("%PickupContactName%",pickup_Contact_Name)
-                            .replaceAll("%PickupContactPhone%",pickup_Contact_Phone);
+                    s = s.replaceAll("%PartnerName%", partner_Name)
+                            .replaceAll("%ScheduledDate%", scheduled_Date)
+                            .replaceAll("%PickupAddress%", pickup_Address)
+                            .replaceAll("%DropupAddress%", dropup_Address)
+                            .replaceAll("%CustomerName%", customer_Name)
+                            .replaceAll("%CustomerPhone%", customer_Phone)
+                            .replaceAll("%ItemsToDeliver%", items_To_Deliver)
+                            .replaceAll("%PickupContactName%", pickup_Contact_Name)
+                            .replaceAll("%PickupContactPhone%", pickup_Contact_Phone);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Unable to read email for Partner Cancel delivery without driver",
                     true);
@@ -874,12 +904,11 @@ public class GeneralUtility extends DriverBase {
         return emailMessage;
     }
 
-    public String getExpectedFailedTripEmailContent(String pickupId,String pickupRef,String pickupStatus,String customerName,String customerPhone,String pickupLocation,String pickupAddress)
-    {
+    public String getExpectedFailedTripEmailContent(String pickupId, String pickupRef, String pickupStatus, String customerName, String customerPhone, String pickupLocation, String pickupAddress) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\FailedTripEmail.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\FailedTripEmail.txt");
             String s;
             try (
 
@@ -887,29 +916,28 @@ public class GeneralUtility extends DriverBase {
 
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%PickupId%", pickupId)
-                            .replaceAll("%CustomerName%",customerName)
-                            .replaceAll("%CustomerPhone%",customerPhone)
-                            .replaceAll("%PickupRef%",pickupRef)
-                            .replaceAll("%PickupStatus%",pickupStatus)
-                            .replaceAll("%PickupLocation%",pickupLocation)
-                            .replaceAll("%PickupAddress%",pickupAddress);
+                            .replaceAll("%CustomerName%", customerName)
+                            .replaceAll("%CustomerPhone%", customerPhone)
+                            .replaceAll("%PickupRef%", pickupRef)
+                            .replaceAll("%PickupStatus%", pickupStatus)
+                            .replaceAll("%PickupLocation%", pickupLocation)
+                            .replaceAll("%PickupAddress%", pickupAddress);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return emailMessage;
     }
 
-    public String getExpectedDriverRejectionEmailContent(String driverName)
-    {
+    public String getExpectedDriverRejectionEmailContent(String driverName) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverRejectionEmail.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\DriverRejectionEmail.txt");
             String s;
             try (
 
@@ -921,18 +949,18 @@ public class GeneralUtility extends DriverBase {
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return emailMessage;
     }
-    public String getExpectedDriverSubmissionEmailContent(String driverName)
-    {
+
+    public String getExpectedDriverSubmissionEmailContent(String driverName) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverSubmissionEmail.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\DriverSubmissionEmail.txt");
             String s;
             try (
 
@@ -944,19 +972,18 @@ public class GeneralUtility extends DriverBase {
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return emailMessage;
     }
 
-    public String getExpectedDriverActionRequiredEmailContent(String driverName)
-    {
+    public String getExpectedDriverActionRequiredEmailContent(String driverName) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverActionRequiredEmail.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\DriverActionRequiredEmail.txt");
             String s;
             try (
 
@@ -968,18 +995,18 @@ public class GeneralUtility extends DriverBase {
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return emailMessage;
     }
-    public String getExpectedDriverApprovalEmailContent(String driverName)
-    {
+
+    public String getExpectedDriverApprovalEmailContent(String driverName) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverApprovalEmail.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\DriverApprovalEmail.txt");
             String s;
             try (
 
@@ -993,7 +1020,7 @@ public class GeneralUtility extends DriverBase {
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -1010,10 +1037,11 @@ public class GeneralUtility extends DriverBase {
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get timezone value of Geofence
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
-        if(TimeZone.getTimeZone(getGeofenceTimeZone).inDaylightTime( new Date() ))
-            getGeofenceTimeZone = getGeofenceTimeZone.replace("ST","DT");
+        if (TimeZone.getTimeZone(getGeofenceTimeZone).inDaylightTime(new Date()))
+            getGeofenceTimeZone = getGeofenceTimeZone.replace("ST", "DT");
         return getGeofenceTimeZone;
     }
+
     /**
      * Get geofence data from properties file
      *
@@ -1028,12 +1056,11 @@ public class GeneralUtility extends DriverBase {
     }
 
 
-    public String getExpectedDriverRegistrationCompleteEmailContent(String driverName, String driverPhone)
-    {
+    public String getExpectedDriverRegistrationCompleteEmailContent(String driverName, String driverPhone) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverRegistrationCompleteEmail.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\DriverRegistrationCompleteEmail.txt");
             String s;
 
             try (
@@ -1042,27 +1069,25 @@ public class GeneralUtility extends DriverBase {
 
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%driverFullName%", driverName)
-                            .replaceAll("%driverPhone%",driverPhone);
+                            .replaceAll("%driverPhone%", driverPhone);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return emailMessage;
     }
 
-    public String getTripTimezone(String geofence)
-    {
-        geofence= geofence.toLowerCase();
+    public String getTripTimezone(String geofence) {
+        geofence = geofence.toLowerCase();
         String timezone = null;
-        switch (geofence)
-        {
-                case "Washington DC":
-                case "washingtondc":
-                case "newjersey":
+        switch (geofence) {
+            case "Washington DC":
+            case "washingtondc":
+            case "newjersey":
                 timezone = "EST";
                 break;
             case "goa":
@@ -1077,6 +1102,7 @@ public class GeneralUtility extends DriverBase {
         return timezone;
 
     }
+
     public String setDownloadLink(String message, String emailBody) {
 
 //String HTML_TAG_PATTERN = "<a href=(.+?)>";
@@ -1084,14 +1110,13 @@ public class GeneralUtility extends DriverBase {
         Pattern pLink = Pattern.compile(HTML_TAG_PATTERN);
         Matcher m = pLink.matcher(emailBody);
         while (m.find()) {
-                String link = m.group(0);
-               message = message.replace("%Link%", link);
+            String link = m.group(0);
+            message = message.replace("%Link%", link);
         }
         return message;
     }
 
-    public static String Convert(String str)
-    {
+    public static String Convert(String str) {
         // Create a char array of given String
         char ch[] = str.toCharArray();
         for (int i = 0; i < str.length(); i++) {
@@ -1104,7 +1129,7 @@ public class GeneralUtility extends DriverBase {
                 if (ch[i] >= 'a' && ch[i] <= 'z') {
 
                     // Convert into Upper-case
-                    ch[i] = (char)(ch[i] - 'a' + 'A');
+                    ch[i] = (char) (ch[i] - 'a' + 'A');
                 }
             }
 
@@ -1113,7 +1138,7 @@ public class GeneralUtility extends DriverBase {
             else if (ch[i] >= 'A' && ch[i] <= 'Z')
 
                 // Convert into Lower-Case
-                ch[i] = (char)(ch[i] + 'a' - 'A');
+                ch[i] = (char) (ch[i] + 'a' - 'A');
         }
 
         // Convert the char array to equivalent String
@@ -1164,81 +1189,79 @@ public class GeneralUtility extends DriverBase {
         return estimateCost;
     }
 
-    public String calDriverEstEarning(){
-        String CalculatedDriverValue="";
+    public String calDriverEstEarning() {
+        String CalculatedDriverValue = "";
         //Driver Cut used for calculation
         double DSE;
 
-        String geofence= (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
-        if(geofence.equalsIgnoreCase("washingtondc")){
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        if (geofence.equalsIgnoreCase("washingtondc")) {
             geofence = "washington dc";
         }
 
         String Bungii_rate = getBungiiRate(geofence);
 
-        int Driver_rate = 100-Integer.parseInt(Bungii_rate);
+        int Driver_rate = 100 - Integer.parseInt(Bungii_rate);
 
         String PickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-        Double Customer_Price_After_Discount= Double.parseDouble(getEstPrice(PickupRequest));
+        Double Customer_Price_After_Discount = Double.parseDouble(getEstPrice(PickupRequest));
 
-        String Bungii_Type= (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        String Bungii_Type = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         int num_Of_Driver;
-        if(Bungii_Type.equalsIgnoreCase("Solo Scheduled")||Bungii_Type.equalsIgnoreCase("Solo")){
-            num_Of_Driver=1;
+        if (Bungii_Type.equalsIgnoreCase("Solo Scheduled") || Bungii_Type.equalsIgnoreCase("Solo")) {
+            num_Of_Driver = 1;
+        } else {
+            num_Of_Driver = 2;
         }
-        else {
-            num_Of_Driver=2;
-        }
 
-        Double Transaction_Fees = (Customer_Price_After_Discount*(0.029))+(0.3*num_Of_Driver);
+        Double Transaction_Fees = (Customer_Price_After_Discount * (0.029)) + (0.3 * num_Of_Driver);
 
-        DSE = (Customer_Price_After_Discount*(Driver_rate*0.01))-(Transaction_Fees);
+        DSE = (Customer_Price_After_Discount * (Driver_rate * 0.01)) - (Transaction_Fees);
 
 
-        int Last_Zero_Digit =(int) ((DSE*100)%10);
-        if(Last_Zero_Digit==0){
+        int Last_Zero_Digit = (int) ((DSE * 100) % 10);
+        if (Last_Zero_Digit == 0) {
             CalculatedDriverValue = String.valueOf(String.format("%.1f", DSE));
-        }else {
+        } else {
             CalculatedDriverValue = String.valueOf(String.format("%.2f", DSE));
         }
         return CalculatedDriverValue;
     }
 
-    public String calDriverEarning(){
-        String CalculatedDriverValue="";
+    public String calDriverEarning() {
+        String CalculatedDriverValue = "";
         //Driver Cut used for calculation
         double DSE;
 
-        String geofence= (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
-        if(geofence.equalsIgnoreCase("washingtondc")){
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        if (geofence.equalsIgnoreCase("washingtondc")) {
             geofence = "washington dc";
         }
 
         String Bungii_rate = getBungiiRate(geofence);
 
-        int Driver_rate = 100-Integer.parseInt(Bungii_rate);
+        int Driver_rate = 100 - Integer.parseInt(Bungii_rate);
 
         String PickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-        Double Customer_Price_After_Discount= Double.parseDouble(getActualPrice(PickupRequest));
+        Double Customer_Price_After_Discount = Double.parseDouble(getActualPrice(PickupRequest));
 
-        String Bungii_Type= (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+        String Bungii_Type = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
         int num_Of_Driver;
-        if(Bungii_Type.equalsIgnoreCase("Solo Scheduled")||Bungii_Type.equalsIgnoreCase("Solo")){
-            num_Of_Driver=1;
+        if (Bungii_Type.equalsIgnoreCase("Solo Scheduled") || Bungii_Type.equalsIgnoreCase("Solo")) {
+            num_Of_Driver = 1;
+        } else {
+            num_Of_Driver = 2;
         }
-        else {
-            num_Of_Driver=2;
-        }
 
-        Double Transaction_Fees = (Customer_Price_After_Discount*(0.029))+(0.3*num_Of_Driver);
+        Double Transaction_Fees = (Customer_Price_After_Discount * (0.029)) + (0.3 * num_Of_Driver);
 
-        DSE = (Customer_Price_After_Discount*(Driver_rate*0.01))-(Transaction_Fees);
+        DSE = (Customer_Price_After_Discount * (Driver_rate * 0.01)) - (Transaction_Fees);
 
 
-        int Last_Zero_Digit =(int) ((DSE*100)%10);
-        if(Last_Zero_Digit==0){
+        int Last_Zero_Digit = (int) ((DSE * 100) % 10);
+        if (Last_Zero_Digit == 0) {
             CalculatedDriverValue = String.valueOf(String.format("%.1f", DSE));
-        }else {
+        } else {
             CalculatedDriverValue = String.valueOf(String.format("%.2f", DSE));
         }
         return CalculatedDriverValue;
@@ -1253,23 +1276,30 @@ public class GeneralUtility extends DriverBase {
         return getGeofenceTimeZone;
     }
 
-    public long Milliseconds_To_Minutes(long milliseconds){
+    public long Milliseconds_To_Minutes(long milliseconds) {
         long minutes = (milliseconds / 1000) / 60;
         return minutes;
     }
 
-    public String getbungiiDayLightTimeValue(String bungiiTime){
-        String time=bungiiTime;
-        if(bungiiTime.contains("CDT")) { time=bungiiTime.replace("CDT","CST"); }
-        else if(bungiiTime.contains("EDT")){ time=bungiiTime.replace("EDT","EST"); }
-        else if(bungiiTime.contains("MDT")){ time=bungiiTime.replace("MDT","MST"); }
-        else if(bungiiTime.contains("PDT")){ time=bungiiTime.replace("PDT","PST"); }
-        else if(bungiiTime.contains("IST")){ time=bungiiTime; }
+    public String getbungiiDayLightTimeValue(String bungiiTime) {
+        String time = bungiiTime;
+        if (bungiiTime.contains("CDT")) {
+            time = bungiiTime.replace("CDT", "CST");
+        } else if (bungiiTime.contains("EDT")) {
+            time = bungiiTime.replace("EDT", "EST");
+        } else if (bungiiTime.contains("MDT")) {
+            time = bungiiTime.replace("MDT", "MST");
+        } else if (bungiiTime.contains("PDT")) {
+            time = bungiiTime.replace("PDT", "PST");
+        } else if (bungiiTime.contains("IST")) {
+            time = bungiiTime;
+        }
         return time;
     }
-    public void searchGeofenceDropdown(String geofence){
+
+    public void searchGeofenceDropdown(String geofence) {
         action.click(admin_geofencePage.List_Geofence());
-        action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(),geofence);
+        action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(), geofence);
     }
 
     public void resetGeofenceDropdown() throws InterruptedException {
@@ -1280,13 +1310,15 @@ public class GeneralUtility extends DriverBase {
         Thread.sleep(2000);
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
-    public void selectGeofenceDropdown(String geofence){
+
+    public void selectGeofenceDropdown(String geofence) {
         action.click(admin_geofencePage.List_Geofence());
-        action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(),geofence);
-        String geofencePartial= geofence.substring(1);
+        action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(), geofence);
+        String geofencePartial = geofence.substring(1);
         action.JavaScriptClick(admin_geofencePage.Checkbox_Geofence(geofencePartial));
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
+
     public void reApplyGeofenceDropdown() throws InterruptedException {
         Thread.sleep(3000);
         action.click(admin_geofencePage.List_Geofence());
@@ -1294,48 +1326,49 @@ public class GeneralUtility extends DriverBase {
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
 
-    public void closeGeofenceDropdown(){
+    public void closeGeofenceDropdown() {
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
 
-    public String encodeImage(String Image){
-        String base64="";
-        try{
+    public String encodeImage(String Image) {
+        String base64 = "";
+        try {
             InputStream iSteamReader = new FileInputStream(Image);
             byte[] imageBytes = IOUtils.toByteArray(iSteamReader);
             base64 = Base64.getEncoder().encodeToString(imageBytes);
             //System.out.println(base64);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return "data:image/png;base64,"+base64;
+        return "data:image/png;base64," + base64;
     }
 
-    public int GetUniqueNumber(){
+    public int GetUniqueNumber() {
         Random random = new Random();
         // Generate random integers in range 0 to 999
         int random_int = random.nextInt(1000);
         return random_int;
     }
-    public void calculateEstDeliveryTime(int minutes, java.sql.Time timeValue){
+
+    public void calculateEstDeliveryTime(int minutes, java.sql.Time timeValue) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(timeValue);
         calendar.add(Calendar.MINUTE, minutes);
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 5;
         calendar.add(Calendar.MINUTE, (5 - mod));
-        calendar.add(Calendar.MINUTE,-60);
-        String lowerRangeTime=String.valueOf(calendar.getTime());
-        calendar.add(Calendar.MINUTE,120);
-        String upperRangeTime=String.valueOf(calendar.getTime());
+        calendar.add(Calendar.MINUTE, -60);
+        String lowerRangeTime = String.valueOf(calendar.getTime());
+        calendar.add(Calendar.MINUTE, 120);
+        String upperRangeTime = String.valueOf(calendar.getTime());
 
-        String estimateLowerRange=lowerRangeTime.substring(11,16);
-        cucumberContextManager.setScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME",estimateLowerRange);
-        String estimateUpperRange=upperRangeTime.substring(11,16);
-        cucumberContextManager.setScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME",estimateUpperRange);
+        String estimateLowerRange = lowerRangeTime.substring(11, 16);
+        cucumberContextManager.setScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME", estimateLowerRange);
+        String estimateUpperRange = upperRangeTime.substring(11, 16);
+        cucumberContextManager.setScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME", estimateUpperRange);
     }
 
-    public void clearEquipment(){
+    public void clearEquipment() {
         action.click(admin_DriverPage.Checkbox_ApplianceDolly());
         action.click(admin_DriverPage.Checkbox_FurnitureDolly());
         action.click(admin_DriverPage.Checkbox_HandDolly());
@@ -1343,19 +1376,20 @@ public class GeneralUtility extends DriverBase {
         action.click(admin_DriverPage.Checkbox_Ramp());
     }
 
-    public void clearVehicleType(){
+    public void clearVehicleType() {
         action.click(admin_DriverPage.Checkbox_BoxTruck());
         action.click(admin_DriverPage.Checkbox_MovingVan());
         action.click(admin_DriverPage.Checkbox_PickupTruck());
         action.click(admin_DriverPage.Checkbox_SUV());
     }
 
-    public String NavigateToPartnerManagementLogin(){
+    public String NavigateToPartnerManagementLogin() {
         String partnerURL = GetPartnerManagementUrl();
         action.deleteAllCookies();
         action.navigateTo(partnerURL);
         return partnerURL;
     }
+
     public String GetPartnerManagementUrl() {
         String partnerManagementURL = null;
         String environment = PropertyUtility.getProp("environment");
@@ -1365,4 +1399,3 @@ public class GeneralUtility extends DriverBase {
     }
 
 }
-
