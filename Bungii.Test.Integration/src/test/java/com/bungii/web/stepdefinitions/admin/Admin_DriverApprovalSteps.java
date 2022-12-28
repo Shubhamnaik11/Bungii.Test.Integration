@@ -51,6 +51,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     PartnerManagement_LoginPage Page_PartnerManagement_Login = new PartnerManagement_LoginPage();
     PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
     Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
+    Driver_DashboardPage Page_Driver_Dashboard = new Driver_DashboardPage();
 
     @Given("^I am logged in as Admin$")
     public void i_am_logged_in_as_admin() throws Throwable {
@@ -263,8 +264,48 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 case "Geofence Attributes Page":
                     testStepAssert.isElementDisplayed(admin_geofenceAtrributesPage.Label_Geofence_Attributes(), "I should be navigated to " + screen, "I am navigated to " + screen, "I am not navigates to " + screen);
                     break;
-
-
+                case "Updated Terms & Conditions":
+                    action.switchToTab(1);
+                    String currentUrlTermsAndConditions= action.getCurrentURL();
+                    String expctedUrlTermsAndConditions=PropertyUtility.getDataProperties("driver.terms.conditions.link");
+                    testStepVerify.isEquals(currentUrlTermsAndConditions, expctedUrlTermsAndConditions, "Updated Terms & Conditons should be displayed", "Updated Terms & Conditons is displayed", "Updated Terms & Conditons is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Heading_DriverAgreement()), "Updated Terms & Conditons should be displayed","Updated Terms & Conditons is displayed", "Subpoint Updated Terms & Conditons is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Definations()), "Subpoint Definations should be displayed","Subpoint Definations is displayed", "Subpoint Definations is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_UseOfBungiiServices()), "Subpoint Use of Bungii Services should be displayed","Subpoint Use of Bungii Services is displayed", "Subpoint Use of Bungii Services is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_LocationBasedServices()), "Subpoint Location Based Services should be displayed","Subpoint Location Based Services is displayed", "Subpoint Location Based Services is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Ratings()), "Subpoint Ratings should be displayed","Subpoint Ratings is displayed", "Subpoint Ratings is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Mobiledevices()), "Subpoint Mobile Devices should be displayed","Subpoint Mobile Devices is displayed", "Subpoint Mobile Devices is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_YouAndYourVehicle()), "Subpoint You And Your Vehicle should be displayed","Subpoint You And Your Vehicle is displayed", "Subpoint You And Your Vehicle is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_FinancialTerms()), "Subpoint Financial Terms should be displayed","Subpoint Financial Terms is displayed", "Subpoint Financial Terms is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_ProprietaryRightsLicense()), "Subpoint Proprietary Rights License should be displayed","Subpoint Proprietary Rights License is displayed", "Subpoint Proprietary Rights License is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Confidentiality()), "Subpoint Confidentiality should be displayed","Subpoint Confidentiality is displayed", "Subpoint Confidentiality is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Privacy()), "Subpoint Privacy should be displayed","Subpoint Privacy is displayed", "Subpoint Privacy is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Insurance()), "Subpoint Insurance should be displayed","Subpoint Insurance is displayed", "Subpoint Insurance is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_RepresentationsAndWarrantiesDisclaimers()), "Subpoint Representations And Warranties Disclaimers should be displayed","Subpoint Representations And Warranties Disclaimers is displayed", "Representations And Warranties Disclaimers is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Indemnification()), "Subpoint Indemnification should be displayed","Subpoint Indemnification is displayed", "Subpoint Indemnification is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_LimitsOfLiability()),"Subpoint Limits Of Liability should be displayed", "Subpoint Limits Of Liability is displayed", "Subpoint Limits Of Liability is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_TermAndTermination()), "Subpoint Term And Termination should be displayed","Subpoint Term And Termination is displayed", "Subpoint Term And Termination is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_RelationshipOfTheParties()), "Subpoint Relationship Of The Parties should be displayed","Subpoint Relationship Of The Parties is displayed", "Subpoint Relationship Of The Parties is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_DisputeResolutionArbitration()),"Subpoint Dispute Resolution Arbitration should be displayed", "Subpoint Dispute Resolution Arbitration is displayed", "Subpoint Dispute Resolution Arbitration is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_MiscellaneousTerms()), "Subpoint Miscellaneous should be displayed","Subpoint Miscellaneous Terms is displayed", "Subpoint Miscellaneous Terms is not displayed");
+                    break;
+                case "Updated Privacy Policy":
+                    action.switchToTab(1);
+                    String currentUrlPrivacyPolicy= action.getCurrentURL();
+                    String expctedUrlPrivacyPolicy=PropertyUtility.getDataProperties("driver.privacy.policy.link");
+                    testStepVerify.isEquals(currentUrlPrivacyPolicy, expctedUrlPrivacyPolicy, "Updated Privacy Policy should be displayed", "Updated Privacy Policy is displayed", "Updated Privacy Policy is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Heading_PrivacyPolicy()), "Heading Privacy Policy should be displayed","Heading Privacy Policy is displayed", "Heading Privacy Policy is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_CollectionOfInformation()), "Subpoint Collection Of Information should be displayed","Subpoint Collection Of Information is displayed", "Subpoint Collection Of Information is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_UseOfInformation()), "Subpoint Use Of Information should be displayed","Subpoint Use Of Information is displayed", "Subpoint Use Of Information is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_SharingOfInformation()), "Subpoint Sharing Of Information should be displayed","Subpoint Sharing Of Information is displayed", "Subpoint Sharing Of Information is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_AdvertisingAndAnalyticsServices()), "Subpoint Advertising And Analytics Services should be displayed","Subpoint Advertising And Analytics Services is displayed", "Subpoint Advertising And Analytics Services is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_Security()), "Subpoint Security should be displayed","Subpoint Security is displayed", "Subpoint Security is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_AgeLimit()), "Subpoint Age Limit should be displayed","Subpoint Age Limit is displayed", "Subpoint Age Limit is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_YourChoices()), "Subpoint Your Choices should be displayed","Subpoint Your Choices is displayed", "Subpoint Your Choices is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_CaliforniaResidents()), "Subpoint California Residents should be displayed","Subpoint California Residents is displayed", "Subpoint California Residents is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_ChangesToThePrivacyPolicy()), "Subpoint Changes To The Privacy Policy should be displayed","Subpoint Changes To The Privacy Policy is displayed", "Subpoint Changes To The Privacy Policy is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_ContactingUs()), "Subpoint Contacting Us should be displayed","Subpoint Contacting Us Terms is displayed", "Subpoint Contacting Us Terms is not displayed");
+                    break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
