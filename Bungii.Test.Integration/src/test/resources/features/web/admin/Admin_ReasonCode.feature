@@ -26,7 +26,8 @@ Feature: Admin_Reason_Code
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
     Then the updated time should be displayed on delivery details page
-    #CORE-4152: Estimated delivery time is correct when admin edits Scheduled date/time
+    #CORE-4152: Estimated delivery time is correct when admin edits Scheduled time
+    And I get the new pickup reference generated
     And I view the all Scheduled Deliveries list on the admin portal
     When  I search the delivery using "Pickup Reference"
     When I click on the "Delivery Details" button from the dropdown
@@ -73,6 +74,13 @@ Feature: Admin_Reason_Code
       Then "Bungii Saved!" message should be displayed
       And I wait for "2" mins
       Then the updated date should be displayed on delivery details page
+     #CORE-4152: Estimated delivery time is correct when admin edits Scheduled date
+     And I get the new pickup reference generated
+     And I view the all Scheduled Deliveries list on the admin portal
+     When  I search the delivery using "Pickup Reference"
+     When I click on the "Delivery Details" button from the dropdown
+     Then The "Scheduled Time" for customer delivery should match
+     Then The "Estimated Delivery Time" for customer delivery should match
 
   @ready
   Scenario: Verify Reason dropdown is displayed for Customer SOLO/ DUO  re-scheduled delivery  when NO Driver accepts and Admin edits both Date and Time
