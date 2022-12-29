@@ -31,4 +31,5 @@ public class PartnerManagement_Email extends PageBase {
 
     public WebElement Button_AddEmailAddress() { return findElement("//label[text()=\"Add Email Address\"]", LocatorType.XPath); }
 
+    public WebElement Button_EditEmailAddress(int num) { return findElements("//div/a/following-sibling::button",LocatorType.XPath).get(num);}
 }

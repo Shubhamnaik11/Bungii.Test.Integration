@@ -10,6 +10,7 @@ import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.LiveTripsPage;
 import com.bungii.ios.pages.customer.EstimatePage;
 import com.bungii.ios.pages.driver.BungiiDetailsPage;
+import com.bungii.ios.pages.driver.ForgotPasswordPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
@@ -48,7 +49,6 @@ public class UpdateStatusSteps extends DriverBase {
     private BungiiDetailsPage bungiiDetailsPage;
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
 
-
     public UpdateStatusSteps(BungiiDetailsPage bungiiDetailsPage,EstimatePage estimatePage,UpdateStatusPage updateStatusPage, MessagesPage messagesPage,TripDetailsPage tripDetailsPage,com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage) {
         this.bungiiDetailsPage = bungiiDetailsPage;
         this.estimatePage = estimatePage;
@@ -57,6 +57,7 @@ public class UpdateStatusSteps extends DriverBase {
         this.tripDetailsPage= tripDetailsPage;
         this.driverUpdateStatusPage = driverUpdateStatusPage;
     }
+    ForgotPasswordPage driverforgotPasswordPage=new ForgotPasswordPage();
 
     @Then("^I check ETA of \"([^\"]*)\"$")
     public void i_check_eta_of_something(String strArg1){
@@ -931,6 +932,7 @@ public class UpdateStatusSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
     public void the_something_something_should_be_displayed(String element, String strArg2) throws Throwable {
         try{
+            String expectedText = "";
             switch (element){
                 case "Delivery Details":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Header_DeliveryDetails()),"Delivery Details Header should be displayed","Delivery Details Header is displayed","Delivery Details Header is not displayed");
@@ -1037,6 +1039,10 @@ public class UpdateStatusSteps extends DriverBase {
                     String dropOffRangeBasedOnCalculation = (String) cucumberContextManager.getScenarioContext("DropOffRangeCalculated");
                     testStepAssert.isEquals(expectedDropOffRangeFromUI, dropOffRangeBasedOnCalculation,"The arrival time should be "+dropOffRangeBasedOnCalculation,
                             "The arrival time is "+dropOffRangeBasedOnCalculation,"The arrival is not "+expectedDropOffRangeFromUI+" ,The time is "+dropOffRangeBasedOnCalculation);
+                    break;
+                case "Bungii: The Ultimate Side Hustle":
+                    expectedText = PropertyUtility.getMessage("driver.navigation.bungii.the.ultimate.side.hustle");
+                    testStepAssert.isTrue(action.isElementPresent(driverforgotPasswordPage.Label_BungiiTheUltimateSideHustle()),expectedText+" should be displayed",expectedText+" is displayed",expectedText+" is not displayed");
                     break;
             }
         } catch (Exception e) {

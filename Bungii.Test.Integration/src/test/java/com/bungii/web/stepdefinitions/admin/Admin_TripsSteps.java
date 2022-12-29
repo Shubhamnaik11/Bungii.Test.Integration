@@ -643,7 +643,7 @@ public class Admin_TripsSteps extends DriverBase {
         try{
             //Thread.sleep(120000);
             action.click(admin_TripsPage.Menu_Trips());
-            action.click(liveTripsPage.Menu_AllDeliveries());
+            action.click(admin_TripsPage.Menu_AllDeliveries());
             //action.click(admin_LiveTripsPage.Menu_LiveTrips());
             SetupManager.getDriver().navigate().refresh();
             action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
@@ -858,9 +858,10 @@ try{
         try{
         Thread.sleep(4000);
            // action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnLiveEdit']")));
-            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//td/div/img")));
-            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'Edit')]")));
-
+//            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//td/div/img")));
+//            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'Edit')]")));
+            action.click(admin_EditScheduledBungiiPage.Icon_Dropdown());
+            action.click(admin_EditScheduledBungiiPage.Option_Edit());
             log(" I click on Edit link besides the live delivery",
                 "I have clicked on Edit link besides the live delivery", false);
         } catch(Exception e){
@@ -1131,12 +1132,10 @@ try{
             String editLiveDelivery = action.getText(admin_ScheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
             if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
                 testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location_For_Live(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
-                cucumberContextManager.setScenarioContext("OLD_DROPOFF_LOCATION",action.getText(admin_ScheduledTripsPage.Text_Pickup_Address_For_Live()));
                 action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address_For_Live());
             }
             else {
                 testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
-                cucumberContextManager.setScenarioContext("OLD_DROPOFF_LOCATION",action.getText(admin_ScheduledTripsPage.DropOff_Address()));
                 action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address());
 
             }
@@ -1182,6 +1181,7 @@ try{
 
         try{
 //        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
+
         //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
 //        Thread.sleep(1000);
 //        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
