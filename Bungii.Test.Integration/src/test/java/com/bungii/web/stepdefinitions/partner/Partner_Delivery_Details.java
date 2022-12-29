@@ -1091,7 +1091,6 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Testdrivertywd_appleks_a_drvbg Kansas_bg":
                 case "Testdrivertywd_appleks_a_drvbf Kansas_bf":
                 case "Testdrivertywd_appleks_a_drvbe Kansas_be":
-                case "":
                     Thread.sleep(8000);
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Text_DriverName()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Icon_DriverPosition()),"Drivers current location icon should be displayed","Drivers current location icon is displayed","Drivers current location icon is not displayed");
@@ -1345,6 +1344,11 @@ public class Partner_Delivery_Details extends DriverBase {
                     String mRD = action.getText(admin_DriverPage.Text_MostRecentDelivery());
                     testStepAssert.isEquals(mRD,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Textbox_MostRecentDelivery()),element+" Textbox should be displayed",element+" Textbox is displayed",element+" Textbox is not displayed");
+                    break;
+                case "Testdrivertywd_appleks_a_drvbt Kansas_bt":
+                case "Testdrivertywd_appleks_a_drvbs Kansas_bs":
+                    String driverName = action.getText(admin_DriverPage.Text_CurrentOnlineDriver(element));
+                    testStepAssert.isEquals(driverName,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
                     break;
             }
     } catch (Exception e) {
