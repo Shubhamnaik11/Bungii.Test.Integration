@@ -28,6 +28,13 @@ public class LogInSteps extends DriverBase {
         String phone, password;
         boolean shouldLoginSucessful;
         switch (option.toLowerCase()) {
+            case "testdrivertywd_applens_a_kayw stark_nsonew":
+                phone = PropertyUtility.getDataProperties("nashville.driver17.phone");
+                password = PropertyUtility.getDataProperties("nashville.driver17.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver17.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             case "valid":
                 phone = PropertyUtility.getDataProperties("ios.valid.driver.phone");
                 password = PropertyUtility.getDataProperties("ios.valid.driver.password");

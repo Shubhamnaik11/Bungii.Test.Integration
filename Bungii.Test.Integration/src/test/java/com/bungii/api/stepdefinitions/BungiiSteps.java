@@ -3300,7 +3300,16 @@ else
                     driverPassword = PropertyUtility.getDataProperties("nashville.driver2.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver2.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer2.name"));
-                } else if (geofence.equalsIgnoreCase("Kansas")) {
+                }else if (geofence.equalsIgnoreCase("nashville3")) {
+                    geofence = "nashville";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("nashville.customer3.phone");
+                    custPassword = PropertyUtility.getDataProperties("nashville.customer3.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("nashville.driver17.phone");
+                    driverPassword = PropertyUtility.getDataProperties("nashville.driver17.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver17.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer3.name"));
+                }else if (geofence.equalsIgnoreCase("Kansas")) {
                     custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer.phone");
                     custPassword = PropertyUtility.getDataProperties("Kansas.customer.password");
                     if (driverLabel.equalsIgnoreCase("Kansas 2")) {

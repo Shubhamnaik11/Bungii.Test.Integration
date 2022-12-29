@@ -115,7 +115,7 @@ public class HomePage extends PageBase {
     public WebElement Application_Name(boolean ...ignoreException) {return findElement("XCUIElementTypeApplication", LocatorType.ClassName,ignoreException); }
 
     //Itemized Earnings Page
-    public WebElement Button_ItemizedEarnings() {return findElement("//XCUIElementTypeButton[@name=\"ITEMIZED EARNINGS\"]",LocatorType.XPath);}
+    public WebElement Button_ItemizedEarnings() {return findElement("//XCUIElementTypeButton[@name=\"Itemized earnings\"]",LocatorType.XPath);}
     public WebElement Text_ItemizedEarnings() {return findElement("//XCUIElementTypeOther/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
     public WebElement Button_BackItemizedEarnings() {return findElement("//XCUIElementTypeButton[@name=\"Back\"]",LocatorType.XPath);}
     public WebElement Dropdown_StartDate(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]", LocatorType.XPath);}
