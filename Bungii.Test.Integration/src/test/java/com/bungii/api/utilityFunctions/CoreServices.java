@@ -2130,7 +2130,6 @@ public class CoreServices extends DriverBase {
             else if( Partner_Portal.equalsIgnoreCase("Floor and Decor 106")) {
                 String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
 
-                String Pickup_Address_Id = PropertyUtility.getDataProperties("partner.floor.and.decor.106.pickup_address_id");
                 String Pickup_Address1 = PropertyUtility.getDataProperties("partner.floor.and.decor.106.pickup_address1");
                 String Pickup_City = PropertyUtility.getDataProperties("partner.floor.and.decor.106.pickup_city");
                 String Pickup_Country = PropertyUtility.getDataProperties("partner.floor.and.decor.106.pickup_country");
@@ -2184,7 +2183,7 @@ public class CoreServices extends DriverBase {
                 JSONObject jsonDropoffAddress = new JSONObject();
                 jsonDropoffAddress.put("AddressId", DropOff_Address_Id);
                 jsonDropoffAddress.put("Address1", DropOff_Address1);
-                jsonDropoffAddress.put("Address2", "");
+                jsonDropoffAddress.put("Address2", JSONObject.NULL);
                 jsonDropoffAddress.put("City", DropOff_City);
                 jsonDropoffAddress.put("Country", DropOff_Country);
                 jsonDropoffAddress.put("Location", jsonDropOffLocation);
