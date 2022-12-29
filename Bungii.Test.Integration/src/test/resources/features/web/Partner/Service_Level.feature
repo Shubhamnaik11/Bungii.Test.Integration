@@ -143,7 +143,6 @@ Feature: Service Level
     And I click on "Verify" button on Edit Scheduled bungii popup
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
-    And I click on "Close" button
     And I get the new pickup reference generated
     And I wait for "2" mins
 

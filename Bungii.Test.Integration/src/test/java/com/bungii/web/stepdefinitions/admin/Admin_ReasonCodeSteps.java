@@ -117,7 +117,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     @And("^I check if the \"([^\"]*)\" field is hidden$")
     public void i_check_if_the_something_field_is_hidden(String strArg1) throws Throwable {
         try {
-            testStepAssert.isFalse(admin_EditScheduledBungiiPage.Dropdown_Result().isDisplayed(), "Reason dropdown should not be displayed", "Reason dropdown is displayed");
+            testStepAssert.isFalse(action.isElementPresent(admin_EditScheduledBungiiPage.Dropdown_Result(true)), "Reason dropdown should not be displayed", "Reason dropdown is displayed");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -342,6 +342,11 @@ public class CommonSteps extends DriverBase {
                            "The status should be offline",
                            "The status is not offline");
                    break;
+               case "Processing":
+                   testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Text_ProcessingStatus()),
+                           "The status should be processing",
+                           "The status is not processing");
+                   break;
            }
        }
        catch (Exception e) {
@@ -1718,6 +1723,12 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("nashville.customer.phone");
                     password = PropertyUtility.getDataProperties("nashville.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid nashville3":
+                    userName = PropertyUtility.getDataProperties("nashville.customer3.phone");
+                    password = PropertyUtility.getDataProperties("nashville.customer3.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer3.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid nashville first time":
@@ -3248,6 +3259,7 @@ public class CommonSteps extends DriverBase {
             switch (option.toLowerCase()) {
                 case "scheduled deliveries":
                     action.click(dashBoardPage.Button_Trips());
+                    Thread.sleep(3000);
                     action.click(dashBoardPage.Button_ScheduledTrips());
                     break;
                 case "live deliveries":
@@ -3392,7 +3404,7 @@ public class CommonSteps extends DriverBase {
             logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
             action.click(loginPage.Button_Login());
 
-            Thread.sleep(2000);
+            Thread.sleep(4000);
 
             NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar(true));
 

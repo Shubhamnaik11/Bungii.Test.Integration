@@ -6,41 +6,41 @@ import org.openqa.selenium.WebElement;
 public class DashBoardPage extends PageBase {
 
     public WebElement Button_Trips() {
-        return findElement("//ul[@id=\"side-menu\"]/li/p/span[text()=\"Deliveries\"]", LocatorType.XPath);
+        return findElement("//span[contains(text(),'Deliveries')]", LocatorType.XPath);
     }
 
     public WebElement Button_PromoCode() {
-        return findElement("adminmenu-promocodes-menu", LocatorType.Id);
+        return findElement("//span[contains(text(),'Promo Codes')]", LocatorType.XPath);
     }
     public WebElement Link_StandardCodes() {
-        return findElement("adminmenu-promocode", LocatorType.Id);
+        return findElement("//a[contains(text(),'Standard Codes')]", LocatorType.XPath);
     }
     public WebElement Button_Marketing() {
-        return findElement("adminmenu-marketing", LocatorType.Id);
+        return findElement("//span[contains(text(),'Marketing')]", LocatorType.XPath);
     }
 
     public WebElement Button_ReferralSource() {
-        return findElement("adminmenu-referralsource", LocatorType.Id);
+        return findElement("//a[contains(text(),'Referral Sources')]", LocatorType.XPath);
     }
 
     public WebElement Button_ScheduledTrips() {
-        return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Scheduled Deliveries\"]", LocatorType.XPath);
+        return findElement("//a[contains(text(),'Scheduled Deliveries')]", LocatorType.XPath);
     }
 
     public WebElement Button_LiveTrips() {
-        return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Live Deliveries\"]", LocatorType.XPath);
+        return findElement("//a[contains(text(),'Live Deliveries')]", LocatorType.XPath);
     }
     public WebElement Button_Deliveries() {
         return findElement("adminmenu-completedtrips", LocatorType.Id);
     }
 
     public WebElement Button_Drivers() {
-        return findElement("//*[@id='adminmenu-drivers-menu']/a", LocatorType.XPath);
+        return findElement("//span[contains(text(),'Drivers')]", LocatorType.XPath);
     }
     public WebElement Button_Customers() {
-        return findElement("//*[@id='adminmenu-customers']/a", LocatorType.XPath);
+        return findElement("//span[contains(text(),'Customers')]", LocatorType.XPath);
     }
-    public WebElement Menu_Geofences(){return findElement("adminmenu-geofences",LocatorType.Id);}
+    public WebElement Menu_Geofences(){return findElement("//span[contains(text(),'Geofences')]",LocatorType.XPath);}
 
     public WebElement Checkbox_Active_geofence() {return findElement("activeGeofenceOnly",LocatorType.Id);}
 

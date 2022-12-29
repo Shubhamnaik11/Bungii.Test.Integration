@@ -38,7 +38,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Checkbox_Driver (String driverName) { return findElement("//div[@class='driver-checkbox w1']/input", LocatorType.XPath); }
 
-    public WebElement Label_VerifyError() { return findElement("verify-error", LocatorType.Id); }
+    public WebElement Label_VerifyError() { return findElement("//h6[@id='input-valid-message']/i", LocatorType.XPath); }
 
     public WebElement Label_VerifiedMessage() { return findElement("verified-message", LocatorType.Id); }
 

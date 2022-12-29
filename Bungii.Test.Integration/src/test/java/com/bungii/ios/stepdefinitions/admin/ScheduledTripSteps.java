@@ -49,15 +49,28 @@ public class ScheduledTripSteps extends DriverBase {
 
 			action.clearEnterText(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
 			action.click(scheduledTripsPage.Button_Search());Thread.sleep(5000);
+			action.click(scheduledTripsPage.Image_ThreeDots());
+			action.click(scheduledTripsPage.Button_Edit());
 
+
+			Map<String, String> data = cancelDetails.transpose().asMap(String.class, String.class);
+			String cancelCharge = data.get("Charge"), comments = data.get("Comments");
+			Thread.sleep(5000);
+			action.click(scheduledTripsPage.RadioBox_Cancel());
+			//	scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
+			Thread.sleep(2000);
+			action.clearEnterText(scheduledTripsPage.TextBox_CancelFee(),cancelCharge);
+			scheduledTripsPage.TextBox_Comments().sendKeys(comments);
+			action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(),"Other");
+			action.click(scheduledTripsPage.Button_Submit());
+			scheduledTripsPage.waitForPageLoad();
+/*
 			//On admin panel CST time use to show
 		//	getPortalTime("Aug 09, 06:15 AM CDT");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
 			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST")));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 
-			Map<String, String> data = cancelDetails.transpose().asMap(String.class, String.class);
-			String cancelCharge = data.get("Charge"), comments = data.get("Comments");
 
 			int rowNumber = getTripRowNumber(tripDetails);
 			// it takes max 2.5 mins to appear
@@ -68,6 +81,8 @@ public class ScheduledTripSteps extends DriverBase {
 				rowNumber = getTripRowNumber(tripDetails);
 			}
 			cancelBungii(tripDetails, cancelCharge, comments);
+
+ */
 			log( "I should able to cancel bungii", "I was able to cancel bungii with time :"+ bungiiTime +" for customer "+ custName,
 					true);
 

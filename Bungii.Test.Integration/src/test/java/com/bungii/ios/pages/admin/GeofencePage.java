@@ -6,11 +6,11 @@ import org.openqa.selenium.WebElement;
 
 public class GeofencePage extends PageBase {
 
-    public WebElement Select_ChicagoGeofence() { return findElement("//tbody[@id='NewApplicantsTBody']/tr/td[contains(text(),'Chicago')]\n", LocatorType.XPath);}
+    public WebElement Select_ChicagoGeofence() { return findElement("//td[contains(text(),'Chicago')]", LocatorType.XPath);}
 
-    public WebElement Button_Settings(){return findElement("btnEditSettings",LocatorType.Id);}
+    public WebElement Button_Settings(){return findElement("//button[contains(text(),'Settings')]",LocatorType.XPath);}
 
-    public WebElement Button_SaveGeofenceSettings(){return findElement("btnCreateAttribute",LocatorType.Id);}
+    public WebElement Button_SaveGeofenceSettings(){return findElement("//button[contains(text(),'Save')]",LocatorType.XPath);}
 
     public WebElement TextBox_MinimumScheduledtimeforduo(){return findElement("attributeValueEarliestScheduleTimeDuo",LocatorType.Id);}
     public WebElement TextBox_MinimumScheduledtimeforsolo(){return findElement("attributeValueEarliestScheduleTimeSolo",LocatorType.Id);}
@@ -26,7 +26,7 @@ public class GeofencePage extends PageBase {
 
     public WebElement Button_Edit() { return findElement("btnEdit", LocatorType.Id); }
 
-    public WebElement Input_ReferralAmount() { return findElement("attributeValueDriverReferralBonusAmount", LocatorType.Id); }
-    public WebElement Input_NoOfDeliveries() { return findElement("attributeValueDriverReferralBonusPayoutDeliveries", LocatorType.Id); }
+    public WebElement Input_ReferralAmount() { return findElement("//td[contains(text(),'Driver referral Bonus amount')]/following-sibling::td/div/div/div/input", LocatorType.XPath); }
+    public WebElement Input_NoOfDeliveries() { return findElement("//td[contains(text(),'Driver referral bonus payout # deliveries')]/following-sibling::td/div/div/input", LocatorType.XPath); }
 
 }
