@@ -52,11 +52,14 @@ Feature: Partner Portal Cases integration with IOS
     And I add comment on rate customer page
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
-  #    Core-3098 Verify online/offline pop up is shown for solo Partner portal trip and go-offline functionality
+      #  Core-3098 Verify online/offline pop up is shown for solo Partner portal trip and go-offline functionality
     And I check online or offline pop up is displayed
     And I click on "GO OFFLINE" button
     And I Select "HOME" from driver App menu
     And I check if the status is "OFFLINE"
+      #  Core-4556 Verify DB after trip id completed for driver with weekly payment
+    And I check the status for "weekly payment" in db
+    Then I check the status for "weekly payment-external reference" in db
 
 #  Core-2569: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
   @ready
@@ -746,6 +749,52 @@ Feature: Partner Portal Cases integration with IOS
    And I slide update button on "UNLOADING ITEMS" Screen
    And I click "Skip This Step" button on "Rate customer" screen
    Then I should be navigated to "Bungii completed" screen
+
+#    Core-4556: Verify DB after trip id completed for driver with same day payment
+  @ready
+  Scenario: Verify DB after trip id completed for driver with same day payment
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |washingtondc| NEXT_POSSIBLE | 8877661111 | Testcustomertywd_BppleMarkDH LutherDH|
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I enter phoneNumber :9049840343 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii for "floor and decor"
+    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    Then Bungii driver should see "Pickup instructions"
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then Bungii driver should see "Drop-off instructions"
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii Completed" screen
+    And I check the status for "same day payment" in db
+    Then I check the status for "same day payment-external reference" in db
+
+#  Core-4556: Verify status of the trip is payment successful after driver completes the trip: Same day payment (Monthly Invoice)
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state
+
 
 #CORE-4398:Verify driver is able to scan barcode only for configured partner
   @ready

@@ -8,6 +8,7 @@ import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_PaymentMethodsPage;
 import com.bungii.web.pages.admin.Admin_PromoCodesPage;
 import com.bungii.web.pages.admin.Admin_PromoterPage;
+import com.bungii.web.pages.admin.Admin_TripsPage;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -37,6 +38,7 @@ public class Admin_PromoterSteps extends DriverBase {
     ActionManager action = new ActionManager();
     Admin_PromoCodesPage admin_PromoCodesPage = new Admin_PromoCodesPage();
     Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
+    Admin_TripsPage adminTripsPage=new Admin_TripsPage();
 
     @And("^I enter following values in fields in \"([^\"]*)\" popup$")
     public void i_enter_following_values_in_fields_in_something_popup(String popup, DataTable data) throws Throwable {
@@ -176,10 +178,17 @@ try{
         switch (page)
         {
             case "Events":
-
                 switch (button) {
                     case "New Event":
                         action.click(admin_PromoterPage.Button_NewPromotion());
+                        break;
+                }
+                break;
+            case "Live deliveries":
+                switch (button) {
+                    case "Date Filter":
+                        Thread.sleep(3000);
+                        action.click(adminTripsPage.Dropdown_DateFilter());
                         break;
                 }
                 break;

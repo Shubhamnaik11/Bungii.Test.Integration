@@ -95,6 +95,10 @@ Feature: Solo Scheduled Bungii Part A
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
     
     #When I Switch to "driver" application on "same" devices
     #Then Bungii driver should see "correct details" on Bungii completed page
@@ -192,6 +196,10 @@ Feature: Solo Scheduled Bungii Part A
     And I click "Skip This Step" button on "Rate customer" screen
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii completed" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
 
   @ready
   Scenario: Verify Customer Can Create And Complete Schedule Solo Bungii
@@ -267,6 +275,10 @@ Feature: Solo Scheduled Bungii Part A
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
 
   @ready
     #stable
@@ -288,6 +300,10 @@ Feature: Solo Scheduled Bungii Part A
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then I Cancel selected Bungii
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
 
   @regression
     #Added case of CORE-3685 to exsting script
@@ -308,6 +324,10 @@ Feature: Solo Scheduled Bungii Part A
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     When I Cancel selected Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
 
   @regression
   Scenario: Verify When Admin Cancels Bungii Then Trip Is Removed From The Scheduled Trip In App
@@ -329,6 +349,10 @@ Feature: Solo Scheduled Bungii Part A
     And I Switch to "customer" application on "same" devices
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
 
   @regression
   #stable
@@ -503,6 +527,10 @@ Feature: Solo Scheduled Bungii Part A
       Then I should be navigated to "Bungii Completed" screen
       When I click "On To The Next One" button on "Bungii completed" screen
       Then I check online or offline pop up is displayed
+      Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | 8888889917      |
+
 #CORE-2753 : To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip
 #Sprint-58==CORE-3396 changes incorporated
   @ready
