@@ -24,6 +24,11 @@ Feature: FORGOT PASSWORD
 
   @regression
   Scenario Outline: Verify Driver Is Alerted If Enters <Scenario> During Forgot Password Functionality
+    #CORE-4572 Verify hyperlink redirection to correct url in external browser on ios
+    When I click "START AN APPLICATION HERE" button on "LOG IN" screen on driverApp
+    Then The "Bungii: The Ultimate Side Hustle" "heading" should be displayed
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
     When I click "Forgot Password" button on "LOG IN" screen on driverApp
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page on driverApp
     And I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page on driverApp
