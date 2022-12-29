@@ -66,6 +66,13 @@ Feature: Admin Notes & History
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                       |
       | NEXT_POSSIBLE | 8877661001     | Testcustomertywd_appleMarkB LutherB |
+    And I wait for 2 minutes
+    #CORE-4152:Verify that Estimated Delivery time is displayed correctly for customer trips
+    When I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery using "Pickup Reference" as "Admin1"
+    When I click on the "Delivery Details" button from the dropdown
+    Then The "Scheduled Time" for customer delivery should match
+    Then The "Estimated Delivery Time" for customer delivery should match
     And As a driver "Testdrivertywd_appleks_a_gruF Stark_ksOnF" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |

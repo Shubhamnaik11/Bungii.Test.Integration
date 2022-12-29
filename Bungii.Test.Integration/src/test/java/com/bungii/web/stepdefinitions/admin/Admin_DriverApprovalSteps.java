@@ -405,6 +405,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 case "Add Email Address":
                     action.click(Page_PartnerManagement_Email.Button_AddEmailAddress());
                     break;
+                case "Edit Email Address":
+                    action.click(Page_PartnerManagement_Email.Button_EditEmailAddress(1));
+                    break;
             }
             log("I click on the " + arg0 + " button",
                     "I have clicked on the " + arg0 + " button");

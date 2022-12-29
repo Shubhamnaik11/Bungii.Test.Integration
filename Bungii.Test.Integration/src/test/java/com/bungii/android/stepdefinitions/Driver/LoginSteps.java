@@ -14,6 +14,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Point;
 
 import java.util.Map;
 
@@ -627,12 +628,21 @@ public class LoginSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" button on Log In screen on driver app$")
     public void i_click_something_button_on_log_in_screen_on_driver_app(String option) throws Throwable {
         try {
+            int additionalxcoordinates, additionalycoordinates;
             switch (option.toUpperCase()) {
                 case "LOG IN":
                     action.click(driverLogInPage.Button_Login());
                     break;
                 case "FORGOT PASSWORD":
                     action.click(driverLogInPage.Button_ForgotPassword());
+                    break;
+                case "START AN APPLICATION HERE":
+                    additionalxcoordinates = Integer.parseInt(PropertyUtility.getDataProperties("additional.coordinates.x"));
+                    additionalycoordinates = Integer.parseInt(PropertyUtility.getDataProperties("additional.coordinates.y"));
+                    Point point=driverLogInPage.Button_StartAnApplicationHere().getLocation();
+                    int xchord=point.getX()+additionalxcoordinates;
+                    int ychord=point.getY()+additionalycoordinates;
+                    action.click(new Point(xchord,ychord));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

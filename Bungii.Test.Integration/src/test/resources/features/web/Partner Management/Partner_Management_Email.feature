@@ -28,12 +28,18 @@ Feature: Adding Email In Partner Management
 
 #CORE-3817:To verify adding of email id field in the partner management portal for a management node
   @ready
-  Scenario: To verify adding of email id field in the partner management portal for a management node
+  Scenario: To verify add and edit of email id field in the partner management portal for a management node
     When I search for "EC Barton / Home Outlet" partner on partner management
     And I click on the "Partner location" link
     Then The "Management" "Location Type text" should be displayed
+    Then I search for "EC Barton / Home Outlet" partner on partner management
     And I click on the "Add Email Address" Button
     When I add "Primary email address" as the new email
     And I click on "Save Email" button
     Then All email addresses should be displayed for the mentioned partner
+    And I click on the "Edit Email Address" Button
+    When I add "Primary email address for edit" as the new email
+    And I click on "Save Email" button
+    Then Edited email addresses should be displayed for the mentioned partner
+
 

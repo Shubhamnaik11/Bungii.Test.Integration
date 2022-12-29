@@ -43,6 +43,10 @@ public class Partner_Management_Email_Steps extends DriverBase {
                 action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(), PropertyUtility.getDataProperties("qa.auto.test.email.address"));
                 cucumberContextManager.setScenarioContext("NewEmail",PropertyUtility.getDataProperties("qa.auto.test.email.address"));
                 break;
+            case "Primary email address for edit":
+                action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(), PropertyUtility.getDataProperties("qa.auto.test.email.address.edit"));
+                cucumberContextManager.setScenarioContext("EditedEmail",PropertyUtility.getDataProperties("qa.auto.test.email.address"));
+                break;
             case "Secondary email address":
                 action.clearSendKeys(Page_PartnerManagement_Email.TextBox_AddNewEmail(),PropertyUtility.getDataProperties("DriverEmail"));
                 cucumberContextManager.setScenarioContext("NewEmail",PropertyUtility.getDataProperties("DriverEmail"));
@@ -79,5 +83,30 @@ public class Partner_Management_Email_Steps extends DriverBase {
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+
+    @Then("^Edited email addresses should be displayed for the mentioned partner$")
+    public void edited_email_addresses_should_be_displayed_for_the_mentioned_partner() throws Throwable {
+        try{
+            String newlyEditedEmail =(String) cucumberContextManager.getScenarioContext("EditedEmail");
+            String partner = (String) cucumberContextManager.getScenarioContext("NameOfPartnerLocationOrPartnerPortalName") ;
+            String emailAddressStoredInDB[] = com.bungii.web.utilityfunctions.DbUtility.getAllEmailAddress(partner).split(",");
+            boolean isEditedEmailPresent =false;
+            for(String differentEmailAddresses:emailAddressStoredInDB){
+                if(differentEmailAddresses.contentEquals(newlyEditedEmail)){
+                    testStepAssert.isTrue(true,"Newly Edited Email "+newlyEditedEmail+ " should be present ","Newly Edited Email "+newlyEditedEmail+ " is present ","Newly Edited Email "+newlyEditedEmail+ " is not present ");
+                    isEditedEmailPresent =true;
+                }
+
+            }
+            if(!isEditedEmailPresent){
+                testStepAssert.isFail("Newly edited email is not present");
+
+            }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 }
