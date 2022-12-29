@@ -1554,10 +1554,15 @@ try{
                 TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"))));
                 Date date = new SimpleDateFormat("MMM dd, hh:mm a z").parse(pickupdate);
                 int year = Calendar.getInstance().get(Calendar.YEAR);
-                date.setYear(date.getYear()+(year-date.getYear()));
-                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date).toString();
-            }
+                Calendar c = Calendar.getInstance();
+                c.setTime(date);
+                c.set(Calendar.YEAR, year);
+                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();
 
+//                int year = Calendar.getInstance().get(Calendar.YEAR);
+//                date.setYear(date.getYear()-(year+date.getYear()));
+//                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date).toString();
+            }
         }
         if(emailSubject.contains("UPDATE: qauto-equip-bid")) {
             emailSubject =PropertyUtility.getDataProperties("updated.first.email.of.partner.portal.text");
