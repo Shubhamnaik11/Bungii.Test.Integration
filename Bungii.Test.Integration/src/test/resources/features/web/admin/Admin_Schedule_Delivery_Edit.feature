@@ -27,6 +27,8 @@ Feature: Admin_Schedule_Delivery_Edit
       Then "Bungii Saved!" message should be displayed
       And I wait for "2" mins
       And  I refresh the page
+      And I get the new pickup reference generated
+      And  I search the delivery using "Pickup Reference"
       And I click on the dropdown beside scheduled bungii
       Then I should see the "History" underlined
       #CORE-3382
