@@ -21,11 +21,15 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -881,5 +885,149 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+    @Then("^The \"([^\"]*)\" for customer delivery should match$")
+    public void the_something_for_customer_delivery_should_match(String strArg1) throws Throwable {
+        try{
+            int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
+            String custPhone = (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+            String custRef = DbUtility.getCustomerRefference(custPhone);
+            String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTimeForCustomer(custRef);
+            switch (strArg1){
+                case "Scheduled Time":
+                    String calculatedArrivalTime = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+
+                    if (calculatedArrivalTime.startsWith("0")) {
+
+                        String hourWithoutZero = calculatedArrivalTime.replaceFirst("0", "");
+                        cucumberContextManager.setScenarioContext("ArrivalTime", hourWithoutZero);
+                    } else {
+                        cucumberContextManager.setScenarioContext("ArrivalTime", calculatedArrivalTime);
+                    }
+
+                    String arrivalTimeOnUi [] = action.getText(admin_ScheduledTripsPage.Text_ScheduledDelivery()).split(" ");
+                    String time = arrivalTimeOnUi[2].substring(0,arrivalTimeOnUi[2].length()-3);
+                    String amOrPm = arrivalTimeOnUi[3];
+                    String finalTime = time+" " +amOrPm;
+                    String properArrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+
+                    if (finalTime.startsWith("0")) {
+                        String hourWithoutZero = finalTime.replaceFirst("0", "");
+                        cucumberContextManager.setScenarioContext("ArrivalTimeFromUi", hourWithoutZero);
+                    } else {
+                        cucumberContextManager.setScenarioContext("ArrivalTimeFromUi", finalTime);
+
+                    }
+                    String ArrivalTimeFromAdminPortal = (String) cucumberContextManager.getScenarioContext("ArrivalTimeFromUi");
+                    testStepAssert.isEquals(ArrivalTimeFromAdminPortal, properArrivalTime, "The arrival time should be " + properArrivalTime,
+                            "The arrival time time is  " + properArrivalTime,
+                            "The  incorrect arrival time displayed is  " + properArrivalTime);
+                    break;
+                case "Estimated Delivery Time":
+                case "Estimate dropOff time after admin live edit":
+                    if(strArg1.contentEquals("Estimated Delivery Time")){
+                        String arrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+                        String[] hoursAndMinutes =arrivalTime.substring(0, arrivalTime.length() - 3).split(":");
+                        String hours = hoursAndMinutes[0];
+                        String minutes = hoursAndMinutes[1];
+                        cucumberContextManager.setScenarioContext("Hours",hours);
+                        cucumberContextManager.setScenarioContext("Minutes",minutes);
+                        // for scheduled deliveries formula -->
+                        // [Projected start time] + ([Projected LoadUnload Time] / 3) + [Projected Drive Time] + 40
+                    }
+                    else if ((strArg1.contentEquals("Estimate dropOff time after admin live edit"))) {
+                String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                String changedDeliveryDetailsTime[] = DbUtility.getStatusTimestamp(pickupRef).split(" ");
+                String removedValueFromDot = changedDeliveryDetailsTime[1].substring(0, changedDeliveryDetailsTime[1].length() - 4);
+                changedDeliveryDetailsTime[1] = removedValueFromDot;
+                String arrivalStateAdminEdit = ConvertTimeToTheRequiredGeoFence(changedDeliveryDetailsTime);
+                String[] hoursAndMinutes = arrivalStateAdminEdit.substring(0, arrivalStateAdminEdit.length() - 3).split(":");
+                String hours = hoursAndMinutes[0];
+                String minutes = hoursAndMinutes[1];
+                cucumberContextManager.setScenarioContext("Hours", hours);
+                cucumberContextManager.setScenarioContext("Minutes", minutes);
+            }
+                    String hours =(String) cucumberContextManager.getScenarioContext("Hours");
+                    String minutes =(String) cucumberContextManager.getScenarioContext("Minutes");
+
+                    int convertHoursToMinutes = (Integer.parseInt( hours)*60) +Integer.parseInt( minutes) ;
+                    int unloadingLoadingTimeWithoutServiceLevel = (int) Float.parseFloat(ArrivalTimeAndUnloadingLoadingTime[2]);
+                    int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTimeWithoutServiceLevel/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+driverTime;
+                    final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
+
+                    String roundedTime =roundedUpTime(LocalTime.MIN.plus(Duration.ofMinutes( totalMinutes)).toString());
+                    LocalTime TimeInhours =LocalTime.parse(roundedTime);
+                    String plus1Hour = formatTochangeChangeTo12Hours.format(formatTochangeChangeTo12Hours.parse(String.valueOf(TimeInhours.plusHours(1)))) ;
+                    String minus1Hour = formatTochangeChangeTo12Hours.format(formatTochangeChangeTo12Hours.parse(String.valueOf(TimeInhours.minusHours(1)))) ;
+                    cucumberContextManager.setScenarioContext("Timeplus1hour",plus1Hour);
+                    cucumberContextManager.setScenarioContext("Timeminus1hour",minus1Hour);
+
+                    String timeOneHourAhead = (String) cucumberContextManager.getScenarioContext("Timeplus1hour");
+                    String timeOneHourBack =(String) cucumberContextManager.getScenarioContext("Timeminus1hour") ;
+
+                    String expectedDroffTimeRange = action.getText(admin_ScheduledTripsPage.Text_EstimatedDeliveryTime());
+
+
+                    if (expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM") || expectedDroffTimeRange.contains("AM") || expectedDroffTimeRange.contains("PM") ||expectedDroffTimeRange.contains("pm") && expectedDroffTimeRange.contains("am")) {
+
+                        String onlyTimeRange = expectedDroffTimeRange.replace("PM", "").replace("AM", "").replace(" ", "");
+                        cucumberContextManager.setScenarioContext("UITimeRange", onlyTimeRange);
+                    }
+
+                    String UITimeRange = (String) cucumberContextManager.getScenarioContext("UITimeRange");
+                    String calculatedDropoffTimeRange = timeOneHourBack + "-" + timeOneHourAhead;
+                    cucumberContextManager.setScenarioContext("DropOffRangeCalculated", calculatedDropoffTimeRange);
+                    testStepAssert.isEquals(UITimeRange, calculatedDropoffTimeRange, "The dropOff time range should be " + calculatedDropoffTimeRange,
+                            "The dropOff time range is  " + calculatedDropoffTimeRange,
+                            "The  incorrect dropOff time range displayed is  " + UITimeRange);
+                    break;
+            }
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    private String roundedUpTime(String IncorrectTime) throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("hh:mm");
+        Date dt = formatter.parse(IncorrectTime);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dt);
+        int unroundedMinutes = cal.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 5;
+        if (mod ==0){
+            ; cal.add(Calendar.MINUTE,(0-mod));
+        }
+        else  if ( (mod>=1) && (mod < 3) ){
+            cal.add(Calendar.MINUTE,(5-mod));
+        }
+        else {
+            cal.add(Calendar.MINUTE,(5-mod));
+        }
+
+        String hourAndMinute = formatter.format(cal.getTime());
+        logger.detail("The rounded up time for "+ IncorrectTime+ " time is "+ hourAndMinute);
+        return hourAndMinute;
+    }
+
+    private String ConvertTimeToTheRequiredGeoFence(String[] uctToCstTime) {
+        String date[] = uctToCstTime[0].split("-");
+        String time[] = uctToCstTime[1].split(":");
+        if(time[2].contains(".")){
+            String seconds = time[2].substring(0,time[2].length()-4);
+            cucumberContextManager.setScenarioContext("SecondsWithoutPointValue",seconds);
+        }
+        else {
+            cucumberContextManager.setScenarioContext("SecondsWithoutPointValue",time[2]);
+
+        }
+        String seconds = (String) cucumberContextManager.getScenarioContext("SecondsWithoutPointValue");
+        ZonedDateTime instant1 = ZonedDateTime.of(Integer.parseInt(date[0]),Integer.parseInt(date[1]),Integer.parseInt(date[2]),Integer.parseInt(time[0]),Integer.parseInt(time[1]),Integer.parseInt(seconds),0,ZoneId.of("UTC"));
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        ZonedDateTime instantInUTC = instant1.withZoneSameInstant(ZoneId.of(geofenceLabel));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        String timeInCST = instantInUTC.format(formatter);
+        return timeInCST;
     }
 }

@@ -645,4 +645,50 @@ public class TripDetailsSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I view All Deliveries list on the admin portal$")
+    public void i_view_all_deliveries_list_on_the_admin_portal() throws Throwable {
+        try{
+            //Thread.sleep(120000);
+            action.click(scheduledTripsPage.Menu_Trips());
+            Thread.sleep(3000);
+            action.click(scheduledTripsPage.Menu_AllDeliveries());
+            //action.click(admin_LiveTripsPage.Menu_LiveTrips());
+            action.selectElementByText(scheduledTripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
+            Thread.sleep(2000);
+            log("I view All Deliveries on the admin portal",
+                    "I viewed All Deliveries on the admin portal", true);
+        }
+        catch (Throwable e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Delivery should be shown on All Deliveries", "Delivery is not shown on All Deliveries",
+                    true);
+
+        }
+    }
+    @Then("^The \"([^\"]*)\" should be in \"([^\"]*)\" state$")
+    public void the_something_should_be_in_something_state(String adminPage ,String deliveryStatus) throws Throwable {
+        try{
+            switch (adminPage){
+                case "All Deliveries":
+                    switch (deliveryStatus){
+                        case "Admin Canceled - No Driver(s) Found":
+                        case "Partner Canceled":
+                        case "Driver Canceled":
+                        case "Payment Pending":
+                        case "Payment Successful":
+                            Thread.sleep(3000);
+                            String status = action.getText(scheduledTripsPage.Text_DeliveryStatus(12));
+                            testStepAssert.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",
+                                    "Delivery is  in " +status+ " state",
+                                    "Delivery is not in " +deliveryStatus+ " state");
+                            break;
+                    }
+                    break;
+            }
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

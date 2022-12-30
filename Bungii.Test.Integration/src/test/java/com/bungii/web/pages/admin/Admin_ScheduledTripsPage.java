@@ -206,11 +206,11 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Header_HistoryNewValue(){return findElement("//div[@id=\"history-tab\"]/div/div/table/tbody/tr/th[3]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryEventValue(){return findElement("//td[text()='Driver Removed']",LocatorType.XPath);}
+    public WebElement Text_HistoryEventValue(){return findElement("//tr/th[text()='Event']/following::tr/td[1]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryOldValueData(){return findElement("//td[text()='Driver Removed']/following-sibling::td[1]",LocatorType.XPath);}
+    public WebElement Text_HistoryOldValueData(){return findElement("//tr/th[text()='Event']/following::tr/td[2]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryNewValueData(){return findElement("//td[text()='Driver Removed']/following-sibling::td[2]",LocatorType.XPath);}
+    public WebElement Text_HistoryNewValueData(){return findElement("//tr/th[text()='Event']/following::tr/td[3]",LocatorType.XPath);}
 
     public WebElement Text_HistoryEditedTime(){return findElement("//div[@id=\"history-tab\"]/div/label",LocatorType.XPath);}
 
@@ -266,5 +266,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Label_Pickup_Location_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[3]/div/span[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
     public WebElement Textbox_Pickup_Location_For_Live () { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div[1]/div[@class=\"address-textbox\"]/div/input",LocatorType.XPath);}
     public WebElement Button_Edit_Pickup_Address_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[3]/div[2]/div/div[2]/img[@title='Edit Pickup Location']",LocatorType.XPath);}
+    public WebElement Text_EstimatedDeliveryTime() {return findElement("//td[text()=\"Estimated Delivery Time\"]/following-sibling::td/strong", LocatorType.XPath);}
+
+    public WebElement Text_ScheduledDelivery() {return findElement("//td[text()=\"Scheduled Time\"]/following-sibling::td/strong", LocatorType.XPath);}
+
 
 }

@@ -671,6 +671,9 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ":
                 phone = PropertyUtility.getDataProperties("denver.driver11.phone");
                 break;
+            case "Testdrivertywd_appledc_a_drvZ WashingtonZ":
+                phone = PropertyUtility.getDataProperties("Washington.driver28.phone");
+                break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
 
@@ -3300,7 +3303,16 @@ else
                     driverPassword = PropertyUtility.getDataProperties("nashville.driver2.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver2.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer2.name"));
-                } else if (geofence.equalsIgnoreCase("Kansas")) {
+                }else if (geofence.equalsIgnoreCase("nashville3")) {
+                    geofence = "nashville";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("nashville.customer3.phone");
+                    custPassword = PropertyUtility.getDataProperties("nashville.customer3.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("nashville.driver17.phone");
+                    driverPassword = PropertyUtility.getDataProperties("nashville.driver17.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver17.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer3.name"));
+                }else if (geofence.equalsIgnoreCase("Kansas")) {
                     custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer.phone");
                     custPassword = PropertyUtility.getDataProperties("Kansas.customer.password");
                     if (driverLabel.equalsIgnoreCase("Kansas 2")) {
