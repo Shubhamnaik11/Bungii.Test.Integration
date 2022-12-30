@@ -721,5 +721,26 @@ public class DbUtility extends DbContextManager {
 
 
     }
+
+    public static String[] getArrivalTimeAndLoadingUnloadingTimeForCustomer(String Cust_Reference) {
+        String[] ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer = new String[4];
+        String toGetEstTime="SELECT EstTime FROM pickupdetails WHERE CustomerRef ='"+Cust_Reference+"'order by pickupid desc limit 1";
+        ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[0] = getDataFromMySqlServer(toGetEstTime);
+        logger.detail("EstTime for "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[0]);
+        String queryStringForarrivalTime ="SELECT  ScheduledTimestamp FROM pickupdetails WHERE CustomerRef='"+Cust_Reference+"' order by pickupid desc limit 1";
+        String queryStringForLoadingUnloadingTime ="SELECT  loadingunloadingtime FROM pickupdetails WHERE CustomerRef='"+Cust_Reference+"'order by pickupid desc limit 1";
+        ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[1]=getDataFromMySqlServer(queryStringForarrivalTime);
+        ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[2]=getDataFromMySqlServer(queryStringForLoadingUnloadingTime);
+        logger.detail("The expected Arrival time for the delivery having customer refernce "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[1]);
+        logger.detail("The expected Loading/Unloading time for the delivery having customer refernce "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[2]);
+        return ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer;
+    }
+    public static String getCustomerRefference(String phoneNumber) {
+        String custRef = "";
+        String queryString = "SELECT CustomerRef FROM customer WHERE Phone = " + phoneNumber;
+        custRef = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "customer reference is " + custRef);
+        return custRef;
+    }
 }
 
