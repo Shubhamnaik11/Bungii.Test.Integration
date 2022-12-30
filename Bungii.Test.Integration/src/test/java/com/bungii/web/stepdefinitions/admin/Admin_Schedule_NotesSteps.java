@@ -702,8 +702,17 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @When("^I click the \"([^\"]*)\" link$")
     public void i_click_the_something_link(String notesHistory) throws Throwable {
         try {
-            Thread.sleep(4000);
-            action.click(admin_ScheduledTripsPage.Dropdown_Notes_History());
+            switch (notesHistory){
+                case "Notes & History":
+                    Thread.sleep(4000);
+                    action.click(admin_ScheduledTripsPage.Dropdown_Notes_History());
+                    break;
+                case "Notes & History On Completed Delivery":
+                    Thread.sleep(4000);
+                    action.click(admin_ScheduledTripsPage.Dropdown_NotesHistoryCompletedDelivery());
+                    break;
+            }
+
             log("I should be able to click on the" +notesHistory+ "link","I could click on the" +notesHistory+ "link",false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

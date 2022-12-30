@@ -627,6 +627,12 @@ Feature: Admin_Trips
     And  I search the delivery using "Pickup Reference"
     Then I should see the cancelled trip icon displayed for the delivery
     Then The Delivery List page should display the delivery in "Admin Canceled" state
+#   Core-4307: Verify the history is displayed for ADMIN canceled delivery- Driver accepted
+    And I click on the dropdown beside scheduled bungii
+    When I click the "Notes & History On Completed Delivery" link
+    And I click on "History"
+    And I should be able to see "admin cancelled event - driver accepted"
+    And I close the Note
     Then Revive button should be displayed beside the trip
     When I click on "Revive" button
 	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin

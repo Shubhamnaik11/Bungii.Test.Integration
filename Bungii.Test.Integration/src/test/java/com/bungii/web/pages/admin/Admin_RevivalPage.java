@@ -40,7 +40,7 @@ public class Admin_RevivalPage extends PageBase {
 
     public WebElement Text_DeliveryStatus(int number) { return findElement(String.format("//tbody/tr/td[%d]",number), LocatorType.XPath);}
 
-    public WebElement Icon_CancelledTrip() { return findElement("//tbody/tr/td[1]/a/img", LocatorType.XPath); }
+    public WebElement Icon_CancelledTrip() { return findElement("//tbody/tr/td[1]/span/img", LocatorType.XPath); }
 
     public WebElement Label_PickUpReference() { return findElement("//div/div[@class=\"panel-heading\"]/h4[2]", LocatorType.XPath); }
 
