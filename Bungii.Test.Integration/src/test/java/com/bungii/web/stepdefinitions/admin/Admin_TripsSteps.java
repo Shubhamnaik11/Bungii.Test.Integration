@@ -3750,5 +3750,31 @@ try{
 
         }
     }
+    @And("^I check \"([^\"]*)\" in db$")
+    public void i_check_something_in_db(String type) throws Throwable {
+        try{
+            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String pickupId = dbUtility.getPickupId(pickupRef);
+            switch (type){
+                case "driver not paid status":
+                    String driverStatus=dbUtility.getDriverPaidStatus(pickupRef);
+                    testStepAssert.isEquals(driverStatus,"0",
+                            "Driver should not be paid after admin cancels trip.",
+                            "Driver is not be paid after admin cancels trip.",
+                            "Driver is paid after admin cancels trip.");
+                    String tripId=dbUtility.getTripId(pickupId);
+                    String transaction=dbUtility.getTransactionStatus(tripId);
+                    testStepAssert.isTrue(transaction=="",
+                            "The transaction status should be null.",
+                            "The transaction status is not null.");
+                    break;
+            }
+            log("I should be able to check details in db","I am able to check details in db",false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
 }

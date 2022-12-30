@@ -718,8 +718,27 @@ public class DbUtility extends DbContextManager {
         disbursementType = getDataFromMySqlMgmtServer(queryString1);
         logger.detail("The disbursement type for "+driverId+" is "+disbursementType);
         return disbursementType;
-
-
+    }
+    public static String getDriverPaidStatus(String pickUpRef) {
+        String driverStatus;
+        String queryString1 ="select IsDriverPaid from paymenttransaction where clientgroupref ='"+pickUpRef+"' and TransactionType=3";
+        driverStatus = getDataFromMySqlMgmtServer(queryString1);
+        logger.detail("The status for driver payment is "+driverStatus);
+        return driverStatus;
+    }
+    public static String getTripId(String pickupId) {
+        String tripId;
+        String queryString1 ="select TRID from triprequest where Pickupid="+pickupId;
+        tripId = getDataFromMySqlServer(queryString1);
+        logger.detail("The TRID for trip is "+tripId);
+        return tripId;
+    }
+    public static String getTransactionStatus(String tripId) {
+        String status;
+        String queryString1 ="select IsTransactionSuccessful from trippaymentdetails where trid in ("+tripId+")";
+        status = getDataFromMySqlServer(queryString1);
+        logger.detail("The status for trip is "+status);
+        return status;
     }
 
     public static String[] getArrivalTimeAndLoadingUnloadingTimeForCustomer(String Cust_Reference) {
