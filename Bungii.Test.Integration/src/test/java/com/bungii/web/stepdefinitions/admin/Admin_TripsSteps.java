@@ -1429,7 +1429,16 @@ try{
 
     @Then("^Pickup should be unassigned from the driver$")
     public void pickup_should_be_unassigned_from_the_driver() throws Throwable {
-
+        try{
+            action.waitUntilIsElementExistsAndDisplayed(admin_EditScheduledBungiiPage.Label_Driver1MessageOnResearch(), (long) 3000);
+            testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.Label_Driver1MessageOnResearch(), "Driver 1: Bungii driver is being searched should be displayed","Driver 1: Bungii driver is being searched is displayed", "Driver 1: Bungii driver is being searched is not displayed");
+            log("Driver 2 should be unassigned",
+                    "Driver 2 is unassigned", true);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I select the first driver$")
@@ -3764,4 +3773,18 @@ try{
         }
     }
 
+    @When("I view the Completed Deliveries on the admin portal")
+    public void iViewTheCompletedDeliveriesOnTheAdminPortal() {
+        try{
+            action.waitUntilIsElementExistsAndDisplayed(admin_TripsPage.Menu_CompletedDeliveries(), (long) 3000);
+            action.click(admin_TripsPage.Menu_CompletedDeliveries());
+            action.refreshPage();
+            log("I should be able to see Completed Deliveries Page","I could see Completed Deliveries Page",false);
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+
+        }
+    }
 }

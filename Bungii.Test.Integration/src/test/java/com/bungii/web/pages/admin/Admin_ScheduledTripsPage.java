@@ -131,7 +131,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_NewDropoffAddress(){return  findElement("lblDestinationAddress",LocatorType.Id);}
 
 
-    public WebElement Text_Delivery_Scheduled(){return  findElement("//tbody/tr/td[text() ='Scheduled']",LocatorType.XPath);}
+    public WebElement Text_Delivery_Scheduled(){return  findElement("//td[contains(text(),'Scheduled')]",LocatorType.XPath);}
 
     public WebElement Text_Delivery_Successfull(){return  findElement("//td[contains(text(),'Payment Successful')]",LocatorType.XPath);}
 

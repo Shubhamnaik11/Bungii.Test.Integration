@@ -111,4 +111,6 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Header_LiveDeliveries() {return findElement("//h4[contains(text(),'Live Delivery List')]",LocatorType.XPath);}
 
+    public WebElement Menu_CompletedDeliveries() {return findElement("//a[contains(text(),'Completed Deliveries')]",LocatorType.XPath);}
+
 }

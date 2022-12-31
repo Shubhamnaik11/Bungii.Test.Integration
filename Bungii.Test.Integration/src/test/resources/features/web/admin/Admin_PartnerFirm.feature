@@ -60,9 +60,12 @@ Feature: Admin_PartnerFirm
     And I click on "Remove driver(s) and re-search" radiobutton
     And I select the first driver
     And I click on "Remove Driver" button
-    And I click on "Research" button
+    And I click on "Close" button
+    When I click on "Edit" link beside scheduled bungii
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web Sundarc" perform below action with respective "Solo Scheduled" Delivery
+    And I click on "Research" button
+    And I wait for "2" mins
+    And As a driver "Testdrivertywd_appledc_a_web Sundarc" perform below action with respective "Duo Scheduled Researched" Delivery
       | driver1 state|
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Updated" email
@@ -75,12 +78,9 @@ Feature: Admin_PartnerFirm
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999356 | Testcustomertywd_appleWashB Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundard" perform below action with respective "Duo Scheduled" Delivery
-      | driver1 state|
-      |Accepted |
-    And As a driver "Testdrivertywd_appledc_a_web Sundare" perform below action with respective "Duo Scheduled" Delivery
-      | driver1 state|
-      |Accepted |
+    And As a driver "Testdrivertywd_appledc_a_web Sundard" and "Testdrivertywd_appledc_a_web Sundare" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
@@ -91,7 +91,7 @@ Feature: Admin_PartnerFirm
     And I enter cancellation fee and Comments
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
-    When I view the Trips list on the admin portal
+    When I view the Completed Deliveries on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And Partner firm should receive "Bungii Delivery Pickup Canceled" email
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
@@ -118,9 +118,11 @@ Feature: Admin_PartnerFirm
     And I click on "Remove driver(s) and re-search" radiobutton
     And I select the first driver
     And I click on "Remove Driver" button
-    And I click on "Research" button
+    And I click on "Close" button
+    When I click on "Edit" link beside scheduled bungii
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web Sundarh" perform below action with respective "Solo Scheduled" Delivery
+    And I click on "Research" button
+    And As a driver "Testdrivertywd_appledc_a_web Sundarh" perform below action with respective "Solo Scheduled Researched" Delivery
       | driver1 state|
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Updated" email
@@ -222,15 +224,15 @@ Feature: Admin_PartnerFirm
   Scenario: Verify Partner Firm Email For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999357 | Testcustomertywd_appleWashJ Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" Delivery
+      | NEXT_POSSIBLE | 8877661153 | Testcustomertywd_BppleMarkEX LutherEX|
+    And As a driver "Testdrivertywd_appledc_a_drvaf Washingtonaf" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |
-    And I view the Scheduled Deliveries list on the admin portal
-    Then I should be able to see the respective bungii with the below status
+    And I wait for "2" mins
+    Then I should be able to see the respective bungii trip with the below status
       |  Status |
       | Scheduled |
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_drvaf Washingtonaf" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Enroute  |
       | Arrived |
@@ -239,12 +241,12 @@ Feature: Admin_PartnerFirm
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999364 | Testcustomertywd_appleWashK Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Ondemand" Delivery
+      | NEXT_POSSIBLE | 8877661154 | Testcustomertywd_BppleMarkEY LutherEY|
+    And As a driver "Testdrivertywd_appledc_a_drvaf Washingtonaf" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       |Stacked Pickup Accepted |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
-    When I cancel bungii as a customer "Testcustomertywd_appleWashK Shah" with phone number "9999999364"
+    When I cancel bungii as a customer "Testcustomertywd_BppleMarkEY LutherEY" with phone number "8877661154"
     Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   #@sanity
@@ -252,7 +254,6 @@ Feature: Admin_PartnerFirm
   @knownissue
   @failed
     #test data created in base
-    #changed driver name
   Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -269,8 +270,10 @@ Feature: Admin_PartnerFirm
     And I click on "Remove driver(s) and re-search" radiobutton
     And I select the first driver
     And I click on "Remove Driver" button
-    And I click on "Research" button
+    And I click on "Close" button
+    When I click on "Edit" link beside scheduled bungii
     Then Pickup should be unassigned from the driver
+    And I click on "Research" button
     And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled Researched" Delivery
       | driver1 state|
       | Accepted  |
@@ -285,8 +288,9 @@ Feature: Admin_PartnerFirm
     And I enter cancellation fee and Comments
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
-#    When I view the Trips list on the admin portal
     When I view All Deliveries list on the admin portal
+    And I wait for "2" mins
+    When  I search the delivery using "Pickup Reference"
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
