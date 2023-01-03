@@ -1196,7 +1196,8 @@ try{
         try {
             String downloadedCsvFileNameForGeofenceZipcodes = cucumberContextManager.getScenarioContext("CSV_FILE_NAME").toString().replace(".csv", "");
             String yearMonthDate = LocalDate.now().toString().replaceAll("-", "");
-            String expectedFileName = "Geofence_Zipcodes_" + yearMonthDate;
+            String initialFileName = PropertyUtility.getDataProperties("geofence.csv.file.name");
+            String expectedFileName = initialFileName + yearMonthDate;
             testStepAssert.isEquals(downloadedCsvFileNameForGeofenceZipcodes, expectedFileName, "The file name should be " + expectedFileName,
                     "The file name is " + expectedFileName, "The file name is not " + expectedFileName);
         }catch (Throwable e) {

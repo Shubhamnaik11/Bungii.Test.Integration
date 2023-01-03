@@ -274,6 +274,7 @@ Feature: Admin_Geofence
 # Core-3843 Verify that only active geofence zip codes are downloaded in csv file
   @regression
     #Issue Raised ADP-751
+    @testAllan
     Scenario: Verify that only active geofence zip codes are downloaded in csv file
       When I click on "Download Zip Codes" button
 #     Core-3843 Verify that only active geofence zip codes are downloaded in csv file
