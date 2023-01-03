@@ -527,6 +527,7 @@ try{
         try{
         switch (name){
             case "Select Geofence":
+                Thread.sleep(5000);
              action.click(admin_GeofencePage.List_Geofence());
              break;
         }
@@ -595,6 +596,7 @@ try{
                 action.click(admin_DashboardPage.Link_Customers());
                 break;
             case "Driver":
+                Thread.sleep(5000);
                 action.click(admin_DashboardPage.Link_Drivers());
                 break;
             case "Non Active Drivers":
