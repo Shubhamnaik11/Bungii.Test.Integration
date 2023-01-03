@@ -27,6 +27,7 @@ import java.io.FileReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -1189,4 +1190,20 @@ try{
                     true);
         }
     }
+
+    @Then("^The date on the downloaded csv should have proper date format$")
+    public void the_date_on_the_downloaded_csv_should_have_proper_date_format() throws Throwable {
+        try {
+            String downloadedCsvFileNameForGeofenceZipcodes = cucumberContextManager.getScenarioContext("CSV_FILE_NAME").toString().replace(".csv", "");
+            String yearMonthDate = LocalDate.now().toString().replaceAll("-", "");
+            String expectedFileName = "Geofence_Zipcodes_" + yearMonthDate;
+            testStepAssert.isEquals(downloadedCsvFileNameForGeofenceZipcodes, expectedFileName, "The file name should be " + expectedFileName,
+                    "The file name is " + expectedFileName, "The file name is not " + expectedFileName);
+        }catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }
