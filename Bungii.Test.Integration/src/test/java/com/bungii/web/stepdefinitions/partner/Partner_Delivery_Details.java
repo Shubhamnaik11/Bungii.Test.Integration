@@ -1330,6 +1330,26 @@ public class Partner_Delivery_Details extends DriverBase {
                     String  PartnerSpecificSettingsTick= Page_PartnerManagement_Location.Image_GreenCross().getCssValue("color");
                     testStepAssert.isEquals(PartnerSpecificSettingsTick,expectedGreenCross,"Green tick should be displayed as its applicable for current partner portal","Green tick is displayed as its applicable for current partner portal","Green ticks is not displayed as its  applicable for current partner portal, color displayed in rgba is  "+PartnerSpecificSettingsTick);
                     break;
+                case "Online Drivers":
+                     String onlineDriversText = action.getText(admin_DriverPage.Text_OnlineDrivers());
+                     testStepAssert.isEquals(onlineDriversText,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Button_OnlineDrivers()),element+" button  should be displayed",element+" button is displayed",element+" button is not displayed");
+                    break;
+                case "Activated Date":
+                    String activatedDateText = action.getText(admin_DriverPage.Text_ActivatedDate());
+                    testStepAssert.isEquals(activatedDateText,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Textbox_ActivatedDate()),element+" Textbox should be displayed",element+" Textbox is displayed",element+" Textbox is not displayed");
+                    break;
+                case "Most Recent Delivery":
+                    String mRD = action.getText(admin_DriverPage.Text_MostRecentDelivery());
+                    testStepAssert.isEquals(mRD,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Textbox_MostRecentDelivery()),element+" Textbox should be displayed",element+" Textbox is displayed",element+" Textbox is not displayed");
+                    break;
+                case "Testdrivertywd_appleks_a_drvbt Kansas_bt":
+                case "Testdrivertywd_appleks_a_drvbs Kansas_bs":
+                    String driverName = action.getText(admin_DriverPage.Text_CurrentOnlineDriver(element));
+                    testStepAssert.isEquals(driverName,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    break;
             }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

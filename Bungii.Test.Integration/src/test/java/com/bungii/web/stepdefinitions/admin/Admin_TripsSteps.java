@@ -32,9 +32,10 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
 import java.util.List;
 
@@ -1064,11 +1065,12 @@ try{
 
             strDate = formatter.format(calendar.getTime());
             String[] dateTime = strDate.split("-");
-            String date = dateTime[0];
-            String time = dateTime[1];
+            StringBuffer dateWithHypen = new StringBuffer(dateTime[0]).insert(2,"-").insert(5,"-");
+            String date = dateWithHypen.toString();
+            String time =dateTime[1];
             String meridian = dateTime[2];
 
-            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),date);
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),date + Keys.ENTER);
             action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),time);
            // action.click(liveTripsPage.Dropdown_ddlpickupEndTime());
             action.selectElementByText(liveTripsPage.Dropdown_ddlpickupEndTime(),meridian);
@@ -3749,6 +3751,85 @@ try{
                     true);
 
         }
+    }
+    @When("^I click on the \"([^\"]*)\" textbox$")
+    public void i_click_on_the_something_textbox(String textbox) throws Throwable {
+        try{
+        switch (textbox){
+            case "Most Recent Delivery":
+                action.click(admin_DriverPage.Textbox_MostRecentDelivery());
+                break;
+            case "Activated Date":
+                action.click(admin_DriverPage.Textbox_ActivatedDate());
+                break;
+        }
+            log("I should be able to click on the "+textbox+" textbox",
+                    "I could click on the  "+textbox+" textbox",false);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
+    }
+
+    @And("^I select a range from \"([^\"]*)\" of current month to the \"([^\"]*)\" of the month for \"([^\"]*)\"$")
+    public void i_select_a_range_from_something_of_current_month_to_the_something_of_the_month_for_something(String strArg1, String strArg2, String textbox) throws Throwable {
+       try{
+           switch (textbox){
+               case "Most Recent Delivery":
+                   action.click(admin_DriverPage.Textbox_MostRecentDelivery());
+                   Thread.sleep(3000);
+                   String[] startOfTheMonth = YearMonth.now().atDay(1).toString().split("-");
+                   String[] endOfTheMonth   = YearMonth.now().atEndOfMonth().toString().split("-");
+                   if (startOfTheMonth[2].startsWith("0")) {
+                       String dateWithoutZero = startOfTheMonth[2].replaceFirst("0", "");
+                       action.click(admin_DriverPage.Textbox_MostRecentDeliverySelectStaringDate(dateWithoutZero));
+                       cucumberContextManager.setScenarioContext("StartOfTheMonth", dateWithoutZero);
+                   } else {
+                       action.click(admin_DriverPage.Textbox_MostRecentDeliverySelectStaringDate(startOfTheMonth[2]));
+                       cucumberContextManager.setScenarioContext("StartOfTheMonth", startOfTheMonth[2]);
+                   }
+                   Thread.sleep(4000);
+                   action.click(admin_DriverPage.Textbox_MostRecentDeliverySelectStaringDate(endOfTheMonth[2]));
+                   break;
+               case "Activated Date":
+                   int monthsInAYear = Integer.parseInt(PropertyUtility.getDataProperties("months.in.a.year"));
+                   String []activatedMonthAndYear = PropertyUtility.getDataProperties("Kansas.driver.activated.month").split(" ");
+                   int startingMonthFromZero = 0;
+                   while ( startingMonthFromZero<=monthsInAYear){
+                       String sameMonthAsDriverActivatedMonth = action.getText(admin_DriverPage.Text_CalenderMonthNameForActivatedDate());
+                       if(sameMonthAsDriverActivatedMonth.contains(activatedMonthAndYear[0])){
+                           DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("MMM");
+                           TemporalAccessor temporalAccessor = dtFormatter.parse(activatedMonthAndYear[0].substring(0,3));
+                           int getIndexOfMonth = temporalAccessor.get(ChronoField.MONTH_OF_YEAR);
+                           String[] firstDateOfTheMonth = YearMonth.of(Integer.parseInt(activatedMonthAndYear[1]),getIndexOfMonth).atDay(1).toString().split("-");
+                           String[] lastDateOfTheMonth   = YearMonth.of(Integer.parseInt(activatedMonthAndYear[1]),getIndexOfMonth).atEndOfMonth().toString().split("-");
+                           if (firstDateOfTheMonth[2].startsWith("0")) {
+                               String dateWithoutZero = firstDateOfTheMonth[2].replaceFirst("0", "");
+                               action.click(admin_DriverPage.Textbox_MostRecentDeliverySelectStaringDate(dateWithoutZero));
+                           } else {
+                               action.click(admin_DriverPage.Textbox_MostRecentDeliverySelectStaringDate(firstDateOfTheMonth[2]));
+                           }
+                           Thread.sleep(3000);
+                           action.click(admin_DriverPage.Textbox_MostRecentDeliverySelectStaringDate(lastDateOfTheMonth[2]));
+                           break;
+                       }
+                       else {
+                           action.click(admin_DriverPage.Button_CalenderPreviousMonthForActivatedDate());
+                           startingMonthFromZero++;
+                       }
+               }
+                   break;
+           }
+           log("I should be able to select a date range from starting of the month to end of the month for "+textbox+" filter",
+                   "I could select a date range from starting of the month to end of the month for "+textbox+" filter",false);
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+
+    }
     }
     @And("^I check \"([^\"]*)\" in db$")
     public void i_check_something_in_db(String type) throws Throwable {

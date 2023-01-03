@@ -15,7 +15,7 @@ public class Admin_PartnersPage extends PageBase {
     public WebElement Label_Unlock_Partners () { return findElement("//h4[@class='Partners-title']",LocatorType.XPath);}
         //  public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
-    public WebElement Button_Unlock (String lockedPartner,boolean...ignoreException) { return findElement("//tr/td/div[contains(text(),'"+lockedPartner+"')]/following::td/div/button[contains(text(),'Unlock')]", LocatorType.XPath,ignoreException); }
+    public WebElement Button_Unlock (String lockedPartner,boolean...ignoreException) { return findElement("//tr/td/div[contains(text(),'"+lockedPartner+"')]/following::td/div/button", LocatorType.XPath,ignoreException); }
 
 
 }

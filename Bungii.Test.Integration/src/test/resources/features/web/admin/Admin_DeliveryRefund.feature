@@ -519,6 +519,10 @@ Feature: Admin_Refund
 		And I click on the "Active Driver Map" link from the sidebar
 		Then The "Map" "Image" should be displayed
 		And I click on "Filter" button
+		#Core-4117:Verify for the newly added filters are present on Active driver map page
+		Then The "Online Drivers" "Button" should be displayed
+		Then The "Activated Date" "Textbox" should be displayed
+		Then The "Most Recent Delivery" "textbox" should be displayed
 		#CORE-3848:Verify that slider for Vehicle payload displays correct details in the result
 		Then The "Vehicle Payload" "Slider" should be displayed
 		And I slide the "vehicle payload" to "500 lbs"
@@ -669,3 +673,61 @@ Feature: Admin_Refund
 		And I Enter the text "Kansas"
 		When I click on the "Kansas" checkbox
 		Then The driver having status "Rejected" should not be present in active driver map
+
+  #CORE-4117:Verify result on “Most Recent Delivery” filter for active driver when his delivery was completed by Admin
+  @ready
+  Scenario:Verify result on “Most Recent Delivery” filter for active driver when his delivery was completed by Admin
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+    |Geofence| Bungii Time   | Customer Phone | Customer Name |
+    |Kansas| NEXT_POSSIBLE | 8877661152 | Testcustomertywd_appleMarkEW LutherEW|
+    And As a driver "Testdrivertywd_appleks_a_drvbs Kansas_bs" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted  |
+      |Enroute    |
+    And I wait for 2 minutes
+    And I click on the "Driver" link from the sidebar
+	And I click on the "Active Driver Map" link from the sidebar
+    And I click on the "Select Geofence" dropdown
+    And I Enter the text "Kansas"
+    When I click on the "Kansas" checkbox
+    And I "Unselect" all the "Equipment" checkboxes from the filter
+    And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+	#Core-4117:Verify calendar UI and its functionality for "Activated date" filter
+	And I click on "Filter" button
+	When I click on the "Activated Date" textbox
+	And I select a range from "First Date" of current month to the "Last Date" of the month for "Activated Date"
+	And I click on Apply button on Filter
+	Then The "Testdrivertywd_appleks_a_drvbt Kansas_bt" "Driver name" should be displayed
+	And I click on the "Driver" link from the sidebar
+	And I click on the "Active Driver Map" link from the sidebar
+	And I click on the "Select Geofence" dropdown
+	And I Enter the text "Kansas"
+	When I click on the "Kansas" checkbox
+	And I "Unselect" all the "Equipment" checkboxes from the filter
+	And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+    And I click on "Filter" button
+    And I click on "Online Drivers" button
+    And I click on Apply button on Filter
+    Then The "Testdrivertywd_appleks_a_drvbs Kansas_bs" "Driver name" should be displayed
+    And I view the Live Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
+	When I click on the "Edit" button from the dropdown
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Completed" radiobutton
+    And I enter delivery completion date and time as per geofence
+    And I click on "CALCULATE COST" button
+    Then Confirmation message on edit live delivery pop up should be displayed
+    And I click on "Confirm" button
+    And I wait for 2 minutes
+    And I click on the "Driver" link from the sidebar
+    And I click on the "Select Geofence" dropdown
+    And I Enter the text "Kansas"
+    When I click on the "Kansas" checkbox
+	And I click on the "Active Driver Map" link from the sidebar
+	And I "Unselect" all the "Equipment" checkboxes from the filter
+    And I "Unselect" all the "Vehicle Type" checkboxes from the filter
+    And I click on "Filter" button
+    When I click on the "Most Recent Delivery" textbox
+	And I select a range from "First Date" of current month to the "Last Date" of the month for "Most Recent Delivery"
+	And I click on Apply button on Filter
+	Then The "Testdrivertywd_appleks_a_drvbs Kansas_bs" "Driver name" should be displayed
