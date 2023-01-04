@@ -29,6 +29,13 @@ Feature: Admin_Live_Delivery_Edit
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    #CORE-4152:To verify updated projected estimated delivery time for trips on live admin edit address
+    And I view the Live Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Delivery Details" button from the dropdown
+    Then The "Scheduled Time" for customer delivery should match
+    Then The "Estimate dropOff time after admin live edit" for customer delivery should match
+    And I view the Live Deliveries list on the admin portal
     When I open the live delivery details in admin portal
     Then the updated drop off address should be displayed on delivery details page
     And Delivery price is recalculated based on updated value of drop off address

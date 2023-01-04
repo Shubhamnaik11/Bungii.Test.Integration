@@ -509,7 +509,7 @@ public class DbUtility extends DbContextManager {
 
     public static String getPartnerName(String Sub_Domain_Name) {
         String partnerName;
-        String queryString = "select business_partner_location_name from business_partner_location where subdomainname='" + Sub_Domain_Name + "'";
+        String queryString = "select store_name from bp_store where subdomain_name ='"+ Sub_Domain_Name +"'";
         partnerName = getDataFromMySqlServer(queryString);
         logger.detail("Partner_Name =  " + partnerName + " of Subdomain=" + Sub_Domain_Name);
         return partnerName;
@@ -718,8 +718,48 @@ public class DbUtility extends DbContextManager {
         disbursementType = getDataFromMySqlMgmtServer(queryString1);
         logger.detail("The disbursement type for "+driverId+" is "+disbursementType);
         return disbursementType;
+    }
+    public static String getDriverPaidStatus(String pickUpRef) {
+        String driverStatus;
+        String queryString1 ="select IsDriverPaid from paymenttransaction where clientgroupref ='"+pickUpRef+"' and TransactionType=3";
+        driverStatus = getDataFromMySqlMgmtServer(queryString1);
+        logger.detail("The status for driver payment is "+driverStatus);
+        return driverStatus;
+    }
+    public static String getTripId(String pickupId) {
+        String tripId;
+        String queryString1 ="select TRID from triprequest where Pickupid="+pickupId;
+        tripId = getDataFromMySqlServer(queryString1);
+        logger.detail("The TRID for trip is "+tripId);
+        return tripId;
+    }
+    public static String getTransactionStatus(String tripId) {
+        String status;
+        String queryString1 ="select IsTransactionSuccessful from trippaymentdetails where trid in ("+tripId+")";
+        status = getDataFromMySqlServer(queryString1);
+        logger.detail("The status for trip is "+status);
+        return status;
+    }
 
-
+    public static String[] getArrivalTimeAndLoadingUnloadingTimeForCustomer(String Cust_Reference) {
+        String[] ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer = new String[4];
+        String toGetEstTime="SELECT EstTime FROM pickupdetails WHERE CustomerRef ='"+Cust_Reference+"'order by pickupid desc limit 1";
+        ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[0] = getDataFromMySqlServer(toGetEstTime);
+        logger.detail("EstTime for "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[0]);
+        String queryStringForarrivalTime ="SELECT  ScheduledTimestamp FROM pickupdetails WHERE CustomerRef='"+Cust_Reference+"' order by pickupid desc limit 1";
+        String queryStringForLoadingUnloadingTime ="SELECT  loadingunloadingtime FROM pickupdetails WHERE CustomerRef='"+Cust_Reference+"'order by pickupid desc limit 1";
+        ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[1]=getDataFromMySqlServer(queryStringForarrivalTime);
+        ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[2]=getDataFromMySqlServer(queryStringForLoadingUnloadingTime);
+        logger.detail("The expected Arrival time for the delivery having customer refernce "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[1]);
+        logger.detail("The expected Loading/Unloading time for the delivery having customer refernce "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[2]);
+        return ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer;
+    }
+    public static String getCustomerRefference(String phoneNumber) {
+        String custRef = "";
+        String queryString = "SELECT CustomerRef FROM customer WHERE Phone = " + phoneNumber;
+        custRef = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "customer reference is " + custRef);
+        return custRef;
     }
 }
 

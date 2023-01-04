@@ -1064,6 +1064,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the status
       | Status       |
       | Assigning Driver(s) |
+
 # Driver with Same day payment setting:9049840342
   @ready
   Scenario:Verify that 'i' icon is displayed on delivery details page for those drivers who has selected same day payment
@@ -1112,3 +1113,23 @@ Feature: Admin_Trips
       | Assigning Driver(s)|
     And I note the trip details
     Then Admin should receive the "Delivery scheduled beyond secondary polyline" email
+
+#  Core-4367 Verify "Admin Cancelled" trips for driver(s) with Branch app wallet(customer trip)
+    @ready
+    Scenario: Verify Admin Cancelled trips for driver(s) with Branch app wallet(customer trip)
+      When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+        | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+        | NEXT_POSSIBLE | 8877661150     | Testcustomertywd_appleMarkEU LutherEU | Cci12345          |
+      And As a driver "Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ" perform below action with respective "Solo Scheduled" Delivery
+        | driver1 state |
+        | Accepted      |
+      And I wait for 2 minutes
+      And I view the all Scheduled Deliveries list on the admin portal
+      And  I search the delivery using "Pickup Reference"
+      When I click on the "Edit" button from the dropdown
+      And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+      And I enter cancellation fee and Comments
+      And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
+      And I click on "Submit" button
+      Then The "Pick up has been successfully canceled." message should be displayed
+      Then I check "driver not paid status" in db
