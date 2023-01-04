@@ -50,9 +50,9 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement List_DriverSearchResult (String driverName) { return findElement("//input/following-sibling::div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
 
-    public WebElement TickMarkDate () { return findElement("//i[@class='fa fa-check dateValidity text-green-alt success-icon']", LocatorType.XPath); }
+    public WebElement TickMarkDate () { return findElement("//div[@class='verify-icon col']", LocatorType.XPath); }
 
-    public WebElement TickMarkDriver (String driverName) { return findElement("//td[text()='"+driverName+"']/ancestor::tr/td/i[@class='fa fa-check text-green-alt']", LocatorType.XPath); }
+    public WebElement TickMarkDriver () { return findElement("//div[@class='driver-verify w1 col-sm-1']", LocatorType.XPath); }
 
     public WebElement  Button_Edit() {return findElement("//a[contains(text(),'Edit')]",LocatorType.XPath);}
 

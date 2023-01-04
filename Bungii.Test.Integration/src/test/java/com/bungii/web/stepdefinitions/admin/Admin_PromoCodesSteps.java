@@ -740,6 +740,9 @@ try{
             case "Add New Promocode":
             action.click(admin_PromoCodesPage.Button_Cancel());
             break;
+            case "OK":
+                action.click(admin_BusinessUsersPage.Button_OK());
+            break;
             case "Partner":
 //            case "Business Users":
                 switch(button) {

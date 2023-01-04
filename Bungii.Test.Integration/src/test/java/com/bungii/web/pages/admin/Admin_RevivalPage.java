@@ -26,7 +26,7 @@ public class Admin_RevivalPage extends PageBase {
 
     public WebElement Text_DeliveryStatus(String status) { return findElement(String.format("//select/option[text() =\"%s\"]",status), LocatorType.XPath); }
 
-    public WebElement DropDown_DeliveryStatusReason() { return findElement("//div[@class=\"change-status\"]/form/div[3]/div/select", LocatorType.XPath);}
+    public WebElement DropDown_DeliveryStatusReason() { return findElement("//select[@class='reason form-select']", LocatorType.XPath);}
 
     public WebElement Text_DeliveryStatusReason(String statusReason) { return findElement(String.format("//div/select/option[text() =\"%s\"]",statusReason), LocatorType.XPath); }
 

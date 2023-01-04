@@ -36,7 +36,7 @@ Feature: Admin_PartnerFirm
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarm"
     Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
-    And Admin receives "Failed Scheduled Trips" trip email for "Driver Cancelled" status
+    And Admin receives "Failed On-Demand Trips" trip email for "Driver Cancelled" status
 
   #@sanity
   #@ready
@@ -151,7 +151,7 @@ Feature: Admin_PartnerFirm
     When I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And Partner firm should receive "Bungii Delivery Pickup Canceled" email
-    And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
+    And Admin receives "Failed Scheduled Trips" trip email for "Admin Canceled" status
 
 
   #@ready
@@ -164,9 +164,10 @@ Feature: Admin_PartnerFirm
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
     And I upload image and csv file associated with the "Solo Scheduled" trip
-    And I click on "Upload" button on "Bulk Trips" page
-    When I click on "Confirm" button on "Bulk Trips" page
-    Then the "Trips have been requested successfully." message is displayed
+    And I click on "Upload" button on "Upload Deliveries" page
+    When I click on "Confirm" button on "Upload Deliveries" page
+    Then the "Deliveries have been requested successfully." message is displayed
+    And I click on the "OK" Button on "Confirmation" popup
     And I note the Pickupref of trip
     When As a driver "Testdrivertywd_appledc_a_web Sundark" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
@@ -180,11 +181,12 @@ Feature: Admin_PartnerFirm
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
     And I update the Scheduled date of the trip by 15 minutes
+    And I select "No drivers available" as the reason from the reason dropdown
     And I remove driver "Testdrivertywd_appledc_a_web Sundark" and add the new driver "Testdrivertywd_appledc_a_web Sundarj"
     And I click on "Verify" button on Edit Scheduled bungii popup
     Then Tick mark should be displayed beside driver and scheduled date
-    When i click on "Save" button on Edit Scheduled bungii popup
-    Then "Bungii Saved" message should be displayed
+    When I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
     Then Partner firm should receive "Bungii Delivery Pickup Updated" email
     #################
     When I cancel bungii as a customer "Testcustomertywd_apple-Jd1" with phone number "9999794897"

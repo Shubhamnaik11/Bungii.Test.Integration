@@ -1580,7 +1580,7 @@ try{
         switch (emailSubject) {
             case "Bungii Delivery Pickup Scheduled":
                 String bungiiType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
-                if (bungiiType.equalsIgnoreCase("solo")) {
+                if (bungiiType.equalsIgnoreCase("Solo Ondemand")) {
                     // message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
                     if (hasDST) {
                         message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
@@ -2240,8 +2240,8 @@ try{
 
     @Then("^Tick mark should be displayed beside driver and scheduled date$")
     public void tick_mark_should_be_displayed_beside_driver_and_scheduled_date() throws Throwable {
-      //  testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDate());
-          //      testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDriver(""));
+        testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDate(),"I should able to see Tick mark besides Scheduled Date", "I was able to see Tick mark besides Scheduled Date", "Tick mark was not displayed besides Scheduled Date");
+        testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDriver(), "I should able to see Tick mark besides Driver Name", "I was able to see Tick mark besides Driver Name", "Tick mark was not displayed besides Driver Name");
 
     }
 
@@ -2281,6 +2281,8 @@ try{
     public void i_update_the_scheduled_date_of_the_trip_by_15_minutes()  {
         try{
         //String value = admin_EditScheduledBungiiPage.TimePicker_Time().getAttribute("text");
+            String customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME");
+            cucumberContextManager.setScenarioContext("SCHEDULED_TIME",action.getText(admin_TripsPage.Text_ScheduledTime(customerName)));
             String time = (String) cucumberContextManager.getScenarioContext("SCHEDULED_TIME");
             time=time.substring(13,21);
             action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
