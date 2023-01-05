@@ -6,6 +6,7 @@ Feature: Admin_PartnerFirm
     
   #@ready
   #@email
+  #Faling at line no. 24
   @knownissue
   Scenario: Verify Partner Firm Scheduled Email - Ondemand Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
@@ -26,6 +27,7 @@ Feature: Admin_PartnerFirm
   @email
     @failed
   @knownissue
+    #Falied at line no 41
   Scenario: Verify Partner Firm Scheduled Email - Solo Ondemand
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -73,6 +75,7 @@ Feature: Admin_PartnerFirm
   #@ready
   @email
   @knownissue
+    #Failing at line no 100 as failed mail is not receving
       #test data created in base
   Scenario: Verify Partner Firm Cancellation Email - Duo Scheduled
     When I request "duo" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -94,13 +97,14 @@ Feature: Admin_PartnerFirm
     When I view the Completed Deliveries on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And Partner firm should receive "Bungii Delivery Pickup Canceled" email
-    And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
+    And Admin receives "Failed Scheduled Trips" trip email for "Admin Cancelled" status
 
 
   #@ready
   @email
     @failed
   @knownissue
+    #Passed
     #test data created in base
   Scenario: Verify Partner Firm Email Upon Driver Acceptance And Remove Research - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -159,6 +163,7 @@ Feature: Admin_PartnerFirm
   @email
   @failed
     @log
+    #Failing at line no. 196
     #Create driver in base
   Scenario: Verify Partner Firm Scheduled Email - Solo Scheduled Bulk Trip
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
@@ -196,6 +201,7 @@ Feature: Admin_PartnerFirm
   @knownissue
   @email
   @failed
+    #Passed
     #test data created in base
   Scenario: Verify Partner Firm Email For Long Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -222,6 +228,7 @@ Feature: Admin_PartnerFirm
   @knownissue
   @email
   @failed
+    #Passed
     #test data created in base
   Scenario: Verify Partner Firm Email For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -255,6 +262,7 @@ Feature: Admin_PartnerFirm
   #@ready
   @knownissue
   @failed
+    #Failing at last line no. 303
     #test data created in base
   Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location

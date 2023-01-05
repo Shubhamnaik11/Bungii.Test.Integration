@@ -1582,7 +1582,7 @@ try{
         switch (emailSubject) {
             case "Bungii Delivery Pickup Scheduled":
                 String bungiiType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
-                if (bungiiType.equalsIgnoreCase("Solo Ondemand")) {
+                if(bungiiType.contains("Solo")){
                     // message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
                     if (hasDST) {
                         message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
