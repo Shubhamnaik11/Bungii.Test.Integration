@@ -21,11 +21,15 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -62,6 +66,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     Thread.sleep(1000);
                     action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
                     break;
+
             }
             log("I should be able to search delivery as " + admin,"I could search delivery as " + admin,false);
         } catch(Exception e){
@@ -73,13 +78,27 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
 
 
     @And("^I search the delivery using \"([^\"]*)\"$")
-    public void i_search_the_delivery_using_something(String newpickupRef) throws Throwable {
+    public void i_search_the_delivery_using_something(String searchParameter) throws Throwable {
         try {
-            action.refreshPage();
-            cucumberContextManager.setScenarioContext("ADMIN1_NAME", action.getText(admin_ScheduledTripsPage.Text_AdminName()));
-            String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            Thread.sleep(2000);
-            action.clearSendKeys(adminTripsPage.TextBox_Search(), pickupRef + Keys.ENTER);
+            switch (searchParameter){
+                case "Pickup Reference":
+                    action.refreshPage();
+                    cucumberContextManager.setScenarioContext("ADMIN1_NAME", action.getText(admin_ScheduledTripsPage.Text_AdminName()));
+                    String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    Thread.sleep(2000);
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), pickupRef + Keys.ENTER);
+                    break;
+                case "ExternalOrderId":
+                    Thread.sleep(2000);
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("ExternalOrderId") + Keys.ENTER);
+                    break;
+                case "Invalid ExternalOrderId":
+                    Thread.sleep(2000);
+                    String invalidExternalODerNumber = PropertyUtility.getDataProperties("invalid.order.number");
+                    action.clearSendKeys(adminTripsPage.TextBox_Search(), invalidExternalODerNumber+Keys.ENTER);
+                    break;
+            }
+
             log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -342,13 +361,17 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @And("^I log into another \"([^\"]*)\" portal in a new tab$")
     public void i_log_into_another_something_portal_in_a_new_tab(String strArg1) throws Throwable {
         try {
-            String adminURL = "https://qaauto-portal.gobungii-dev.com/Admin/Login";
+            String adminURL = PropertyUtility.getDataProperties("qa.admin.url");
+            String loginId = PropertyUtility.getDataProperties("admin.user2");
+            String password = PropertyUtility.getDataProperties("admin.password");
             Thread.sleep(2000);
             action.openNewTab();
             action.navigateTo(adminURL);
-            action.sendKeys(Page_AdminLogin.TextBox_Phone(), "9765330125");
-            action.sendKeys(Page_AdminLogin.TextBox_Password(),"cci12345");
+            action.sendKeys(Page_AdminLogin.TextBox_Phone(), loginId);
+            action.sendKeys(Page_AdminLogin.TextBox_Password(),password);
+            Thread.sleep(2000);
             action.click(Page_AdminLogin.Button_AdminLogin());
+            Thread.sleep(3000);
             cucumberContextManager.setScenarioContext("ADMIN2_NAME",action.getText(admin_ScheduledTripsPage.Text_AdminName()));
             log("I should be able to open new tab and login to admin portal","I should be able to open new tab and login to admin portal",false);
         } catch(Exception e){
@@ -372,7 +395,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @And("^The \"([^\"]*)\" link should not be displayed$")
     public void the_something_link_should_not_be_displayed(String strArg1) throws Throwable {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             testStepAssert.isFalse(action.isElementPresent(
                     admin_ScheduledTripsPage.Link_EditNote_NotDisplayed(true)),"Edit link should not be displayed","Edit link is not displayed", "Edit link is  displayed");
         } catch(Exception e){
@@ -385,7 +408,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" page should display the delivery in \"([^\"]*)\" form")
     public void the_something_page_should_display_the_delivery_in_something_form(String PagenName, String ExpectedText) throws Throwable {
         try {
-            action.click(admin_ScheduledTripsPage.Menu_AllTrips());
+            action.click(admin_ScheduledTripsPage.Menu_CompletedDeliveries());
             Thread.sleep(4000);
             String deliveryComplete = action.getText(admin_ScheduledTripsPage.Text_Delivery_Successfull());
             testStepAssert.isEquals(deliveryComplete,ExpectedText,"Delivery Status should match","Delivery status matches","Delivery status doesnt match");
@@ -505,10 +528,15 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     }
 
     @And("^I navigate to \"([^\"]*)\" portal$")
-    public void i_navigate_to_something_portal(String strArg1) throws Throwable {
+    public void i_navigate_to_something_portal(String portal) throws Throwable {
         try {
             ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
-            SetupManager.getDriver().switchTo().window(tabs.get(0));
+            if(portal.equalsIgnoreCase("Driver")){
+                action.switchToTab(1);
+            }
+            else {
+                action.switchToTab(0);
+            }
             action.refreshPage();
             log("I should be able to switch the tab back to admin portal","I could switch the tab back to admin portal",false);
         } catch(Exception e){
@@ -523,46 +551,58 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
         try {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String status = dataMap.get("Status").trim();
+            int statusLive=Integer.parseInt(PropertyUtility.getDataProperties("index.live.deliveris.page"));
+            int statusScheduled=Integer.parseInt(PropertyUtility.getDataProperties("index.scheduled.deliveris.page"));
+
             switch (status) {
                 case "Assigning Driver(s)":
-                    Thread.sleep(2000);
-                    String searchingDriversStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
-                    Thread.sleep(1000);
-                    testStepAssert.isEquals(searchingDriversStatus,status,"Delivery Status should be set to Assigning Drivers","Delivery Status is set to Assigning Drivers","Delivery Status is not set to Assigning Drivers");
+                    String Heading_LiveDeliveries =action.getText(admin_TripsPage.Header_LiveDeliveries());
+                    if(Heading_LiveDeliveries.contentEquals("Live Delivery List")){
+                        Thread.sleep(2000);
+                        String searchingDriversStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
+                        Thread.sleep(1000);
+                        testStepAssert.isEquals(searchingDriversStatus,status,"Delivery Status should be set to Assigning Drivers","Delivery Status is set to Assigning Drivers","Delivery Status is not set to Assigning Drivers");
+                    }
+                    else{
+                        Thread.sleep(2000);
+                        String searchingDriversStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusScheduled));
+                        Thread.sleep(1000);
+                        testStepAssert.isEquals(searchingDriversStatus,status,"Delivery Status should be set to Assigning Drivers","Delivery Status is set to Assigning Drivers","Delivery Status is not set to Assigning Drivers");
+                    }
                     break;
                 case "Scheduled":
                     Thread.sleep(2000);
-                    String scheduledStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
+                    String scheduledStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusScheduled));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(scheduledStatus,status,"Delivery Status should be set to Scheduled ","Delivery Status is set to Scheduled ","Delivery Status is not set to Scheduled");
                     break;
-                case "Trip Started":
-                    Thread.sleep(2000);
-                    String tripStartedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
-                    Thread.sleep(1000);
+                case "Trip Started":
+                    Thread.sleep(5000);
+                    String tripStartedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
+                    Thread.sleep(3000);
                     testStepAssert.isEquals(tripStartedStatus,status,"Delivery Status should be set to Trip Started  ","Delivery Status is Trip Started ","Delivery Status is not set to Trip Started");
                     break;
-                case  "Driver(s) Arrived":
+                case  "Driver(s) Arrived":
                     Thread.sleep(2000);
-                    String driversArrivedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
+                    String driversArrivedStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(driversArrivedStatus,status,"Delivery Status should be set to  Driver(s) Arrived","Delivery Status is set to Driver(s) Arrived ","Delivery Status is not set to Driver(s) Arrived");
                     break;
                 case  "Loading Item":
                     Thread.sleep(2000);
-                    String loadingItemStatus= action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
+                    String loadingItemStatus= action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(loadingItemStatus,status,"Delivery Status should be set to Loading Item","Delivery Status is Loading Item","Delivery Status is not set to Loading Item");
                     break;
-                case "Driving To Dropoff":
+                case "Driving To Dropoff":
                     Thread.sleep(2000);
-                    String drivingToDropoffStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
+                    String drivingToDropoffStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(drivingToDropoffStatus,status,"Delivery Status should be set to Driving To Dropoff ","Delivery Status is Driving To Dropoff","Delivery Status is not set to Driving To Dropoff");
                     break;
-                case "Unloading Items":
+                case "Unloading Items":
                     Thread.sleep(2000);
-                    String unloadingItemsStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(status));
+                    String unloadingItemsStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryStatus(statusLive));
                     Thread.sleep(1000);
                     testStepAssert.isEquals(unloadingItemsStatus,status,"Delivery Status should be set to Unloading Items ","Delivery Status is Unloading Items","Delivery Status is not set to Unloading Items");
                     break;
@@ -591,10 +631,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @When("^I create multiple notes$")
     public void i_create_multiple_notes() throws Throwable {
         try {
-            Thread.sleep(1000);
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Textbox_AddNote(),(long)3000);
             action.clearSendKeys(admin_ScheduledTripsPage.Textbox_AddNote(),"Added Customer Note");
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Button_SaveNote(),(long)3000);
             action.click(admin_ScheduledTripsPage.Button_SaveNote());
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Textbox_AddNote(),(long)5000);
             action.clearSendKeys(admin_ScheduledTripsPage.Textbox_AddNote(),"Added note by admin");
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Button_SaveNote(),(long)3000);
             action.click(admin_ScheduledTripsPage.Button_SaveNote());
             log("I should be able to create multiple notes","I could create multiple notes",false);
         } catch(Exception e){
@@ -679,13 +722,13 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             switch (link) {
                 case "Notes":
                     Thread.sleep(1000);
-                    boolean notesNotUnderlined = admin_ScheduledTripsPage.Link_Notes().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
+                    boolean notesNotUnderlined = admin_ScheduledTripsPage.Link_Notes().getCssValue("border-bottom").contentEquals("0px none rgb(0, 0, 0)");
                     testStepAssert.isTrue(notesNotUnderlined, "Notes should not be underlined", "Notes is not underlined", "Notes in Underlined");
                     break;
 
                 case "History":
                     Thread.sleep(1000);
-                    boolean historyNotUnderlined = admin_ScheduledTripsPage.Link_History().getCssValue("border-bottom").contentEquals("0px none rgb(31, 31, 31)");
+                    boolean historyNotUnderlined = admin_ScheduledTripsPage.Link_History().getCssValue("border-bottom").contentEquals("0px none rgb(0, 0, 0)");
                     testStepAssert.isTrue(historyNotUnderlined, "History should not be underlined", "History is not underlined", "History is Underlined");
                     break;
             }
@@ -808,21 +851,18 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     public void i_should_see_edit_date_time_history() throws Throwable {
         try
         {
-         String DateChanged=(String) cucumberContextManager.getScenarioContext("Date_Changed");
-            Date date1=new SimpleDateFormat("MM/dd/yyyy").parse(DateChanged);
-            String date= String.valueOf(date1);
-            date =date.substring(4,10)+", "+date.substring(24);
-            String[] dateN=date.split(",");
-        String TimeChanged=(String) cucumberContextManager.getScenarioContext("Time_Changed");
-        String OldScheduleTime=(String)cucumberContextManager.getScenarioContext("BUNGII_TIME");
-        String ACtualnewdate=action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData());
-        String ACtualOlddate=action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData());
-        ACtualOlddate= ACtualOlddate.replace(":00 AM"," AM");
-        ACtualnewdate=ACtualnewdate.replace(":00 AM"," AM");
-        testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_DateTimeEdit")),"event should be shown","Event not shown");
-        testStepAssert.isTrue((ACtualOlddate).contains(OldScheduleTime),"OldValueData should be shown","Old Value Data not shown");
-        testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(dateN[0]),"New Value data should be shown","New Value Data not shown");
-        testStepAssert.isTrue((ACtualnewdate).contains(TimeChanged),"New Value data should be shown","New Value Data not shown");
+            String DateChanged=(String) cucumberContextManager.getScenarioContext("Date_Changed");
+            String[] dateN=DateChanged.split(",");
+            String TimeChanged=(String) cucumberContextManager.getScenarioContext("Time_Changed");
+            String OldScheduleTime=(String)cucumberContextManager.getScenarioContext("BUNGII_TIME");
+            String ACtualnewdate=action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData());
+            String ACtualOlddate=action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData());
+            ACtualOlddate= ACtualOlddate.replace(":00 AM"," AM");
+            ACtualnewdate=ACtualnewdate.replace(":00 AM"," AM");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_DateTimeEdit")),"event should be shown","Event not shown");
+            testStepAssert.isTrue((ACtualOlddate).contains(OldScheduleTime),"Old Value Data should be shown","Old Value Data not shown");
+            testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(dateN[0]),"New Value data should be shown","New Value Data not shown");
+            testStepAssert.isTrue((ACtualnewdate).contains(TimeChanged),"New Value data should be shown","New Value Data not shown");
 
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -845,5 +885,149 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+    @Then("^The \"([^\"]*)\" for customer delivery should match$")
+    public void the_something_for_customer_delivery_should_match(String strArg1) throws Throwable {
+        try{
+            int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
+            String custPhone = (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+            String custRef = DbUtility.getCustomerRefference(custPhone);
+            String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTimeForCustomer(custRef);
+            switch (strArg1){
+                case "Scheduled Time":
+                    String calculatedArrivalTime = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+
+                    if (calculatedArrivalTime.startsWith("0")) {
+
+                        String hourWithoutZero = calculatedArrivalTime.replaceFirst("0", "");
+                        cucumberContextManager.setScenarioContext("ArrivalTime", hourWithoutZero);
+                    } else {
+                        cucumberContextManager.setScenarioContext("ArrivalTime", calculatedArrivalTime);
+                    }
+
+                    String arrivalTimeOnUi [] = action.getText(admin_ScheduledTripsPage.Text_ScheduledDelivery()).split(" ");
+                    String time = arrivalTimeOnUi[2].substring(0,arrivalTimeOnUi[2].length()-3);
+                    String amOrPm = arrivalTimeOnUi[3];
+                    String finalTime = time+" " +amOrPm;
+                    String properArrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+
+                    if (finalTime.startsWith("0")) {
+                        String hourWithoutZero = finalTime.replaceFirst("0", "");
+                        cucumberContextManager.setScenarioContext("ArrivalTimeFromUi", hourWithoutZero);
+                    } else {
+                        cucumberContextManager.setScenarioContext("ArrivalTimeFromUi", finalTime);
+
+                    }
+                    String ArrivalTimeFromAdminPortal = (String) cucumberContextManager.getScenarioContext("ArrivalTimeFromUi");
+                    testStepAssert.isEquals(ArrivalTimeFromAdminPortal, properArrivalTime, "The arrival time should be " + properArrivalTime,
+                            "The arrival time time is  " + properArrivalTime,
+                            "The  incorrect arrival time displayed is  " + properArrivalTime);
+                    break;
+                case "Estimated Delivery Time":
+                case "Estimate dropOff time after admin live edit":
+                    if(strArg1.contentEquals("Estimated Delivery Time")){
+                        String arrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+                        String[] hoursAndMinutes =arrivalTime.substring(0, arrivalTime.length() - 3).split(":");
+                        String hours = hoursAndMinutes[0];
+                        String minutes = hoursAndMinutes[1];
+                        cucumberContextManager.setScenarioContext("Hours",hours);
+                        cucumberContextManager.setScenarioContext("Minutes",minutes);
+                        // for scheduled deliveries formula -->
+                        // [Projected start time] + ([Projected LoadUnload Time] / 3) + [Projected Drive Time] + 40
+                    }
+                    else if ((strArg1.contentEquals("Estimate dropOff time after admin live edit"))) {
+                String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                String changedDeliveryDetailsTime[] = DbUtility.getStatusTimestamp(pickupRef).split(" ");
+                String removedValueFromDot = changedDeliveryDetailsTime[1].substring(0, changedDeliveryDetailsTime[1].length() - 4);
+                changedDeliveryDetailsTime[1] = removedValueFromDot;
+                String arrivalStateAdminEdit = ConvertTimeToTheRequiredGeoFence(changedDeliveryDetailsTime);
+                String[] hoursAndMinutes = arrivalStateAdminEdit.substring(0, arrivalStateAdminEdit.length() - 3).split(":");
+                String hours = hoursAndMinutes[0];
+                String minutes = hoursAndMinutes[1];
+                cucumberContextManager.setScenarioContext("Hours", hours);
+                cucumberContextManager.setScenarioContext("Minutes", minutes);
+            }
+                    String hours =(String) cucumberContextManager.getScenarioContext("Hours");
+                    String minutes =(String) cucumberContextManager.getScenarioContext("Minutes");
+
+                    int convertHoursToMinutes = (Integer.parseInt( hours)*60) +Integer.parseInt( minutes) ;
+                    int unloadingLoadingTimeWithoutServiceLevel = (int) Float.parseFloat(ArrivalTimeAndUnloadingLoadingTime[2]);
+                    int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTimeWithoutServiceLevel/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+driverTime;
+                    final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
+
+                    String roundedTime =roundedUpTime(LocalTime.MIN.plus(Duration.ofMinutes( totalMinutes)).toString());
+                    LocalTime TimeInhours =LocalTime.parse(roundedTime);
+                    String plus1Hour = formatTochangeChangeTo12Hours.format(formatTochangeChangeTo12Hours.parse(String.valueOf(TimeInhours.plusHours(1)))) ;
+                    String minus1Hour = formatTochangeChangeTo12Hours.format(formatTochangeChangeTo12Hours.parse(String.valueOf(TimeInhours.minusHours(1)))) ;
+                    cucumberContextManager.setScenarioContext("Timeplus1hour",plus1Hour);
+                    cucumberContextManager.setScenarioContext("Timeminus1hour",minus1Hour);
+
+                    String timeOneHourAhead = (String) cucumberContextManager.getScenarioContext("Timeplus1hour");
+                    String timeOneHourBack =(String) cucumberContextManager.getScenarioContext("Timeminus1hour") ;
+
+                    String expectedDroffTimeRange = action.getText(admin_ScheduledTripsPage.Text_EstimatedDeliveryTime());
+
+
+                    if (expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM") || expectedDroffTimeRange.contains("AM") || expectedDroffTimeRange.contains("PM") ||expectedDroffTimeRange.contains("pm") && expectedDroffTimeRange.contains("am")) {
+
+                        String onlyTimeRange = expectedDroffTimeRange.replace("PM", "").replace("AM", "").replace(" ", "");
+                        cucumberContextManager.setScenarioContext("UITimeRange", onlyTimeRange);
+                    }
+
+                    String UITimeRange = (String) cucumberContextManager.getScenarioContext("UITimeRange");
+                    String calculatedDropoffTimeRange = timeOneHourBack + "-" + timeOneHourAhead;
+                    cucumberContextManager.setScenarioContext("DropOffRangeCalculated", calculatedDropoffTimeRange);
+                    testStepAssert.isEquals(UITimeRange, calculatedDropoffTimeRange, "The dropOff time range should be " + calculatedDropoffTimeRange,
+                            "The dropOff time range is  " + calculatedDropoffTimeRange,
+                            "The  incorrect dropOff time range displayed is  " + UITimeRange);
+                    break;
+            }
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    private String roundedUpTime(String IncorrectTime) throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("hh:mm");
+        Date dt = formatter.parse(IncorrectTime);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dt);
+        int unroundedMinutes = cal.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 5;
+        if (mod ==0){
+            ; cal.add(Calendar.MINUTE,(0-mod));
+        }
+        else  if ( (mod>=1) && (mod < 3) ){
+            cal.add(Calendar.MINUTE,(5-mod));
+        }
+        else {
+            cal.add(Calendar.MINUTE,(5-mod));
+        }
+
+        String hourAndMinute = formatter.format(cal.getTime());
+        logger.detail("The rounded up time for "+ IncorrectTime+ " time is "+ hourAndMinute);
+        return hourAndMinute;
+    }
+
+    private String ConvertTimeToTheRequiredGeoFence(String[] uctToCstTime) {
+        String date[] = uctToCstTime[0].split("-");
+        String time[] = uctToCstTime[1].split(":");
+        if(time[2].contains(".")){
+            String seconds = time[2].substring(0,time[2].length()-4);
+            cucumberContextManager.setScenarioContext("SecondsWithoutPointValue",seconds);
+        }
+        else {
+            cucumberContextManager.setScenarioContext("SecondsWithoutPointValue",time[2]);
+
+        }
+        String seconds = (String) cucumberContextManager.getScenarioContext("SecondsWithoutPointValue");
+        ZonedDateTime instant1 = ZonedDateTime.of(Integer.parseInt(date[0]),Integer.parseInt(date[1]),Integer.parseInt(date[2]),Integer.parseInt(time[0]),Integer.parseInt(time[1]),Integer.parseInt(seconds),0,ZoneId.of("UTC"));
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        ZonedDateTime instantInUTC = instant1.withZoneSameInstant(ZoneId.of(geofenceLabel));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        String timeInCST = instantInUTC.format(formatter);
+        return timeInCST;
     }
 }

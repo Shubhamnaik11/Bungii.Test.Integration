@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 public class LogInPage extends PageBase {
 
     public WebElement TextBox_Phone() {
-        return findElement("PhoneNo", LocatorType.Name);
+        return findElement("phoneno", LocatorType.Name);
     }
 
     public WebElement TextBox_Phoned(boolean ... ignoreException) {
@@ -15,11 +15,11 @@ public class LogInPage extends PageBase {
     }
 
     public WebElement TextBox_Pass() {
-        return findElement("Password", LocatorType.Name);
+        return findElement("password", LocatorType.Name);
     }
 
     public WebElement Button_LogIn() {
-        return findElement("//button[text()='LOG IN']", LocatorType.XPath);
+        return findElement("login", LocatorType.Id);
     }
 
 }

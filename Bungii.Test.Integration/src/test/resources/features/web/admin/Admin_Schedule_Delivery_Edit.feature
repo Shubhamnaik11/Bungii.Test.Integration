@@ -27,6 +27,14 @@ Feature: Admin_Schedule_Delivery_Edit
       Then "Bungii Saved!" message should be displayed
       And I wait for "2" mins
       And  I refresh the page
+      And I get the new pickup reference generated
+      And  I search the delivery using "Pickup Reference"
+      #CORE-4152:Verify that estimated delivery time is calculated correctly when admin edits scheduled address of customer trip
+      When I click on the "Delivery Details" button from the dropdown
+      Then The "Scheduled Time" for customer delivery should match
+      Then The "Estimated Delivery Time" for customer delivery should match
+      And I view the all Scheduled Deliveries list on the admin portal
+      And  I search the delivery using "Pickup Reference"
       And I click on the dropdown beside scheduled bungii
       Then I should see the "History" underlined
       #CORE-3382
@@ -61,7 +69,10 @@ Feature: Admin_Schedule_Delivery_Edit
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
-    When I view the delivery details in admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s) |
+    When I view the delivery details
     Then the updated drop off address should be displayed on delivery details page
     And I confirm Pickup note is "Deleted"
     And Delivery price is recalculated based on updated value of drop off address
@@ -72,6 +83,7 @@ Feature: Admin_Schedule_Delivery_Edit
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
       | NEXT_POSSIBLE | 9999999203     | Testcustomertywd_appleNewP Customer|
+    And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
@@ -88,7 +100,7 @@ Feature: Admin_Schedule_Delivery_Edit
     Then I stop searching driver
     And I wait for "2" mins
 #    Core-3294: Verify status of the trip is driver not found after admin stop search
-    When I click on the "Delivery Details" button from the dropdown
+    And I refresh the page
     Then I check if the status has been changed to "No Driver(s) Found"
 #    Core-3294: Verify stop search button is hidden when admin stop search any trip
     Then I check if "Stop Searching" button is not present

@@ -309,6 +309,7 @@ Feature: Solo Scheduled Bungii - TELET
     And Driver adds photos to the Bungii
     And I click "More Options" button on "update" screen
     And I click "Customer Signature" button on "update" screen
+    #CORE:4665:Verify that Customer or partner name is shown to driver if drop-off contact name was left blank in partner portal delivery creation
     Then I should see the customers name under the customer name field
 
     When I request "Solo" Bungii as a customer in "atlanta" geofence
@@ -363,6 +364,8 @@ Feature: Solo Scheduled Bungii - TELET
     And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
+   #CORE-4665:Verify that drop-off contact name populates in customer name on driver app for partner portal trips
+    Then I should see the dropoff contact name under the customer name field
     And I click on "Skip Customer Signature" button
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen

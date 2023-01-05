@@ -11,16 +11,19 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     #And I Select Trip from available trip
     And I Select Partner portal Trip from available trip
-
-    #    Core - 2569 Verify ~ sign under earnings is shown on Driver app for Variable pricing Deliveries
+    And I click on "i earning" icon
+    And I click on "Close Payment Settings" button
+#    Core - 2569 Verify ~ sign under earnings is shown on Driver app for Variable pricing Deliveries
     And I check if variable sign is shown under "available bungii details"
-
     Then I should be navigated to "BUNGII DETAILS" screen
     Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
     When I accept selected Bungii
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I check if variable sign is shown under "schedule bungii details"
+#    Core- 4524: Verify that icon 'i' is displayed next to Delivery earnings and on clicking on it pop-up is displayed
+    And I click on "i earning" icon
+    And I click on "Close Payment Settings" button
     Then I should be navigated to "BUNGII DETAILS" screen
     Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
     And I start selected Bungii
@@ -49,11 +52,14 @@ Feature: Partner Portal Cases integration with IOS
     And I add comment on rate customer page
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
-  #    Core-3098 Verify online/offline pop up is shown for solo Partner portal trip and go-offline functionality
+      #  Core-3098 Verify online/offline pop up is shown for solo Partner portal trip and go-offline functionality
     And I check online or offline pop up is displayed
     And I click on "GO OFFLINE" button
     And I Select "HOME" from driver App menu
     And I check if the status is "OFFLINE"
+      #  Core-4556 Verify DB after trip id completed for driver with weekly payment
+    And I check the status for "weekly payment" in db
+    Then I check the status for "weekly payment-external reference" in db
 
 #  Core-2569: Verify ~ sign under earnings is not shown on Driver app for Fixed pricing Deliveries
   @ready
@@ -485,6 +491,25 @@ Feature: Partner Portal Cases integration with IOS
     And I Select Trip from scheduled trip
     Then I should see "CUSTOMER HELP" header displayed
     And I start selected Bungii
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And  I wait for 1 minutes
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_appleMarkCT LutherCT" customer
+    And I Select "Edit Trip Details" option
+    And I edit the drop off address
+    Then I change the drop off address to "4800 East 63rd Street, Kansas City"
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I swipe to check trip details
+    Then The "admin edits dropoff Address" should match
+    And I click on "Close" button
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
     And Driver adds photos to the Bungii
@@ -492,7 +517,9 @@ Feature: Partner Portal Cases integration with IOS
     And I slide update button on "LOADING ITEM" Screen
     And Driver adds photos to the Bungii
     And I slide update button on "LOADING ITEM" Screen
+    Then The "DROP-OFF(Expected time)" "Label" should be displayed
     And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then The "DROP-OFF(Expected time)" "Label" should be displayed
     And I slide update button on "UNLOADING ITEMS" Screen
     And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
@@ -599,3 +626,171 @@ Feature: Partner Portal Cases integration with IOS
     And I select the live trip for "Testcustomertywd_BppleMarkDH LutherDH" customer for delivery details
     Then I check if miles are updated for "drop-off" in "driving to dropoff"
     Then I check if correct "customer price-driving to dropoff" is displayed on delivery details
+
+#CORE-4122: To verify 'Arrival time at pickup' and 'Expected time at drop off' values displayed for Live Bungii delivery where admin edits addresses during Enroute state
+ @ready
+  Scenario:To verify 'Arrival time at pickup' and 'Expected time at drop off' values displayed for Live Bungii delivery where admin edits addresses during Enroute state
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+     |Geofence| Bungii Time   | Customer Phone | Customer Name |
+     |kansas| NEXT_POSSIBLE | 8877661137 | Testcustomertywd_appleMarkEH LutherEH|
+   And As a driver "Testdrivertywd_appleks_a_drvbn Kansas_bn" perform below action with respective "Solo Scheduled" trip
+     | driver1 state |
+     | Accepted      |
+   When I Switch to "driver" application on "same" devices
+   And I am on the "LOG IN" page on driverApp
+   And I am logged in as "Testdrivertywd_appleks_a_drvbn Kansas_bn" driver
+   And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+   And I Select "SCHEDULED BUNGIIS" from driver App menu
+   And I open first Trip from driver scheduled trip
+   Then The "Arrival time at Pickup" "Text" should be displayed
+   Then The "Expected time at drop-off" "Text" should be displayed
+   Then The "Arrival time" should match
+   Then The "Expected time at drop-off" should match
+   And I start selected Bungii
+
+    #CORE-4122:To verify 'Arrival time at pickup' and 'Expected time at drop off' values displayed for Live Bungii delivery where admin edits addresses during Enroute state   When I open new "Chrome" browser for "ADMIN PORTAL"
+   And I navigate to admin portal
+   And I log in to admin portal
+   And  I wait for 2 minutes
+   And I Select "live trips" from admin sidebar
+   And I select the live trip for "Testcustomertywd_appleMarkEH LutherEH" customer
+   And I Select "Edit Trip Details" option
+   And I edit the drop off address
+   Then I change the drop off address to "4800 East 63rd Street, Kansas City"
+   And I click on "VERIFY" button
+   And the "Your changes are good to be saved." message is displayed
+   Then I click on "SAVE CHANGES" button
+
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I swipe to check trip details
+    Then The "admin edits dropoff Address" should match
+    And I click on "Close" button
+
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen
+
+#CORE-4122:To verify 'Arrival time at pickup' and 'Expected time at drop off' values displayed for Live Bungii delivery where admin edits addresses after Arrived state
+  @ready
+  Scenario:To verify 'Arrival time at pickup' and 'Expected time at drop off' values displayed for Live Bungii delivery where admin edits addresses after Arrived state
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |kansas| NEXT_POSSIBLE | 8877661139 | Testcustomertywd_appleMarkEJ LutherEJ|
+    And As a driver "Testdrivertywd_appleks_a_drvbn Kansas_bn" perform below action with respective "Solo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_appleks_a_drvbn Kansas_bn" driver
+   And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I open first Trip from driver scheduled trip
+   Then The "Arrival time at Pickup" "Text" should be displayed
+   Then The "Expected time at drop-off" "Text" should be displayed
+   Then The "Arrival time" should match
+   Then The "Expected time at drop-off" should match
+   And I start selected Bungii
+   And I slide update button on "EN ROUTE" Screen
+
+   When I open new "Chrome" browser for "ADMIN PORTAL"
+   And I navigate to admin portal
+   And I log in to admin portal
+   And  I wait for 1 minutes
+   And I Select "live trips" from admin sidebar
+   And I select the live trip for "Testcustomertywd_appleMarkEJ LutherEJ" customer
+   And I Select "Edit Trip Details" option
+   And I edit the drop off address
+   Then I change the drop off address to "4800 East 63rd Street, Kansas City"
+   And I click on "VERIFY" button
+   And the "Your changes are good to be saved." message is displayed
+   Then I click on "SAVE CHANGES" button
+
+
+   When I switch to "ORIGINAL" instance
+   When I Switch to "driver" application on "same" devices
+   And I swipe to check trip details
+   Then The "driver at arrival state" should match
+   And I click on "Close" button
+  Then I save the dropoff latitude and longitude of the first delivery
+
+    When I request "Solo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | 1_DAY_LATER | 8877661140       | Testcustomertywd_appleMarkEK LutherEK|
+    And I wait for 2 minutes
+    And I click "Available Bungii Icon" button on "update" screen
+    And I Select Trip from available trip
+    Then The "stacked bungii" should match
+    Then The "Stacked delivery dropOff range" should match
+    When I accept selected Bungii
+    And I click on "BACK" button
+
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+   And I slide update button on "LOADING ITEM" Screen
+   And Driver adds photos to the Bungii
+   And I slide update button on "LOADING ITEM" Screen
+   And I slide update button on "DRIVING TO DROP-OFF" Screen
+   And I slide update button on "UNLOADING ITEMS" Screen
+   And Driver adds photos to the Bungii
+   And I slide update button on "UNLOADING ITEMS" Screen
+   And I click "Skip This Step" button on "Rate customer" screen
+   Then I should be navigated to "Bungii completed" screen
+
+#    Core-4556: Verify DB after trip id completed for driver with same day payment
+  @ready
+  Scenario: Verify DB after trip id completed for driver with same day payment
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |washingtondc| NEXT_POSSIBLE | 8877661111 | Testcustomertywd_BppleMarkDH LutherDH|
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I enter phoneNumber :9049840343 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Partner portal Trip from available trip
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii for "floor and decor"
+    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    Then Bungii driver should see "Pickup instructions"
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    Then Bungii driver should see "Drop-off instructions"
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii Completed" screen
+    And I check the status for "same day payment" in db
+    Then I check the status for "same day payment-external reference" in db
+
+#  Core-4556: Verify status of the trip is payment successful after driver completes the trip: Same day payment (Monthly Invoice)
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state

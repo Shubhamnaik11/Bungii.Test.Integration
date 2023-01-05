@@ -247,6 +247,14 @@ public class PromosSteps extends DriverBase {
                     action.click(driverHomePage.Button_Back());
                     break;
 
+                case "i earning":
+                    action.click(driverHomePage.Icon_Earnings());
+                    testStepVerify.isEquals(action.getText(driverHomePage.Text_EarningsInfo()),PropertyUtility.getDataProperties("android.earnings.alert.info"),
+                            "Correct alert message should be displayed.",
+                            "Correct alert message is displayed.",
+                            "Correct alert message is not displayed.");
+                    break;
+
                 default:
                     error("Implemented Step", "UnImplemented Step");
                     break;

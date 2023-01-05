@@ -44,6 +44,9 @@ public class Partner_DashboardPage extends PageBase {
     //Delivery Address
     public WebElement Dropdown_Delivery_Address() { return findElement("dropValue",LocatorType.Id);}
 
+    public WebElement Icon_PickupAddSearch_Address() { return findElement("pickupAddSearchIcon",LocatorType.Id);}
+
+
     //Delivery Address List
     public WebElement List_Delivery_Address() { return findElement("//div[contains(@class,'pac-container pac-logo')]/div[1]/span[2]",LocatorType.XPath);}
 
@@ -108,6 +111,7 @@ public class Partner_DashboardPage extends PageBase {
     //Blank message for load unload time
     public WebElement Message_Blank_LoadUnload_Time() { return findElement("//div[contains(text(),'Load Time is required.')]",LocatorType.XPath);}
 
+    public WebElement Icon_SearchPickupAdd() { return findElement("pickupAddSearchIcon",LocatorType.Id);}
     //Highlighted fields message
     public WebElement Message_Highlighted_Fields() { return findElement("//div[contains(text(),'Please verify the highlighted fields above.')]",LocatorType.XPath);}
 
@@ -308,5 +312,18 @@ public class Partner_DashboardPage extends PageBase {
     //Patner portal calender sunday disabled
     public WebElement Button_SundayDisabled() { return findElement("//div[@class=\"left\"]/div[@class=\"item excluded\"]",LocatorType.XPath);}
 
+    //Partner portal disclaimer
+    public WebElement Text_PartnerPortalDisclaimer() { return findElement("//ul[contains(@class,'partner-disclaimer-mge')]", LocatorType.XPath);}
 
+    //Partner portal custom quotes section tile
+    public WebElement Text_CustomQuotesHeader() { return findElement("//h5[contains(text(),'Custom Quotes')]", LocatorType.XPath);}
+
+    //Partner portal custom quotes description
+    public WebElement Text_CustomQuotesDescription() { return findElement("//div[contains(text(),'For more than 2 pallets')]", LocatorType.XPath);}
+
+    //Partner portal custom quotes link
+    public WebElement Link_CustomQuotesForm() { return findElement("//a[contains(text(), 'fill out this form')]", LocatorType.XPath);}
+
+    //Quote request header title
+    public WebElement Text_QuoteRequestPageHeader() { return findElement("//h1[contains(text(),'Quote Request')]", LocatorType.XPath);}
 }

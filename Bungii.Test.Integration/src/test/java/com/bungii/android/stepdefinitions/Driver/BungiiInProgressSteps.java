@@ -4,6 +4,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.pages.driver.UpdateStatusPage;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
@@ -59,6 +60,7 @@ public class BungiiInProgressSteps extends DriverBase {
     GeneralUtility GeneralUtility = new GeneralUtility();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
+    LoginPage driverLogInPage = new LoginPage();
 
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
@@ -1194,6 +1196,7 @@ public class BungiiInProgressSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
     public void the_something_something_should_be_displayed(String element, String strArg2) throws Throwable {
         try{
+            String expectedText = "";
             Thread.sleep(5000);
             switch (element){
                 case "Delivery Instructions":
@@ -1228,6 +1231,56 @@ public class BungiiInProgressSteps extends DriverBase {
                     Thread.sleep(10000);
                     testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_TeamMate),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
                     break;
+                case "Bungii: The Ultimate Side Hustle":
+                    expectedText = PropertyUtility.getMessage("driver.navigation.bungii.the.ultimate.side.hustle");
+                    testStepAssert.isTrue(action.isElementPresent(driverLogInPage.Label_TheUltimateSideHustle()),expectedText+" should be displayed",expectedText+" is displayed",expectedText+" is not displayed");
+                    break;
+                case "Arrival time at pickup":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ArivalTimeAtPickup()),"Arrival Time at pickup label should be displayed","Arrival Time at pickup label is displayed","Arrival Time at pickup label is not displayed");
+                    String expectedTextAtPickup = action.getText(updateStatusPage.Label_ArivalTimeAtPickup());
+                    testStepAssert.isEquals(expectedTextAtPickup, element, element + " Text should be displayed", element + " Text is displayed", expectedTextAtPickup + "is displayed");
+                    break;
+                case "Expected time at drop-off":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ExpectedTimeAtDropOff()),"Expected time at drop-off label should be displayed","Expected time at drop-off label is displayed","Expected time at drop-off label is not displayed");
+                    String expectedTextAtDropOff = action.getText(updateStatusPage.Label_ExpectedTimeAtDropOff());
+                    testStepAssert.isEquals(expectedTextAtDropOff, element, element + " Text should be displayed", element + " Text is displayed", expectedTextAtDropOff + "is displayed");
+                    break;
+                case "PICKUP(Arrival time)":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_Pickup()),"Pickup label should be displayed","Pickup label is displayed","Pickup label is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ArrivalTime()),"Arrival time label should be displayed","Arrival time label is displayed","Arrival time label is not displayed");
+
+                    String pickupText = action.getText(updateStatusPage.Label_Pickup());
+                    String arrivalTimeText = action.getText(updateStatusPage.Label_ArrivalTime());
+                    String completeText =pickupText +arrivalTimeText;
+                    testStepVerify.isEquals(completeText, element, element + " Text should be displayed", element + " Text is displayed", completeText + "is displayed");
+                    String arrivalTimeOnUIValue = action.getText(updateStatusPage.Text_ArrivalTimeValue());
+                    String properArrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+                    testStepAssert.isEquals(arrivalTimeOnUIValue, properArrivalTime,"The arrival time should be "+properArrivalTime,
+                            "The arrival time is "+properArrivalTime,"The arrival is not "+properArrivalTime+" ,The time is "+properArrivalTime);
+                    break;
+                case "DROP-OFF(Expected time)":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_Pickup()),"Dropoff label should be displayed","Dropoff label is displayed","Dropoff label is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_Pickup()),"Expected time label should be displayed","Expected time label is displayed","Expected time label is not displayed");
+
+                    String dropOffText = action.getText(updateStatusPage.Label_Pickup());
+                    String expectedTimeText = action.getText(updateStatusPage.Label_ArrivalTime());
+                    String entireText =dropOffText +expectedTimeText;
+                    testStepAssert.isEquals(entireText, element, element + " Text should be displayed", element + " Text is displayed", entireText + "is displayed");
+                    String dropOffRangeOnUIValue = action.getText(updateStatusPage.Text_ArrivalTimeValue());
+                    if(dropOffRangeOnUIValue.contains("PM") && dropOffRangeOnUIValue.contains("AM")){
+
+                        String onlyTimeRange = dropOffRangeOnUIValue.replace("PM","").replace("AM","").replace(" ","");;
+                        cucumberContextManager.setScenarioContext("DropOffUiTime",onlyTimeRange);
+                    }
+                    else {
+                        String onlyTimeRange = dropOffRangeOnUIValue.substring(0, dropOffRangeOnUIValue.length()-3).replace(" ","");
+                        cucumberContextManager.setScenarioContext("DropOffUiTime",onlyTimeRange);
+                    }
+                    String expectedDropOffRangeFromUI =(String) cucumberContextManager.getScenarioContext("DropOffUiTime");
+                    String dropOffRangeBasedOnCalculation = (String) cucumberContextManager.getScenarioContext("DropOffRangeCalculated");
+                    testStepAssert.isEquals(expectedDropOffRangeFromUI, dropOffRangeBasedOnCalculation,"The arrival time should be "+dropOffRangeBasedOnCalculation,
+                            "The arrival time is "+dropOffRangeBasedOnCalculation,"The arrival is not "+expectedDropOffRangeFromUI+" ,The time is "+dropOffRangeBasedOnCalculation);
+                    break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1253,5 +1306,18 @@ public class BungiiInProgressSteps extends DriverBase {
                     true);
         }
     }
+    @Then("^I should see the dropoff contact name under the customer name field$")
+    public void i_should_see_the_dropoff_contact_name_under_the_customer_name_field() throws Throwable {
+        try{
+        String dropoffContactName = cucumberContextManager.getScenarioContext("DROPOFFCONTACTNAME").toString();
+        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp());
+        testStepAssert.isEquals(customerName,dropoffContactName,dropoffContactName+ "Should be displayed",customerName+ "is displayed",dropoffContactName+ "is not displayed");
+    }    catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
 
 }

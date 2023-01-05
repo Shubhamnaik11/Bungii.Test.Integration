@@ -3,6 +3,7 @@ Feature: Bungii Geofence Based Calculation
 
   @regression
     @testmac
+    #ADP-669 need to be fixed
     #Stable
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Solo Is Selected By Customer
     Given I am on the "LOG IN" page
@@ -12,8 +13,8 @@ Feature: Bungii Geofence Based Calculation
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Geofence" from admin sidebar
-    And I select "Chicago" geofence
-    And I activate "Chicago" geofence
+    #And I select "Chicago" geofence
+    #And I activate "Chicago" geofence
 	And I select "Chicago" geofence
 	And I click on the "Settings" Button on "Geofence" Screen
 	And I get the value of "Minimum scheduled time for Solo trip"
@@ -34,6 +35,7 @@ Feature: Bungii Geofence Based Calculation
 
 
   @regression
+    #ADP-669 need to be fixed
     #Stable
   Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
 	Given I am on the "LOG IN" page
@@ -43,8 +45,8 @@ Feature: Bungii Geofence Based Calculation
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Geofence" from admin sidebar
-    And I select "Chicago" geofence
-    And I activate "Chicago" geofence
+   # And I select "Chicago" geofence
+   # And I activate "Chicago" geofence
     And I select "Chicago" geofence
     And I click on the "Settings" Button on "Geofence" Screen
     And I get the value of "Minimum scheduled time for Duo trip"
@@ -76,6 +78,7 @@ Feature: Bungii Geofence Based Calculation
 
 #    Core-2618 Verify that admin can set referral code amount on geofence settings page
   @regression
+    #ADP-669 need to be fixed
     Scenario: Verify that admin can set referral code amount on geofence settings page
       When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal

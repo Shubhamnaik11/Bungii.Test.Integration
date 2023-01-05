@@ -6,6 +6,7 @@ import com.bungii.android.pages.admin.DriversPage;
 import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.pages.customer.MyBungiisPage;
+import com.bungii.android.pages.driver.EarningsPage;
 import com.bungii.android.stepdefinitions.Customer.LoginSteps;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
@@ -40,6 +41,7 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
     MyBungiisPage myBungiisPage = new MyBungiisPage();
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     DriversPage driversPage = new DriversPage();
+    EarningsPage earningsPage = new EarningsPage();
 
     @Then("^I verify driver names and trip cost$")
     public void i_verify_driver_names_pickup_and_drop_off_address_and_trip_cost() throws Throwable {
@@ -458,6 +460,41 @@ public class VerifyBungiiDetailsSteps extends DriverBase {
                     break;
             }
             log("I should be able to check details in db","I am able to check details in db",false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("I verify the elements of payment setting screen page")
+    public void iVerifyTheElementsOfPaymentSettingScreenPage()throws Throwable {
+        try{
+                testStepAssert.isTrue(action.isElementPresent(earningsPage.Text_PaymentSetting()),
+                        "Payment Setting should be displayed.",
+                        "Payment Setting is not displayed.");
+
+                String expectedInfo = PropertyUtility.getDataProperties("payment.setting.info");
+                testStepVerify.isTrue(action.getText(earningsPage.Text_PaymentSettingInfo()).contains(expectedInfo),
+                        "Payment setting info displayed should be correct.",
+                        "Payment setting info displayed is correct.",
+                        "Payment setting info displayed is incorrect.");
+
+                testStepAssert.isTrue(action.isElementPresent(earningsPage.Option_2xWeek()),
+                    "The option for twice a week should be displayed.",
+                    "The option for twice a week is not displayed.");
+                testStepAssert.isTrue(action.isElementPresent(earningsPage.Option_SameDay()),
+                    "The option for same day should be displayed.",
+                    "The option for same day is not displayed.");
+
+                testStepAssert.isTrue(action.isElementPresent(earningsPage.Button_Close()),
+                    "The close button should be displayed.",
+                    "The close button is not displayed.");
+
+                testStepAssert.isTrue(action.isElementPresent(earningsPage.Button_Confirm()),
+                    "The confirm button should be displayed.",
+                    "The confirm button is not displayed.");
+
         }
         catch (Exception e){
             logger.error("Error performing step", e);

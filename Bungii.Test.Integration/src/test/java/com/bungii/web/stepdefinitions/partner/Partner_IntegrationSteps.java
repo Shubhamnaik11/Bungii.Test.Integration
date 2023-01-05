@@ -82,25 +82,29 @@ public class Partner_IntegrationSteps extends DriverBase {
             //cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("PP_Site", Site);
+            cucumberContextManager.setScenarioContext("Portal_Name",Site);
             Thread.sleep(10000);
             if (Site.equalsIgnoreCase("normal")) {
                 switch (Type) {
                     case "Solo":
                         //action.click(Page_Partner_Dashboard.Partner_Solo());
                         action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
-
                         action.click(Page_Partner_Dashboard.Button_PickupClear());
                         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                         if(addressEnter.equalsIgnoreCase("CopyPaste")) {
                             String copyPickup = Pickup_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
                             action.sendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), copyPickup + Keys.chord(Keys.CONTROL, "v"));
+
                         }
                         else{
-                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+//                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address);
+                            Thread.sleep(2000);
+                            action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
                         }
-                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-                        Thread.sleep(3000);
-                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
+//                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+//                        Thread.sleep(3000);
+//                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
@@ -108,15 +112,15 @@ public class Partner_IntegrationSteps extends DriverBase {
                             String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
                             action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
                         }else {
-                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+//                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address);
+                            action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
                         }
                         Thread.sleep(3000);
-                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                        Thread.sleep(5000);
-                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
-
-                        Thread.sleep(5000);
-
+//                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+//                        Thread.sleep(5000);
+//                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+//                        Thread.sleep(8000);
                         action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
                         switch (Load_Unload) {
                             case "15 minutes":
@@ -380,24 +384,28 @@ public class Partner_IntegrationSteps extends DriverBase {
             } else if (Site.equalsIgnoreCase("FloorDecor service level")) {
                 switch (Type) {
                     case "Solo":
-                        //action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
-                        //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
-                        //action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-                        //Thread.sleep(1000);
-                        // action.click(Page_Partner_Dashboard.List_Pickup_Address());
+                        action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+                        action.click(Page_Partner_Dashboard.Button_PickupClear());
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address);
+                        action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
+//                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+//                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+//                        Thread.sleep(5000);
+//                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
                         if(addressEnter.equalsIgnoreCase("CopyPaste")) {
                             String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
                             action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
                         }else {
-                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+//                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address);
                         }
-                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                        Thread.sleep(5000);
-                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
-
-                        //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                        action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
+//                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+//                        Thread.sleep(5000);
+//                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+//                        action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
                         break;
                     case "Duo":
 
@@ -525,9 +533,11 @@ public class Partner_IntegrationSteps extends DriverBase {
                         //action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         //Thread.sleep(2000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address);
+                        action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
+                        Thread.sleep(3000);
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                        Thread.sleep(5000);
+                        Thread.sleep(3000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                         //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());

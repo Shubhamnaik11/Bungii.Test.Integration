@@ -24,23 +24,23 @@ public class LiveTripsPage extends PageBase {
     public WebElement Text_TripPayment(){return  findElement("//td[text()='Delivery Payment']/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Link_ManuallyEndBungii () { return findElement("btnEndPickup", LocatorType.Id); }
 
-    public WebElement Textbox_PickupEndDate () { return findElement("pickupEndDate", LocatorType.Id); }
+    public WebElement Textbox_PickupEndDate () { return findElement("//input[@name='Date']", LocatorType.XPath); }
 
-    public WebElement Textbox_PickupEndTime () { return findElement("pickupEndTime", LocatorType.Id); }
+    public WebElement Textbox_PickupEndTime () { return findElement("//input[@name='Time']", LocatorType.XPath); }
 
-    public WebElement Dropdown_ddlpickupEndTime () { return findElement("ddlpickupEndTime", LocatorType.Id); }
+    public WebElement Dropdown_ddlpickupEndTime () { return findElement("//select[@name='Units']", LocatorType.XPath); }
 
-    public WebElement Button_CalculateCost () { return findElement("btnCost", LocatorType.Id); }
+    public WebElement Button_CalculateCost () { return findElement("//button[text()='Calculate cost']", LocatorType.XPath); }
 
     public WebElement Button_Cancel () { return findElement("btnCancel", LocatorType.Id); }
 
     public WebElement Button_Confirm () { return findElement("btnConfirm", LocatorType.Id); }
-    public WebElement Menu_Trips () { return findElement("adminmenu-trips", LocatorType.Id); }
-    public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
+    public WebElement Menu_Trips () { return findElement("//span[text()='Deliveries']", LocatorType.XPath); }
+    public WebElement Dropdown_SearchForPeriod () { return findElement("//select[@class='user-trip-dropdown form-select']", LocatorType.XPath); }
 
-    public WebElement Menu_LiveTrips () { return findElement("adminmenu-livetrips", LocatorType.Id); }
+    public WebElement Menu_LiveTrips () { return findElement("//span[contains(text(),'Live Deliveries')]", LocatorType.XPath); }
 
-    public WebElement Menu_AllDeliveries () { return findElement("adminmenu-completedtrips",LocatorType.Id);}
+    public WebElement Menu_AllDeliveries () { return findElement("//a[contains(text(),'Completed Deliveries')]",LocatorType.XPath);}
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 

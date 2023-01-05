@@ -105,7 +105,7 @@ Feature: Admin_DriverDetails
   Scenario: Verify Driver Search On All Deliveries Page
     When I navigate to following pages one by one
       |Page |
-      | All Deliveries |
+      |Completed Deliveries|
     And I enter "drivers" "first name" in the "Deliveries search" box
     Then I should see "driver first name" listed on the "Deliveries" page
 
@@ -146,7 +146,7 @@ Feature: Admin_DriverDetails
     Then I see unchanged driver phone number
 
 #  Core-4175
-    @ready
+    @regression
     Scenario Outline: Verify that existing drivers with Branch app Registration on admin portal
       When I search driver "<DriverName>"
       And I click "Profile" button for the "<DriverName>" driver

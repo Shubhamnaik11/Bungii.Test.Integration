@@ -259,12 +259,12 @@ public class DashBoardSteps extends DriverBase {
                     action.click(dashBoardPage.Button_PromoCode());
                     break;
                 case "referral source":
-
                     action.click(dashBoardPage.Button_Marketing());
                     action.click(dashBoardPage.Button_ReferralSource());
                     break;
                 case "live trips":
                     action.click(dashBoardPage.Button_Trips());
+                    Thread.sleep(3000);
                     action.click(dashBoardPage.Button_LiveTrips());
                     break;
                 case "trips":

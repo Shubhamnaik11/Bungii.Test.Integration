@@ -9,6 +9,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
@@ -18,6 +19,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -47,6 +50,21 @@ public class ActionManager {
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Unable to send " + text + " in element -> " + getElementDetails(element),
+                    true);
+        }
+    }
+
+    public void clearAllText(WebElement element) {
+        try {
+            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+            Thread.sleep(2000);
+            element.sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+            logger.detail("Delete all text in element -> " + getElementDetails(element));
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to delete all text in element -> " + getElementDetails(element),
                     true);
         }
     }
@@ -233,6 +251,14 @@ public class ActionManager {
         executor.executeScript("window.scrollBy(0,200)","");
     }
 
+    public void JavaScriptScrollToBottom(){
+        Dimension initial_size = SetupManager.getDriver().manage().window().getSize();
+        int height = initial_size.getHeight();
+       // SetupManager.getDriver().manage().window().getSize();
+        JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+        executor.executeScript("window.scrollBy(0,"+height+")","");
+    }
+
     public void JavaScriptClear(WebElement element) {
         try{
             JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
@@ -300,6 +326,7 @@ public class ActionManager {
                 true);
     }
     }
+
     public static String getFirstSelectedOption(WebElement element)
     {
       return new Select(element).getFirstSelectedOption().getText();
@@ -446,5 +473,35 @@ catch(Exception ex)
                     true);
         }
 
+    }
+    public void clickOnDropdown() {
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.delay(300);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            robot.delay(300);
+        } catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to select from dropdown",
+                    true);
+        }
+    }
+
+    public void rightClickOpenNewTab(WebElement element) {
+        try{
+            WebDriver driver = SetupManager.getDriver();
+            Actions action = new Actions(driver);
+            action.keyDown(Keys.LEFT_CONTROL)
+                    .click(element)
+                    .keyUp(Keys.LEFT_CONTROL)
+                    .build()
+                    .perform();
+            logger.detail("Clicked on " + element + " and opened page in a new tab");
+        } catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to Click",
+                    true);
+        }
     }
 }

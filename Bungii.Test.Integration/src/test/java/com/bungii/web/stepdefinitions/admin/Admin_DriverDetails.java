@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_DriversPage;
@@ -91,7 +92,7 @@ public class Admin_DriverDetails extends DriverBase{
     public void list_of_trips_completed_by_the_driver_should_be_displayed_on_the_trip_list_page() throws Throwable {
         try{
         action.selectElementByText(admin_Driverspage.Dropdown_SearchForPeriod(), "The Beginning of Time");
-        if(!action.getPagesource().contains("No Deliveries found."))
+        if(!action.getPagesource().contains("No Data."))
         testStepAssert.isElementDisplayed(admin_Driverspage.Grid_TripList(),"Trip List grid should be displayed","Trip List grid is displayed", "Trip List grid is not displayed");
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -146,7 +147,13 @@ public class Admin_DriverDetails extends DriverBase{
              */
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate); // removed ss
             formattedDate= utility.getbungiiDayLightTimeValue(formattedDate);
-            XPath = String.format("//a[text()='%s']/parent::td/following-sibling::td[contains(.,'%s')]", formattedDate, status);
+            XPath = String.format("//a[text()='%s']/parent::td/following-sibling::td[8]", formattedDate);
+            String actualStatus = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath)));
+            testStepAssert.isEquals(actualStatus,status,
+                    "The delivery status should be displayed correctly.",
+                    "The delivery status is displayed correctly.",
+                    "The delivery status is not displayed correctly.");
+
         }
         else
         {
@@ -159,7 +166,7 @@ public class Admin_DriverDetails extends DriverBase{
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
             char[] delimiters = { ' ', '_' };
-            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : WordUtils.capitalizeFully(tripType[0], delimiters), driver, customer);
+            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : WordUtils.capitalizeFully(tripType[0], delimiters), driver, customer);
 
         }
 
@@ -204,7 +211,10 @@ public class Admin_DriverDetails extends DriverBase{
                     inputdate.setHours(inputdate.getHours()+1);
             }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate);
-            XPath = String.format("//a[text()='%s']/parent::td/following-sibling::td[contains(.,'%s')]", formattedDate, status);
+            String[] status1 = status.split("");
+
+                XPath = String.format("//a[text()='%s']/parent::td/following-sibling::td[contains(.,'%s') and contains(.,'%s')]", formattedDate, status1[0],status1[1]);
+
         }
         else
         {
@@ -237,6 +247,8 @@ public class Admin_DriverDetails extends DriverBase{
         }
 
         cucumberContextManager.setScenarioContext("XPATH",XPath);
+        String actualStatus = action.getElementByXPath(XPath).getText();
+        //testStepAssert.isEquals(actualStatus, status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
         testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -254,8 +266,33 @@ public class Admin_DriverDetails extends DriverBase{
                     testStepAssert.isNotElementDisplayed(admin_Driverspage.findElement(Xpath, PageBase.LocatorType.XPath,true), "Region" + regions + " should not be displayed" , "Region" + regions + " is displayed" , "Region" + regions + " is not displayed");
                 }
                 action.click(admin_TripDetailsPage.Button_Cancel());
-                action.acceptAlert();
             } catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I verify correct disbursement type is set in db")
+    public void iVerifyCorrectDisbursementTypeIsSetInDb() throws Throwable{
+        try
+        {
+            String pickUpRef= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String driverOne= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String driverTwo= (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
+            String disbursmentTypeDriverOne = dbUtility.getDisbursementType(pickUpRef,driverOne);
+            String disbursmentTypeDriverTwo = dbUtility.getDisbursementType(pickUpRef,driverTwo);
+            testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
+                    "Correct disbursement type value should be set for same day payment setting",
+                    "Correct disbursement type value is set for same day payment setting",
+                    "Incorrect disbursement type value is set for same day payment setting");
+            testStepAssert.isEquals(disbursmentTypeDriverTwo, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
+                    "Correct disbursement type value should be set for weekly payment setting",
+                    "Correct disbursement type value is set for weekly payment setting",
+                    "Incorrect disbursement type value is set for weekly payment setting");
+
+        }
+        catch(Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
