@@ -28,6 +28,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -1194,11 +1195,19 @@ try{
     @Then("^The date on the downloaded csv should have proper date format$")
     public void the_date_on_the_downloaded_csv_should_have_proper_date_format() throws Throwable {
         try {
-            String downloadedCsvFileNameForGeofenceZipcodes = cucumberContextManager.getScenarioContext("CSV_FILE_NAME").toString().replace(".csv", "");
-            String yearMonthDate = LocalDate.now().toString().replaceAll("-", "");
+            String []downloadedCsvFileNameForGeofenceZipcodes = cucumberContextManager.getScenarioContext("CSV_FILE_NAME").toString().replace(".csv", "").split("_");
+            String yearMonthDate = LocalDate.now().toString().replaceAll("-","");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            Date date =sdf.parse(downloadedCsvFileNameForGeofenceZipcodes[2]);
+            boolean dateIsparsedProperly = false;
+            if(date.toString().length()==28){
+                dateIsparsedProperly=true;
+            }
             String initialFileName = PropertyUtility.getDataProperties("geofence.csv.file.name");
             String expectedFileName = initialFileName + yearMonthDate;
-            testStepAssert.isEquals(downloadedCsvFileNameForGeofenceZipcodes, expectedFileName, "The file name should be " + expectedFileName,
+            String downloadedFileName = downloadedCsvFileNameForGeofenceZipcodes[0] + "_" +downloadedCsvFileNameForGeofenceZipcodes[1] +"_" +downloadedCsvFileNameForGeofenceZipcodes[2];
+            testStepAssert.isTrue(dateIsparsedProperly,"The date should be in proper format","The date is in proper format","The date is not in proper format");
+            testStepAssert.isEquals(downloadedFileName, expectedFileName, "The file name should be " + expectedFileName,
                     "The file name is " + expectedFileName, "The file name is not " + expectedFileName);
         }catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
