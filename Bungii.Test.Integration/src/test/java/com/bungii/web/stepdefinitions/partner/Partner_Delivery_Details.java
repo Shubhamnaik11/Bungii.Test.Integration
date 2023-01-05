@@ -31,8 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class Partner_Delivery_Details extends DriverBase {
 
@@ -1447,5 +1446,27 @@ public class Partner_Delivery_Details extends DriverBase {
 
     }
 
-
+    @And("The Customer Signature as {string} should be displayed under Trip Setting")
+    public void theCustomerSignatureAsShouldBeDisplayedUnderTripSetting(String status) {
+        try{
+            switch (status) {
+                case "Enabled (Required)":
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.Status_CustomerSignatureEnabledRequired(), (long) 3000);
+                    testStepAssert.isElementDisplayed(Page_Partner_Delivery.Status_CustomerSignatureEnabledRequired(), "Customer Signature as Enabled (Required) should be displayed", "Customer Signature as Enabled (Required) is displayed", "Customer Signature as Enabled (Required) is not displayed");
+                    break;
+                case "Enabled (Not Required)":
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.Status_CustomerSignatureEnabledNotRequired(), (long) 3000);
+                    testStepAssert.isElementDisplayed(Page_Partner_Delivery.Status_CustomerSignatureEnabledNotRequired(), "Customer Signature as Enabled (Not Required) should be displayed", "Customer Signature as Enabled (Not Required) is displayed", "Customer Signature as Enabled (Not Required) is not displayed");
+                    break;
+                case "Disabled":
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.Status_CustomerSignatureDisabled(), (long) 3000);
+                    testStepAssert.isElementDisplayed(Page_Partner_Delivery.Status_CustomerSignatureDisabled(), "Customer Signature as Disabled should be displayed", "Customer Signature as Disabled is displayed", "Customer Signature as Disabled is not displayed");
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

@@ -128,3 +128,20 @@ Feature: Partner Management Location
     Then The "Portal specific settings" "Text" should be displayed
     Then The "Allow user to edit default address" "Text" should be displayed
     Then The "Show delivery amount to customer" "Text" should be displayed
+
+  @sn
+  Scenario:To verify the Customer signature setting visible in AP
+    When I search for "Cort Furniture" partner on partner management
+    And I click on the "Arrow" link
+    And I click on the "Partner Portal" link
+    Then The Customer Signature as "Enabled (Required)" should be displayed under Trip Setting
+    When I click on the "Partners" link
+    And I search for "Best Buy #11" partner on partner management
+    And I click on the "Arrow" link
+    And I click on the "Partner Portal" link
+    Then The Customer Signature as "Enabled (Not Required)" should be displayed under Trip Setting
+    When I click on the "Partners" link
+    And I search for "Best Buy KC" partner on partner management
+    And I click on the "Arrow" link
+    And I click on the "Partner Portal" link
+    Then The Customer Signature as "Disabled" should be displayed under Trip Setting
