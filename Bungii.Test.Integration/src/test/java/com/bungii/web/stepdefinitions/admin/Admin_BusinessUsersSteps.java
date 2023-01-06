@@ -1106,6 +1106,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     action.click(Page_PartnerManagement_Email.Button_Save());
                     Thread.sleep(3000);
                     break;
+                case "Online Drivers":
+                    action.click(admin_DriverPage.Button_OnlineDrivers());
+                    break;
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", false);

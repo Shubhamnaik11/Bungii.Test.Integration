@@ -1,5 +1,6 @@
 package com.bungii.web.stepdefinitions.driver;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
@@ -16,6 +17,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jsoup.nodes.Document;
+import org.openqa.selenium.WebDriver;
 
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -42,6 +44,8 @@ public class DriverRegistrationSteps extends DriverBase {
     Partner_Delivery_StatusPage partner_Delivery_StatusPage= new Partner_Delivery_StatusPage();
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
+    WebDriver driver = SetupManager.getDriver();
+
 
     @Given("^I navigate to \"([^\"]*)\"$")
     public void i_navigate_to_something(String page) throws Throwable {
@@ -68,6 +72,14 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
             case "Partner Management":
                 utility.NavigateToPartnerManagementLogin();;
+                Thread.sleep(1000);
+                break;
+            case "Dashboard":
+                action.switchToTab(0);
+                Thread.sleep(1000);
+                break;
+            case "Login Page":
+                action.switchToTab(0);
                 Thread.sleep(1000);
                 break;
         }
@@ -205,6 +217,15 @@ try{
             case "Continue on Finish page":
                 action.click(Page_Driver_Finish.Button_FinishContinue());
                 break;
+              case "Terms":
+                  action.click(Page_Driver_Dashboard.Menu_Terms());
+                  break;
+            case "Terms & Conditions":
+                  action.click(Page_Driver_Dashboard.Menu_TermsAndConditions());
+                  break;
+            case "Privacy Policy":
+                  action.click(Page_Driver_Dashboard.Menu_PrivacyPolicy());
+                  break;
             default:
                 break;
         }
@@ -363,7 +384,7 @@ try{
     @And("^I enter driver Phone number as \"([^\"]*)\" and valid password$")
     public void i_enter_driver_phone_number_as_something_and_valid_password(String phone) throws Throwable {
         try{
-            Thread.sleep(3000);
+        Thread.sleep(3000);
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), phone);
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("web.valid.common.driver.password"));
         //  action.click(Page_Driver_Login.Button_DriverLogin());
@@ -557,5 +578,24 @@ try{
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @And("I close {string} Page")
+    public void iClosePage(String page) {
+        try {
+            switch (page) {
+                case "Updated Terms & Conditions":
+                    driver.close();
+                break;
+                case "Updated Privacy Policy":
+                    driver.close();
+                break;
+            }
+            log("I should able to close " + page,"I am able to close " + page, false);
+        }catch(Exception e){
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step should be successful", "Error performing step,Please check logs for more details",
+                        true);
+            }
     }
 }
