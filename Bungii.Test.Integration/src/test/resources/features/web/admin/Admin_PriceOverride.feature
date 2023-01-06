@@ -358,6 +358,12 @@ Feature: Admin_Price_Override
     And I wait for "2" mins
     Then I check the new values of "Driver Fixed Earnings" for "Service level-duo"
     When I navigate back to Scheduled Deliveries
+#    Core-4307: Verify the history displays the Price override performed for Driver Earnings only
+    And I click on the dropdown beside scheduled bungii
+    When I click the "Notes & History" link
+    And I click on "History"
+    Then I should be able to see "price-override driver earnings only"
+    And I close the Note
     Then I check if "Price Override" icon is displayed
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton

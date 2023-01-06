@@ -1321,9 +1321,15 @@ public class Partner_Delivery_Details extends DriverBase {
                     break;
                 case "Barcode Scan at Pickup":
                 case "Barcode Scan at Drop-off":
+                    if(text.contentEquals("green tick")){
+                        String  selected= Page_PartnerManagement_Location.Image_GreenCrossTripSettings().getCssValue("color");
+                        testStepAssert.isEquals(selected,expectedGreenCross,"Green tick should be displayed as its applicable for current partner portal","Green tick is displayed as its applicable for current partner portal","Green ticks is not displayed as its  applicable for current partner portal, color displayed in rgba is  "+selected);
+                    }
+                    else{
                     String  notSelected= Page_PartnerManagement_Location.Image_RedCross().getCssValue("color");
                     testStepAssert.isEquals(notSelected,RedCross,"Red cross should be displayed as its not applicable for current partner portal","Red cross is displayed as its not applicable for current partner portal","Red cross is not displayed as its not applicable for current partner portal, color displayed is "+notSelected);
-                    break;
+                }
+                break;
                 case "Allow user to edit default address":
                 case "Show delivery amount to customer":
                     testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentTripSetting(element)),element+" row name should be displayed",element+" row name is displayed",element+" row name is not displayed");

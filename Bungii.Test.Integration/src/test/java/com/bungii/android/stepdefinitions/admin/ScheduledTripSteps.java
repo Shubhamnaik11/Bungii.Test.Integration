@@ -4,6 +4,7 @@
 package com.bungii.android.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
+import com.bungii.android.pages.driver.UpdateStatusPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
@@ -38,6 +39,8 @@ public class ScheduledTripSteps extends DriverBase {
 	ActionManager action = new ActionManager();
 	GeneralUtility utility = new GeneralUtility();
 	DbUtility dbUtility = new DbUtility();
+	UpdateStatusPage updateStatusPage = new UpdateStatusPage();
+
 	private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.admin.ScheduledTripSteps.class);
 
 	public ScheduledTripSteps(ScheduledTripsPage scheduledTripsPage) {

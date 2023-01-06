@@ -792,7 +792,15 @@ public class CommonStepsDriver extends DriverBase {
                 case "Scheduled Bungii":
                     action.click(updateStatusPage.Button_ScheduledBungiiFromMoreOptions());
                     break;
-
+                case "Scan item barcode":
+                    action.click(updateStatusPage.Button_ScanItemBarCode());
+                    break;
+                case "Allow":
+                    action.clickAlertButton("OK");;
+                    break;
+                case "Skip":
+                    action.click(updateStatusPage.Button_SkipBarCode());
+                    break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }

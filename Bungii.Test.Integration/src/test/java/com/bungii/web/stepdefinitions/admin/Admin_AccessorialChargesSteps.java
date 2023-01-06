@@ -139,6 +139,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         String otherAmount = dataMap.get("Other").trim();
         String totalAmount = dataMap.get("Total").trim();
         cucumberContextManager.setScenarioContext("TOTAL_AMOUNT", totalAmount);
+        cucumberContextManager.setScenarioContext("OTHER_AMOUNT", otherAmount);
 
         String[] excessTimeCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(1)).split("-");
         String actualExcessWaitTime = excessTimeCharge[1].trim();

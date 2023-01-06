@@ -794,3 +794,63 @@ Feature: Partner Portal Cases integration with IOS
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then The "All Deliveries" should be in "Payment Successful" state
+
+
+#CORE-4398:Verify driver is able to scan barcode only for configured partner
+  @ready
+  Scenario:Verify driver is able to scan barcode only for configured partner
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "Testdrivertywd_applega_a_drval Atlanta_al" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+     #CORE-4398:Verify barcode scanning for solo trip
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor 106" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |atlanta| NEXT_POSSIBLE | 8877661149 |Testcustomertywd_appleMarkET LutherET|
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    And I Select Trip from available trip
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    And I slide update button on "EN ROUTE" Screen
+    Then The "Barcode" "Image" should be displayed
+    Then The "Scan the item(s) barcode before loading & after unloading." "Instruction" should be displayed
+    And I click on "GOT IT" button
+    Then The "Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts." "Notification" should be displayed
+      #CORE-4398:Verify barcode scanning with combination of Photo verification
+      #CORE-4398:Verify driver is able to scan barcode from More option
+    And I click "More Options" button on "update" screen
+    Then The "Scan Item barcode" "Button" should be displayed
+    When I click on "Scan item barcode" button
+    When I click on "Allow" button
+    Then The "BARCODE SCANNER" "Header" should be displayed
+    Then The "Scan barcode" "Text" should be displayed
+    Then The "Hold steady and center the barcode to scan. You need to scan any one item to proceed." "Instruction" should be displayed
+    Then The "Skip" "Button" should be displayed
+    When I click on "Skip" button
+    #CORE-4398:Verify Notification messages shown to driver when barcode is enabled
+    And I slide update button on "ARRIVED" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP-OFF" Screen
+    And I click on "GOT IT" button
+    And I click "More Options" button on "update" screen
+    Then The "Scan Item barcode" "Button" should be displayed
+    When I click on "Scan item barcode" button
+    Then The "BARCODE SCANNER" "Header" should be displayed
+    Then The "Scan barcode" "Text" should be displayed
+    Then The "Hold steady and center the barcode to scan.You need to scan any one item to proceed" "Instruction" should be displayed
+    Then The "Skip" "Button" should be displayed
+      #CORE-4398:Verify driver is allowed to skip barcode scanning
+    When I click on "Skip" button
+      #CORE-4398:Verify Notification messages shown to driver when barcode is enabled
+    Then The "Please take photos and scan item(s) barcode after unloading, just ‘slide to complete Bungii’ and follow the prompts" "Notification" should be displayed
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And Driver adds photos to the Bungii
+    And I slide update button on "UNLOADING ITEMS" Screen
+    And I click "Skip This Step" button on "Rate customer" screen
+    Then I should be navigated to "Bungii completed" screen

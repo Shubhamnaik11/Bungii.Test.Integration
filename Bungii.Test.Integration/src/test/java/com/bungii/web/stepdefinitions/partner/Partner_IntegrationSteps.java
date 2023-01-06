@@ -803,4 +803,95 @@ public class Partner_IntegrationSteps extends DriverBase {
     }
 
 
+    @And("I should be able to see {string}")
+    public void iShouldBeAbleToSee(String type) {
+        try{
+            switch (type){
+                case "admin cancelled event - driver accepted":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_CanceledEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("Text_DriverAccepted")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(PropertyUtility.getMessage("Text_AdminCanceled")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "accessorial charges":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_AccessorialChargeEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals("$0"),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    String newValue=action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData()).replaceAll("\n","");
+                    testStepAssert.isTrue((newValue).contains("Total: "+cucumberContextManager.getScenarioContext("OTHER_AMOUNT")+".00 (Other) (Includes share of "+cucumberContextManager.getScenarioContext("DRIVER_1")+": $20.00)"),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "partner cancelled event - driver not accepted":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_CanceledEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("Text_AssigningDrivers")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(PropertyUtility.getMessage("Text_PartnerCancel")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "price-override driver earnings only":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_PriceOverrideDriverEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals("$"+cucumberContextManager.getScenarioContext("OLD_DRIVER_CUT")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains("$"+cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT")+" ("+cucumberContextManager.getScenarioContext("DRIVER_1")+")"),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "admin-revive-driver cancelled":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_RevivedEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("Text_DriverCanceled")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(PropertyUtility.getMessage("Text_AssigningDrivers")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "admin-revive-admin cancelled":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_RevivedEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("Text_AdminCanceled")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(PropertyUtility.getMessage("Text_AssigningDrivers")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "history prior revival":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValueRow2())).equals(PropertyUtility.getMessage("Text_CanceledEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueDataRow2())).equals(PropertyUtility.getMessage("Text_AssigningDrivers")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueDataRow2())).contains(PropertyUtility.getMessage("Text_AdminCanceled")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+
+            }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }
