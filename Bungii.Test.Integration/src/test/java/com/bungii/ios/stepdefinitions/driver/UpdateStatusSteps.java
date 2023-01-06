@@ -1059,7 +1059,7 @@ public class UpdateStatusSteps extends DriverBase {
                     break;
                 case "Scan barcode":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_ScanBarCode()),"Scan barcode text should be displayed","Scan barcode text is displayed","Scan barcode text is not displayed");
-                    String expectedText = action.getText(updateStatusPage.Text_ScanBarCode());
+                    expectedText = action.getText(updateStatusPage.Text_ScanBarCode());
                     testStepAssert.isEquals(expectedText,element,element +" Text should be displayed ",
                             element +" Text is displayed ",
                             element +" Text is not displayed ");
