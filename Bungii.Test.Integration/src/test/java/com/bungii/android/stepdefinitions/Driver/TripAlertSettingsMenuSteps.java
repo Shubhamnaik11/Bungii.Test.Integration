@@ -52,6 +52,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     AccountPage accountPage = new AccountPage();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
+    EstimatePage bungiiEstimatePage = new EstimatePage();
+    BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
 
     UpdateStatusPage updateStatusPage = new UpdateStatusPage();
 
@@ -478,6 +480,18 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("DEFAULT_PAYMENT","same day");
                     }
                     action.click(earningsPage.Button_Confirm());
+                    break;
+                case "Scan item barcode":
+                    action.click(updateStatusPage.Button_ScanItemBarCode());
+                    break;
+                case "Allow":
+                    action.click(bungiiEstimatePage.Permissions_CameraAllow());
+                    break;
+                case "Skip":
+                    action.click(updateStatusPage.Button_SkipBarCode());
+                    break;
+                case "Continue":
+                    action.click(bungiiDetailsPage.Button_Yes());
                     break;
                 default:
                     error("Implemented Step", "UnImplemented Step");

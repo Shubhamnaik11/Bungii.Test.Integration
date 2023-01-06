@@ -101,6 +101,15 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement ArrivalTimeAtPickupValue(){return findElement("//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
 	public WebElement ArrivalTimeAtPickupValueForStacked(){return findElement("//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
 	public WebElement Text_ExpectedTimeAtDropOffForStacked(){return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+	public WebElement Image_Barcode(){return findElement("icon-scanner",LocatorType.AccessibilityId);}
+	public WebElement Text_BarcodeInstructions(){return findElement("//XCUIElementTypeStaticText[@name=\"Scan the item(s) barcode before loading & after unloading.\"]",LocatorType.XPath);}
+	public WebElement Button_ScanItemBarCode(){return findElement("Scan item barcode",LocatorType.AccessibilityId);}
+	public WebElement Header_BarcodeScanner(){return findElement( "//XCUIElementTypeOther[@name=\"BARCODE SCANNER\"]",LocatorType.XPath);}
+	public WebElement Text_ScanBarCode(){return findElement("Scan barcode",LocatorType.AccessibilityId);}
+	public WebElement Text_BarCodeScanningInstructions(){return findElement( "//XCUIElementTypeStaticText[@name=\"Hold steady and center the barcode to scan. You need to scan any one item to proceed.\"]",LocatorType.XPath);}
+	public WebElement Button_SkipBarCode(){return findElement( "Skip",LocatorType.AccessibilityId);}
+	public WebElement Text_NotificationTextOnLoadingItemsForBarCode(){return findElement("//XCUIElementTypeStaticText[@name=\"Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.\"]",LocatorType.XPath);}
+	public WebElement Text_NotificationTextOnUnloadingForBarCode(){return findElement("//XCUIElementTypeStaticText[@name=\"Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.\"]",LocatorType.XPath);}
 
 	public WebElement Text_ExpectedTimeAtDropOff(){return findElement("//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
 	public WebElement Label_Pickup(){return findElement("PICKUP",LocatorType.AccessibilityId);}
