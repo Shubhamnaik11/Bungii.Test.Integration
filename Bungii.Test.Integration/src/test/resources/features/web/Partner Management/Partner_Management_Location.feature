@@ -129,6 +129,18 @@ Feature: Partner Management Location
     Then The "Allow user to edit default address" "Text" should be displayed
     Then The "Show delivery amount to customer" "Text" should be displayed
 
+  #CORE-4398:Verify barcode scanning flag is shown on Partner Management
+  @ready
+  Scenario:Verify barcode scanning flag is shown on Partner Management
+    When I search for "Floor & Decor" partner on partner management
+    When I click on the "Arrow" link
+    When I search for "Floor & Decor #106" partner on partner management
+    And I click on the "Partner Portal" link
+    Then The "Required barcode scan verification" "green tick" should be displayed
+    Then The "Barcode Scan at Pickup" "green tick" should be displayed
+    Then The "Barcode Scan at Drop-off" "green tick" should be displayed
+
+
   @sn
   Scenario:To verify the Customer signature setting visible in AP
     When I search for "Cort Furniture" partner on partner management
