@@ -1461,6 +1461,9 @@ try{
             case "newjersey":
                 geofenceName = "North New Jersey";
                 break;
+            case "nashville":
+                geofenceName = "Nashville";
+                break;
         }
         return geofenceName;
     }

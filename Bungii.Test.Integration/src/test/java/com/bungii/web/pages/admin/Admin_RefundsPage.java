@@ -33,7 +33,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement RadioButton_CompleteRefund() { return findElement("//label[text()='Complete Refund']/preceding-sibling::input", LocatorType.XPath); }
 
-    public WebElement Label_Bungii() { return findElement("//p[contains(text(),'Bungii Earnings')]/parent::div/following-sibling::div/div/div[1]/label/input", LocatorType.XPath); }
+    public WebElement Label_Bungii() { return findElement("//div[text()='Bungii :']/following::div[1]", LocatorType.XPath); }
 
     public WebElement Label_DeliveryTotal() { return findElement("//div[contains(text(),'Delivery Total :')]/following-sibling::div", LocatorType.XPath); }
 
@@ -77,7 +77,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Header_Popup() { return findElement("//div[contains(text(),'Issue Refund - Confirm Details')]", LocatorType.XPath); }
 
-    public WebElement Label_Success() { return findElement("//div[@id='modalSuccess']/div/div//div/p", LocatorType.XPath); }
+    public WebElement Label_Success() { return findElement("//div[@id='modalSuccess']/div/div/div/p", LocatorType.XPath); }
 
     public WebElement Button_OK() { return findElement("//button[text()='Ok']", LocatorType.XPath); }
 
