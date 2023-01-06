@@ -43,7 +43,7 @@ public class Admin_RevivalSteps extends DriverBase {
             SetupManager.getDriver().manage().window().maximize();
             SetupManager.getDriver().manage().window().setSize(new Dimension(1900, 1280));
 
-            String link = String.format("//td[contains(.,'%s')]/following-sibling::td/a[@class='revive-trip-link']/img", customerName);
+            String link = String.format("//td[contains(.,'%s')]/following-sibling::td/span[@class='revive']/img", customerName);
             testStepAssert.isTrue(action.isElementPresent(admin_TripsPage.findElement(link, PageBase.LocatorType.XPath)), "Revive button should be displayed", "Revive button is displayed", "Revive button is not displayed");
             cucumberContextManager.setScenarioContext("REVIVE_LINK", link);
             String partnerName = action.getText(admin_TripsPage.findElement(String.format("//td[contains(.,'%s')]/following-sibling::td[1]", customerName), PageBase.LocatorType.XPath));
@@ -98,10 +98,10 @@ public class Admin_RevivalSteps extends DriverBase {
             String expectedHighlightColor = "";
             switch (primaryColor.toLowerCase()) {
                 case "blue":
-                    expectedHighlightColor = "rgba(68, 138, 193, 1)";
+                    expectedHighlightColor = "rgba(44, 118, 168, 1)";
                     break;
                 case "white":
-                    expectedHighlightColor = "rgba(232, 232, 232, 1)";
+                    expectedHighlightColor = "rgba(255, 255, 255, 1)";
                     break;
             }
             String primaryButtonBackgroundColor ="";
@@ -299,7 +299,7 @@ public class Admin_RevivalSteps extends DriverBase {
                     switch (deliveryStatus){
                         case "Assigning Driver(s)":
                             Thread.sleep(3000);
-                            String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(12));
+                            String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(13));
                             testStepAssert.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",
                                     "Delivery is  in " +status+ " state",
                                     "Delivery is not in " +deliveryStatus+ " state");
@@ -314,7 +314,7 @@ public class Admin_RevivalSteps extends DriverBase {
                         case "Payment Pending":
                         case "Payment Successful":
                             Thread.sleep(3000);
-                            String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(11));
+                            String status = action.getText(admin_RevivalPage.Text_DeliveryStatus(12));
                             testStepAssert.isEquals(status,deliveryStatus,"Delivery Should be in " +deliveryStatus+ " state",
                                     "Delivery is  in " +status+ " state",
                                     "Delivery is not in " +deliveryStatus+ " state");

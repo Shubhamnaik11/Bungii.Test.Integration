@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Admin_DriversPage extends PageBase {
 
-    public WebElement Menu_Drivers () { return findElement("//img[@alt='Drivers']", LocatorType.XPath); }
+    public WebElement Menu_Drivers () { return findElement("//ul[@id='side-menu']/li/p/span[contains(text(),'Drivers')]", LocatorType.XPath); }
 
     //public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
@@ -22,7 +22,7 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Grid_TripList () { return findElement("tblTripList",LocatorType.Id);}
 
-    public WebElement Dropdown_SearchForPeriod () { return  findElement("SearchForPeriod", LocatorType.Id);}
+    public WebElement Dropdown_SearchForPeriod () { return  findElement("//select[@class='user-trip-dropdown form-select']", LocatorType.XPath);}
 
     public WebElement Label_SuccessTripCount () {return  findElement("//h1[@class='text-success']",LocatorType.XPath); }
 
@@ -40,23 +40,23 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Text_AllPageNumber(boolean...ignoreException) {return findElement("//li[@class=\"page-item\"]/a",LocatorType.XPath,ignoreException);}
 
-    public WebElement Link_ActiveDriverMap() {return findElement("adminmenu-active-driver-map",LocatorType.Id);}
+    public WebElement Link_ActiveDriverMap() {return findElement("//li/a[text()=\"Active Driver Map\"]",LocatorType.XPath);}
 
     public WebElement Image_Map() {return findElement("map",LocatorType.Id);}
 
-    public WebElement Checkbox_ApplianceDolly() {return findElement("chkEquipment-1",LocatorType.Id);}
-    public WebElement Checkbox_FurnitureDolly() {return findElement("chkEquipment-2",LocatorType.Id);}
-    public WebElement Checkbox_HandDolly() {return findElement("chkEquipment-3",LocatorType.Id);}
-    public WebElement Checkbox_LiftGate() {return findElement("chkEquipment-5",LocatorType.Id);}
-    public WebElement Checkbox_Ramp() {return findElement("chkEquipment-4",LocatorType.Id);}
+    public WebElement Checkbox_ApplianceDolly() {return findElement("Appliance Dolly",LocatorType.Id);}
+    public WebElement Checkbox_FurnitureDolly() {return findElement("Furniture Dolly",LocatorType.Id);}
+    public WebElement Checkbox_HandDolly() {return findElement("Hand Dolly",LocatorType.Id);}
+    public WebElement Checkbox_LiftGate() {return findElement("Lift Gate",LocatorType.Id);}
+    public WebElement Checkbox_Ramp() {return findElement("Ramp",LocatorType.Id);}
 
-    public WebElement Checkbox_BoxTruck() {return findElement("chkVehicleType-3",LocatorType.Id);}
-    public WebElement Checkbox_MovingVan() {return findElement("chkVehicleType-2",LocatorType.Id);}
-    public WebElement Checkbox_PickupTruck() {return findElement("chkVehicleType-1",LocatorType.Id);}
-    public WebElement Checkbox_SUV() {return findElement("chkVehicleType-4",LocatorType.Id);}
+    public WebElement Checkbox_BoxTruck() {return findElement("Box Truck",LocatorType.Id);}
+    public WebElement Checkbox_MovingVan() {return findElement("Moving Van",LocatorType.Id);}
+    public WebElement Checkbox_PickupTruck() {return findElement("Pickup Truck",LocatorType.Id);}
+    public WebElement Checkbox_SUV() {return findElement("SUV",LocatorType.Id);}
 
-    public WebElement Text_DriverName(boolean...IgnoreException) {return findElement("//div[@id=\"driverList\"]/div",LocatorType.XPath,IgnoreException);}
-    public WebElement Icon_DriverPosition() {return findElement("//div[@id=\"driverList\"]/div/span/img",LocatorType.XPath);}
+    public WebElement Text_DriverName(boolean...IgnoreException) {return findElement("//div[@class=\"driver-list\"]/div",LocatorType.XPath,IgnoreException);}
+    public WebElement Icon_DriverPosition() {return findElement("//div[@class=\"driver-list\"]/div/span/img",LocatorType.XPath);}
 
     public WebElement Label_DriverStatus() {return findElement("//div/h4[text()=\"Driver Status\"]",LocatorType.XPath);}
 
@@ -78,5 +78,34 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Text_AllDriversName() {return findElement("//div/table/tbody/tr/td[2]",LocatorType.XPath);}
 
+    public WebElement Slider_VehicleBedLength() {return findElement("bedlengthRight",LocatorType.Id);}
+
+    public WebElement Slider_VehiclePayload() {return findElement("range-slider-payload",LocatorType.ClassName);}
+
+    public WebElement Slider_VehicleBedLengthMin() {return findElement("bedlengthLeft",LocatorType.Id);}
+
+    public WebElement Slider_VehiclePayloadmin() {return findElement("payloadLeft",LocatorType.Id);}
+
+    public WebElement Button_Trailer() {return findElement("switch-slider",LocatorType.ClassName);}
+
+    public WebElement Text_OnlineDrivers() {return findElement("//strong[text()=\"Online Drivers\"]",LocatorType.XPath);}
+
+    public WebElement Button_OnlineDrivers() {return findElement("//strong[text()=\"Online Drivers\"]/following-sibling::div/input",LocatorType.XPath);}
+
+    public WebElement Text_ActivatedDate() {return findElement("//strong[text()=\"Activated Date\"]",LocatorType.XPath);}
+
+    public WebElement Textbox_ActivatedDate() {return findElement("//strong[text()=\"Activated Date\"]/parent::div/div/div/input",LocatorType.XPath);}
+
+    public WebElement Text_MostRecentDelivery() {return findElement("//strong[text()=\"Most Recent Delivery\"]",LocatorType.XPath);}
+
+    public WebElement Textbox_MostRecentDelivery() {return findElement("//strong[text()=\"Most Recent Delivery\"]/parent::div/div/div/input",LocatorType.XPath);}
+
+    public WebElement Textbox_MostRecentDeliverySelectStaringDate(String Date) {return findElement(String.format("//div[@class=\"react-datepicker__month\"]/div[@class=\"react-datepicker__week\"]/div[text()=\"%s\"]",Date),LocatorType.XPath);}
+
+    public WebElement Text_CurrentOnlineDriver(String driver) {return findElement(String.format("//div[@class=\"list-item\"][contains(text(),'%s')]",driver),LocatorType.XPath);}
+
+    public WebElement Text_CalenderMonthNameForActivatedDate() {return findElement("react-datepicker__current-month",LocatorType.ClassName);}
+
+    public WebElement Button_CalenderPreviousMonthForActivatedDate() {return findElement("//div[@class=\"react-datepicker\"]/button[1]",LocatorType.XPath);}
 
 }

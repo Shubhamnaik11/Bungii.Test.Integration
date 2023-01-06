@@ -17,6 +17,7 @@ Feature: Admin_Live_Delivery_Edit
       | Arrived       |
       | Loading Item   |
     And I view the Live Deliveries list on the admin portal
+    And I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status       |
       | Loading Items |
@@ -28,10 +29,17 @@ Feature: Admin_Live_Delivery_Edit
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    #CORE-4152:To verify updated projected estimated delivery time for trips on live admin edit address
+    And I view the Live Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Delivery Details" button from the dropdown
+    Then The "Scheduled Time" for customer delivery should match
+    Then The "Estimate dropOff time after admin live edit" for customer delivery should match
+    And I view the Live Deliveries list on the admin portal
     When I open the live delivery details in admin portal
     Then the updated drop off address should be displayed on delivery details page
     And Delivery price is recalculated based on updated value of drop off address
-  
+
   @regression
     #stable
     Scenario: Verify editing pickup address for the Solo live delivery.
@@ -56,8 +64,16 @@ Feature: Admin_Live_Delivery_Edit
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     And I wait for "2" mins
+    And  I refresh the page
+    And I click on the dropdown beside scheduled bungii
+    Then I should see the "History" underlined
+    When I click on the Notes link for Live Deliveries
+    And I click on "History"
+    Then The "History" tab should be selected
+    And I should see pickup address edit history
+    And I close the Note
     When I open the live delivery details in admin portal
-    Then the updated drop off address should be displayed on delivery details page
+    And I confirm the change pickup address on delivery details page
     And Delivery price is recalculated based on updated value of drop off address
   
   @regression
@@ -101,6 +117,7 @@ Feature: Admin_Live_Delivery_Edit
         | driver1 state    |
         | <DriverStatus> |
       And I view the Live Deliveries list on the admin portal
+      And I wait for 2 minutes
       Then I should be able to see the respective bungii with the below status
         |  Status       |
         | <TripStatus> |
@@ -109,7 +126,9 @@ Feature: Admin_Live_Delivery_Edit
       And I click on "Delivery Canceled" radiobutton
       And I click on "UPDATE BUNGII" button
       Then The "Pick up has been successfully canceled." message should be displayed for live delivery
+      And I wait for 2 minutes
       And I view the Deliveries list on the admin portal
+      When  I search the delivery using "Pickup Reference"
       Then The Delivery List page should display the delivery in "Driver Canceled" state
 
       Examples:
@@ -132,6 +151,7 @@ Feature: Admin_Live_Delivery_Edit
       | driver1 state    |
       | <DriverStatus> |
     And I view the Live Deliveries list on the admin portal
+    And I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status       |
       | <TripStatus> |
@@ -141,6 +161,8 @@ Feature: Admin_Live_Delivery_Edit
     And I click on "UPDATE BUNGII" button
     Then The "Pick up has been successfully canceled." message should be displayed for live delivery
     And I view the Deliveries list on the admin portal
+    And I wait for 2 minutes
+    And  I search the delivery using "Pickup Reference"
     Then The Delivery List page should display the delivery in "Driver Canceled" state
     #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery Canceled on Live deliveries
     When I navigate to "Partner" portal configured for "normal" URL
@@ -148,12 +170,12 @@ Feature: Admin_Live_Delivery_Edit
     And I click "SIGN IN" button on Partner Portal
     Then I should "be logged in"
     And I click "Track Deliveries" button on Partner Portal
-    And I select "Check / uncheck all" option from the filter
+    #And I select "Check / uncheck all" option from the filter
     And I select "Canceled" option from the filter
     And I click on "Apply" button
     When I click on the delivery based on customer name
     And I get time stamp for "Admin Cancelled" delivery step
-    Then The admin "Cancelled" delivery should be highlighted in partner portal delivery details page
+    Then The admin "Canceled" delivery should be highlighted in partner portal delivery details page
 
 
 
@@ -172,6 +194,7 @@ Feature: Admin_Live_Delivery_Edit
     And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" trip
       | driver1 state    |
       | <DriverStatus> |
+    And I wait for 2 minutes
     And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status       |
@@ -206,6 +229,7 @@ Feature: Admin_Live_Delivery_Edit
     And As a driver "<DriverName>" perform below action with respective "Solo Scheduled" trip
       | driver1 state    |
       | <DriverStatus> |
+    And I wait for 2 minutes
     And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status       |
@@ -235,7 +259,7 @@ Feature: Admin_Live_Delivery_Edit
     And I click on "Apply" button
     When I click on the delivery based on customer name
     And I get time stamp for "Admin Completed" delivery step
-    Then The admin "Completed" delivery should be highlighted in partner portal delivery details page
+    Then The admin "Done" delivery should be highlighted in partner portal delivery details page
 
 
     Examples:

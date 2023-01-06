@@ -81,8 +81,9 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                 case "Service level":
                     switch (price){
                         case "Customer price":
+                            Thread.sleep(3000);
                             String customerPrice = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
-                            String oldCustomerPrice = customerPrice.substring(1);
+                            String oldCustomerPrice = customerPrice.substring(1).replace("Price Override","");
                             float oldPrice= Float.parseFloat(oldCustomerPrice);
                             float newPrice= (float) (oldPrice+20.08);
                             cucumberContextManager.setScenarioContext("OLD_CUSTOMER_PRICE", oldCustomerPrice);
@@ -108,7 +109,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     switch (price){
                         case "Customer price":
                             String customerPriceFnd = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
-                            String oldCustomerPriceFnd = customerPriceFnd.substring(1);
+                            String oldCustomerPriceFnd = customerPriceFnd.substring(1).replace("Price Override","");
                             float oldPriceFnd= Float.parseFloat(oldCustomerPriceFnd);
                             float newPriceFnd= (float) (oldPriceFnd+20.08);
                             cucumberContextManager.setScenarioContext("OLD_CUSTOMER_PRICE", oldCustomerPriceFnd);
@@ -133,7 +134,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     switch (price) {
                         case "Customer price":
                             String customerPriceFnd = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
-                            String oldCustomerPriceFnd = customerPriceFnd.substring(1);
+                            String oldCustomerPriceFnd = customerPriceFnd.substring(1).replace("Price Override","");
                             float oldPriceFnd= Float.parseFloat(oldCustomerPriceFnd);
                             float newPriceFnd= (float) (oldPriceFnd+20.08);
                             cucumberContextManager.setScenarioContext("OLD_CUSTOMER_PRICE", oldCustomerPriceFnd);
@@ -195,7 +196,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                         case "Customer price":
                             action.refreshPage();
                             String estimatedCharges = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
-                            String actualEstimatedCharges = estimatedCharges.substring(1);
+                            String actualEstimatedCharges = estimatedCharges.substring(1).replace("Price Override","");
                             String expectedEstimatedCharges = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
                             float newExpectedEstimatedCharges = (float) (Math.floor( Float.parseFloat(expectedEstimatedCharges)* 100) / 100);
                             testStepAssert.isEquals(actualEstimatedCharges, String.valueOf(newExpectedEstimatedCharges), "Estimated Charges should be overridden", "Estimated Charges are overridden", "Estimated Charges are not overridden");
@@ -216,7 +217,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                         case "Customer price":
                             action.refreshPage();
                             String estimatedChargesFnd = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
-                            String actualEstimatedChargesFnd = estimatedChargesFnd.substring(1);
+                            String actualEstimatedChargesFnd = estimatedChargesFnd.substring(1).replace("Price Override","");
                             String expectedEstimatedChargesFnd = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
                             testStepAssert.isEquals(actualEstimatedChargesFnd, expectedEstimatedChargesFnd, "Estimated Charges should be overridden", "Estimated Charges are overridden", "Estimated Charges are not overridden");
                             break;
@@ -236,7 +237,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                         case "Customer price":
                             action.refreshPage();
                             String estimatedChargesFnd = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
-                            String actualEstimatedChargesFnd = estimatedChargesFnd.substring(1);
+                            String actualEstimatedChargesFnd = estimatedChargesFnd.substring(1).replace("Price Override","");
                             String expectedEstimatedChargesFnd = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
                             testStepAssert.isEquals(actualEstimatedChargesFnd, expectedEstimatedChargesFnd, "Estimated Charges should be overridden", "Estimated Charges are overridden", "Estimated Charges are not overridden");
                             break;
@@ -245,7 +246,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                             action.refreshPage();
                             String driverCharges = action.getText(admin_tripDetailsPage.Text_Driver_Est_Eranings());
                             String actualDriverCharges = driverCharges.substring(1);
-                            String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("OLD_DRIVER_CUT");
+                            String expectedDriverCharges = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
                             testStepAssert.isEquals(actualDriverCharges, expectedDriverCharges, "Driver Charges should be overridden", "Driver Charges are overridden", "Driver Charges are not overridden");
                             break;
 
@@ -265,13 +266,37 @@ public class Admin_PriceOverrideSteps extends DriverBase {
     }
 
     @Then("^I check if \"([^\"]*)\" icon is displayed$")
-    public void i_check_if_something_icon_is_displayed(String strArg1) throws Throwable {
+    public void i_check_if_something_icon_is_displayed(String icon) throws Throwable {
        try{
-           action.refreshPage();
-           testStepAssert.isElementDisplayed(admin_tripDetailsPage.Icon_Price_Override(),
-                   "I should be able to see price override icon displayed",
-                   "I could see price override icon displayed",
-                   "Price override icon is not displayed");
+           switch (icon)
+           {
+               case "Price Override":
+                   action.refreshPage();
+                   testStepAssert.isElementDisplayed(admin_tripDetailsPage.Icon_Price_Override(),
+                           "I should be able to see price override icon displayed",
+                           "I could see price override icon displayed",
+                           "Price override icon is not displayed");
+                   break;
+               case "i":
+                   testStepAssert.isElementDisplayed(admin_tripDetailsPage.Icon_DriverEarnings(),
+                           "I should be able to see i icon displayed",
+                           "I could see i icon displayed",
+                           "i icon is not displayed");
+                   break;
+               case "same day payment i":
+                   String driverOne= (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                   String driverTwo= (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+                   testStepAssert.isElementDisplayed(admin_tripDetailsPage.Icon_DriverSameDayPayment(driverOne),
+                           "I should be able to see i icon next to driver with same day payment setting.",
+                           "I am able to see i icon next to driver with same day payment setting.",
+                           "i icon is not displayed next to driver with same day payment setting.");
+                   testStepAssert.isFalse(action.isElementPresent(admin_tripDetailsPage.Icon_DriverSameDayPayment(driverTwo,true)),
+                           "i icon should not be present next to driver with weekly payment setting.",
+                           "i icon is not present next to driver with weekly payment setting.",
+                           "i icon is displayed next to driver with weekly payment setting.");
+                   break;
+           }
+
        }
        catch(Exception e){
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -414,7 +439,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
        try{
             action.refreshPage();
            String CustomerPrice = action.getText(admin_tripDetailsPage.Text_Estimated_Charge());
-           String actualCustomerPrice = CustomerPrice.substring(1);
+           String actualCustomerPrice = CustomerPrice.substring(1).replace("Price Override","");
            String expectedCustomerPrice = (String) cucumberContextManager.getScenarioContext("OLD_CUSTOMER_PRICE");
            testStepAssert.isEquals(actualCustomerPrice,expectedCustomerPrice,
                    "Estimated Charges should not be overridden",

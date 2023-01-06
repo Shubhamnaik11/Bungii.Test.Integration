@@ -101,9 +101,10 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
     @And("^I assign driver \"([^\"]*)\" for the trip$")
     public void i_assign_driver_something_for_the_trip(String driverName) throws Throwable {
         try{
+            Thread.sleep(5000);
             admin_potentialPartnersPage.TextBox_DriverSearch().sendKeys(driverName);
             admin_potentialPartnersPage.Select_TestDriver().click();
-            String driver1Name=admin_potentialPartnersPage.Text_EditTrpDetailsDriver1Name().getText();
+            //String driver1Name=admin_potentialPartnersPage.Text_EditTrpDetailsDriver1Name().getText();
             cucumberContextManager.setScenarioContext("DRIVER1_NAME",driverName);
             cucumberContextManager.setScenarioContext("DRIVER2_NAME",driverName);
             log("I assign driver for the delivery ","I assigned driver "+driverName+" to the delivery",true );

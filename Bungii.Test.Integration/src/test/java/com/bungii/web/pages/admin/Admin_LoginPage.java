@@ -9,13 +9,13 @@ public class Admin_LoginPage  extends PageBase {
     public WebElement Header_AdminLogin() { return findElement("//div[@id='login']/h2", LocatorType.XPath); }
 
     //Admin Login - Phone Number
-    public WebElement TextBox_Phone() { return findElement("phone", LocatorType.Id); }
+    public WebElement TextBox_Phone() { return findElement("phoneno", LocatorType.Name); }
 
     //Admin Login - Password
-    public WebElement TextBox_Password() { return findElement("password", LocatorType.Id); }
+    public WebElement TextBox_Password() { return findElement("password", LocatorType.Name); }
 
     //Admin Login - Login Button
-    public WebElement Button_AdminLogin() { return findElement("//form[@id='Login']/button[contains(text(),'LOG IN')]", LocatorType.XPath); }
+    public WebElement Button_AdminLogin() { return findElement("login", LocatorType.Id); }
 
     //Admin ExtraEarnings - text
     public WebElement Label_ExtraEarnings() { return findElement("//strong[text()='Earn Extra Cash.']/parent::p", LocatorType.XPath); }

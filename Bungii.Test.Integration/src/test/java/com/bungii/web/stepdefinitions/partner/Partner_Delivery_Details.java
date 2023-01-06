@@ -6,8 +6,12 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriversPage;
+import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_Email;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LocationPage;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LoginPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -38,6 +42,11 @@ public class Partner_Delivery_Details extends DriverBase {
     ActionManager action = new ActionManager();
     DbUtility dbUtility = new DbUtility();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
+    Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+    PartnerManagement_Email Page_PartnerManagement_Email = new PartnerManagement_Email();
+    PartnerManagement_LoginPage Page_PartnerManagement_Login = new PartnerManagement_LoginPage();
+    PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
+
 
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
@@ -67,11 +76,14 @@ public class Partner_Delivery_Details extends DriverBase {
                         //action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(),SpecialInstruction);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
                         //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                        action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_Customer_Mobile(), (long) 5000);
                         action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_Customer_Mobile(), (long) 5000);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
 
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
                         action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.TextBox_Customer_Mobile(), (long) 5000);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
 
                         String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
@@ -101,7 +113,7 @@ public class Partner_Delivery_Details extends DriverBase {
             String CustomerMobile = "";
             String ReceiptNumber = "";
             String OrderNumber = "";
-            String SoldBuy = "";
+            String EmployeeID = "";
             String ProductDescription = "";
             String Dimensions = "";
             String Weight = "";
@@ -116,7 +128,13 @@ public class Partner_Delivery_Details extends DriverBase {
             String SMS_Recipient1 = "";
             String SMS_Recipient2 = "";
             String SMS_Recipient3 = "";
+            String DropOffContactName = "";
+            String DropOffContactPhone = "";
+            String scheduledBY="";
 
+            if(dataMap.containsKey("ScheduledBy")){
+                scheduledBY = dataMap.get("ScheduledBy");
+            }
 
             if(dataMap.containsKey("Items_To_Deliver")){
                 Items_deliver = dataMap.get("Items_To_Deliver");
@@ -159,9 +177,10 @@ public class Partner_Delivery_Details extends DriverBase {
             }
             if (dataMap.containsKey("Order_Number")) {
                 OrderNumber = dataMap.get("Order_Number").trim();
+                cucumberContextManager.setScenarioContext("ExternalOrderId", OrderNumber);
             }
-            if (dataMap.containsKey("SoldBuy")) {
-                SoldBuy = dataMap.get("SoldBuy").trim();
+            if (dataMap.containsKey("EmployeeID")) {
+                EmployeeID = dataMap.get("EmployeeID").trim();
             }
             if (dataMap.containsKey("Delivery_Purpose")) {
                 DeliveryPurpose = dataMap.get("Delivery_Purpose").trim();
@@ -196,8 +215,17 @@ public class Partner_Delivery_Details extends DriverBase {
             String PickupContactName = dataMap.get("Pickup_Contact_Name").trim();
             String PickupContactPhone = dataMap.get("Pickup_Contact_Phone").trim();
 
-            String DropOffContactName = dataMap.get("Drop_Off_Contact_Name").trim();
-            String DropOffContactPhone = dataMap.get("Drop_Contact_Phone").trim();
+//            String DropOffContactName = dataMap.get("Drop_Off_Contact_Name").trim();
+            if (dataMap.containsKey("Drop_Off_Contact_Name")) {
+                DropOffContactName = dataMap.get("Drop_Off_Contact_Name").trim();
+                cucumberContextManager.setScenarioContext("Drop_Off_Contact_Name", DropOffContactName);
+            }
+//            String DropOffContactPhone = dataMap.get("Drop_Contact_Phone").trim();
+            if (dataMap.containsKey("Drop_Contact_Phone")) {
+                DropOffContactPhone = dataMap.get("Drop_Contact_Phone").trim();
+                cucumberContextManager.setScenarioContext("Drop_Contact_Phone", DropOffContactPhone);
+            }
+
             //String ReceiptNumber = dataMap.get("Receipt_Number").trim();
 
 
@@ -294,8 +322,8 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Order_Number(), OrderNumber);
-                        action.click(Page_Partner_Delivery.Dropdown_SoldBuy());
-                        action.click(Page_Partner_Delivery.List_StoreAssociate("Krishna"));
+                        action.clearSendKeys(Page_Partner_Delivery.Input_EmployeeNo(), EmployeeID);
+
 
 
                         break;
@@ -359,8 +387,7 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(),DeliveryPurpose);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Rb_Sb_Number(),RbSbNumber);
-                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(),SoldBuy);
-
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(),scheduledBY);
 
                         break;
                     default:
@@ -425,7 +452,7 @@ public class Partner_Delivery_Details extends DriverBase {
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(), DeliveryPurpose);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Rb_Sb_Number(), RbSbNumber);
-                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(), SoldBuy);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_SoldBy(), scheduledBY);
                         break;
                     default:
                         break;
@@ -464,6 +491,34 @@ public class Partner_Delivery_Details extends DriverBase {
                     default:
                         break;
                 }
+            }
+            else if (Site.equalsIgnoreCase("Home outlet service level")) {
+
+                switch (str) {
+                    case "Delivery Details":
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Product_Description(), ProductDescription);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Dimensions(),Dimensions);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Weight(),Weight);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                        action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                        action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+
+                        String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                        cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
+                        cucumberContextManager.setScenarioContext("Customer_Name", Page_Partner_Delivery.TextBox_Customer_Name().getAttribute("value"));
+                        cucumberContextManager.setScenarioContext("Customer_Mobile", Page_Partner_Delivery.TextBox_Customer_Mobile().getAttribute("value"));
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_Receipt_Number(), OrderNumber);
+
+                        break;
+                    default:
+                        break;
+                }
+                log("I enter all details on "+str+" for "+Site+" on partner screen", "I have entered all details on "+str+" for "+Site+" on partner screen", false);
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -999,8 +1054,11 @@ public class Partner_Delivery_Details extends DriverBase {
     }
 
     @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
-    public void the_something_something_should_be_displayed(String element, String strArg2) throws Throwable {
+    public void the_something_something_should_be_displayed(String element, String text) throws Throwable {
         try{
+            String oldEmail =(String) cucumberContextManager.getScenarioContext("Old Email");
+            String RedCross = PropertyUtility.getDataProperties("red.cross.color");
+            String expectedGreenCross =  PropertyUtility.getDataProperties("green.tick.color");
             switch (element){
                 case "Phone Icon":
                     testStepAssert.isTrue(action.isElementPresent(Page_Partner_Delivery.Icon_Phone()),"Phone Icon should be displayed","Phone Icon is displayed","Phone Icon is not displayed");
@@ -1030,6 +1088,9 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Testdrivertywd_appleks_a_drvam Kansas_am":
                 case "Testdrivertywd_appleks_a_drvbc Kansas_bc":
                 case "Testdrivertywd_appleks_a_drvbd Kansas_bd":
+                case "Testdrivertywd_appleks_a_drvbg Kansas_bg":
+                case "Testdrivertywd_appleks_a_drvbf Kansas_bf":
+                case "Testdrivertywd_appleks_a_drvbe Kansas_be":
                     Thread.sleep(8000);
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Text_DriverName()),"Driver should be displayed","Driver is displayed","Driver is not displayed");
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Icon_DriverPosition()),"Drivers current location icon should be displayed","Drivers current location icon is displayed","Drivers current location icon is not displayed");
@@ -1044,6 +1105,256 @@ public class Partner_Delivery_Details extends DriverBase {
                     break;
                 case "Details":
                     testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Header_Details()),"Details header should be displayed","Details header is displayed","Details header is not displayed");
+                    break;
+                case "Warning":
+                    testStepAssert.isTrue(action.isElementPresent(admin_EditScheduledBungiiPage.Icon_Warning()),"Warning Icon should be displayed","Warning Icon is displayed","Warning Icon is not displayed");
+                    break;
+                case "Appliance Dolly":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_ApplianceDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Furniture Dolly":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_FurnitureDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Hand Dolly":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_HandDolly()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Lift Gate":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_LiftGate()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Ramp":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_Ramp()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Box Truck":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_BoxTruck()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Moving Van":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_MovingVan()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Pickup Truck":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_PickupTruck()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "SUV":
+                    action.JavaScriptScrolldown();
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Checkbox_SUV()),element+" checkbox should be displayed",element+" checkbox is displayed",element+" checkbox is not displayed");
+                    break;
+                case "Vehicle Payload":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Slider_VehiclePayload()),element+" slider should be displayed",element+" slider is displayed",element+" slider is not displayed");
+                    break;
+                case "Vehicle Bed Length":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Slider_VehicleBedLength()),element+" slider should be displayed",element+" slider is displayed",element+" slider is not displayed");
+                    break;
+                case "Trailer":
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Button_Trailer()),element+" button should be displayed",element+" button is displayed",element+" button is not displayed");
+                    break;
+                case "Edit Email Address":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Email.Header_EditEmailAddress()),"Header should be displayed","Header is displayed","Header is not displayed");
+                    String uiHeader= action.getText(Page_PartnerManagement_Email.Header_EditEmailAddress());
+                    testStepAssert.isEquals(uiHeader,element,"Header with text "+element+" should be displayed","Header with text "+element+" is displayed","Header with text "+uiHeader+" is displayed");
+                    break;
+                case "Primary email address":
+                    Thread.sleep(3000);
+                    String partner = PropertyUtility.getDataProperties("edited.email.address.partner.portal.name");
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Email.Text_EmailAddressOnLocationSetting()),"Email should be displayed","Email is displayed","Email is not displayed");
+                    String email= action.getText(Page_PartnerManagement_Email.Text_EmailAddressOnLocationSetting());
+                    testStepAssert.isFalse(email.equalsIgnoreCase(oldEmail),"Email Address "+element+" should be displayed","Email Address  "+element+" is displayed","Email Address  "+oldEmail+" is displayed");
+                    String emailAddressStoredInDB = com.bungii.web.utilityfunctions.DbUtility.getPartnerPortalEmailAddress(partner);
+                    testStepAssert.isEquals(email,emailAddressStoredInDB,"Email address should match","Email addresses match","Email address dont match");
+                    break;
+                case "Invalid credentials.":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Login.Text_InvalidCredentialsErrorMessage()),"Header should be displayed","Header is displayed","Header is not displayed");
+                    String invalidUser= action.getText(Page_PartnerManagement_Login.Text_InvalidCredentialsErrorMessage());
+                    String ExpectedInvalidCredentialsErrorColor = PropertyUtility.getDataProperties("invalid.credentails.error.message.color");
+                    String redText =Page_PartnerManagement_Login.Text_InvalidCredentialsErrorMessage().getCssValue("color");
+                    testStepAssert.isEquals(invalidUser,element,element+" should be displayed",element+" is displayed",invalidUser+" is displayed");
+                    testStepAssert.isEquals(redText,ExpectedInvalidCredentialsErrorColor,"The text should be red","The text is red","The text is not red");
+                    break;
+                case "Welcome to Bungii Partner Management":
+                case "Best Buy #11":
+                case "Dashboard":
+                    Thread.sleep(2000);
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Login.Header_MainPage(element)),"Header should be displayed","Header is displayed","Header is not displayed");
+                    String logedInScreenHeaderText= action.getText(Page_PartnerManagement_Login.Header_MainPage(element));
+                    testStepAssert.isEquals(logedInScreenHeaderText,element,"Header with text "+element+" should be displayed","Header with text "+element+" is displayed","Header with text "+logedInScreenHeaderText+" is displayed");
+                    break;
+                case "Best Buy child Partners":
+                    List<WebElement> allChildPartners = Page_PartnerManagement_Location.List_AllPartners();
+                    testStepAssert.isTrue(allChildPartners.size()==2,allChildPartners.size() +"Partners should be displayed",allChildPartners.size() +"Partners are displayed",allChildPartners.size() +"Partners are not displayed");
+                    break;
+                case "Customer Interaction":
+                case "Pricing Setting":
+                case "Payment Settings":
+                case "Fields & Attributes":
+                case "Messaging and Notification":
+                case "Geofence Settings":
+                case "Trip Settings":
+                case "Location Settings":
+                case "Partner Portal":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Header_MainPageHeaders(element)),element+" Header should be displayed",element+" Header is displayed",element+" Header is not displayed");
+                    break;
+                case "best buy #11":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_LocationName()),"Location name "+element+" should be displayed","Location name "+element +" is displayed","Location name "+element+" is not displayed");
+                    String locationName= action.getText(Page_PartnerManagement_Location.Text_LocationName()).toLowerCase();
+                    testStepAssert.isEquals(locationName,element.toLowerCase(),"Header with text "+element+" should be displayed","Header with text "+element+" is displayed","Header with text "+locationName+" is displayed");
+                    break;
+                case "Bungii":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Login.Image_BungiiLogo()),"Bungii Logo should be displayed","Bungii Logo is  displayed","Bungii Logo is not displayed");
+                    break;
+                case "Bungii Admin":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Login.Text_UserName()),"Bungii Logo should be displayed","Bungii Logo is  displayed","Bungii Logo is not displayed");
+                    String username = action.getText(Page_PartnerManagement_Login.Text_UserName());
+                    testStepAssert.isEquals(username,element,"Username "+element+" should be displayed","Username "+element+" is displayed","Username "+username+" is displayed");
+                    break;
+                case "User Profile":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Login.Image_UserProfilePic()),"Users profile picture should be displayed","Users profile picture  is  displayed","Users profile picture is not displayed");
+                    break;
+                case "Logout":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Login.Button_Logout()),element+ " Button  should be displayed",element+ " Button  is  displayed",element+ " Button is not displayed");
+                    break;
+                case "Search":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Login.Textbox_SearchBox()),element+ " Textbox should be displayed",element+ " Textbox is displayed",element+ " Textbox  is not displayed");
+                    break;
+                case "Partners":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Link_Partners()),element+ " Link should be displayed",element+ " Link is displayed",element+ " Link  is not displayed");
+                    break;
+                case "Arrow":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Link_AccessChildLocation()),element+ " Link should be displayed",element+ " Link is displayed",element+ " Link  is not displayed");
+                    break;
+                case "Cort Furniture":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_LocationName()),element+ " Partner location should be displayed",element+ " Partner location is displayed",element+ " Partner location is not displayed");
+                    String expectedPartenerlocationNameToBeDisplayed = action.getText(Page_PartnerManagement_Location.Text_LocationName());
+                    testStepAssert.isEquals(expectedPartenerlocationNameToBeDisplayed,element,"Partner location  "+element+" should be displayed","Partner location "+element+" is displayed","Partner location "+expectedPartenerlocationNameToBeDisplayed+" is not displayed");
+                    break;
+                case "Management":
+                case "partner portal":
+                case "Enterprise Partner":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_LocationType()),"location type should be displayed","Partner location type is displayed","Location Type is not displayed");
+                    String expectedPartenerlocationTypeToBeDisplayed = action.getText(Page_PartnerManagement_Location.Text_LocationType()).toLowerCase();
+                    testStepAssert.isEquals(expectedPartenerlocationTypeToBeDisplayed,element.toLowerCase(),"location type "+element+" should be displayed","Location type "+element+" is displayed","location type "+expectedPartenerlocationTypeToBeDisplayed+" is not displayed");
+                    break;
+                case "Earliest Schedule Time":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_EarliestScheduleTimeLabel()),"Earlist Schedule Time table name should be displayed","Earlist Schedule Time table name is displayed","Earlist Schedule Time table name is not displayed");
+                    break;
+                case "Solo":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_SoloRowForEarliestScheduleTimeTable()),"Solo row name should be displayed","Solo row name is displayed","Solo row name is not displayed");
+                    break;
+                case "Duo":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DuoRowForEarliestScheduleTimeTable()),"Duo row name should be displayed","Duo row name is displayed","Duo row name is not displayed");
+                    break;
+                case "Secondary email address":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_EmailLabel()),"Email Label should be displayed","Email Label is displayed","Email Label is not displayed");
+                    String emailOnLocationSetting = action.getText(Page_PartnerManagement_Location.Text_EmailOnPartnerSetting()).toLowerCase();
+                    testStepAssert.isEquals(emailOnLocationSetting,oldEmail.toLowerCase(),oldEmail+" Email should be displayed",oldEmail+" Email is displayed",emailOnLocationSetting+" Email is displayed");
+                    break;
+                case "1641 Cobb Pkwy SE Marietta GA 30060":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_PickupAddressLabel()),"Pickup address Label should be displayed","Pickup address Label is displayed","Pickup address Label is not displayed");
+                    String  pickupAddressOnLocationSetting= action.getText(Page_PartnerManagement_Location.Text_PickupAddressPartnerSetting());
+                    testStepAssert.isEquals(pickupAddressOnLocationSetting,element,element+" Pickup address should be displayed",element+" Pickup address is displayed",pickupAddressOnLocationSetting+" Pickup address is displayed");
+                    break;
+                case "(928) 417-4823":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_ContactNumberLabel()),"Contact number Label should be displayed","Contact number Label is displayed","Contact number Label is not displayed");
+                    String  contactNumberOnLocationSetting= action.getText(Page_PartnerManagement_Location.Text_ContactNumberPartnerSetting());
+                    testStepAssert.isEquals(contactNumberOnLocationSetting,element,element+" Contact number should be displayed",element+" Contact number is displayed",contactNumberOnLocationSetting+" Contact number is displayed");
+                    break;
+                case "Quote only mode":
+                case "Kiosk mode":
+                case "Quick access mode":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentPartnerPortalModes(element)),element+" text should be displayed",element+" text is displayed",element+" text is not displayed");
+                    String  notApplicableRedCross= Page_PartnerManagement_Location.Image_RedCross().getCssValue("color");
+                    testStepAssert.isEquals(notApplicableRedCross,RedCross,"Red cross should be displayed as its not applicable for current partner portal","Red cross is displayed as its not applicable for current partner portal","Red cross is not displayed as its not applicable for current partner portal, color displayed is "+notApplicableRedCross);
+                    break;
+                case "Live Store":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_StatusLabel()),"Status Label should be displayed","Status Label is displayed","Status Label is not displayed");
+                    String  partnerPortalStatus= action.getText(Page_PartnerManagement_Location.Text_Status());
+                    testStepAssert.isEquals(partnerPortalStatus,element,element+" Status should be displayed",element+" Status is displayed",partnerPortalStatus+" Status is displayed");
+                    String  liveStatuscolor= Page_PartnerManagement_Location.Text_Status().getAttribute("class");
+                    testStepAssert.isTrue(liveStatuscolor.contains("success"),"Live Store should be online","Live store is Online" ,"Live Store is not Online");
+                    break;
+                case "https://qaauto-cortfurniture7302.undefined":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_SubdomainURLLabel()),"Subdomain URL Label should be displayed","Subdomain URL Label is displayed","Subdomain URL Label is not displayed");
+                    String  partnerPortalSubdomainURL= action.getText(Page_PartnerManagement_Location.Text_SubdomainURL());
+                    testStepAssert.isEquals(partnerPortalSubdomainURL,element,element+" Subdomain URL should be displayed",element+" Subdomain URL is displayed",partnerPortalSubdomainURL+" Subdomain URL is displayed");
+                    break;
+                case "CORT FURNITURE":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_PartnerPortalNameLabel()),"Partner portal Label should be displayed","Partner portal Label is displayed","Partner portal Label is not displayed");
+                    String  partnerPortalName= action.getText(Page_PartnerManagement_Location.Text_Text_PartnerPortalName()).toLowerCase();
+                    testStepAssert.isEquals(partnerPortalName,element.toLowerCase(),element+" Partner portal text should be displayed",element+" Partner portal text is displayed",partnerPortalName+" Partner portal text is displayed");
+                    break;
+                case "Label":
+                case "What's  Needed":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentCustomerInteractions(element)),element+" row name should be displayed",element+" row name is displayed",element+" row name is not displayed");
+                    String  notSelectedRedCross= Page_PartnerManagement_Location.Image_RedCross().getCssValue("color");
+                    testStepAssert.isEquals(notSelectedRedCross,RedCross,"Red cross should be displayed as its not applicable for current partner portal","Red cross is displayed as its not applicable for current partner portal","Red cross is not displayed as its not applicable for current partner portal, color displayed is "+notSelectedRedCross);
+                    break;
+                case "Disclaimer":
+                case "Acknowledgment":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentCustomerInteractions(element)),element+" row name should be displayed",element+" row name is displayed",element+" row name is not displayed");
+                    String  applicableGreenTick= Page_PartnerManagement_Location.Image_GreenCross().getCssValue("color");
+                    testStepAssert.isEquals(applicableGreenTick,expectedGreenCross,"Green tick should be displayed as its applicable for current partner portal","Green tick is displayed as its applicable for current partner portal","Green ticks is not displayed as its  applicable for current partner portal, color displayed in rgba is  "+applicableGreenTick);
+                    break;
+                case "Portal specific settings":
+                case "Required barcode scan verification":
+                case "Required delivery verification":
+                case "Operating hours":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentTripSetting(element)),element+" row name should be displayed",element+" row name is displayed",element+" row name is not displayed");
+                    break;
+                case "30 days":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentTripSetting(element)),element+" row name should be displayed",element+" row name is displayed",element+" row name is not displayed");
+                     String maxDays = action.getText(Page_PartnerManagement_Location.Text_DifferentTripSettingValues(text));
+                    testStepAssert.isEquals(maxDays,element,"Maximum advanced scheduled days for current partner should be " +element,"Maximum advanced scheduled days for current partner is " +element,"Maximum advanced scheduled days for current partner is not" +element+" ,its "+maxDays);
+                    break;
+                case "150 miles":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentTripSetting(element)),element+" row name should be displayed",element+" row name is displayed",element+" row name is not displayed");
+                    String maxMiles = action.getText(Page_PartnerManagement_Location.Text_DifferentTripSettingValues(text));
+                    testStepAssert.isEquals(maxMiles,element,"Milage cap for current partner should be " +element,"Milage cap for current partner is " +element,"Milage cap for current partner is not" +element+" ,its "+maxMiles);
+                    break;
+                case "Allowed":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentTripSettingLabel(element)),element+" row name should be displayed",element+" row name is displayed",element+" row name is not displayed");
+                    String isMultipleCustomerPhoneNumbersAllowed = action.getText(Page_PartnerManagement_Location.Text_DifferentTripSettingValues(text));
+                    testStepAssert.isEquals(isMultipleCustomerPhoneNumbersAllowed,element,"Multiple customer phone number for current partner should be " +element,"Multiple customer phone number for current partner is " +element,"Multiple customer phone numbers for current partner should be Allowed but its "+isMultipleCustomerPhoneNumbersAllowed);
+                    break;
+                case "Verify before loading":
+                case "Verify after load":
+                case "Verify after unload":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentTripSettingLabel(element)),element+" row name should be displayed",element+" row name is displayed",element+" row name is not displayed");
+                    String  applicable= Page_PartnerManagement_Location.Image_GreenCross().getCssValue("color");
+                    testStepAssert.isEquals(applicable,expectedGreenCross,"Green tick should be displayed as its applicable for current partner portal","Green tick is displayed as its applicable for current partner portal","Green ticks is not displayed as its  applicable for current partner portal, color displayed in rgba is  "+applicable);
+                    break;
+                case "Barcode Scan at Pickup":
+                case "Barcode Scan at Drop-off":
+                    if(text.contentEquals("green tick")){
+                        String  selected= Page_PartnerManagement_Location.Image_GreenCrossTripSettings().getCssValue("color");
+                        testStepAssert.isEquals(selected,expectedGreenCross,"Green tick should be displayed as its applicable for current partner portal","Green tick is displayed as its applicable for current partner portal","Green ticks is not displayed as its  applicable for current partner portal, color displayed in rgba is  "+selected);
+                    }
+                    else{
+                    String  notSelected= Page_PartnerManagement_Location.Image_RedCross().getCssValue("color");
+                    testStepAssert.isEquals(notSelected,RedCross,"Red cross should be displayed as its not applicable for current partner portal","Red cross is displayed as its not applicable for current partner portal","Red cross is not displayed as its not applicable for current partner portal, color displayed is "+notSelected);
+                }
+                break;
+                case "Allow user to edit default address":
+                case "Show delivery amount to customer":
+                    testStepAssert.isTrue(action.isElementPresent(Page_PartnerManagement_Location.Text_DifferentTripSetting(element)),element+" row name should be displayed",element+" row name is displayed",element+" row name is not displayed");
+                    String  PartnerSpecificSettingsTick= Page_PartnerManagement_Location.Image_GreenCross().getCssValue("color");
+                    testStepAssert.isEquals(PartnerSpecificSettingsTick,expectedGreenCross,"Green tick should be displayed as its applicable for current partner portal","Green tick is displayed as its applicable for current partner portal","Green ticks is not displayed as its  applicable for current partner portal, color displayed in rgba is  "+PartnerSpecificSettingsTick);
+                    break;
+                case "Online Drivers":
+                     String onlineDriversText = action.getText(admin_DriverPage.Text_OnlineDrivers());
+                     testStepAssert.isEquals(onlineDriversText,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Button_OnlineDrivers()),element+" button  should be displayed",element+" button is displayed",element+" button is not displayed");
+                    break;
+                case "Activated Date":
+                    String activatedDateText = action.getText(admin_DriverPage.Text_ActivatedDate());
+                    testStepAssert.isEquals(activatedDateText,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Textbox_ActivatedDate()),element+" Textbox should be displayed",element+" Textbox is displayed",element+" Textbox is not displayed");
+                    break;
+                case "Most Recent Delivery":
+                    String mRD = action.getText(admin_DriverPage.Text_MostRecentDelivery());
+                    testStepAssert.isEquals(mRD,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(admin_DriverPage.Textbox_MostRecentDelivery()),element+" Textbox should be displayed",element+" Textbox is displayed",element+" Textbox is not displayed");
+                    break;
+                case "Testdrivertywd_appleks_a_drvbt Kansas_bt":
+                case "Testdrivertywd_appleks_a_drvbs Kansas_bs":
+                    String driverName = action.getText(admin_DriverPage.Text_CurrentOnlineDriver(element));
+                    testStepAssert.isEquals(driverName,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
                     break;
             }
     } catch (Exception e) {

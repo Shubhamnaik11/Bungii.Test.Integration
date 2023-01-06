@@ -52,6 +52,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     AccountPage accountPage = new AccountPage();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
+    EstimatePage bungiiEstimatePage = new EstimatePage();
+    BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
 
     UpdateStatusPage updateStatusPage = new UpdateStatusPage();
 
@@ -305,12 +307,22 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "VERIFY":
-                    action.javaScriptScrollDown(scheduledTripsPage.Button_VerifyDriver());
-                    action.click(scheduledTripsPage.Button_VerifyDriver());
+                    String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+                    if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                        action.javaScriptScrollDown(scheduledTripsPage.Button_VerifyDriver());
+                        Thread.sleep(5000);
+                        action.click(scheduledTripsPage.Button_VerifyDriver());
+                    }
+                    else {
+                        action.javaScriptScrollDown(scheduledTripsPage.Button_VerifyDriverForScheduled());
+                        Thread.sleep(5000);
+                        action.click(scheduledTripsPage.Button_VerifyDriverForScheduled());
+                    }
                     break;
 
                 case "SAVE CHANGES":
                     action.javaScriptScrollDown(scheduledTripsPage.Button_SaveChanges());
+                    Thread.sleep(5000);
                     action.click(scheduledTripsPage.Button_SaveChanges());
                     break;
 
@@ -449,6 +461,37 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
                 case "Branch app":
                     action.click(earningsPage.Button_BranchWallet());
+                    break;
+                case "Payment Setting":
+                    cucumberContextManager.setScenarioContext("DEFAULT_PAYMENT",earningsPage.Button_PaymentSetting().getAttribute("text"));
+                    action.click(earningsPage.Button_PaymentSetting());
+                    break;
+                case "Close Payment Settings":
+                    action.click(earningsPage.Button_Close());
+                    break;
+                case "Change default payment":
+                    String defaultMethod= (String) cucumberContextManager.getScenarioContext("DEFAULT_PAYMENT");
+                    if(defaultMethod.equalsIgnoreCase("same day")){
+                        action.click(earningsPage.Checkbox_TwiceWeek());
+                        cucumberContextManager.setScenarioContext("DEFAULT_PAYMENT", "2x week");
+                    }
+                    else{
+                        action.click(earningsPage.Checkbox_SameDay());
+                        cucumberContextManager.setScenarioContext("DEFAULT_PAYMENT","same day");
+                    }
+                    action.click(earningsPage.Button_Confirm());
+                    break;
+                case "Scan item barcode":
+                    action.click(updateStatusPage.Button_ScanItemBarCode());
+                    break;
+                case "Allow":
+                    action.click(bungiiEstimatePage.Permissions_CameraAllow());
+                    break;
+                case "Skip":
+                    action.click(updateStatusPage.Button_SkipBarCode());
+                    break;
+                case "Continue":
+                    action.click(bungiiDetailsPage.Button_Yes());
                     break;
                 default:
                     error("Implemented Step", "UnImplemented Step");

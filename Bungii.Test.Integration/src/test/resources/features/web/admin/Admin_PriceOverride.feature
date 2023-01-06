@@ -157,9 +157,9 @@ Feature: Admin_Price_Override
       | Assigning Driver(s)|
     When I view the delivery details
     And I check if "Price Override" button is displayed
-    And I click on "Price Override" button on delivery details
     And I get the old values of "Customer price" for "Service level"
     And I get the old values of "Driver cut" for "Service level"
+    And I click on "Price Override" button on delivery details
     And I increase the "Driver cut" more than "Customer price"
     And I select Reason as "Driver Incentive"
     And I click on "Save" button on price override pop-up
@@ -208,7 +208,6 @@ Feature: Admin_Price_Override
     And I should be able to see the respective bungii with the below status
       | Status           |
       | Assigning Driver(s)|
-    Then I click on "Edit" link beside live delivery
     When I view the delivery details
     And I check if "Price override" button is not present
     Then I navigate back to Scheduled Deliveries
@@ -223,7 +222,6 @@ Feature: Admin_Price_Override
     Then I should be able to see the respective bungii with the below status
       |  Status       |
       | Loading Items |
-    When I click on "Edit" link beside live delivery
     When I view the delivery details
     Then I check if "Price override" button is not present
     When I navigate back to Live Deliveries
@@ -309,7 +307,7 @@ Feature: Admin_Price_Override
     And I click on "Verify" button on Edit Scheduled bungii popup
     And I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
-    When I view the delivery details in admin portal
+    When I view the delivery details
     And I get the old values of "Customer price" for "Service level"
     And I get the old values of "Driver cut" for "Service level"
     And I wait for "2" mins
@@ -360,6 +358,12 @@ Feature: Admin_Price_Override
     And I wait for "2" mins
     Then I check the new values of "Driver Fixed Earnings" for "Service level-duo"
     When I navigate back to Scheduled Deliveries
+#    Core-4307: Verify the history displays the Price override performed for Driver Earnings only
+    And I click on the dropdown beside scheduled bungii
+    When I click the "Notes & History" link
+    And I click on "History"
+    Then I should be able to see "price-override driver earnings only"
+    And I close the Note
     Then I check if "Price Override" icon is displayed
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
@@ -370,26 +374,9 @@ Feature: Admin_Price_Override
 
   @regression
   Scenario: Verify fnd deliveries and driver app for change Service Level after override for driver earnings and customer cost before driver accepts and check if indicator is displayed
-    When I navigate to "Partner" portal configured for "FloorDecor service level" URL
-    And I enter "valid" password on Partner Portal
-    And I click "SIGN IN" button on Partner Portal
-    Then I should "see 1 pallet and 2 pallets"
-    When I request "Solo" Bungii trip in partner portal configured for "FloorDecor service level" in "washingtondc" geofence
-        | Pickup_Address                                                                     | Delivery_Address                                                    |
-        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |
-    And I click "Service Level List" button on Partner Portal
-    Then I should "see all the Service Level" for "Floor & Decor #240" Alias
-    And I change the service level to "First Threshold" in "Partner" portal
-    And I select Next Possible Pickup Date and Pickup Time
-        |Trip_Time            |
-        |NEXT_POSSIBLE        |
-    And I click "Continue" button on Partner Portal
-    Then I should "see Delivery Details screen"
-    When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
-        |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|SoldBuy|
-        |20 boxes           |20X20X20  | 1570 |Handle with care   |Testcustomertywd_appleNewQY Customer   |9999999124     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
-    And I click "Schedule Bungii" button on Partner Portal
-    Then I should "see Done screen"
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |washingtondc| NEXT_POSSIBLE | 8877661056 | Testcustomertywd_BppleMarkBE LutherBE|
     When I am logged in as Admin
     And I view the partner portal Scheduled Trips list on the admin portal
     And I wait for "2" mins
@@ -418,35 +405,21 @@ Feature: Admin_Price_Override
     And I click on "Verify" button on Edit Scheduled bungii popup
     And I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
-    When I view the delivery details in admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      | Assigning Driver(s)|
+    When I view the delivery details
     And I get the old values of "Customer price" for "Service level - fnd"
     And I get the old values of "Driver cut" for "Service level - fnd"
     And I wait for "2" mins
     Then I check the new values of "Estimated Charge" and "Driver Fixed Earnings" for changed "Service level - fnd"
 
   @ready
-
   Scenario: Verify fnd deliveries and driver app for cancel and revive trip after Price Override is performed
-    When I navigate to "Partner" portal configured for "FloorDecor service level" URL
-    And I enter "valid" password on Partner Portal
-    And I click "SIGN IN" button on Partner Portal
-    Then I should "see 1 pallet and 2 pallets"
-    When I request "Solo" Bungii trip in partner portal configured for "FloorDecor service level" in "washingtondc" geofence
-        | Pickup_Address                                                                     | Delivery_Address                                                    |
-        | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |
-    And I click "Service Level List" button on Partner Portal
-    Then I should "see all the Service Level" for "Floor & Decor #240" Alias
-    And I change the service level to "First Threshold" in "Partner" portal
-    And I select Next Possible Pickup Date and Pickup Time
-        |Trip_Time            |
-        |NEXT_POSSIBLE        |
-    And I click "Continue" button on Partner Portal
-    Then I should "see Delivery Details screen"
-    When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
-        |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|SoldBuy|
-        |20 boxes           |20X20X20  | 1570 |Handle with care   |Testcustomertywd_appleNewQZ Customer    |9999999125     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |FND166 |
-    And I click "Schedule Bungii" button on Partner Portal
-    Then I should "see Done screen"
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |washingtondc| NEXT_POSSIBLE | 8877661056 | Testcustomertywd_BppleMarkBE LutherBE|
     When I am logged in as Admin
     And I view the partner portal Scheduled Trips list on the admin portal
     And I wait for "2" mins
@@ -484,7 +457,6 @@ Feature: Admin_Price_Override
         |Assigning Driver(s)|
 
   @ready
-
   Scenario: Verify that indicator is displayed for price override delivery on live deliveries page and after the trip is revived with accessorial charges
     When I navigate to "Partner" portal configured for "service level" URL
     When I enter "valid" password on Partner Portal
@@ -587,12 +559,12 @@ Feature: Admin_Price_Override
       And I click on "Verify" button on Edit Scheduled bungii popup
       And I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
-      When I click on "Close" button
       And I refresh the page
       And I get the new pickup reference generated
       And I view the all Scheduled Deliveries list on the admin portal
       And I wait for 2 minutes
       And I open the trip for "Testcustomertywd_BppleMarkBE LutherBE" the customer for delivery details
+      When I view the delivery details
       Then I check "Customer price" is retained after "duo to solo" conversion
       Then I check "Driver Earning" is retained after "duo to solo" conversion
 
@@ -614,7 +586,6 @@ Feature: Admin_Price_Override
       And I click on "Verify" button on Edit Scheduled bungii popup
       And I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
-      When I click on "Close" button
       And I refresh the page
       And I get the new pickup reference generated
       And I view the all Scheduled Deliveries list on the admin portal
@@ -632,6 +603,8 @@ Feature: Admin_Price_Override
       And I click on "Verify" button on Edit Scheduled bungii popup
       And I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
+      And I click on "Edit" link beside scheduled bungii
+      When I click on "Edit Trip Details" radiobutton
       Then I check if DUO option is disabled
 
 #    Core-2960 Verify customer price override and driver earnings override is retained for a fixed pricing delivery converted from DUO to SOLO when driver accepted the delivery

@@ -94,5 +94,32 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Icon_Text(){return findElement("icon-call-large",LocatorType.AccessibilityId);}
 	public WebElement Icon_Pickup(){return findElement("//XCUIElementTypeImage[@name=\"icon-stop-pickup\"]",LocatorType.XPath);}
 	public WebElement Icon_DropOff(){return findElement("//XCUIElementTypeImage[@name=\"icon-stop-drop-off\"]",LocatorType.XPath);}
+	public WebElement Text_ContactDuo(boolean...IgnoreException){return findElement("//XCUIElementTypeStaticText[@name=\"Contact DUO\"]",LocatorType.XPath,IgnoreException);}
+	public WebElement Text_TeamMate(boolean... IgnoreException){return findElement("//XCUIElementTypeStaticText[@name=\"Teammate\"]",LocatorType.XPath,IgnoreException);}
+	public WebElement Label_ArivalTimeAtPickup(){return findElement("Arrival time at Pickup",LocatorType.AccessibilityId);}
+	public WebElement Label_ExpectedTimeAtDropOff(){return findElement("Expected time at drop-off",LocatorType.AccessibilityId);}
+	public WebElement ArrivalTimeAtPickupValue(){return findElement("//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+	public WebElement ArrivalTimeAtPickupValueForStacked(){return findElement("//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+	public WebElement Text_ExpectedTimeAtDropOffForStacked(){return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+	public WebElement Image_Barcode(){return findElement("icon-scanner",LocatorType.AccessibilityId);}
+	public WebElement Text_BarcodeInstructions(){return findElement("//XCUIElementTypeStaticText[@name=\"Scan the item(s) barcode before loading & after unloading.\"]",LocatorType.XPath);}
+	public WebElement Button_ScanItemBarCode(){return findElement("Scan item barcode",LocatorType.AccessibilityId);}
+	public WebElement Header_BarcodeScanner(){return findElement( "//XCUIElementTypeOther[@name=\"BARCODE SCANNER\"]",LocatorType.XPath);}
+	public WebElement Text_ScanBarCode(){return findElement("Scan barcode",LocatorType.AccessibilityId);}
+	public WebElement Text_BarCodeScanningInstructions(){return findElement( "//XCUIElementTypeStaticText[@name=\"Hold steady and center the barcode to scan. You need to scan any one item to proceed.\"]",LocatorType.XPath);}
+	public WebElement Button_SkipBarCode(){return findElement( "Skip",LocatorType.AccessibilityId);}
+	public WebElement Text_NotificationTextOnLoadingItemsForBarCode(){return findElement("//XCUIElementTypeStaticText[@name=\"Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.\"]",LocatorType.XPath);}
+	public WebElement Text_NotificationTextOnUnloadingForBarCode(){return findElement("//XCUIElementTypeStaticText[@name=\"Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.\"]",LocatorType.XPath);}
 
+	public WebElement Text_ExpectedTimeAtDropOff(){return findElement("//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
+	public WebElement Label_Pickup(){return findElement("PICKUP",LocatorType.AccessibilityId);}
+	public WebElement Label_ArrivalTime(){return findElement("(Arrival time)",LocatorType.AccessibilityId);}
+	public WebElement Label_DropOff(){return findElement("DROP-OFF",LocatorType.AccessibilityId);}
+	public WebElement Label_ExpectedTime(){return findElement("(Expected time)",LocatorType.AccessibilityId);}
+	public WebElement Text_ArrivalTimeValue(){return findElement("//XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[3]",LocatorType.XPath);}
+	public WebElement Text_ArrivalTimeForDifferentStates(){return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[3]",LocatorType.XPath);}
+	public WebElement Text_DropOffRangeFromDeliveryDetails(){return findElement("//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeStaticText[1]",LocatorType.XPath);}
+	public WebElement Text_DropOffRangeFromDeliveryDetailsForChanges(){return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeStaticText[1]",LocatorType.XPath);}
+
+	public WebElement Button_ScheduledBungiiFromMoreOptions(){return findElement("Scheduled Bungiis",LocatorType.AccessibilityId);}
 }

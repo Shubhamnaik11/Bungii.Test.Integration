@@ -92,15 +92,15 @@ public class GeofenceSteps extends DriverBase {
             switch(type){
 
                 case "Minimum scheduled time for Duo trip":
-         timeValue = action.getValueAttribute(geofencePage.TextBox_MinimumScheduledtimeforduo());
-        cucumberContextManager.setScenarioContext("MIN_TIME_DUO", timeValue);
-        break;
+                     timeValue = action.getValueAttribute(geofencePage.TextBox_MinimumScheduledtimeforduo());
+                     cucumberContextManager.setScenarioContext("MIN_TIME_DUO", timeValue);
+                     break;
 
-        case "Minimum scheduled time for Solo trip":
-            timeValue = action.getValueAttribute(geofencePage.TextBox_MinimumScheduledtimeforsolo());
-            action.clearEnterText(geofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
-           cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", timeValue);
-        break;
+                case "Minimum scheduled time for Solo trip":
+                     timeValue = action.getValueAttribute(geofencePage.TextBox_MinimumScheduledtimeforsolo());
+                     action.clearEnterText(geofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
+                     cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", timeValue);
+                     break;
             }
             log("I should get the value of "+type +" : "+timeValue,
                     "I get the value of "+ type +" : "+timeValue,true);

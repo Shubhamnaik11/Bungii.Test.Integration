@@ -27,6 +27,11 @@ Feature: Log In
   @sanity
   @regression
   Scenario Outline: Verify Driver Should be Able To Login To Application Using Valid Password
+    #CORE-4572 Verify hyperlink redirection to correct url in external browser on Android
+    When I click "START AN APPLICATION HERE" button on Log In screen on driver app
+    Then The "Bungii: The Ultimate Side Hustle" "heading" should be displayed
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist

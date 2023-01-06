@@ -14,6 +14,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Point;
 
 import java.util.Map;
 
@@ -526,6 +527,46 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
+                case "testdrivertywd_applega_a_drvaj atlanta_aj":
+                    phone = PropertyUtility.getDataProperties("atlanta.driver20.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("denver.driver9.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver20.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdrivertywd_appleph_a_drvaw phoenix_aw":
+                    phone = PropertyUtility.getDataProperties("Phoenix.driver.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("denver.driver9.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Phoenix.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "Testdrivertywd_appleks_a_drvbo Kansas_bo":
+                    phone = PropertyUtility.getDataProperties("Kansas.driver63.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("baltimore.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver63.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "Testdrivertywd_appleks_a_drvbp Kansas_bp":
+                    phone = PropertyUtility.getDataProperties("Kansas.driver64.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("baltimore.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver64.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdrivertywd_applega_a_drvak atlanta_ak":
+                    phone = PropertyUtility.getDataProperties("atlanta.driver21.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("atlanta.driver21.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver21.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
                 case "testdrivertywd_applega_a_stevee stark_altonee":
                     phone = PropertyUtility.getDataProperties("atlanta.driver4.phone");
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
@@ -603,12 +644,21 @@ public class LoginSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" button on Log In screen on driver app$")
     public void i_click_something_button_on_log_in_screen_on_driver_app(String option) throws Throwable {
         try {
+            int additionalxcoordinates, additionalycoordinates;
             switch (option.toUpperCase()) {
                 case "LOG IN":
                     action.click(driverLogInPage.Button_Login());
                     break;
                 case "FORGOT PASSWORD":
                     action.click(driverLogInPage.Button_ForgotPassword());
+                    break;
+                case "START AN APPLICATION HERE":
+                    additionalxcoordinates = Integer.parseInt(PropertyUtility.getDataProperties("additional.coordinates.x"));
+                    additionalycoordinates = Integer.parseInt(PropertyUtility.getDataProperties("additional.coordinates.y"));
+                    Point point=driverLogInPage.Button_StartAnApplicationHere().getLocation();
+                    int xchord=point.getX()+additionalxcoordinates;
+                    int ychord=point.getY()+additionalycoordinates;
+                    action.click(new Point(xchord,ychord));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

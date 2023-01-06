@@ -10,11 +10,28 @@ Feature: Driver_ViewDetails
     #CORE-4163 changes has been added
     #stable
   Scenario: Verify My Stats Section Populated Data on Driver Dashboard
-    When I enter driver Phone number as "8888881014" and valid password
+     # CORE:5065 Verify the 'Drivers Agreement' & Privacy Policy for existing non fountain driver
+    When I click "Terms" on driver portal
+    Then I should be directed to "Updated Terms & Conditions"
+    And I close "Updated Terms & Conditions" Page
+    When I navigate to "Login Page"
+    And I click "Privacy Policy" on driver portal
+    Then I should be directed to "Updated Privacy Policy"
+    And I close "Updated Privacy Policy" Page
+    When I navigate to "Login Page"
+    And I enter driver Phone number as "8888881014" and valid password
     And I click "LOG IN button" on driver portal
     Then I should be directed to "Dashboard" on Driver portal
     And I note trip count for driver
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
+    When I click "Terms & Conditions" on driver portal
+    Then I should be directed to "Updated Terms & Conditions"
+    And I close "Updated Terms & Conditions" Page
+    When  I navigate to "Dashboard"
+    And I click "Privacy Policy" on driver portal
+    Then I should be directed to "Updated Privacy Policy"
+    And I close "Updated Privacy Policy" Page
+    When  I navigate to "Dashboard"
+    And I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 8390409146 | Shanti Ramen|
     And As a driver "Ethan Edison" perform below action with respective "Solo Ondemand" trip

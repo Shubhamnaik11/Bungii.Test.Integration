@@ -56,6 +56,7 @@ public class Partner_IntegrationSteps extends DriverBase {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String Pickup_Address;
             String Delivery_Address;
+            String addressEnter="";
             SetupManager.getDriver().manage().window().maximize();
 
             cucumberContextManager.setScenarioContext("Bungii_Type", Type);
@@ -65,6 +66,9 @@ public class Partner_IntegrationSteps extends DriverBase {
             Pickup_Address = dataMap.get("Pickup_Address");
 
             Delivery_Address = dataMap.get("Delivery_Address");
+            if(dataMap.containsKey("Address_Enter")) {
+                addressEnter = dataMap.get("Address_Enter");
+            }
 
             cucumberContextManager.setScenarioContext("PickupAddress", Pickup_Address);
             //Delivery_Address = action.getText(Page_Partner_Dashboard.SetDeliveryAddress());
@@ -78,30 +82,45 @@ public class Partner_IntegrationSteps extends DriverBase {
             //cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("PP_Site", Site);
+            cucumberContextManager.setScenarioContext("Portal_Name",Site);
             Thread.sleep(10000);
             if (Site.equalsIgnoreCase("normal")) {
                 switch (Type) {
                     case "Solo":
                         //action.click(Page_Partner_Dashboard.Partner_Solo());
                         action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
-
                         action.click(Page_Partner_Dashboard.Button_PickupClear());
                         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
-                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-                        Thread.sleep(3000);
-                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyPickup = Pickup_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), copyPickup + Keys.chord(Keys.CONTROL, "v"));
+
+                        }
+                        else{
+//                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address);
+                            Thread.sleep(2000);
+                            action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
+                        }
+//                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+//                        Thread.sleep(3000);
+//                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+//                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address);
+                            action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
+                        }
                         Thread.sleep(3000);
-                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                        Thread.sleep(5000);
-                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
-
-                        Thread.sleep(5000);
-
+//                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+//                        Thread.sleep(5000);
+//                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+//                        Thread.sleep(8000);
                         action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
                         switch (Load_Unload) {
                             case "15 minutes":
@@ -302,14 +321,26 @@ public class Partner_IntegrationSteps extends DriverBase {
             } else if (Site.equalsIgnoreCase("service level")) {
                 switch (Type) {
                     case "Solo":
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyPickup = Pickup_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), copyPickup + Keys.chord(Keys.CONTROL, "v"));
+                        }
+                        else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        }
                         //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
                         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                         Thread.sleep(1000);
                         action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
@@ -317,15 +348,25 @@ public class Partner_IntegrationSteps extends DriverBase {
                         //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
                         break;
                     case "Duo":
-
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyPickup = Pickup_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), copyPickup + Keys.chord(Keys.CONTROL, "v"));
+                        }
+                        else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        }
                         //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
                         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                         Thread.sleep(1000);
                         action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
@@ -343,19 +384,28 @@ public class Partner_IntegrationSteps extends DriverBase {
             } else if (Site.equalsIgnoreCase("FloorDecor service level")) {
                 switch (Type) {
                     case "Solo":
-                        //action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
-                        //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
-                        //action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-                        //Thread.sleep(1000);
-                        // action.click(Page_Partner_Dashboard.List_Pickup_Address());
+                        action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+                        action.click(Page_Partner_Dashboard.Button_PickupClear());
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address);
+                        action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
+//                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+//                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+//                        Thread.sleep(5000);
+//                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
-                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                        Thread.sleep(5000);
-                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
-
-                        //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+//                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address);
+                        }
+                        action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
+//                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+//                        Thread.sleep(5000);
+//                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+//                        action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
                         break;
                     case "Duo":
 
@@ -366,7 +416,12 @@ public class Partner_IntegrationSteps extends DriverBase {
                         action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
@@ -385,7 +440,12 @@ public class Partner_IntegrationSteps extends DriverBase {
             else if (Site.equalsIgnoreCase("fnd multiple phone")) {
                 switch (Type) {
                     case "Solo":
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
@@ -395,7 +455,12 @@ public class Partner_IntegrationSteps extends DriverBase {
                         //Clicking on duo radio button
                         action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
                         // Thread.sleep(2000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        if(addressEnter.equalsIgnoreCase("CopyPaste")) {
+                            String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
+                            action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                        }else {
+                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        }
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         Thread.sleep(1000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
@@ -468,9 +533,11 @@ public class Partner_IntegrationSteps extends DriverBase {
                         //action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         //Thread.sleep(2000);
-                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address);
+                        action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
+                        Thread.sleep(3000);
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
-                        Thread.sleep(5000);
+                        Thread.sleep(3000);
                         action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                         //action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
@@ -520,6 +587,27 @@ public class Partner_IntegrationSteps extends DriverBase {
 
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.Checkbox_Driver_HelperCarry());
+                        break;
+                }
+                log("I request " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", "I have requested " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", false);
+
+            }
+            else if (Site.equalsIgnoreCase("Home outlet service level")) {
+                switch (Type) {
+                    case "Solo":
+
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(), Pickup_Address + Keys.TAB);
+                        Thread.sleep(2000);
+                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
+                        Thread.sleep(1000);
+                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
+
+                        Thread.sleep(2000);
+                        action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
+                        action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                        Thread.sleep(5000);
+                        action.click(Page_Partner_Dashboard.List_Delivery_Address());
+                        Thread.sleep(5000);
                         break;
                 }
                 log("I request " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", "I have requested " + Type + " Bungii trip in partner portal configured for " + Site + " in " + geofence + " geofence", false);
@@ -715,4 +803,95 @@ public class Partner_IntegrationSteps extends DriverBase {
     }
 
 
+    @And("I should be able to see {string}")
+    public void iShouldBeAbleToSee(String type) {
+        try{
+            switch (type){
+                case "admin cancelled event - driver accepted":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_CanceledEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("Text_DriverAccepted")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(PropertyUtility.getMessage("Text_AdminCanceled")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "accessorial charges":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_AccessorialChargeEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals("$0"),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    String newValue=action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData()).replaceAll("\n","");
+                    testStepAssert.isTrue((newValue).contains("Total: "+cucumberContextManager.getScenarioContext("OTHER_AMOUNT")+".00 (Other) (Includes share of "+cucumberContextManager.getScenarioContext("DRIVER_1")+": $20.00)"),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "partner cancelled event - driver not accepted":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_CanceledEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("Text_AssigningDrivers")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(PropertyUtility.getMessage("Text_PartnerCancel")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "price-override driver earnings only":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_PriceOverrideDriverEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals("$"+cucumberContextManager.getScenarioContext("OLD_DRIVER_CUT")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains("$"+cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT")+" ("+cucumberContextManager.getScenarioContext("DRIVER_1")+")"),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "admin-revive-driver cancelled":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_RevivedEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("Text_DriverCanceled")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(PropertyUtility.getMessage("Text_AssigningDrivers")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "admin-revive-admin cancelled":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValue())).equals(PropertyUtility.getMessage("Text_RevivedEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueData())).equals(PropertyUtility.getMessage("Text_AdminCanceled")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueData())).contains(PropertyUtility.getMessage("Text_AssigningDrivers")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+                case "history prior revival":
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryEventValueRow2())).equals(PropertyUtility.getMessage("Text_CanceledEvent")),
+                            "Correct event should be displayed",
+                            "Incorrect event is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryOldValueDataRow2())).equals(PropertyUtility.getMessage("Text_AssigningDrivers")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    testStepAssert.isTrue((action.getText(admin_ScheduledTripsPage.Text_HistoryNewValueDataRow2())).contains(PropertyUtility.getMessage("Text_AdminCanceled")),
+                            "Correct value should be displayed",
+                            "Incorrect value is displayed");
+                    break;
+
+            }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

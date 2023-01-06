@@ -225,7 +225,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                             action.clearSendKeys(admin_dashboardPage.TextBox_SearchCustomer(),customerFirstName + Keys.ENTER);
                         }else {
                             action.clearSendKeys(admin_dashboardPage.Textbox_DriverSearch(), driverFirstName);
-                            action.click(admin_dashboardPage.Icon_Search());
+                            action.click(admin_dashboardPage.Icon_DriverSearch());
                         }
                         Thread.sleep(2000);
                         break;
@@ -234,7 +234,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                             action.clearSendKeys(admin_customerPage.TextBox_SearchCustomer(), customerLastName + Keys.ENTER);
                         }else {
                             action.clearSendKeys(admin_dashboardPage.Textbox_DriverSearch(), driverLastName);
-                            action.click(admin_dashboardPage.Icon_Search());
+                            action.click(admin_dashboardPage.Icon_DriverSearch());
                         }
                         Thread.sleep(1000);
                         break;
@@ -259,7 +259,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
             switch (strArg1) {
                 case "customer first name":
                     String custFirstName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME");
-                    Xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]", custFirstName);
+                    Xpath = String.format("//tr[1]/td[contains(.,'%s')]", custFirstName);
                     cucumberContextManager.setScenarioContext("XPATH",Xpath);
                     testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Customer's first name should be listed in grid.",
@@ -269,7 +269,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
 
                 case "customer last name":
                     String custLastName = (String) cucumberContextManager.getScenarioContext("CUSTLASTNAME");
-                    Xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]", custLastName);
+                    Xpath = String.format("//tr[1]/td[contains(.,'%s')]", custLastName);
                     cucumberContextManager.setScenarioContext("XPATH",Xpath);
                     testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Customer's last name should be listed in grid.",
@@ -308,7 +308,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
             switch (strArg1) {
                 case "customer first name":
                     String custFirstName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME");
-                    Xpath = String.format("//tbody[@id='TripListsTBody']/tr[1]/td[contains(.,'%s')]", custFirstName);
+                    Xpath = String.format("//tr[1]/td[contains(.,'%s')]", custFirstName);
 
                     testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Customer's first name should be listed in grid.",
@@ -318,7 +318,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
 
                 case "customer last name":
                     String custLastName = (String) cucumberContextManager.getScenarioContext("CUSTLASTNAME");
-                    Xpath = String.format("//tbody[@id='TripListsTBody']/tr[1]/td[contains(.,'%s')]", custLastName);
+                    Xpath = String.format("//tr[1]/td[contains(.,'%s')]", custLastName);
 
                     testStepAssert.isElementDisplayed(admin_driversPage.findElement(Xpath,PageBase.LocatorType.XPath),
                             "Customer's last name should be listed in grid.",
@@ -411,7 +411,7 @@ try{
                 break;
             case "Email":
                 action.click(admin_customerPage.Icon_EditEmail());
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 action.clearSendKeys(admin_customerPage.TextBox_Email(),value);
                 action.click(admin_customerPage.Button_SaveEmail());
                 action.clearSendKeys(admin_customerPage.TextBox_Comment(),"updated to "+ value);
@@ -478,7 +478,7 @@ try{
         String custName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME") + " "+ (String) cucumberContextManager.getScenarioContext("CUSTLASTNAME");
         String phone = (String)  cucumberContextManager.getScenarioContext("PHONE");
 
-        String xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custName,phone);
+        String xpath = String.format("//tr[1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custName,phone);
         testStepAssert.isElementDisplayed(admin_customerPage.findElement(xpath,PageBase.LocatorType.XPath),
                 "Customer's updated phone should be listed in grid.",
                 "Customer's updated phone is listed in grid.",
@@ -557,7 +557,7 @@ try{
         String custFirstName = (String) cucumberContextManager.getScenarioContext("CUSTFIRSTNAME");
         String phone = (String)  cucumberContextManager.getScenarioContext("OLDPHONE");
 
-        String xpath = String.format("//tr[@class='clickable-row'][1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custFirstName,phone);
+        String xpath = String.format("//tr[1]/td[contains(.,'%s')]/following-sibling::td[text()='%s']", custFirstName,phone);
         testStepAssert.isElementDisplayed(admin_customerPage.findElement(xpath,PageBase.LocatorType.XPath),
                 "Customer's updated phone should be listed in grid.",
                 "Customer's updated phone is listed in grid.",
@@ -571,7 +571,7 @@ try{
     @When("^I navigate to Customer List$")
     public void i_navigate_to_customer_list() {
         try {
-            String url = utility.GetAdminUrl().replace("/Admin/Login", "") + "/BungiiReports/Customers";
+            String url = utility.GetAdminUrl().replace("/login", "") + "/BungiiReports/Customers";
             action.navigateTo(url);
             Thread.sleep(5000);
             action.isElementPresent(admin_customerPage.TextBox_SearchCustomer());

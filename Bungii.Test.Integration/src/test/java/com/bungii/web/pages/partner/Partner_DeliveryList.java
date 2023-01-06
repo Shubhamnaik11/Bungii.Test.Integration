@@ -36,7 +36,7 @@ public class Partner_DeliveryList extends PageBase {
     public  WebElement Message_Cancel_Confirmation() { return findElement("//p[contains(text(),'Your delivery has been canceled.')]",LocatorType.XPath);}
 
     //Cancel OK Button
-    public WebElement Button_OK() { return findElement("//button[@class='btn']",LocatorType.XPath);}
+    public WebElement Button_OK() { return findElement("//button[contains(text(),'Ok')]",LocatorType.XPath);}
 
     //OK button on Delivery Cancellation Failed
     public WebElement Button_Ok__On_Delivery_Cancellation_Failed() { return findElement("//button[@class='btn btn btn-primary']",LocatorType.XPath);}
@@ -69,7 +69,7 @@ public class Partner_DeliveryList extends PageBase {
     public WebElement Text_Selected_Service() { return findElement("//label[contains(text(),'Service Level')]//following::p/span",LocatorType.XPath);}
 
     //OK button on delivery details page in Admin Portal
-    public WebElement Button_OK_Admin_Portal() { return findElement("btnOk",LocatorType.Id);}
+    public WebElement Button_OK_Admin_Portal() { return findElement("//div/a[text()='ok']",LocatorType.XPath);}
 
     //Estimated Duration on Admin Portal
     public WebElement Text_Estimated_Duration() { return findElement("//td[contains(text(),'Estimated Duration')]/following-sibling::td[1]",LocatorType.XPath);}

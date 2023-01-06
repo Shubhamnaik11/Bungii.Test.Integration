@@ -82,5 +82,7 @@ public class DriverHomePage extends PageBase {
     public WebElement Text_ReferralSubHeader () { return findElement("//android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[2]", LocatorType.XPath); }
     public WebElement Button_Invite () { return findElement("//android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[3]", LocatorType.XPath); }
 
+    public WebElement Icon_Earnings (boolean ...ignoreException) { return findElement("com.bungii.driver:id/iv_earnings", LocatorType.Id,ignoreException); }
+    public WebElement Text_EarningsInfo (boolean ...ignoreException) { return findElement("com.bungii.driver:id/tv_alert_info", LocatorType.Id,ignoreException); }
 
 }

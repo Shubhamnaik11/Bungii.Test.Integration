@@ -50,4 +50,24 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Icon_Text(){return findElement("com.bungii.driver:id/appCompatImageView18",LocatorType.Id);}
     public WebElement Icon_Pickup(){return findElement("//android.view.ViewGroup/android.widget.ScrollView/androidx.appcompat.widget.LinearLayoutCompat/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.ImageView",LocatorType.XPath);}
     public WebElement Icon_DropOff(){return findElement("//android.view.ViewGroup/android.widget.ScrollView/androidx.appcompat.widget.LinearLayoutCompat/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.ImageView",LocatorType.XPath);}
+    public WebElement Text_ContactDuo(boolean...IgnoreException){return findElement("com.bungii.driver:id/tv_contact_duo_label",LocatorType.Id,IgnoreException);}
+    public WebElement Text_TeamMate(boolean... IgnoreException){return findElement("com.bungii.driver:id/tv_teammate_label",LocatorType.Id,IgnoreException);}
+    public WebElement Label_ArivalTimeAtPickup(){return findElement("com.bungii.driver:id/tv_pickup_arrival_time_label",LocatorType.Id);}
+    public WebElement Label_ExpectedTimeAtDropOff(){return findElement("com.bungii.driver:id/tv_drop_off_expected_time_label",LocatorType.Id);}
+    public WebElement ArrivalTimeAtPickupValue(){return findElement("com.bungii.driver:id/tv_pickup_arrival_time",LocatorType.Id);}
+    public WebElement ExpectedTimeAtDropOff(){return findElement("com.bungii.driver:id/tv_drop_off_expected_time",LocatorType.Id);}
+    public WebElement Label_Pickup(){return findElement("com.bungii.driver:id/tv_waypoint_type",LocatorType.Id);}
+    public WebElement Label_ArrivalTime(){return findElement("com.bungii.driver:id/tv_scheduled_time_info",LocatorType.Id);}
+    public WebElement Text_ArrivalTimeValue(){return findElement("com.bungii.driver:id/tv_scheduled_time",LocatorType.Id);}
+    public WebElement Text_DropOffRangeFromDeliveryDetails(){return findElement("//android.view.ViewGroup[2]/android.widget.TextView[@resource-id ='com.bungii.driver:id/tv_scheduled_time']",LocatorType.XPath);}
+    public WebElement Image_Barcode(){return findElement("com.bungii.driver:id/iv_scanner",LocatorType.Id);}
+    public WebElement Text_BarcodeInstructions(){return findElement("com.bungii.driver:id/tv_barcode_scan_instructions",LocatorType.Id);}
+    public WebElement Button_ScanItemBarCode(){return findElement("com.bungii.driver:id/btn_scan_barcode",LocatorType.Id);}
+    public WebElement Header_BarcodeScanner(){return findElement( "//android.widget.ImageView[@resource-id ='com.bungii.driver:id/iv_close']/following-sibling::android.widget.TextView",LocatorType.XPath);}
+    public WebElement Text_ScanBarCode(){return findElement( "com.bungii.driver:id/appCompatTextView32",LocatorType.Id);}
+    public WebElement Text_BarCodeScanningInstructions(){return findElement( "com.bungii.driver:id/tv_scan_instruction",LocatorType.Id);}
+    public WebElement Button_SkipBarCode(){return findElement( "com.bungii.driver:id/btn_submit",LocatorType.Id);}
+    public WebElement Text_ErrorMessageOnClickingSkipScanning(){return findElement("android:id/message",LocatorType.Id);}
+    public WebElement Text_NotificationTextOnArrivalAndUnloadingItemsForBarCode(){return findElement("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView",LocatorType.XPath);}
+
 }

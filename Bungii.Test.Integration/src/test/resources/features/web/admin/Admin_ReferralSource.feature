@@ -14,32 +14,33 @@ Feature: Admin_ReferralSource
 
   @regression
     @failed
+    #Failed, issued raised- ADP_502
   Scenario: Verify Referral Source Grid Sort ASC DESC
-    When I click on "Source" header "Ascending" on "Referral Source" grid
-    Then the "Referral Source" list should be sorted by "Ascending" order of "Source"
-    When I click on "Source" header "Descending" on "Referral Source" grid
-    Then the "Referral Source" list should be sorted by "Descending" order of "Source"
-    When I click on "Accounts Created" header "Ascending" on "Referral Source" grid
-    Then the "Referral Source" list should be sorted by "Ascending" order of "Accounts Created"
-    When I click on "Accounts Created" header "Descending" on "Referral Source" grid
-    Then the "Referral Source" list should be sorted by "Descending" order of "Accounts Created"
-    When I click on "Percentage of total(Accounts Created)" header "Ascending" on "Referral Source" grid
-    Then the "Referral Source" list should be sorted by "Ascending" order of "Percentage of total(Accounts Created)"
-    When I click on "Percentage of total(Accounts Created)" header "Descending" on "Referral Source" grid
-    Then the "Referral Source" list should be sorted by "Descending" order of "Percentage of total(Accounts Created)"
-    When I click on "Trips Completed" header "Ascending" on "Referral Source" grid
-    Then the "Referral Source" list should be sorted by "Ascending" order of "Trips Completed"
-    When I click on "Trips Completed" header "Descending" on "Referral Source" grid
-    Then the "Referral Source" list should be sorted by "Descending" order of "Trips Completed"
-    When I click on "Percentage of total(Trips Completed)" header "Ascending" on "Referral Source" grid
-    Then the "Referral Source" list should be sorted by "Ascending" order of "Percentage of total(Trips Completed)"
-    When I click on "Percentage of total(Trips Completed)" header "Descending" on "Referral Source" grid
-    Then the "Referral Source" list should be sorted by "Descending" order of "Percentage of total(Trips Completed)"
+    When I click on "Sources" header "Ascending" on "Referral Sources" grid
+    Then the "Referral Sources" list should be sorted by "Ascending" order of "Sources"
+    When I click on "Sources" header "Descending" on "Referral Sources" grid
+    Then the "Referral Sources" list should be sorted by "Descending" order of "Sources"
+    When I click on "Accounts Created" header "Ascending" on "Referral Sources" grid
+    Then the "Referral Sources" list should be sorted by "Ascending" order of "Accounts Created"
+    When I click on "Accounts Created" header "Descending" on "Referral Sources" grid
+    Then the "Referral Sources" list should be sorted by "Descending" order of "Accounts Created"
+    When I click on "Percentage of total(Accounts Created)" header "Ascending" on "Referral Sources" grid
+    Then the "Referral Sources" list should be sorted by "Ascending" order of "Percentage of total(Accounts Created)"
+    When I click on "Percentage of total(Accounts Created)" header "Descending" on "Referral Sources" grid
+    Then the "Referral Sources" list should be sorted by "Descending" order of "Percentage of total(Accounts Created)"
+    When I click on "Trips Completed" header "Ascending" on "Referral Sources" grid
+    Then the "Referral Sources" list should be sorted by "Ascending" order of "Trips Completed"
+    When I click on "Trips Completed" header "Descending" on "Referral Sources" grid
+    Then the "Referral Sources" list should be sorted by "Descending" order of "Trips Completed"
+    When I click on "Percentage of total(Trips Completed)" header "Ascending" on "Referral Sources" grid
+    Then the "Referral Sources" list should be sorted by "Ascending" order of "Percentage of total(Trips Completed)"
+    When I click on "Percentage of total(Trips Completed)" header "Descending" on "Referral Sources" grid
+    Then the "Referral Sources" list should be sorted by "Descending" order of "Percentage of total(Trips Completed)"
 
   @knownissue
   Scenario: Verify Field Validations On Referral Source Grid [CORE-1934]
     When I click on "Search" button with entering "From" and "To" date
-    Then the "From date is required" message is displayed beside "From Date" field
+    Then the "From Date is required" message is displayed beside "From Date" field
     And the "To date is required" message is displayed beside "To Date" field
     When I enter "To Date" less than the "From Date"
     Then the "Invalid To Date" message is displayed beside "To Date" field

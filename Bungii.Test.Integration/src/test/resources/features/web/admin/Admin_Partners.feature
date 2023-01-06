@@ -10,8 +10,8 @@ Feature: Admin_Partners_Business_And_EAPI
   Scenario: Verify that Add New Partner button is disabled
     And The "New Partner" button should not be displayed
     Then I should see "Unlock Portals" submenu
-    
-  #Core-2441: To verify that admin can unlock locked out partner users for different portal types
+
+# Core-2441: To verify that admin can unlock locked out partner users for different portal types
   @regression
   Scenario: Verify that admin can unlock locked out partner users for different portal types and check locked partners are displayed in Unlock partners list page
     When I navigate to "Partner" portal configured for "FloorDecor service level" URL
@@ -28,6 +28,7 @@ Feature: Admin_Partners_Business_And_EAPI
     And I click "SIGN IN" button on Partner Portal
     Then I should "see 1 pallet and 2 pallets"
 
+#  Unlock Partner feature not present on AdminPortal V2 yet
 #  Scenario: Verify Add New Partner
 #    When I click on the "New Portal Parter" Button
 #    And I enter following values in fields in "Add Partner" screen

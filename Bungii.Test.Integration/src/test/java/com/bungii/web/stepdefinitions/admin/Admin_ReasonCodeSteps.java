@@ -8,16 +8,18 @@ import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
+import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -28,6 +30,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
 
+    Admin_TripDetailsPage Page_Admin_TripDetails = new Admin_TripDetailsPage();
 
     @And("^I click on \"([^\"]*)\" in the dropdown$")
     public void i_click_on_something_in_the_dropdown(String dropdown) throws Throwable {
@@ -62,10 +65,12 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         try{
         switch (scheduleDate) {
             case "Time":
+                    String time = (String) cucumberContextManager.getScenarioContext("SCHEDULED_BUNGII_TIME");
+                    time=time.substring(8,16);
                     action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
                     Thread.sleep(3000);
-                    action.click(admin_EditScheduledBungiiPage.Dropdown_ScheduledDate_Time());
-                    String timeChanged = action.getAttributeValue(admin_EditScheduledBungiiPage.TimePicker_Time());
+                    action.click(admin_EditScheduledBungiiPage.Dropdown_ScheduledDate_Time(time));
+                    String timeChanged = action.getText(admin_EditScheduledBungiiPage.Dropdown_ScheduledDate_Time(time));
                     cucumberContextManager.setScenarioContext("Time_Changed", timeChanged);
                     break;
             case "Date":
@@ -73,7 +78,10 @@ public class Admin_ReasonCodeSteps extends DriverBase {
                     Thread.sleep(1000);
                     action.click(admin_EditScheduledBungiiPage.Changed_Date());
                     String dateChanged = action.getAttributeValue(admin_EditScheduledBungiiPage.DatePicker_ScheduledDate());
-                    cucumberContextManager.setScenarioContext("Date_Changed", dateChanged);
+                    Date date1=new SimpleDateFormat("MM/dd/yyyy").parse(dateChanged);
+                    String date= String.valueOf(date1);
+                    date =date.substring(4,10)+", "+date.substring(24);
+                    cucumberContextManager.setScenarioContext("Date_Changed", date);
                     break;
 
             default: break;
@@ -109,7 +117,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     @And("^I check if the \"([^\"]*)\" field is hidden$")
     public void i_check_if_the_something_field_is_hidden(String strArg1) throws Throwable {
         try {
-            testStepAssert.isFalse(admin_EditScheduledBungiiPage.Dropdown_Result().isDisplayed(), "Reason dropdown should not be displayed", "Reason dropdown is displayed");
+            testStepAssert.isFalse(action.isElementPresent(admin_EditScheduledBungiiPage.Dropdown_Result(true)), "Reason dropdown should not be displayed", "Reason dropdown is displayed");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -118,6 +126,50 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         }
     }
 
+    @Then("^I should see \"([^\"]*)\" section$")
+    public void iShouldSeeSection(String string) throws Throwable{
+        try {
+            testStepAssert.isElementDisplayed(Page_Admin_TripDetails.Text_TitleTransactionHistory(),
+                    string + " should be displayed on page", string + " is displayed on page",
+                    string + " is not displayed on page");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step. Please check logs for more details", true);
+        }
+    }
+
+    @And("I should see following details in the Transaction history section")
+    public void iShouldSeeFollowingDetailsInTheTransactionHistorySection(DataTable data) throws Throwable {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String deliveryTotal = dataMap.get("Delivery Total").trim();
+            String customerRefund = dataMap.get("Customer Refund").trim();
+            String driverEarnings = dataMap.get("Driver Testdrivertywd_appleky_a_eapi Driver One Earnings").trim();
+            String bungiiEarnings = dataMap.get("Bungii Earnings").trim();
+
+            String deliveryTotalAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryDeliveryTotal());
+            String customerRefundAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryCustomerRefundAmount());
+            String driverEarningsAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryDriverEarnings());
+            String bungiiEarningsAmount = action.getText(Page_Admin_TripDetails.Text_TransactionHistoryBungiiEarnings());
+
+            testStepAssert.isEquals(deliveryTotalAmount,deliveryTotal,"Delivery total should match Actual Delivery total amount",
+                    "Delivery total matches Actual Delivery total amount",
+                    "Delivery total does not match Actual Delivery total amount");
+            testStepAssert.isEquals(customerRefundAmount,customerRefund,"Customer refund should match Actual Customer refund amount",
+                    "Customer refund matches Actual Customer refund amount",
+                    "Customer refund does not match Actual Customer refund amount");
+            testStepAssert.isEquals(driverEarningsAmount,driverEarnings,"Driver earnings should match Actual Driver earnings amount",
+                    "Driver earnings matches Actual Driver earnings amount",
+                    "Driver earnings does not match Actual Driver earnings amount");
+            testStepAssert.isEquals(bungiiEarningsAmount,bungiiEarnings,"Bungii earnings should match Actual Bungii earnings amount",
+                    "Bungii earnings matches Actual Bungii earnings amount",
+                    "Bungii earnings does not match Actual Bungii earnings amount");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", " Error performing step. Please check logs for more details", true);
+        }
+    }
     @And("^I click on \"([^\"]*)\" for change time and check reason dropdown values$")
     public void i_click_on_something_for_change_time_and_check_reason_dropdown_values(String strArg1) throws Throwable {
         try {
@@ -162,9 +214,11 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         try{
         action.click(admin_EditScheduledBungiiPage.TextBox_DriverSearch());
         action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch(),driverName);
-        Thread.sleep(1000);
-        action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
-        action.JavaScriptClick(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
+        action.waitForElement("//div[contains(.,'"+driverName+"')]");
+//       action.sendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch()," ");
+//        action.clickOnDropdown();
+        action.click(admin_EditScheduledBungiiPage.Dropdown_Driver_Result(driverName));
+        cucumberContextManager.setScenarioContext("Driver_Name",driverName);
         Thread.sleep(1000);
 
             log("I can add a driver on edit delivery page",
@@ -198,7 +252,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     public void the_updated_time_should_be_displayed_on_delivery_details_page() throws Throwable {
         try {
             String expectedTime = (String) cucumberContextManager.getScenarioContext("Time_Changed");
-            //action.refreshPage();
+            action.refreshPage();
             String actualTime = action.getText(admin_EditScheduledBungiiPage.Changed_Time());
             testStepAssert.isTrue(actualTime.contains(expectedTime), "Correct time need to be display", "Correct time is display", "Incorrect time is displayed");
         }
@@ -214,12 +268,9 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     public void the_updated_date_should_be_displayed_on_delivery_details_page() throws Throwable {
         try {
             String expectedDate = (String) cucumberContextManager.getScenarioContext("Date_Changed");
-            Date date1=new SimpleDateFormat("MM/dd/yyyy").parse(expectedDate);
-            String date= String.valueOf(date1);
-            date =date.substring(4,10)+", "+date.substring(24);
             action.refreshPage();
             String actualDate = action.getText(admin_EditScheduledBungiiPage.Changed_Time());
-            testStepAssert.isTrue(actualDate.contains(date), "Correct date need to be display", "Correct date is display", "Incorrect date is displayed");
+            testStepAssert.isTrue(actualDate.contains(expectedDate), "Correct date need to be display", "Correct date is display", "Incorrect date is displayed");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

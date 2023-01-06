@@ -84,7 +84,7 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 	  | 10	  |    Blank|Excess Wait Time| This is Comment| Driver Amount |Please enter driver cut. |
 	  | 10    |         2|Blank           | Blank          | Fee Type |Please select fee type. |
 	  | 10    |         2|Blank           | This is Comment| Fee Type |Please select fee type. |
-	  | 10    |         2|Excess Wait Time| Blank          | Comment |Please add a comment.   |
+	  | 10    |         2|Excess Wait Time| Blank          | Comment  |Please add a comment.|
 	  | 10   |          2|Excess Wait Time| Accessorial charges Comments: Accessorial charges comment having more than 500 characters in Excess Wait Time field column entered to identify whether it causes issues like "CORE-2446 SPRINT43:: QA environment:: Saving Comments of 500 characters for accessorial fees gives Application Error" Please note that If data gets validation message  without any application error then it means that the above issue no longer exists and it is working as expected. !!! Accessorial charges Comments Ends, Thank you!!!!|Comment|Comment exceeds 500 characters.|
   
   
@@ -111,8 +111,9 @@ And I should get following error for following accessorial charges fields values
 |100000000000  | 1          | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
 | 1000         | 32         | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
 | 10.5689      | -100       | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
-| -10          | Blank      | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
-| -1.56        | 231        | Excess Wait Time | Charges due to excess waiting | Amount | Amount can contain at most 3 digits and 2 decimals. |
+| -10          | Blank      | Excess Wait Time | Charges due to excess waiting | Driver Amount | Please enter driver cut. |
+| -1.56        | 231        | Excess Wait Time | Charges due to excess waiting | Driver Amount | Driver cut cannot be more than total accessorial fees.|
+| -1.56        | -10        | Excess Wait Time | Charges due to excess waiting | Driver Amount | Driver cut can contain at most 3 digits and 2 decimals.|
 
 #Core 2968 -To verify that admin can add accessorial fees to driver cancelled partner delivery
 @regression
@@ -173,7 +174,7 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 | Cancelation      | 4.5        |
 | Mountainious     | 10         |
 | Other            | 20         |
-And I login to driver portal on a new tab with driver phone number "9049840210"
+And I navigate to "Driver" portal
 Then The accessorial charges cut should be displayed in total earnings
 
 #CORE-3381 : To verify that admin can add accessorial charges for partner canceled deliveries after revival
@@ -196,6 +197,12 @@ Scenario: To verify that admin can add accessorial charges for partner canceled 
 	And I view All Deliveries list on the admin portal
 	And I search the delivery using "Pickup Reference"
 	Then The "All Deliveries" should be in "Partner Canceled" state
+#	Core-4307: Verify the history is displayed for PARTNER canceled delivery when DRIVER NOT ACCEPTED
+	And I click on the dropdown beside scheduled bungii
+	When I click the "Notes & History On Completed Delivery" link
+	And I click on "History"
+	Then I should be able to see "partner cancelled event - driver not accepted"
+	And I close the Note
 	Then Revive button should be displayed beside the trip
 	When I click on "Revive" button
 	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin

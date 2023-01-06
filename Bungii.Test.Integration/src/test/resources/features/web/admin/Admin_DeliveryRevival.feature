@@ -30,14 +30,41 @@ Feature: Admin_Revival
 	Then I should be able to see the respective bungii with the below status
 	  |  Status |
 	  | Assigning Driver(s) |
+	#	Core-4307: Verify the history is displayed for DRIVER canceled delivery  which is revived
+	And I click on the dropdown beside scheduled bungii
+	When I click the "Notes & History" link
+	And I click on "History"
+	Then I should be able to see "admin-revive-driver cancelled"
+	And I close the Note
 	And I click on "Edit" link beside scheduled bungii
 	And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
 	And I enter cancellation fee and Comments
 	And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
 	And I click on "Submit" button
 	Then The "Pick up has been successfully canceled." message should be displayed
+	  And I wait for 2 minutes
 	When I view the Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
+	#	Core-4307: Verify the history is displayed for ADMIN canceled delivery which is revived
+	Then Revive button should be displayed beside the trip
+	When I click on "Revive" button
+	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
+	And I should see "Customer" details on review popup
+	And I should not see "Pickup Origin" on review popup
+	And "Confirm" and "Cancel" buttons should have background color "blue" and "white" respectively
+	When I click on "Confirm" button on Revival Popup
+	And I wait for 2 minutes
+	And I view the all Scheduled Deliveries list on the admin portal
+	And I search the delivery of Customer
+	Then I should be able to see the respective bungii with the below status
+		|  Status |
+		| Assigning Driver(s) |
+	And I click on the dropdown beside scheduled bungii
+	When I click the "Notes & History" link
+	And I click on "History"
+	Then I should be able to see "admin-revive-admin cancelled"
+	Then I should be able to see "history prior revival"
+
 
   @regression
 	  #stable

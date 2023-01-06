@@ -309,6 +309,7 @@ Feature: Solo Scheduled Bungii - TELET
     And Driver adds photos to the Bungii
     And I click "More Options" button on "update" screen
     And I click "Customer Signature" button on "update" screen
+    #CORE:4665:Verify that Customer or partner name is shown to driver if drop-off contact name was left blank in partner portal delivery creation
     Then I should see the customers name under the customer name field
 
     When I request "Solo" Bungii as a customer in "atlanta" geofence
@@ -363,6 +364,8 @@ Feature: Solo Scheduled Bungii - TELET
     And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEMS" Screen
     Then I should see the "Customer signature" header "Displayed"
+   #CORE-4665:Verify that drop-off contact name populates in customer name on driver app for partner portal trips
+    Then I should see the dropoff contact name under the customer name field
     And I click on "Skip Customer Signature" button
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
@@ -453,7 +456,7 @@ Feature: Solo Scheduled Bungii - TELET
     When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       | atlanta| NEXT_POSSIBLE | 8877661078 | Testcustomertywd_BppleMarkCA LutherCA|
-    And As a driver "Testdrivertywd_applega_a_drvaf Atlanta_af" and "Testdrivertywd_applega_a_drvaf Atlanta_af" perform below action with respective "DUO SCHEDULED" trip
+    And As a driver "Testdrivertywd_applega_a_drvaf Atlanta_af" and "Testdrivertywd_applega_a_drvag Atlanta_ag" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Driving To Drop-off  |  Driving To Drop-off  |
     And I switch to "ORIGINAL" instance
@@ -465,10 +468,12 @@ Feature: Solo Scheduled Bungii - TELET
     And I connect to "extra1" using "Driver2" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_applega_a_drvaf Atlanta_af" driver
+    And I am logged in as "Testdrivertywd_applega_a_drvag Atlanta_ag" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click on "Got It" button
+    #CORE-4007 :To verify DUO Team mates animation when non control driver reaches Arrived and Control driver is yet to reach
+    Then The "Contact Duo Teammate" "Animation Text" should be displayed
     And I slide update button on "UNLOADING ITEM" Screen
     And Driver adds photos to the Bungii
     And I slide update button on "UNLOADING ITEM" Screen

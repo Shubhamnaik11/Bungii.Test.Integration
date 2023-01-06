@@ -27,6 +27,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
@@ -36,15 +37,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.bungii.ios.stepdefinitions.driver.*;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -157,7 +160,7 @@ public class CommonSteps extends DriverBase {
         this.driverhomepage = driverhomepage;
     }
     LiveTripsPage liveTripsPage=new LiveTripsPage();
-
+    com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage = new com.bungii.ios.pages.driver.UpdateStatusPage();
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page$")
     public void something_message_should_be_displayed_on_something_page(String messageElement, String screen) {
@@ -338,6 +341,11 @@ public class CommonSteps extends DriverBase {
                    testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Slider_Offline()),
                            "The status should be offline",
                            "The status is not offline");
+                   break;
+               case "Processing":
+                   testStepAssert.isTrue(action.isElementPresent(driverBungiiCompletedPage.Text_ProcessingStatus()),
+                           "The status should be processing",
+                           "The status is not processing");
                    break;
            }
        }
@@ -719,6 +727,9 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "SUBMIT DATA":
                     action.click(driverUpdateStatusPage.Button_Submit());
+                    break;
+                case "AVAILABLE BUNGII ICON":
+                    action.clickBy2Points(38,74);
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -1714,6 +1725,12 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
+                case "valid nashville3":
+                    userName = PropertyUtility.getDataProperties("nashville.customer3.phone");
+                    password = PropertyUtility.getDataProperties("nashville.customer3.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer3.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
                 case "valid nashville first time":
                     userName = PropertyUtility.getDataProperties("nashville.common.customer.phone");
                     password = PropertyUtility.getDataProperties("nashville.common.customer.password");
@@ -1887,8 +1904,15 @@ public class CommonSteps extends DriverBase {
         try {
             switch (option) {
                 case "Edit Trip Details":
-                    Thread.sleep(10000);
-                    action.click(scheduledTripsPage.RadioBox_EditTrip());
+                    String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+                    if(editLiveDelivery.contentEquals("Edit Live Bungii")){
+                        action.click(scheduledTripsPage.RadioBox_EditTrip());
+                        Thread.sleep(10000);
+                    }
+                    else {
+                        action.click(scheduledTripsPage.RadioBox_EditTripForScheduled());
+                        Thread.sleep(10000);
+                    }
                     break;
                 case "Research Driver":
                     action.click(scheduledTripsPage.RadioBox_Research());
@@ -1910,9 +1934,16 @@ public class CommonSteps extends DriverBase {
     @And("^I edit the drop off address$")
     public void i_edit_the_drop_off_address() throws Throwable {
         try{
-            testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location(),"Drop off location should display","Drop off location is display","Drop off location is not display");
-            action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address());
+            String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+            if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address());
+            }
+            else {
+                testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location_For_Scheduled(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                action.click(scheduledTripsPage.Button_Edit_Drop_Off_Address_For_scheduled());
 
+            }
             log("I edit the drop off address ",
                     "I have edited the dropoff address ");
         } catch(Exception e){
@@ -1949,17 +1980,23 @@ public class CommonSteps extends DriverBase {
     public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
 
         try{
-            action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
-            //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
-            Thread.sleep(1000);
-            action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location()," ");
-
-            //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-            action.JavaScriptClick(scheduledTripsPage.DropdownResult(arg1));
-            Thread.sleep(1000);
-            String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
-            cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
-
+            String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+            if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(), arg1);
+                Thread.sleep(3000);
+                action.clickOnDropdown();
+                Thread.sleep(1000);
+                String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
+                cucumberContextManager.setScenarioContext("Change_Drop_Off", Change_Address);
+            }
+            else {
+                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location_For_Scheduled(), arg1);
+                Thread.sleep(3000);
+                action.clickOnDropdown();
+                Thread.sleep(1000);
+                String Change_Address = action.getText(scheduledTripsPage.DropOff_Address_For_Scheduled());
+                cucumberContextManager.setScenarioContext("Change_Drop_Off", Change_Address);
+            }
             log("I change the dropoff address to "+arg1,
                     "I have changed the dropoff address to "+arg1);
         } catch(Exception e){
@@ -1984,7 +2021,7 @@ public class CommonSteps extends DriverBase {
 
             Thread.sleep(25000);
 
-            action.click(scheduledTripsPage.Icon_Dropdown());
+            action.JavaScriptClick(scheduledTripsPage.Icon_Dropdown());
             action.click(scheduledTripsPage.Option_Edit());
 
 
@@ -2310,6 +2347,7 @@ public class CommonSteps extends DriverBase {
     @And("^I Select Trip from scheduled trip$")
     public void i_select_trip_from_scheduled_trip() {
         try {
+
             String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
@@ -3237,6 +3275,7 @@ public class CommonSteps extends DriverBase {
             switch (option.toLowerCase()) {
                 case "scheduled deliveries":
                     action.click(dashBoardPage.Button_Trips());
+                    Thread.sleep(3000);
                     action.click(dashBoardPage.Button_ScheduledTrips());
                     break;
                 case "live deliveries":
@@ -3381,7 +3420,7 @@ public class CommonSteps extends DriverBase {
             logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
             action.click(loginPage.Button_Login());
 
-            Thread.sleep(2000);
+            Thread.sleep(4000);
 
             NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar(true));
 
@@ -3810,4 +3849,442 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+
+
+    @Then("^The \"([^\"]*)\" \"([^\"]*)\" should not be displayed$")
+    public void the_something_something_should_not_be_displayed(String element, String strArg2) throws Throwable {
+        try{
+            switch (element){
+                case "Contact Duo Teammate":
+                    Thread.sleep(3000);
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Text_ContactDuo(true)),"Contact Duo text should not be displayed","Contact Duo text is not displayed","Contact Duo text is displayed");
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Text_TeamMate(true)),"Teammate text should not be displayed","Teammate text is not displayed","Teammate text is displayed");
+                    break;
+            }
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^The \"([^\"]*)\" should match$")
+    public void the_something_should_match(String strArg1) throws Throwable {
+        try{
+         int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
+         String pickupReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTime(pickupReference);
+        switch (strArg1){
+            case "Arrival time":
+                // based on the scheduled  delivery time in utc
+                String calculatedArrivalTime = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+
+                if(calculatedArrivalTime.startsWith("0")){
+
+                    String hourWithoutZero =calculatedArrivalTime.replaceFirst("0","");
+                    cucumberContextManager.setScenarioContext("ArrivalTime",hourWithoutZero);
+                }
+
+                else {
+                    cucumberContextManager.setScenarioContext("ArrivalTime",calculatedArrivalTime);
+                }
+
+                String arrivalTimeOnUi= action.getText(updateStatusPage.ArrivalTimeAtPickupValue());
+                String properArrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+
+                testStepAssert.isEquals(arrivalTimeOnUi,properArrivalTime,"The arrival time should be "+ properArrivalTime,
+                        "The arrival time time is  "+properArrivalTime,
+                        "The  incorrect arrival time displayed is  "+properArrivalTime);
+                break;
+            case "stacked bungii":
+                String onlyHours= (String) cucumberContextManager.getScenarioContext("Hours");
+                String onlyMinutes=(String) cucumberContextManager.getScenarioContext("Minutes");
+
+                int deliveryCreatedTimeInMinutes = (Integer.parseInt( onlyHours)*60) +Integer.parseInt( onlyMinutes) ;
+
+                String[] delivery2pickupLatAndLong = DbUtility.getLatAndLonPickupAndDropLocation(pickupReference);
+                String[] dropLocationOfFirstDelivery = new String[2];
+                dropLocationOfFirstDelivery[0] =delivery2pickupLatAndLong[0];
+                dropLocationOfFirstDelivery[1]=delivery2pickupLatAndLong[1];
+
+                String[] pickUpLocationOfSecondDelivery = new String[2];
+                pickUpLocationOfSecondDelivery[0] = (String) cucumberContextManager.getScenarioContext("onlyDropOffLat");
+                pickUpLocationOfSecondDelivery[1] =(String) cucumberContextManager.getScenarioContext("onlyDropOffLong");;
+
+                long[] timeFromDropOffTo2ndDeliveryPickup= new GoogleMaps().getDurationInTraffic(dropLocationOfFirstDelivery, pickUpLocationOfSecondDelivery);
+//              for Stacked bungii  formula -->  ongoing Pickup TELET + Driver ongoing Drop-off to New Pickup
+                int finalValue = (int) (deliveryCreatedTimeInMinutes + Math.round(timeFromDropOffTo2ndDeliveryPickup[0]/60));
+
+                String arrivalTimeForStackedRequest= action.getText(updateStatusPage.ArrivalTimeAtPickupValueForStacked());
+                String calculatedStackedDeliveryRequestTime =LocalTime.MIN.plus(Duration.ofMinutes( finalValue)).toString();
+
+                if (calculatedStackedDeliveryRequestTime.startsWith("0")) {
+                    String hourWithoutZero = calculatedStackedDeliveryRequestTime.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("StackedDeliveryArrivalTime", hourWithoutZero);
+                } else {
+                    cucumberContextManager.setScenarioContext("StackedDeliveryArrivalTime", calculatedStackedDeliveryRequestTime);
+                }
+                String stackedArrivalTime =(String) cucumberContextManager.getScenarioContext("StackedDeliveryArrivalTime");
+
+                testStepVerify.isEquals(arrivalTimeForStackedRequest.substring(0,arrivalTimeForStackedRequest.length()-3),stackedArrivalTime,
+                        "Expected Arrival time for stacked delivery should be "+stackedArrivalTime+" +/- 5 minutes max",
+                        "Expected Arrival time for stacked delivery is  "+stackedArrivalTime+" +/- 5 minutes max");
+                break;
+            case "Ondemand bungii":
+                String onDemandArrivalTIme = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+                String[] createdDeliveryInHoursAndMinutes =onDemandArrivalTIme.substring(0, onDemandArrivalTIme.length() - 3).split(":");
+                String onlyHour= createdDeliveryInHoursAndMinutes[0];
+                String onlyMinute = createdDeliveryInHoursAndMinutes[1];
+                int deliveryCreatedTimeInMinute = (Integer.parseInt( onlyHour)*60) +Integer.parseInt( onlyMinute) ;
+
+                String[] pickup1Locations = DbUtility.getLatAndLonPickupAndDropLocation(pickupReference);
+                String[] pickup2Locations = DbUtility.getLatAndLonPickupAndDropLocation(pickupReference);
+
+                String[] dropLocation = new String[2];
+                dropLocation[0] = pickup1Locations[2];
+                dropLocation[1] = pickup1Locations[3];
+                String[] newPickupLocations = new String[2];
+                newPickupLocations[0] = pickup2Locations[0];
+                newPickupLocations[1] = pickup2Locations[1];
+
+                long[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(newPickupLocations, dropLocation);
+                //for ONdemand formula --> 	bungii created time + ETA
+                int timeToCoverDistanceInMinutes = (int) (deliveryCreatedTimeInMinute + Math.round(timeToCoverDistance[0]/60));
+                String arrivalTimeBasedOnCalculation = LocalTime.MIN.plus(Duration.ofMinutes( timeToCoverDistanceInMinutes)).toString();
+
+
+                String arrivalTimeForOndemand= action.getText(updateStatusPage.Text_ArrivalTimeValue());
+
+                if (arrivalTimeBasedOnCalculation.startsWith("0")) {
+                    String hourWithoutZero = arrivalTimeBasedOnCalculation.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("ArrivalTime", hourWithoutZero);
+                } else {
+                    cucumberContextManager.setScenarioContext("ArrivalTime", arrivalTimeBasedOnCalculation);
+                }
+                String ondemandArrivalTime =(String) cucumberContextManager.getScenarioContext("ArrivalTime");
+
+
+                testStepVerify.isEquals(arrivalTimeForOndemand.substring(0,arrivalTimeForOndemand.length()-3),ondemandArrivalTime,
+                        "Expected On demand Arrival time for stacked delivery should be "+ondemandArrivalTime+" +/- 5 minutes max",
+                        "Expected On demand Arrival time for stacked delivery on ui is  "+ondemandArrivalTime+" +/- 5 minutes max");
+                break;
+            case "Expected time at drop-off":
+            case "Stacked delivery dropOff range":
+            case "Ondemand delivery dropOff range":
+            case "driver at arrival state":
+            case"admin edits dropoff Address":
+            case "Expected time at drop-off for duo":
+                if(strArg1.contentEquals("Expected time at drop-off")){
+                    String arrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+                    String[] hoursAndMinutes =arrivalTime.substring(0, arrivalTime.length() - 3).split(":");
+                    String hours = hoursAndMinutes[0];
+                    String minutes = hoursAndMinutes[1];
+                    cucumberContextManager.setScenarioContext("Hours",hours);
+                    cucumberContextManager.setScenarioContext("Minutes",minutes);
+                    // for scheduled deliveries formula -->
+                    // [Projected start time] + ([Projected LoadUnload Time] / 3) + [Projected Drive Time] + 40
+                }
+                else if((strArg1.contentEquals("Stacked delivery dropOff range"))||(strArg1.contentEquals("Ondemand delivery dropOff range"))){
+                    String dropOffRangeTime = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+                    String[] createdDeliveryInHoursAndMinutess =dropOffRangeTime.substring(0, dropOffRangeTime.length() - 3).split(":");
+                    String hours= createdDeliveryInHoursAndMinutess[0];
+                    String minutes = createdDeliveryInHoursAndMinutess[1];
+                    cucumberContextManager.setScenarioContext("Hours",hours);
+                    cucumberContextManager.setScenarioContext("Minutes",minutes);
+                    //for stacked delivery dropOff range and ondemand delivery dropoff range formula -->
+                    // [bungii created time] + ([Projected LoadUnload Time] / 3) + [Projected Drive Time] + 40
+
+                }
+                else if ((strArg1.contentEquals("driver at arrival state"))){
+                    String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String changedDeliveryDetailsTime[]= DbUtility.getStatusTimestamp(pickupRef).split(" ");
+                    String removedValueFromDot= changedDeliveryDetailsTime[1].substring(0, changedDeliveryDetailsTime[1].length() - 4);
+                    changedDeliveryDetailsTime[1] = removedValueFromDot;
+                    String arrivalStateAdminEdit = ConvertTimeToTheRequiredGeoFence(changedDeliveryDetailsTime);
+                    String[] hoursAndMinutes =arrivalStateAdminEdit.substring(0, arrivalStateAdminEdit.length() - 3).split(":");
+                    String hours = hoursAndMinutes[0];
+                    String minutes = hoursAndMinutes[1];
+                    cucumberContextManager.setScenarioContext("Hours",hours);
+                    cucumberContextManager.setScenarioContext("Minutes",minutes);
+                    //when admit edit live delivery when it is in arrival state and so on
+                    // [recalc. arrived time] + ([Projected LoadUnload Time] / 3) + [Projected Drive Time] + 40
+                }
+                else if ((strArg1.contentEquals("admin edits dropoff Address"))){
+                    String pickupId = DbUtility.getPickupId(pickupReference);
+                    String changedDeliveryDetailsTime[]= DbUtility.getAdminEditTime(pickupId).split(" ");
+                    String z = ConvertTimeToTheRequiredGeoFence(changedDeliveryDetailsTime);
+                    String[] hoursAndMinutes =z.substring(0, z.length() - 3).split(":");
+                    String hours = hoursAndMinutes[0];
+                    String minutes = hoursAndMinutes[1];
+                    cucumberContextManager.setScenarioContext("Hours",hours);
+                    cucumberContextManager.setScenarioContext("Minutes",minutes);
+                    //when admit edit live delivery when it is in enroute state only
+                    //[address edited time] + ([Projected LoadUnload Time] / 3) + [Projected Drive Time] + 40
+                }
+                String hours =(String) cucumberContextManager.getScenarioContext("Hours");
+                String minutes =(String) cucumberContextManager.getScenarioContext("Minutes");
+
+                int convertHoursToMinutes = (Integer.parseInt( hours)*60) +Integer.parseInt( minutes) ;
+                if (strArg1.contentEquals("Expected time at drop-off for duo")) {
+                    String serviceBasedTime = (String) cucumberContextManager.getScenarioContext("ServiceBasedTotalTime");
+                    cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme", serviceBasedTime);
+                } else {
+                    int unloadingLoadingTimeWithoutServiceLevel = (int) Float.parseFloat(ArrivalTimeAndUnloadingLoadingTime[2]);
+                    cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme", unloadingLoadingTimeWithoutServiceLevel);
+                }
+                int unloadingLoadingTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("ServiceTimeOrUnloadingLoadingTIme"));
+                int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+driverTime;
+                final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
+
+                String roundedTime =roundedUpTime(LocalTime.MIN.plus(Duration.ofMinutes( totalMinutes)).toString());
+                LocalTime TimeInhours =LocalTime.parse(roundedTime);
+                String plus1Hour = formatTochangeChangeTo12Hours.format(formatTochangeChangeTo12Hours.parse(String.valueOf(TimeInhours.plusHours(1)))) ;
+                String minus1Hour = formatTochangeChangeTo12Hours.format(formatTochangeChangeTo12Hours.parse(String.valueOf(TimeInhours.minusHours(1)))) ;
+                cucumberContextManager.setScenarioContext("Timeplus1hour",plus1Hour);
+                cucumberContextManager.setScenarioContext("Timeminus1hour",minus1Hour);
+
+                String timeOneHourAhead = (String) cucumberContextManager.getScenarioContext("Timeplus1hour");
+                String timeOneHourBack =(String) cucumberContextManager.getScenarioContext("Timeminus1hour") ;
+
+                if (timeOneHourAhead.startsWith("0")) {
+                    String hourWithoutZero = timeOneHourAhead.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("StartingDropOffTimeRange", hourWithoutZero);
+                } else {
+                    cucumberContextManager.setScenarioContext("StartingDropOffTimeRange", timeOneHourAhead);
+
+                }
+                if (timeOneHourBack.startsWith("0")) {
+                    String hourWithoutZero = timeOneHourBack.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("EndingDropOffTimeRange", hourWithoutZero);
+                } else {
+                    cucumberContextManager.setScenarioContext("EndingDropOffTimeRange", timeOneHourBack);
+
+                }
+
+                if((strArg1.contentEquals("driver at arrival state")) || strArg1.contentEquals("admin edits dropoff Address")|| strArg1.contentEquals("Ondemand delivery dropOff range")){
+                    action.swipeUP();
+                    action.swipeUP();
+                    Thread.sleep(2000);
+                    String expectedDroffTimeRange= action.getText(updateStatusPage.Text_DropOffRangeFromDeliveryDetailsForChanges());
+                    cucumberContextManager.setScenarioContext("DropoffTime",expectedDroffTimeRange);
+
+                }
+                else if(strArg1.contentEquals("Stacked delivery dropOff range")){
+                    action.swipeUP();
+                    action.swipeUP();
+                    Thread.sleep(2000);
+                    String expectedDroffTimeRange= action.getText(updateStatusPage.Text_ExpectedTimeAtDropOffForStacked());
+                    cucumberContextManager.setScenarioContext("DropoffTime",expectedDroffTimeRange);
+                }
+                else{
+                    String expectedDroffTimeRange= action.getText(updateStatusPage.Text_ExpectedTimeAtDropOff());
+                    cucumberContextManager.setScenarioContext("DropoffTime",expectedDroffTimeRange);
+                }
+
+                String expectedDroffTimeRange= (String) cucumberContextManager.getScenarioContext("DropoffTime");
+                String startingTimeRange =(String) cucumberContextManager.getScenarioContext("StartingDropOffTimeRange");
+                String endingTimeRange =(String) cucumberContextManager.getScenarioContext("EndingDropOffTimeRange");
+
+                if(expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")||expectedDroffTimeRange.contains("pm") && expectedDroffTimeRange.contains("am")){
+
+                    String onlyTimeRange = expectedDroffTimeRange.replace("PM","").replace("AM","").replace(" ","");;
+                    cucumberContextManager.setScenarioContext("UITimeRange",onlyTimeRange);
+                }
+                else {
+                    String onlyTimeRange = expectedDroffTimeRange.substring(0, expectedDroffTimeRange.length()-3).replace(" ","");
+                    cucumberContextManager.setScenarioContext("UITimeRange",onlyTimeRange);
+                }
+
+                String UITimeRange = (String) cucumberContextManager.getScenarioContext("UITimeRange");
+                String calculatedDropoffTimeRange =endingTimeRange +"-"+startingTimeRange;
+                cucumberContextManager.setScenarioContext("DropOffRangeCalculated",calculatedDropoffTimeRange);
+                testStepAssert.isEquals(UITimeRange,calculatedDropoffTimeRange,"The dropOff time range should be "+ calculatedDropoffTimeRange,
+                        "The dropOff time range is  "+calculatedDropoffTimeRange,
+                        "The  incorrect dropOff time range displayed is  "+UITimeRange);
+                break;
+        }
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^The \"([^\"]*)\" for customer delivery should match$")
+    public void the_something_for_customer_delivery_should_match(String strArg1) throws Throwable {
+        try{
+        int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
+        String custPhone = (String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        String custRef = DbUtility.getCustomerRefference(custPhone);
+        String []ArrivalTimeAndUnloadingLoadingTime = DbUtility.getArrivalTimeAndLoadingUnloadingTimeForCustomer(custRef);
+        switch (strArg1){
+            case "Arrival time":
+                String calculatedArrivalTime = ConvertTimeToTheRequiredGeoFence(ArrivalTimeAndUnloadingLoadingTime[1].split(" "));
+
+                if(calculatedArrivalTime.startsWith("0")){
+
+                    String hourWithoutZero =calculatedArrivalTime.replaceFirst("0","");
+                    cucumberContextManager.setScenarioContext("ArrivalTime",hourWithoutZero);
+                }
+
+                else {
+                    cucumberContextManager.setScenarioContext("ArrivalTime",calculatedArrivalTime);
+                }
+
+                String arrivalTimeOnUi= action.getText(updateStatusPage.ArrivalTimeAtPickupValueForStacked());
+                String properArrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+
+                testStepAssert.isEquals(arrivalTimeOnUi,properArrivalTime,"The arrival time should be "+ properArrivalTime,
+                        "The arrival time time is  "+properArrivalTime,
+                        "The  incorrect arrival time displayed is  "+properArrivalTime);
+                break;
+            case "Expected time at drop-off":
+                if(strArg1.contentEquals("Expected time at drop-off")){
+                    String arrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+                    String[] hoursAndMinutes =arrivalTime.substring(0, arrivalTime.length() - 3).split(":");
+                    String hours = hoursAndMinutes[0];
+                    String minutes = hoursAndMinutes[1];
+                    cucumberContextManager.setScenarioContext("Hours",hours);
+                    cucumberContextManager.setScenarioContext("Minutes",minutes);
+                    // for scheduled deliveries formula -->
+                    // [Projected start time] + ([Projected LoadUnload Time] / 3) + [Projected Drive Time] + 40
+                }
+                String hours =(String) cucumberContextManager.getScenarioContext("Hours");
+                String minutes =(String) cucumberContextManager.getScenarioContext("Minutes");
+
+                int convertHoursToMinutes = (Integer.parseInt( hours)*60) +Integer.parseInt( minutes) ;
+                if(strArg1.contentEquals("Expected time at drop-off for duo")){
+                    String serviceBasedTime = (String) cucumberContextManager.getScenarioContext("ServiceBasedTotalTime");
+                    cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme",serviceBasedTime);
+                }
+                else {
+                    int unloadingLoadingTimeWithoutServiceLevel = (int) Float.parseFloat(ArrivalTimeAndUnloadingLoadingTime[2]);
+                    cucumberContextManager.setScenarioContext("ServiceTimeOrUnloadingLoadingTIme",unloadingLoadingTimeWithoutServiceLevel);
+                }
+                int unloadingLoadingTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("ServiceTimeOrUnloadingLoadingTIme"));
+                int totalMinutes = convertHoursToMinutes  + (unloadingLoadingTime/3)+ (Integer.parseInt(ArrivalTimeAndUnloadingLoadingTime[0]))+driverTime;
+                final SimpleDateFormat formatTochangeChangeTo12Hours = new SimpleDateFormat("hh:mm");
+
+                String roundedTime =roundedUpTime(LocalTime.MIN.plus(Duration.ofMinutes( totalMinutes)).toString());
+                LocalTime TimeInhours =LocalTime.parse(roundedTime);
+                String plus1Hour = formatTochangeChangeTo12Hours.format(formatTochangeChangeTo12Hours.parse(String.valueOf(TimeInhours.plusHours(1)))) ;
+                String minus1Hour = formatTochangeChangeTo12Hours.format(formatTochangeChangeTo12Hours.parse(String.valueOf(TimeInhours.minusHours(1)))) ;
+                cucumberContextManager.setScenarioContext("Timeplus1hour",plus1Hour);
+                cucumberContextManager.setScenarioContext("Timeminus1hour",minus1Hour);
+
+                String timeOneHourAhead = (String) cucumberContextManager.getScenarioContext("Timeplus1hour");
+                String timeOneHourBack =(String) cucumberContextManager.getScenarioContext("Timeminus1hour") ;
+
+                if (timeOneHourAhead.startsWith("0")) {
+                    String hourWithoutZero = timeOneHourAhead.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("StartingDropOffTimeRange", hourWithoutZero);
+                } else {
+                    cucumberContextManager.setScenarioContext("StartingDropOffTimeRange", timeOneHourAhead);
+
+                }
+                if (timeOneHourBack.startsWith("0")) {
+                    String hourWithoutZero = timeOneHourBack.replaceFirst("0", "");
+                    cucumberContextManager.setScenarioContext("EndingDropOffTimeRange", hourWithoutZero);
+                } else {
+                    cucumberContextManager.setScenarioContext("EndingDropOffTimeRange", timeOneHourBack);
+
+                }
+
+                String expectedDroffTimeRange= action.getText(updateStatusPage.Text_ExpectedTimeAtDropOffForStacked());
+                String startingTimeRange =(String) cucumberContextManager.getScenarioContext("StartingDropOffTimeRange");
+                String endingTimeRange =(String) cucumberContextManager.getScenarioContext("EndingDropOffTimeRange");
+
+                if(expectedDroffTimeRange.contains("PM") && expectedDroffTimeRange.contains("AM")||expectedDroffTimeRange.contains("pm") && expectedDroffTimeRange.contains("am")){
+
+                    String onlyTimeRange = expectedDroffTimeRange.replace("PM","").replace("AM","").replace(" ","");;
+                    cucumberContextManager.setScenarioContext("UITimeRange",onlyTimeRange);
+                }
+                else {
+                    String onlyTimeRange = expectedDroffTimeRange.substring(0, expectedDroffTimeRange.length()-3).replace(" ","");
+                    cucumberContextManager.setScenarioContext("UITimeRange",onlyTimeRange);
+                }
+
+                String UITimeRange = (String) cucumberContextManager.getScenarioContext("UITimeRange");
+                String calculatedDropoffTimeRange =endingTimeRange +"-"+startingTimeRange;
+                cucumberContextManager.setScenarioContext("DropOffRangeCalculated",calculatedDropoffTimeRange);
+                testStepAssert.isEquals(UITimeRange,calculatedDropoffTimeRange,"The dropOff time range should be "+ calculatedDropoffTimeRange,
+                        "The dropOff time range is  "+calculatedDropoffTimeRange,
+                        "The  incorrect dropOff time range displayed is  "+UITimeRange);
+
+                break;
+        }
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @Then("^I save the dropoff latitude and longitude of the first delivery$")
+    public void i_save_the_dropoff_latitude_and_longitude_of_the_first_delivery() throws Throwable {
+        try{
+        String pickupReference = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String teletTimeInDb = DbUtility.getTelet(pickupReference);
+        String convertedTeletTime = ConvertTimeToTheRequiredGeoFence(teletTimeInDb.substring(0, teletTimeInDb.length() - 4).split(" "));
+        String[] tcreatedDeliveryInHoursAndMinutes =convertedTeletTime.substring(0, convertedTeletTime.length() - 3).split(":");
+        String onlyHours = tcreatedDeliveryInHoursAndMinutes[0];
+        String onlyMinutes = tcreatedDeliveryInHoursAndMinutes[1];
+        cucumberContextManager.setScenarioContext("Hours",onlyHours);
+        cucumberContextManager.setScenarioContext("Minutes",onlyMinutes);;
+        String[] location1PickupAndDropOffLatLong = DbUtility.getLatAndLonPickupAndDropLocation(pickupReference);
+        cucumberContextManager.setScenarioContext("onlyDropOffLat",location1PickupAndDropOffLatLong[2]);
+        cucumberContextManager.setScenarioContext("onlyDropOffLong",location1PickupAndDropOffLatLong[3]);;
+        log("I should be able to save the dropoff latitide and longitude of the first delivery",
+                "I could save the dropoff latitide and longitude of the first delivery",false);
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    private String roundedUpTime(String IncorrectTime) throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("hh:mm");
+        Date dt = formatter.parse(IncorrectTime);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dt);
+        int unroundedMinutes = cal.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 5;
+        if (mod ==0){
+            ; cal.add(Calendar.MINUTE,(0-mod));
+        }
+        else  if ( (mod>=1) && (mod < 3) ){
+            cal.add(Calendar.MINUTE,(5-mod));
+        }
+        else {
+            cal.add(Calendar.MINUTE,(5-mod));
+        }
+
+        String hourAndMinute = formatter.format(cal.getTime());
+        logger.detail("The rounded up time for "+ IncorrectTime+ " time is "+ hourAndMinute);
+        return hourAndMinute;
+    }
+
+    private String ConvertTimeToTheRequiredGeoFence(String[] uctToCstTime) {
+        String date[] = uctToCstTime[0].split("-");
+        String time[] = uctToCstTime[1].split(":");
+        if(time[2].contains(".")){
+            String seconds = time[2].substring(0,time[2].length()-4);
+            cucumberContextManager.setScenarioContext("SecondsWithoutPointValue",seconds);
+        }
+        else {
+            cucumberContextManager.setScenarioContext("SecondsWithoutPointValue",time[2]);
+
+        }
+        String seconds = (String) cucumberContextManager.getScenarioContext("SecondsWithoutPointValue");
+        ZonedDateTime instant1 = ZonedDateTime.of(Integer.parseInt(date[0]),Integer.parseInt(date[1]),Integer.parseInt(date[2]),Integer.parseInt(time[0]),Integer.parseInt(time[1]),Integer.parseInt(seconds),0, ZoneId.of("UTC"));
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        ZonedDateTime instantInUTC = instant1.withZoneSameInstant(ZoneId.of(geofenceLabel));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        String convertedTime = instantInUTC.format(formatter);
+        return convertedTime;
+    }
+
+
 }

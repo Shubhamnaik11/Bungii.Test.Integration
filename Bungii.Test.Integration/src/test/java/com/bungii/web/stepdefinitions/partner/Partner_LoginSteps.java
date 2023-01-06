@@ -2,12 +2,9 @@ package com.bungii.web.stepdefinitions.partner;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
-import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.common.utilities.ScreenshotUtility;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
@@ -126,6 +123,9 @@ public class Partner_LoginSteps extends DriverBase {
                     break;
                 case "Admin":
                     //action.click(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(Service_Name));
+                    //String PreviousServiceLevel=Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel().getText();
+                    String PreviousServiceLevel=action.getText(Page_Admin_ScheduledTrips.Admin_DropdownServiceLevelSelected());
+                    cucumberContextManager.setScenarioContext("Old_service", PreviousServiceLevel);
                     action.selectElementByText(Page_Admin_ScheduledTrips.Admin_Dropdown_ServiceLevel(), Service_Name);
                     cucumberContextManager.setScenarioContext("Change_service", Service_Name);
                     break;
@@ -164,6 +164,7 @@ public class Partner_LoginSteps extends DriverBase {
                 case "GET QUOTE":
                 case "GET ESTIMATE":
                     action.click(Page_Partner_Dashboard.Button_Get_Estimate());
+                    Thread.sleep(3000);
                     break;
                 case "Continue":
                     String Partner_Portal_Site = (String) cucumberContextManager.getScenarioContext("PP_Site");
@@ -179,7 +180,13 @@ public class Partner_LoginSteps extends DriverBase {
                         cucumberContextManager.setScenarioContext("Estimated_Delivery_Time", Estimated_Delivery_Time);
 
                         action.click(Page_Partner_Dashboard.Button_Get_Estimate());
-                    } else {
+                    }
+                    else if(Partner_Portal_Site.equalsIgnoreCase("FloorDecor service level")){
+                        String Estimated_Delivery_Time=action.getText(Page_Partner_Dashboard.Label_EstDeliveryTime());
+                        cucumberContextManager.setScenarioContext("Estimated_Delivery_Time", Estimated_Delivery_Time);
+                        action.click(Page_Partner_Dashboard.Button_Continue());
+                    }
+                    else {
                         action.click(Page_Partner_Dashboard.Button_Continue());
                     }
                     break;
@@ -187,6 +194,7 @@ public class Partner_LoginSteps extends DriverBase {
                     action.JavaScriptScrolldown();
                     action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
                     cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME", System.currentTimeMillis() / 1000L);
+
                     break;
                 case "New Bungii":
                     action.click(Page_Partner_Delivery.Button_New_Bungii());
@@ -251,6 +259,7 @@ public class Partner_LoginSteps extends DriverBase {
     public void i_calculate_the_estimated_delivery_time_for_something(String portalType) throws Throwable {
         try {
             DateFormat formatter = new SimpleDateFormat("HH:mm");
+            int driverTime= Integer.parseInt(PropertyUtility.getDataProperties("driver.buffer.drive.time"));
             switch (portalType){
                 case "geofence based portal":
                     String scheduledDate= (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
@@ -261,7 +270,7 @@ public class Partner_LoginSteps extends DriverBase {
                     int  loadUnloadTime = Math.round(Float.valueOf(dbUtility.getLoadUnloadTime(pickUpId)));
                     int calLoadUnload=loadUnloadTime/3;
                     int projectedDriveTime= Integer.parseInt(dbUtility.getProjectedDriverTime(pickUpId));
-                    int minutes=calLoadUnload+projectedDriveTime+40;
+                    int minutes=calLoadUnload+projectedDriveTime+driverTime;
                     utility.calculateEstDeliveryTime(minutes,timeValue);
                     break;
 
@@ -274,7 +283,7 @@ public class Partner_LoginSteps extends DriverBase {
                     int  loadUnloadTime1 = Math.round(Float.valueOf(dbUtility.getLoadUnloadTime(newPickUpId)));
                     int calLoadUnload1=loadUnloadTime1/3;
                     int projectedDriveTime1= Integer.parseInt(dbUtility.getProjectedDriverTime(newPickUpId));
-                    int mins=calLoadUnload1+projectedDriveTime1+40;
+                    int mins=calLoadUnload1+projectedDriveTime1+driverTime;
                     utility.calculateEstDeliveryTime(mins,timeValue1);
                     String lowerRange= (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
                     String upperRange= (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
@@ -307,9 +316,27 @@ public class Partner_LoginSteps extends DriverBase {
                     int  sumLoadUnload = (int) (default_Pickup_Time+default_Dropoff_time);
                     int loadUnload=sumLoadUnload/3;
                     int projectedDriveTime2= Integer.parseInt(dbUtility.getProjectedDriverTime(pickUpReference));
-                    int min=loadUnload+projectedDriveTime2+40;
+                    int min=loadUnload+projectedDriveTime2+driverTime;
                     utility.calculateEstDeliveryTime(min,timeValue2);
                     break;
+
+                case "weight based":
+                    String scheduledTime= (String) cucumberContextManager.getScenarioContext("Partner_Schedule_Time");
+                    String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String serviceLevel = (String) cucumberContextManager.getScenarioContext("Selected_service");
+                    String time2=scheduledTime.substring(16,20);
+                    Time timevalue = new Time(formatter.parse(time2).getTime());
+                    long defaultPickupTime = dbUtility.getDefaultPickupTime(serviceLevel, "floordecor166");
+                    defaultPickupTime = utility.Milliseconds_To_Minutes(defaultPickupTime);
+                    long defaultDropoffTime = dbUtility.getDefaultDropoffTime(serviceLevel, "floordecor166");
+                    defaultDropoffTime = utility.Milliseconds_To_Minutes(defaultDropoffTime);
+                    int  sumLoadUnload1 = (int) (defaultPickupTime+defaultDropoffTime);
+                    int loadUnload1=sumLoadUnload1/3;
+                    int projectedDriveTime3= Integer.parseInt(dbUtility.getProjectedDriverTime(pickUpRef));
+                    int minute=loadUnload1+projectedDriveTime3+driverTime;
+                    utility.calculateEstDeliveryTime(minute,timevalue);
+                    break;
+
             }
             log("I should be able to calculate the correct estimated delivery time range","I am able to calculate the correct estimated delivery time range",false);
 
@@ -342,6 +369,7 @@ public class Partner_LoginSteps extends DriverBase {
                            "Estimated delivery time displayed on partner portal delivery details and while creating trip are not the same.");
                    break;
 
+               case "estimated time weight based Partner portal":
                case "estimated time fixed distance based Partner portal":
                    String calLowerRange1 = (String) cucumberContextManager.getScenarioContext("ESTIMATED_LOWER_RANGE_DELIVERY_TIME");
                    String calUpperRange1 = (String) cucumberContextManager.getScenarioContext("ESTIMATED_UPPER_RANGE_DELIVERY_TIME");
@@ -483,8 +511,8 @@ public class Partner_LoginSteps extends DriverBase {
                     }else if (PP_Site.equalsIgnoreCase("Cort service level")) {
                         testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
                     }
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.Text_Pickup_DateTime(),(long)7000);
                     String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
-
 
                     String[] splitDate = PickupDateTime.split(" ", 2);
                     String Month = splitDate[0].substring(0, 3);
@@ -500,7 +528,7 @@ public class Partner_LoginSteps extends DriverBase {
                     }
                     PickupDateTime = PickupDateTime.replaceAll("[()]", "");
                     cucumberContextManager.setScenarioContext("PickupDateTime", PickupDateTime); //This will be used further
-
+                    cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY", action.getText(Page_Partner_Dashboard.Text_Summary_TrackingId()));
                     break;
                 case "see Done screen":
                     String Customer_Phone="";
@@ -511,7 +539,7 @@ public class Partner_LoginSteps extends DriverBase {
                     else {
                         Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
                     }
-
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Done.Text_Schedule_Done_Success_Header(), (long)7000);
                     testStepVerify.isEquals(action.getText(Page_Partner_Done.Text_Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
                     String PickupRequest = new DbUtility().getPickupRef(Customer_Phone);
                     String PickupToken = new DbUtility().getPickupToken(PickupRequest);
@@ -1062,5 +1090,59 @@ public class Partner_LoginSteps extends DriverBase {
 
        }
     }
+    @And("^I check if partner trips are already present$")
+    public void i_check_if_partner_trips_are_already_present() throws Throwable {
+        try{
+            String partnerPortal = PropertyUtility.getDataProperties("partner.baltimore.name");
+            List<WebElement> listOfScheduledTrip=Page_Partner_Delivery.Text_PartnerName();
+                if(listOfScheduledTrip.size()>0){
+                    logger.error("The test case will fail because trips are already present for "+partnerPortal+" portal.");
+                }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I check if \"([^\"]*)\" field accepts only integer values$")
+
+    public void i_check_if_something_field_accepts_only_integer_values(String type) throws Throwable {
+        try{
+            String alphabetValue= PropertyUtility.getDataProperties("alphabet.value");
+            String specialCharacterValues= PropertyUtility.getDataProperties("specialCharacters.value");
+            String integerValues=PropertyUtility.getDataProperties("integer.value");
+            switch (type)
+            {
+                case "Order number":
+                    action.clearSendKeys(Page_Partner_Login.Input_OrderNo(), alphabetValue);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_OrderNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_OrderNo(),specialCharacterValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_OrderNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_OrderNo(), integerValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_OrderNo()), integerValues);
+                    break;
+
+                case "Employee number":
+                    action.clearSendKeys(Page_Partner_Login.Input_EmployeeNo(), alphabetValue);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_EmployeeNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_EmployeeNo(), specialCharacterValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_EmployeeNo()), "");
+                    action.clearSendKeys(Page_Partner_Login.Input_EmployeeNo(), integerValues);
+                    testStepVerify.isEquals(action.getAttributeValue(Page_Partner_Login.Input_EmployeeNo()), integerValues);
+                    break;
+            }
+
+            log("I should be able to check if "+type+" field accepts only integer value",
+                    "I am able to check if "+type+ " field accepts only integer value" , false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }
 

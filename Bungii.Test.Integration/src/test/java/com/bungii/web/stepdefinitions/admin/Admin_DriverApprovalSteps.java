@@ -11,6 +11,9 @@ import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_DrivePage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_PickUpInfoPage;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_Email;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LocationPage;
+import com.bungii.web.pages.partnerManagement.PartnerManagement_LoginPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -44,6 +47,11 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Driver_DrivePage driver_drivePage = new Driver_DrivePage();
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
+    PartnerManagement_Email Page_PartnerManagement_Email = new PartnerManagement_Email();
+    PartnerManagement_LoginPage Page_PartnerManagement_Login = new PartnerManagement_LoginPage();
+    PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
+    Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
+    Driver_DashboardPage Page_Driver_Dashboard = new Driver_DashboardPage();
 
     @Given("^I am logged in as Admin$")
     public void i_am_logged_in_as_admin() throws Throwable {
@@ -57,6 +65,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @And("^there is a pending application for driver verification$")
     public void there_is_a_pending_driver_verification() throws Throwable {
+        Thread.sleep(3000);
         testStepAssert.isElementDisplayed(adminMenuLinksPage.Menu_Dashboard(true), "I should be naviagate to Admin Dashboard", "I was navigated to admin Dashboard", "Admin Dashboard is not visible");
         //WebAssertionManager.ElementDisplayed(adminDashboardPage.RecentDriverRegistrations);
         testStepAssert.isElementDisplayed(adminDashboardPage.PendingVerification().get(0), "There should be Pending application", "There is Pending application", "There is not Pending application");
@@ -120,7 +129,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.click(admin_GetAllBungiiDriversPage.Driver_Profile(applicantName));
                     break;
                 case "Edit":
-                    String Old_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+                    String Old_Phone_Number = action.getText(admin_GetAllBungiiDriversPage.Driver_Phone());
                     cucumberContextManager.setScenarioContext("Old_Phone", Old_Phone_Number);
                     action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Edit());
                     break;
@@ -143,7 +152,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @And("^I change the \"([^\"]*)\" phone number$")
     public void i_enter_confirm_comment_for_edited_phone_and_something_it(String strArg1) throws Throwable {
 
-        action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Phone(), PropertyUtility.getDataProperties("driver.mobile.change"));
+        action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_PhoneEntry(), PropertyUtility.getDataProperties("driver.mobile.change"));
         //action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Save());
         log("I should able to change " + strArg1 + " phone number.", "I have changed " + strArg1 + " phone number.", true);
     }
@@ -173,7 +182,6 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void i_see_updated_phone_number() throws Throwable {
         try {
             Thread.sleep(2000);
-            testStepAssert.isElementNotEnabled(admin_GetAllBungiiDriversPage.Driver_Phone(), "Driver phone field should be not enabled.", "Driver phone field is not enabled.", "Driver phone field is enabled");
             String Edited_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
 
             testStepVerify.isEquals(Edited_Phone_Number, PropertyUtility.getDataProperties("driver.mobile.change"));
@@ -188,8 +196,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @Then("^I see unchanged driver phone number$")
     public void i_see_unchanged_phone_number() throws Throwable {
         try {
-            testStepAssert.isElementNotEnabled(admin_GetAllBungiiDriversPage.Driver_Phone(), "Driver phone field should not be enabled.", "Driver phone field is not enabled.", "Driver phone field is enabled");
-            String Display_Phone_Number = action.getAttributeValue(admin_GetAllBungiiDriversPage.Driver_Phone());
+            String Display_Phone_Number = action.getText(admin_GetAllBungiiDriversPage.Driver_Phone());
 
             testStepVerify.isEquals(Display_Phone_Number, (String) cucumberContextManager.getScenarioContext("Old_Phone"));
             log("Driver phone number should remain un change.", "Driver phone number is unchanged.", true);
@@ -254,7 +261,51 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 case "Unlock Partners Page":
                     testStepAssert.isElementDisplayed(admin_partnersPage.Label_Unlock_Partners(), "I should be navigated to " + screen, "I am navigated to " + screen, "I am not navigates to " + screen);
                     break;
-
+                case "Geofence Attributes Page":
+                    testStepAssert.isElementDisplayed(admin_geofenceAtrributesPage.Label_Geofence_Attributes(), "I should be navigated to " + screen, "I am navigated to " + screen, "I am not navigates to " + screen);
+                    break;
+                case "Updated Terms & Conditions":
+                    action.switchToTab(1);
+                    String currentUrlTermsAndConditions= action.getCurrentURL();
+                    String expctedUrlTermsAndConditions=PropertyUtility.getDataProperties("driver.terms.conditions.link");
+                    testStepVerify.isEquals(currentUrlTermsAndConditions, expctedUrlTermsAndConditions, "Updated Terms & Conditons should be displayed", "Updated Terms & Conditons is displayed", "Updated Terms & Conditons is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Heading_DriverAgreement()), "Updated Terms & Conditons should be displayed","Updated Terms & Conditons is displayed", "Subpoint Updated Terms & Conditons is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Definations()), "Subpoint Definations should be displayed","Subpoint Definations is displayed", "Subpoint Definations is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_UseOfBungiiServices()), "Subpoint Use of Bungii Services should be displayed","Subpoint Use of Bungii Services is displayed", "Subpoint Use of Bungii Services is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_LocationBasedServices()), "Subpoint Location Based Services should be displayed","Subpoint Location Based Services is displayed", "Subpoint Location Based Services is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Ratings()), "Subpoint Ratings should be displayed","Subpoint Ratings is displayed", "Subpoint Ratings is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Mobiledevices()), "Subpoint Mobile Devices should be displayed","Subpoint Mobile Devices is displayed", "Subpoint Mobile Devices is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_YouAndYourVehicle()), "Subpoint You And Your Vehicle should be displayed","Subpoint You And Your Vehicle is displayed", "Subpoint You And Your Vehicle is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_FinancialTerms()), "Subpoint Financial Terms should be displayed","Subpoint Financial Terms is displayed", "Subpoint Financial Terms is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_ProprietaryRightsLicense()), "Subpoint Proprietary Rights License should be displayed","Subpoint Proprietary Rights License is displayed", "Subpoint Proprietary Rights License is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Confidentiality()), "Subpoint Confidentiality should be displayed","Subpoint Confidentiality is displayed", "Subpoint Confidentiality is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Privacy()), "Subpoint Privacy should be displayed","Subpoint Privacy is displayed", "Subpoint Privacy is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Insurance()), "Subpoint Insurance should be displayed","Subpoint Insurance is displayed", "Subpoint Insurance is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_RepresentationsAndWarrantiesDisclaimers()), "Subpoint Representations And Warranties Disclaimers should be displayed","Subpoint Representations And Warranties Disclaimers is displayed", "Representations And Warranties Disclaimers is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_Indemnification()), "Subpoint Indemnification should be displayed","Subpoint Indemnification is displayed", "Subpoint Indemnification is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_LimitsOfLiability()),"Subpoint Limits Of Liability should be displayed", "Subpoint Limits Of Liability is displayed", "Subpoint Limits Of Liability is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_TermAndTermination()), "Subpoint Term And Termination should be displayed","Subpoint Term And Termination is displayed", "Subpoint Term And Termination is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_RelationshipOfTheParties()), "Subpoint Relationship Of The Parties should be displayed","Subpoint Relationship Of The Parties is displayed", "Subpoint Relationship Of The Parties is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_DisputeResolutionArbitration()),"Subpoint Dispute Resolution Arbitration should be displayed", "Subpoint Dispute Resolution Arbitration is displayed", "Subpoint Dispute Resolution Arbitration is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.SubPoint_MiscellaneousTerms()), "Subpoint Miscellaneous should be displayed","Subpoint Miscellaneous Terms is displayed", "Subpoint Miscellaneous Terms is not displayed");
+                    break;
+                case "Updated Privacy Policy":
+                    action.switchToTab(1);
+                    String currentUrlPrivacyPolicy= action.getCurrentURL();
+                    String expctedUrlPrivacyPolicy=PropertyUtility.getDataProperties("driver.privacy.policy.link");
+                    testStepVerify.isEquals(currentUrlPrivacyPolicy, expctedUrlPrivacyPolicy, "Updated Privacy Policy should be displayed", "Updated Privacy Policy is displayed", "Updated Privacy Policy is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Heading_PrivacyPolicy()), "Heading Privacy Policy should be displayed","Heading Privacy Policy is displayed", "Heading Privacy Policy is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_CollectionOfInformation()), "Subpoint Collection Of Information should be displayed","Subpoint Collection Of Information is displayed", "Subpoint Collection Of Information is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_UseOfInformation()), "Subpoint Use Of Information should be displayed","Subpoint Use Of Information is displayed", "Subpoint Use Of Information is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_SharingOfInformation()), "Subpoint Sharing Of Information should be displayed","Subpoint Sharing Of Information is displayed", "Subpoint Sharing Of Information is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_AdvertisingAndAnalyticsServices()), "Subpoint Advertising And Analytics Services should be displayed","Subpoint Advertising And Analytics Services is displayed", "Subpoint Advertising And Analytics Services is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_Security()), "Subpoint Security should be displayed","Subpoint Security is displayed", "Subpoint Security is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_AgeLimit()), "Subpoint Age Limit should be displayed","Subpoint Age Limit is displayed", "Subpoint Age Limit is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_YourChoices()), "Subpoint Your Choices should be displayed","Subpoint Your Choices is displayed", "Subpoint Your Choices is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_CaliforniaResidents()), "Subpoint California Residents should be displayed","Subpoint California Residents is displayed", "Subpoint California Residents is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_ChangesToThePrivacyPolicy()), "Subpoint Changes To The Privacy Policy should be displayed","Subpoint Changes To The Privacy Policy is displayed", "Subpoint Changes To The Privacy Policy is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_ContactingUs()), "Subpoint Contacting Us should be displayed","Subpoint Contacting Us Terms is displayed", "Subpoint Contacting Us Terms is not displayed");
+                    break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -278,27 +329,32 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @And("^I verify and approve all the verification fields$")
     public void i_verify_and_approve_all_the_verification_fields() throws Throwable {
         try {
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("First Name",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Last Name",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Street address",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("City",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("State",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Zip code",true));
             // action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverBirthday());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Birthday",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup images",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup make",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup model",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup year",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup license number",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License image",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License number",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License expiration",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Insurance image",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Insurance Expiration",true));
+
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_DriverDetails("Routing Number",true, true))) {
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Routing Number",true));
+            }
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_DriverDetails("Account Number",true,true))) {
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Account Number",true));
+            }
             log("I verify and approve all the verification fields",
                     "I have verified and approved all the verification fields", false);
         } catch (Exception e) {
@@ -325,8 +381,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.click(admin_DriverVerificationPage.Button_DriverResentButton());
                     break;
                 case "Cancel":
-                    if(action.isElementPresent(admin_GeofencePage.Text_GeoHistory())){
-                        action.click(admin_GeofencePage.Button_GeofenceCancel());
+                     if (action.isElementPresent(admin_GeofencePage.Text_GeoHistory(true))) {
+                         action.click(admin_GeofencePage.Button_GeofenceCancel());
                     }
                     else {
                         action.click(admin_DriverVerificationPage.Button_Cancel());
@@ -344,8 +400,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     Thread.sleep(2000);
                     break;
                 case "Save":
-                    Thread.sleep(5000);
                     action.click(admin_PromoCodesPage.Button_Save());
+                    Thread.sleep(2000);
                     break;
 //            case "New Business User":
                 case "New Partner":
@@ -359,7 +415,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     break;
                 case "Edit":
                     Name = (String) cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
-                    xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]", Name);
+                    xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td//button[contains(text(),'Edit')]", Name);
                     cucumberContextManager.setScenarioContext("XPATH", xpath);
                     SetupManager.getDriver().findElement(By.xpath(xpath)).click();
                     break;
@@ -371,7 +427,27 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 //EOC
 
                 case "Scale":
+                    Thread.sleep(5000);
                     action.click(admin_GeofencePage.Button_Scale());
+                    break;
+                case "Edit Email":
+                    action.click(Page_PartnerManagement_Email.Button_EditEmail());
+                    break;
+                case "Login":
+                    action.click(Page_PartnerManagement_Login.Button_Login());
+                    Thread.sleep(5000);
+                    break;
+                case "Clear filter":
+                    action.click(Page_PartnerManagement_Location.Button_ClearFilter());
+                    break;
+                case "Logout":
+                    action.click(Page_PartnerManagement_Login.Button_Logout());
+                    break;
+                case "Add Email Address":
+                    action.click(Page_PartnerManagement_Email.Button_AddEmailAddress());
+                    break;
+                case "Edit Email Address":
+                    action.click(Page_PartnerManagement_Email.Button_EditEmailAddress(1));
                     break;
             }
             log("I click on the " + arg0 + " button",
@@ -488,10 +564,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         try {
             switch (arg0) {
                 case "Accepted":
-                    testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Status_Accepted(), "I check status of the field ", "Status is accepted", "Field is not accepted");
+                    testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Drive Picture","AcceptedRejected"), "I check status of the field ", "Status is accepted", "Field is not accepted");
                     break;
                 case "Rejected":
-                    testStepAssert.isElementValueEquals(admin_DriverVerificationPage.Status_Accepted(), "", "I check status of the field ", "Status is rejected", "Field is not rejected");
+                    testStepAssert.isElementValueEquals(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Drive Picture","AcceptedRejected"), "", "I check status of the field ", "Status is rejected", "Field is not rejected");
                     break;
             }
         } catch (Exception e) {
@@ -503,35 +579,41 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @Then("^the status of the field resets to default$")
     public void theStatusOfTheFieldResetsToDefault() throws Throwable {
-        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(), "I check status field ", "Element is not displayed", "Element is displayed");
+        Thread.sleep(3000);
+        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Drive Picture","AcceptedRejected",true), "I check status field ", "Element is not displayed", "Element is displayed");
 
     }
 
     @And("^I verify all the fields except \"([^\"]*)\"$")
     public void i_verify_all_the_fields_except_something(String strArg1) throws Throwable {
         try {
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Driver Picture",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("First Name",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Last Name",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Street address",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("City",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("State",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Zip code",true));
             // action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
-            action.click(admin_DriverVerificationPage.Verify_Reject_Birthday());
-            action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(), "Invalid DOB");
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
-            action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Birthday",false));
+            action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforReject_DriverDetails("Birthday","AcceptedRejected"), "Invalid DOB");
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup images",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup make",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup model",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup year",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Pickup license number",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License image",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License number",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("License expiration",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Insurance image",true));
+            action.click(admin_DriverVerificationPage.Verify_DriverDetails("Insurance Expiration",true));
+
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_DriverDetails("Routing Number",true, true))) {
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Routing Number",true));
+            }
+            if(action.isElementPresent(admin_DriverVerificationPage.Verify_DriverDetails("Account Number",true,true))) {
+                action.click(admin_DriverVerificationPage.Verify_DriverDetails("Account Number",true));
+            }
             log("I can verify all the fields except DOB",
                     "I have verified all the fields except DOB");
         } catch (Exception e) {

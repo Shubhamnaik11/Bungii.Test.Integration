@@ -4,6 +4,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.pages.driver.UpdateStatusPage;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
@@ -18,12 +19,14 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
@@ -57,6 +60,7 @@ public class BungiiInProgressSteps extends DriverBase {
     GeneralUtility GeneralUtility = new GeneralUtility();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
+    LoginPage driverLogInPage = new LoginPage();
 
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
@@ -754,6 +758,10 @@ public class BungiiInProgressSteps extends DriverBase {
                 Thread.sleep(2000);
                 action.click(bungiiEstimatePage.Permissions_CameraAllow());
                 }
+            if (!action.isElementPresent(bungiiEstimatePage.Button_CameraIcon(true))){
+                Thread.sleep(2000);
+                action.click(inProgressBungiiPages.Button_AddPhoto());
+            }
             Thread.sleep(2000);
             switch (numberofimages){
                 case "1":
@@ -766,8 +774,37 @@ public class BungiiInProgressSteps extends DriverBase {
                     Thread.sleep(2000);
 
                     action.click(p2);
+                    if(!action.isElementPresent(inProgressBungiiPages.Image_UploadedImage(true))){
+
+                        if (!action.isElementPresent(bungiiProgressPage.Button_Save(true))) {
+                            action.click(p1);
+                            Thread.sleep(2000);
+                            action.click(p2);
+                        }
+                        else {
+                            action.click(inProgressBungiiPages.Button_AddPhoto());
+                            Thread.sleep(2000);
+                            action.click(bungiiEstimatePage.Button_CameraIcon());
+                            Thread.sleep(2000);
+                            action.click(p1);
+                            Thread.sleep(2000);
+                            action.click(p2);
+                        }
+                    }
                     Thread.sleep(2000);
-                    testStepVerify.isElementDisplayed(inProgressBungiiPages.Image_UploadedImage(),"Captured Image should be shown","Captured Image is shown", "Captured Image is not shown");
+                   if(!action.isElementPresent(inProgressBungiiPages.Image_UploadedImage(true))) {
+                    action.click(inProgressBungiiPages.Button_AddPhoto());
+                    Thread.sleep(2000);
+                       if(!action.isElementPresent(bungiiEstimatePage.Button_CameraIcon((true)))) {
+                           action.click(inProgressBungiiPages.Button_AddPhoto());
+                       }
+                    action.click(bungiiEstimatePage.Button_CameraIcon());
+                    Thread.sleep(2000);
+                    action.click(p1);
+                    Thread.sleep(2000);
+                    action.click(p2);
+                }
+                    testStepVerify.isElementDisplayed(inProgressBungiiPages.Image_UploadedImage(true),"Captured Image should be shown","Captured Image is shown", "Captured Image is not shown");
                     Thread.sleep(2000);
                     action.click(bungiiProgressPage.Button_Save());
                     break;
@@ -1216,6 +1253,7 @@ public class BungiiInProgressSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" \"([^\"]*)\" should be displayed$")
     public void the_something_something_should_be_displayed(String element, String strArg2) throws Throwable {
         try{
+            String expectedText = "";
             Thread.sleep(5000);
             switch (element){
                 case "Delivery Instructions":
@@ -1243,6 +1281,108 @@ public class BungiiInProgressSteps extends DriverBase {
                 case "Dropoff":
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Icon_DropOff()),"Dropoff Icon should be displayed","Dropoff Icon is displayed","Dropoff Icon is not displayed");
                     break;
+                case "Contact Duo Teammate":
+                    By Text_ContactDuo = MobileBy.id("com.bungii.driver:id/tv_contact_duo_label");
+                    By Text_TeamMate = MobileBy.id("com.bungii.driver:id/tv_teammate_label");
+                    testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_ContactDuo),"Contact Duo text should be displayed","Contact Duo text is displayed","Contact Duo text is not displayed");
+                    Thread.sleep(10000);
+                    testStepAssert.isTrue(action.waitForExpectedElementToBeDisplayed(Text_TeamMate),"Teammate text should be displayed","Teammate text is displayed","Teammate text is not displayed");
+                    break;
+                case "Bungii: The Ultimate Side Hustle":
+                    expectedText = PropertyUtility.getMessage("driver.navigation.bungii.the.ultimate.side.hustle");
+                    testStepAssert.isTrue(action.isElementPresent(driverLogInPage.Label_TheUltimateSideHustle()),expectedText+" should be displayed",expectedText+" is displayed",expectedText+" is not displayed");
+                    break;
+                case "Arrival time at pickup":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ArivalTimeAtPickup()),"Arrival Time at pickup label should be displayed","Arrival Time at pickup label is displayed","Arrival Time at pickup label is not displayed");
+                    String expectedTextAtPickup = action.getText(updateStatusPage.Label_ArivalTimeAtPickup());
+                    testStepAssert.isEquals(expectedTextAtPickup, element, element + " Text should be displayed", element + " Text is displayed", expectedTextAtPickup + "is displayed");
+                    break;
+                case "Expected time at drop-off":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ExpectedTimeAtDropOff()),"Expected time at drop-off label should be displayed","Expected time at drop-off label is displayed","Expected time at drop-off label is not displayed");
+                    String expectedTextAtDropOff = action.getText(updateStatusPage.Label_ExpectedTimeAtDropOff());
+                    testStepAssert.isEquals(expectedTextAtDropOff, element, element + " Text should be displayed", element + " Text is displayed", expectedTextAtDropOff + "is displayed");
+                    break;
+                case "PICKUP(Arrival time)":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_Pickup()),"Pickup label should be displayed","Pickup label is displayed","Pickup label is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_ArrivalTime()),"Arrival time label should be displayed","Arrival time label is displayed","Arrival time label is not displayed");
+
+                    String pickupText = action.getText(updateStatusPage.Label_Pickup());
+                    String arrivalTimeText = action.getText(updateStatusPage.Label_ArrivalTime());
+                    String completeText =pickupText +arrivalTimeText;
+                    testStepVerify.isEquals(completeText, element, element + " Text should be displayed", element + " Text is displayed", completeText + "is displayed");
+                    String arrivalTimeOnUIValue = action.getText(updateStatusPage.Text_ArrivalTimeValue());
+                    String properArrivalTime = (String) cucumberContextManager.getScenarioContext("ArrivalTime");
+                    testStepAssert.isEquals(arrivalTimeOnUIValue, properArrivalTime,"The arrival time should be "+properArrivalTime,
+                            "The arrival time is "+properArrivalTime,"The arrival is not "+properArrivalTime+" ,The time is "+properArrivalTime);
+                    break;
+                case "DROP-OFF(Expected time)":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_Pickup()),"Dropoff label should be displayed","Dropoff label is displayed","Dropoff label is not displayed");
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Label_Pickup()),"Expected time label should be displayed","Expected time label is displayed","Expected time label is not displayed");
+
+                    String dropOffText = action.getText(updateStatusPage.Label_Pickup());
+                    String expectedTimeText = action.getText(updateStatusPage.Label_ArrivalTime());
+                    String entireText =dropOffText +expectedTimeText;
+                    testStepAssert.isEquals(entireText, element, element + " Text should be displayed", element + " Text is displayed", entireText + "is displayed");
+                    String dropOffRangeOnUIValue = action.getText(updateStatusPage.Text_ArrivalTimeValue());
+                    if(dropOffRangeOnUIValue.contains("PM") && dropOffRangeOnUIValue.contains("AM")){
+
+                        String onlyTimeRange = dropOffRangeOnUIValue.replace("PM","").replace("AM","").replace(" ","");;
+                        cucumberContextManager.setScenarioContext("DropOffUiTime",onlyTimeRange);
+                    }
+                    else {
+                        String onlyTimeRange = dropOffRangeOnUIValue.substring(0, dropOffRangeOnUIValue.length()-3).replace(" ","");
+                        cucumberContextManager.setScenarioContext("DropOffUiTime",onlyTimeRange);
+                    }
+                    String expectedDropOffRangeFromUI =(String) cucumberContextManager.getScenarioContext("DropOffUiTime");
+                    String dropOffRangeBasedOnCalculation = (String) cucumberContextManager.getScenarioContext("DropOffRangeCalculated");
+                    testStepAssert.isEquals(expectedDropOffRangeFromUI, dropOffRangeBasedOnCalculation,"The arrival time should be "+dropOffRangeBasedOnCalculation,
+                            "The arrival time is "+dropOffRangeBasedOnCalculation,"The arrival is not "+expectedDropOffRangeFromUI+" ,The time is "+dropOffRangeBasedOnCalculation);
+                    break;
+                case "Barcode":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Image_Barcode()),"Barcode Image should be displayed","Barcode Image is displayed","Barcode Image is not displayed");
+                    break;
+                case "Scan Item barcode":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Button_ScanItemBarCode()),"Scan item barcode should be displayed","Scan item barcode is displayed","Scan item barcode is not displayed");
+                    break;
+                case "BARCODE SCANNER":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Header_BarcodeScanner()),"Header should be displayed","Header is displayed","Header is not displayed");
+                    String textFromUi = action.getText(updateStatusPage.Header_BarcodeScanner());
+                    testStepAssert.isEquals(textFromUi,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
+                case "Scan barcode":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_ScanBarCode()),"Scan barcode text should be displayed","Scan barcode text is displayed","Scan barcode text is not displayed");
+                    expectedText = action.getText(updateStatusPage.Text_ScanBarCode());
+                    testStepAssert.isEquals(expectedText,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
+                case "Skip":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Button_SkipBarCode()),"Skip barcode button should be displayed","Skip barcode button is displayed","Skip barcode button is not displayed");
+                    break;
+                case "Scan the item(s) barcode before loading & after unloading.":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_BarcodeInstructions()),"Notification should be displayed","Notification is displayed","Notification is not displayed");
+                    String arrivalStateNotificationText=action.getText(updateStatusPage.Text_BarcodeInstructions()).replace("\n","");
+                    testStepAssert.isEquals(arrivalStateNotificationText.replace("\n",""),element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
+                case "Hold steady and center the barcode to scan.You need to scan any one item to proceed.":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_BarCodeScanningInstructions()),"Skip barcode button should be displayed","Skip barcode button is displayed","Skip barcode button is not displayed");
+                    String arrivalStateInstructions=action.getText(updateStatusPage.Text_BarCodeScanningInstructions());
+                    testStepAssert.isEquals(arrivalStateInstructions.replace("\n",""),element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
+                case "Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.":
+                case "Please take photos and scan item(s) barcode after unloading, just ‘slide to complete Bungii’ and follow the prompts":
+                    testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_NotificationTextOnArrivalAndUnloadingItemsForBarCode()),"Notification should be displayed","Notification is displayed","Notification is not displayed");
+                    String notificationText = action.getText(updateStatusPage.Text_NotificationTextOnArrivalAndUnloadingItemsForBarCode());
+                    testStepAssert.isEquals(notificationText,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1251,5 +1391,35 @@ public class BungiiInProgressSteps extends DriverBase {
 
         }
     }
+
+    @Then("^The \"([^\"]*)\" \"([^\"]*)\" should not be displayed$")
+    public void the_something_something_should_not_be_displayed(String element, String strArg2) throws Throwable {
+        try{
+            switch (element){
+                case "Contact Duo Teammate":
+                    Thread.sleep(3000);
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Text_ContactDuo(true)),"Contact Duo text should not be displayed","Contact Duo text is not displayed","Contact Duo text is displayed");
+                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Text_TeamMate(true)),"Teammate text should not be displayed","Teammate text is not displayed","Teammate text is displayed");
+                    break;
+            }
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @Then("^I should see the dropoff contact name under the customer name field$")
+    public void i_should_see_the_dropoff_contact_name_under_the_customer_name_field() throws Throwable {
+        try{
+        String dropoffContactName = cucumberContextManager.getScenarioContext("DROPOFFCONTACTNAME").toString();
+        String customerName = action.getText(updateStatusPage.Text_CustomerNameOnDriverApp());
+        testStepAssert.isEquals(customerName,dropoffContactName,dropoffContactName+ "Should be displayed",customerName+ "is displayed",dropoffContactName+ "is not displayed");
+    }    catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
 
 }

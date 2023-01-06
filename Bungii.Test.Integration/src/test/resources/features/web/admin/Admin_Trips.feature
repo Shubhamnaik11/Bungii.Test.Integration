@@ -17,6 +17,7 @@ Feature: Admin_Trips
       | driver1 state|
       | Accepted  |
     And I view the all Scheduled Deliveries list on the admin portal
+    When I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -26,6 +27,7 @@ Feature: Admin_Trips
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
+    When I wait for 2 minutes
     And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled Researched" Delivery
       | driver1 state|
       | Accepted  |
@@ -40,6 +42,7 @@ Feature: Admin_Trips
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
+    When I wait for 2 minutes
     When I view All Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
     And The first time promo code should get released
@@ -56,12 +59,24 @@ Feature: Admin_Trips
     #And I view the Scheduled Trips list on the admin portal
     And I wait for "2" mins
     And I view the Live Deliveries list on the admin portal
+    And I search the delivery of Customer
+    # CORE-4434 - Browser not detecting a delivery in "Delivery List" page as a link
+    And I open the delivery in a new browser tab
+    Then I should see "Delivery Details" header
+    And I close Delivery details page
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Assigning Driver(s)|
     When I search the delivery of Customer
     Then I should see the delivery highlighted in "Blue"
     When I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery of Customer
+    # CORE-4434 - Browser not detecting a delivery in "Delivery List" page as a link
+    And I open the delivery in a new browser tab
+    Then I should see "Delivery Details" header
+    And I close Delivery details page
+    And I view the all Scheduled Deliveries list on the admin portal
     And I search the delivery of Customer
     Then I should be able to see the respective bungii with the below status
       |  Status |
@@ -73,6 +88,7 @@ Feature: Admin_Trips
    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Deliveries list on the admin portal
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -80,6 +96,7 @@ Feature: Admin_Trips
       | driver1 state|
       | Enroute |
     And I view the Live Deliveries list on the admin portal
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Trip Started |
@@ -118,6 +135,17 @@ Feature: Admin_Trips
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I search the delivery of Customer
+    # CORE-4434 - Browser not detecting a delivery in "Delivery List" page as a link
+    And I open the delivery in a new browser tab
+    Then I should see "Delivery Details" header
+    And I close Delivery details page
+    When I view All Deliveries list on the admin portal
+    And I search the delivery of Customer
+    And I open the delivery in a new browser tab
+    Then I should see "Delivery Details" header
+    And I close Delivery details page
+    And I view the Deliveries list on the admin portal
+    And I search the delivery of Customer
     And The delivery should not be highlighted in "Blue" for "All Deliveries"
     And Customer should receive "Your Bungii Receipt" email
 
@@ -131,12 +159,14 @@ Feature: Admin_Trips
    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Deliveries list on the admin portal
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Assigning Driver(s)|
     When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
+    And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled|
@@ -193,6 +223,7 @@ Feature: Admin_Trips
       | Driving To Dropoff |
       | Unloading Item |
     And I view the Live Deliveries list on the admin portal
+    And I wait for 2 minutes
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Unloading Items |
@@ -203,6 +234,7 @@ Feature: Admin_Trips
         | Bungii Completed |
     And I wait for 2 minutes
     And I view All Deliveries list on the admin portal
+    When  I search the delivery using "Pickup Reference"
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I select the scheduled trip on All Deliveries
     Then I view the correct Driver Earnings for geofence based pricing model
@@ -267,6 +299,7 @@ Feature: Admin_Trips
     And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully canceled." message should be displayed
+    And I wait for 2 minutes
     And I view the Deliveries list on the admin portal
     Then The Delivery List page should display the delivery in "Admin Canceled" state
 
@@ -373,6 +406,14 @@ Feature: Admin_Trips
   And I click on "Remove Driver" button
   And I click on "Research" button
   When I wait for 2 minutes
+  And  I refresh the page
+  And I click on the dropdown beside scheduled bungii
+  #CORE-3382
+  And I click the "Notes & History" link
+  And I click on "History"
+  Then The "History" tab should be selected
+  And I should see solo to duo and assign remove one driver edit history
+  And I close the Note
   And I get the latest "pickup Reference"
   And I view the all Scheduled Deliveries list on the admin portal
   And  I search the delivery using "Pickup Reference"
@@ -569,7 +610,7 @@ Feature: Admin_Trips
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
     | NEXT_POSSIBLE | 8877661062 | Testcustomertywd_BppleMarkBK LutherBK|
-   And As a driver "Testdrivertywd_appledc_a_drvN WashingtonM" perform below action with respective "Solo Scheduled" Delivery
+   And As a driver "Testdrivertywd_appledc_a_drvM WashingtonM" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
     |Accepted |
     And I wait for 2 minutes
@@ -586,6 +627,12 @@ Feature: Admin_Trips
     And  I search the delivery using "Pickup Reference"
     Then I should see the cancelled trip icon displayed for the delivery
     Then The Delivery List page should display the delivery in "Admin Canceled" state
+#   Core-4307: Verify the history is displayed for ADMIN canceled delivery- Driver accepted
+    And I click on the dropdown beside scheduled bungii
+    When I click the "Notes & History On Completed Delivery" link
+    And I click on "History"
+    And I should be able to see "admin cancelled event - driver accepted"
+    And I close the Note
     Then Revive button should be displayed beside the trip
     When I click on "Revive" button
 	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
@@ -656,8 +703,8 @@ Feature: Admin_Trips
   Scenario:To verify that admin can fully refund completed trips which were revived
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 8877661063 | Testcustomertywd_BppleMarkBL LutherBL|
-    And As a driver "Testdrivertywd_appledc_a_drvM WashingtonN" perform below action with respective "Solo Scheduled" Delivery
+      | NEXT_POSSIBLE | 8877661063 | Testcustomertywd_appleMarkBL LutherBL|
+    And As a driver "Testdrivertywd_appledc_a_drvM WashingtonM" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       |Accepted |
       | Enroute  |
@@ -833,6 +880,7 @@ Feature: Admin_Trips
     Then I should see the transaction charges "before" changing delivery Status
     And I click on "Close" button
     And I click on "OK Delivery Details Page" button
+    And  I search the delivery using "Pickup Reference"
     When I click on the "Change Payment status" button from the dropdown
     And the "Are you sure, you want to change the payment status?" message is displayed
     Then I should see all the information in the change payment status modal
@@ -902,3 +950,192 @@ Feature: Admin_Trips
     When I change filter to "The Beginning of Time" on All deliveries
     And I search the delivery based on customer "first name with space in front and back"
     Then The "All Deliveries" should be in "Driver Canceled" state
+
+  #CORE-4009: Date filter in Live Deliveries page of AP for Customer & Partner portal trips
+  @ready
+  Scenario: To verify the Date filter in Live Deliveries page of Admin Portal
+    When I view the Live Deliveries list on the admin portal
+    Then The "Date Filter" is set to "All" by default
+    When I click on "Date Filter" button on the "Live deliveries" page
+    Then  I should see All Filter Options in dropdown
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                       |
+      | NEXT_POSSIBLE | 8877661141     | Testcustomertywd_appleMarkEL LutherEL|
+    And I wait for 2 minutes
+    And As a driver "Testdrivertywd_appleks_a_drvbq Kansas_bq" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute      |
+    And I wait for 2 minutes
+    When I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Trip Started |
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Trip Started |
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |kansas| NEXT_POSSIBLE | 8877661145 | Testcustomertywd_appleMarkEP LutherEP|
+    And I wait for 2 minutes
+    When As a driver "Testdrivertywd_appleks_a_drvbr Kansas_br" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute      |
+    When I navigate to "Admin" portal
+    And I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Trip Started |
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Trip Started |
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                       |
+      |  1_DAY_LATER | 8877661142   | Testcustomertywd_appleMarkEM LutherEM |
+    And I wait for 2 minutes
+    When I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Assigning Driver(s) |
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Assigning Driver(s) |
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |kansas| 1_DAY_LATER | 8877661146 | Testcustomertywd_appleMarkEQ LutherEQ|
+    And I wait for 2 minutes
+    When I navigate to "Admin" portal
+    And I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Assigning Driver(s) |
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Assigning Driver(s) |
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |kansas| 4_DAY_LATER | 8877661147 | Testcustomertywd_appleMarkER LutherER|
+    And I wait for 2 minutes
+    When I navigate to "Admin" portal
+    And I view the Live Deliveries list on  admin portal
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Today" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    And I click on "Date Filter" button on the "Live deliveries" page
+    When I change filter to "Tomorrow" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should see the message "No deliveries found." displayed
+    When I change filter to "All" on Live deliveries
+    And  I search the delivery using "Pickup Reference" in "Live Deliveries" Page
+    Then I should be able to see the respective bungii with the status
+      | Status       |
+      | Assigning Driver(s) |
+
+# Driver with Same day payment setting:9049840342
+  @ready
+  Scenario:Verify that 'i' icon is displayed on delivery details page for those drivers who has selected same day payment
+    When I request "duo" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 8877661144 | Testcustomertywd_appleMarkEO LutherEO|
+    And I wait for 2 minutes
+    When I view the all Scheduled Deliveries list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    When I view the delivery details
+    And I check if "i" icon is displayed
+    When As a driver "Testdrivertywd_appledc_a_drvaa Washingtonaa" and "Testdrivertywd_appledc_a_drvm Driver" perform below action with respective "Duo Scheduled" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+      | Enroute       | Enroute       |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    When I click on the "Delivery Details" button from the dropdown
+    And I check if "i" icon is displayed
+    When As a driver "Testdrivertywd_appledc_a_drvaa Washingtonaa" and "Testdrivertywd_appledc_a_drvm Driver" perform below action with respective "Duo Scheduled" trip
+      | driver1 state | driver2 state |
+      |Bungii Completed  |Bungii Completed  |
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+#  Core-4556: Verify status of the trip is payment successful after driver completes the trip: Same day payment (Customer card)
+    Then The "All Deliveries" should be in "Payment Successful" state
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then I check if "same day payment i" icon is displayed
+    Then I verify correct disbursement type is set in db
+
+     #CORE-4520
+  @ready
+  Scenario: Verify that admin received outside secondary polyline email for partner delivery
+    When I request "duo" Bungii as a customer in "newjersey" geofence
+      | Bungii Time   | Customer Phone | Customer Name                  | Polyline  |
+      | NEXT_POSSIBLE | 9999995001     | Testcustomertywd_appleweb CustZ| Secondary |
+    And I wait for "2" mins
+    And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery based on customer "first name"
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Assigning Driver(s)|
+    And I note the trip details
+    Then Admin should receive the "Delivery scheduled beyond secondary polyline" email
+
+#  Core-4367 Verify "Admin Cancelled" trips for driver(s) with Branch app wallet(customer trip)
+    @ready
+    Scenario: Verify Admin Cancelled trips for driver(s) with Branch app wallet(customer trip)
+      When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+        | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+        | NEXT_POSSIBLE | 8877661150     | Testcustomertywd_appleMarkEU LutherEU | Cci12345          |
+      And As a driver "Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ" perform below action with respective "Solo Scheduled" Delivery
+        | driver1 state |
+        | Accepted      |
+      And I wait for 2 minutes
+      And I view the all Scheduled Deliveries list on the admin portal
+      And  I search the delivery using "Pickup Reference"
+      When I click on the "Edit" button from the dropdown
+      And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+      And I enter cancellation fee and Comments
+      And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
+      And I click on "Submit" button
+      Then The "Pick up has been successfully canceled." message should be displayed
+      Then I check "driver not paid status" in db

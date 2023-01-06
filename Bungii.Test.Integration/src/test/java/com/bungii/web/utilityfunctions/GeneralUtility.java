@@ -105,6 +105,10 @@ public class GeneralUtility extends DriverBase {
                 partnerURL = PropertyUtility.getDataProperties("qa.floordecor130_partner.url");
                 cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.floordecor130_partner.ref"));
             }
+            else if(PP_Site.equalsIgnoreCase("Home Outlet")){
+                partnerURL = PropertyUtility.getDataProperties("qa.home.outlet.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF",PropertyUtility.getDataProperties("qa.home.outlet.ref"));
+            }
         }
         return  partnerURL;
     }
@@ -285,7 +289,7 @@ public class GeneralUtility extends DriverBase {
 
     public String GetUniqueFutureDate() {
         String newDate = null;
-        String DATE_FORMAT = "MM/dd/yyyy";
+        String DATE_FORMAT = "MM/DD/YYYY";
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         DateTimeFormatter dateFormat8 = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
@@ -307,7 +311,16 @@ public class GeneralUtility extends DriverBase {
 
         // convert LocalDateTime to date
         Date currentDatePlusOneDay = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        newDate = dateFormat.format(currentDatePlusOneDay);
+
+        String futureNewDate[] = dateFormat.format(currentDatePlusOneDay).split("/");
+        if (Integer.toString(days).length()==1){
+            String daysStartsWithZero="0"+days;
+            newDate=futureNewDate[0]+"/"+daysStartsWithZero+"/"+futureNewDate[2];
+        }
+        else {
+            newDate=futureNewDate[0]+"/"+days+"/"+futureNewDate[2];
+        }
+//        newDate = dateFormat.format(currentDatePlusOneDay);
         return newDate;
     }
 
@@ -673,6 +686,122 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
+    public String getExpectedPartnerFirmFirstEmailContent(String firmName)
+    {
+        String emailMessage = "";
+        FileReader fr;
+        try{
+            if(SystemUtils.IS_OS_WINDOWS){
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalFirstScheduleDeliveryEmail.txt");
+            }
+            else{
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/PartnerPortalFirstScheduleDeliveryEmail.txt");
+            }
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%PartnerName%",firmName);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+    public String getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(String firmName)
+    {
+        String emailMessage = "";
+        FileReader fr;
+        try{
+            fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerPortalSecondEmailForScheduledDeliveryBeforeFirstDelivery.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%PartnerName%",firmName);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+
+    public String getExpectedPartnerDeliveryScheduledBeyondSecondaryPolyline(String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone,String tracking_Id)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DeliveryScheduledBeyondSecondaryPolyline.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%ScheduledDate%",scheduled_Date)
+                            .replaceAll("%PickupAddress%",pickup_Address)
+                            .replaceAll("%DropupAddress%",dropup_Address)
+                            .replaceAll("%CustomerName%",customer_Name)
+                            .replaceAll("%CustomerPhone%",customer_Phone)
+                            .replaceAll("%ItemsToDeliver%",items_To_Deliver)
+                            .replaceAll("%PickupContactName%",pickup_Contact_Name)
+                            .replaceAll("%PickupContactPhone%",pickup_Contact_Phone)
+                            .replaceAll("%TrackingId%",tracking_Id);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to read email for Partner Cancel delivery with driver",
+                    true);
+        }
+
+        return emailMessage;
+    }
+
+    public String getExpectedDeliveryScheduledBeyondSecondaryPolyline(String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String tracking_Id)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerDeliveryScheduledBeyondSecondaryPolyline.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%ScheduledDate%",scheduled_Date)
+                            .replaceAll("%PickupAddress%",pickup_Address)
+                            .replaceAll("%DropupAddress%",dropup_Address)
+                            .replaceAll("%CustomerName%",customer_Name)
+                            .replaceAll("%CustomerPhone%",customer_Phone)
+                            .replaceAll("%TrackingId%",tracking_Id);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception ex){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to read email for Partner Cancel delivery with driver",
+                    true);
+        }
+
+        return emailMessage;
+    }
 
     public String getExpectedPartnerPortalCanceledEmailContentWithDriver(String partner_Name,String scheduled_Date,String pickup_Address,String dropup_Address,String customer_Name,String customer_Phone,String driverName,String driverPhone,String driverLicencePlate,String items_To_Deliver,String pickup_Contact_Name,String pickup_Contact_Phone)
     {
@@ -933,6 +1062,7 @@ public class GeneralUtility extends DriverBase {
         {
                 case "Washington DC":
                 case "washingtondc":
+                case "newjersey":
                 timezone = "EST";
                 break;
             case "goa":
@@ -1142,19 +1272,25 @@ public class GeneralUtility extends DriverBase {
         action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(),geofence);
     }
 
-    public void resetGeofenceDropdown(){
+    public void resetGeofenceDropdown() throws InterruptedException {
+        Thread.sleep(2000);
         action.click(admin_geofencePage.List_Geofence());
+        Thread.sleep(2000);
         action.click(admin_geofencePage.Button_Clear());
+        Thread.sleep(2000);
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
     public void selectGeofenceDropdown(String geofence){
         action.click(admin_geofencePage.List_Geofence());
         action.clearSendKeys(admin_geofencePage.TextBox_SearchGeofence(),geofence);
-        action.JavaScriptClick(admin_geofencePage.Checkbox_Geofence(geofence));
+        String geofencePartial= geofence.substring(1);
+        action.JavaScriptClick(admin_geofencePage.Checkbox_Geofence(geofencePartial));
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
-    public void reApplyGeofenceDropdown(){
+    public void reApplyGeofenceDropdown() throws InterruptedException {
+        Thread.sleep(3000);
         action.click(admin_geofencePage.List_Geofence());
+        Thread.sleep(3000);
         action.click(admin_geofencePage.Button_ApplyGeofence());
     }
 
@@ -1214,6 +1350,19 @@ public class GeneralUtility extends DriverBase {
         action.click(admin_DriverPage.Checkbox_SUV());
     }
 
+    public String NavigateToPartnerManagementLogin(){
+        String partnerURL = GetPartnerManagementUrl();
+        action.deleteAllCookies();
+        action.navigateTo(partnerURL);
+        return partnerURL;
+    }
+    public String GetPartnerManagementUrl() {
+        String partnerManagementURL = null;
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("QA_AUTO_AWS"))
+            partnerManagementURL = PropertyUtility.getDataProperties("qa.auto.partner.management.url");
+        return partnerManagementURL;
+    }
 
 }
 

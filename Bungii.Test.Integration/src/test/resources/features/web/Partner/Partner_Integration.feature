@@ -815,7 +815,6 @@ Feature: Partner Integration with Admin and Driver
     And I click on "Verify" button on Edit Scheduled bungii popup
     When I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
-    And I click on "Close" button
     And I get the new pickup reference generated
     And I wait for "2" mins
     When I view the all Scheduled Deliveries list on the admin portal
@@ -1026,3 +1025,44 @@ Feature: Partner Integration with Admin and Driver
       |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
       |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
       |8877661048    |Testcustomertywd_appleMarkAW LutherAW |
+
+
+  #CORE-4520
+  @ready
+  Scenario: Verify that admin received outside secondary polyline email for partner delivery
+    When I request "Solo" Bungii trip in partner portal configured for "normal" in "newjersey" geofence
+      | Pickup_Address                                                | Delivery_Address                                              |Load_Unload_Time|
+      | 1963 Oak Tree Road, Edison, New Jersey, United States, 08820  | 508 Hamilton Avenue, Trenton, New Jersey, United States, 08609|30 minutes      |
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    And I click "GET ESTIMATE" button on Partner Portal
+    Then I should see "Estimated Cost"
+    And I click "Continue" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    When I enter following details on "Delivery Details" for "normal" on partner screen
+      |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+      |Furniture       |Testpartner B      |9998881111     |Test Pickup        |9999999359          |
+    And I Select "Customer Card" as Payment Method
+    And I enter following Credit Card details on Partner Portal
+      |CardNo   |Expiry |Postal_Code      |Cvv      |
+      |VISA CARD4|12/29  |VALID POSTAL CODE|VALID CVV|
+    And I click "Schedule Bungii" button on Partner Portal
+    Then I should "see Done screen"
+    When I click "Track Deliveries" button on Partner Portal
+    Then I should "see the trip in the Delivery List"
+    Then Admin should receive the "Partner Delivery scheduled beyond secondary polyline" email
+    And I wait for "2" mins
+    When I navigate to "Admin" portal configured for "QA" URL
+    And I view the partner portal Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      | Assigning Driver(s)|
+    And I click on "Edit" link beside scheduled bungii
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
+    And I click on "Submit" button
+    Then The "Pick up has been successfully canceled." message should be displayed
+    When I view All Deliveries list on the admin portal
+    Then The Delivery List page should display the delivery in "Admin Canceled" state

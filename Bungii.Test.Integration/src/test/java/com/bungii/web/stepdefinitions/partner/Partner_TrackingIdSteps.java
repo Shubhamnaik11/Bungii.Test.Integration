@@ -312,7 +312,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
                    Thread.sleep(5000);
                    break;
             case "All Deliveries":
-                   action.click(admin_ScheduledTripsPage.Menu_AllTrips());
+                   action.click(admin_ScheduledTripsPage.Menu_CompletedDeliveries());
                    action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
                    Thread.sleep(1000);
                    action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
@@ -574,7 +574,7 @@ public class Partner_TrackingIdSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" page should display the delivery in \"([^\"]*)\" state$")
     public void the_something_page_should_display_the_delivery_in_something_state(String PagenName, String ExpectedText) throws Throwable {
         try {
-        action.click(admin_ScheduledTripsPage.Menu_AllTrips());
+        action.click(admin_ScheduledTripsPage.Menu_CompletedDeliveries());
         action.clearSendKeys(admin_TripsPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("PARTNER_TRACKINGID") + Keys.ENTER);
         Thread.sleep(4000);
         String deliveryComplete = action.getText(admin_ScheduledTripsPage.Text_Delivery_Successfull());

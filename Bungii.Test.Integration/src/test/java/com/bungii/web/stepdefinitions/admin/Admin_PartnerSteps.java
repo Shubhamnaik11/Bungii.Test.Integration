@@ -266,7 +266,7 @@ public class Admin_PartnerSteps extends DriverBase {
     public void i_click_on_something_in_the_side_menu(String strArg1) throws Throwable {
 
         try{
-            action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+            action.click(admin_paymentMethodsPage.Menu_Partners());
 
             log("I should be able to click on Partners in the side menu",
                     "I am able to click on Partners in the side menu",false);

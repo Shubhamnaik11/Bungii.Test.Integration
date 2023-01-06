@@ -231,6 +231,19 @@ Feature: Driver Earnings
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_applega_a_drvae Atlanta_ae" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "EARNINGS" from driver App menu
+#   Core-4524 Verify the UI and functionality of Payment setting screen
+    And I click on "Payment Setting" button
+    And I verify the elements of payment setting screen page
+#   Core-4524: Verify that selected payment method is not updated to default when driver logs out from app
+    And I click on "Change default payment" button
+    When I Select "ACCOUNT > LOGOUT" from driver App menu
+    Then I should be able to see data on "LOGOUT" page
+    Then I should be navigated to "LOG IN" screen
+    And I am logged in as "Testdrivertywd_applega_a_drvae Atlanta_ae" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I Select "EARNINGS" from driver App menu
+    Then I check if "changed payment" button is displayed
 #   Validating Driver not registered for Branch app in Db
     And I check "no branch registration" in db
     And I Select "EARNINGS" from driver App menu

@@ -214,6 +214,9 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void i_start_selected_bungii_for_something(String type) throws Throwable {
      try{
          switch (type){
+             case "floor and decor 106":
+             case "Tile Shop":
+             case "Equip-bid":
              case "floor and decor":
                  Thread.sleep(3000);
                  action.scrollToBottom();
@@ -404,6 +407,9 @@ public class ScheduledBungiiSteps extends DriverBase {
                     break;
                 case "Store":
                     cucumberContextManager.setScenarioContext("StoreCity", "MD");
+                    break;
+                case "Equip-bid in phoenix geofence":
+                    cucumberContextManager.setScenarioContext("PhoenixEquip-bid", "phoenix");
                     break;
             }
             log("I should be able to set the pickup address", "I could set the pickup address", false);
