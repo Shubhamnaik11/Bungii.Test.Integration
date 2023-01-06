@@ -192,6 +192,12 @@ Feature: Admin_OndemandTrips
     And I should see following details in the Accessorial charges section
     | Excess Wait Time | Cancelation | Mountainous | Other | Total   |
     | $10              | $20.5       | $25.65      | $100  | $156.15 |
+#   Core-4307: Verify the history is displayed for accessorial fees
+    And I navigate back to Scheduled Deliveries
+    And I click on the dropdown beside scheduled bungii
+    When I click the "Notes & History On Completed Delivery" link
+    And I click on "History"
+    Then I should be able to see "accessorial charges"
 
   #CORE-3295:Verify admin is not able to edit the on demand trips when its status is assigning driver on Live deliveries screen
   @regression

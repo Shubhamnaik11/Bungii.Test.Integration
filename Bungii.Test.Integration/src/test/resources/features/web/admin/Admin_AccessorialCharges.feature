@@ -197,6 +197,12 @@ Scenario: To verify that admin can add accessorial charges for partner canceled 
 	And I view All Deliveries list on the admin portal
 	And I search the delivery using "Pickup Reference"
 	Then The "All Deliveries" should be in "Partner Canceled" state
+#	Core-4307: Verify the history is displayed for PARTNER canceled delivery when DRIVER NOT ACCEPTED
+	And I click on the dropdown beside scheduled bungii
+	When I click the "Notes & History On Completed Delivery" link
+	And I click on "History"
+	Then I should be able to see "partner cancelled event - driver not accepted"
+	And I close the Note
 	Then Revive button should be displayed beside the trip
 	When I click on "Revive" button
 	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
