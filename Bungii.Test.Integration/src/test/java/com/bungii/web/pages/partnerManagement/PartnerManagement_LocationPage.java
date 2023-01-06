@@ -75,6 +75,7 @@ public class PartnerManagement_LocationPage extends PageBase {
     public WebElement Text_DifferentTripSetting(String mode) { return findElement(String.format("//div[text()=\"%s\"]",mode), LocatorType.XPath);}
     public WebElement Text_DifferentTripSettingValues(String text) { return findElement(String.format("//div[text()=\"%s\"]/following-sibling::div",text), LocatorType.XPath);}
     public WebElement Text_DifferentTripSettingLabel(String mode) { return findElement(String.format("//span[text()=\"%s\"]",mode), LocatorType.XPath);}
+    public WebElement Image_GreenCrossTripSettings() { return findElement("//span[text()=\"Barcode Scan at Pickup\"]/preceding-sibling::*[local-name()=\"svg\"]", LocatorType.XPath);}
 
 
 }
