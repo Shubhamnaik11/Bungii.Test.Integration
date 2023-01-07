@@ -141,7 +141,8 @@ Feature: Partner Management Location
     Then The "Barcode Scan at Drop-off" "green tick" should be displayed
 
 
-  @sn
+  @ready
+    #CORE-4656 To verify Customer signature indicator is present under trip setting in partner management portal
   Scenario:To verify the Customer signature setting visible in AP
     When I search for "Cort Furniture" partner on partner management
     And I click on the "Arrow" link
