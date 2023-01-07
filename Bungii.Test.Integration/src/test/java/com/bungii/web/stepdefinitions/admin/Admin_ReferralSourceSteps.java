@@ -189,6 +189,15 @@ public class Admin_ReferralSourceSteps extends DriverBase {
     case "Referral Sources":
         CurrentGridData = paginateAndGetGridData(5);
     switch (field) {
+        case "Driver Join Date":
+            Collections.sort(DefaultGridData.get(0));
+            if (sortOrder.equals("Ascending")) {
+                testStepAssert.isTrue(DefaultGridData.get(0).equals(CurrentGridData.get(0)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            } else {
+                Collections.reverse(DefaultGridData.get(0));
+                testStepAssert.isTrue(DefaultGridData.get(0).equals(CurrentGridData.get(0)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            }
+            break;
         case "Sources":
             Collections.sort(DefaultGridData.get(0));
             if (sortOrder.equals("Ascending")) {

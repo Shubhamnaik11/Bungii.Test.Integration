@@ -414,6 +414,9 @@ try{
                 testStepVerify.isElementDisplayed(Page_Partner_Dashboard.Text_EmailSupport(),"Email Support text should be shown.","Email Support text is shown.","Email Support text is not shown.");
                 testStepVerify.isElementTextEquals(Page_Partner_Dashboard.Email_EmailSupport(),PropertyUtility.getDataProperties("support.email.address"));
                 break;
+            case "Recent Driver Registrations":
+                testStepVerify.isElementDisplayed(Page_Partner_Dashboard.Text_RecentDriverRegistration(),"Recent Driver Registrations should be displayed.","Recent Driver Registrations is displayed.","Recent Driver Registrations is not displyaed.");
+                break;
             default: break;
         }
         } catch (Exception e) {

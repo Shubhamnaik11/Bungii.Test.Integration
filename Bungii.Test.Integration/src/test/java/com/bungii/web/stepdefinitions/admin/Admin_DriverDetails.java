@@ -6,10 +6,7 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.*;
-import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
-import com.bungii.web.pages.admin.Admin_DriversPage;
-import com.bungii.web.pages.admin.Admin_LogviewPage;
-import com.bungii.web.pages.admin.Admin_TripDetailsPage;
+import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -44,6 +41,7 @@ public class Admin_DriverDetails extends DriverBase{
     DbUtility dbUtility = new DbUtility();
     Admin_LogviewPage admin_logviewPage = new Admin_LogviewPage();
     private static LogUtility logger = new LogUtility(Admin_DriverDetails.class);
+    Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
 
     @Then("^Set the Geofence dropdown to \"([^\"]*)\"$")
     public void set_the_geofence_dropdown_to_something(String strArg1) throws Throwable {
@@ -293,6 +291,23 @@ public class Admin_DriverDetails extends DriverBase{
 
         }
         catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I search the {string} Driver & press Enter button")
+    public void iSearchTheDriverPressEnterButton(String DriverType) {
+        try {
+            switch (DriverType) {
+                case "Recent Registered":
+                    String recentDriver=action.getText(admin_Driverspage.Text_RecentRegisteredDriver());
+                    action.sendKeys(admin_TripsPage.TextBox_Search(),recentDriver+ Keys.ENTER);
+                    break;
+            }
+        }
+        catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);

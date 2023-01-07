@@ -157,3 +157,15 @@ Feature: Admin_DriverDetails
         | Testdrivertywd_appledv_b_mattH Stark_dvOnEH  |   Processing details    |  Branch app Registration without wallet |
         | Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ  |   Wallet details        |  Branch app registration and wallet     |
         | Testdrivertywd_appledc_a_drve Driver         |   Acc not created       |  No Branch app Registration             |
+
+  @sn
+    #CORE-3689: To verify To verify Admin should redirect to driver list page from driver search on admin dashboard page when ENTER key is pressed to search.
+  Scenario: Verify Admin redirects to Driver list page
+    When I click on "Dashboard" page
+    Then I should see "Recent Driver Registrations"
+    And the "Driver Join Date" list should be sorted by "Ascending" order of "Date"
+    And I search the "Recent Registered" Driver & press Enter button
+    Then I should see "Driver List Page" on screen
+
+#  xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']",Name, CreatedDate, Expires, Code, Type, Status, Discount, Entered, Used);
+#  //tr/td[text()='gEsxdoJAf AUqwrDHfdJ']/following-sibling::td[text()='ZRrUHBVJLz']/following-sibling::td[text()='Jan 03, 2023 09:55:38 PM']/following-sibling::td[text()='New Application']
