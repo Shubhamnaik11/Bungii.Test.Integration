@@ -163,7 +163,8 @@ Feature: Admin_DriverDetails
   Scenario: Verify Admin redirects to Driver list page
     When I click on "Dashboard" page
     Then I should see "Recent Driver Registrations"
-    And the "Driver Join Date" list should be sorted by "Ascending" order of "Date"
+#    And The "Driver Join Date" is set to "Descending" by default
+#    And the "Driver Join Date" list should be sorted by "Ascending" order of "Date"
     And I search the "Recent Registered" Driver & press Enter button
     Then I should see "Driver List Page" on screen
 

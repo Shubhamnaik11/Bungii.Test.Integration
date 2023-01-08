@@ -302,6 +302,7 @@ public class Admin_DriverDetails extends DriverBase{
         try {
             switch (DriverType) {
                 case "Recent Registered":
+                    action.JavaScriptScrolldown();
                     String recentDriver=action.getText(admin_Driverspage.Text_RecentRegisteredDriver());
                     action.sendKeys(admin_TripsPage.TextBox_Search(),recentDriver+ Keys.ENTER);
                     break;
