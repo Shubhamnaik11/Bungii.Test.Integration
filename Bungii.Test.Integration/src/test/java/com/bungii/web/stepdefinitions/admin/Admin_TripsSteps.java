@@ -3858,4 +3858,32 @@ try{
         }
     }
 
+    @Then("driver should receive {string} email")
+    public void driverShouldReceiveEmail(String emailSubject) {
+        String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
+        emailBody=emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
+        logger.detail("Email Body (Actual): "+ emailBody);
+        String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+        String verificationCode = (String) cucumberContextManager.getScenarioContext("VERIFICATIONCODE");
+
+        boolean hasDST=false;
+
+        String message = null;
+        switch (emailSubject) {
+            case "BUNGII: Your verification code":
+                if(hasDST){
+                    message = utility.getExpectedDriverForgotPasswordEmailContent(driverName, verificationCode);
+                    message= message.replaceAll("EST","EDT");
+                }else {
+                    message = utility.getExpectedDriverForgotPasswordEmailContent(driverName, verificationCode);
+                }
+                break;
+        }
+        message= message.replaceAll(" ","");
+        logger.detail("Email Body (Expected): "+message);
+        testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
+    }
 }

@@ -405,8 +405,6 @@ public class GeneralUtility extends DriverBase {
             e.printStackTrace();
             return null;
         }
-
-
     }
 
     public void GetSpedificMultipartTextEmailIfReceived(String expectedFromAddress, String expectedToAddress, String expectedSubject, String expectedEmailContent) {
@@ -1363,6 +1361,29 @@ public class GeneralUtility extends DriverBase {
             partnerManagementURL = PropertyUtility.getDataProperties("qa.auto.partner.management.url");
         return partnerManagementURL;
     }
-
+    public String getExpectedDriverForgotPasswordEmailContent(String driverName, String verificationCode)
+    {
+        String emailMessage = "";
+        FileReader fr;
+        try{
+            if(SystemUtils.IS_OS_WINDOWS){
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverForgotPasswordVerificationCodeEmail");
+            }
+            else {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/DriverForgotPasswordVerificationCodeEmail");
+            }
+            String s;
+            try (
+                BufferedReader br = new BufferedReader(fr)) {
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%DriverName%",driverName).replaceAll("%VerificationCode%",verificationCode);
+                    emailMessage += s;
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return emailMessage;
+    }
 }
 
