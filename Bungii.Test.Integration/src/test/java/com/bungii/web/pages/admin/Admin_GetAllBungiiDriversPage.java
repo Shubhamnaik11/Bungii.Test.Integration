@@ -24,4 +24,11 @@ public class Admin_GetAllBungiiDriversPage extends PageBase {
     public WebElement Driver_Mobile_Updated_Comment_Save() { return findElement("//button[contains(text(),'Save')]",LocatorType.XPath);}
     public WebElement Driver_Mobile_Cancel() { return findElement("//td[contains(text(),'Phone Number')]/following-sibling::td/div/div/img[@title='Cancel']",LocatorType.XPath);}
     public WebElement Driver_Mobile_Updated_Comment_Cancel() { return findElement("//button[contains(text(),'Cancel')]",LocatorType.XPath);}
+    public WebElement Icon_EditPickupPayload() { return findElement("//td[contains(text(),'Pickup payload')]/following-sibling::td/div/div[2]/img[@title='Edit Pickup Payload']",LocatorType.XPath);}
+    public WebElement Icon_SavePickupPayload() { return findElement("//td[contains(text(),'Pickup payload')]/following-sibling::td/div/div[2]/img[@title='Save']",LocatorType.XPath);}
+    public WebElement Icon_ClosePickupPayload() { return findElement("//td[contains(text(),'Pickup payload')]/following-sibling::td/div/div[2]/img[@title='Cancel']",LocatorType.XPath);}
+    public WebElement Data_PickupPayload() { return findElement("//td[contains(text(),'Pickup payload')]/following-sibling::td/div/div/div",LocatorType.XPath);}
+    public WebElement Textbox_PickupPayload() { return findElement("//td[contains(text(),'Pickup payload')]/following-sibling::td/div/div/div/input",LocatorType.XPath);}
+
 }
+
