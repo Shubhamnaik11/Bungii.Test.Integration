@@ -1598,11 +1598,15 @@ try{
                 break;
             case "Best Buy #11, Baltimore, MD has scheduled their first delivery!":
                 String partnerPortalName=PropertyUtility.getDataProperties("partner.baltimore.name");
-                message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName);
+                String pickupReference= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                String trackingId= dbUtility.getPickupToken(pickupReference);
+                message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName,trackingId);
                 break;
             case "Updated First Partner Portal Mail":
                 String partnerPortalName1=PropertyUtility.getDataProperties("partner.atlanta.equip-bid.partner.portal.name");
-                message = utility.getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(partnerPortalName1);
+                String pickupReference1= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                String trackingId1= dbUtility.getPickupToken(pickupReference1);
+                message = utility.getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(partnerPortalName1,trackingId1);
                 break;
         }
         message= message.replaceAll(" ","");
