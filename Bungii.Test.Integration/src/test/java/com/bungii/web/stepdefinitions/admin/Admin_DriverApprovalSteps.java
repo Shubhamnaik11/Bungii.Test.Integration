@@ -809,8 +809,6 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @And("^I enter pickup payload for the driver$")
     public void i_enter_pickup_payload_for_the_driver() throws Throwable{
        try{
-           String oldPickupPayload=action.getText(admin_GetAllBungiiDriversPage.Data_PickupPayload());
-           cucumberContextManager.setScenarioContext("OLD_PICKPAYLOAD", oldPickupPayload);
            String Payload=PropertyUtility.getMessage("Data_PickupPayload");
            action.clearSendKeys(admin_GetAllBungiiDriversPage.Textbox_PickupPayload(),Payload);
            log("I should able to update pickup payload", "I have updated pickup payload", false);
@@ -827,8 +825,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         try {
             switch (Button) {
                 case "Edit":
-                    //String oldPickupPayload=action.getText(admin_GetAllBungiiDriversPage.Data_PickupPayload());
-                    //cucumberContextManager.setScenarioContext("OLD_PICKPAYLOAD", oldPickupPayload);
+                    String oldPickupPayload=action.getText(admin_GetAllBungiiDriversPage.Data_PickupPayload());
+                    cucumberContextManager.setScenarioContext("OLD_PICKPAYLOAD", oldPickupPayload);
                     action.click(admin_GetAllBungiiDriversPage.Icon_EditPickupPayload());
                     break;
                 case "Save":
@@ -852,6 +850,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         try{
             String ExpectedOldPickupPayload= (String) cucumberContextManager.getScenarioContext("OLD_PICKPAYLOAD");
             String ActualOldPickupPayload=action.getAttributeValue(admin_GetAllBungiiDriversPage.Textbox_PickupPayload());
+            System.out.println();
             testStepAssert.isEquals(ActualOldPickupPayload,ExpectedOldPickupPayload, "Should show " +ExpectedOldPickupPayload, "Pickup Payload is not saved on cancel", "Pickup Payload is not old value");
 
         } catch (Exception e) {
@@ -885,7 +884,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @Then("^Entered Payload amount should be retained$")
     public void entered_payload_amount_should_be_retained() throws Throwable {
         try{
-            testStepAssert.isEquals((action.getText(admin_GetAllBungiiDriversPage.Textbox_PickupPayload())),PropertyUtility.getMessage("Data_PickupPayload"), "Should retain old value", "Upadted Pickup Payload is retained", "Updated Pickup Payload is not retained");
+            testStepAssert.isEquals((action.getAttributeValue(admin_GetAllBungiiDriversPage.Textbox_PickupPayload())),PropertyUtility.getMessage("Data_PickupPayload"), "Should retain old value", "Upadted Pickup Payload is retained", "Updated Pickup Payload is not retained");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -896,7 +895,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @Then("^I see Updated pickup payload$")
     public void i_see_updated_pickup_payload() throws Throwable {
         try{
-            testStepAssert.isEquals((action.getText(admin_GetAllBungiiDriversPage.Textbox_PickupPayload())),PropertyUtility.getMessage("Data_PickupPayload"), "Pickup Payload is updated", "Pickup Payload is updated", "Pickup Payload is not saved");
+            testStepAssert.isEquals((action.getText(admin_GetAllBungiiDriversPage.Data_PickupPayload())),(PropertyUtility.getMessage("Data_PickupPayload"))+ " lbs", "Pickup Payload is updated", "Pickup Payload is updated", "Pickup Payload is not saved");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -907,10 +906,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @And("^I see updated pickup payload in DB$")
     public void i_see_updated_pickup_payload_in_db() throws Throwable {
         try{
-            String DriverPhoneNumber=action.getText(admin_GetAllBungiiDriversPage.Driver_PhoneEntry());
+            String DriverPhoneNumber=action.getText(admin_GetAllBungiiDriversPage.Data_PhoneEntry());
 
             String pickupPayload=dbUtility.getPickupPayload(DriverPhoneNumber);
-            } catch (Exception e) {
+            testStepAssert.isEquals(pickupPayload,(PropertyUtility.getMessage("Data_PickupPayload"))+".00", "Pickup Payload is updated", "Pickup Payload is updated", "Pickup Payload is not saved");
+
+        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);

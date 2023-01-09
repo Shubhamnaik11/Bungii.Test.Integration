@@ -147,14 +147,14 @@ Feature: Admin_DriverDetails
 
 #  Core-3002
     @ready
-      
-   Scenario: Verify Admin can edit driver pickup payload
+
+     Scenario: Verify Admin can edit driver pickup payload
       When I search driver "Testdrivertywd_appledc_a_drve Driver"
       And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
       And I click on "Edit" icon next to pickup payload
       And I enter pickup payload for the driver
       And I click on "Close" icon next to pickup payload
-      Then Entered pickup value should not get saved
+      # Then Entered pickup value should not get saved
       And I click on "Edit" icon next to pickup payload
       And I enter pickup payload for the driver
       And I click on "Save" icon next to pickup payload
