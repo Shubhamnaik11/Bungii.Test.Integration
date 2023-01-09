@@ -809,6 +809,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @And("^I enter pickup payload for the driver$")
     public void i_enter_pickup_payload_for_the_driver() throws Throwable{
        try{
+           String oldPickupPayload=action.getText(admin_GetAllBungiiDriversPage.Data_PickupPayload());
+           cucumberContextManager.setScenarioContext("OLD_PICKPAYLOAD", oldPickupPayload);
            String Payload=PropertyUtility.getMessage("Data_PickupPayload");
            action.clearSendKeys(admin_GetAllBungiiDriversPage.Textbox_PickupPayload(),Payload);
            log("I should able to update pickup payload", "I have updated pickup payload", false);
@@ -825,8 +827,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         try {
             switch (Button) {
                 case "Edit":
-                    String oldPickupPayload=action.getText(admin_GetAllBungiiDriversPage.Data_PickupPayload());
-                    cucumberContextManager.setScenarioContext("OLD_PICKPAYLOAD", oldPickupPayload);
+                    //String oldPickupPayload=action.getText(admin_GetAllBungiiDriversPage.Data_PickupPayload());
+                    //cucumberContextManager.setScenarioContext("OLD_PICKPAYLOAD", oldPickupPayload);
                     action.click(admin_GetAllBungiiDriversPage.Icon_EditPickupPayload());
                     break;
                 case "Save":
@@ -849,7 +851,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void entered_pickup_value_should_not_get_saved() throws Throwable {
         try{
             String ExpectedOldPickupPayload= (String) cucumberContextManager.getScenarioContext("OLD_PICKPAYLOAD");
-            String ActualOldPickupPayload=action.getText(admin_GetAllBungiiDriversPage.Textbox_PickupPayload());
+            String ActualOldPickupPayload=action.getAttributeValue(admin_GetAllBungiiDriversPage.Textbox_PickupPayload());
             testStepAssert.isEquals(ActualOldPickupPayload,ExpectedOldPickupPayload, "Should show " +ExpectedOldPickupPayload, "Pickup Payload is not saved on cancel", "Pickup Payload is not old value");
 
         } catch (Exception e) {
