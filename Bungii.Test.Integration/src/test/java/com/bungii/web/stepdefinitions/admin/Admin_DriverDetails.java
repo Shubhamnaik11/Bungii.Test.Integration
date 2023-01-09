@@ -305,7 +305,7 @@ public class Admin_DriverDetails extends DriverBase{
                     action.JavaScriptScrolldown();
                     String recentDriver=action.getText(admin_Driverspage.Text_RecentRegisteredDriver());
                     cucumberContextManager.setScenarioContext("RECENT_DRIVER", recentDriver);
-                    action.sendKeys(admin_TripsPage.TextBox_Search(),recentDriver+ Keys.ENTER);
+                    action.sendKeys(admin_TripsPage.TextBox_RecentRegisteredDriverSearch(),recentDriver+ Keys.ENTER);
                     break;
             }
         }

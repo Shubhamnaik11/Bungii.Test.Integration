@@ -158,7 +158,7 @@ Feature: Admin_DriverDetails
         | Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ  |   Wallet details        |  Branch app registration and wallet     |
         | Testdrivertywd_appledc_a_drve Driver         |   Acc not created       |  No Branch app Registration             |
 
-  @sn
+  @ready
   #CORE-3689
   Scenario: Verify Admin redirects to Driver list page from driver search on admin dashboard page when ENTER key is pressed to search
     When I click on "Dashboard" page
