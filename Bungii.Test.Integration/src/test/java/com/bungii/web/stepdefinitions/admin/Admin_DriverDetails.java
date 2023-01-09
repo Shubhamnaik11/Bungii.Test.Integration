@@ -304,6 +304,7 @@ public class Admin_DriverDetails extends DriverBase{
                 case "Recent Registered":
                     action.JavaScriptScrolldown();
                     String recentDriver=action.getText(admin_Driverspage.Text_RecentRegisteredDriver());
+                    cucumberContextManager.setScenarioContext("RECENT_DRIVER", recentDriver);
                     action.sendKeys(admin_TripsPage.TextBox_Search(),recentDriver+ Keys.ENTER);
                     break;
             }

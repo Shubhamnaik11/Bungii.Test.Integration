@@ -43,6 +43,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+    Admin_DriversPage admin_Driverspage = new Admin_DriversPage();
 
     @When("^I add following accessorial charges and save it$")
     public void i_add_following_accessorial_charges_and_save_it(DataTable data) throws Throwable {
@@ -82,9 +83,19 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
     @Then("^I should see \"([^\"]*)\" section displayed$")
     public void i_should_see_something_section_displayed(String section) throws Throwable {
-        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Header_Section(),section, section+" should be displayed", section+" is displayed", section+" is not displayed");
-        //removed in Sprint47
-        //testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Message_Mandatory(),"Fields marked with * are mandatory.", "Fields marked with * are mandatory. should be displayed", "Fields marked with * are mandatory. is displayed", "Fields marked with * are mandatory. is not displayed");
+        switch (section)
+        {
+            case "Accessorial Charges":
+                testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Header_Section(),section, section+" should be displayed", section+" is displayed", section+" is not displayed");
+                //removed in Sprint47
+                //testStepAssert.isElementTextEquals(admin_accessorialChargesPage.Message_Mandatory(),"Fields marked with * are mandatory.", "Fields marked with * are mandatory. should be displayed", "Fields marked with * are mandatory. is displayed", "Fields marked with * are mandatory. is not displayed");
+                break;
+
+            case "Correct Registration details":
+                String recentRegisteredDriverName=action.getText(admin_Driverspage.Text_RecentRegisteredDriverName());
+                testStepAssert.isEquals(recentRegisteredDriverName, (String) cucumberContextManager.getScenarioContext("RECENT_DRIVER"), recentRegisteredDriverName+"should be display",recentRegisteredDriverName+"is displayed",recentRegisteredDriverName+"is not displayed");
+                break;
+        }
     }
     @Then("^I should see the following fee type displayed$")
     public void i_should_see_the_following_fee_type_displayed(DataTable data) throws Throwable {

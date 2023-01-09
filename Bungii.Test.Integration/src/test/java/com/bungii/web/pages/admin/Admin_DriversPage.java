@@ -110,4 +110,6 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Text_RecentRegisteredDriver() {return findElement("(//table[@class='table table-striped table-hover'])[2]//tr[1]/td[1]",LocatorType.XPath);}
 
+    public WebElement Text_RecentRegisteredDriverName() {return findElement("//tr/td[2]",LocatorType.XPath);}
+
 }
