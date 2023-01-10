@@ -216,13 +216,20 @@ public class Admin_RefundSteps extends DriverBase {
     }
     @Then("^The \"([^\"]*)\" section should not be displayed$")
     public void the_something_section_should_not_be_displayed(String header) throws Throwable {
-        Thread.sleep(5000);
-        testStepAssert.isFalse(action.isElementPresent(admin_refundsPage.Header_popup(true)), "Issue Refund popup should not be displayed", "Issue Refund popup is not displayed","Issue Refund popup is displayed");
+        try {
+            Thread.sleep(5000);
+            testStepAssert.isFalse(action.isElementPresent(admin_refundsPage.Header_popup(true)), "Issue Refund popup should not be displayed", "Issue Refund popup is not displayed", "Issue Refund popup is displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^\"([^\"]*)\" fields should be auto calculated based on Delivery Total and Driver Earnings$")
     public void something_fields_should_be_auto_calculated_based_on_delivery_total_and_driver_earnings(String field) throws Throwable {
-try{
+        try{
         String deliveryTotal = action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$","");
         String customerInputAmount = action.getAttributeValue(admin_refundsPage.TextBox_RefundAmount()).trim();
         String customerInputPercentage = action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()).trim();
@@ -239,18 +246,18 @@ try{
                 testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_BungiiPercentage()),String.valueOf(df.format(calculatedBungiiPercentage)), "Bungii Earnings Percentage should be displayed", "Bungii Earnings Percentage is displayed","Bungii Earnings Percentage is not displayed");
                 break;
         }
-} catch(Exception e){
-    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-    error("Step should be successful", "Error performing step,Please check logs for more details",
+    } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
             true);
-}
+    }
     }
 
 
 
     @And("^\"([^\"]*)\" field should be auto calculated based on Delivery Total and Driver Earnings$")
     public void something_field_should_be_auto_calculated_based_on_delivery_total_and_driver_earnings(String field) throws Throwable {
-try{
+    try{
         String deliveryTotal = action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$","");
         String customerInputAmount = action.getAttributeValue(admin_refundsPage.TextBox_RefundAmount()).trim();
         String customerInputPercentage = action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()).trim();
@@ -277,24 +284,50 @@ try{
 
     @And("^Notes text area should be displayed$")
     public void notes_text_area_should_be_displayed() throws Throwable {
-        testStepAssert.isTrue(action.isElementPresent(admin_refundsPage.TextBox_Notes()),"Driver notes should be displayed", "Driver notes is displayed", "Driver notes is not displayed");
+        try {
+            testStepAssert.isTrue(action.isElementPresent(admin_refundsPage.TextBox_Notes()), "Driver notes should be displayed", "Driver notes is displayed", "Driver notes is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^Notes text area should not be displayed$")
     public void notes_text_area_should_not_be_displayed() throws Throwable {
-        testStepAssert.isFalse(action.isElementPresent(admin_refundsPage.TextBox_Notes(true)),"Driver notes should not be displayed", "Driver notes is not displayed", "Driver notes is displayed");
+        try {
+            testStepAssert.isFalse(action.isElementPresent(admin_refundsPage.TextBox_Notes(true)), "Driver notes should not be displayed", "Driver notes is not displayed", "Driver notes is displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @When("^I select \"([^\"]*)\" checkbox$")
     public void i_select_something_checkbox(String strArg1) throws Throwable {
-        action.click(admin_refundsPage.Checkbox_Confirm());
-
+        try {
+            action.click(admin_refundsPage.Checkbox_Confirm());
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should see \"([^\"]*)\" popup$")
     public void i_should_see_something_popup(String header) throws Throwable {
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Header_Popup()),header, header+ " should be displayed", header+ " is displayed",header+ " is not displayed");
-
+        try {
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Header_Popup()), header, header + " should be displayed", header + " is displayed", header + " is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I click on \"([^\"]*)\" button on Issue Refund popup$")
@@ -372,61 +405,106 @@ try{
     }
     @Then("^the values should be reverted to origional value$")
     public void the_values_should_be_reverted_to_origional_value() throws Throwable {
-        Thread.sleep(5000);
-      testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_BungiiEarnings()),"0", "Bungii Earnings should be displayed", "Bungii Earnings is displayed","Bungii Earnings is not displayed");
-      testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_BungiiPercentage()),"0", "Bungii Earnings Percentage should be displayed", "Bungii Earnings Percentage is displayed","Bungii Earnings Percentage is not displayed");
-      testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_RefundAmount()),"0", "Bungii Earnings should be displayed", "Bungii Earnings is displayed","Bungii Earnings is not displayed");
-      testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()),"0", "Bungii Earnings should be displayed", "Bungii Earnings is displayed","Bungii Earnings is not displayed");
-
+        try {
+            Thread.sleep(5000);
+            testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_BungiiEarnings()), "0", "Bungii Earnings should be displayed", "Bungii Earnings is displayed", "Bungii Earnings is not displayed");
+            testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_BungiiPercentage()), "0", "Bungii Earnings Percentage should be displayed", "Bungii Earnings Percentage is displayed", "Bungii Earnings Percentage is not displayed");
+            testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_RefundAmount()), "0", "Bungii Earnings should be displayed", "Bungii Earnings is displayed", "Bungii Earnings is not displayed");
+            testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()), "0", "Bungii Earnings should be displayed", "Bungii Earnings is displayed", "Bungii Earnings is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
 
     }
     @And("^I should see Bungii Internal Note$")
     public void i_should_see_bungii_internal_note() throws Throwable {
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_NoteBungiiInternal()), (String)cucumberContextManager.getScenarioContext("BUNGII_INTERNAL_NOTE"), "Bungii Internal Note should be displayed", "Bungii Internal Note is displayed","Bungii Internal Note is not displayed");
+        try {
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Label_NoteBungiiInternal()), (String) cucumberContextManager.getScenarioContext("BUNGII_INTERNAL_NOTE"), "Bungii Internal Note should be displayed", "Bungii Internal Note is displayed", "Bungii Internal Note is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I should see Bungii Driver Note$")
     public void i_should_see_bungii_driver_note() throws Throwable {
-
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_NoteDriver()), (String)cucumberContextManager.getScenarioContext("BUNGII_DRIVER_NOTE"), "Bungii Driver Note should be displayed", "Bungii Driver Note is displayed","Bungii Driver Note is not displayed");
+        try {
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Label_NoteDriver()), (String) cucumberContextManager.getScenarioContext("BUNGII_DRIVER_NOTE"), "Bungii Driver Note should be displayed", "Bungii Driver Note is displayed", "Bungii Driver Note is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @Then("^\"([^\"]*)\" is displayed$")
     public void something_is_displayed(String message) throws Throwable {
-        action.waitUntilIsElementExistsAndDisplayed(admin_refundsPage.Label_Success(),5000L);
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_Success()),message, message+ " should be displayed", message+ " is displayed",message+ " is not displayed");
+        try {
+            action.waitUntilIsElementExistsAndDisplayed(admin_refundsPage.Label_Success(), 5000L);
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Label_Success()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^The \"([^\"]*)\" button should not be displayed$")
     public void the_something_button_should_not_be_displayed(String button) throws Throwable {
-        Thread.sleep(5000);
-        switch (button)
-        {
-            case "New Partner":
-                testStepAssert.isNotElementDisplayed(admin_refundsPage.findElement("btnCreateBusinessUser", PageBase.LocatorType.Id,true),"Add Partner button should not be visible","Add partner button is not visible","Add partner button is visible");
-                break;
-            default:
-                testStepAssert.isFalse(action.isElementPresent(admin_refundsPage.Button_IssueRefund(true)),"Issue Refund button should not be displayed", "Issue Refund button is not displayed", "Issue Refund button is displayed");
-                break;
+        try {
+            Thread.sleep(5000);
+            switch (button) {
+                case "New Partner":
+                    testStepAssert.isNotElementDisplayed(admin_refundsPage.findElement("btnCreateBusinessUser", PageBase.LocatorType.Id, true), "Add Partner button should not be visible", "Add partner button is not visible", "Add partner button is visible");
+                    break;
+                default:
+                    testStepAssert.isFalse(action.isElementPresent(admin_refundsPage.Button_IssueRefund(true)), "Issue Refund button should not be displayed", "Issue Refund button is not displayed", "Issue Refund button is displayed");
+                    break;
+            }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 
     @Then("^The \"([^\"]*)\" button should be displayed$")
     public void the_something_button_should_be_displayed(String button) throws Throwable {
-        testStepAssert.isTrue(action.isElementPresent(admin_refundsPage.Button_ReattemptPayment()),button +" button should be displayed", button +" button is displayed", button +" button is not displayed");
+        try {
+            testStepAssert.isTrue(action.isElementPresent(admin_refundsPage.Button_ReattemptPayment()), button + " button should be displayed", button + " button is displayed", button + " button is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @Then("^I should see Customer Refund Amount and Driver Earnings$")
     public void i_should_see_customer_refund_amount_and_driver_earnings() throws Throwable {
-        cucumberContextManager.setScenarioContext("DELIVERY_TOTAL",action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$",""));
-        cucumberContextManager.setScenarioContext("REFUND_AMOUNT",action.getText(admin_refundsPage.Label_CustomerRefundComplete()).replace("$","").trim());
-        cucumberContextManager.setScenarioContext("REFUND_PERCENTAGE","100.00");
-        cucumberContextManager.setScenarioContext("DRIVER_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim());
-        if(!cucumberContextManager.getScenarioContext("Bungii_Type").equals("duo"))
-            cucumberContextManager.setScenarioContext("BUNGII_EARNINGS",Double.parseDouble(String.valueOf("0.00"))-Double.parseDouble(action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim()));
-        else
-            cucumberContextManager.setScenarioContext("BUNGII_EARNINGS",Double.parseDouble(String.valueOf("0.00"))-Double.parseDouble(action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim())-Double.parseDouble(action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings2()).trim()));
+        try {
+            cucumberContextManager.setScenarioContext("DELIVERY_TOTAL", action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$", ""));
+            cucumberContextManager.setScenarioContext("REFUND_AMOUNT", action.getText(admin_refundsPage.Label_CustomerRefundComplete()).replace("$", "").trim());
+            cucumberContextManager.setScenarioContext("REFUND_PERCENTAGE", "100.00");
+            cucumberContextManager.setScenarioContext("DRIVER_EARNINGS", action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim());
+            if (!cucumberContextManager.getScenarioContext("Bungii_Type").equals("duo"))
+                cucumberContextManager.setScenarioContext("BUNGII_EARNINGS", Double.parseDouble(String.valueOf("0.00")) - Double.parseDouble(action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim()));
+            else
+                cucumberContextManager.setScenarioContext("BUNGII_EARNINGS", Double.parseDouble(String.valueOf("0.00")) - Double.parseDouble(action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim()) - Double.parseDouble(action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings2()).trim()));
 
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundComplete()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")), "Complete customer Refund Amount should be displayed", "Complete customer Refund Amount is displayed","Complete customer Refund Amount is not displayed");
-        testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()),String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS")), "Driver Earnings should be displayed", "Driver Earnings  is displayed","Driver Earnings  is not displayed");
-
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Label_CustomerRefundComplete()), "$" + String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")), "Complete customer Refund Amount should be displayed", "Complete customer Refund Amount is displayed", "Complete customer Refund Amount is not displayed");
+            testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()), String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS")), "Driver Earnings should be displayed", "Driver Earnings  is displayed", "Driver Earnings  is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I check \"([^\"]*)\"$")
     public void i_check_something(String strArg1) throws Throwable {
@@ -497,9 +575,15 @@ try{
     }
     @And("^I should see Bungii Driver Note for both drivers$")
     public void i_should_see_bungii_driver_note_for_both_drivers() throws Throwable {
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_NoteDriver()), (String)cucumberContextManager.getScenarioContext("BUNGII_DRIVER_NOTE"), "Bungii Driver1 Note should be displayed", "Bungii Driver Note is displayed","Bungii Driver Note is not displayed");
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_NoteDriver2()), (String)cucumberContextManager.getScenarioContext("BUNGII_DRIVER_NOTE2"), "Bungii Driver2 Note should be displayed", "Bungii Driver Note is displayed","Bungii Driver Note is not displayed");
-
+        try {
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Label_NoteDriver()), (String) cucumberContextManager.getScenarioContext("BUNGII_DRIVER_NOTE"), "Bungii Driver1 Note should be displayed", "Bungii Driver Note is displayed", "Bungii Driver Note is not displayed");
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Label_NoteDriver2()), (String) cucumberContextManager.getScenarioContext("BUNGII_DRIVER_NOTE2"), "Bungii Driver2 Note should be displayed", "Bungii Driver Note is displayed", "Bungii Driver Note is not displayed");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I enter \"([^\"]*)\" as \"([^\"]*)\" dollars from second driver$")
     public void i_enter_something_as_something_dollars_from_second_driver(String field, String value) throws Throwable {
