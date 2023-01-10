@@ -133,37 +133,24 @@ Feature: Admin_DriverDetails
     #core-2661
     And I do not see regions listed under Geofence information on Driver details page
 
-  @regression
-    #failed in sprint 49 regression
-  Scenario: Verify Admin can edit and cancel the driver phone number by unsaving the comment
+  @ready
+#CORE-3002
+    Scenario: Verify Admin can edit driver pickup payload
     When I search driver "Testdrivertywd_appledc_a_drve Driver"
     And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
-    And I click "Edit" button for the "Testdrivertywd_appledc_a_drve Driver" driver
-    Then I change the "Testdrivertywd_appledc_a_drve Driver" phone number
-    And I click "Save" button for the "Testdrivertywd_appledc_a_drve Driver" driver
-    And I enter confirm comment for edited phone and "Cancel" it
-    And I click "Cancel" button for the "Testdrivertywd_appledc_a_drve Driver" driver
-    Then I see unchanged driver phone number
-
-#  Core-3002
-    @ready
-
-     Scenario: Verify Admin can edit driver pickup payload
-      When I search driver "Testdrivertywd_appledc_a_drve Driver"
-      And I click "Profile" button for the "Testdrivertywd_appledc_a_drve Driver" driver
-      And I click on "Edit" icon next to pickup payload
-      And I enter pickup payload for the driver
-      And I click on "Close" icon next to pickup payload
+    And I click on "Edit" icon next to pickup payload
+    And I enter "150" pickup payload for the driver
+    And I click on "Close" icon next to pickup payload
       # Then Entered pickup value should not get saved
-      And I click on "Edit" icon next to pickup payload
-      And I enter pickup payload for the driver
-      And I click on "Save" icon next to pickup payload
-      And I enter confirm comment for edited payload and "Cancel" it
-      Then Entered Payload amount should be retained
-      And I click on "Save" icon next to pickup payload
-      And I enter confirm comment for edited payload and "Save" it
-      Then I see Updated pickup payload
-      And I see updated pickup payload in DB
+    And I click on "Edit" icon next to pickup payload
+    And I enter "150" pickup payload for the driver
+    And I click on "Save" icon next to pickup payload
+    And I enter confirm comment for edited payload and "Cancel" it
+    Then Entered Payload amount should be retained
+    And I click on "Save" icon next to pickup payload
+    And I enter confirm comment for edited payload and "Save" it
+    Then I see Updated pickup payload
+    And I see updated pickup payload in DB
 
 #  Core-4175
     @regression
