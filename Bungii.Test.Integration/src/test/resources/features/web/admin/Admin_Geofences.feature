@@ -278,6 +278,8 @@ Feature: Admin_Geofence
       When I click on "Download Zip Codes" button
 #     Core-3843 Verify that only active geofence zip codes are downloaded in csv file
       And I verify if "only active geofence zip codes" are downloaded
+      #Core-4056: The date on downloaded zip code file name should be in proper format
+      Then The date on the downloaded csv should have proper date format
 #     Core-3843 Verify the downloaded zip codes file after active geofence is converted to inactive
       When I click on the geofence "Chicago"
       And I edit the geofence "Chicago"

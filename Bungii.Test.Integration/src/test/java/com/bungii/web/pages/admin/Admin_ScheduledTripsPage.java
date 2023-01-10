@@ -137,6 +137,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_Delivery_TripStarted(){return  findElement("//tbody/tr/td[contains(text() ,\"Trip Started\")]",LocatorType.XPath);}
     public WebElement Dropdown_Notes_History(){return  findElement("//body/div[@id='popover-basic']/div[2]/div[3]",LocatorType.XPath);}
+    public WebElement Dropdown_NotesHistoryCompletedDelivery(){return  findElement("//body/div[@id='popover-basic']/div[2]/div[2]",LocatorType.XPath);}
 
     public WebElement Text_NotesEmpty_Message(){return  findElement("//span[text()='No notes available. Please start entering notes to appear here.']",LocatorType.XPath);}
 

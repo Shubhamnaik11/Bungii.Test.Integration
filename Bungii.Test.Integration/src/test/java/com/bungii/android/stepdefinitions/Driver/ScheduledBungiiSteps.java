@@ -214,6 +214,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void i_start_selected_bungii_for_something(String type) throws Throwable {
      try{
          switch (type){
+             case "floor and decor 106":
              case "Tile Shop":
              case "Equip-bid":
              case "floor and decor":
