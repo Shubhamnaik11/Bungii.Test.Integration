@@ -204,9 +204,9 @@ public class Admin_RefundSteps extends DriverBase {
            testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header, "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
            admin_refundsPage.TextBox_RefundAmount().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));;
         String driverEarning = action.getAttributeValue(admin_refundsPage.Label_Driver());
-        String bungiiEarning = action.getAttributeValue(admin_refundsPage.Label_Bungii());
+        String bungiiEarning = action.getText(admin_refundsPage.Label_Bungii());
         cucumberContextManager.setScenarioContext("DRIVER_EARNINGS_BEFORE",driverEarning);
-        cucumberContextManager.setScenarioContext("BUNGII_EARNINGS_BEFORE",bungiiEarning);
+        cucumberContextManager.setScenarioContext("BUNGII_EARNINGS_BEFORE",bungiiEarning.replace("$",""));
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -391,6 +391,7 @@ try{
     }
     @Then("^\"([^\"]*)\" is displayed$")
     public void something_is_displayed(String message) throws Throwable {
+        action.waitUntilIsElementExistsAndDisplayed(admin_refundsPage.Label_Success(),5000L);
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_Success()),message, message+ " should be displayed", message+ " is displayed",message+ " is not displayed");
     }
 
@@ -416,7 +417,7 @@ try{
     public void i_should_see_customer_refund_amount_and_driver_earnings() throws Throwable {
         cucumberContextManager.setScenarioContext("DELIVERY_TOTAL",action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$",""));
         cucumberContextManager.setScenarioContext("REFUND_AMOUNT",action.getText(admin_refundsPage.Label_CustomerRefundComplete()).replace("$","").trim());
-        cucumberContextManager.setScenarioContext("REFUND_PERCENTAGE","100");
+        cucumberContextManager.setScenarioContext("REFUND_PERCENTAGE","100.00");
         cucumberContextManager.setScenarioContext("DRIVER_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim());
         if(!cucumberContextManager.getScenarioContext("Bungii_Type").equals("duo"))
             cucumberContextManager.setScenarioContext("BUNGII_EARNINGS",Double.parseDouble(String.valueOf("0.00"))-Double.parseDouble(action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim()));
