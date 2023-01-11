@@ -144,7 +144,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement TimePicker_Time () { return findElement("PickupDetails_ScheduledTime", LocatorType.Id); }
     public WebElement Dropdown_ScheduledDateTime() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
     public WebElement RadioButton_Solo() { return findElement("//input[@value='Solo']", LocatorType.XPath); }
-    public WebElement Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
+    public WebElement Dropdown_ServiceLevel() { return findElement("//select[@class='service-level-mt form-select']",LocatorType.XPath);}
     public WebElement Button_Accept() { return findElement("com.bungii.driver:id/activity_pickup_request_accept_available_pickup_button", PageBase.LocatorType.Id); }
 
 
