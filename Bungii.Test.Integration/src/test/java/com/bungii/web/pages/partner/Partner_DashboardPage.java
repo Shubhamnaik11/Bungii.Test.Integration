@@ -328,4 +328,8 @@ public class Partner_DashboardPage extends PageBase {
 
     //Quote request header title
     public WebElement Text_QuoteRequestPageHeader() { return findElement("//h1[contains(text(),'Quote Request')]", LocatorType.XPath);}
+
+    //Quote background box
+    public WebElement Box_CustomQuote() { return findElement("//div[@class='custom_quote_disc']", LocatorType.XPath);}
+
 }
