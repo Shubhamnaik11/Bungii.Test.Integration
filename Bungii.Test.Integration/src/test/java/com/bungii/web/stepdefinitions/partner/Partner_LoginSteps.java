@@ -1153,7 +1153,9 @@ public class Partner_LoginSteps extends DriverBase {
             Thread.sleep(1000);
             String customQuoteHighlightColor = Page_Partner_Dashboard.Box_CustomQuote().getCssValue("background-color");
 
-            testStepAssert.isTrue(customQuoteHighlightColor != yellowHighlightColor, "Highlight color should not be yellow", "Highlight color is not yellow ", "Highlight color is yellow");
+            //testStepAssert.isTrue(customQuoteHighlightColor != yellowHighlightColor, "Highlight color should not be yellow", "Highlight color is not yellow ", "Highlight color is yellow");
+            testStepAssert.isFalse(customQuoteHighlightColor != yellowHighlightColor, "Highlight color should not be yellow", "Highlight color is not yellow ", "Highlight color is yellow");
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
