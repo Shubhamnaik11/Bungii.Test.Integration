@@ -83,6 +83,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
     @Then("^I should see \"([^\"]*)\" section displayed$")
     public void i_should_see_something_section_displayed(String section) throws Throwable {
+        try {
         switch (section)
         {
             case "Accessorial Charges":
@@ -95,6 +96,11 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 String recentRegisteredDriverName=action.getText(admin_Driverspage.Text_RecentRegisteredDriverName());
                 testStepAssert.isEquals(recentRegisteredDriverName, (String) cucumberContextManager.getScenarioContext("RECENT_DRIVER"), recentRegisteredDriverName+"should be display",recentRegisteredDriverName+"is displayed",recentRegisteredDriverName+"is not displayed");
                 break;
+        }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
     @Then("^I should see the following fee type displayed$")
