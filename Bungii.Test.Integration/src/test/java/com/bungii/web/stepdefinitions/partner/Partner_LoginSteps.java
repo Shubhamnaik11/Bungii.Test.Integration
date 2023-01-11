@@ -1151,7 +1151,6 @@ public class Partner_LoginSteps extends DriverBase {
             String yellowHighlightColor = PropertyUtility.getDataProperties("text.yellow.highlight");
 
             Thread.sleep(1000);
-            boolean customQuoteHighlightDisplayed = Page_Partner_Dashboard.Box_CustomQuote().isDisplayed();
             String customQuoteHighlightColor = Page_Partner_Dashboard.Box_CustomQuote().getCssValue("background-color");
 
             testStepAssert.isTrue(customQuoteHighlightColor != yellowHighlightColor, "Highlight color should not be yellow", "Highlight color is not yellow ", "Highlight color is yellow");
