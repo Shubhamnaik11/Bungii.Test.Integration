@@ -342,7 +342,7 @@ Feature: Solo Scheduled Bungii - TELET
     Then I should see the customer signature row "Present" in admin portal all delivery details page
     And The customer signature field is "Signature Present"
 
-   #CORE-3606 :Verify Customer signature can be skipped on driver app
+  #CORE-3606 :Verify Customer signature can be skipped on driver app
   @ready
   Scenario:Verify Customer signature can be skipped on driver app
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
@@ -376,9 +376,10 @@ Feature: Solo Scheduled Bungii - TELET
     And I log in to admin portal
     And I Select "trips" from admin sidebar
     And I open the trip for "Testcustomertywd_appleMarkBY LutherBY" the customer
+    #CORE-4656:Verify customer signature settings on Admin portal when it is configured as Enabled and Not Required
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row "Present" in admin portal all delivery details page
-    And The customer signature field is "N/A"
+    And The customer signature field is "Not required N/A"
 
 #CORE-3606 :Verify customer signature screen is shown for only the control driver when he/she completes the trip first
   @ready @duo

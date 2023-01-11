@@ -202,8 +202,12 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_PalletOneWeightSchedulePage() { return findElement("//androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]", LocatorType.XPath); }
     public WebElement Text_PalletOneDimensionsSchedulePage() { return findElement("//androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[2]", LocatorType.XPath); }
     public WebElement Text_PalletOneNameSchedulePage() { return findElement("//android.view.ViewGroup/android.widget.TextView[2]", LocatorType.XPath); }
-    public WebElement Link_DeliveryDetails(){return  findElement("dLabel",LocatorType.Id);}
-    public WebElement List_ViewDeliveries(){return  findElement("//td/div[@class='dropdown open']/ul/li/*[contains(text(),'Delivery Details')]",LocatorType.XPath);}
+    public WebElement Link_DeliveryDetails(){return  findElement("//tr/td[14]/div/img",LocatorType.XPath);}
+
+    public WebElement Link_CompletedDeliveryDetails(){return  findElement("//tr/td[13]/div/img",LocatorType.XPath);}
+
+    public WebElement Link_LiveDeliveryDetails(){return  findElement("//tr/td[13]/div/img[1]",LocatorType.XPath);}
+    public WebElement List_ViewDeliveries(){return  findElement("//a[contains(text(),'Delivery Details')]",LocatorType.XPath);}
     public WebElement Icon_CustomerHelpAdminPortal(){return  findElement("//div/span[text() =\"Customer help\"]",LocatorType.XPath);}
     //Photo tab on admin portal
     public List<WebElement> List_Photos(){return  findElements("//h5/following-sibling::div",LocatorType.XPath);}
