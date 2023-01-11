@@ -9,6 +9,8 @@ Feature: FloorDecor Multiple PhoneNo
   Scenario: To verify ability to add multiple SMS recipients phone numbers on Delivery Details Screen for solo delivery
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
+    #CORE-4737 Verify background color not to be yellow
+    And I should see the custom quote background not highlighted in "Yellow"
     #CORE-3849 changes incorporated
     When I request "Solo" Bungii trip in partner portal configured for "fnd multiple phone" in "atlanta" geofence
       | Pickup_Address                                 | Delivery_Address                                |Address_Enter|
