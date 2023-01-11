@@ -198,11 +198,10 @@ Feature: On Demand Bungii
     Then poor driver ratting should be sent to customer
 
     #CORE-3607:message displayed when trip request is no longer available to accept by driver
-  @testAllan
+  @ready
   Scenario:message displayed when trip request is no longer available to accept by driver
     And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "Testdrivertywd_appleks_a_drvbp Kansas_bp" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drvbo Kansas_bo" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I tap on "Go Online button" on Driver Home page
     When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
@@ -212,6 +211,5 @@ Feature: On Demand Bungii
     And I click on "View Request" button
     And I wait for 2 minutes
     And I wait for 1 minutes
-    And I wait for 2 minutes
     And I click on "Accept" button
-    
+    Then The "This pickup is no longer available." "Snackbar message" should be displayed
