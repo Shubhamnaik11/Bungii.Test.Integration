@@ -1148,13 +1148,10 @@ public class Partner_LoginSteps extends DriverBase {
     @And("I should see the custom quote background not highlighted in {string}")
     public void iShouldSeeTheCustomQuoteBackgroundNotHighlightedIn(String color) {
         try {
-            String yellowHighlightColor = PropertyUtility.getDataProperties("text.yellow.highlight");
-
-            Thread.sleep(1000);
-            String customQuoteHighlightColor = Page_Partner_Dashboard.Box_CustomQuote().getCssValue("background-color");
-
-            //testStepAssert.isTrue(customQuoteHighlightColor != yellowHighlightColor, "Highlight color should not be yellow", "Highlight color is not yellow ", "Highlight color is yellow");
-            testStepAssert.isFalse(customQuoteHighlightColor != yellowHighlightColor, "Highlight color should not be yellow", "Highlight color is not yellow ", "Highlight color is yellow");
+            testStepAssert.isFalse((PropertyUtility.getDataProperties("text.yellow.highlight")).equalsIgnoreCase(Page_Partner_Dashboard.Box_CustomQuote().getCssValue("background-color")),
+                    "Highlight color should not be yellow",
+                    "Highlight color is not yellow ",
+                    "Highlight color is yellow");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
