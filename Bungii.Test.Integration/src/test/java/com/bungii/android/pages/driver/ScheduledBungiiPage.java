@@ -32,7 +32,7 @@ public class ScheduledBungiiPage extends  PageBase {
     public WebElement  Button_Edit() {return findElement("//p[@id='btnEdit']",LocatorType.XPath);}
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
     public WebElement Icon_Dropdown(){return  findElement("//div/img[@id='dLabel']",LocatorType.XPath);}
-    public WebElement Option_Edit(){return  findElement("btnLiveEdit",LocatorType.Id);}
+    public WebElement Option_Edit(){return  findElement("//a[contains(text(),'Edit')]",LocatorType.XPath);}
 
     public WebElement Button_ThreeDot() { return findElement("//android.view.ViewGroup[@resource-id='com.bungii.driver:id/appCompatImageView37']/android.widget.ImageView",LocatorType.XPath);}
 

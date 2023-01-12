@@ -564,6 +564,10 @@ public class TripDetailsSteps extends DriverBase {
                     action.click(updateStatusPage.RadioButton_EditDeliveryStatus());
                     Thread.sleep(1000);
                     break;
+                case "Delivery Completed":
+                    action.click(updateStatusPage.RadioButton_BungiiComlpeted());
+                    Thread.sleep(1000);
+                    break;
                 default:
                     break;
             }

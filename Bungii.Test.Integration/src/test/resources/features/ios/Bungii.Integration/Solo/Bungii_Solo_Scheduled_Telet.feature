@@ -497,9 +497,10 @@ Feature: Solo Scheduled Bungii - TELET
     And I should be navigated to "Rate duo teammate" screen
 
 #CORE-3606 :Verify driver app when admin completes the trip before signature is taken
-  @ready @duo
+  @ready
+  @duo
   Scenario:Verify driver app when admin completes the trip before signature is taken
-    When I request Partner Portal "Duo" Trip for "Cort Furniture" partner
+    When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       | atlanta| NEXT_POSSIBLE | 8877661079 | Testcustomertywd_BppleMarkCB LutherCB|
     And As a driver "Testdrivertywd_applega_a_drvah Atlanta_ah" perform below action with respective "Solo Scheduled" Delivery
@@ -534,7 +535,8 @@ Feature: Solo Scheduled Bungii - TELET
     And I open the trip for "Testcustomertywd_BppleMarkCB LutherCB" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row "Present" in admin portal all delivery details page
-    And The customer signature field is "N/A"
+    #CORE-4656:To verify customer signature settings on Admin portal when it is configured as Required N/A on Partner management
+    And The customer signature field is "Required N/A"
 
     And I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices

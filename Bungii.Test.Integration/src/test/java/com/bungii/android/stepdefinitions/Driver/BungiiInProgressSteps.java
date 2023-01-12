@@ -1,6 +1,7 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
@@ -53,6 +54,7 @@ public class BungiiInProgressSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     OtherAppsPage otherAppsPage = new OtherAppsPage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
     EstimatePage bungiiEstimatePage = new EstimatePage();
     UpdateStatusPage updateStatusPage = new UpdateStatusPage();
@@ -947,6 +949,11 @@ public class BungiiInProgressSteps extends DriverBase {
                 testStepAssert.isTrue(isSignaturePresent, "Customer signature should be displayed","Customer signature is displayed","Customer signature is not  displayed");
                 testStepAssert.isEquals(customerSignaturePresent,ExpectedText,"Customer signature field should have signature present","Customer signature field is having  signature present","Customer signature field is not having signature present");
                 break;
+            case "Not required N/A":
+                Thread.sleep(2000);
+                String customerSignatureFieldTextNA =action.getText(scheduledBungiiPage.Label_CustomerSignatureNA()).replace("\n", " ");
+                testStepAssert.isEquals(customerSignatureFieldTextNA,expectedText,"Signature filed should have the text " +expectedText,"Signature filed has the text " +customerSignatureFieldTextNA,"Signature filed doesnt have the text " +expectedText);
+                break;
         }
     }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1040,7 +1047,8 @@ public class BungiiInProgressSteps extends DriverBase {
     public void i_click_on_something_link_beside_live_delivery(String link) throws Throwable {
         try{
             Thread.sleep(4000);
-            action.click(scheduledBungiiPage.Icon_Dropdown());
+            action.click(scheduledTripsPage.Link_LiveDeliveryDetails());
+//            action.click(scheduledBungiiPage.Icon_Dropdown());
             action.click(scheduledBungiiPage.Option_Edit());
             log(" I click on Edit link besides the live delivery",
                     "I have clicked on Edit link besides the live delivery", false);

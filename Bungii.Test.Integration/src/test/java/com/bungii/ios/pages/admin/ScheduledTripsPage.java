@@ -70,7 +70,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_VerifyChangesSavedMessage() {return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
     public WebElement Button_SaveChanges(){return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath);}
     public WebElement Text_SuccessMessage(){return findElement("//p[@id='success-message']/i[2]", LocatorType.XPath);}
-    public WebElement Button_ClosePopUp(){return findElement("//button[@class='close']/span", LocatorType.XPath);}
+    public WebElement Button_ClosePopUp(){return findElement("//button[@class='btn-close']", LocatorType.XPath);}
     public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
     public WebElement Dropdown_ScheduledDateTime() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
     public WebElement RadioButton_Solo() { return findElement("//input[@value='Solo']", LocatorType.XPath); }
@@ -100,7 +100,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Time_EditTripDetailsTime(){return findElement("PickupDetails_ScheduledTime", LocatorType.Id);}
     public WebElement Select_EditReason() {return findElement("ddEditDeliveryRemark",LocatorType.Id);}
     public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
-    public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
+    public WebElement Button_Confirm() { return findElement("//button[contains(text(),'Confirm')]", LocatorType.XPath); }
     public WebElement Text_PartnerNameLiveDeliveryPage() { return findElement("//tbody[@id='TripListsTBody']/tr[1]/td[9]",LocatorType.XPath);}
     public WebElement Link_DeliveryDetails(){return  findElement("//tr/td[12]/following-sibling::td/div/img",LocatorType.XPath);}
     public WebElement List_ViewDeliveries(){return  findElement("//a[contains(text(),'Delivery Details')]",LocatorType.XPath);}

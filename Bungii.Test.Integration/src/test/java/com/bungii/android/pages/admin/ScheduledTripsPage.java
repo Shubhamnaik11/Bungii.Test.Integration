@@ -111,7 +111,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Label_StaticText(){return findElement("//em", LocatorType.XPath);}
 
     public WebElement Label_ChangedScheduledTime(){return findElement("//div[@class='tripDrivers row']//p[contains(text(),'Schedule Time:')]/following-sibling::p[1]", LocatorType.XPath);}
-    public WebElement Button_ClosePopUp(){return findElement("//button[@class='close']/span", LocatorType.XPath);}
+    public WebElement Button_ClosePopUp(){return findElement("//button[@class='btn-close']", LocatorType.XPath);}
 
     public WebElement Text_BungiiTime(){return findElements("//android.widget.RelativeLayout/android.widget.TextView", LocatorType.XPath).get(2);}
     public WebElement Text_ConflictMessageError() {return findElement("//p[@id='conflict-message']/strong/i[@id='verify-error']", LocatorType.XPath);}
