@@ -31,6 +31,7 @@ public class BungiiSteps extends DriverBase {
     CustomerServices customerServices = new CustomerServices();
     com.bungii.android.utilityfunctions.GeneralUtility utility=new com.bungii.android.utilityfunctions.GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+    com.bungii.web.utilityfunctions.DbUtility dbUtilityWeb = new com.bungii.web.utilityfunctions.DbUtility();
 
     public void givenIamOnSearchingpage() {
         String custPhoneCode = "1", custPhoneNum = "9871450101", custPassword = "Cci12345";
@@ -4816,7 +4817,7 @@ else
     public void customer_card_auth_charge_should_be_correct() throws Throwable {
         try {
             String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            String authCharge[] = dbUtility.getAuthCharge(pickupRequest);
+            String authCharge[] = dbUtilityWeb.getAuthCharge(pickupRequest);
             String expectedAuthCharge = PropertyUtility.getDataProperties("auth.charge.customer.card");
             testStepAssert.isEquals(authCharge[0],expectedAuthCharge,
                      "Authorization charge " + expectedAuthCharge + "should be correct",
