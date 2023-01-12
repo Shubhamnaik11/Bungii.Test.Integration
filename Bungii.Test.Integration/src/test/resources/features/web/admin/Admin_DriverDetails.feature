@@ -132,7 +132,7 @@ Feature: Admin_DriverDetails
     Then I see unchanged driver phone number
     #core-2661
     And I do not see regions listed under Geofence information on Driver details page
-    
+
       @regression
     #failed in sprint 49 regression
   Scenario: Verify Admin can edit and cancel the driver phone number by unsaving the comment
@@ -176,3 +176,12 @@ Feature: Admin_DriverDetails
         | Testdrivertywd_appledv_b_mattH Stark_dvOnEH  |   Processing details    |  Branch app Registration without wallet |
         | Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ  |   Wallet details        |  Branch app registration and wallet     |
         | Testdrivertywd_appledc_a_drve Driver         |   Acc not created       |  No Branch app Registration             |
+
+  @ready
+  #CORE-3689
+  Scenario: Verify Admin redirects to Driver list page from driver search on admin dashboard page when ENTER key is pressed to search
+    When I click on "Dashboard" page
+    Then I should see "Recent Driver Registrations"
+    And I search the "Recent Registered" Driver & press Enter button
+    Then I should be directed to "Drivers Page"
+    And I should see "Correct Registration details" section displayed
