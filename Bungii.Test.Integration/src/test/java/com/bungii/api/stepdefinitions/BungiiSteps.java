@@ -31,6 +31,7 @@ public class BungiiSteps extends DriverBase {
     CustomerServices customerServices = new CustomerServices();
     com.bungii.android.utilityfunctions.GeneralUtility utility=new com.bungii.android.utilityfunctions.GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+    com.bungii.web.utilityfunctions.DbUtility dbUtilityWeb = new com.bungii.web.utilityfunctions.DbUtility();
 
     public void givenIamOnSearchingpage() {
         String custPhoneCode = "1", custPhoneNum = "9871450101", custPassword = "Cci12345";
@@ -4812,4 +4813,26 @@ else
     }
 
 
+    @Then("^Customer card auth charge should be correct$")
+    public void customer_card_auth_charge_should_be_correct() throws Throwable {
+        try {
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String authCharge[] = dbUtilityWeb.getAuthCharge(pickupRequest);
+            String expectedAuthCharge = PropertyUtility.getDataProperties("auth.charge.customer.card");
+            testStepAssert.isEquals(authCharge[0],expectedAuthCharge,
+                     "Authorization charge " + expectedAuthCharge + "should be correct",
+                    "Authorization charge " + authCharge[0] + "is correct",
+                     "Authorization charge " + authCharge[0] + "is incorrect");
+            testStepAssert.isEquals(authCharge[1],expectedAuthCharge,
+                    "Voided Authorization charge " + expectedAuthCharge + "should be correct",
+                    "Voided Authorization charge " + authCharge[1] + "is correct",
+                    "Voided Authorization charge " + authCharge[1] + "is incorrect");
+
+        } catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
 }

@@ -741,6 +741,17 @@ public class DbUtility extends DbContextManager {
         return status;
     }
 
+    public static String getPickupPayload(String DriverPhoneNumber) {
+        String Payload;
+        String queryString1 ="SELECT payload_capacity FROM bungii_admin_qa_auto.drivervehicledetail dv\n" +
+                "join bungii_admin_qa_auto.driverdetail dd on dv.DriverDetail = dd.Id\n" +
+                "join bungii_admin_qa_auto.driver d on d.Id = dd.driver\n" +
+                "where d.phone in ('"+DriverPhoneNumber+"');";
+        Payload = getDataFromMySqlServer(queryString1);
+        logger.detail("The status for trip is "+Payload);
+        return Payload;
+    }
+
     public static String[] getArrivalTimeAndLoadingUnloadingTimeForCustomer(String Cust_Reference) {
         String[] ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer = new String[4];
         String toGetEstTime="SELECT EstTime FROM pickupdetails WHERE CustomerRef ='"+Cust_Reference+"'order by pickupid desc limit 1";
@@ -760,6 +771,17 @@ public class DbUtility extends DbContextManager {
         custRef = getDataFromMySqlServer(queryString);
         logger.detail("For Phone Number " + phoneNumber + "customer reference is " + custRef);
         return custRef;
+    }
+
+    public static String[] getAuthCharge(String pickupRef) {
+        String authCharge[] = new String[2];
+        String queryString1 = "select  Amount from paymenttransaction where clientgroupref ='"+pickupRef+"' and TransactionType = '1' and StatusMessage = 'authorized'";
+        String queryString2 = "select  Amount from paymenttransaction where clientgroupref ='"+pickupRef+"' and TransactionType = '3' and StatusMessage = 'voided'";
+        authCharge[0] = getDataFromMySqlMgmtServer(queryString1);
+        authCharge[1] = getDataFromMySqlMgmtServer(queryString2);
+        logger.debug("The auth charge is "+ authCharge[0] + "and" + authCharge[1]);
+        return authCharge;
+
     }
 }
 

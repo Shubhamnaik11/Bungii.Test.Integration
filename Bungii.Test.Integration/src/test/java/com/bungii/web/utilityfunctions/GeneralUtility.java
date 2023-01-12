@@ -684,7 +684,7 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
-    public String getExpectedPartnerFirmFirstEmailContent(String firmName)
+    public String getExpectedPartnerFirmFirstEmailContent(String firmName,String trackingId)
     {
         String emailMessage = "";
         FileReader fr;
@@ -702,6 +702,7 @@ public class GeneralUtility extends DriverBase {
 
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%PartnerName%",firmName);
+                    s = s.replaceAll("%TrackingId%",trackingId);
                     emailMessage += s;
                 }
 
@@ -712,7 +713,7 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
-    public String getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(String firmName)
+    public String getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(String firmName,String trackingId1)
     {
         String emailMessage = "";
         FileReader fr;
@@ -725,6 +726,7 @@ public class GeneralUtility extends DriverBase {
 
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%PartnerName%",firmName);
+                    s = s.replaceAll("%TrackingId%",trackingId1);
                     emailMessage += s;
                 }
 
