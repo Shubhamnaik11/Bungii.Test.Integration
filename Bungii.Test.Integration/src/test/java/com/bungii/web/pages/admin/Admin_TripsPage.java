@@ -19,6 +19,8 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
 
+    public WebElement TextBox_RecentRegisteredDriverSearch() {return findElement("(//input[@class='form-control input form-control'])[2]", LocatorType.XPath); }
+
     public WebElement DropDown_SearchForPeriod () {return findElement("//div[text()='The following deliveries from:']/select", LocatorType.XPath); }
 
     //public List<WebElement> Client_names () { return findElements("//td[9]", LocatorType.XPath); }

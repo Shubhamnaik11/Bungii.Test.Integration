@@ -230,6 +230,8 @@ public class Partner_DashboardPage extends PageBase {
     //Text Support
     public WebElement Text_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]",LocatorType.XPath);}
 
+    public WebElement Text_RecentDriverRegistration() { return findElement("//h4[text()='Recent Driver Registrations']",LocatorType.XPath);}
+
     //Text Support Number
     public WebElement Number_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]/following-sibling::span",LocatorType.XPath);}
 
