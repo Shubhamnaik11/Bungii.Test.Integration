@@ -32,6 +32,7 @@
         |VISA CARD6|12/23  |VALID POSTAL CODE|VALID CVV|
       And I click "Schedule Bungii" button on Partner Portal
       Then I should "see Done screen"
+      And Customer card auth charge should be correct
       When I click "Track Deliveries" button on Partner Portal
       Then I should "see the trip in the Delivery List"
       And I should logout from Partner Portal
