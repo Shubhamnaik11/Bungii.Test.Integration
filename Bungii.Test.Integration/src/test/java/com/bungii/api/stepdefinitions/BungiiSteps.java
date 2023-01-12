@@ -4820,12 +4820,12 @@ else
             String expectedAuthCharge = PropertyUtility.getDataProperties("auth.charge.customer.card");
             testStepAssert.isEquals(authCharge[0],expectedAuthCharge,
                      "Authorization charge " + expectedAuthCharge + "should be correct",
-                    "Authorization charge " + expectedAuthCharge + "is correct",
-                     "Authorization charge " + expectedAuthCharge + "is incorrect");
+                    "Authorization charge " + authCharge[0] + "is correct",
+                     "Authorization charge " + authCharge[0] + "is incorrect");
             testStepAssert.isEquals(authCharge[1],expectedAuthCharge,
                     "Voided Authorization charge " + expectedAuthCharge + "should be correct",
-                    "Voided Authorization charge " + expectedAuthCharge + "is correct",
-                    "Voided Authorization charge " + expectedAuthCharge + "is incorrect");
+                    "Voided Authorization charge " + authCharge[1] + "is correct",
+                    "Voided Authorization charge " + authCharge[1] + "is incorrect");
 
         } catch (Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
