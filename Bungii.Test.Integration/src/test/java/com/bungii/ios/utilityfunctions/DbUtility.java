@@ -525,4 +525,15 @@ public class DbUtility extends DbContextManager {
         logger.detail("The external reference is "+reference);
         return reference;
     }
+
+    public static String[] getAuthCharge(String pickupRef) {
+        String authCharge[] = new String[2];
+        String queryString1 = "select  Amount from paymenttransaction where clientgroupref ='"+pickupRef+"' and TransactionType = '1' and StatusMessage = 'authorized'";
+        String queryString2 = "select  Amount from paymenttransaction where clientgroupref ='"+pickupRef+"' and TransactionType = '1' and StatusMessage = 'voided'";
+        authCharge[0] = getDataFromMySqlMgmtServer(queryString1);
+        authCharge[1] = getDataFromMySqlMgmtServer(queryString2);
+        logger.debug("The auth charge is "+ authCharge[0] + "and" + authCharge[1]);
+        return authCharge;
+
+    }
 }

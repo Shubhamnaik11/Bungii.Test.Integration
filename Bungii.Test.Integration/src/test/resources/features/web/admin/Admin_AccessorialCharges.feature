@@ -11,7 +11,8 @@ Scenario: Verify Accessorial Charges Can be added to Payment Successful Solo Sch
 When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 | Bungii Time   | Customer Phone | Customer Name |
 | NEXT_POSSIBLE | 9999999221 | Testcustomertywd_appleNewMH Customer|
-And As a driver "Testdrivertywd_appledc_a_drva Driver" perform below action with respective "Solo Scheduled" Delivery
+Then Customer card auth charge should be correct
+When As a driver "Testdrivertywd_appledc_a_drva Driver" perform below action with respective "Solo Scheduled" Delivery
 | driver1 state|
 |Accepted |
 | Enroute  |
