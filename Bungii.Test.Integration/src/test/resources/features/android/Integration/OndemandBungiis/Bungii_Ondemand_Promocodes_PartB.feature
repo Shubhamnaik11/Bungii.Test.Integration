@@ -12,12 +12,12 @@ Feature: On Demand Bungii Promocode Part B
 	Given I Switch to "customer" application on "same" devices
 	When I am on customer Log in page
 	And I am logged in as "<User>" customer
-	
+
 	And I Switch to "driver" application on "same" devices
 	And I am logged in as "valid baltimore" driver
 	And I tap on "Go Online button" on Driver Home page
 	And I Switch to "customer" application on "same" devices
-	
+
 	And I tap on "Menu" > "HOME" link
 	And I enter "baltimore pickup and dropoff locations" on Bungii estimate
 	And I tap on "Get Estimate button" on Bungii estimate
@@ -32,14 +32,14 @@ Feature: On Demand Bungii Promocode Part B
 	And I tap on "Request Bungii" on Bungii estimate
 	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
 	Then for a Bungii I should see "Bungii search screen"
-	
+
 	When I Open "driver" application on "same" devices
 	And Bungii Driver "accepts On Demand Bungii" request
 	Then Bungii driver should see "Enroute screen"
-	
+
 	When I Switch to "customer" application on "same" devices
 	When I click "Ok" button on the "BUNGII ACCEPTED" screen
-	
+
 	When I Open "driver" application on "same" devices
 	And Bungii Driver "slides to the next state"
 	Then Bungii driver should see "Arrived screen"
@@ -50,7 +50,7 @@ Feature: On Demand Bungii Promocode Part B
 	When Bungii Driver "slides to the next state"
 	Then Bungii driver should see "Unloading Item screen"
 	And Bungii Driver "slides to the next state"
-	
+
 	When I Switch to "customer" application on "same" devices
 	Then Bungii customer should see "correct details with promo" on Bungii completed page
 	When I tap on "OK on complete" on Bungii estimate
@@ -66,7 +66,8 @@ Feature: On Demand Bungii Promocode Part B
 	And I Select "live trips" from admin sidebar
 	And I select trip from trips
 	Then On admin trip details page "<Expected value in admin>" should be displayed
-	Examples:
+
+	  Examples:
 	  | Scenario            | Promo Code    | User            |Expected value in admin |
 	  | Promoter type       | promoter type | valid baltimore |promoter                |
   
@@ -128,3 +129,59 @@ Feature: On Demand Bungii Promocode Part B
 	Examples:
 	  | Scenario          | Expected value in admin |
 	  | Promoter type      | promo                   |
+
+#	  Core-3773: Change payment status of Customer deliveries with promoter promo codes applied
+	@ready
+	Scenario:  Change payment status of Customer deliveries with promoter promo codes applied
+		When I am on customer Log in page
+		And I am logged in as "valid baltimore" customer
+		And I Switch to "driver" application on "same" devices
+		And I am logged in as "valid baltimore" driver
+		And I Switch to "customer" application on "same" devices
+		And I enter "baltimore pickup and dropoff locations" on Bungii estimate
+		And I tap on "Get Estimate button" on Bungii estimate
+		And I add "1" photos to the Bungii
+		And I add loading/unloading time of "15 mins"
+		And I select Bungii Time as "next possible scheduled"
+		And I tap on "Promo code value" on Estimate screen
+		And I add "PROMOTER TYPE PROMO" PromoCode
+		And I tap "Add" on Save Money page
+		Then I should able to see expected promo code in available promo code
+		And I tap on "Back" icon of page
+		Then I should see "estimated cost" on Bungii estimate
+		And I tap on "Request Bungii" on Bungii estimate
+		And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+
+
+		And I Switch to "driver" application on "same" devices
+		And I Select "AVAILABLE BUNGIIS" from driver App menu
+		And I Select Trip from available trip
+		And I tap on "ACCEPT" on driver Trip details Page
+		And I Select "SCHEDULED BUNGIIS" from driver App menu
+		When I Select Trip from driver scheduled trip
+		And I start selected Bungii
+		Then Bungii driver should see "General Instructions"
+		And I slide update button on "EN ROUTE" Screen
+		And I slide update button on "ARRIVED" Screen
+		When Bungii driver uploads "1" image
+		And I slide update button on "ARRIVED" Screen
+		And I slide update button on "LOADING ITEM" Screen
+		When Bungii driver uploads "1" image
+		And I slide update button on "LOADING ITEM" Screen
+		And I slide update button on "DRIVING TO DROP-OFF" Screen
+		And I slide update button on "UNLOADING ITEMS" Screen
+		When Bungii driver uploads "1" image
+		And I slide update button on "UNLOADING ITEMS" Screen
+		And Bungii Driver "skips to rate customer"
+		Then I should be navigated to "Bungii completed" screen
+		And I wait for "2" mins
+
+		And I open new "Chrome" browser for "ADMIN PORTAL"
+		And I navigate to admin portal
+		And I log in to admin portal
+		And I Select "trips" from admin sidebar
+		And  I search the delivery using "Pickup Reference"
+		And I select "Customer Canceled" from the dropdown
+		And I select "Customer initiated - other reason" as the reason from the reason dropdown
+		And I click on "Confirm Status" button
+		And I click on "Cancel Status" button
