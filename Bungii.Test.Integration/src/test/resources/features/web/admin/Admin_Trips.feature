@@ -1141,7 +1141,6 @@ Feature: Admin_Trips
       Then I check "driver not paid status" in db
 
       #4845 Verify Export All Records button is enabled when there is no data present for any partners
-      @cf
       Scenario: Verify Export All Records button is enabled when there is no data present for any partners
         When I click on "Deliveries > Rejected API Deliveries" Menu
         Then I should be directed to "Rejected API Deliveries Page"
