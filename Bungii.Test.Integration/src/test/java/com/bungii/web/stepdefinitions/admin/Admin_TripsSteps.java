@@ -3879,8 +3879,8 @@ try{
 
     }
 
-    @Then("I check if Export All Records button is displayed")
-    public void iCheckIfExportAllRecordsButtonIsDisplayed() {
+    @Then("I check if Export All Records button is disabled")
+    public void iCheckIfExportAllRecordsButtonIsDisabled() {
         try{
             Thread.sleep(3000);
             testStepAssert.isFalse(admin_TripsPage.Button_ExportRecords().isEnabled(),"Export All Records button should be disabled",

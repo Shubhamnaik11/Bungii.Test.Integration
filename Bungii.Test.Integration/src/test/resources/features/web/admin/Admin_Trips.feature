@@ -1141,10 +1141,12 @@ Feature: Admin_Trips
       Then I check "driver not paid status" in db
 
       #4845 Verify Export All Records button is enabled when there is no data present for any partners
+    @ready
+      @cf
       Scenario: Verify Export All Records button is enabled when there is no data present for any partners
         When I click on "Deliveries > Rejected API Deliveries" Menu
         Then I should be directed to "Rejected API Deliveries Page"
         And I select partner to "E-API Walmart"
-        Then I check if Export All Records button is displayed
+        Then I check if Export All Records button is disabled
 
 
