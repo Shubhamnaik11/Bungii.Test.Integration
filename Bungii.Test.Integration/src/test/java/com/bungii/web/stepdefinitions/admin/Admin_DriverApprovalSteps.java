@@ -266,6 +266,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 case "Geofence Attributes Page":
                     testStepAssert.isElementDisplayed(admin_geofenceAtrributesPage.Label_Geofence_Attributes(), "I should be navigated to " + screen, "I am navigated to " + screen, "I am not navigates to " + screen);
                     break;
+                case "Rejected API Deliveries Page":
+                    testStepAssert.isElementDisplayed(admin_customerPage.Header_RejectedAPIDeliveries(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                    break;
                 case "Updated Terms & Conditions":
                     action.switchToTab(1);
                     String currentUrlTermsAndConditions= action.getCurrentURL();

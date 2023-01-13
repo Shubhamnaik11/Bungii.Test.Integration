@@ -3865,4 +3865,30 @@ try{
         }
     }
 
+    @And("I select partner to {string}")
+    public void iSelectPartnerTo(String Partner_name) {
+        try {
+            action.waitUntilIsElementExistsAndDisplayed(admin_TripsPage.Menu_RejectedAPIDeliveries(),(long)3000);
+            action.click(admin_TripsPage.Dropdown_Partner());
+            action.click(admin_TripsPage.Dropdown_SelectPartner(Partner_name));
+          } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+    @Then("I check if Export All Records button is displayed")
+    public void iCheckIfExportAllRecordsButtonIsDisplayed() {
+        try{
+            Thread.sleep(3000);
+            testStepAssert.isFalse(admin_TripsPage.Button_ExportRecords().isEnabled(),"Export All Records should be disabled",
+                    "Export All Records is disabled","Export All Records is not disabled");
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

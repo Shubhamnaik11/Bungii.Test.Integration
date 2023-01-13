@@ -111,5 +111,11 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Header_LiveDeliveries() {return findElement("//h4[contains(text(),'Live Delivery List')]",LocatorType.XPath);}
 
+    //REjected API Deliveries
+    public WebElement Menu_RejectedAPIDeliveries () { return findElement("//a[contains(text(),'Rejected API Deliveries')]", LocatorType.XPath); }
+    public WebElement Dropdown_Partner() {return findElement("partnerID",LocatorType.Name);}
 
+    public WebElement Dropdown_SelectPartner(String Partner_name) {return findElement("//select[@name='partnerID']/option[text()='"+Partner_name+"']",LocatorType.XPath);}
+
+    public WebElement Button_ExportRecords() {return findElement("//button[text()='Export All Records']",LocatorType.XPath);}
 }
