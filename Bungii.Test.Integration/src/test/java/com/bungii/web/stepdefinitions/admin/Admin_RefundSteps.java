@@ -507,12 +507,35 @@ public class Admin_RefundSteps extends DriverBase {
         }
     }
     @And("^I check \"([^\"]*)\"$")
-    public void i_check_something(String strArg1) throws Throwable {
+    public void i_check_something(String field) throws Throwable {
         try{
-        action.click(admin_refundsPage.Checkbox_same());
-        cucumberContextManager.setScenarioContext("DRIVER2_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings2()).trim());
-        cucumberContextManager.setScenarioContext("DRIVER_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim());
-        log("I check  "+strArg1 ,"I checked "+strArg1  ,false );
+            switch (field){
+                case "Same for 2nd drive":
+                    action.click(admin_refundsPage.Checkbox_same());
+                    cucumberContextManager.setScenarioContext("DRIVER2_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings2()).trim());
+                    cucumberContextManager.setScenarioContext("DRIVER_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim());
+                    break;
+                case "* is not displayed":
+                    String earningsBeforeBoost= (String) cucumberContextManager.getScenarioContext("DRIVER_EARNING");
+                    testStepAssert.isFalse(earningsBeforeBoost.contains("*"),
+                            "The driver earnings before boost should not contain *",
+                            "The driver earnings before boost should contains *");
+                    break;
+                case "* is displayed":
+                    String earningsAfterBoost= (String) cucumberContextManager.getScenarioContext("DRIVER_EARNING_AFTER_BOOST");
+                    testStepAssert.isTrue(earningsAfterBoost.contains("*"),
+                            "The driver earnings after boost should contain *",
+                            "The driver earnings after boost do not contains *");
+                    break;
+                case "* is not displayed after edit":
+                    String earnings= action.getText(admin_refundsPage.Text_SoloDriverEarnings());
+                    testStepAssert.isFalse(earnings.contains("*"),
+                            "The driver earnings after edit should not contain *",
+                            "The driver earnings after edit contains *");
+                    break;
+            }
+
+        log("I check  "+field ,"I checked "+field  ,false );
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
