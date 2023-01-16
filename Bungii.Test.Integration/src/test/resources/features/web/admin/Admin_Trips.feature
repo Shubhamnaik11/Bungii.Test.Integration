@@ -1072,7 +1072,7 @@ Feature: Admin_Trips
       | Assigning Driver(s) |
 
 # Driver with Same day payment setting:9049840342
-  @ready
+  @testAllan
   Scenario:Verify that 'i' icon is displayed on delivery details page for those drivers who has selected same day payment
     When I request "duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -1103,6 +1103,26 @@ Feature: Admin_Trips
     Then The "All Deliveries" should be in "Payment Successful" state
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I check if "same day payment i" icon is displayed
+    Then I verify correct disbursement type is set in db
+    #CORE-4730:Verify refund changing driver earrings for duo trip with one driver payment setting as weekly and other as Same day
+    When I click on "ISSUE REFUND" button
+    Then The "Issue Refund" section should be displayed
+    When I select "Complete Refund" radio button
+    When I update "Earnings" as "10.00" dollars
+    When I enter "Notes" as "Driver Note"
+    And I check "Same for 2nd driver"
+    Then I should see Customer Refund Amount and Driver Earnings
+    When I enter "Bungii Internal Notes" as "Internal Note"
+    When I enter "Notes" as "Driver Note" for both drivers
+    And I click on "Continue" button on Issue Refund popup
+    Then I should see "Issue Refund - Confirm Details" popup
+    And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
+    And I should see Bungii Internal Note
+    And I should see Bungii Driver Note for both drivers
+    When I select "Are you sure you want to proceed with refund request ?" checkbox
+    And I click on "Process Refund" button on Issue Refund popup
+    Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+    When I click on "OK" button
     Then I verify correct disbursement type is set in db
 
      #CORE-4520

@@ -71,9 +71,9 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Label_NoteBungiiInternal() { return findElement("//b[contains(text(),'Bungii Internal:')]/following-sibling::span", LocatorType.XPath); }
 
-    public WebElement Label_NoteDriver() { return findElement("//b[contains(text(),'Driver')]/parent::p/parent::div/parent::div/parent::div/div[2]", LocatorType.XPath); }
+    public WebElement Label_NoteDriver() { return findElement("//b[contains(text(),'Driver')]/parent::span/b/parent::span/parent::div/span[1]/span", LocatorType.XPath); }
 
-    public WebElement Label_NoteDriver2() { return findElement("//b[contains(text(),'Driver')]/parent::p/parent::div/parent::div/parent::div/div[4]", LocatorType.XPath); }
+    public WebElement Label_NoteDriver2() { return findElement("//b[contains(text(),'Driver')]/parent::span/b/parent::span/parent::div/span[2]/span", LocatorType.XPath); }
 
     public WebElement Header_Popup() { return findElement("//div[contains(text(),'Issue Refund - Confirm Details')]", LocatorType.XPath); }
 
@@ -89,13 +89,13 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Button_Close() { return findElement("//h5[contains(text(),'Issue Refund')]/following-sibling::button[@class='close']", LocatorType.XPath); }
 
-    public WebElement Checkbox_same() { return findElement("chkReplicateData", LocatorType.Id); }
+    public WebElement Checkbox_same() { return findElement("//div/label[contains(text(),\"Same for Driver\")]/preceding-sibling::input", LocatorType.XPath); }
 
     public WebElement TextBox_RefundAmount2() { return findElement("TripDetails_1__RefundAmount", LocatorType.Id); }
 
     public WebElement TextBox_RefundPercentage2() { return findElement("TripDetails_1__RefundPercentage", LocatorType.Id); }
 
-    public WebElement TextBox_DriverEarnings2() { return findElement("TripDetails_1__Driver_Earnings", LocatorType.Id); }
+    public WebElement TextBox_DriverEarnings2() { return findElement("//label[@id='dollar-icon']/div/div/input[@id='driver2Earning']", LocatorType.XPath); }
 
     public WebElement TextBox_DriverPercentage2() { return findElement("TripDetails_1__Driver_EarningsPercentage", LocatorType.Id); }
 
@@ -103,7 +103,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement TextBox_BungiiPercentage2() { return findElement("TripDetails_1__PostRefundBusinessPercentage", LocatorType.Id); }
 
-    public WebElement TextBox_Notes2() { return findElement("TripDetails_1__Driver_Notes", LocatorType.Id); }
+    public WebElement TextBox_Notes2() { return findElement("//div/textarea[@id='driver2Notes']", LocatorType.XPath); }
 
     public WebElement Button_TransactionDetails() { return findElement("//div/h4[text()='Transaction history']/following::div/a[text()='View Details']", LocatorType.XPath); }
 

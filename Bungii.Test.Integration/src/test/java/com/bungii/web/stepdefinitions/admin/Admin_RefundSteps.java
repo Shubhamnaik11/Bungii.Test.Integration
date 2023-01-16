@@ -818,5 +818,33 @@ public class Admin_RefundSteps extends DriverBase {
                 true);
     }
         }
+    @And("I check the status for {string} in db")
+    public void iCheckTheStatusForInDb(String checkingParameter) {
+        try {
+            String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            switch (checkingParameter) {
+                case "same day payment":
+                    String driverOne = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+                    String disbursmentTypeDriverOne = dbUtility.getDisbursementType(pickUpRef, driverOne);
+                    testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
+                            "Correct disbursement type value should be set for same day payment setting",
+                            "Correct disbursement type value is set for same day payment setting",
+                            "Incorrect disbursement type value is set for same day payment setting");
+                    break;
+                case "weekly payment":
+                    String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+                    String disbursmentTypeDriver = dbUtility.getDisbursementType(pickUpRef,driver);
+                    testStepAssert.isEquals(disbursmentTypeDriver, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
+                            "Correct disbursement type value should be set for weekly payment setting",
+                            "Correct disbursement type value is set for weekly payment setting",
+                            "Incorrect disbursement type value is set for weekly payment setting");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     }
