@@ -46,7 +46,7 @@ public class ScheduledTripsPage extends PageBase {
         return findElement("CustomerCancel", LocatorType.Name);
     }
 
-    public WebElement Admin_Dropdown_ServiceLevel() { return findElement("ddServiceLevelOption",LocatorType.Id);}
+    public WebElement Admin_Dropdown_ServiceLevel() { return findElement("//select[@class='service-level-mt form-select']",LocatorType.XPath);}
 
     public WebElement Button_ScheduledDateSort(){return  findElement("span-ScheduledDate",LocatorType.Id);}
     public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria",LocatorType.Id);}
