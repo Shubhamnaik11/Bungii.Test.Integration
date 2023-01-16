@@ -143,7 +143,9 @@ Feature: Mileage and Pricing after Admin Edits
     Then I check if correct "customer price-stack" is displayed on delivery details
 
 #    Core-3007:Verify Partner portals trip driver search happen based on the time configured in admin portal for respective geofence
+#    Following test case takes maximum 50 mins to execute
   @ready
+    @higherexecutiontime
     Scenario: Verify Partner portals trip driver search happen based on the time configured in admin portal for respective geofence
     When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
