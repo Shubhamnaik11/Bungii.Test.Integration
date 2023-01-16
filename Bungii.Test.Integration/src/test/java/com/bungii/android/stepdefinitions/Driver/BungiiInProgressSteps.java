@@ -7,6 +7,7 @@ import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.pages.driver.UpdateStatusPage;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.stepdefinitions.Customer.SignupSteps;
 import com.bungii.android.utilityfunctions.DbUtility;
@@ -61,6 +62,8 @@ public class BungiiInProgressSteps extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
     LoginPage driverLogInPage = new LoginPage();
+    BungiiRequest Page_BungiiRequest = new BungiiRequest();
+
 
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
@@ -1380,6 +1383,12 @@ public class BungiiInProgressSteps extends DriverBase {
                     testStepAssert.isTrue(action.isElementPresent(updateStatusPage.Text_NotificationTextOnArrivalAndUnloadingItemsForBarCode()),"Notification should be displayed","Notification is displayed","Notification is not displayed");
                     String notificationText = action.getText(updateStatusPage.Text_NotificationTextOnArrivalAndUnloadingItemsForBarCode());
                     testStepAssert.isEquals(notificationText,element,element +" Text should be displayed ",
+                            element +" Text is displayed ",
+                            element +" Text is not displayed ");
+                    break;
+                case "This pickup is no longer available.":
+                    action.click(Page_BungiiRequest.Button_Accept());
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(),element,element +" Text should be displayed ",
                             element +" Text is displayed ",
                             element +" Text is not displayed ");
                     break;

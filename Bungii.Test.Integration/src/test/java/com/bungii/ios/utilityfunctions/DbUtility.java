@@ -525,6 +525,7 @@ public class DbUtility extends DbContextManager {
         logger.detail("The external reference is "+reference);
         return reference;
     }
+
     public static String getTimeAtPickUpAndDrop(String type) {
         String time = "";
         String queryString = "select "+type+"\n" +
