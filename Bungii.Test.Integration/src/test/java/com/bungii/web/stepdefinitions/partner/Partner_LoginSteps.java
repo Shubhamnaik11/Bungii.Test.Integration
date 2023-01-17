@@ -419,7 +419,7 @@ public class Partner_LoginSteps extends DriverBase {
             List<HashMap<String, Object>> Service_name = getListOfService(Alias);
             switch (str) {
                 case "see all the Service Level":
-                    if (Alias.equalsIgnoreCase("Biglots")) {
+                    if (Alias.equalsIgnoreCase("Biglots")||Alias.equalsIgnoreCase("Cort Furniture #7302")) {
 
                         for (int i = 0; i < Service_name.size(); i++) {
                             String Db_Service_Name = Service_name.get(i).values().toString();
