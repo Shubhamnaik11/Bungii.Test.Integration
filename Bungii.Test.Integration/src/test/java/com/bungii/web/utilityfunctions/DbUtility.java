@@ -508,7 +508,7 @@ public class DbUtility extends DbContextManager {
                 "join bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
                 "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
                 "and subdomain_name like '"+PartnerName+"%'\n" +
-                "order by subdomain_name, service_level_number, service_name limit 4";
+                "order by subdomain_name, service_level_number, service_name";
         Service = getListDataFromMySqlMgmtServer(queryString);
         return Service;
     }
