@@ -500,20 +500,6 @@ public class DbUtility extends DbContextManager {
         return Service;
     }
 
-    public static List<HashMap<String, Object>> getListOfServiceForCort(String PartnerName) {
-        List<HashMap<String, Object>> Service = new ArrayList<>();
-        String queryString = "select service_name\n" +
-                "from bp_service_level sl\n" +
-                "join bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
-                "join bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
-                "where fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
-                "and subdomain_name like '"+PartnerName+"%'\n" +
-                "order by subdomain_name, service_level_number, service_name";
-        Service = getListDataFromMySqlMgmtServer(queryString);
-        return Service;
-    }
-
-
     public static List<HashMap<String, Object>> getRegionsList() {
         List<HashMap<String, Object>> regions = new ArrayList<>();
         String queryString = "select name from geofence where org_level = 2";

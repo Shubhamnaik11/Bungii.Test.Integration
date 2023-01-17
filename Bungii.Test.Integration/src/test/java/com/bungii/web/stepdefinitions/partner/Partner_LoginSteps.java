@@ -36,7 +36,6 @@ import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
 import static com.bungii.web.utilityfunctions.DbUtility.getListOfService;
-import static com.bungii.web.utilityfunctions.DbUtility.getListOfServiceForCort;
 
 
 public class Partner_LoginSteps extends DriverBase {
@@ -419,8 +418,8 @@ public class Partner_LoginSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("Alias", Alias);
             //List Service_name = new DbUtility().getServiceName(Alias);
             if(Alias.contentEquals("Cort Service Level")){
-                String partnerSubdomainName = PropertyUtility.getDataProperties("cort.furniture.subdomain.name");
-                List<HashMap<String, Object>> allServices = getListOfServiceForCort(partnerSubdomainName);
+                String partnerAliasName = PropertyUtility.getDataProperties("cort.furniture.subdomain.name");
+                List<HashMap<String, Object>> allServices = getListOfService(partnerAliasName);
                 Service_name.addAll(allServices);
             }
             else {
