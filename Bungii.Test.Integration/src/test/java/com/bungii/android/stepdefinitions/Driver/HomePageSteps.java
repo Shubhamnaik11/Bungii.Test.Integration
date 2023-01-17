@@ -124,7 +124,15 @@ public class HomePageSteps extends DriverBase {
         try {
             Thread.sleep(2000);
             action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
-            String getNaviagationText = action.getText(driverHomePage.Generic_HeaderElement());
+            String headerText = action.getText(driverHomePage.Generic_HeaderElement());
+            if(headerText.contains("Your $5 Guarantee is waiting")){
+                String onlineOrOffline = action.getText(driverHomePage.Text_OnlineOrOffline());
+                cucumberContextManager.setScenarioContext("DriverStatusOnLoggedIn",onlineOrOffline);
+            }
+            else {
+                cucumberContextManager.setScenarioContext("DriverStatusOnLoggedIn",headerText);
+            }
+            String getNaviagationText =(String) cucumberContextManager.getScenarioContext("DriverStatusOnLoggedIn");
             boolean isHomePage = getNaviagationText.equals("OFFLINE") || getNaviagationText.equals("ONLINE");
             testStepAssert.isTrue(isHomePage, "I should be navigated to Driver Home screen",  getNaviagationText + " screen is displayed instead of Driver Home screen");
         } catch (Exception e) {

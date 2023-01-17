@@ -3,7 +3,7 @@ Feature: Admin_Revival
   
   Background:
 	Given I am logged in as Admin
-
+	  
   @regression
   Scenario: Verify Admin can cancel the Revived Delivery
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -32,6 +32,7 @@ Feature: Admin_Revival
 	  | Assigning Driver(s) |
 	#	Core-4307: Verify the history is displayed for DRIVER canceled delivery  which is revived
 	And I click on the dropdown beside scheduled bungii
+	Then I should see the "History" underlined
 	When I click the "Notes & History" link
 	And I click on "History"
 	Then I should be able to see "admin-revive-driver cancelled"
@@ -42,7 +43,7 @@ Feature: Admin_Revival
 	And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
 	And I click on "Submit" button
 	Then The "Pick up has been successfully canceled." message should be displayed
-	  And I wait for 2 minutes
+	And I wait for 2 minutes
 	When I view the Deliveries list on the admin portal
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
 	#	Core-4307: Verify the history is displayed for ADMIN canceled delivery which is revived
