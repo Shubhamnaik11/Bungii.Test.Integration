@@ -18,9 +18,9 @@ Feature: Cort Service Level
     And I click "GET ESTIMATE" button on Partner Portal
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-    When I enter all details on "Delivery Details" for "kiosk mode" on partner screen
-        |Items_To_Deliver|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
-        |Furniture       |Handle with care   |Testpartner P |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1             |
+    When I enter all details on "Delivery Details" for "Cort service level" on partner screen
+      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Bodc_Code|
+      |Furniture         |Handle with care   |Testpartner U |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |SVC02/09/00 |
     And I enter the value "Test ScheduledBy" in Scheduled by field
     And I check the Bodc Code dropdown options
     And I select the value in Bodc Code

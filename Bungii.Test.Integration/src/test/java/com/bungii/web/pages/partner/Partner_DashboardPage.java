@@ -92,7 +92,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Label_DeliveryCostEstimate() { return findElement("//label[contains(text(),'Delivery Cost:')]/strong",LocatorType.XPath);}
     public WebElement Label_DeliveryCostDelivery() { return findElement("//h2[text()='Delivery Cost']//following::span/strong",LocatorType.XPath);}
     //Estimated Cost label
-    public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Estimated Cost: ')]",LocatorType.XPath);}
+    public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Estimated Cost:')]",LocatorType.XPath);}
 
     public WebElement Label_Distance() { return findElement("//label[contains(text(),'Distance in Miles -')]/strong",LocatorType.XPath);}
 
@@ -166,7 +166,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Button_close() { return findElement("//span[@class='modal-close']",LocatorType.XPath);}
 
     //Selected service name
-    public WebElement Text_Service_Name() { return findElement("//span[@class='service-title']",LocatorType.XPath);}
+    public WebElement Text_Service_Name() { return findElement("//span[@class='service-title d-block space-below']",LocatorType.XPath);}
 
     //Service name and decription
     public WebElement Text_Service_Decription() { return findElement("//label[text()='Service Level']/following::p[1]",LocatorType.XPath);}
