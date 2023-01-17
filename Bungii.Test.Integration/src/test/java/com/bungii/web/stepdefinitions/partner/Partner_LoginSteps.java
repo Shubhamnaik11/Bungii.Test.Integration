@@ -36,6 +36,7 @@ import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
 import static com.bungii.web.utilityfunctions.DbUtility.getListOfService;
+import static com.bungii.web.utilityfunctions.DbUtility.getListOfServiceForCort;
 
 
 public class Partner_LoginSteps extends DriverBase {
@@ -414,12 +415,21 @@ public class Partner_LoginSteps extends DriverBase {
     @Then("^I should \"([^\"]*)\" for \"([^\"]*)\" Alias$")
     public void i_should_something_for_something_alias(String str,String Alias){
         try {
+            List<HashMap<String, Object>> Service_name = new ArrayList<>();
             cucumberContextManager.setScenarioContext("Alias", Alias);
             //List Service_name = new DbUtility().getServiceName(Alias);
-            List<HashMap<String, Object>> Service_name = getListOfService(Alias);
+            if(Alias.contentEquals("Cort Service Level")){
+                String partnerSubdomainName = PropertyUtility.getDataProperties("cort.furniture.subdomain.name");
+                List<HashMap<String, Object>> allServices = getListOfServiceForCort(partnerSubdomainName);
+                Service_name.addAll(allServices);
+            }
+            else {
+                List<HashMap<String, Object>> allServices = getListOfService(Alias);
+                 Service_name.addAll(allServices);
+            }
             switch (str) {
                 case "see all the Service Level":
-                    if (Alias.equalsIgnoreCase("Biglots")) {
+                    if (Alias.equalsIgnoreCase("Biglots")||Alias.equalsIgnoreCase("Cort Service Level")) {
 
                         for (int i = 0; i < Service_name.size(); i++) {
                             String Db_Service_Name = Service_name.get(i).values().toString();

@@ -47,7 +47,7 @@ Feature: Cort Service Level
       |Trip_Time            |
       |NEXT_POSSIBLE        |
     When I click "Service Level List" button on Partner Portal
-    Then I should "see all the Service Level" for "Biglots" Alias
+    Then I should "see all the Service Level" for "Cort Service Level" Alias
     When I change the service level to "First Threshold" in "Partner" portal
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
