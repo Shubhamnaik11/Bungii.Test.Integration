@@ -3868,6 +3868,32 @@ try{
         }
     }
 
+    @And("I select partner to {string}")
+    public void iSelectPartnerTo(String Partner_name) {
+        try {
+            action.waitUntilIsElementExistsAndDisplayed(admin_TripsPage.Menu_RejectedAPIDeliveries(),(long)3000);
+            action.click(admin_TripsPage.Dropdown_Partner());
+            action.click(admin_TripsPage.Dropdown_SelectPartner(Partner_name));
+          } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+    @Then("I check if Export All Records button is disabled")
+    public void iCheckIfExportAllRecordsButtonIsDisabled() {
+        try{
+            Thread.sleep(3000);
+            testStepAssert.isFalse(admin_TripsPage.Button_ExportRecords().isEnabled(),"Export All Records button should be disabled",
+                    "Export All Records button is disabled","Export All Records button is not disabled");
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @And("^I get the value of \"([^\"]*)\"$")
     public void i_get_the_value_of_something(String type) throws Throwable {
         try{

@@ -87,13 +87,13 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement icon_Close(){return findElement("//button[@class='close']", LocatorType.XPath);}
 
     public WebElement Time_EditTripDetailsTime(){return findElement("PickupDetails_ScheduledTime", LocatorType.Id);}
-    public WebElement TextBox_DriverSearch() {return findElement("txtDriverSearch", LocatorType.Id);}
+    public WebElement TextBox_DriverSearch() {return findElement("//div[@class='addDriver']/div/div/input", LocatorType.XPath);}
     public WebElement Button_VerifyDriver(){return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
     public WebElement Button_VerifyDriverForScheduled(){return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
 
-    public WebElement Select_TestDriver(){return findElement("//div[@id='divDriversResult']/div[@class='pac-item'][1]", LocatorType.XPath);}
+    public WebElement Select_TestDriver(){return findElement("//input[@placeholder='Enter driver name']/following-sibling::div/div[1", LocatorType.XPath);}
 
-    public WebElement Text_EditTrpDetailsDriver1Name(){return findElement("//table[@id='editTripDrivers']/tbody/tr[1]/td/table/tbody/tr/td[3]", LocatorType.XPath);} //3 is correct index
+    public WebElement Text_EditTrpDetailsDriver1Name(){return findElement("//div[@class=\"driver-edit\"]/div/span[1]", LocatorType.XPath);} //3 is correct index
     public WebElement Text_EditTrpDetailsDriver2Name(){return findElement("//table[@id='editTripDrivers']/tbody/tr[2]/td/table/tbody/tr/td[3]", LocatorType.XPath);} //3 is correct index
 
     public WebElement Text_EditTrpDetailsDriver1NamePrefilled(){return findElement("//table[@id='editTripDrivers']/tbody/tr[1]/td/table/tbody/tr/td[2]", LocatorType.XPath);} //2 is correct index for name for prefilled

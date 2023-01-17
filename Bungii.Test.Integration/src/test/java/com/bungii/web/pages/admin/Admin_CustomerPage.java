@@ -18,6 +18,8 @@ public class Admin_CustomerPage extends PageBase {
     //public WebElement Label_CustomerList(){ return findElement("//div[@class='col-sm-8']/h4", LocatorType.XPath);}
     public WebElement Label_CustomerList(){ return findElement("//h4[contains(text(),'Customer list')]", LocatorType.XPath);}
 
+    public WebElement Header_RejectedAPIDeliveries(){ return findElement("//h4[contains(text(),'Rejected API Deliveries')]", LocatorType.XPath);}
+
     public WebElement Header_Name(){ return findElement("//span[@id='span-Name']", LocatorType.XPath);}
 
     public WebElement Header_TripsRequested(){ return findElement("//span[@id='span-NbrOfRequestedTrips']", LocatorType.XPath);}
