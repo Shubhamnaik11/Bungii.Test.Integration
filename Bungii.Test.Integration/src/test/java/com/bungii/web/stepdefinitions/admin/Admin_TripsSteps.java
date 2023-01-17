@@ -3894,7 +3894,8 @@ try{
                     String driverBooster=PropertyUtility.getDataProperties("memphis.driver.boost.amount");
                     String earningsBeforeBoost=(String) cucumberContextManager.getScenarioContext("DRIVER_EARNING");
                     float calDriverBoost= Float.parseFloat(driverBooster)+Float.parseFloat(earningsBeforeBoost.substring(1,6));
-                    if(Float.parseFloat(driverEarningAfterBoost.substring(1,6))>(calDriverBoost-0.5) && Float.parseFloat(driverEarningAfterBoost.substring(1,6))<(calDriverBoost+0.5)){
+                    float driverEarningAfterFirstBoost= Float.parseFloat(driverEarningAfterBoost.substring(1,6));
+                    if(driverEarningAfterFirstBoost>(calDriverBoost-0.5) && driverEarningAfterFirstBoost<(calDriverBoost+0.5)){
                         testStepAssert.isTrue(true,
                                 "Driver earnings after boost should be correct",
                                 "Driver earnings after boost are incorrect");
@@ -3956,15 +3957,13 @@ try{
                     long difference = (diff<0) ? (Math.abs(-diff)):(diff);
                     String driverBoostPeriod = PropertyUtility.getDataProperties("memphis.driver.boosted.earning.period");
                     String driverSearchTime = PropertyUtility.getDataProperties("memphis.driver.search.time");
-                    long ONE_MINUTE_IN_MILLIS=60000;//millisecs
+                    long ONE_MINUTE_IN_MILLIS= Long.parseLong(PropertyUtility.getDataProperties("one.minute.in.milliseconds"));
                     long searchTime=Integer.parseInt(driverSearchTime)*ONE_MINUTE_IN_MILLIS;
                     long totalWait=difference-(Integer.parseInt(driverBoostPeriod)*ONE_MINUTE_IN_MILLIS)-searchTime;
-                    System.out.println(totalWait);
                     while(!(totalWait<=0)){
                         Thread.sleep((Integer.parseInt(driverBoostPeriod)*ONE_MINUTE_IN_MILLIS));
                         action.refreshPage();
                         totalWait-=(Integer.parseInt(driverBoostPeriod)*ONE_MINUTE_IN_MILLIS);
-                        System.out.println(totalWait);
                     }
                     break;
             }
