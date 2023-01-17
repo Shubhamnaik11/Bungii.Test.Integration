@@ -414,21 +414,12 @@ public class Partner_LoginSteps extends DriverBase {
     @Then("^I should \"([^\"]*)\" for \"([^\"]*)\" Alias$")
     public void i_should_something_for_something_alias(String str,String Alias){
         try {
-            List<HashMap<String, Object>> Service_name = new ArrayList<>();
             cucumberContextManager.setScenarioContext("Alias", Alias);
             //List Service_name = new DbUtility().getServiceName(Alias);
-            if(Alias.contentEquals("Cort Service Level")){
-                String partnerAliasName = PropertyUtility.getDataProperties("cort.furniture.subdomain.name");
-                List<HashMap<String, Object>> allServices = getListOfService(partnerAliasName);
-                Service_name.addAll(allServices);
-            }
-            else {
-                List<HashMap<String, Object>> allServices = getListOfService(Alias);
-                 Service_name.addAll(allServices);
-            }
+            List<HashMap<String, Object>> Service_name = getListOfService(Alias);
             switch (str) {
                 case "see all the Service Level":
-                    if (Alias.equalsIgnoreCase("Biglots")||Alias.equalsIgnoreCase("Cort Service Level")) {
+                    if (Alias.equalsIgnoreCase("Biglots")||Alias.equalsIgnoreCase("Cort Furniture #7302")) {
 
                         for (int i = 0; i < Service_name.size(); i++) {
                             String Db_Service_Name = Service_name.get(i).values().toString();
