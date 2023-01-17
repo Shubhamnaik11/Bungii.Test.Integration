@@ -3867,14 +3867,14 @@ try{
 
     @Then("driver should receive {string} email")
     public void driverShouldReceiveEmail(String emailSubject) {
-        String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+        String emailBody = utility.GetSpecificVerificationcodeEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody == null) {
             testStepAssert.isFail("Email : " + emailSubject + " not received");
         }
         emailBody=emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
         logger.detail("Email Body (Actual): "+ emailBody);
+        String VerificationCode = DbUtility.getVerificationCode(PropertyUtility.getDataProperties("DriverPhoneNumber"));
         String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
-        String verificationCode = (String) cucumberContextManager.getScenarioContext("VERIFICATIONCODE");
 
         boolean hasDST=false;
 
@@ -3882,10 +3882,10 @@ try{
         switch (emailSubject) {
             case "BUNGII: Your verification code":
                 if(hasDST){
-                    message = utility.getExpectedDriverForgotPasswordEmailContent(driverName, verificationCode);
+                    message = utility.getExpectedDriverForgotPasswordEmailContent(driverName, VerificationCode);
                     message= message.replaceAll("EST","EDT");
                 }else {
-                    message = utility.getExpectedDriverForgotPasswordEmailContent(driverName, verificationCode);
+                    message = utility.getExpectedDriverForgotPasswordEmailContent(driverName, VerificationCode);
                 }
                 break;
         }

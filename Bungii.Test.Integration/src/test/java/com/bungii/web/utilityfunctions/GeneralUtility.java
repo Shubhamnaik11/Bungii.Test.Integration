@@ -406,6 +406,43 @@ public class GeneralUtility extends DriverBase {
             return null;
         }
     }
+    public String GetSpecificVerificationcodeEmailIfReceived(String expectedFromAddress, String expectedToAddress, String expectedSubject) {
+
+        try {
+            Message[] recentMessages = emailUtility.getEmailObject(expectedFromAddress, expectedToAddress, expectedSubject, 1);
+            System.out.println("No of Total recent Messages : " + recentMessages.length);
+            String fromAddress = PropertyUtility.getEmailProperties("email.from.driver.address");
+            boolean emailFound = false;
+            String emailContent = "";
+            for (int i = recentMessages.length; i > 0; i--) {
+
+                System.out.println("***********");
+                Message msg = recentMessages[i - 1];
+                String subject = msg.getSubject();//important value
+                String from = String.valueOf(msg.getFrom()[0]).toLowerCase();
+                String recipient = String.valueOf(msg.getAllRecipients()[0]);
+
+                System.out.println("Subject: " + subject + " | Date: " + msg.getReceivedDate());
+                System.out.println();
+                if ((from.contains(fromAddress.toLowerCase())) && (subject.contains(expectedSubject)) && (recipient.contains(expectedToAddress)))
+                {
+                    emailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
+                    emailUtility.deleteEmailWithSubject(expectedSubject,null);
+                    return emailContent;
+                }
+            }
+            return null;
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+            return null;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public void GetSpedificMultipartTextEmailIfReceived(String expectedFromAddress, String expectedToAddress, String expectedSubject, String expectedEmailContent) {
 
@@ -1369,10 +1406,10 @@ public class GeneralUtility extends DriverBase {
         FileReader fr;
         try{
             if(SystemUtils.IS_OS_WINDOWS){
-                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverForgotPasswordVerificationCodeEmail");
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverForgotPasswordVerificationCodeEmail.txt");
             }
             else {
-                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/DriverForgotPasswordVerificationCodeEmail");
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/DriverForgotPasswordVerificationCodeEmail.txt");
             }
             String s;
             try (

@@ -7,12 +7,12 @@ Feature: Driver_ForgotPassword
     And I click "Forgot Password" on driver portal
 
   @regression
-    @sn
   Scenario: Verify Driver Forgot Password Navigation
     Then I should be directed to "Forgot Password tab" on Driver portal
     And I enter "valid" Phone Number on Forgot password page
     And I click "Send Verification Code" on driver portal
-#    Then Partner firm should receive "TestStep" email
+    #CORE-3356:Send verification code to driver via email
+    And I wait for "1" mins
     Then driver should receive "BUNGII: Your verification code" email
     When I click "Back to Login" on driver portal
     Then I should be directed to "LOG IN tab" on Driver portal
