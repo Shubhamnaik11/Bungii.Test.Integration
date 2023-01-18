@@ -131,7 +131,7 @@ Feature: Delivery Flows
     When I Switch to "customer" application on "same" devices
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+      | NEXT_POSSIBLE | 8877661162     | Testcustomertywd_appleMarkFG LutherFG | Cci12345          |
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     
     When I Switch to "driver" application on "same" devices
@@ -144,4 +144,4 @@ Feature: Delivery Flows
     And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
+      | 8877661162     |                 |
