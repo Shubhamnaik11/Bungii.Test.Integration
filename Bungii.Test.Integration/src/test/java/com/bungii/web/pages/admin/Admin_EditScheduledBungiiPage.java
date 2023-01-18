@@ -29,7 +29,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement TextBox_DriverSearch() { return findElement("//input[@placeholder='Enter driver name']", LocatorType.XPath); }
 
     public WebElement Button_Verify() { return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath); }
-    public WebElement Button_Verify_For_Live() { return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath); }
+    public WebElement Button_Verify_For_Live() { return findElement("//div[@class=\"live-edit\"]/div/div/button[contains(text(),'VERIFY')]", LocatorType.XPath); }
 
 
     public WebElement Button_Save() { return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath); }

@@ -25,10 +25,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -954,7 +951,14 @@ public class Partner_Delivery_Details extends DriverBase {
                 Time timeValue = new Time(formatter.parse(timer).getTime());
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(timeValue);
-                calendar.add(Calendar.MINUTE, -300);
+                TimeZone timeZone = TimeZone.getTimeZone("US/Central");
+                if(timeZone.observesDaylightTime()) {
+                    calendar.add(Calendar.MINUTE, -360);
+                }
+                else{
+                    calendar.add(Calendar.MINUTE, -300);
+                }
+
                 String timeInCST = String.valueOf(calendar.getTime());
                 String timeIn24HourFormat = timeInCST.substring(11, 16);
                 String hourFormat12 = LocalTime.parse(timeIn24HourFormat, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
@@ -965,7 +969,12 @@ public class Partner_Delivery_Details extends DriverBase {
                     cucumberContextManager.setScenarioContext("DeliveryStepCompletionTime", hourFormat12);
                 }
                 calendar.setTime(timeValue);
-                calendar.add(Calendar.MINUTE, -301);
+                if(timeZone.observesDaylightTime()) {
+                        calendar.add(Calendar.MINUTE, -361);
+                }
+                else{
+                        calendar.add(Calendar.MINUTE, -301);
+                }
                 String timeInCST1MinuteAhead = String.valueOf(calendar.getTime());
                 String timeIn24HourFormat1MinuteAhead = timeInCST1MinuteAhead.substring(11, 16);
                 String hourFormat12Hr1MinuteAhead = LocalTime.parse(timeIn24HourFormat1MinuteAhead, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
@@ -976,7 +985,12 @@ public class Partner_Delivery_Details extends DriverBase {
                     cucumberContextManager.setScenarioContext("hourFormat12Hr1MinuteAhead", hourFormat12Hr1MinuteAhead);
                 }
                 calendar.setTime(timeValue);
-                calendar.add(Calendar.MINUTE, -299);
+                if(timeZone.observesDaylightTime()) {
+                        calendar.add(Calendar.MINUTE, -559);
+                }
+                else{
+                        calendar.add(Calendar.MINUTE, -299);
+                }
                 String timeInCST1MinuteBack = String.valueOf(calendar.getTime());
                 String timeIn24HourFormat1MinuteBack = timeInCST1MinuteBack.substring(11, 16);
                 String hourFormat12Hr1MinuteBack = LocalTime.parse(timeIn24HourFormat1MinuteBack, DateTimeFormatter.ofPattern("HH:mm")).format(DateTimeFormatter.ofPattern("hh:mm a"));
