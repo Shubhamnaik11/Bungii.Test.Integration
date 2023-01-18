@@ -23,6 +23,7 @@ Feature: Admin_PartnerFirm
     When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarg"
     Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
+
   #@ready
   @email
     @failed
