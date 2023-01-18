@@ -7,7 +7,7 @@ public class BungiiRequestPage extends PageBase {
 	public WebElement Text_NavigationBar(boolean ...ignoreException) { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath,ignoreException); }
 	public WebElement Text_NavigationBar_Alt() { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath); }
 
-	public WebElement Button_Accept() { return findElement("ACCEPT", LocatorType.Name); }
+	public WebElement Button_Accept() { return findElement("//XCUIElementTypeButton[@name=' Accept'] ", LocatorType.XPath); }
 	public WebElement Button_Reject() { return findElement("REJECT", LocatorType.Name); }
 
 	public WebElement Text_DistanceTag() { return findElement("TO PICKUP", PageBase.LocatorType.Name); }

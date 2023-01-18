@@ -84,5 +84,6 @@ public class DriverHomePage extends PageBase {
 
     public WebElement Icon_Earnings (boolean ...ignoreException) { return findElement("com.bungii.driver:id/iv_earnings", LocatorType.Id,ignoreException); }
     public WebElement Text_EarningsInfo (boolean ...ignoreException) { return findElement("com.bungii.driver:id/tv_alert_info", LocatorType.Id,ignoreException); }
+    public WebElement Text_OnlineOrOffline () { return findElement("//android.view.ViewGroup[@resource-id='com.bungii.driver:id/online_offline_switch_container']/android.widget.TextView", LocatorType.XPath); }
 
 }

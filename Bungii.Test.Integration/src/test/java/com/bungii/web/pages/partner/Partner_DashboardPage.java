@@ -78,9 +78,9 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Pickup_date_Today_4() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][4]",LocatorType.XPath);}*/
     public WebElement Pickup_Date_Today() { return findElement("//div[contains(text(),'Today')]",LocatorType.XPath);}
     public WebElement Pickup_date_Today_1() { return findElement("//div[contains(text(),'Tomorrow')]",LocatorType.XPath);}
-    public WebElement Pickup_date_Today_2() { return findElement("//div[@class='date-container auto-dimensions']/div/div[3]",LocatorType.XPath);}
-    public WebElement Pickup_date_Today_3() { return findElement("//div[@class='date-container auto-dimensions']/div/div[4]",LocatorType.XPath);}
-    public WebElement Pickup_date_Today_4() { return findElement("//div[@class='date-container auto-dimensions']/div/div[5]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_2() { return findElement("//div[@class='date-container auto-dimensions row']/div/div[3]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_3() { return findElement("//div[@class='date-container auto-dimensions row']/div/div[4]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_4() { return findElement("//div[@class='date-container auto-dimensions row']/div/div[5]",LocatorType.XPath);}
     public WebElement Pickup_date_Tomorrow() { return findElement("//div[contains(text(),'Tomorrow')]",LocatorType.XPath);}
 
     //Pickup Time dropdown
@@ -92,7 +92,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Label_DeliveryCostEstimate() { return findElement("//label[contains(text(),'Delivery Cost:')]/strong",LocatorType.XPath);}
     public WebElement Label_DeliveryCostDelivery() { return findElement("//h2[text()='Delivery Cost']//following::span/strong",LocatorType.XPath);}
     //Estimated Cost label
-    public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Estimated Cost: ')]",LocatorType.XPath);}
+    public WebElement Label_Estimated_Cost() { return findElement("//label[contains(text(),'Estimated Cost:')]",LocatorType.XPath);}
 
     public WebElement Label_Distance() { return findElement("//label[contains(text(),'Distance in Miles -')]/strong",LocatorType.XPath);}
 
@@ -160,13 +160,13 @@ public class Partner_DashboardPage extends PageBase {
     //White Glove
     public WebElement Text_White_Glove() { return findElement("//span[contains(text(),'White Glove')]",LocatorType.XPath);}
 
-    public WebElement Dropdown_ServiceLevel(String serviceLevel) { return findElement("//li/div/div/span[@class='service-title' and @data-name='"+serviceLevel+"']",LocatorType.XPath);}
+    public WebElement Dropdown_ServiceLevel(String serviceLevel) { return findElement("//li/div/div/span[@class='service-title d-block space-below' and @data-name='"+serviceLevel+"']",LocatorType.XPath);}
 
     //Close button on service level
     public WebElement Button_close() { return findElement("//span[@class='modal-close']",LocatorType.XPath);}
 
     //Selected service name
-    public WebElement Text_Service_Name() { return findElement("//span[@class='service-title']",LocatorType.XPath);}
+    public WebElement Text_Service_Name() { return findElement("//span[@class='service-title d-block space-below']",LocatorType.XPath);}
 
     //Service name and decription
     public WebElement Text_Service_Decription() { return findElement("//label[text()='Service Level']/following::p[1]",LocatorType.XPath);}
@@ -229,8 +229,6 @@ public class Partner_DashboardPage extends PageBase {
 
     //Text Support
     public WebElement Text_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]",LocatorType.XPath);}
-
-    public WebElement Text_RecentDriverRegistration() { return findElement("//h4[text()='Recent Driver Registrations']",LocatorType.XPath);}
 
     //Text Support Number
     public WebElement Number_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]/following-sibling::span",LocatorType.XPath);}
@@ -328,8 +326,4 @@ public class Partner_DashboardPage extends PageBase {
 
     //Quote request header title
     public WebElement Text_QuoteRequestPageHeader() { return findElement("//h1[contains(text(),'Quote Request')]", LocatorType.XPath);}
-
-    //Quote background box
-    public WebElement Box_CustomQuote() { return findElement("//div[@class='custom_quote_disc']", LocatorType.XPath);}
-
 }

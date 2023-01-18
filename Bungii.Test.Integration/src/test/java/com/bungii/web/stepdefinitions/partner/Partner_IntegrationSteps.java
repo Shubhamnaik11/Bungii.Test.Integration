@@ -111,6 +111,7 @@ public class Partner_IntegrationSteps extends DriverBase {
                         if(addressEnter.equalsIgnoreCase("CopyPaste")) {
                             String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
                             action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+
                         }else {
 //                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);
                             action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address);

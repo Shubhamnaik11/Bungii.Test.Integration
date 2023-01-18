@@ -752,14 +752,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     }
     @Then("^the error \"([^\"]*)\" is displayed$")
     public void the_error_something_is_displayed(String message) throws Throwable {
-        try {
-            testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.", message + " is not displayed.");
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
+        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.",message + " is not displayed.");
     }
     @And("^the error \"([^\"]*)\" is displayed in the csv file$")
     public void the_error_something_is_displayed_in_the_csv_file(String message) throws Throwable {
@@ -878,15 +871,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @Then("^the partner does not get saved successfully$")
     public void the_business_user_does_not_get_saved_successfully() throws Throwable {
-        try {
-            testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), "Phone number already exists", " Phone number already exists" + " should be displayed", " Phone number already exists" + " is displayed", " Phone number already exists" + " is not displayed");
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-     }
+        testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), "Phone number already exists", " Phone number already exists" + " should be displayed", " Phone number already exists" + " is displayed", " Phone number already exists" + " is not displayed");
+    }
 
     @And("^I select the \"([^\"]*)\"$")
     public void i_select_the_something(String strArg1) throws Throwable {
