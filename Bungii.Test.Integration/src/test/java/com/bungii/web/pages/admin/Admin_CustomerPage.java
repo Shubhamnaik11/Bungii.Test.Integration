@@ -8,6 +8,7 @@ import java.util.List;
 public class Admin_CustomerPage extends PageBase {
 
     public WebElement Menu_Customers () { return findElement("//span[contains(text(),'Customers')]", LocatorType.XPath); }
+    public WebElement Header_RejectedAPIDeliveries(){ return findElement("//h4[contains(text(),'Rejected API Deliveries')]", LocatorType.XPath);}
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
@@ -17,8 +18,6 @@ public class Admin_CustomerPage extends PageBase {
 
     //public WebElement Label_CustomerList(){ return findElement("//div[@class='col-sm-8']/h4", LocatorType.XPath);}
     public WebElement Label_CustomerList(){ return findElement("//h4[contains(text(),'Customer list')]", LocatorType.XPath);}
-
-    public WebElement Header_RejectedAPIDeliveries(){ return findElement("//h4[contains(text(),'Rejected API Deliveries')]", LocatorType.XPath);}
 
     public WebElement Header_Name(){ return findElement("//span[@id='span-Name']", LocatorType.XPath);}
 

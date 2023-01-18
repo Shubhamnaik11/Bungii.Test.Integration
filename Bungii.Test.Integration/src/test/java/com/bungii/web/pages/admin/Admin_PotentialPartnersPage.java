@@ -7,15 +7,15 @@ public class Admin_PotentialPartnersPage extends PageBase {
 
     public WebElement Menu_PotentialPartners () { return findElement("adminmenu-potentialpartners", LocatorType.Id); }
 
-    public WebElement Menu_AssignPartner() { return findElement("//li[@id='adminmenu-assigncluster']/a", LocatorType.XPath); }
+    public WebElement Menu_AssignPartner() { return findElement("//a[contains(text(),'Assign Clusters')]", LocatorType.XPath); }
 
     public WebElement Menu_PartnerSearch() { return findElement("adminmenu-editcluster", LocatorType.Id); }
 
    // public WebElement Dropdown_Geofence () { return findElement("//select[@id='drpGeofence']", LocatorType.XPath); }
 
-    public WebElement Button_ApplyGeofenceFilter () { return findElement("btnApplyGeofence", LocatorType.Id); }
+    public WebElement Button_ApplyGeofenceFilter () { return findElement("//button[contains(text(),'APPLY')]", LocatorType.XPath); }
 
-    public WebElement Label_PointOfInterest() {return findElement("//div[@class='panel-body']/div/label[contains(@text, '')]", LocatorType.XPath);}
+    public WebElement Label_PointOfInterest() {return findElement("//div[@class='panel-body row']", LocatorType.XPath);}
 
     public WebElement Text_PickupsNumberInCluster() { return findElement("//p[3]/span[@class='text-gray']/following-sibling::text()", LocatorType.XPath);}
 
