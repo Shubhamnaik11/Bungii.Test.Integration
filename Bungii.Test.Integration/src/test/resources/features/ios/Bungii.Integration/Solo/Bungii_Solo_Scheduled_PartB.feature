@@ -33,11 +33,11 @@ Feature: Solo Scheduled Bungii Part B
     And I Switch to "customer" application on "same" devices
     And I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      |
-      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark |
+      | now         | 8877661156     | Cci12345          | Testcustomertywd_BppleMarkFA LutherFA|
     And I view and check virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+      | 8877661156     |                 |
 
   @ready
   #stable
@@ -78,7 +78,7 @@ Feature: Solo Scheduled Bungii Part B
     
     Given I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                      |
-      | NEXT_POSSIBLE | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark |
+      | NEXT_POSSIBLE | 8877661157     | Cci12345          | Testcustomertywd_BppleMarkFB LutherFB |
     
     And I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
@@ -90,7 +90,7 @@ Feature: Solo Scheduled Bungii Part B
     Then user is virtually alerted for "PICKUP ALREADY ACCEPTED BY YOU"
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+      | 8877661157     |                 |
 
   @regression
   #stable
@@ -98,7 +98,7 @@ Feature: Solo Scheduled Bungii Part B
 
     And I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+      | NEXT_POSSIBLE | 8877661158     | Testcustomertywd_BppleMarkFC LutherFC | Cci12345          |
 
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -116,15 +116,15 @@ Feature: Solo Scheduled Bungii Part B
     And "correct duo scheduled trip details" should be displayed on Bungii Details screen
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+      | 8877661158     |                 |
 
   @regression
   #stable
   Scenario:Verify Details In The Bungii Details Screen When Required Number Of Drivers Accepts Trip
 
     And I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+      | Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
+      | NEXT_POSSIBLE | 8877661159     | Testcustomertywd_BppleMarkFD LutherFD | Cci12345          |
 
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -142,7 +142,7 @@ Feature: Solo Scheduled Bungii Part B
     And "correct duo scheduled trip details" should be displayed on Bungii Details screen
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+      | 8877661159     |                 |
 
   @ready
     #Added case of CORE-3685 to existing script
@@ -241,8 +241,8 @@ Feature: Solo Scheduled Bungii Part B
     @authfailure
   Scenario: Verify Customer Can Contact Control Driver When Non-control Driver Starts The Trip
     When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+      | Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
+      | NEXT_POSSIBLE | 8877661160     | Testcustomertywd_BppleMarkFE LutherFE | Cci12345          |
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       |    Accepted   | Enroute       |
@@ -262,6 +262,6 @@ Feature: Solo Scheduled Bungii Part B
     #Then correct support details should be displayed to customer on "call" app
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+      | 8877661160     |                 |
 
 
