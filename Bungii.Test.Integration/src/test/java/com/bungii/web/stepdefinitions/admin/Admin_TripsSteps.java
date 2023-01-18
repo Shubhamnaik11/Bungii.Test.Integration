@@ -1464,6 +1464,9 @@ try{
             case "nashville":
                 geofenceName = "Nashville";
                 break;
+            case "memphis":
+                geofenceName = "Memphis";
+                break;
         }
         return geofenceName;
     }
@@ -3889,6 +3892,112 @@ try{
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
+        }
+    }
+    @And("^I get the value of \"([^\"]*)\"$")
+    public void i_get_the_value_of_something(String type) throws Throwable {
+        try{
+            switch(type){
+                case "initial request time":
+                    String initialRequestTime = action.getText(admin_TripDetailsPage.Text_InitialRequestTime());
+                    cucumberContextManager.setScenarioContext("INITIAL_REQUEST_TIME",initialRequestTime);
+                    break;
+                case "schedule time":
+                    String scheduleTime = action.getText(admin_TripDetailsPage.Text_ScheduleTime());
+                    cucumberContextManager.setScenarioContext("SCHEDULE_TIME",scheduleTime);
+                    break;
+                case "driver fixed earning":
+                    String driverEarning = action.getText(admin_TripDetailsPage.Text_SoloDriverEarnings());
+                    cucumberContextManager.setScenarioContext("DRIVER_EARNING",driverEarning);
+                    break;
+                case "status":
+                    String tripStatus = action.getText(admin_TripDetailsPage.Text_TripStatus());
+                    cucumberContextManager.setScenarioContext("TRIP_STATUS",tripStatus);
+                    break;
+                case "driver fixed earning after boost":
+                    String driverEarningAfterBoost = action.getText(admin_TripDetailsPage.Text_SoloDriverEarnings());
+                    cucumberContextManager.setScenarioContext("DRIVER_EARNING_AFTER_BOOST",driverEarningAfterBoost);
+                    String driverBooster=PropertyUtility.getDataProperties("memphis.driver.boost.amount");
+                    String earningsBeforeBoost=(String) cucumberContextManager.getScenarioContext("DRIVER_EARNING");
+                    float calDriverBoost= Float.parseFloat(driverBooster)+Float.parseFloat(earningsBeforeBoost.substring(1,6));
+                    float driverEarningAfterFirstBoost= Float.parseFloat(driverEarningAfterBoost.substring(1,6));
+                    if(driverEarningAfterFirstBoost>(calDriverBoost-0.5) && driverEarningAfterFirstBoost<(calDriverBoost+0.5)){
+                        testStepAssert.isTrue(true,
+                                "Driver earnings after boost should be correct",
+                                "Driver earnings after boost are incorrect");
+                    }
+                    else{
+                        testStepAssert.isTrue(false,
+                                "Driver earnings after boost should be correct",
+                                "Driver earnings after boost are incorrect");
+                    }
+
+                    break;
+            }
+            log("I should be able to get the value of "+type,"I am able to get the value of"+type,false);
+        }  catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I check if the status is \"([^\"]*)\"$")
+    public void i_check_if_the_status_is_something(String status) throws Throwable {
+        try{
+            switch (status){
+                case "No Driver(s) Found":
+                    action.refreshPage();
+                    String tripStatus = action.getText(admin_TripDetailsPage.Text_TripStatus());
+                    testStepAssert.isEquals(tripStatus,status,
+                            "The status should be "+status,
+                            "The status is "+status,
+                            "The status is "+action.getText(admin_TripDetailsPage.Text_TripStatus()));
+                    break;
+                case "Assigning Driver(s)":
+                    action.refreshPage();
+                    String tripStatus1 = action.getText(admin_TripDetailsPage.Text_TripStatus());
+                    testStepAssert.isEquals(tripStatus1,status,
+                            "The status should be "+status,
+                            "The status is "+status,
+                            "The status is "+action.getText(admin_TripDetailsPage.Text_TripStatus()));
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I calculate time for {string}")
+    public void iCalculateTimeFor(String type) {
+        try{
+            switch(type){
+                case "driver boost":
+                    String scheduleTime= (String) cucumberContextManager.getScenarioContext("SCHEDULE_TIME");
+                    String initialTime= (String) cucumberContextManager.getScenarioContext("INITIAL_REQUEST_TIME");
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+                    Date scheduleMins = format.parse(scheduleTime.substring(8,13));
+                    Date initialMins = format.parse(initialTime.substring(8,13));
+                    long diff = scheduleMins.getTime() - initialMins.getTime();
+                    long difference = (diff<0) ? (Math.abs(-diff)):(diff);
+                    String driverBoostPeriod = PropertyUtility.getDataProperties("memphis.driver.boosted.earning.period");
+                    String driverSearchTime = PropertyUtility.getDataProperties("memphis.driver.search.time");
+                    long ONE_MINUTE_IN_MILLIS= Long.parseLong(PropertyUtility.getDataProperties("one.minute.in.milliseconds"));
+                    long searchTime=Integer.parseInt(driverSearchTime)*ONE_MINUTE_IN_MILLIS;
+                    long totalWait=difference-(Integer.parseInt(driverBoostPeriod)*ONE_MINUTE_IN_MILLIS)-searchTime;
+                    while(!(totalWait<=0)){
+                        Thread.sleep((Integer.parseInt(driverBoostPeriod)*ONE_MINUTE_IN_MILLIS));
+                        action.refreshPage();
+                        totalWait-=(Integer.parseInt(driverBoostPeriod)*ONE_MINUTE_IN_MILLIS);
+                    }
+                    break;
+            }
+            log("I should be able to calculate the "+type,"I am able to calculate the "+type,false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 }
