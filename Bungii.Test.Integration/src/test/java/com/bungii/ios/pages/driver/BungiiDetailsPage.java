@@ -22,23 +22,23 @@ public class BungiiDetailsPage extends PageBase {
 	public List<WebElement> List_Photos(){return  findElements("//h5/following-sibling::div",LocatorType.XPath);}
 
 	public WebElement Text_ContactDriverMessage(){return findElement("//android.widget.TextView[@text='You will have the ability to contact your drivers when the Bungii begins']", LocatorType.XPath);}
-	public WebElement TextBox_Pickup_LineOne() {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[6]", LocatorType.XPath); }
+	public WebElement TextBox_Pickup_LineOne() {return findElement("//XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
 	public WebElement TextBox_Pickup_LineTwo(boolean ...ignoreException) {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[7]", LocatorType.XPath,ignoreException); }
-	public WebElement TextBox_Drop_LineOne() {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[8]", LocatorType.XPath); }
+	public WebElement TextBox_Drop_LineOne() {return findElement("//XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
 	public WebElement TextBox_Drop_LineTwo() {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[9]", LocatorType.XPath); }
 
 
 	public WebElement Text_DistanceTag() { return findElement("Estimated Duration: ", PageBase.LocatorType.Name); }
-	public WebElement 	Text_ValueDistance() { return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[10]", PageBase.LocatorType.XPath); }
+	public WebElement 	Text_ValueDistance() { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
 	public WebElement 	Text_ValueTripTime() { return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[12]", PageBase.LocatorType.XPath); }
 
-	public WebElement Text_EstimatedEarningTag() { return findElement("EARNINGS", LocatorType.Name); }
+	public WebElement Text_EstimatedEarningTag() { return findElement("//XCUIElementTypeStaticText[@name=\"Earnings\"]", LocatorType.XPath); }
 
-	public WebElement Text_EstimatedEarningValue() { return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[5]", LocatorType.XPath); }
-	public WebElement Text_BungiiTime() { return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[4]", PageBase.LocatorType.XPath); }
+	public WebElement Text_EstimatedEarningValue() { return findElement("//XCUIElementTypeOther[6]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath); }
+	public WebElement Text_BungiiTime() { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
 
 	public WebElement Text_TypeTag() { return findElement("//XCUIElementTypeStaticText[@name=\"Type\"]", PageBase.LocatorType.XPath); }
-	public WebElement Text_TypeValue() { return findElement("//XCUIElementTypeStaticText[@name=\"Type\"]/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+	public WebElement Text_TypeValue() { return findElement("//XCUIElementTypeStaticText[@name=\"DUO LIFT\"]", PageBase.LocatorType.XPath); }
 
 
 }
