@@ -1364,5 +1364,19 @@ public class BungiiInProgressSteps extends DriverBase {
     }
     }
 
+    @And("^I search the delivery of Customer$")
+    public void i_search_the_delivery_of_customer() throws Throwable {
+        try {
+            String pickupRequestOld = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+            action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), pickupRequestOld + Keys.ENTER);
+            Thread.sleep(10000);
+            log("I search the delivery of Customer", "I searched the delivery of Customer", false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
 }
