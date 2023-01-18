@@ -78,7 +78,7 @@ Feature: Solo Scheduled Bungii Part B
     
     Given I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                      |
-      | NEXT_POSSIBLE | 8877661157     | Cci12345          | Testcustomertywd_BppleMarkFB LutherFB |
+      | NEXT_POSSIBLE | 8877661157     | Cci12345          | Testcustomertywd_appleMarkFB LutherFB |
     
     And I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
@@ -98,7 +98,7 @@ Feature: Solo Scheduled Bungii Part B
 
     And I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8877661158     | Testcustomertywd_BppleMarkFC LutherFC | Cci12345          |
+      | NEXT_POSSIBLE | 8877661158     | Testcustomertywd_appleMarkFC LutherFC | Cci12345          |
 
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -124,7 +124,7 @@ Feature: Solo Scheduled Bungii Part B
 
     And I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
-      | NEXT_POSSIBLE | 8877661159     | Testcustomertywd_BppleMarkFD LutherFD | Cci12345          |
+      | NEXT_POSSIBLE | 8877661159     | Testcustomertywd_appleMarkFD LutherFD | Cci12345          |
 
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
