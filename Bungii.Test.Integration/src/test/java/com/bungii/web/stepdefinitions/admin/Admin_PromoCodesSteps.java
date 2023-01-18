@@ -141,6 +141,11 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_paymentMethodsPage.Menu_Partners());
                action.click(admin_paymentMethodsPage.Menu_LocationsSubMenu());
                break;
+           case "Deliveries > Rejected API Deliveries" :
+               action.click(admin_TripsPage.Menu_Trips());
+               action.click(admin_TripsPage.Menu_RejectedAPIDeliveries());
+               break;
+
        }
         log("I click on "+link+" menu link" ,
                 "I have clicked on "+link+" menu link", false);
