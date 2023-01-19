@@ -132,19 +132,19 @@ Feature: On Demand Bungii Promocode Part B
 
 #	  Core-3773: Change payment status of Customer deliveries with promoter promo codes applied
 	@ready
-	Scenario:  Change payment status of Customer deliveries with promoter promo codes applied
-		When I am on customer Log in page
-		And I am logged in as "valid baltimore" customer
-		And I Switch to "driver" application on "same" devices
+	Scenario: Change payment status of Customer deliveries with promoter promo codes applied
+		When I Switch to "driver" application on "same" devices
 		And I am logged in as "valid baltimore" driver
 		And I Switch to "customer" application on "same" devices
+		When I am on customer Log in page
+		And I am logged in as "valid baltimore" customer
 		And I enter "baltimore pickup and dropoff locations" on Bungii estimate
 		And I tap on "Get Estimate button" on Bungii estimate
 		And I add "1" photos to the Bungii
 		And I add loading/unloading time of "15 mins"
 		And I select Bungii Time as "next possible scheduled"
 		And I tap on "Promo code value" on Estimate screen
-		And I add "PROMOTER TYPE PROMO" PromoCode
+		And I add "PROMOTER TYPE PROMO-1" PromoCode
 		And I tap "Add" on Save Money page
 		Then I should able to see expected promo code in available promo code
 		And I tap on "Back" icon of page
@@ -183,11 +183,12 @@ Feature: On Demand Bungii Promocode Part B
 		And I wait for "2" mins
 		And I log in to admin portal
 		And I wait for "2" mins
-		And I Select "trips" from admin sidebar
+		And I Select "completed deliveries" from admin sidebar
 		And I wait for "2" mins
 		And I wait for "2" mins
-		And  I search the delivery using "Pickup Reference"
+		And  I search the delivery using "Customer name"
 		And I select "Customer Canceled" from the dropdown
 		And I select "Customer initiated - other reason" as the reason from the reason dropdown
 		And I click on "Confirm Status" button
-		And I click on "Cancel Status" button
+		And I should see "STATUS CHANGE SUCCESSFUL" message
+		Then I click on "Cancel Status" button

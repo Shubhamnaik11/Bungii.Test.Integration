@@ -39,6 +39,10 @@ public class DashBoardSteps extends DriverBase {
 //                    action.click(dashBoardPage.Button_LiveTrips());
 
                     break;
+                case "completed deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Menu_CompletedDeliveries());
+                    break;
                 case "promo code":
                     SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/PromoCodes");
                     //action.click(dashBoardPage.Button_PromoCode());
@@ -85,6 +89,9 @@ public class DashBoardSteps extends DriverBase {
                     break;
                 case "No Deliveries found.":
                     testStepAssert.isElementTextEquals(dashBoardPage.Message_NoDeliveriesFound(),"No Deliveries found.",message+" should be displayed.",message+" is displayed.",message+" is not displayed");
+                    break;
+                case "STATUS CHANGE SUCCESSFUL":
+                    testStepAssert.isElementTextEquals(dashBoardPage.Header_StatusChange(),"STATUS CHANGE SUCCESSFUL",message+" should be displayed.",message+" is displayed.",message+" is not displayed");
                     break;
                 default:
                     logger.detail("message option is not present");
