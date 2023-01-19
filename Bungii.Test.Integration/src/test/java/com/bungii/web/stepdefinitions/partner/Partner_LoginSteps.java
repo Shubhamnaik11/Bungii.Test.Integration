@@ -8,7 +8,6 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
-import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.*;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -419,7 +418,7 @@ public class Partner_LoginSteps extends DriverBase {
             List<HashMap<String, Object>> Service_name = getListOfService(Alias);
             switch (str) {
                 case "see all the Service Level":
-                    if (Alias.equalsIgnoreCase("Biglots")) {
+                    if (Alias.equalsIgnoreCase("Biglots")||Alias.equalsIgnoreCase("Cort Furniture #7302")) {
 
                         for (int i = 0; i < Service_name.size(); i++) {
                             String Db_Service_Name = Service_name.get(i).values().toString();
@@ -1145,20 +1144,5 @@ public class Partner_LoginSteps extends DriverBase {
         }
     }
 
-    @And("I should see the custom quote background not highlighted in {string}")
-    public void iShouldSeeTheCustomQuoteBackgroundNotHighlightedIn(String color) {
-        try {
-            testStepAssert.isFalse((PropertyUtility.getDataProperties("text.yellow.highlight")).equalsIgnoreCase(Page_Partner_Dashboard.Box_CustomQuote().getCssValue("background-color")),
-                    "Highlight color should not be yellow",
-                    "Highlight color is not yellow ",
-                    "Highlight color is yellow");
-
-        } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-
-    }
 }
 

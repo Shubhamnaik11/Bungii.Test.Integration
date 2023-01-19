@@ -8,7 +8,6 @@ import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.pages.driver.UpdateStatusPage;
-import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.stepdefinitions.Customer.SignupSteps;
 import com.bungii.android.utilityfunctions.DbUtility;
@@ -64,8 +63,6 @@ public class BungiiInProgressSteps extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
     LoginPage driverLogInPage = new LoginPage();
-    BungiiRequest Page_BungiiRequest = new BungiiRequest();
-
 
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
@@ -443,7 +440,7 @@ public class BungiiInProgressSteps extends DriverBase {
             formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
             String teletInLocalTime = formatterForLocalTimezone.format(teletTimeInUtc);
             long t= teletTimeInUtc.getTime();
-            long ONE_MINUTE_IN_MILLIS=60000;//millisecs
+            long ONE_MINUTE_IN_MILLIS=Long.parseLong(PropertyUtility.getDataProperties("one.minute.in.milliseconds"));
             Date minTime=new Date(t - (15 * ONE_MINUTE_IN_MILLIS));
             String strMindate = formatterForLocalTimezone.format(minTime);
 
@@ -465,7 +462,7 @@ public class BungiiInProgressSteps extends DriverBase {
 
             int FROM_RANGE_FROM = -10;
             int FROM_RANGE_TO = +20;
-            long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
+            long ONE_MINUTE_IN_MILLIS = Long.parseLong(PropertyUtility.getDataProperties("one.minute.in.milliseconds"));
 
             String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
             String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");//customerPhoneNumber="9999991889";
@@ -1362,12 +1359,6 @@ public class BungiiInProgressSteps extends DriverBase {
                             element +" Text is displayed ",
                             element +" Text is not displayed ");
                     break;
-                case "This pickup is no longer available.":
-                    action.click(Page_BungiiRequest.Button_Accept());
-                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(),element,element +" Text should be displayed ",
-                            element +" Text is displayed ",
-                            element +" Text is not displayed ");
-                    break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1405,4 +1396,20 @@ public class BungiiInProgressSteps extends DriverBase {
                 true);
     }
     }
+
+    @And("^I search the delivery of Customer$")
+    public void i_search_the_delivery_of_customer() throws Throwable {
+        try {
+            String pickupRequestOld = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+            action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), pickupRequestOld + Keys.ENTER);
+            Thread.sleep(10000);
+            log("I search the delivery of Customer", "I searched the delivery of Customer", false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }

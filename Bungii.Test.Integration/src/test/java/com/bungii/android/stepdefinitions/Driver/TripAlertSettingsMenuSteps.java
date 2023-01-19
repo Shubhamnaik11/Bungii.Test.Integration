@@ -356,6 +356,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     Thread.sleep(2000);
                     String actualSchdlDateTime=setPickupTimePage.Text_DateTime().getText();
                     cucumberContextManager.setScenarioContext("NEW_SCHDL_BUNGII_TIME", actualSchdlDateTime);
+                    Thread.sleep(5000);
                     action.click(setPickupTimePage.Button_ScheduleBungii());
                     break;
 

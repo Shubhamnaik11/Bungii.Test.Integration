@@ -31,7 +31,6 @@ public class BungiiSteps extends DriverBase {
     CustomerServices customerServices = new CustomerServices();
     com.bungii.android.utilityfunctions.GeneralUtility utility=new com.bungii.android.utilityfunctions.GeneralUtility();
     DbUtility dbUtility = new DbUtility();
-    com.bungii.web.utilityfunctions.DbUtility dbUtilityWeb = new com.bungii.web.utilityfunctions.DbUtility();
 
     public void givenIamOnSearchingpage() {
         String custPhoneCode = "1", custPhoneNum = "9871450101", custPassword = "Cci12345";
@@ -675,8 +674,14 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_drvZ WashingtonZ":
                 phone = PropertyUtility.getDataProperties("Washington.driver28.phone");
                 break;
+            case "Testdrivertywd_appledc_a_drvaf Washingtonaf":
+                phone = PropertyUtility.getDataProperties("Washington.driver34.phone");
+                break;
             case "Testdrivertywd_appleks_a_drvbs Kansas_bs":
                 phone = PropertyUtility.getDataProperties("Kansas.driver67.phone");
+                break;
+            case "Testdrivertywd_applemm_a_drva Memphisa":
+                phone = PropertyUtility.getDataProperties("memphis.driver1.phone");
                 break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
@@ -4148,6 +4153,7 @@ else
             cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
+            cucumberContextManager.setScenarioContext("BUNGII_TYPE",bungiiType);
 
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
@@ -4543,6 +4549,15 @@ else
                 Details[4]=PropertyUtility.getDataProperties("driverG.phone.password");
                 Details[5]=PropertyUtility.getDataProperties("driverG.phone.name");
                 break;
+            case "Testcustomertywd_appleMarkFF LutherFF":
+                Details[0]=PropertyUtility.getDataProperties("goa.customer2.phone");
+                Details[1]=PropertyUtility.getDataProperties("goa.customer2.password");
+                Details[2]=PropertyUtility.getDataProperties("goa.customer2.name");
+
+                Details[3]=PropertyUtility.getDataProperties("goa.driver9.phone");
+                Details[4]=PropertyUtility.getDataProperties("goa.driver9.password");
+                Details[5]=PropertyUtility.getDataProperties("goa.driver9.name");
+                break;
             default:
                 throw new IllegalStateException("The entry for the customer with the name: " + custName +" is not present.");
         }
@@ -4813,26 +4828,4 @@ else
     }
 
 
-    @Then("^Customer card auth charge should be correct$")
-    public void customer_card_auth_charge_should_be_correct() throws Throwable {
-        try {
-            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            String authCharge[] = dbUtilityWeb.getAuthCharge(pickupRequest);
-            String expectedAuthCharge = PropertyUtility.getDataProperties("auth.charge.customer.card");
-            testStepAssert.isEquals(authCharge[0],expectedAuthCharge,
-                     "Authorization charge " + expectedAuthCharge + "should be correct",
-                    "Authorization charge " + authCharge[0] + "is correct",
-                     "Authorization charge " + authCharge[0] + "is incorrect");
-            testStepAssert.isEquals(authCharge[1],expectedAuthCharge,
-                    "Voided Authorization charge " + expectedAuthCharge + "should be correct",
-                    "Voided Authorization charge " + authCharge[1] + "is correct",
-                    "Voided Authorization charge " + authCharge[1] + "is incorrect");
-
-        } catch (Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-
-    }
 }
