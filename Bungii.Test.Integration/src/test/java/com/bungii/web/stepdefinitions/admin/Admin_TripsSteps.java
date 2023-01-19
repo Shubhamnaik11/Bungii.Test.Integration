@@ -2246,6 +2246,20 @@ try{
     }
     }
 
+    @Then("^I should see the status of the trip as \"([^\"]*)\"$")
+    public void iShouldSeeTheStatusOfTheTripAs(String tripStatus) throws Throwable {
+        try {
+            Thread.sleep(1000);
+            testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_AdvanceScheduledStatus(),
+                    tripStatus +" status should be displayed",
+                    tripStatus +" status is displayed",tripStatus +" status is not displayed");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @Then("^Tick mark should be displayed beside driver and scheduled date$")
     public void tick_mark_should_be_displayed_beside_driver_and_scheduled_date() throws Throwable {
         testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDate(),"I should able to see Tick mark besides Scheduled Date", "I was able to see Tick mark besides Scheduled Date", "Tick mark was not displayed besides Scheduled Date");
