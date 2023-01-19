@@ -43,13 +43,13 @@
         
       @regression
       Scenario: Verify that correct date of the trip is displayed in past bungii screen
-        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleMarkFF LutherFF"
           | geofence | Bungii State | Bungii Time  |
           | goa  | Bungii Completed     | NEXT_POSSIBLE |
     
         When I Switch to "customer" application on "same" devices
 		Given I am on customer Log in page
-		And I am logged in as "Testcustomertywd_appleand_A Android" customer
+		And I am logged in as "Testcustomertywd_appleMarkFF LutherFF" customer
         
         And I tap on "Menu" > "My Bungiis" link
         And "MY BUNGIIS" page should be opened
@@ -59,7 +59,7 @@
     
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9393939393      |                 |
+          | 8877661161      |                 |
   
       @regression
         #stable
