@@ -173,13 +173,19 @@ Feature: On Demand Bungii Promocode Part B
 		When Bungii driver uploads "1" image
 		And I slide update button on "UNLOADING ITEMS" Screen
 		And Bungii Driver "skips to rate customer"
+		And I wait for "2" mins
 		Then I should be navigated to "Bungii completed" screen
 		And I wait for "2" mins
 
 		And I open new "Chrome" browser for "ADMIN PORTAL"
+		And I wait for "2" mins
 		And I navigate to admin portal
+		And I wait for "2" mins
 		And I log in to admin portal
+		And I wait for "2" mins
 		And I Select "trips" from admin sidebar
+		And I wait for "2" mins
+		And I wait for "2" mins
 		And  I search the delivery using "Pickup Reference"
 		And I select "Customer Canceled" from the dropdown
 		And I select "Customer initiated - other reason" as the reason from the reason dropdown
