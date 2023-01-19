@@ -780,6 +780,8 @@ public class ScheduledBungiiSteps extends DriverBase {
             String actualMyBungiiTime ="";
             switch (strArg1) {
             case "MY BUNGIIS":
+                action.scrollToTop();
+                action.scrollToTop();
                 String expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("MY_BUNGII_DATE");
                 actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" - " , "");
 
