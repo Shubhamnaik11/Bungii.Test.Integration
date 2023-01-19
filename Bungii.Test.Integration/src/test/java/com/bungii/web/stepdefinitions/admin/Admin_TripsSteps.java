@@ -1431,7 +1431,16 @@ try{
 
     @Then("^Pickup should be unassigned from the driver$")
     public void pickup_should_be_unassigned_from_the_driver() throws Throwable {
-
+        try{
+            action.waitUntilIsElementExistsAndDisplayed(admin_EditScheduledBungiiPage.Label_Driver1MessageOnResearch(), (long) 3000);
+            testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.Label_Driver1MessageOnResearch(), "Driver 1: Bungii driver is being searched should be displayed","Driver 1: Bungii driver is being searched is displayed", "Driver 1: Bungii driver is being searched is not displayed");
+            log("Driver 2 should be unassigned",
+                    "Driver 2 is unassigned", true);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I select the first driver$")
@@ -1460,6 +1469,12 @@ try{
                 break;
             case "newjersey":
                 geofenceName = "North New Jersey";
+                break;
+            case "nashville":
+                geofenceName = "Nashville";
+                break;
+            case "memphis":
+                geofenceName = "Memphis";
                 break;
         }
         return geofenceName;
@@ -1496,6 +1511,8 @@ try{
         String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String driverPhone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
         String driverLicencePlate = PropertyUtility.getDataProperties("partnerfirm.driver1.LicencePlate");
+        String driverName1 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+        String driverPhone1 = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
         String name = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME");
         String customerName = null;
         String customerPhone = null;
@@ -1539,8 +1556,8 @@ try{
 
                 if(hasDST){
 
-                    int hr1 = date1.getHours() + 1;
-                    date1.setHours(hr1);
+//                    int hr1 = date1.getHours() + 1;
+//                    date1.setHours(hr1);
                     pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
                     //pickupdate.replaceAll("EST","EDT");
                     //emailBody.replaceAll("EST","EDT");
@@ -1554,10 +1571,15 @@ try{
                 TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"))));
                 Date date = new SimpleDateFormat("MMM dd, hh:mm a z").parse(pickupdate);
                 int year = Calendar.getInstance().get(Calendar.YEAR);
-                date.setYear(date.getYear()+(year-date.getYear()));
-                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date).toString();
-            }
+                Calendar c = Calendar.getInstance();
+                c.setTime(date);
+                c.set(Calendar.YEAR, year);
+                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();
 
+//                int year = Calendar.getInstance().get(Calendar.YEAR);
+//                date.setYear(date.getYear()-(year+date.getYear()));
+//                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date).toString();
+            }
         }
         if(emailSubject.contains("UPDATE: qauto-equip-bid")) {
             emailSubject =PropertyUtility.getDataProperties("updated.first.email.of.partner.portal.text");
@@ -1565,12 +1587,18 @@ try{
         String message = null;
         switch (emailSubject) {
             case "Bungii Delivery Pickup Scheduled":
-               // message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
-                if(hasDST){
-                    message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
-                    message= message.replaceAll("EST","EDT");
-                }else {
-                    message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                String bungiiType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+                if(bungiiType.contains("Solo")){
+                    // message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                    if (hasDST) {
+                        message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+//                    message= message.replaceAll("EST","EDT");
+                    } else {
+                        message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                    }
+                } else {
+                    message = utility.getExpectedPartnerFirmDuoScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, driverName1, driverPhone1, supportNumber, firmName);
+//                    message= message.replaceAll("EST","EDT");
                 }
                 break;
             case "Bungii Delivery Pickup Updated":
@@ -1598,15 +1626,11 @@ try{
                 break;
             case "Best Buy #11, Baltimore, MD has scheduled their first delivery!":
                 String partnerPortalName=PropertyUtility.getDataProperties("partner.baltimore.name");
-                String pickupReference= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-                String trackingId= dbUtility.getPickupToken(pickupReference);
-                message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName,trackingId);
+                message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName);
                 break;
             case "Updated First Partner Portal Mail":
                 String partnerPortalName1=PropertyUtility.getDataProperties("partner.atlanta.equip-bid.partner.portal.name");
-                String pickupReference1= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-                String trackingId1= dbUtility.getPickupToken(pickupReference1);
-                message = utility.getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(partnerPortalName1,trackingId1);
+                message = utility.getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(partnerPortalName1);
                 break;
         }
         message= message.replaceAll(" ","");
@@ -2224,8 +2248,8 @@ try{
 
     @Then("^Tick mark should be displayed beside driver and scheduled date$")
     public void tick_mark_should_be_displayed_beside_driver_and_scheduled_date() throws Throwable {
-      //  testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDate());
-          //      testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDriver(""));
+        testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDate(),"I should able to see Tick mark besides Scheduled Date", "I was able to see Tick mark besides Scheduled Date", "Tick mark was not displayed besides Scheduled Date");
+        testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDriver(), "I should able to see Tick mark besides Driver Name", "I was able to see Tick mark besides Driver Name", "Tick mark was not displayed besides Driver Name");
 
     }
 
@@ -2265,6 +2289,8 @@ try{
     public void i_update_the_scheduled_date_of_the_trip_by_15_minutes()  {
         try{
         //String value = admin_EditScheduledBungiiPage.TimePicker_Time().getAttribute("text");
+            String customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME");
+            cucumberContextManager.setScenarioContext("SCHEDULED_TIME",action.getText(admin_TripsPage.Text_ScheduledTime(customerName)));
             String time = (String) cucumberContextManager.getScenarioContext("SCHEDULED_TIME");
             time=time.substring(13,21);
             action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
@@ -3862,4 +3888,150 @@ try{
         }
     }
 
+    @When("I view the Completed Deliveries on the admin portal")
+    public void iViewTheCompletedDeliveriesOnTheAdminPortal() {
+        try{
+            action.waitUntilIsElementExistsAndDisplayed(admin_TripsPage.Menu_CompletedDeliveries(), (long) 3000);
+            action.click(admin_TripsPage.Menu_CompletedDeliveries());
+            action.refreshPage();
+            log("I should be able to see Completed Deliveries Page","I could see Completed Deliveries Page",false);
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+
+        }
+    }
+    @And("I select partner to {string}")
+    public void iSelectPartnerTo(String Partner_name) {
+        try {
+            action.waitUntilIsElementExistsAndDisplayed(admin_TripsPage.Menu_RejectedAPIDeliveries(),(long)3000);
+            action.click(admin_TripsPage.Dropdown_Partner());
+            action.click(admin_TripsPage.Dropdown_SelectPartner(Partner_name));
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+    @Then("I check if Export All Records button is disabled")
+    public void iCheckIfExportAllRecordsButtonIsDisabled() {
+        try{
+            Thread.sleep(3000);
+            testStepAssert.isFalse(admin_TripsPage.Button_ExportRecords().isEnabled(),"Export All Records button should be disabled",
+                    "Export All Records button is disabled","Export All Records button is not disabled");
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    @And("^I get the value of \"([^\"]*)\"$")
+    public void i_get_the_value_of_something(String type) throws Throwable {
+        try{
+            switch(type){
+                case "initial request time":
+                    String initialRequestTime = action.getText(admin_TripDetailsPage.Text_InitialRequestTime());
+                    cucumberContextManager.setScenarioContext("INITIAL_REQUEST_TIME",initialRequestTime);
+                    break;
+                case "schedule time":
+                    String scheduleTime = action.getText(admin_TripDetailsPage.Text_ScheduleTime());
+                    cucumberContextManager.setScenarioContext("SCHEDULE_TIME",scheduleTime);
+                    break;
+                case "driver fixed earning":
+                    String driverEarning = action.getText(admin_TripDetailsPage.Text_SoloDriverEarnings());
+                    cucumberContextManager.setScenarioContext("DRIVER_EARNING",driverEarning);
+                    break;
+                case "status":
+                    String tripStatus = action.getText(admin_TripDetailsPage.Text_TripStatus());
+                    cucumberContextManager.setScenarioContext("TRIP_STATUS",tripStatus);
+                    break;
+                case "driver fixed earning after boost":
+                    String driverEarningAfterBoost = action.getText(admin_TripDetailsPage.Text_SoloDriverEarnings());
+                    cucumberContextManager.setScenarioContext("DRIVER_EARNING_AFTER_BOOST",driverEarningAfterBoost);
+                    String driverBooster=PropertyUtility.getDataProperties("memphis.driver.boost.amount");
+                    String earningsBeforeBoost=(String) cucumberContextManager.getScenarioContext("DRIVER_EARNING");
+                    float calDriverBoost= Float.parseFloat(driverBooster)+Float.parseFloat(earningsBeforeBoost.substring(1,6));
+                    float driverEarningAfterFirstBoost= Float.parseFloat(driverEarningAfterBoost.substring(1,6));
+                    if(driverEarningAfterFirstBoost>(calDriverBoost-0.5) && driverEarningAfterFirstBoost<(calDriverBoost+0.5)){
+                        testStepAssert.isTrue(true,
+                                "Driver earnings after boost should be correct",
+                                "Driver earnings after boost are incorrect");
+                    }
+                    else{
+                        testStepAssert.isTrue(false,
+                                "Driver earnings after boost should be correct",
+                                "Driver earnings after boost are incorrect");
+                    }
+
+                    break;
+            }
+            log("I should be able to get the value of "+type,"I am able to get the value of"+type,false);
+        }  catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I check if the status is \"([^\"]*)\"$")
+    public void i_check_if_the_status_is_something(String status) throws Throwable {
+        try{
+            switch (status){
+                case "No Driver(s) Found":
+                    action.refreshPage();
+                    String tripStatus = action.getText(admin_TripDetailsPage.Text_TripStatus());
+                    testStepAssert.isEquals(tripStatus,status,
+                            "The status should be "+status,
+                            "The status is "+status,
+                            "The status is "+action.getText(admin_TripDetailsPage.Text_TripStatus()));
+                    break;
+                case "Assigning Driver(s)":
+                    action.refreshPage();
+                    String tripStatus1 = action.getText(admin_TripDetailsPage.Text_TripStatus());
+                    testStepAssert.isEquals(tripStatus1,status,
+                            "The status should be "+status,
+                            "The status is "+status,
+                            "The status is "+action.getText(admin_TripDetailsPage.Text_TripStatus()));
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I calculate time for {string}")
+    public void iCalculateTimeFor(String type) {
+        try{
+            switch(type){
+                case "driver boost":
+                    String scheduleTime= (String) cucumberContextManager.getScenarioContext("SCHEDULE_TIME");
+                    String initialTime= (String) cucumberContextManager.getScenarioContext("INITIAL_REQUEST_TIME");
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+                    Date scheduleMins = format.parse(scheduleTime.substring(8,13));
+                    Date initialMins = format.parse(initialTime.substring(8,13));
+                    long diff = scheduleMins.getTime() - initialMins.getTime();
+                    long difference = (diff<0) ? (Math.abs(-diff)):(diff);
+                    String driverBoostPeriod = PropertyUtility.getDataProperties("memphis.driver.boosted.earning.period");
+                    String driverSearchTime = PropertyUtility.getDataProperties("memphis.driver.search.time");
+                    long ONE_MINUTE_IN_MILLIS= Long.parseLong(PropertyUtility.getDataProperties("one.minute.in.milliseconds"));
+                    long searchTime=Integer.parseInt(driverSearchTime)*ONE_MINUTE_IN_MILLIS;
+                    long totalWait=difference-(Integer.parseInt(driverBoostPeriod)*ONE_MINUTE_IN_MILLIS)-searchTime;
+                    while(!(totalWait<=0)){
+                        Thread.sleep((Integer.parseInt(driverBoostPeriod)*ONE_MINUTE_IN_MILLIS));
+                        action.refreshPage();
+                        totalWait-=(Integer.parseInt(driverBoostPeriod)*ONE_MINUTE_IN_MILLIS);
+                    }
+                    break;
+            }
+            log("I should be able to calculate the "+type,"I am able to calculate the "+type,false);
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 }

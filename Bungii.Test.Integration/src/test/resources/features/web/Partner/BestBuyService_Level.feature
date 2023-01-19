@@ -69,7 +69,6 @@ Feature: Service Level
       | driver1 state |
       | Accepted      |
 #    Core-4080 Verify that email notification is sent on configured email id's once first partner portal delivery is scheduled
-#    CORE-5006 : Adding tracking id to 1st schedule email.
     And Partner firm should receive "1st-Delivery" email
 #   Core - 2619  Verify that Partner Portals with multiple addresses have independent time slots for each store address.
     When I check in the db the number of timeslots available "for bestbuy first address" new portal

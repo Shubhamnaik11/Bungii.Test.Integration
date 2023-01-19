@@ -107,4 +107,6 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Button_TransactionDetails() { return findElement("//div/h4[text()='Transaction history']/following::div/a[text()='View Details']", LocatorType.XPath); }
 
+    public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),'Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
+
 }

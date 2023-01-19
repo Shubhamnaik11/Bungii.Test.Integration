@@ -27,7 +27,8 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I open the trip for "Testcustomertywd_appleand_A Android" customer
+        And I search the delivery of Customer
+        When I click on the "Edit" button from the dropdown
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_a Android_test" for the trip
         And I click on "VERIFY" button

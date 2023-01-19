@@ -307,6 +307,7 @@ public class Admin_GeofenceSteps extends DriverBase {
                 case "Kansas":
                    // action.click(admin_potentialPartnersPage.Dropdown_Geofence());
                    // action.selectElementByText(admin_potentialPartnersPage.Dropdown_Geofence(),"Kansas");
+                    Thread.sleep(3000);
                     utility.selectGeofenceDropdown(geofenceName);
                     break;
 
