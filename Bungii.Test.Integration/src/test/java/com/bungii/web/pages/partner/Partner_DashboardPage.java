@@ -78,9 +78,9 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Pickup_date_Today_4() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][4]",LocatorType.XPath);}*/
     public WebElement Pickup_Date_Today() { return findElement("//div[contains(text(),'Today')]",LocatorType.XPath);}
     public WebElement Pickup_date_Today_1() { return findElement("//div[contains(text(),'Tomorrow')]",LocatorType.XPath);}
-    public WebElement Pickup_date_Today_2() { return findElement("//div[@class='date-container auto-dimensions']/div/div[3]",LocatorType.XPath);}
-    public WebElement Pickup_date_Today_3() { return findElement("//div[@class='date-container auto-dimensions']/div/div[4]",LocatorType.XPath);}
-    public WebElement Pickup_date_Today_4() { return findElement("//div[@class='date-container auto-dimensions']/div/div[5]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_2() { return findElement("//div[@class='date-container auto-dimensions row']/div/div[3]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_3() { return findElement("//div[@class='date-container auto-dimensions row']/div/div[4]",LocatorType.XPath);}
+    public WebElement Pickup_date_Today_4() { return findElement("//div[@class='date-container auto-dimensions row']/div/div[5]",LocatorType.XPath);}
     public WebElement Pickup_date_Tomorrow() { return findElement("//div[contains(text(),'Tomorrow')]",LocatorType.XPath);}
 
     //Pickup Time dropdown
@@ -230,8 +230,6 @@ public class Partner_DashboardPage extends PageBase {
     //Text Support
     public WebElement Text_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]",LocatorType.XPath);}
 
-    public WebElement Text_RecentDriverRegistration() { return findElement("//h4[text()='Recent Driver Registrations']",LocatorType.XPath);}
-
     //Text Support Number
     public WebElement Number_TextSupport() { return findElement("//strong[contains(text(),'Text Support:')]/following-sibling::span",LocatorType.XPath);}
 
@@ -328,8 +326,4 @@ public class Partner_DashboardPage extends PageBase {
 
     //Quote request header title
     public WebElement Text_QuoteRequestPageHeader() { return findElement("//h1[contains(text(),'Quote Request')]", LocatorType.XPath);}
-
-    //Quote background box
-    public WebElement Box_CustomQuote() { return findElement("//div[@class='custom_quote_disc']", LocatorType.XPath);}
-
 }

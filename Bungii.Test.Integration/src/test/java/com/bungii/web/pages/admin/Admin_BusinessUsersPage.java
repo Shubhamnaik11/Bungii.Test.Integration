@@ -21,6 +21,8 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Button_Save ( ) { return findElement("//button[contains(text(),'Save')]", LocatorType.XPath); }
 
+    public WebElement Button_OK ( ) { return findElement("//button[contains(text(),'OK')]", LocatorType.XPath); }
+
     public WebElement TextBox_BusinessUserName( ) { return findElement("//label[contains(text(),'Name:')]/parent::div/div/div/input", LocatorType.XPath); }
 
     public WebElement DropDown_BusinessUserIsActive( ) { return findElement("//label[contains(text(),'Status:')]/parent::div/select", LocatorType.XPath); }
@@ -64,7 +66,7 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Button_Ok( ) { return findElement("//button[text()='OK']", LocatorType.XPath); }
 
-    public WebElement Button_Confirm( ) { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
+    public WebElement Button_Confirm( ) { return findElement("//button[contains(text(),'Confirm')]", LocatorType.XPath); }
 
     public WebElement Button_Upload( ) { return findElement("//button[text()='Upload']", LocatorType.XPath); }
 

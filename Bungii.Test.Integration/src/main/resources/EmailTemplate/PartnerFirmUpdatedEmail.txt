@@ -13,11 +13,11 @@
     </div>
     <br/>
     <div>
-      <span style="font-family: arial,helvetica,sans-serif;">We wanted to give you a heads up that we matched customer, Testcustomertywd_appleweb CustF, with a driver who is better suited to handle the delivery. Please update the pending load with the new Bungii driver’s information below: &nbsp;</span>
+      <span style="font-family: arial,helvetica,sans-serif;">We wanted to give you a heads up that we matched customer,%CustomerName%,with a driver who is better suited to handle the delivery. Please update the pending load with the new Bungii driver’s information below: &nbsp;</span>
     </div>
     <br/>
     <div>
-      <span style="font-family: arial,helvetica,sans-serif;">Estimated Scheduled Pickup Time: Wednesday, February 26, 2020 6:45 AM EST &nbsp;</span>
+      <span style="font-family: arial,helvetica,sans-serif;">Estimated Scheduled Pickup Time: %TimeStamp%&nbsp;</span>
     </div>
 
   <br/>

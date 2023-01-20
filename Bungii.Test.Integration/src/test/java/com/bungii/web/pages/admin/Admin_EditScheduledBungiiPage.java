@@ -29,7 +29,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement TextBox_DriverSearch() { return findElement("//input[@placeholder='Enter driver name']", LocatorType.XPath); }
 
     public WebElement Button_Verify() { return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath); }
-    public WebElement Button_Verify_For_Live() { return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath); }
+    public WebElement Button_Verify_For_Live() { return findElement("//div[@class=\"live-edit\"]/div/div/button[contains(text(),'VERIFY')]", LocatorType.XPath); }
 
 
     public WebElement Button_Save() { return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath); }
@@ -50,9 +50,9 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement List_DriverSearchResult (String driverName) { return findElement("//input/following-sibling::div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
 
-    public WebElement TickMarkDate () { return findElement("//i[@class='fa fa-check dateValidity text-green-alt success-icon']", LocatorType.XPath); }
+    public WebElement TickMarkDate () { return findElement("//div[@class='verify-icon col']", LocatorType.XPath); }
 
-    public WebElement TickMarkDriver (String driverName) { return findElement("//td[text()='"+driverName+"']/ancestor::tr/td/i[@class='fa fa-check text-green-alt']", LocatorType.XPath); }
+    public WebElement TickMarkDriver () { return findElement("//div[@class='driver-verify w1 col-sm-1']", LocatorType.XPath); }
 
     public WebElement  Button_Edit() {return findElement("//a[contains(text(),'Edit')]",LocatorType.XPath);}
 

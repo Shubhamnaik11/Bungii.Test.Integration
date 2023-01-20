@@ -131,7 +131,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_NewDropoffAddress(){return  findElement("lblDestinationAddress",LocatorType.Id);}
 
 
-    public WebElement Text_Delivery_Scheduled(){return  findElement("//tbody/tr/td[text() ='Scheduled']",LocatorType.XPath);}
+    public WebElement Text_Delivery_Scheduled(){return  findElement("//td[contains(text(),'Scheduled')]",LocatorType.XPath);}
 
     public WebElement Text_Delivery_Successfull(){return  findElement("//td[contains(text(),'Payment Successful')]",LocatorType.XPath);}
 
@@ -228,7 +228,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_HistoryNewValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[3]",LocatorType.XPath);}
 
-    public WebElement Link_NotesHistoryLiveDelivery(){return findElement("//body/div[@id='popover-basic']/div[2]/div[3]",LocatorType.XPath);}
+    public WebElement Link_NotesHistoryLiveDelivery(){return findElement("//ul[@class=\"dropdown-menu\"]/li[3]/p",LocatorType.XPath);}
 
     public WebElement Text_HistoryTabInformation(int row ,int col){return  findElement(String.format("//div[@class=\"old-note\"]/table/tbody/tr[%d]/td[%d]",row,col),LocatorType.XPath);}
 

@@ -355,29 +355,25 @@ public class BungiiDetailsSteps extends DriverBase {
     public void something_should_be_displayed_on_bungii_request_screen(String option) throws Throwable {
         try {
             String expectedPickUpLocationLineOne = "", expectedPickUpLocationLineTwo = "", expectedDropLocationLineOne = "", expectedDropLocationLineTwo = "", expectedTripNoOfDriver = "";
-            String pickUpLocationLine1 = "", pickUpLocationLine2 = "", dropUpLocationLine1 = "", dropUpLocationLine2 = "", estimate = "", truncValue = "";
+            String pickUpLocation = "", dropUpLocation = "", estimate = "", truncValue = "";
             double flestimate, transactionFee, estimatedDriverCut;
 
             switch (option) {
                 case "correct duo scheduled trip details":
-                    logger.detail(SetupManager.getDriver().getPageSource());
                     expectedPickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
                     expectedPickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
                     expectedDropLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
                     expectedDropLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
                     expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO") ? "DUO" : "SOLO";
-                    pickUpLocationLine1 = action.getNameAttribute(bungiiDetailsPage.TextBox_Pickup_LineOne());
-                    pickUpLocationLine2 = action.getNameAttribute(bungiiDetailsPage.TextBox_Pickup_LineTwo());
-                    dropUpLocationLine1 = action.getNameAttribute(bungiiDetailsPage.TextBox_Drop_LineOne());
-                    dropUpLocationLine2 = action.getNameAttribute(bungiiDetailsPage.TextBox_Drop_LineTwo());
-                    testStepVerify.isTrue(pickUpLocationLine1.equals(expectedPickUpLocationLineOne) && pickUpLocationLine2.equals(expectedPickUpLocationLineTwo),
+                    pickUpLocation = action.getNameAttribute(bungiiDetailsPage.TextBox_Pickup_LineOne());
+                    dropUpLocation = action.getNameAttribute(bungiiDetailsPage.TextBox_Drop_LineOne());
+                    testStepVerify.isTrue(pickUpLocation.replaceAll(",","").contains(expectedPickUpLocationLineOne.replaceAll(",","")) && pickUpLocation.replaceAll(",","").contains(expectedPickUpLocationLineTwo.replaceAll(",","")),
+                            "Pick up address should be " + expectedPickUpLocationLineOne + expectedPickUpLocationLineTwo, "Pick up address is " + pickUpLocation,
+                            "Expected pickup address is " + expectedPickUpLocationLineOne + expectedPickUpLocationLineTwo + ", but actual is" + pickUpLocation);
+                    testStepVerify.isTrue(dropUpLocation.replace(",","").contains(expectedDropLocationLineOne.replaceAll(",","")) && dropUpLocation.replaceAll(",","").contains(expectedDropLocationLineTwo.replaceAll(",","")),
 
-                            "Pick up address should be " + expectedPickUpLocationLineOne + expectedPickUpLocationLineTwo, "Pick up address is " + pickUpLocationLine1 + pickUpLocationLine2,
-                            "Expected pickup address is " + expectedPickUpLocationLineOne + expectedPickUpLocationLineTwo + ", but actual is" + pickUpLocationLine1 + pickUpLocationLine2);
-                    testStepVerify.isTrue(dropUpLocationLine1.equals(expectedDropLocationLineOne) && dropUpLocationLine2.equals(expectedDropLocationLineTwo),
-
-                            "Drop address should be " + expectedDropLocationLineOne + expectedDropLocationLineTwo, "Drop address is " + dropUpLocationLine1 + dropUpLocationLine2,
-                            "Expected Drop address is " + expectedDropLocationLineOne + expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 + dropUpLocationLine2);
+                            "Drop address should be " + expectedDropLocationLineOne + expectedDropLocationLineTwo, "Drop address is " + dropUpLocation,
+                            "Expected Drop address is " + expectedDropLocationLineOne + expectedDropLocationLineTwo + ", but actual is" + dropUpLocation);
                     testStepVerify.isElementEnabled(bungiiDetailsPage.Text_EstimatedEarningTag(), "Earning tag should be displayed");
 
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueDistance(), (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
@@ -396,15 +392,15 @@ public class BungiiDetailsSteps extends DriverBase {
                     sdf.setTimeZone(TimeZone.getTimeZone(new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofenceId()));
                     String dateFormatted = sdf.format(dateTime);
 
-                    String time = action.getText(bungiiDetailsPage.Text_BungiiTime()).substring(0,19).trim();
+                    String time = action.getText(bungiiDetailsPage.Text_BungiiTime());
                     String expected = dateFormatted+", "+((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(",", " |").substring(0,14);
                     logger.detail("Expected Time"+expected);
                     testStepVerify.isEquals(time, expected);
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_NavigationBar(), "BUNGII DETAILS");
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeTag(), "Type");
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeValue(), "Bungii Duo");
+//                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeTag(), "Type");
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeValue(), "DUO LIFT");
                    // testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(), ((String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME").toString().replace("  "," ")));
-                    testStepAssert.isEquals("", "", "Verify Trip Time: ","NOTE: 1 min difference appears sometimes -> Need to recalculate and fix this case : "+ "~"+action.getText(bungiiDetailsPage.Text_ValueTripTime())+" and " +((String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME").toString().replace("  "," ")),"NOTE: 1 min difference appears -> Need to recalculate and fix this case");
+                   // testStepAssert.isEquals("", "", "Verify Trip Time: ","NOTE: 1 min difference appears sometimes -> Need to recalculate and fix this case : "+ "~"+action.getText(bungiiDetailsPage.Text_ValueTripTime())+" and " +((String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME").toString().replace("  "," ")),"NOTE: 1 min difference appears -> Need to recalculate and fix this case");
 
                     break;
             }
