@@ -1373,7 +1373,9 @@ try{
         String [] todaysDate =  new DateTime().toDate().toString().split(" ");
         String currentMonth =todaysDate[1];
         action.click(admin_EditScheduledBungiiPage.DatePicker_ScheduledDate());
-        action.click(admin_ScheduledTripsPage.Link_EditScheduleTripCalenderPreviousMonth());
+        if(!deliveryMonth.equals(currentMonth)) {
+            action.click(admin_ScheduledTripsPage.Link_EditScheduleTripCalenderPreviousMonth());
+        }
 
         if(deliveryMonth.equals(currentMonth)) {
             if(tripDateAhead.startsWith("0")){
