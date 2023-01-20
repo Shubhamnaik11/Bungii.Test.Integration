@@ -63,6 +63,9 @@ Feature: Admin_DriverDetails
       | driver1 state|
       | Accepted |
     Then The Driver Trip List page should display the trip in "Driver(s) Accepted" state
+    #CORE-4198
+    And I search by "Customer Name"
+    Then Column "Customer" should display "Customer Name"
     When As a driver "Macy Chang" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Enroute |
