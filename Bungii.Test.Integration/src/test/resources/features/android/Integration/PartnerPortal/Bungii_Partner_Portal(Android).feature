@@ -561,7 +561,7 @@
       When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
-      And I Select "trips" from admin sidebar
+      And I Select "completed deliveries" from admin sidebar
       And I open the trip for "Testcustomertywd_appleMarkCT LutherCT" the customer
       And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
       Then "Customer Help" icon should be displayed in all deliveries details page

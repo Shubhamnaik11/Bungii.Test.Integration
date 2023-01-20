@@ -41,11 +41,6 @@ public class DashBoardSteps extends DriverBase {
                     break;
                 case "completed deliveries":
                     action.click(dashBoardPage.Button_Trips());
-                    Thread.sleep(5000);
-                    action.click(dashBoardPage.Button_CompletedTrips());
-                    break;
-                case "completed deliveries":
-                    action.click(dashBoardPage.Button_Trips());
                     action.click(dashBoardPage.Menu_CompletedDeliveries());
                     break;
                 case "promo code":
