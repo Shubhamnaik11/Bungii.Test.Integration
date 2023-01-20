@@ -4034,32 +4034,37 @@ try{
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-    @Then("driver should receive {string} email")
-    public void driverShouldReceiveEmail(String emailSubject) {
-        String emailBody = utility.GetSpecificVerificationcodeEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
-        if (emailBody == null) {
-            testStepAssert.isFail("Email : " + emailSubject + " not received");
-        }
-        emailBody=emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
-        logger.detail("Email Body (Actual): "+ emailBody);
-        String VerificationCode = DbUtility.getVerificationCode(PropertyUtility.getDataProperties("DriverPhoneNumber"));
-        String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+    @Then("Driver should receive {string} email")
+    public void DriverShouldReceiveEmail(String emailSubject) {
+        try {
+            String emailBody = utility.GetSpecificVerificationcodeEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+            if (emailBody == null) {
+                testStepAssert.isFail("Email : " + emailSubject + " not received");
+            }
+            emailBody = emailBody.replaceAll("\r", "").replaceAll("\n", "").replaceAll(" ", "");
+            logger.detail("Email Body (Actual): " + emailBody);
+            String VerificationCode = DbUtility.getVerificationCode(PropertyUtility.getDataProperties("DriverPhoneNumber"));
+            String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
 
-        boolean hasDST=false;
+            boolean hasDST = false;
 
-        String message = null;
-        switch (emailSubject) {
-            case "BUNGII: Your verification code":
-                if(hasDST){
-                    message = utility.getExpectedDriverForgotPasswordEmailContent(driverName, VerificationCode);
-                    message= message.replaceAll("EST","EDT");
-                }else {
-                    message = utility.getExpectedDriverForgotPasswordEmailContent(driverName, VerificationCode);
-                }
-                break;
+            String message = null;
+            switch (emailSubject) {
+                case "BUNGII: Your verification code":
+                    if (hasDST) {
+                        message = utility.getExpectedDriverForgotPasswordEmailContent(driverName, VerificationCode);
+                        message = message.replaceAll("EST", "EDT");
+                    } else {
+                        message = utility.getExpectedDriverForgotPasswordEmailContent(driverName, VerificationCode);
+                    }
+                    break;
+            }
+            message = message.replaceAll(" ", "");
+            logger.detail("Email Body (Expected): " + message);
+            testStepAssert.isEquals(emailBody, message, "Email " + message + " content should match with Actual", "Email  " + emailBody + " content matches with Expected", "Email " + emailBody + "  content doesn't match with Expected");
+        } catch (Exception e) {
+            logger.error("Error performing step", e);
+            error("Step Should be successful", "Error performing step,Please check logs for more details", true);
         }
-        message= message.replaceAll(" ","");
-        logger.detail("Email Body (Expected): "+message);
-        testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
     }
 }
