@@ -220,7 +220,7 @@ Feature: SoloScheduled
     And I select "Admin Canceled" from the dropdown
     And I select "Customer initiated - other reason" as the reason from the reason dropdown
     And I click on "Confirm Status" button
-    And I click on "Cancel Status" button
+    And I click on "Close Status" button
     And I wait for 2 minutes
     And I Select "trips" from admin sidebar
     And I open the trip for "Testcustomertywd_appleMarkBR LutherBR" the customer

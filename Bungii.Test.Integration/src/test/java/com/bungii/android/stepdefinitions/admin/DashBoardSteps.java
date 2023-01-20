@@ -5,6 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.admin.*;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -42,6 +43,10 @@ public class DashBoardSteps extends DriverBase {
                     action.click(dashBoardPage.Button_Trips());
                     Thread.sleep(5000);
                     action.click(dashBoardPage.Button_CompletedTrips());
+                    break;
+                case "completed deliveries":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Menu_CompletedDeliveries());
                     break;
                 case "promo code":
                     SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/PromoCodes");
@@ -89,6 +94,9 @@ public class DashBoardSteps extends DriverBase {
                     break;
                 case "No Deliveries found.":
                     testStepAssert.isElementTextEquals(dashBoardPage.Message_NoDeliveriesFound(),"No Deliveries found.",message+" should be displayed.",message+" is displayed.",message+" is not displayed");
+                    break;
+                case "STATUS CHANGE SUCCESSFUL":
+                    testStepAssert.isElementTextEquals(dashBoardPage.Header_StatusChange(), PropertyUtility.getMessage("success.message.status.change"),message+" should be displayed.",message+" is displayed.",message+" is not displayed");
                     break;
                 default:
                     logger.detail("message option is not present");
