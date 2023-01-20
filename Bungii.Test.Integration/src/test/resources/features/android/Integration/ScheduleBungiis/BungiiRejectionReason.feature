@@ -161,3 +161,45 @@ Feature: Rejection Popup on Driver App
       And I Switch to "driver" application on "same" devices
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       Then I Select Trip from available trip
+
+
+  @sn
+    #CORE-3545, Need to update new customer for Stack trip before raising PR
+  Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip3545
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | atlanta  | UNLOADING ITEM |
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+        #put driver on background
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 8877661004     | Testcustomertywd_appleMarkE LutherE | 2              | Cci12345          |
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "view stack message" request
+    And I tap on the "ACCEPT" Button on Bungii Request screen
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I wait for "2" mins
+    And I open the trip for "Testcustomertywd_appleMarkE LutherE" the customer for delivery details
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Canceled" radiobutton
+    And I click on "UPDATE BUNGII" button
+    Then The "Pick up has been successfully canceled." message should be displayed for live delivery
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    Then Bungii driver should see "Unloading Items screen"
+    And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "Rate Customer screen"
+    When Bungii Driver "rates customer"
+    And Bungii Driver selects customer experience as "Friendly"
+    Then Bungii Driver "completes Bungii"
