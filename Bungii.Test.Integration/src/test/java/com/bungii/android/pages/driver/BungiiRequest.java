@@ -52,7 +52,7 @@ public class BungiiRequest extends PageBase {
     public WebElement Text_DropOffLocation_LineTwo2 () { return findElements("//android.widget.LinearLayout/following::android.widget.TextView", LocatorType.XPath).get(5);}
 
     public WebElement Text_DistanceValue() { return findElements("//android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath).get(8);}
-    public WebElement Button_StartBungii(boolean...ignoreException) { return findElement("//android.widget.Button[@text='START BUNGII']", LocatorType.XPath,ignoreException);}
+    public WebElement Button_StartBungii(boolean...ignoreException) { return findElement("//android.widget.Button[@text='Start Bungii']", LocatorType.XPath,ignoreException);}
     public WebElement Button_CancelBungii() { return findElement("com.bungii.driver:id/scheduled_bungii_details_tv_cancel_bungii", LocatorType.Id);}
 //    public WebElement Button_Start() { return findElement("com.bungii.driver:id/activity_driver_scheduled_bungii_details_btn_start_trip", LocatorType.Id);}
     public WebElement Button_Start() { return findElement("com.bungii.driver:id/btn_start_bungii", LocatorType.Id);}
