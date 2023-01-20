@@ -1742,6 +1742,9 @@ try{
                 String Tracking_Id1 = (String) cucumberContextManager.getScenarioContext("TRACKINGID_SUMMARY");
                 message = utility.getExpectedDeliveryScheduledBeyondSecondaryPolyline(New_Scheduled_Date, Pickup_Address, Dropup_Address, Customer_Name, Customer_Phone, Tracking_Id1);
                 break;
+            case "Bungii: Refund Confirmation":
+                Customer_Name = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                break;
         }
         message= message.replaceAll(" ","");
         //message= message.replaceAll("EST","EDT");

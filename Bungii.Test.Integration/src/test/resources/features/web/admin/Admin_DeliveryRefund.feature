@@ -121,7 +121,9 @@ Feature: Admin_Refund
 	When I click on "OK" button
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
-	
+#	  Core-2748: Refund receipt emails sent to Bungii Admin email.
+	Then Admin should receive the "Bungii: Refund Confirmation" email
+
   @regression
   Scenario: Verify Close Reset and Go Back on Issue Refund Popup
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
