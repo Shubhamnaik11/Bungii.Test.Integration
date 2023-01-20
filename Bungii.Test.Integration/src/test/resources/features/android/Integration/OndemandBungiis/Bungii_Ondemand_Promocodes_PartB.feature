@@ -191,4 +191,4 @@ Feature: On Demand Bungii Promocode Part B
 		And I select "Customer initiated - other reason" as the reason from the reason dropdown
 		And I click on "Confirm Status" button
 		And I should see "STATUS CHANGE SUCCESSFUL" message
-		Then I click on "Cancel Status" button
+		Then I click on "Close Status" button

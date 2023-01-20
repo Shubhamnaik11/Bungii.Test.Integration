@@ -439,7 +439,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Confirm Status":
                     action.click(updateStatusPage.Button_ConfirmStatus());
                     break;
-                case "Cancel Status":
+                case "Close Status":
                     action.click(updateStatusPage.Button_CloseStatus());
                     break;
                 case "Remove Driver":
