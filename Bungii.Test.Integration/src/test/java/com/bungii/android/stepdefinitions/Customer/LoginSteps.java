@@ -22,6 +22,7 @@ public class LoginSteps extends DriverBase {
     LoginPage loginPage = new LoginPage();
     AccountPage customerAccountPage = new AccountPage();
     GeneralUtility utility = new GeneralUtility();
+    AccountPage accountPage = new AccountPage();
 
     @Given("^I am on customer Log in page$")
     public void i_am_on_customer_log_in_page() throws Throwable {
@@ -66,6 +67,9 @@ public class LoginSteps extends DriverBase {
                     break;
                 case "Valid_ToBeLocked":
                     action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("customer.ValidToBeLockedUser"));
+                    break;
+                case "Testcustomertywd_appleMarkFK LutherFK":
+                    action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("Kansas.customer6.phone"));
                     break;
                 default:
                     action.sendKeys(loginPage.TextField_PhoneNumber(), strArg1);
@@ -149,6 +153,7 @@ public class LoginSteps extends DriverBase {
                     testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.error.invalidpassword.accountdeletion"));
                     break;
                 case "snackbar validation message scheduled bungii for account deletion":
+                    action.click(accountPage.Button_Delete());
                     testStepAssert.isEquals(utility.getCustomerSnackBarMessage(),PropertyUtility.getMessage("customer.error.scheduledbungii.accountdeletion"),"message should display","message is display","message is not display");
                     //testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.error.scheduledbungii.accountdeletion"));
                     break;

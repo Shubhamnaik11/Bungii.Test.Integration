@@ -683,6 +683,9 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_applemm_a_drva Memphisa":
                 phone = PropertyUtility.getDataProperties("memphis.driver1.phone");
                 break;
+            case "Testdrivertywd_appleks_a_drvbv Kansas_bv":
+                phone = PropertyUtility.getDataProperties("Kansas.driver70.phone");
+                break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
 
@@ -3037,16 +3040,49 @@ else
                     driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
                 }
-                else if (geofence.equalsIgnoreCase("kansas2")) {
+                else if (geofence.equalsIgnoreCase("Kansas2")) {
                     geofence = "kansas";
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
-                    custPhoneNum = PropertyUtility.getDataProperties("kansas.customer2.phone");
-                    custPassword = PropertyUtility.getDataProperties("kansas.customer2.password");
-                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("kansas.customer2.name"));
+                    custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer5.phone");
+                    custPassword = PropertyUtility.getDataProperties("Kansas.customer5.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer5.name"));
 
                     driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver69.phone");
                     driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver69.name"));
+                }
+                else if (geofence.equalsIgnoreCase("Kansas3")) {
+                    geofence = "kansas";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer7.phone");
+                    custPassword = PropertyUtility.getDataProperties("Kansas.customer7.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer7.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver71.phone");
+                    driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver71.name"));
+                }
+                else if (geofence.equalsIgnoreCase("Kansas4")) {
+                    geofence = "kansas";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer8.phone");
+                    custPassword = PropertyUtility.getDataProperties("Kansas.customer8.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer8.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver72.phone");
+                    driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver72.name"));
+                }
+                else if (geofence.equalsIgnoreCase("Kansas5")) {
+                    geofence = "kansas";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer9.phone");
+                    custPassword = PropertyUtility.getDataProperties("Kansas.customer9.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer9.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver73.phone");
+                    driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver73.name"));
                 } else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
                     custPassword = PropertyUtility.getDataProperties("customer_generic.password");

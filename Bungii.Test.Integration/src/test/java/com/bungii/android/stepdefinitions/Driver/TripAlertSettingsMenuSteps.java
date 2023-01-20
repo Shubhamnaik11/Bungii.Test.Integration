@@ -494,6 +494,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Continue":
                     action.click(bungiiDetailsPage.Button_Yes());
                     break;
+                case "Submit":
+                    action.click(scheduledTripsPage.Button_Submit());
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }

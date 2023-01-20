@@ -1025,6 +1025,10 @@ public class BungiiInProgressSteps extends DriverBase {
                     action.click(updateStatusPage.RadioButton_EditDeliveryStatus());
                     Thread.sleep(1000);
                     break;
+                case "Cancel entire Bungii and notify driver(s)":
+                     Thread.sleep(6000);
+                    action.click(updateStatusPage.RadioButton_CancelEntireBungiiAndNotifyDrivers());
+                    break;
                 default:
                     break;
             }

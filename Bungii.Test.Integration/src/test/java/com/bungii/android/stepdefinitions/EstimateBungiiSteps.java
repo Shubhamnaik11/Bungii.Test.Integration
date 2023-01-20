@@ -579,6 +579,21 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("goa.customer3.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("goa.customer3.phone"));
                     break;
+                case "Testcustomertywd_appleMarkFL LutherFL":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("Kansas.customer7.phone"), PropertyUtility.getDataProperties("Kansas.customer7.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer7.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("Kansas.customer7.phone"));
+                    break;
+                case "Testcustomertywd_appleMarkFM LutherFM":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("Kansas.customer8.phone"), PropertyUtility.getDataProperties("Kansas.customer8.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer8.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("Kansas.customer8.phone"));
+                    break;
+                case "Testcustomertywd_appleMarkFN LutherFN":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("Kansas.customer9.phone"), PropertyUtility.getDataProperties("Kansas.customer9.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer9.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("Kansas.customer9.phone"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
