@@ -1440,7 +1440,7 @@ catch(Exception ex)
             formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
             String teletInLocalTime = formatterForLocalTimezone.format(teletTimeInUtc);
             long t = teletTimeInUtc.getTime();
-            long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
+            long ONE_MINUTE_IN_MILLIS = Long.parseLong(PropertyUtility.getDataProperties("one.minute.in.milliseconds"));
             Date minTime = new Date(t - (1 * ONE_MINUTE_IN_MILLIS));
             String strMindate = formatterForLocalTimezone.format(minTime);
 
@@ -1519,7 +1519,7 @@ try {
 
     int FROM_RANGE_FROM = -10;
     int FROM_RANGE_TO = +20;
-    long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
+    long ONE_MINUTE_IN_MILLIS = Long.parseLong(PropertyUtility.getDataProperties("one.minute.in.milliseconds"));
 
     String geofenceLabel = getTimeZoneBasedOnGeofenceId();
     String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");//customerPhoneNumber="9999991889";

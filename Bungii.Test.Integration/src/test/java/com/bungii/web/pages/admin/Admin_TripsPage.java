@@ -19,8 +19,6 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
 
-    public WebElement TextBox_RecentRegisteredDriverSearch() {return findElement("(//input[@class='form-control input form-control'])[2]", LocatorType.XPath); }
-
     public WebElement DropDown_SearchForPeriod () {return findElement("//div[text()='The following deliveries from:']/select", LocatorType.XPath); }
 
     //public List<WebElement> Client_names () { return findElements("//td[9]", LocatorType.XPath); }
@@ -70,7 +68,7 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement RadioButton_DuoTrip () { return findElement("DUO", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterPending () { return findElement("chkStatus-3", LocatorType.Id); }
+    public WebElement CheckBox_FilterPending () { return findElement("Pending", LocatorType.Id); }
 
     public WebElement Text_NoDeliveriesFound () { return findElement("//td[contains(text(),'No deliveries found.')]", LocatorType.XPath); }
 
@@ -112,6 +110,15 @@ public class Admin_TripsPage extends PageBase {
     public WebElement Dropdown_FilterTomorrow() {return findElement("//option[contains(text(),'Tomorrow')]",LocatorType.XPath);}
 
     public WebElement Header_LiveDeliveries() {return findElement("//h4[contains(text(),'Live Delivery List')]",LocatorType.XPath);}
+
+    public WebElement Menu_CompletedDeliveries() {return findElement("//a[contains(text(),'Completed Deliveries')]",LocatorType.XPath);}
+    public WebElement Menu_RejectedAPIDeliveries () { return findElement("//a[contains(text(),'Rejected API Deliveries')]", LocatorType.XPath); }
+    public WebElement Dropdown_Partner() {return findElement("partnerID",LocatorType.Name);}
+
+    public WebElement Dropdown_SelectPartner(String Partner_name) {return findElement("//select[@name='partnerID']/option[text()='"+Partner_name+"']",LocatorType.XPath);}
+
+    public WebElement Button_ExportRecords() {return findElement("//button[text()='Export All Records']",LocatorType.XPath);}
+
 
 
 }

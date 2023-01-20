@@ -414,9 +414,6 @@ try{
                 testStepVerify.isElementDisplayed(Page_Partner_Dashboard.Text_EmailSupport(),"Email Support text should be shown.","Email Support text is shown.","Email Support text is not shown.");
                 testStepVerify.isElementTextEquals(Page_Partner_Dashboard.Email_EmailSupport(),PropertyUtility.getDataProperties("support.email.address"));
                 break;
-            case "Recent Driver Registrations":
-                testStepVerify.isElementDisplayed(Page_Partner_Dashboard.Text_RecentDriverRegistration(),"Recent Driver Registrations should be displayed.","Recent Driver Registrations is displayed.","Recent Driver Registrations is not displayed.");
-                break;
             default: break;
         }
         } catch (Exception e) {
@@ -1376,7 +1373,9 @@ try{
         String [] todaysDate =  new DateTime().toDate().toString().split(" ");
         String currentMonth =todaysDate[1];
         action.click(admin_EditScheduledBungiiPage.DatePicker_ScheduledDate());
-        action.click(admin_ScheduledTripsPage.Link_EditScheduleTripCalenderPreviousMonth());
+        if(!deliveryMonth.equals(currentMonth)) {
+            action.click(admin_ScheduledTripsPage.Link_EditScheduleTripCalenderPreviousMonth());
+        }
 
         if(deliveryMonth.equals(currentMonth)) {
             if(tripDateAhead.startsWith("0")){

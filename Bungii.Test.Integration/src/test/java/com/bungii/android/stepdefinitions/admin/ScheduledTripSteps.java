@@ -1439,6 +1439,7 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_assign_driver_something_for_the_trip(String driverName) throws Throwable {
 		try{
 			scheduledTripsPage.TextBox_DriverSearch().sendKeys(driverName);
+			Thread.sleep(5000);
 			scheduledTripsPage.Select_TestDriver().click();
 			String driver1Name=scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
 			cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);      

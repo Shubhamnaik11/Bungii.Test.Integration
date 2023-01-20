@@ -31,8 +31,7 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
     public void i_verify_that_the_point_of_interests_fields_are_populated() throws Throwable {
         try {
             String pointOfInterests = admin_potentialPartnersPage.Label_PointOfInterest().getText();
-            System.out.println("Point Of Interests Are: " + pointOfInterests);
-            if (pointOfInterests.contains("Do Not Assign Right Now") && pointOfInterests.contains("Not A Partner") && pointOfInterests.contains("Residential / Home") && pointOfInterests.contains("Others") && pointOfInterests.contains("Potential Partners")) {
+            if (pointOfInterests.contains("Do Not Assign Right Now") && pointOfInterests.contains("Not A Business") && pointOfInterests.contains("Residential / Home") && pointOfInterests.contains("Location not listed - enter manually to create") && pointOfInterests.contains("Potential Locations")) {
                 testStepAssert.isTrue(true, "The Point Of Interests are present.", "The Point Of Interests are not present.");
             } else {
                 testStepAssert.isFail("The Point Of Interests are not present.");

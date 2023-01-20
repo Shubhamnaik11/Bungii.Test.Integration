@@ -252,6 +252,7 @@ public class Admin_RevivalSteps extends DriverBase {
             case "Outside of delivery scope":
             case "Solo: Driver not found":
             case "Other":
+            case "No drivers available":
                 action.click(admin_RevivalPage.Text_DeliveryStatusReason(changestatusreason));
                 break;
         }
