@@ -48,17 +48,20 @@ Feature: SoloScheduled Part D
   Scenario: Verify When Bungii Is Cancelled By Admin It Is Removed From The Scheduled Trip List On Customers App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas   | Accepted     | NEXT_POSSIBLE |
+      | kansas3   | Accepted     | NEXT_POSSIBLE |
     When I Switch to "customer" application on "same" devices
-    And I am logged in as "valid" customer
+    And I am logged in as "Testcustomertywd_appleMarkFL LutherFL" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     
     And I wait for "2" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-    And I Cancel Bungii with following details
-      | Charge | Comments | Reason                         |
-      | 0      | TEST     | Outside of delivery scope      |
+    When  I search the delivery using "Pickup Reference"
+    When I click on the "Edit" button from the dropdown
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
+    And I click on "Submit" button
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And I wait for "2" mins
     And Bungii must be removed from the List
@@ -76,11 +79,11 @@ Feature: SoloScheduled Part D
   Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | Kansas   | Accepted     | 1 hour ahead |
+      | Kansas4   | Accepted     | 2 hour ahead |
     
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
-    And I am logged in as "valid" customer
+    And I am logged in as "Testcustomertywd_appleMarkFM LutherFM" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I tap on "Menu" > "MY BUNGIIS" link
@@ -100,17 +103,17 @@ Feature: SoloScheduled Part D
   Scenario: Verify that that Past Trips page correctly displays completed Scheduled Solo Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas   | Completed     | NEXT_POSSIBLE |
+      | kansas5   | Completed     | NEXT_POSSIBLE |
     
     And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid" customer
+    And I am logged in as "Testcustomertywd_appleMarkFN LutherFN" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
   
     And I tap on "Menu" > "My Bungiis" link
     Then "MY BUNGIIS" page should be opened
     And I click on "Past" tab
-    And I open the trip for "Testdrivertywd_appleks_a_kay Stark_ksThreE" driver
+    And I open the trip for "Testdrivertywd_appleks_a_drvby Kansas_by" driver
     Then I verify driver names and trip cost
   
     And I cancel all bungiis of customer
