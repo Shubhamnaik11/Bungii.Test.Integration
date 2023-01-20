@@ -68,7 +68,7 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement RadioButton_DuoTrip () { return findElement("DUO", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterPending () { return findElement("chkStatus-3", LocatorType.Id); }
+    public WebElement CheckBox_FilterPending () { return findElement("Pending", LocatorType.Id); }
 
     public WebElement Text_NoDeliveriesFound () { return findElement("//td[contains(text(),'No deliveries found.')]", LocatorType.XPath); }
 

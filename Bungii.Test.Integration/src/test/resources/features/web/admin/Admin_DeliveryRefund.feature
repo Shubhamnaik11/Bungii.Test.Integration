@@ -228,11 +228,12 @@ Feature: Admin_Refund
 	  And I click on "Submit" button
 	  Then The "Pick up has been successfully canceled." message should be displayed
 	  When I click on "Close" button
-	When I view the Deliveries list on the admin portal
 	And I wait for 2 minutes
+	And I view All Deliveries list on the admin portal
+	And I search the delivery of Customer
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
-	  And I search the delivery of Customer and view it
-	  Then The "Issue Refund" button should not be displayed
+	And I search the delivery of Customer and view it
+	Then The "Issue Refund" button should not be displayed
   
   @regression
       Scenario: Verify Issue Refund button is not displayed for Driver Canceled Delivery
