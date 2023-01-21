@@ -1083,11 +1083,19 @@ public class BungiiInProgressSteps extends DriverBase {
     }
 
     @And("^I search the delivery using \"([^\"]*)\"$")
-    public void i_search_the_delivery_using_something(String strArg1) throws Throwable {
+    public void i_search_the_delivery_using_something(String searchTerm) throws Throwable {
         try {
-            Thread.sleep(1000);
-            action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
-            log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
+            switch (searchTerm){
+                case "Pickup Reference":
+                    Thread.sleep(1000);
+                    action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
+                    break;
+                case "Customer name":
+                    action.clearSendKeys(scheduledBungiiPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("CUSTOMER") + Keys.ENTER);
+                    break;
+            }
+
+            log("I should be able to search the delivery using "+searchTerm,"I could search the delivery using "+searchTerm,false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
