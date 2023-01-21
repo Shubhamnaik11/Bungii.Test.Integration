@@ -71,7 +71,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Label_NoteBungiiInternal() { return findElement("//b[contains(text(),'Bungii Internal:')]/following-sibling::span", LocatorType.XPath); }
 
-    public WebElement Label_NoteDriver() { return findElement("//b[contains(text(),'Driver')]/parent::p/parent::div/parent::div/parent::div/div[2]", LocatorType.XPath); }
+    public WebElement Label_NoteDriver() { return findElement("//b[contains(text(),'Driver Name:')]/following-sibling::span", LocatorType.XPath); }
 
     public WebElement Label_NoteDriver2() { return findElement("//b[contains(text(),'Driver')]/parent::p/parent::div/parent::div/parent::div/div[4]", LocatorType.XPath); }
 
@@ -87,7 +87,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Button_ReattemptPayment() { return findElement("btnReattempt", LocatorType.Id); }
 
-    public WebElement Button_Close() { return findElement("//h5[contains(text(),'Issue Refund')]/following-sibling::button[@class='close']", LocatorType.XPath); }
+    public WebElement Button_Close() { return findElement("//div[contains(text(),'Issue Refund')]/following-sibling::button[@class='btn-close']", LocatorType.XPath); }
 
     public WebElement Checkbox_same() { return findElement("chkReplicateData", LocatorType.Id); }
 

@@ -193,9 +193,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_EditScheduleTripCalenderNextMonth(){return  findElement("//div/a[2]/span[1]",LocatorType.XPath);}
 
-    public WebElement Link_EditScheduleTripCalenderPreviousMonth(){return  findElement("//div/a[1]/span[1]",LocatorType.XPath);}
+    public WebElement Link_EditScheduleTripCalenderPreviousMonth(){return  findElement("//span[contains(@class, 'navigation-icon--previous')]",LocatorType.XPath);}
 
-    public WebElement Link_NewScheduleDeliveryDate(String newDate){return  findElement(String.format("//tbody/tr/td/a[text()=\"%s\"]",newDate),LocatorType.XPath);}
+    public WebElement Link_NewScheduleDeliveryDate(String newDate){return  findElement(String.format("//div[contains(@class, 'react-datepicker')]/div[text()=\"%s\"]",newDate),LocatorType.XPath);}
 
     public WebElement Button_History(){return findElement("//h5[text()='History']",LocatorType.XPath);}
 
@@ -271,5 +271,5 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_ScheduledDelivery() {return findElement("//td[text()=\"Scheduled Time\"]/following-sibling::td/strong", LocatorType.XPath);}
 
-
+    public WebElement Text_AdvanceScheduledStatus() {return  findElement("//table[contains(@class, 'ScheduledDeliveries')]//td[contains(text(),'Pending')]", LocatorType.XPath);}
 }

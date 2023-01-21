@@ -37,8 +37,8 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Dropdown_ddlpickupEndTime () { return findElement("ddlpickupEndTime", LocatorType.Id); }
     public WebElement RadioButton_EditDeliveryStatus() { return findElement("//span[contains(text(),'Edit Delivery Status')]",LocatorType.XPath);}
     public WebElement Text_Details() { return findElement("//android.view.ViewGroup/android.widget.ScrollView/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]",LocatorType.XPath);}
-    public WebElement Button_ConfirmStatus() { return findElement("//div[@class=\"modal-footer\"]/p/following-sibling::button[2]", LocatorType.XPath);}
-    public WebElement Button_CloseStatus() { return findElement("//div[@id=\"edit-status-success-modal\"]/div/div/div[2]/button", LocatorType.XPath);}
+    public WebElement Button_ConfirmStatus() { return findElement("//div[@class=\"modal-footer\"]/button[2]", LocatorType.XPath);}
+    public WebElement Button_CloseStatus() { return findElement("//button[text()='Close']", LocatorType.XPath);}
     public WebElement Button_RemoveDrivers () { return findElement("//div[@id='tripDriverDetails']//strong[contains(text(),'Remove')]", LocatorType.XPath); }//Richa
     public WebElement Button_Confirm() { return findElement("//button[text()='Confirm']", LocatorType.XPath); }
     public WebElement Header_CustomerSignature(){return findElement("//android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView",LocatorType.XPath);}
