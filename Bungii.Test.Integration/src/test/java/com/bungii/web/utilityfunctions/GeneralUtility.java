@@ -1001,6 +1001,66 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
+    public String getExpectedBungiiRefundCustomerEmail(String customerName,String deliveryTotal,String pickUpRefernce) {
+        String emailMessage = "";
+        FileReader fr;
+
+        try {
+            if (SystemUtils.IS_OS_WINDOWS) {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\BungiiRefundCustomerEmail.txt");
+            } else {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/BungiiRefundCustomerEmail.txt");
+            }
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%CustomerName%", customerName);
+                    s = s.replaceAll("%DeliveryTotal%", deliveryTotal);
+                    s = s.replaceAll("%PickUpReference%", pickUpRefernce);
+                    emailMessage += s;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+    public String getExpectedBungiiRefundAdminEmail(String customerName,String deliveryTotal,String driverName,String pickUp,String dropOff) {
+        String emailMessage = "";
+        FileReader fr;
+
+        try {
+            if (SystemUtils.IS_OS_WINDOWS) {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\BungiiRefundAdminEmail.txt");
+            } else {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/BungiiRefundAdminEmail.txt");
+            }
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%CustomerName%", customerName);
+                    s = s.replaceAll("%DeliveryTotal%", deliveryTotal);
+                    s = s.replaceAll("%DriverName%", driverName);
+                    s = s.replaceAll("%PickUp%", pickUp);
+                    s = s.replaceAll("%DropOff%", dropOff);
+                    emailMessage += s;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
 
     public String getExpectedDriverApprovalEmailContent(String driverName) {
         String emailMessage = "";

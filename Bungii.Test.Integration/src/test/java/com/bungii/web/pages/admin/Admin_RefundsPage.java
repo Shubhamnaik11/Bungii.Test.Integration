@@ -23,7 +23,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement TextBox_BusinessNotes() { return findElement("notes", LocatorType.Id); }
 
-    public WebElement TextBox_Notes(boolean... ignoreException) { return findElement("notes", LocatorType.Id,ignoreException); }
+    public WebElement TextBox_Notes(boolean... ignoreException) { return findElement("driver1Notes", LocatorType.Id,ignoreException); }
 
     public WebElement Button_Save() { return findElement("//button[text()='Continue']", LocatorType.XPath); }
 
@@ -33,7 +33,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement RadioButton_CompleteRefund() { return findElement("//label[text()='Complete Refund']/preceding-sibling::input", LocatorType.XPath); }
 
-    public WebElement Label_Bungii() { return findElement("//p[contains(text(),'Bungii Earnings')]/parent::div/following-sibling::div/div/div[1]/label/input", LocatorType.XPath); }
+    public WebElement Label_Bungii() { return findElement("//div[contains(text(),'Bungii :')]/following-sibling::div", LocatorType.XPath); }
 
     public WebElement Label_DeliveryTotal() { return findElement("//div[contains(text(),'Delivery Total :')]/following-sibling::div", LocatorType.XPath); }
 
@@ -77,9 +77,9 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Header_Popup() { return findElement("//div[contains(text(),'Issue Refund - Confirm Details')]", LocatorType.XPath); }
 
-    public WebElement Label_Success() { return findElement("//div[@id='modalSuccess']/div/div//div/p", LocatorType.XPath); }
+    public WebElement Label_Success() { return findElement("//div[@id='swal2-html-container']", LocatorType.XPath); }
 
-    public WebElement Button_OK() { return findElement("//button[text()='Ok']", LocatorType.XPath); }
+    public WebElement Button_OK() { return findElement("//button[text()='Ok']|//button[text()='OK'] ", LocatorType.XPath); }
 
     public WebElement Label_CustomerRefundComplete() { return findElement("//div[contains(text(),'Customer Refund Amount:')]/following-sibling::div/span", LocatorType.XPath); }
 

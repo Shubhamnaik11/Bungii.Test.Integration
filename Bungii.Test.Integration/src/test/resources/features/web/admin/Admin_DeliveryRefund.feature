@@ -122,7 +122,9 @@ Feature: Admin_Refund
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
 #	  Core-2748: Refund receipt emails sent to Bungii Admin email.
-	Then Admin should receive the "Bungii: Refund Confirmation" email
+	And Partner firm should receive "Bungii: Refund Confirmation" email
+	Then Partner firm should receive "Bungii Refund Receipt for customer" email
+
 
   @regression
   Scenario: Verify Close Reset and Go Back on Issue Refund Popup
