@@ -62,7 +62,7 @@ Feature: On Demand Bungii Promocodes Part A
 	And I open new "Chrome" browser for "ADMIN PORTAL"
 	And I navigate to admin portal
 	And I log in to admin portal
-	And I Select "trips" from admin sidebar
+	And I Select "completed deliveries" from admin sidebar
 	And I select trip from all deliveries
 	Then On admin trip details page "<Expected value in admin>" should be displayed
 	Examples:
@@ -124,7 +124,7 @@ Feature: On Demand Bungii Promocodes Part A
 	And I open new "Chrome" browser for "ADMIN PORTAL"
 	And I navigate to admin portal
 	And I log in to admin portal
-	And I Select "trips" from admin sidebar
+	And I Select "completed deliveries" from admin sidebar
 	And I select the trip from trips
 	Then On admin trip details page "<Expected value in admin>" should be displayed
 	Examples:
