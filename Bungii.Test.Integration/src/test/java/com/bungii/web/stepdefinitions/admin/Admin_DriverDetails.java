@@ -298,4 +298,51 @@ public class Admin_DriverDetails extends DriverBase{
                     true);
         }
     }
+
+    @And("^I search by \"([^\"]*)\"$")
+    public void i_search_by_something(String SerachCriteria) throws Throwable{
+        try
+        {
+            switch (SerachCriteria){
+                case "Customer Name":
+                    String CustomerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                    action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(), CustomerName);
+                    admin_Driverspage.Button_Search().click();
+                    break;
+            }
+
+            log("I search by "+SerachCriteria,
+                    "I have searched by " +SerachCriteria, false);
+        }
+
+        catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^Column \"([^\"]*)\" should display Correct details$")
+    public void column_something_should_display_correct_details(String Column) throws Throwable{
+        try
+        {
+            switch (Column){
+                case "Customer":
+                    String ExpectedCustomerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                    String ActualCustomerName=action.getText(admin_Driverspage.Text_CustomerNameRow1());
+                    testStepAssert.isEquals(ExpectedCustomerName , ActualCustomerName,ExpectedCustomerName +" should be displayed",ActualCustomerName+" is displayed", ActualCustomerName+" is displayed instead of "+ExpectedCustomerName );
+                    action.clear(admin_Driverspage.Textbox_SearchCriteria());
+                    admin_Driverspage.Button_Search().click();
+                    break;
+            }
+            log("Should display correct details",
+                    "have displayed correct details under " +Column, false);
+        }
+
+        catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }
