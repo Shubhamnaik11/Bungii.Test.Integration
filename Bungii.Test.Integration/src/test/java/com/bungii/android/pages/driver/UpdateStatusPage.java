@@ -29,7 +29,7 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Header_CustomerSignature(boolean...IgnoreException){return findElement("//android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView",LocatorType.XPath,IgnoreException);}
     public WebElement Button_SkipCustomerSignature(){return findElement("com.bungii.driver:id/appCompatTextView65",LocatorType.Id);}
     public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//i[contains(text(),'Pick up has been successfully canceled.')]", LocatorType.XPath); }
-    public WebElement Label_CancelSuccessMessageLive () { return findElement("//p[@id='delivery-cancelled-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Label_CancelSuccessMessageLive () { return findElement("//i[contains(text(),'Pick up has been successfully canceled.')]", LocatorType.XPath); }
     public WebElement Message_AdminCompleteConfirm() {return findElement("//div[@id='editEndTime']//following::div[2]/p[1]",LocatorType.XPath);}
     public WebElement Button_CalculateCost() { return findElement("//button[@id='btnCost']",LocatorType.XPath);}
     public WebElement Textbox_PickupEndDate () { return findElement("pickupEndDate", LocatorType.Id); }

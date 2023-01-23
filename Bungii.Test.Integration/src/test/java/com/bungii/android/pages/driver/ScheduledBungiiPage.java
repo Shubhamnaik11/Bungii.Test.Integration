@@ -31,7 +31,7 @@ public class ScheduledBungiiPage extends  PageBase {
     public WebElement Checkbox_driver () { return findElement("//div[@id='tripDriverDetails']//span[@class='checkmark'][1]", LocatorType.XPath); }//richa
     public WebElement  Button_Edit() {return findElement("//a[contains(text(),'Edit')]",LocatorType.XPath);}
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
-    public WebElement Icon_Dropdown(){return  findElement("//div[@class='threedoticon']",LocatorType.XPath);}
+    public WebElement Icon_Dropdown(){return  findElement("//tr/td/div/img[1]",LocatorType.XPath);}
     public WebElement Option_Edit(){return  findElement("//a[contains(text(),'Edit')]",LocatorType.XPath);}
 
     public WebElement Button_ThreeDot() { return findElement("//android.view.ViewGroup[@resource-id='com.bungii.driver:id/appCompatImageView37']/android.widget.ImageView",LocatorType.XPath);}

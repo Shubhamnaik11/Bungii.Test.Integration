@@ -172,7 +172,6 @@ Feature: Rejection Popup on Driver App
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
-        #put driver on background
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
@@ -192,14 +191,12 @@ Feature: Rejection Popup on Driver App
     And I click on "Delivery Canceled" radiobutton
     And I click on "UPDATE BUNGII" button
     Then The "Pick up has been successfully canceled." message should be displayed for live delivery
-    When I Switch to "driver" application on "same" devices
+    And I Switch to "driver" application on "ORIGINAL" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     Then Bungii driver should see "Unloading Items screen"
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Rate Customer screen"
-    When Bungii Driver "rates customer"
-    And Bungii Driver selects customer experience as "Friendly"
+    And Bungii Driver "skips to rate customer"
     Then Bungii Driver "completes Bungii"
