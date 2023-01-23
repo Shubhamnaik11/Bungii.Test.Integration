@@ -28,15 +28,14 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Button_Submit(){return findElement("Submit",LocatorType.AccessibilityId);}
     public WebElement Header_CustomerSignature(boolean...IgnoreException){return findElement("//android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView",LocatorType.XPath,IgnoreException);}
     public WebElement Button_SkipCustomerSignature(){return findElement("com.bungii.driver:id/appCompatTextView65",LocatorType.Id);}
-    public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//i[contains(text(),'Pick up has been successfully canceled.')]", LocatorType.XPath); }
-    public WebElement Label_CancelSuccessMessageLive () { return findElement("//i[contains(text(),'Pick up has been successfully canceled.')]", LocatorType.XPath); }
-    public WebElement Message_AdminCompleteConfirm() {return findElement("//div[@id='editEndTime']//following::div[2]/p[1]",LocatorType.XPath);}
-    public WebElement Button_CalculateCost() { return findElement("//button[@id='btnCost']",LocatorType.XPath);}
-    public WebElement Textbox_PickupEndDate () { return findElement("pickupEndDate", LocatorType.Id); }
-    public WebElement Textbox_PickupEndTime () { return findElement("pickupEndTime", LocatorType.Id); }
-    public WebElement Dropdown_ddlpickupEndTime () { return findElement("ddlpickupEndTime", LocatorType.Id); }
+    public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//i[contains(text(),'Pick up has been successfully updated.')]", LocatorType.XPath); }
+    public WebElement Label_CancelSuccessMessageLive () { return findElement("//p[@id='delivery-cancelled-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Message_AdminCompleteConfirm() {return findElement("//span[contains(text(),'Once you confirm, the delivery status and the upda')]",LocatorType.XPath);}
+    public WebElement Button_CalculateCost() { return findElement("//button[contains(text(),'Calculate cost')]",LocatorType.XPath);}
+    public WebElement Textbox_PickupEndDate () { return findElement("//input[@name='Date']", LocatorType.XPath); }
+    public WebElement Textbox_PickupEndTime () { return findElement("//input[@name='Time']", LocatorType.XPath); }
+    public WebElement Dropdown_ddlpickupEndTime () { return findElement("//select[@name='Units']", LocatorType.XPath); }
     public WebElement RadioButton_EditDeliveryStatus() { return findElement("//label[contains(text(),'Edit Delivery Status')]",LocatorType.XPath);}
-
     public WebElement RadioButton_DeliveryCanceled() { return findElement("//label[contains(text(),'Delivery Canceled')]",LocatorType.XPath);}
 
     public WebElement Text_Details() { return findElement("//android.view.ViewGroup/android.widget.ScrollView/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]",LocatorType.XPath);}

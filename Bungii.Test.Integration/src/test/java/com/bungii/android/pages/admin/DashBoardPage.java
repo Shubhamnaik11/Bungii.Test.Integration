@@ -28,6 +28,9 @@ public class DashBoardPage extends PageBase {
         return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Scheduled Deliveries\"]", LocatorType.XPath);
     }
 
+    public WebElement Button_CompletedTrips() {
+        return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Completed Deliveries\"]", LocatorType.XPath);
+    }
     public WebElement Button_LiveTrips() {
         return findElement("adminmenu-livetrips", LocatorType.Id);
     }

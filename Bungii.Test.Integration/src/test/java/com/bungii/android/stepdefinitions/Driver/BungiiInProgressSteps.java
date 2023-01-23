@@ -1,6 +1,7 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
@@ -53,6 +54,7 @@ public class BungiiInProgressSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     OtherAppsPage otherAppsPage = new OtherAppsPage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
     EstimatePage bungiiEstimatePage = new EstimatePage();
     UpdateStatusPage updateStatusPage = new UpdateStatusPage();
@@ -934,9 +936,9 @@ public class BungiiInProgressSteps extends DriverBase {
     public void the_customer_signature_field_is_something(String expectedText) throws Throwable {
         try{
         switch (expectedText) {
-            case "N/A":
+            case "Required N/A":
                 Thread.sleep(2000);
-                String customerSignatureFieldText =action.getText(scheduledBungiiPage.Label_CustomerSignatureNA());
+                String customerSignatureFieldText =action.getText(scheduledBungiiPage.Label_CustomerSignatureNA()).replace("\n", " ");
                 testStepAssert.isEquals(customerSignatureFieldText,expectedText,"Signature filed should have the text " +expectedText,"Signature filed has the text " +customerSignatureFieldText,"Signature filed doesnt have the text " +expectedText);
                 break;
             case "Signature Present":
@@ -946,6 +948,11 @@ public class BungiiInProgressSteps extends DriverBase {
                 String customerSignaturePresent = (scheduledBungiiPage.Image_CustomerSignature().getAttribute("title"));
                 testStepAssert.isTrue(isSignaturePresent, "Customer signature should be displayed","Customer signature is displayed","Customer signature is not  displayed");
                 testStepAssert.isEquals(customerSignaturePresent,ExpectedText,"Customer signature field should have signature present","Customer signature field is having  signature present","Customer signature field is not having signature present");
+                break;
+            case "Not required N/A":
+                Thread.sleep(2000);
+                String customerSignatureFieldTextNA =action.getText(scheduledBungiiPage.Label_CustomerSignatureNA()).replace("\n", " ");
+                testStepAssert.isEquals(customerSignatureFieldTextNA,expectedText,"Signature filed should have the text " +expectedText,"Signature filed has the text " +customerSignatureFieldTextNA,"Signature filed doesnt have the text " +expectedText);
                 break;
         }
     }catch(Exception e){
@@ -1046,7 +1053,8 @@ public class BungiiInProgressSteps extends DriverBase {
     public void i_click_on_something_link_beside_live_delivery(String link) throws Throwable {
         try{
             Thread.sleep(4000);
-            action.click(scheduledBungiiPage.Icon_Dropdown());
+            action.click(scheduledTripsPage.Link_LiveDeliveryDetails());
+//            action.click(scheduledBungiiPage.Icon_Dropdown());
             action.click(scheduledBungiiPage.Option_Edit());
             log(" I click on Edit link besides the live delivery",
                     "I have clicked on Edit link besides the live delivery", false);
@@ -1108,20 +1116,45 @@ public class BungiiInProgressSteps extends DriverBase {
                     true);
         }
     }
-    @Then("^I should see the customer signature row \"([^\"]*)\" in admin portal all delivery details page$")
-    public void i_should_see_the_customer_signature_row_something_in_admin_portal_all_delivery_details_page(String CustomerSignature) throws Throwable {
+    @Then("^I should see the customer signature row \"([^\"]*)\" in admin portal \"([^\"]*)\" page$")
+    public void i_should_see_the_customer_signature_row_something_in_admin_portal_something_page(String CustomerSignature, String Page) throws Throwable {
         try{
-            switch (CustomerSignature){
-                case "Present":
-                    boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
-                    testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present","Customer Signature row is  present","Customer Signature row is not present");
+            switch(Page) {
+                case "All Deliveries details":
+                    switch (CustomerSignature) {
+                        case "Present":
+                            boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
+                            testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present", "Customer Signature row is  present", "Customer Signature row is not present");
+                            break;
+                        case "Not Present":
+                            testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Label_CustomerSignature(true)), "Customer Signature row should not be present", "Customer Signature row is not present", "Customer Signature row is present");
+                            break;
+                    }
                     break;
-                case "Not Present":
-                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Label_CustomerSignature(true)),"Customer Signature row should not be present","Customer Signature row is not present","Customer Signature row is present");
+                case "Live Deliveries details":
+                    switch (CustomerSignature) {
+                        case "Present":
+                            boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
+                            testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present", "Customer Signature row is  present", "Customer Signature row is not present");
+                            break;
+                        case "Not Present":
+                            testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Label_CustomerSignature(true)), "Customer Signature row should not be present", "Customer Signature row is not present", "Customer Signature row is present");
+                            break;
+                    }
+                    break;
+                case "Scheduled Delivery details":
+                    switch (CustomerSignature) {
+                        case "Present":
+                            boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
+                            testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present", "Customer Signature row is  present", "Customer Signature row is not present");
+                            break;
+                        case "Not Present":
+                            testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Label_CustomerSignature(true)), "Customer Signature row should not be present", "Customer Signature row is not present", "Customer Signature row is present");
+                            break;
+                    }
                     break;
             }
-
-    }catch(Exception e){
+        }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
