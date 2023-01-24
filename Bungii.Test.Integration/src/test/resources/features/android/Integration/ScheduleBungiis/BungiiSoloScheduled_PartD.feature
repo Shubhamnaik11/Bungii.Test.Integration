@@ -56,12 +56,9 @@ Feature: SoloScheduled Part D
     
     And I wait for "2" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-    When  I search the delivery using "Pickup Reference"
-    When I click on the "Edit" button from the dropdown
-    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
-    And I enter cancellation fee and Comments
-    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
-    And I click on "Submit" button
+    And I cancel the "Customer" delivery
+      | Charge | Comments | Reason   |
+      | 0   | Cancelled      | Outside of delivery scope |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And I wait for "2" mins
     And Bungii must be removed from the List

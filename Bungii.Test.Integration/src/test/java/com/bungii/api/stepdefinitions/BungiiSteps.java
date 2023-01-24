@@ -3416,7 +3416,28 @@ else
                     driverPhoneNum = PropertyUtility.getDataProperties("boston.driver.phone");
                     driverPassword = PropertyUtility.getDataProperties("boston.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("boston.driver.name"));
-                } else if (geofence.equals("baltimore")) {
+                }
+                else if (geofence.equals("boston2")) {
+                    geofence = "boston";
+                    custPhoneNum = PropertyUtility.getDataProperties("boston.customer2.phone");
+                    custPassword = PropertyUtility.getDataProperties("boston.customer2.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("boston.customer2.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("boston.driver2.phone");
+                    driverPassword = PropertyUtility.getDataProperties("boston.driver2.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("boston.driver2.name"));
+                }
+                else if (geofence.equals("boston3")) {
+                    geofence = "boston";
+                    custPhoneNum = PropertyUtility.getDataProperties("boston.customer3.phone");
+                    custPassword = PropertyUtility.getDataProperties("boston.customer3.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("boston.customer3.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("boston.driver3.phone");
+                    driverPassword = PropertyUtility.getDataProperties("boston.driver3.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("boston.driver3.name"));
+                }
+                else if (geofence.equals("baltimore")) {
                     custPhoneNum = PropertyUtility.getDataProperties("baltimore.customer.phone");
                     custPassword = PropertyUtility.getDataProperties("baltimore.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("baltimore.customer.name"));

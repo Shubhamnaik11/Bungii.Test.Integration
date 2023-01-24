@@ -25,7 +25,7 @@ public class ScheduledTripsPage extends PageBase {
         return findElement("TripListsTBody", LocatorType.Id);
     }
 
-    public WebElement RadioBox_Cancel() {return findElement("//label[contains(@class,'customerCancel')]/span", LocatorType.XPath);}
+    public WebElement RadioBox_Cancel() {return findElement("//label[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input", LocatorType.XPath);}
 
     public WebElement RadioBox_Research() {return findElement("//label[contains(@class,'vertical-middle mb20 custom-input driverCancel')]/span", LocatorType.XPath); }
 

@@ -69,6 +69,5 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Button_SkipBarCode(){return findElement( "com.bungii.driver:id/btn_submit",LocatorType.Id);}
     public WebElement Text_ErrorMessageOnClickingSkipScanning(){return findElement("android:id/message",LocatorType.Id);}
     public WebElement Text_NotificationTextOnArrivalAndUnloadingItemsForBarCode(){return findElement("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView",LocatorType.XPath);}
-    public WebElement RadioButton_CancelEntireBungiiAndNotifyDrivers(){return findElement("//label[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input",LocatorType.XPath);}
 
 }

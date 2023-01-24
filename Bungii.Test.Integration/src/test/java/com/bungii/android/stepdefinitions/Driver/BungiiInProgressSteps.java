@@ -1,6 +1,7 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
@@ -25,6 +26,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -61,6 +63,7 @@ public class BungiiInProgressSteps extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
     LoginPage driverLogInPage = new LoginPage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
 
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
@@ -1025,10 +1028,6 @@ public class BungiiInProgressSteps extends DriverBase {
                     action.click(updateStatusPage.RadioButton_EditDeliveryStatus());
                     Thread.sleep(1000);
                     break;
-                case "Cancel entire Bungii and notify driver(s)":
-                     Thread.sleep(6000);
-                    action.click(updateStatusPage.RadioButton_CancelEntireBungiiAndNotifyDrivers());
-                    break;
                 default:
                     break;
             }
@@ -1382,5 +1381,48 @@ public class BungiiInProgressSteps extends DriverBase {
                     true);
         }
     }
+
+    @And("^I cancel the \"([^\"]*)\" delivery$")
+    public void i_cancel_the_something_delivery(String deliveryType, DataTable cancelledDelivery) throws Throwable {
+        try{
+        Map<String, String> data = cancelledDelivery.transpose().asMap(String.class, String.class);
+        String cancellationCharge = data.get("Charge").trim();
+        String cancellationComment = data.get("Comments").trim();
+        String cancellationReason = data.get("Reason").trim();
+
+        action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
+        logger.detail("I could search the delivery using pickup reference");
+
+        Thread.sleep(5000);
+        action.click(scheduledBungiiPage.Link_DeliveryDetails());
+        Thread.sleep(3000);
+        action.click(scheduledBungiiPage.Button_Edit());
+        logger.detail( "I could  click on the kebab button from the dropdown and click on the edit button");
+
+        Thread.sleep(5000);
+        action.click(scheduledTripsPage.RadioBox_Cancel());
+        logger.detail("I could  click on the cancel bungii radio button");
+
+        Thread.sleep(2000);
+        action.clearSendKeys(scheduledTripsPage.Textbox_CancellationFee(), cancellationCharge);
+        action.clearSendKeys(scheduledTripsPage.Textbox_CancellationComment(), cancellationComment);
+        action.click(scheduledTripsPage.Dropdown_CancellationReason());
+        logger.detail("I have entered cancellation fee amount and comments");
+
+        action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(), cancellationReason);
+        logger.detail("I could  select reason as " + cancellationReason + " from the dropdown");
+
+        Thread.sleep(2000);
+        action.click(scheduledTripsPage.Button_Submit());
+        logger.detail("I could click on the submit button");
+        log("I should be able to cancel the "+deliveryType+" delivery","I could cancel the "+deliveryType+" delivery",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 
 }
