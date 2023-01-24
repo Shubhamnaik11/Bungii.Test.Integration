@@ -163,9 +163,9 @@ Feature: Rejection Popup on Driver App
       Then I Select Trip from available trip
 
 
-  @sn
-    #CORE-3545, Need to update new customer for Stack trip before raising PR
-  Scenario:To verify that driver can successfully accept incoming Scheduled trip request during ongoing trip3545
+#  @sn
+  #CORE-3545, Need to update new customer for Stack trip before raising PR
+  Scenario:To verify that driver can successfully Complete on going trip when admin cancels Stack trip
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | atlanta  | UNLOADING ITEM |
@@ -200,3 +200,46 @@ Feature: Rejection Popup on Driver App
     And Bungii Driver "slides to the next state"
     And Bungii Driver "skips to rate customer"
     Then Bungii Driver "completes Bungii"
+
+  #CORE-4426
+  @sn
+  Scenario:To verify that driver can successfully Complete on going trip when admin manually completes Stack trip
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 8877661175     | Testcustomertywd_appleMarkFT LutherFT | 2              | Cci12345          |
+    And As a driver "Testdrivertywd_applega_a_drvan Atlanta_an" perform below action with respective "Solo Ondemand" trip
+      | driver1 state|
+      | Accepted     |
+      | Enroute  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 8877661176     | Testcustomertywd_appleMarkFU LutherFU| 2              | Cci12345          |
+    And I Switch to "driver" application on "same" devices
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "view stack message" request
+    And I tap on the "ACCEPT" Button on Bungii Request screen
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I wait for "2" mins
+    And I open the trip for "Testcustomertywd_appleMarkFU LutherFU" the customer for delivery details
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Completed" radiobutton
+    And I enter delivery completion date and time as per geofence
+    And I click on "CALCULATE COST" button
+    Then Confirmation message on edit live delivery pop up should be displayed
+    And I click on "Confirm" button
+    Then The "Pick up has been successfully updated." message should be displayed for live delivery
+    And As a driver "Testdrivertywd_applega_a_drvan Atlanta_an" perform below action with respective "Solo Ondemand" trip
+      | Unloading Item |
+      | Bungii Completed |

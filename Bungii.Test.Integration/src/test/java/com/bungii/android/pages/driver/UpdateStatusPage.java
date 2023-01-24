@@ -37,6 +37,7 @@ public class UpdateStatusPage extends PageBase {
     public WebElement Dropdown_ddlpickupEndTime () { return findElement("//select[@name='Units']", LocatorType.XPath); }
     public WebElement RadioButton_EditDeliveryStatus() { return findElement("//label[contains(text(),'Edit Delivery Status')]",LocatorType.XPath);}
     public WebElement RadioButton_DeliveryCanceled() { return findElement("//label[contains(text(),'Delivery Canceled')]",LocatorType.XPath);}
+    public WebElement RadioButton_DeliveryCompleted() { return findElement("//label[contains(text(),'Delivery Completed')]",LocatorType.XPath);}
 
     public WebElement Text_Details() { return findElement("//android.view.ViewGroup/android.widget.ScrollView/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView[1]",LocatorType.XPath);}
     public WebElement Button_ConfirmStatus() { return findElement("//div[@class=\"modal-footer\"]/button[2]", LocatorType.XPath);}
