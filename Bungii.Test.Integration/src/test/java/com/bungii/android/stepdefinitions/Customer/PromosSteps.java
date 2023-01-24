@@ -66,7 +66,9 @@ public class PromosSteps extends DriverBase {
                 case "PROMOTER TYPE PROMO":
                     promoCode=PropertyUtility.getDataProperties("promocode.type.promoter");
                     break;
-
+                case "PROMOTER TYPE PROMO-1":
+                    promoCode=PropertyUtility.getDataProperties("promocode.type.promoter1");
+                    break;
                 case "PROMO DOLLAR OFF":
                     promoCode =PropertyUtility.getDataProperties("promocode.dollar.off");
                     break;

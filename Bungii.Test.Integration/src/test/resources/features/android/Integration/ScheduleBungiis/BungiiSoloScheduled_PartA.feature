@@ -109,7 +109,7 @@ Feature: SoloScheduled
     And I navigate to admin portal
     And I log in to admin portal
     And I wait for "2" mins
-    And I Select "trips" from admin sidebar
+    And I Select "completed deliveries" from admin sidebar
     When  I search the delivery using "Pickup Reference"
     Then The revive button should not be displayed
 
@@ -131,7 +131,7 @@ Feature: SoloScheduled
     And I click on "Cancel Bungii" button
     Then The "Pick up has been successfully canceled." message should be displayed
     And I wait for "2" mins
-    And I Select "trips" from admin sidebar
+    And I Select "completed deliveries" from admin sidebar
     When  I search the delivery using "Pickup Reference"
     And Revive button should be displayed beside the trip
     When I click on "Revive" button
@@ -215,14 +215,14 @@ Feature: SoloScheduled
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
-    And I Select "trips" from admin sidebar
+    And I Select "completed deliveries" from admin sidebar
     And I open the trip for "Testcustomertywd_appleMarkBR LutherBR" the customer
     And I select "Admin Canceled" from the dropdown
     And I select "Customer initiated - other reason" as the reason from the reason dropdown
     And I click on "Confirm Status" button
-    And I click on "Cancel Status" button
+    And I click on "Close Status" button
     And I wait for 2 minutes
-    And I Select "trips" from admin sidebar
+    And I Select "completed deliveries" from admin sidebar
     And I open the trip for "Testcustomertywd_appleMarkBR LutherBR" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row "Present" in admin portal all delivery details page
@@ -230,6 +230,7 @@ Feature: SoloScheduled
 
  #CORE-3606 : Verify Customer signature can be skipped on driver app
   @regression
+    @sn
   Scenario:Verify Customer signature can be skipped on driver app
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
@@ -261,11 +262,12 @@ Feature: SoloScheduled
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
-    And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkBS LutherBS" the customer
+    And I Select "completed deliveries" from admin sidebar
+    And I search the delivery using "Pickup Reference"
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then I should see the customer signature row "Present" in admin portal all delivery details page
-    And The customer signature field is "N/A"
+    Then I should see the customer signature row "Present" in admin portal "All Deliveries details" page
+    #CORE-4656:To verify customer signature settings on Admin portal when it is configured as Not required N/A on Partner management
+    And The customer signature field is "Not required N/A"
 
     #CORE-3606 : Verify customer signature screen is shown for only the control driver when he/she completes the trip first
   @ready @duo
@@ -400,7 +402,6 @@ Feature: SoloScheduled
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
     And I open the trip for "Testcustomertywd_appleMarkBV LutherBV" the customer
-    And I click on "Edit" link beside live delivery
     And I click on "Edit Delivery Status" radiobutton
     And I click on "Delivery Completed" radiobutton
     And I enter delivery completion date and time as per geofence
@@ -410,12 +411,12 @@ Feature: SoloScheduled
     Then The "Pick up has been successfully updated." message should be displayed for live delivery
     And I click on "Close" button
     And I wait for 2 minutes
-    And I Select "trips" from admin sidebar
-    And I open the trip for "Testcustomertywd_appleMarkBV LutherBV" the customer
+    And I Select "Completed Deliveries" from admin sidebar
+    And  I search the delivery using "Pickup Reference"
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    Then I should see the customer signature row "Present" in admin portal all delivery details page
-    And The customer signature field is "N/A"
-
+    Then I should see the customer signature row "Present" in admin portal "All Deliveries details" page
+    #CORE-4656:To verify customer signature settings on Admin portal when it is configured as Required N/A on Partner management
+    And The customer signature field is "Required N/A"
     And I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     And Bungii Driver "skips to rate customer"
@@ -463,7 +464,7 @@ Feature: SoloScheduled
     Then The "Pick up has been successfully updated." message should be displayed for live delivery
     And I click on "Close" button
     And I wait for 2 minutes
-    And I Select "trips" from admin sidebar
+    And I Select "completed deliveries" from admin sidebar
     And I open the trip for "Testcustomertywd_appleMarkBW LutherBW" the customer
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see the customer signature row "Present" in admin portal all delivery details page
