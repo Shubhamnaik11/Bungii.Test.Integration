@@ -100,12 +100,13 @@ Feature: PickupNote Feature
 	And I am logged in as "Testdriver_goa_e Android_test" driver
 	When I slide update button on "EN ROUTE" Screen
 	And I slide update button on "ARRIVED" Screen
+	And Bungii driver uploads "1" image
 	And I click on "MORE" button
 	Then I should not be able to see "Details From Customer" on screen
 	
 	And I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
-	  | 9889889888      |                 |
+	  | 8877661163      |                 |
   
   @regression
     #stable
@@ -136,6 +137,7 @@ Feature: PickupNote Feature
 	And I am logged in as "Testdriver_goa_e Android_test" driver
 	When I slide update button on "EN ROUTE" Screen
 	And I slide update button on "ARRIVED" Screen
+	When Bungii driver uploads "1" image
 	  And I click on "Delivery Instructions" button
 	  Then I should be able to see "Details From Customer" Text
 	And I cancel all bungiis of customer
@@ -218,6 +220,7 @@ Feature: PickupNote Feature
 	Then "Estimate" page should be opened
 	When I tap on "Request Bungii" on Bungii estimate
 	And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+	And I wait for 1 minutes
 	When I click on notification for "on demand trip"
 	Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
 	When I click "YES" button on alert message

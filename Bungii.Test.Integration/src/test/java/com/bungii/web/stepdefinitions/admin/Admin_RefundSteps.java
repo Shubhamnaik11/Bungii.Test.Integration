@@ -431,7 +431,7 @@ try{
     public void i_check_something(String field) throws Throwable {
         try{
             switch (field){
-                case "Same for 2nd drive":
+                case "Same for 2nd driver":
                     action.click(admin_refundsPage.Checkbox_same());
                     cucumberContextManager.setScenarioContext("DRIVER2_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings2()).trim());
                     cucumberContextManager.setScenarioContext("DRIVER_EARNINGS",action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings()).trim());
@@ -476,7 +476,7 @@ try{
             case "Notes":
                 action.clearSendKeys(admin_refundsPage.TextBox_Notes(),value);
                 cucumberContextManager.setScenarioContext("BUNGII_DRIVER_NOTE",value);
-                action.clearSendKeys(admin_refundsPage.TextBox_Notes2(),value);
+                //action.clearSendKeys(admin_refundsPage.TextBox_Notes2(),value);
                 cucumberContextManager.setScenarioContext("BUNGII_DRIVER_NOTE2",value);
                 break;
         }

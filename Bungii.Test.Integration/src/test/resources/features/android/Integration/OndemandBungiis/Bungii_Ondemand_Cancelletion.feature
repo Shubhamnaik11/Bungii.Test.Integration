@@ -10,16 +10,16 @@
       Scenario: Verify Driver Can Cancel Ondemand Bungii In Enroute State
         Given that ondemand bungii is in progress
           | geofence | Bungii State |
-          | boston   | Enroute      |
+          | boston2   | Enroute      |
     
         When I Switch to "customer" application on "same" devices
-        And I am logged in as "valid boston" customer
+        And I am logged in as "Testcustomertywd_appleMarkFP LutherFP" customer
         And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
         Then for a Bungii I should see "Enroute screen"
     
         When I Switch to "driver" application on "same" devices
         And I am on the LOG IN page on driver app
-        And I am logged in as "valid boston" driver
+        And I am logged in as "Testdrivertywd_applebs_a_gruB Stark_bsOnB" driver
         And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
         And I close "Tutorial" if exist
 
@@ -36,19 +36,20 @@
     Scenario: Verify Driver Can Cancel Ondemand Bungii In Arrived State
       Given that ondemand bungii is in progress
         | geofence | Bungii State |
-        | boston   | ARRIVED      |
+        | boston3   | ARRIVED      |
     
       And I am on customer Log in page
-      When I am logged in as "valid boston" customer
+      When I am logged in as "Testcustomertywd_appleMarkFQ LutherFQ" customer
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       
       And I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
-      And I am logged in as "valid boston" driver
+      And I am logged in as "Testdrivertywd_applebs_a_gruC Stark_bsOnC" driver
       And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       And I close "Tutorial" if exist
 
-      Then Driver should see "Arrived screen"
+#      Then Driver should see "Arrived screen"
+      Then Bungii driver should see "Arrived screen"
       When Bungii Driver "clicks More Options"
       When Bungii Driver "cancels Bungii"
       And I Switch to "customer" application on "same" devices

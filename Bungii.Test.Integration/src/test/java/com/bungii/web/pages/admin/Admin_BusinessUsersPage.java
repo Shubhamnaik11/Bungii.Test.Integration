@@ -38,7 +38,9 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Label_ErrorContainerEmail( ) { return findElement("//div[text()='Oops! The email address is invalid.']", LocatorType.XPath); }
 
-    public WebElement DropDown_BusinessUser( ) { return findElement("//select[@class='form-select']", LocatorType.XPath); }
+    public WebElement DropDown_BusinessUser( ) { return findElement("//span[contains(text(),'Select Partner:')]/parent::div/following-sibling::div/select", LocatorType.XPath); }
+
+    public WebElement DropDown_Partner( ) { return findElement("//span[contains(text(),'Partner:')]/parent::div/following-sibling::div/select", LocatorType.XPath); }
 
     public WebElement DropDown_AddBusinessUserPayment( ) { return findElement("//select[@class='form-select']", LocatorType.XPath); }
 
@@ -92,7 +94,7 @@ public class Admin_BusinessUsersPage extends PageBase {
     public WebElement Label_PaymentMethodSavedMessage(){ return  findElement("successMessage", LocatorType.Id);}
 
 //EOC
-    public WebElement Button_BulkTripCancel( ) { return findElement("//a[@class='btn btn-danger']", LocatorType.XPath); }
+    public WebElement Button_BulkTripCancel( ) { return findElement("//button[contains(text(),'CANCEL')]", LocatorType.XPath); }
 
     public WebElement Label_ErrorOnBulkTripsPage(){ return findElement("//div[@class='error mb10']", LocatorType.XPath);}
     //EOC
