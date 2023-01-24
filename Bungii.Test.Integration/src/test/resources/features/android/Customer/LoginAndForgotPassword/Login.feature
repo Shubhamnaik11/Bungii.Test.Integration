@@ -60,7 +60,7 @@ Feature: Login
     And I Select "customers" from admin sidebar
     And I Search for customer with phone number
     Then I should see "No Customers found." message
-    And I Select "trips" from admin sidebar
+    And I Select "completed deliveries" from admin sidebar
     And I Search for customer with phone number
     Then I should see "No Deliveries found." message
 

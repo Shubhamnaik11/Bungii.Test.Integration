@@ -26,13 +26,13 @@ public class ScheduledBungiiPage extends  PageBase {
     public WebElement Text_DeliveryStatusReason(String statusReason) { return findElement(String.format("//div/select/option[text() =\"%s\"]",statusReason), LocatorType.XPath); }
     public WebElement Button_ConfirmStatus() { return findElement("//div[@class=\"modal-footer\"]/p/following-sibling::button[2]", LocatorType.XPath);}
     public WebElement Button_CloseStatus() { return findElement("//div[@id=\"edit-status-success-modal\"]/div/div/div[2]/button", LocatorType.XPath);}
-    public WebElement Label_CustomerSignatureNA(){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]/following-sibling::td/strong",LocatorType.XPath);}
+    public WebElement Label_CustomerSignatureNA(){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]/following-sibling::td",LocatorType.XPath);}
     public WebElement Image_CustomerSignature(){return  findElement("//div/table/tbody/tr/td[text() =\"Customer Signature\"]/following-sibling::td/img",LocatorType.XPath);}
     public WebElement Checkbox_driver () { return findElement("//div[@id='tripDriverDetails']//span[@class='checkmark'][1]", LocatorType.XPath); }//richa
     public WebElement  Button_Edit() {return findElement("//a[contains(text(),'Edit')]",LocatorType.XPath);}
     public WebElement TextBox_Search() {return findElement("SearchCriteria", LocatorType.Id); }
     public WebElement Icon_Dropdown(){return  findElement("//div/img[@id='dLabel']",LocatorType.XPath);}
-    public WebElement Option_Edit(){return  findElement("btnLiveEdit",LocatorType.Id);}
+    public WebElement Option_Edit(){return  findElement("//a[contains(text(),'Edit')]",LocatorType.XPath);}
 
     public WebElement Button_ThreeDot() { return findElement("//android.view.ViewGroup[@resource-id='com.bungii.driver:id/appCompatImageView37']/android.widget.ImageView",LocatorType.XPath);}
 
