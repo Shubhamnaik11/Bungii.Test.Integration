@@ -301,10 +301,10 @@ Feature: Admin_Refund
 	Then The "Issue Refund" section should be displayed
 	When I select "Complete Refund" radio button
 	When I update "Earnings" as "10.00" dollars
-	And I check "Same for 2nd driver"
 	Then I should see Customer Refund Amount and Driver Earnings
 	When I enter "Bungii Internal Notes" as "Internal Note"
 	When I enter "Notes" as "Driver Note" for both drivers
+	  And I check "Same for 2nd driver"
 	And I click on "Continue" button on Issue Refund popup
 	Then I should see "Issue Refund - Confirm Details" popup
 	And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
