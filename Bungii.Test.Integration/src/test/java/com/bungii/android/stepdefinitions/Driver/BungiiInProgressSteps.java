@@ -1172,19 +1172,14 @@ public class BungiiInProgressSteps extends DriverBase {
                     switch (timeType){
                         case "telet":
 //           Telet=Driver Arrival time + ((Estimated Duration from Pickup point to drop off point + Time at pickup and Drop off) * 1.5)
-                            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189"; c/// Stacked trip will be 2 customer you need of first trip
-                            String pickupRefTrip1 = (String) cucumberContextManager.getScenarioContext("Pickup_Request");
+                            String pickupRefTrip1 =(String) cucumberContextManager.getScenarioContext("Pickup_Request");
                             String pickUpID = DbUtility.getPickupIdWithRef(pickupRefTrip1);
-                            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
-                            System.out.println(geofenceLabel);
                             String adminArrival= DbUtility.getDriverArrivalTime(pickUpID);
-                            System.out.println(adminArrival);
                             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             Calendar sourceCalendar = Calendar.getInstance();
                             sourceCalendar.setTime(formatter.parse(adminArrival));
                             //conversion from utc to edt
-                            sourceCalendar.add(Calendar.MINUTE,-240);
-
+                            sourceCalendar.add(Calendar.MINUTE,-300);
                             String[] locationsTripOne = DbUtility.getPickupAndDropLocationWithID(pickUpID);
                             String[] dropLocation = new String[2];
                             dropLocation[0] = locationsTripOne[2];
@@ -1200,11 +1195,9 @@ public class BungiiInProgressSteps extends DriverBase {
                             int pickUpInMins = (Integer.parseInt(timeAtPick)/1000)/60;
                             int dropOffInMins = (Integer.parseInt(timeAtDrop)/1000)/60;
                             int mins = (int) ((((timeToCoverDistance[0]/60)+dropOffInMins+pickUpInMins)*1.5));
-                            System.out.println( sourceCalendar.getTime());
                             sourceCalendar.add(Calendar.MINUTE,mins);
                             String newTelet= String.valueOf(sourceCalendar.getTime());
                             cucumberContextManager.setScenarioContext("DRIVER_TELET",newTelet.substring(11,16));
-                            System.out.println(newTelet.substring(11,16));
 //                          Formula = (TELET + drive time from drop off A to pickup B) - 10 minutes, + 20 minutes
                             String pickupRefTrip2 = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
                             String pickUpIDTrip2 = DbUtility.getPickupIdWithRef(pickupRefTrip2);
@@ -1214,11 +1207,11 @@ public class BungiiInProgressSteps extends DriverBase {
                             pickupLocations2[1] = locationsTripTwo[1];
                             long[] timeToCoverDistance2 = new GoogleMaps().getDurationInTraffic(dropLocation, pickupLocations2);
                             logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance2[0]+" and "+timeToCoverDistance2[1]);
-                            int lowerMins= (int) (timeToCoverDistance2[0]/60-10);
-                            sourceCalendar.add(Calendar.MINUTE,lowerMins);
+                            int lowerMins= (int) (timeToCoverDistance2[0]/60);
+                            sourceCalendar.add(Calendar.MINUTE,(lowerMins-10));
                             String newLowerPat= String.valueOf(sourceCalendar.getTime());
                             cucumberContextManager.setScenarioContext("PAT_LOWER_RANGE",newLowerPat.substring(11,16));
-                            sourceCalendar.add(Calendar.MINUTE,lowerMins+30);
+                            sourceCalendar.add(Calendar.MINUTE,30);
                             String newUpperPat= String.valueOf(sourceCalendar.getTime());
                             cucumberContextManager.setScenarioContext("PAT_UPPER_RANGE",newUpperPat.substring(11,16));
                             break;

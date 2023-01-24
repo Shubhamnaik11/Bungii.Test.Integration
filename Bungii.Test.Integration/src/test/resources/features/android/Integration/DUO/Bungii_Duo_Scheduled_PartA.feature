@@ -518,7 +518,6 @@ Feature: Bungii Duo Scheduled Part A
 
     #   Core-2369: Verify time calculation for Short stack trip after editing the service level on Live deliveries
   @ready
-#    @testsweta
   Scenario: Verify time calculation for Short stack trip after editing the service level on Live deliveries
     When I request Partner Portal "SOLO" Trip for "Biglots" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |

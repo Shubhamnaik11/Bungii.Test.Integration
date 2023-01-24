@@ -358,7 +358,7 @@ public class DbUtility extends DbContextManager {
         String drverArrivalTime = "";
         String queryString = "select ChangeTimeStamp from tripevents where pickupid ="+pickUpID+" and TripStatus = 24";
         drverArrivalTime = getDataFromMySqlServer(queryString);
-        logger.detail("Driver Arrival Time is" + drverArrivalTime);
+        logger.detail("Driver Arrival Time is " + drverArrivalTime);
         return drverArrivalTime;
     }
     public static String getLinkedPickupRef(String pickupRef) {
