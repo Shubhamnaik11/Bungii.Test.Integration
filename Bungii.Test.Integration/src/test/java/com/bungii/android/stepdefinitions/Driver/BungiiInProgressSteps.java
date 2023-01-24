@@ -64,7 +64,7 @@ public class BungiiInProgressSteps extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
     LoginPage driverLogInPage = new LoginPage();
-    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
+    //ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
 
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
