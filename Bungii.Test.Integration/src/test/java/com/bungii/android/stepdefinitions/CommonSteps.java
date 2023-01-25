@@ -469,8 +469,11 @@ public class CommonSteps extends DriverBase {
         logInPage.Button_LogIn().click();
             switch (option.toLowerCase()) {
                 case "scheduled deliveries":
-                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
-
+//                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
+                    Thread.sleep(6000);
+                    action.click(dashBoardPage.Button_Trips());
+                    Thread.sleep(5000);
+                    action.click(dashBoardPage.Button_ScheduledTrips());
                     //action.click(dashBoardPage.Button_Trips());
                     //action.click(dashBoardPage.Button_ScheduledTrips());
                     break;
