@@ -1632,23 +1632,6 @@ try{
                 String partnerPortalName1=PropertyUtility.getDataProperties("partner.atlanta.equip-bid.partner.portal.name");
                 message = utility.getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(partnerPortalName1);
                 break;
-            case "Bungii: Refund Confirmation":
-                String Customer_Name = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-                String pickUpRefernce= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-                String deliveryTotal= (String) cucumberContextManager.getScenarioContext("DELIVERY_TOTAL");
-                String[] splitCustomer = Customer_Name.split(" ");
-                String[] splitDeliveryTotal = deliveryTotal.split("\\.");
-                message = utility.getExpectedBungiiRefundCustomerEmail(splitCustomer[0], splitDeliveryTotal[0], pickUpRefernce);
-                break;
-            case "Bungii Refund Receipt for customer":
-                String pickUpRef= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-                String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-                String[] splitCust = custName.split(" ");
-                String total= (String) cucumberContextManager.getScenarioContext("DELIVERY_TOTAL");
-                String[] splitTotal = total.split("\\.");
-                String [] locations=dbUtility.getFullPickUpAndDropOff(pickUpRef);
-                message = utility.getExpectedBungiiRefundAdminEmail(splitCust[0], splitTotal[0], driverName,locations[0],locations[1]);
-                break;
         }
         message= message.replaceAll(" ","");
         //message= message.replaceAll("EST","EDT");
