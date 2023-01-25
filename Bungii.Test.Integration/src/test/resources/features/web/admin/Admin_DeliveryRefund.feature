@@ -123,7 +123,7 @@ Feature: Admin_Refund
 	Then The "Issue Refund" button should not be displayed
 #	  Core-2748: Refund receipt emails sent to Bungii Admin email.
 	And Admin should receive "Bungii: Refund Confirmation" email
-	And Admin should receive "Bungii: Refund Confirmation" email
+	And Admin should receive "Bungii Refund Receipt for customer" email
 
 
   @regression
