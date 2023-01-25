@@ -1272,8 +1272,7 @@ public class BungiiInProgressSteps extends DriverBase {
                     if (geofence.equalsIgnoreCase("goa") || geofence.equalsIgnoreCase(""))
                         labelOne =  PropertyUtility.getDataProperties("time.label");
                     else
-                        labelOne =  "EDT";
-                                //utility.getTimeZoneBasedOnGeofence();
+                        labelOne =  utility.getTimeZoneBasedOnGeofence();
                     String expectedPAT=(String)cucumberContextManager.getScenarioContext("PAT_LOWER_RANGE")+" - "+(String)cucumberContextManager.getScenarioContext("PAT_UPPER_RANGE")+" "+labelOne;
                     expectedPAT=expectedPAT.replace("am", "AM").replace("pm","PM");
                     String actualPAT = action.getText(bungiiAcceptedPage.Textlabel_ProjectedTimeValue());

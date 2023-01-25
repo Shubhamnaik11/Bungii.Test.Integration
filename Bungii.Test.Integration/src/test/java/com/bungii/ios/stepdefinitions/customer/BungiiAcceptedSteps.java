@@ -71,10 +71,6 @@ public class BungiiAcceptedSteps extends DriverBase {
 
                 if (geofence.equalsIgnoreCase("goa") || geofence.equalsIgnoreCase(""))
                     labelOne =  PropertyUtility.getDataProperties("time.label");
-                else if (geofence.equalsIgnoreCase("atlanta"))
-                {
-                    labelOne =  PropertyUtility.getDataProperties("edt.time.label");
-                }
                 else
                     labelOne =  utility.getTimeZoneBasedOnGeofence();
                 testStepVerify.isElementEnabled(bungiiAcceptedPage.Button_CancelBungii(),"Cancel Bungii should be displayed");
