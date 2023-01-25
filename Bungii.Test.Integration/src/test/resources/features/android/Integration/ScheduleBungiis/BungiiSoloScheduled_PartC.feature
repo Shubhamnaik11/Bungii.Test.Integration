@@ -65,11 +65,11 @@ Feature: SoloScheduled Part C
   Scenario: Verify That a Solo scheduled Bungii can be started 30 mins before the scheduled delivery start time
     When that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | Kansas   | Accepted     | 0.5 hour ahead |
+      | Kansas2   | Accepted     | 0.5 hour ahead |
     When I Switch to "driver" application on "same" devices
     And I wait for "3" mins
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "Testdrivertywd_appleks_a_drvbu Kansas_bu" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
@@ -78,5 +78,5 @@ Feature: SoloScheduled Part C
     And Bungii driver should see "Enroute screen"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8888889916     |                 |
+      | 8877661165     |                 |
     

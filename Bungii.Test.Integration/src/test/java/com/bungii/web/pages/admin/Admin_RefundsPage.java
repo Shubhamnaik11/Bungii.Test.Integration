@@ -89,13 +89,13 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Button_Close() { return findElement("//div[contains(text(),'Issue Refund')]/following-sibling::button[@class='btn-close']", LocatorType.XPath); }
 
-    public WebElement Checkbox_same() { return findElement("chkReplicateData", LocatorType.Id); }
+    public WebElement Checkbox_same() { return findElement("//label[contains(text(),'Same for Driver ')]/preceding::input[1]", LocatorType.XPath); }
 
     public WebElement TextBox_RefundAmount2() { return findElement("TripDetails_1__RefundAmount", LocatorType.Id); }
 
     public WebElement TextBox_RefundPercentage2() { return findElement("TripDetails_1__RefundPercentage", LocatorType.Id); }
 
-    public WebElement TextBox_DriverEarnings2() { return findElement("TripDetails_1__Driver_Earnings", LocatorType.Id); }
+    public WebElement TextBox_DriverEarnings2() { return findElement("driver2Earning", LocatorType.Id); }
 
     public WebElement TextBox_DriverPercentage2() { return findElement("TripDetails_1__Driver_EarningsPercentage", LocatorType.Id); }
 
