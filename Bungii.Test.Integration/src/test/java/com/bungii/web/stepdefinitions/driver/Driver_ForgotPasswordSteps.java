@@ -34,6 +34,8 @@ public class Driver_ForgotPasswordSteps extends DriverBase {
             switch (strArg1) {
                 case "valid":
                     action.clearSendKeys(Page_ForgotPassword.Textfield_ForgotPass_Phone(), PropertyUtility.getDataProperties("DriverPhoneNumber"));
+                    cucumberContextManager.setScenarioContext("DriverPhone", PropertyUtility.getDataProperties("DriverPhoneNumber"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("DriverName"));
                     break;
                 case "invalid":
                     action.clearSendKeys(Page_ForgotPassword.Textfield_ForgotPass_Phone(), PropertyUtility.getDataProperties("Invalid_DriverPhoneNumber"));
