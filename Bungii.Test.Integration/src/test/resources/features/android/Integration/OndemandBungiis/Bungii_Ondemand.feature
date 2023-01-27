@@ -197,8 +197,8 @@ Feature: On Demand Bungii
     And I click "On To The Next One" button on the "Bungii Completed" screen
     Then poor driver ratting should be sent to customer
 
-  @sn
-  #CORE-4732:
+  @ready
+  #CORE-4732
   Scenario:Verify Transform pickup for the ondemand trip
     Given I am logged in as "valid baltimore" customer
     When I tap on "Menu" > "HOME" link
@@ -210,6 +210,6 @@ Feature: On Demand Bungii
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
     And I wait for "3" mins
-    Then I should see "SET PICKUP TIME" on screen
+    Then for a Bungii I should see "SET PICKUP TIME SCREEN"
   
     

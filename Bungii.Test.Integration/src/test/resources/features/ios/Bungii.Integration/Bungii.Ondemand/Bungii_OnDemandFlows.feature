@@ -231,6 +231,3 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should be navigated to "SEARCHING" screen
     And I wait for "3" mins
     Then I should be navigated to "Set pickup time" screen
-
-
-
