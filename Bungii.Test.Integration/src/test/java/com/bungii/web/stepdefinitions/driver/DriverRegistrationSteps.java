@@ -485,6 +485,16 @@ try{
                 driverPhone = (String) cucumberContextManager.getScenarioContext("DriverPhone");
                 message = utility.getExpectedDriverRegistrationCompleteEmailContent(driverName, driverPhone);
                 break;
+            case "Bungii Refund Receipt for customer":
+                String pickUpRef= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                String[] splitCust = custName.split(" ");
+                String total= (String) cucumberContextManager.getScenarioContext("DELIVERY_TOTAL");
+                String[] splitTotal = total.split("\\.");
+                String [] locations=DbUtility.getFullPickUpAndDropOff(pickUpRef);
+                message = utility.getExpectedBungiiRefundAdminEmail(splitCust[0], splitTotal[0], driver,locations[0],locations[1]);
+                break;
 
         }
         message= message.replaceAll(" ","");

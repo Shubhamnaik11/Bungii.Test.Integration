@@ -705,6 +705,8 @@ Feature: Solo Scheduled Bungii Part A
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
+    #CORE-2718:Driver was assigned to delivery and could not see it in app issue
+    Then I should able to see "one" scheduled trip
     And I Select Trip from scheduled trip
     And I click on start Bungii for service based delivery
     And I swipe to check trip details
