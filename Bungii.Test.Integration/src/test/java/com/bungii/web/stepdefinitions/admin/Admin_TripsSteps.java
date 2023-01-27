@@ -1758,17 +1758,43 @@ try{
     @And("^Customer should receive \"([^\"]*)\" email$")
     public void customer_should_receive_something_email(String emailSubject) throws Throwable {
         try {
-            String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
-            if (emailBody.equals("")||emailBody==null) {
-                testStepAssert.isFail("Email " + emailSubject + " with link is not received.");
-            } else {
-                action.navigateTo(emailBody);
-                String url = action.getCurrentURL();
-                String survey_link = PropertyUtility.getDataProperties("washington.survey.email.link");
-                testStepAssert.isTrue(url.contains(survey_link), "Survey Email link should be " + survey_link, "Survey email link is " + survey_link, "Survey email link is " + url);
-                log("Customer should receive " + emailSubject + " email",
-                        "Customer received " + emailSubject + " email", true);
+            if(emailSubject.contains(PropertyUtility.getDataProperties("email.subject.for.bungii.receipt")))
+            {
+                String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+                    if (emailBody.equals("")||emailBody==null) {
+                        testStepAssert.isFail("Email " + emailSubject + " with link is not received.");
+                    }
+                    else {
+                        action.navigateTo(emailBody);
+                        String url = action.getCurrentURL();
+                        String survey_link = PropertyUtility.getDataProperties("washington.survey.email.link");
+                        testStepAssert.isTrue(url.contains(survey_link), "Survey Email link should be " + survey_link, "Survey email link is " + survey_link, "Survey email link is " + url);
+                    }
             }
+            else
+            {
+                String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+                if (emailBody == null) {
+                    testStepAssert.isFail("Email : " + emailSubject + " not received");
+                }
+                emailBody= emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
+                String message = "";
+                logger.detail("Email Body (Actual) : "+ emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""));
+
+                switch (emailSubject){
+                    case "Bungii: Refund Confirmation":
+                        String Customer_Name = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                        String pickUpRefernce= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                        String deliveryTotal= (String) cucumberContextManager.getScenarioContext("DELIVERY_TOTAL");
+                        String[] splitCustomer = Customer_Name.split(" ");
+                        String[] splitDeliveryTotal = deliveryTotal.split("\\.");
+                        message = utility.getExpectedBungiiRefundCustomerEmail(splitCustomer[0], splitDeliveryTotal[0], pickUpRefernce);
+                        break;
+                }
+
+            }
+            log("Customer should receive " + emailSubject + " email",
+                    "Customer received " + emailSubject + " email", true);
         }
         catch(Exception e)
             {
