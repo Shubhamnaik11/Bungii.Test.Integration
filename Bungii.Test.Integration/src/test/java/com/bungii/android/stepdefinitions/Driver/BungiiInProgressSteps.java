@@ -1261,7 +1261,7 @@ public class BungiiInProgressSteps extends DriverBase {
                     true);
         }
     }
-    @Then("^correct details should do be displayed on (.+) screen for Stack screen$")
+    @Then("^Correct details should do be displayed on (.+) screen for Stack screen$")
     public void correct_details_should_do_be_displayed_on_bungii_accepted_screen_for_stack_screen(String key)  {
         try{
             switch (key.trim()){

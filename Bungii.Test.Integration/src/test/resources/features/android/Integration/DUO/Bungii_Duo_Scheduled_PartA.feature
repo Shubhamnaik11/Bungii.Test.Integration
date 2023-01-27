@@ -466,14 +466,14 @@ Feature: Bungii Duo Scheduled Part A
     And I edit the pickup address
     Then I change the pickup address to "Hair Kymistry, Powers"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     When I Switch to "customer" application on "same" devices
     And I calculate the "telet" time after "changed pickup"
-    Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
+    Then Correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
 
 
 # Core 448: Verify Projected Arrival Time and Try to Finish time for short stack when admin edits the drop off address of the Stacked trip
@@ -507,9 +507,9 @@ Feature: Bungii Duo Scheduled Part A
     And I edit the drop off address
     Then I change the drop off address to "Hair Kymistry, Powers"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "ORIGINAL" devices
@@ -556,12 +556,12 @@ Feature: Bungii Duo Scheduled Part A
     And I Select "Edit Trip Details" option
     And I change the service level to "Room of Choice" in "Admin" portal
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I Switch to "customer" application on "same" devices
     And I calculate the "telet" time after "changed service level"
-    Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
+    Then Correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
 
 

@@ -1483,7 +1483,7 @@ public class ScheduledTripSteps extends DriverBase {
 		testStepVerify.isElementTextEquals(tripStatus,status);
 	}
 
-	@And("^the \"([^\"]*)\" message is displayed$")
+	@And("^The \"([^\"]*)\" message is displayed$")
 	public void the_something_message_is_displayed(String message) throws Throwable {
 		try{
 			String actualMessage = null;

@@ -25,9 +25,9 @@
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
       When I click on "Close" button
    
       #And I click on "Edit Trip2" button
@@ -35,9 +35,9 @@
    And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
 
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
@@ -71,18 +71,18 @@
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
       When I click on "Close" button
    
    And I open the trip for "Testcustomertywd_appleand_C Android" the customer
       And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
 
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
@@ -117,9 +117,9 @@
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
       When I click on "Close" button
   
       And I open the trip for "Testcustomertywd_appleMarkAN LutherAN" the customer
@@ -127,9 +127,9 @@
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
 
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
@@ -165,9 +165,9 @@
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
 
       When I click on "Close" button
    And I open the trip for "Testcustomertywd_appleand_C Android" the customer
@@ -175,9 +175,9 @@
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
 
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
@@ -211,9 +211,9 @@
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
 
       When I click on "Close" button
   And I open the trip for "Testcustomertywd_appleand_C Android" the customer
@@ -221,9 +221,9 @@
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
 
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
@@ -257,9 +257,9 @@
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
 
         When I click on "Close" button
    And I open the trip for "Testcustomertywd_appleand_C Android" the customer
@@ -267,9 +267,9 @@
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
 
         When I switch to "ORIGINAL" instance
         And I Switch to "driver" application on "same" devices
@@ -303,9 +303,9 @@
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
 
         When I click on "Close" button
   And I open the trip for "Testcustomertywd_appleand_C Android" the customer
@@ -313,9 +313,9 @@
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
 
         When I switch to "ORIGINAL" instance
         And I Switch to "driver" application on "same" devices
@@ -351,9 +351,9 @@
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
 
         When I click on "Close" button
   And I open the trip for "Testcustomertywd_appleand_C Android" the customer
@@ -361,9 +361,9 @@
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I assign driver "Testdriver_goa_c Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
 
         When I switch to "ORIGINAL" instance
         And I Switch to "driver" application on "same" devices
@@ -396,18 +396,18 @@
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
 
         When I click on "Close" button
    And I open the trip for "Testcustomertywd_appleand_C Android" the customer
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_d Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
 
         When I switch to "ORIGINAL" instance
         And I Switch to "driver" application on "same" devices
@@ -446,9 +446,9 @@
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_c Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
 
         When I switch to "ORIGINAL" instance
         And I Switch to "driver" application on "same" devices
