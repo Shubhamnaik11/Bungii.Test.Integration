@@ -163,8 +163,8 @@ Feature: Rejection Popup on Driver App
       Then I Select Trip from available trip
 
 
-  @sn
-  #CORE-3545, Need to update new customer for Stack trip before raising PR
+  @ready
+  #CORE-3545
   Scenario:To verify that driver can successfully Complete on going trip when admin cancels Stack trip
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -201,8 +201,8 @@ Feature: Rejection Popup on Driver App
     And Bungii Driver "skips to rate customer"
     Then Bungii Driver "completes Bungii"
 
+  @ready
   #CORE-4426
-  @sn
   Scenario:To verify that driver can successfully Complete on going trip when admin manually completes Stack trip
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -213,7 +213,7 @@ Feature: Rejection Popup on Driver App
     When I Switch to "customer" application on "same" devices
     And I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
-      | now         | 8877661004     | Testcustomertywd_appleMarkFU LutherFU | 2              | Cci12345          |
+      | now         | 8877661176     | Testcustomertywd_appleMarkFU LutherFU | 2              | Cci12345          |
     And I Switch to "driver" application on "ORIGINAL" devices
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "view stack message" request
