@@ -215,6 +215,22 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
+  @ready
+  #CORE-4732:
+  Scenario:Verify Transform pickup for the ondemand trip
+    Given I login as "valid miami" customer and on Home page
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location          | Drop Location           | Geofence |
+      | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    And Trip Information should be correctly displayed on Estimate screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
+      | 15       |           |              | Now  | Default     | No             |
+    Then I should be navigated to "SEARCHING" screen
+    And I wait for "3" mins
+    Then I should be navigated to "Set pickup time" screen
 
 
 

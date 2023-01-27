@@ -836,6 +836,10 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
             }
+            else if (screen.equalsIgnoreCase("Set pickup time")) {
+                Thread.sleep(5000);
+                isCorrectPage = utility.verifyPageHeader(screen);
+            }
             else {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
