@@ -633,7 +633,7 @@ Feature: Admin_Reason_Code
     And  I view the Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
-    And I save the driver earnings and delivery payment amount
+    And I Store the value for driver earnings and delivery payment
     And  I view the Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     And I select "Admin Canceled" from the dropdown

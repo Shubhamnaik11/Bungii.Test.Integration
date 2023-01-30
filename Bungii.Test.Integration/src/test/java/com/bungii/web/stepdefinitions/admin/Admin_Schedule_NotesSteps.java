@@ -997,8 +997,8 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
         }
     }
 
-    @And("^I save the driver earnings and delivery payment amount$")
-    public void i_save_the_driver_earnings_and_delivery_payment_amount() throws Throwable {
+    @And("^I Store the value for driver earnings and delivery payment$")
+    public void i_store_the_value_for_driver_earnings_and_delivery_payment() throws Throwable {
         try{
         String beforeChangeStateDriverEarning = action.getText(admin_refundsPage.Text_DriverEarningsValue());
         String beforeChangeDeliveryPayment= action.getText(admin_refundsPage.Text_DeliveryPaymentValue());
@@ -1019,10 +1019,10 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
         String deliveryPaymentBeforeStatusChange = (String) cucumberContextManager.getScenarioContext("DeliveryPayment");
         String driverEarningsAfterStatusChange = action.getText(admin_refundsPage.Text_DriverEarningsValue()).trim();
         String deliveryPaymentAfterStatusChange = action.getText(admin_refundsPage.Text_DeliveryPaymentValue()).trim();
-        testStepAssert.isFalse(driverEarningsBeforeStatusChange.contentEquals(driverEarningsAfterStatusChange),"Driver earnings should get changed","Driver earnings have changed","Driver earnings have not changed");
-        testStepAssert.isFalse(deliveryPaymentBeforeStatusChange.contentEquals(deliveryPaymentAfterStatusChange),"Delivery payment should get changed","Delivery payment have changed","Delivery payment have not changed");
-        testStepAssert.isTrue(driverEarningsAfterStatusChange.contentEquals(expectedAmount),"Driver earnings should be equall to " +expectedAmount,"Driver earnings is equall to " +expectedAmount,"Driver earnings is not equall to " +expectedAmount +" ,its value is "+driverEarningsAfterStatusChange);
-        testStepAssert.isTrue(deliveryPaymentAfterStatusChange.contentEquals(expectedAmount),"Delivery payment should be equall to " +expectedAmount,"Delivery payment is equall to " +expectedAmount,"Delivery payment is not equall to " +expectedAmount +" ,its value is "+deliveryPaymentAfterStatusChange);
+        testStepAssert.isFalse(driverEarningsBeforeStatusChange.contentEquals(driverEarningsAfterStatusChange),"Driver earnings should get changed to "+expectedAmount,"Driver earnings have changed to "+expectedAmount,"Driver earnings have not changed to "+ expectedAmount+" , Driver earnings currently are "+ driverEarningsAfterStatusChange);
+        testStepAssert.isFalse(deliveryPaymentBeforeStatusChange.contentEquals(deliveryPaymentAfterStatusChange),"Delivery payment should get changed to "+expectedAmount,"Delivery payment have changed to "+expectedAmount,"Delivery payment have not changed to "+expectedAmount+" , Delivery payment value is "+deliveryPaymentAfterStatusChange );
+        testStepAssert.isTrue(driverEarningsAfterStatusChange.contentEquals(expectedAmount),"Driver earnings should be equal to " +expectedAmount,"Driver earnings is equal to " +expectedAmount,"Driver earnings is not equal to " +expectedAmount +" ,its value is "+driverEarningsAfterStatusChange);
+        testStepAssert.isTrue(deliveryPaymentAfterStatusChange.contentEquals(expectedAmount),"Delivery payment should be equal to " +expectedAmount,"Delivery payment is equal to " +expectedAmount,"Delivery payment is not equal to " +expectedAmount +" ,its value is "+deliveryPaymentAfterStatusChange);
     }    catch(Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
