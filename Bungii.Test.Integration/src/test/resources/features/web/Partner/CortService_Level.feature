@@ -18,9 +18,9 @@ Feature: Cort Service Level
     And I click "GET ESTIMATE" button on Partner Portal
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-    When I enter all details on "Delivery Details" for "kiosk mode" on partner screen
-        |Items_To_Deliver|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Receipt_Number|
-        |Furniture       |Handle with care   |Testpartner P |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |RN1             |
+    When I enter all details on "Delivery Details" for "Cort service level" on partner screen
+      |Items_To_Deliver|Special_Instruction|Customer_Name |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Bodc_Code|
+      |Furniture         |Handle with care   |Testpartner U |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |SVC02/09/00 |
     And I enter the value "Test ScheduledBy" in Scheduled by field
     And I check the Bodc Code dropdown options
     And I select the value in Bodc Code
@@ -36,18 +36,18 @@ Feature: Cort Service Level
   Scenario: Verify that the delivery scheduling days can be configured to more than 5 days
     When I change the pickup address to "1 International Square, Kansas City, United States, Missouri, 64153" on partner portal
     And I click on the checkbox
-    And I should be able to schedule a trip "29"days from today
+    And I should be able to schedule a trip "28"days from today
     And I click on "Start Over" button
     And I request "Solo" Bungii trip in partner portal configured for "Cort service level" in "washingtondc" geofence
       | Pickup_Address                                                                     | Delivery_Address                                                    |
       | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |
-    And I should be able to schedule a trip "29"days from today
+    And I should be able to schedule a trip "28"days from today
     Then The time should be different when the pickup address is changed to a different geofence
     And I select Next Possible Pickup Date and Pickup Time
       |Trip_Time            |
       |NEXT_POSSIBLE        |
     When I click "Service Level List" button on Partner Portal
-    Then I should "see all the Service Level" for "Biglots" Alias
+    Then I should "see all the Service Level" for "Cort Furniture #7302" Alias
     When I change the service level to "First Threshold" in "Partner" portal
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
@@ -66,7 +66,9 @@ Feature: Cort Service Level
 
    And I view the all Scheduled Deliveries list on the admin portal
    And  I search the delivery using "Pickup Reference"
-   Then I should see the trip scheduled for "29" days ahead
+   # CORE-3595 - Searching Drivers status for scheduled deliveries 5+ days out
+   Then I should see the status of the trip as "Pending"
+   Then I should see the trip scheduled for "28" days ahead
    When I click on the "Edit" button from the dropdown
    And I click on "Edit Trip Details" radiobutton
    And I change the trip delivery date to "8" days ahead from today
@@ -78,14 +80,17 @@ Feature: Cort Service Level
    And I get the new pickup reference generated
    And I wait for "2" mins
    When I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
    Then I should be able to see the respective bungii with the below status
    |  Status |
    | Scheduled |
+   And  I search the delivery using "Pickup Reference"
    When I click on the "Edit" button from the dropdown
    And I select the first driver
    And I click on "Remove Driver" button
    And I wait for 2 minutes
    And I view the all Scheduled Deliveries list on the admin portal
+   And  I search the delivery using "Pickup Reference"
    Then I should be able to see the respective bungii with the below status
       |  Status |
       | Driver Removed |
@@ -93,6 +98,7 @@ Feature: Cort Service Level
    And I click on "Research" button
    And I wait for 2 minutes
    And I view the all Scheduled Deliveries list on the admin portal
+   And  I search the delivery using "Pickup Reference"
    Then I should be able to see the respective bungii with the below status
      |  Status |
     | Pending |
@@ -100,7 +106,6 @@ Feature: Cort Service Level
     And I unselect the Pending status from the filter category
     And I click on the "Apply" Button
     And I get the new pickup reference generated
-    When  I search the delivery using "Pickup Reference"
     Then I should see the message "No deliveries found." displayed
     When I select filter "Statuses" as "Pending"
     And  I search the delivery using "Pickup Reference"

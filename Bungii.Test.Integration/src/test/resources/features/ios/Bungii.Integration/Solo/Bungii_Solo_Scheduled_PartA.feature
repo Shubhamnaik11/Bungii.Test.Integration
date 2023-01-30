@@ -485,7 +485,11 @@ Feature: Solo Scheduled Bungii Part A
 #   Core-3098 Verify online/Offline pop up is shown when Driver has schedule trip accepted for future days
   @regression
   Scenario:  Verify online/Offline pop up is shown when Driver has schedule trip accepted for future days
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
 
+    When I Switch to "customer" application on "same" devices
     And I login as "valid denver" customer and on Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
@@ -497,10 +501,8 @@ Feature: Solo Scheduled Bungii Part A
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
 
-      When I Switch to "driver" application on "same" devices
-      And I am on the "LOG IN" page on driverApp
-      And I am logged in as "valid denver" driver
-      And I Select "AVAILABLE BUNGIIS" from driver App menu
+    When I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       And I click "ACCEPT" button on "Bungii Request" screen
 
@@ -703,6 +705,8 @@ Feature: Solo Scheduled Bungii Part A
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
+    #CORE-2718:Driver was assigned to delivery and could not see it in app issue
+    Then I should able to see "one" scheduled trip
     And I Select Trip from scheduled trip
     And I click on start Bungii for service based delivery
     And I swipe to check trip details

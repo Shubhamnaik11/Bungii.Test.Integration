@@ -83,6 +83,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             switch (searchParameter){
                 case "Pickup Reference":
                     action.refreshPage();
+//                    cucumberContextManager.setScenarioContext("PICKUP_REQUEST", "");
                     cucumberContextManager.setScenarioContext("ADMIN1_NAME", action.getText(admin_ScheduledTripsPage.Text_AdminName()));
                     String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
                     Thread.sleep(2000);

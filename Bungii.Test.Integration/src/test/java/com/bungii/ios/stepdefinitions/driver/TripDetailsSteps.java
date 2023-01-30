@@ -474,9 +474,9 @@ public class TripDetailsSteps extends DriverBase {
     public void the_customer_signature_field_is_something(String expectedText) throws Throwable {
         try{
         switch (expectedText) {
-            case "N/A":
+            case "Not required N/A":
                 Thread.sleep(2000);
-                String customerSignatureFieldText =action.getText(scheduledTripsPage.Label_CustomerSignatureNA());
+                String customerSignatureFieldText =action.getText(scheduledTripsPage.Label_CustomerSignatureNA()).replace("\n", " ");
                 testStepAssert.isEquals(customerSignatureFieldText,expectedText,"Signature filed should have the text " +expectedText,"Signature filed has the text " +customerSignatureFieldText,"Signature filed doesnt have the text " +expectedText);
                 break;
             case "Signature Present":
@@ -562,6 +562,10 @@ public class TripDetailsSteps extends DriverBase {
             switch (radiobutton) {
                 case "Edit Delivery Status":
                     action.click(updateStatusPage.RadioButton_EditDeliveryStatus());
+                    Thread.sleep(1000);
+                    break;
+                case "Delivery Completed":
+                    action.click(updateStatusPage.RadioButton_BungiiComlpeted());
                     Thread.sleep(1000);
                     break;
                 default:

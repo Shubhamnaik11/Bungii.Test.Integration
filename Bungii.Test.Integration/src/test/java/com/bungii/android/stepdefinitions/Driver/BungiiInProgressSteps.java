@@ -1,6 +1,7 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
@@ -25,6 +26,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -53,6 +55,7 @@ public class BungiiInProgressSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     OtherAppsPage otherAppsPage = new OtherAppsPage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
     EstimatePage bungiiEstimatePage = new EstimatePage();
     UpdateStatusPage updateStatusPage = new UpdateStatusPage();
@@ -61,6 +64,7 @@ public class BungiiInProgressSteps extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
     LoginPage driverLogInPage = new LoginPage();
+    //ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
 
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for \"([^\"]*)\" driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key, String driverType) {
@@ -438,7 +442,7 @@ public class BungiiInProgressSteps extends DriverBase {
             formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
             String teletInLocalTime = formatterForLocalTimezone.format(teletTimeInUtc);
             long t= teletTimeInUtc.getTime();
-            long ONE_MINUTE_IN_MILLIS=60000;//millisecs
+            long ONE_MINUTE_IN_MILLIS=Long.parseLong(PropertyUtility.getDataProperties("one.minute.in.milliseconds"));
             Date minTime=new Date(t - (15 * ONE_MINUTE_IN_MILLIS));
             String strMindate = formatterForLocalTimezone.format(minTime);
 
@@ -460,7 +464,7 @@ public class BungiiInProgressSteps extends DriverBase {
 
             int FROM_RANGE_FROM = -10;
             int FROM_RANGE_TO = +20;
-            long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
+            long ONE_MINUTE_IN_MILLIS = Long.parseLong(PropertyUtility.getDataProperties("one.minute.in.milliseconds"));
 
             String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
             String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");//customerPhoneNumber="9999991889";
@@ -934,9 +938,9 @@ public class BungiiInProgressSteps extends DriverBase {
     public void the_customer_signature_field_is_something(String expectedText) throws Throwable {
         try{
         switch (expectedText) {
-            case "N/A":
+            case "Required N/A":
                 Thread.sleep(2000);
-                String customerSignatureFieldText =action.getText(scheduledBungiiPage.Label_CustomerSignatureNA());
+                String customerSignatureFieldText =action.getText(scheduledBungiiPage.Label_CustomerSignatureNA()).replace("\n", " ");
                 testStepAssert.isEquals(customerSignatureFieldText,expectedText,"Signature filed should have the text " +expectedText,"Signature filed has the text " +customerSignatureFieldText,"Signature filed doesnt have the text " +expectedText);
                 break;
             case "Signature Present":
@@ -946,6 +950,11 @@ public class BungiiInProgressSteps extends DriverBase {
                 String customerSignaturePresent = (scheduledBungiiPage.Image_CustomerSignature().getAttribute("title"));
                 testStepAssert.isTrue(isSignaturePresent, "Customer signature should be displayed","Customer signature is displayed","Customer signature is not  displayed");
                 testStepAssert.isEquals(customerSignaturePresent,ExpectedText,"Customer signature field should have signature present","Customer signature field is having  signature present","Customer signature field is not having signature present");
+                break;
+            case "Not required N/A":
+                Thread.sleep(2000);
+                String customerSignatureFieldTextNA =action.getText(scheduledBungiiPage.Label_CustomerSignatureNA()).replace("\n", " ");
+                testStepAssert.isEquals(customerSignatureFieldTextNA,expectedText,"Signature filed should have the text " +expectedText,"Signature filed has the text " +customerSignatureFieldTextNA,"Signature filed doesnt have the text " +expectedText);
                 break;
         }
     }catch(Exception e){
@@ -1040,7 +1049,8 @@ public class BungiiInProgressSteps extends DriverBase {
     public void i_click_on_something_link_beside_live_delivery(String link) throws Throwable {
         try{
             Thread.sleep(4000);
-            action.click(scheduledBungiiPage.Icon_Dropdown());
+            action.click(scheduledTripsPage.Link_LiveDeliveryDetails());
+//            action.click(scheduledBungiiPage.Icon_Dropdown());
             action.click(scheduledBungiiPage.Option_Edit());
             log(" I click on Edit link besides the live delivery",
                     "I have clicked on Edit link besides the live delivery", false);
@@ -1083,31 +1093,64 @@ public class BungiiInProgressSteps extends DriverBase {
     }
 
     @And("^I search the delivery using \"([^\"]*)\"$")
-    public void i_search_the_delivery_using_something(String strArg1) throws Throwable {
+    public void i_search_the_delivery_using_something(String searchTerm) throws Throwable {
         try {
-            Thread.sleep(1000);
-            action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
-            log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
+            switch (searchTerm){
+                case "Pickup Reference":
+                    Thread.sleep(1000);
+                    action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
+                    break;
+                case "Customer name":
+                    action.clearSendKeys(scheduledBungiiPage.TextBox_Search(),(String) cucumberContextManager.getScenarioContext("CUSTOMER") + Keys.ENTER);
+                    break;
+            }
+
+            log("I should be able to search the delivery using "+searchTerm,"I could search the delivery using "+searchTerm,false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
-    @Then("^I should see the customer signature row \"([^\"]*)\" in admin portal all delivery details page$")
-    public void i_should_see_the_customer_signature_row_something_in_admin_portal_all_delivery_details_page(String CustomerSignature) throws Throwable {
+    @Then("^I should see the customer signature row \"([^\"]*)\" in admin portal \"([^\"]*)\" page$")
+    public void i_should_see_the_customer_signature_row_something_in_admin_portal_something_page(String CustomerSignature, String Page) throws Throwable {
         try{
-            switch (CustomerSignature){
-                case "Present":
-                    boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
-                    testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present","Customer Signature row is  present","Customer Signature row is not present");
+            switch(Page) {
+                case "All Deliveries details":
+                    switch (CustomerSignature) {
+                        case "Present":
+                            boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
+                            testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present", "Customer Signature row is  present", "Customer Signature row is not present");
+                            break;
+                        case "Not Present":
+                            testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Label_CustomerSignature(true)), "Customer Signature row should not be present", "Customer Signature row is not present", "Customer Signature row is present");
+                            break;
+                    }
                     break;
-                case "Not Present":
-                    testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Label_CustomerSignature(true)),"Customer Signature row should not be present","Customer Signature row is not present","Customer Signature row is present");
+                case "Live Deliveries details":
+                    switch (CustomerSignature) {
+                        case "Present":
+                            boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
+                            testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present", "Customer Signature row is  present", "Customer Signature row is not present");
+                            break;
+                        case "Not Present":
+                            testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Label_CustomerSignature(true)), "Customer Signature row should not be present", "Customer Signature row is not present", "Customer Signature row is present");
+                            break;
+                    }
+                    break;
+                case "Scheduled Delivery details":
+                    switch (CustomerSignature) {
+                        case "Present":
+                            boolean isCustomerSignatureDisplayed = updateStatusPage.Label_CustomerSignature().isDisplayed();
+                            testStepAssert.isTrue(isCustomerSignatureDisplayed, "Customer Signature row should be present", "Customer Signature row is  present", "Customer Signature row is not present");
+                            break;
+                        case "Not Present":
+                            testStepAssert.isFalse(action.isElementPresent(updateStatusPage.Label_CustomerSignature(true)), "Customer Signature row should not be present", "Customer Signature row is not present", "Customer Signature row is present");
+                            break;
+                    }
                     break;
             }
-
-    }catch(Exception e){
+        }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
@@ -1362,6 +1405,63 @@ public class BungiiInProgressSteps extends DriverBase {
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+
+    @And("^I search the delivery of Customer$")
+    public void i_search_the_delivery_of_customer() throws Throwable {
+        try {
+            String pickupRequestOld = utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+            action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), pickupRequestOld + Keys.ENTER);
+            Thread.sleep(10000);
+            log("I search the delivery of Customer", "I searched the delivery of Customer", false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I cancel the \"([^\"]*)\" delivery$")
+    public void i_cancel_the_something_delivery(String deliveryType, DataTable cancelledDelivery) throws Throwable {
+        try{
+        Map<String, String> data = cancelledDelivery.transpose().asMap(String.class, String.class);
+        String cancellationCharge = data.get("Charge").trim();
+        String cancellationComment = data.get("Comments").trim();
+        String cancellationReason = data.get("Reason").trim();
+
+        action.clearSendKeys(scheduledBungiiPage.TextBox_Search(), (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST") + Keys.ENTER);
+        logger.detail("I could search the delivery using pickup reference");
+
+        Thread.sleep(5000);
+        action.click(scheduledBungiiPage.Link_DeliveryDetails());
+        Thread.sleep(3000);
+        action.click(scheduledBungiiPage.Button_Edit());
+        logger.detail( "I could  click on the kebab button from the dropdown and click on the edit button");
+
+        Thread.sleep(5000);
+        action.click(scheduledTripsPage.RadioBox_Cancel());
+        logger.detail("I could  click on the cancel bungii radio button");
+
+        Thread.sleep(2000);
+        action.clearSendKeys(scheduledTripsPage.Textbox_CancellationFee(), cancellationCharge);
+        action.clearSendKeys(scheduledTripsPage.Textbox_CancellationComment(), cancellationComment);
+        action.click(scheduledTripsPage.Dropdown_CancellationReason());
+        logger.detail("I have entered cancellation fee amount and comments");
+
+        action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(), cancellationReason);
+        logger.detail("I could  select reason as " + cancellationReason + " from the dropdown");
+
+        Thread.sleep(2000);
+        action.click(scheduledTripsPage.Button_Submit());
+        logger.detail("I could click on the submit button");
+        log("I should be able to cancel the "+deliveryType+" delivery","I could cancel the "+deliveryType+" delivery",false);
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 

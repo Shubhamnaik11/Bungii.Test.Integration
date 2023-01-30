@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 public class DashBoardPage extends PageBase {
 
     public WebElement Button_Trips() {
-        return findElement("//div/ul[@id=\"side-menu\"]/li/p/span[text()=\"Deliveries\"][1]", LocatorType.XPath);
+        return findElement("//span[text()='Deliveries']", LocatorType.XPath);
     }
 
     public WebElement Button_PromoCode() {
@@ -28,6 +28,9 @@ public class DashBoardPage extends PageBase {
         return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Scheduled Deliveries\"]", LocatorType.XPath);
     }
 
+    public WebElement Button_CompletedTrips() {
+        return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Completed Deliveries\"]", LocatorType.XPath);
+    }
     public WebElement Button_LiveTrips() {
         return findElement("adminmenu-livetrips", LocatorType.Id);
     }
@@ -39,6 +42,9 @@ public class DashBoardPage extends PageBase {
     public WebElement Checkbox_Geofence(String geofence) {return findElement(String.format("//span[contains(.,'%s')]/preceding-sibling::span/label/input",geofence) , LocatorType.XPath);}
     public WebElement Message_NoCustomerFound() { return findElement("//h5[contains(text(),'No Customers found.')]",LocatorType.XPath);}
     public WebElement Message_NoDeliveriesFound() { return findElement("//h5[contains(text(),'No Deliveries found.')]",LocatorType.XPath);}
+    public WebElement Header_StatusChange() { return findElement("//h2[text()='STATUS CHANGE SUCCESSFUL']",LocatorType.XPath);}
+
     public WebElement Text_AdminName(){return  findElement("//div[2]/p[1]/strong",LocatorType.XPath);}
+    public WebElement Menu_CompletedDeliveries() {return findElement("//a[contains(text(),'Completed Deliveries')]",LocatorType.XPath);}
 
 }

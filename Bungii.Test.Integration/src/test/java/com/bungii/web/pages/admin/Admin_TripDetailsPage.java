@@ -49,7 +49,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Partner_Delivery_Cost() { return findElement("//h2[contains(text(),'Delivery Cost')]/span/strong",LocatorType.XPath);}
 
-    public WebElement Button_Ok() { return findElement("//a[text()='ok']",LocatorType.XPath);}
+    public WebElement Button_Ok() { return findElement("//button[text()='ok']",LocatorType.XPath);}
 
     public WebElement Button_Price_Override(boolean...ignoreException) { return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong/a",LocatorType.XPath,ignoreException);}
 
@@ -89,4 +89,9 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_DeliveryDetailsHeader() {return findElement("//h4[contains(.,'Delivery Details')]", LocatorType.XPath);}
     public WebElement Icon_DriverSameDayPayment(String driverName,boolean...ignoreException) {return findElement("//td[contains(.,'"+driverName+"')]/img", LocatorType.XPath,ignoreException);}
+    public WebElement Text_InitialRequestTime() {return findElement("//td[text()='Initial Request']/following::td[1]/strong", LocatorType.XPath);}
+    public WebElement Text_ScheduleTime() {return findElement("//td[text()='Scheduled Time']/following::td[1]/strong", LocatorType.XPath);}
+    public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),'Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_TripStatus() {return findElement("//td[contains(text(),'Status')]/following-sibling::td/strong", LocatorType.XPath);}
+
 }

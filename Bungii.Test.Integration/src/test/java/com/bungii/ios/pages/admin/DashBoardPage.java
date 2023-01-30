@@ -31,7 +31,7 @@ public class DashBoardPage extends PageBase {
         return findElement("//a[contains(text(),'Live Deliveries')]", LocatorType.XPath);
     }
     public WebElement Button_Deliveries() {
-        return findElement("adminmenu-completedtrips", LocatorType.Id);
+        return findElement("//a[contains(text(),'Completed Deliveries')]", LocatorType.XPath);
     }
 
     public WebElement Button_Drivers() {

@@ -74,7 +74,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                 isBungiiPresent = isBungiiPresent(tripNoOfDriver, tripTime);
             }
             testStepVerify.isFalse(isBungiiPresent, "Bungii must be removed from " + screen + " screen",
-                    "Bungii Must be deleted", "Bungii is not deleted");
+                    "Bungii is deleted", "Bungii is not deleted");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -780,6 +780,8 @@ public class ScheduledBungiiSteps extends DriverBase {
             String actualMyBungiiTime ="";
             switch (strArg1) {
             case "MY BUNGIIS":
+                action.scrollToTop();
+                action.scrollToTop();
                 String expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("MY_BUNGII_DATE");
                 actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText().replace(String.valueOf(year)+" - " , "");
 

@@ -253,4 +253,10 @@ public class Partner_DeliveryPage extends PageBase {
 
     public List<WebElement> Text_PartnerName() {return findElements("//tbody[@id='TripListsTBody']/tr/td[text()='Best Buy #11 - Baltimore, MD']", LocatorType.XPath);}
 
+    public WebElement Status_CustomerSignatureEnabledRequired() {return findElement("//span[contains(text(),'Enabled (Required)')]", LocatorType.XPath);}
+
+    public WebElement Status_CustomerSignatureEnabledNotRequired() {return findElement("//span[contains(text(),'Enabled (Not Required)')]", LocatorType.XPath);}
+
+    public WebElement Status_CustomerSignatureDisabled() {return findElement("//span[contains(text(),'Disabled')]", LocatorType.XPath);}
+
 }

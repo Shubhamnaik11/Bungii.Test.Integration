@@ -141,6 +141,11 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_paymentMethodsPage.Menu_Partners());
                action.click(admin_paymentMethodsPage.Menu_LocationsSubMenu());
                break;
+           case "Deliveries > Rejected API Deliveries" :
+               action.click(admin_TripsPage.Menu_Trips());
+               action.click(admin_TripsPage.Menu_RejectedAPIDeliveries());
+               break;
+
        }
         log("I click on "+link+" menu link" ,
                 "I have clicked on "+link+" menu link", false);
@@ -742,6 +747,9 @@ try{
         switch(popup) {
             case "Add New Promocode":
             action.click(admin_PromoCodesPage.Button_Cancel());
+            break;
+            case "OK":
+                action.click(admin_BusinessUsersPage.Button_OK());
             break;
             case "Partner":
 //            case "Business Users":

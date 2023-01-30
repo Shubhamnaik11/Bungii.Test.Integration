@@ -306,6 +306,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_ChangesToThePrivacyPolicy()), "Subpoint Changes To The Privacy Policy should be displayed","Subpoint Changes To The Privacy Policy is displayed", "Subpoint Changes To The Privacy Policy is not displayed");
                     testStepAssert.isTrue(action.isElementPresent(Page_Driver_Dashboard.Subpoint_ContactingUs()), "Subpoint Contacting Us should be displayed","Subpoint Contacting Us Terms is displayed", "Subpoint Contacting Us Terms is not displayed");
                     break;
+                case "Rejected API Deliveries Page":
+                    testStepAssert.isElementDisplayed(admin_customerPage.Header_RejectedAPIDeliveries(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                    break;
+
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
