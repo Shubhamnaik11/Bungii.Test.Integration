@@ -33,7 +33,9 @@ public class Admin_RefundSteps extends DriverBase {
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_DashboardPage admin_DashboardPage = new Admin_DashboardPage();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
-     boolean partial = true;
+    Admin_PromoCodesPage admin_PromoCodesPage = new Admin_PromoCodesPage();
+
+    boolean partial = true;
 
     @When("^I select \"([^\"]*)\" radio button$")
     public void i_select_something_radio_button(String radioButton) throws Throwable {
@@ -116,6 +118,12 @@ public class Admin_RefundSteps extends DriverBase {
             case "Notes":
                 action.clearSendKeys(admin_refundsPage.TextBox_Notes(),value);
                 cucumberContextManager.setScenarioContext("BUNGII_DRIVER_NOTE",value);
+                break;
+            case "Standard Code Name":
+                action.clearSendKeys(admin_PromoCodesPage.TextBox_PromoCodeName(),"    ");
+                break;
+            case "Code":
+                action.clearSendKeys(admin_PromoCodesPage.TextBox_Code(),value);
                 break;
         }
         log("I enter value in "+field,"I entered  "+value+" in field "+field+" on Refund popup" ,false );
