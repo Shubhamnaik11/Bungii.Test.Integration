@@ -60,14 +60,8 @@ public class Admin_DriverRejectSteps extends DriverBase {
 
     @And("^I check if a validation message \"([^\"]*)\" is shown$")
     public void i_check_if_a_validation_message_something_is_shown(String strArg1) throws Throwable {
-        try {
-            testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Validation_Message_PleaseAddRejectionReason(), "I check if a validation message is displayed", "Validation message is displayed", "Validation message is not displayed");
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
+        testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Validation_Message_PleaseAddRejectionReason(),"I check if a validation message is displayed","Validation message is displayed","Validation message is not displayed");
+///remove
     }
 
     @When("^I do not enter the reject reason$")

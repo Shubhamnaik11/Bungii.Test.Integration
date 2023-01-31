@@ -561,7 +561,7 @@
       When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
-      And I Select "trips" from admin sidebar
+      And I Select "completed deliveries" from admin sidebar
       And I open the trip for "Testcustomertywd_appleMarkCT LutherCT" the customer
       And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
       Then "Customer Help" icon should be displayed in all deliveries details page
@@ -735,3 +735,62 @@
       And I slide update button on "UNLOADING ITEMS" Screen
       When Bungii driver uploads "1" image
       And I slide update button on "UNLOADING ITEMS" Screen
+
+
+  #CORE-4656:To verify customer signature settings on Admin portal when it is configured as Enabled and Required on Partner management
+    @ready
+    Scenario:Verify Customer Signature screen is shown on driver app for Partner trips
+      When I request Partner Portal "Solo" Trip for "Cort Furniture" partner
+        |Geofence| Bungii Time   | Customer Phone | Customer Name |
+        | atlanta| NEXT_POSSIBLE | 8877661069 | Testcustomertywd_appleMarkBR LutherBR|
+      And As a driver "Testdrivertywd_applega_a_steveG Stark_altOnEG" perform below action with respective "Solo Scheduled" Delivery
+        | driver1 state|
+        | Accepted     |
+      And I wait for 2 minutes
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And  I search the delivery using "Pickup Reference"
+      And I click on the "Delivery details" link beside scheduled bungii for "Scheduled Deliveries"
+      Then I should see the customer signature row "Present" in admin portal "Scheduled Delivery details" page
+      And The customer signature field is "Required N/A"
+      And As a driver "Testdrivertywd_applega_a_steveG Stark_altOnEG" perform below action with respective "Solo Scheduled" Delivery
+        | driver1 state|
+        | Enroute  |
+        | Arrived |
+      And I wait for 2 minutes
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "live trips" from admin sidebar
+      And  I search the delivery using "Pickup Reference"
+      And I click on the "Delivery details" link beside scheduled bungii for "Live Deliveries"
+      Then I should see the customer signature row "Present" in admin portal "Live Delivery details" page
+      And The customer signature field is "Required N/A"
+      And As a driver "Testdrivertywd_applega_a_steveG Stark_altOnEG" perform below action with respective "Solo Scheduled" Delivery
+        | driver1 state|
+        | Loading Item |
+        | Driving To Dropoff |
+        | Unloading Item |
+      And I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
+      And I am logged in as "Testdrivertywd_applega_a_steveG Stark_altOnEG" driver
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      When I slide update button on "UNLOADING ITEMS" Screen
+      And Bungii driver uploads "1" image
+      When Bungii Driver "clicks More Options"
+      And I click "Customer Signature" button on "update" screen
+      And I should be able to add the text "Signed By customer" in the signed by field
+      And I should be able to add customer signature
+      And I click "Submit" button on "update" screen
+      And I slide update button on "UNLOADING ITEM" Screen
+      And I wait for 2 minutes
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Completed Deliveries" from admin sidebar
+      And  I search the delivery using "Pickup Reference"
+      And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+      Then I should see the customer signature row "Present" in admin portal "All Deliveries details" page
+      And The customer signature field is "Signature Present"

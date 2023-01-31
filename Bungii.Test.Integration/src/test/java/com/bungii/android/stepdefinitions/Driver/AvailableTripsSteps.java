@@ -580,7 +580,19 @@ public class AvailableTripsSteps extends DriverBase {
             switch (deliveryType){
                 case "Completed Deliveries":
                     Thread.sleep(4000);
+                    action.click(scheduledTripsPage.Link_CompletedDeliveryDetails());
+                    Thread.sleep(2000);
+                    action.click(scheduledTripsPage.List_ViewDeliveries());
+                    break;
+                case "Scheduled Deliveries":
+                    Thread.sleep(4000);
                     action.click(scheduledTripsPage.Link_DeliveryDetails());
+                    Thread.sleep(2000);
+                    action.click(scheduledTripsPage.List_ViewDeliveries());
+                    break;
+                case "Live Deliveries":
+                    Thread.sleep(4000);
+                    action.click(scheduledTripsPage.Link_LiveDeliveryDetails());
                     Thread.sleep(2000);
                     action.click(scheduledTripsPage.List_ViewDeliveries());
                     break;

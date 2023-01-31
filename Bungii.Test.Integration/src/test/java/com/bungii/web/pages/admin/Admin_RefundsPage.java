@@ -23,7 +23,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement TextBox_BusinessNotes() { return findElement("notes", LocatorType.Id); }
 
-    public WebElement TextBox_Notes(boolean... ignoreException) { return findElement("//div/textarea[@id='driver1Notes']", LocatorType.XPath,ignoreException); }
+    public WebElement TextBox_Notes(boolean... ignoreException) { return findElement("driver1Notes", LocatorType.Id,ignoreException); }
 
     public WebElement Button_Save() { return findElement("//button[text()='Continue']", LocatorType.XPath); }
 
@@ -33,7 +33,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement RadioButton_CompleteRefund() { return findElement("//label[text()='Complete Refund']/preceding-sibling::input", LocatorType.XPath); }
 
-    public WebElement Label_Bungii() { return findElement("//div[text()='Bungii :']/following::div[1]", LocatorType.XPath); }
+    public WebElement Label_Bungii() { return findElement("//div[contains(text(),'Bungii :')]/following-sibling::div", LocatorType.XPath); }
 
     public WebElement Label_DeliveryTotal() { return findElement("//div[contains(text(),'Delivery Total :')]/following-sibling::div", LocatorType.XPath); }
 
@@ -77,9 +77,9 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Header_Popup() { return findElement("//div[contains(text(),'Issue Refund - Confirm Details')]", LocatorType.XPath); }
 
-    public WebElement Label_Success() { return findElement("swal2-html-container", LocatorType.Id); }
+    public WebElement Label_Success() { return findElement("//div[@id='swal2-html-container']", LocatorType.XPath); }
 
-    public WebElement Button_OK() { return findElement("//button[text()='OK']", LocatorType.XPath); }
+    public WebElement Button_OK() { return findElement("//button[text()='Ok']|//button[text()='OK'] ", LocatorType.XPath); }
 
     public WebElement Label_CustomerRefundComplete() { return findElement("//div[contains(text(),'Customer Refund Amount:')]/following-sibling::div/span", LocatorType.XPath); }
 
@@ -87,7 +87,7 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Button_ReattemptPayment() { return findElement("btnReattempt", LocatorType.Id); }
 
-    public WebElement Button_Close() { return findElement("//h5[contains(text(),'Issue Refund')]/following-sibling::button[@class='close']", LocatorType.XPath); }
+    public WebElement Button_Close() { return findElement("//div[contains(text(),'Issue Refund')]/following-sibling::button[@class='btn-close']", LocatorType.XPath); }
 
     public WebElement Checkbox_same() { return findElement("//div/label[contains(text(),\"Same for Driver\")]/preceding-sibling::input", LocatorType.XPath); }
 
@@ -106,5 +106,7 @@ public class Admin_RefundsPage extends PageBase {
     public WebElement TextBox_Notes2() { return findElement("//div/textarea[@id='driver2Notes']", LocatorType.XPath); }
 
     public WebElement Button_TransactionDetails() { return findElement("//div/h4[text()='Transaction history']/following::div/a[text()='View Details']", LocatorType.XPath); }
+
+    public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),'Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
 
 }

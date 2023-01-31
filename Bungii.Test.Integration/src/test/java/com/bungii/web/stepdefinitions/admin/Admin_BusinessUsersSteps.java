@@ -161,8 +161,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         try{
         String invalidEmailId = PropertyUtility.getDataProperties("invalid.email.id");
         String invalidPhoneNo = PropertyUtility.getDataProperties("invalid.phone.number");
-        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),invalidEmailId);
         action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),invalidPhoneNo);
+        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),invalidEmailId+Keys.TAB);
         log("I enter invalid values on Add Business User page",
                 "I entered  invalid values on Add Business User page", false);
     } catch(Exception e){
@@ -328,7 +328,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void the_business_user_is_displayed_in_bulk_trips_since_payment_is_set() throws Throwable {
         try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
-        Select select = new Select(admin_BusinessUsersPage.DropDown_BusinessUser());
+        Select select = new Select(admin_BusinessUsersPage.DropDown_Partner());
 //        System.out.println("Expected text===="+Name);
 
         List<WebElement> dropdown = select.getOptions();
@@ -534,8 +534,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void i_select_user_something(String uniqueno) throws Throwable {
         try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
-        action.click(admin_BusinessUsersPage.DropDown_BusinessUser());
-        action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUser(),Name);
+        action.click(admin_BusinessUsersPage.DropDown_Partner());
+        action.selectElementByText(admin_BusinessUsersPage.DropDown_Partner(),Name);
         log("I select "+uniqueno+" from Bulk Trips page",
                 "I have selected "+uniqueno+" from Bulk Trips page", false);
     } catch(Exception e){
@@ -711,7 +711,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         try {
             String errorFileName = cucumberContextManager.getScenarioContext("CSVFILE").toString();
             errorFileName = utility.GetFormattedString(errorFileName, ".csv");
-            errorFileName = errorFileName + "_errors";
+            errorFileName = errorFileName + "_error";
             String home = SystemUtils.getUserHome().getPath();//System.getProperty("user.home");
             File file = new File(home + "/Downloads/" + errorFileName + ".csv");
             try {
@@ -730,7 +730,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             do {
                 getLatestFile = GetLatestFilefromDir(dirPath);
                 fileName = getLatestFile.getName();
-                if (fileName.equalsIgnoreCase(errorFileName))
+                if (fileName.equalsIgnoreCase(errorFileName+ ".csv"))
                     break;
             }
             while (!fileName.equalsIgnoreCase(errorFileName + ".csv"));
@@ -752,14 +752,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     }
     @Then("^the error \"([^\"]*)\" is displayed$")
     public void the_error_something_is_displayed(String message) throws Throwable {
-        try {
-            testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.", message + " is not displayed.");
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
+        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.",message + " is not displayed.");
     }
     @And("^the error \"([^\"]*)\" is displayed in the csv file$")
     public void the_error_something_is_displayed_in_the_csv_file(String message) throws Throwable {
@@ -878,15 +871,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @Then("^the partner does not get saved successfully$")
     public void the_business_user_does_not_get_saved_successfully() throws Throwable {
-        try {
-            testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), "Phone number already exists", " Phone number already exists" + " should be displayed", " Phone number already exists" + " is displayed", " Phone number already exists" + " is not displayed");
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-     }
+        testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), "Phone number already exists", " Phone number already exists" + " should be displayed", " Phone number already exists" + " is displayed", " Phone number already exists" + " is not displayed");
+    }
 
     @And("^I select the \"([^\"]*)\"$")
     public void i_select_the_something(String strArg1) throws Throwable {

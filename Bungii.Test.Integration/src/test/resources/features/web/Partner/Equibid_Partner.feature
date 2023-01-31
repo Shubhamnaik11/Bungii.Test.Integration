@@ -40,7 +40,6 @@ Feature: Equibid Partner Portal
         Then default pickup address should be shown
 
     #CORE-4529:To verify that 2nd email is sent to configured email IDs when a new delivery is scheduled with date/time earlier than 1st delivery (Partner portal)
-  #CORE-5006 : Adding tracking id to 2nd schedule email.
   @ready
   Scenario: To verify that 2nd email is sent to configured email IDs when a new delivery is scheduled with date/time earlier than 1st delivery (Partner portal)
     When I request Partner Portal "Solo" Trip for "Equip-bid" partner

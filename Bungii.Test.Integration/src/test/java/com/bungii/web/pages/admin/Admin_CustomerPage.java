@@ -8,6 +8,7 @@ import java.util.List;
 public class Admin_CustomerPage extends PageBase {
 
     public WebElement Menu_Customers () { return findElement("//span[contains(text(),'Customers')]", LocatorType.XPath); }
+    public WebElement Header_RejectedAPIDeliveries(){ return findElement("//h4[contains(text(),'Rejected API Deliveries')]", LocatorType.XPath);}
 
    // public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 

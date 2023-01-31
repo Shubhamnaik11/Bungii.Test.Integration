@@ -3,7 +3,7 @@ Feature: Bungii
 
   Background:
     Given I am on customer Log in page
-    When I am logged in as "valid" customer
+    When I am logged in as "Testcustomertywd_appleMarkFO LutherFO" customer
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate

@@ -74,13 +74,13 @@ Feature: SoloScheduled Part B
   Scenario: Verify Customer can Schedule Bungii for a time that doesnt overlap With Another Scheduled Trip TELET Time :Solo
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+      | NEXT_POSSIBLE | 8877661166     | Testcustomertywd_appleMarkFK LutherFK | Cci12345          |
     And I get TELET time of of the current trip
-    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "SOLO SCHEDULED" trip
+    And As a driver "Testdrivertywd_appleks_a_drvbv Kansas_bv" perform below action with respective "SOLO SCHEDULED" trip
       | driver1 state |
       | Accepted      |
   
-    Given I login as customer "8805368840" and is on Home Page
+    Given I login as customer "Testcustomertywd_appleMarkFK LutherFK" and is on Home Page
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations less than 150 miles" on Bungii estimate
@@ -100,7 +100,7 @@ Feature: SoloScheduled Part B
 
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8805368840     |                 |
+      | 8877661166     |                 |
 
 @ready
   #Sprint-58==CORE-3396 changes incorporated

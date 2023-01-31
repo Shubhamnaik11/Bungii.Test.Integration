@@ -27,7 +27,8 @@
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
-        And I open the trip for "Testcustomertywd_appleand_A Android" customer
+        And I search the delivery of Customer
+        When I click on the "Edit" button from the dropdown
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_a Android_test" for the trip
         And I click on "VERIFY" button
@@ -38,17 +39,25 @@
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
+
+        When I switch to "ORIGINAL" instance
+        And I Switch to "driver" application on "same" devices
+        And I am on the LOG IN page on driver app
+        And I am logged in as "Testdriver_goa_a Android_test" driver
+        And I Select "SCHEDULED BUNGIIS" from driver App menu
+        #CORE-2718:Driver was assigned to delivery and could not see it in app issue
+        Then I should able to see "one" scheduled trip
      
         
       @regression
       Scenario: Verify that correct date of the trip is displayed in past bungii screen
-        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleMarkFF LutherFF"
           | geofence | Bungii State | Bungii Time  |
           | goa  | Bungii Completed     | NEXT_POSSIBLE |
     
         When I Switch to "customer" application on "same" devices
 		Given I am on customer Log in page
-		And I am logged in as "Testcustomertywd_appleand_A Android" customer
+		And I am logged in as "Testcustomertywd_appleMarkFF LutherFF" customer
         
         And I tap on "Menu" > "My Bungiis" link
         And "MY BUNGIIS" page should be opened
@@ -58,7 +67,7 @@
     
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
-          | 9393939393      |                 |
+          | 8877661161      |                 |
   
       @regression
         #stable

@@ -141,6 +141,11 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_paymentMethodsPage.Menu_Partners());
                action.click(admin_paymentMethodsPage.Menu_LocationsSubMenu());
                break;
+           case "Deliveries > Rejected API Deliveries" :
+               action.click(admin_TripsPage.Menu_Trips());
+               action.click(admin_TripsPage.Menu_RejectedAPIDeliveries());
+               break;
+
        }
         log("I click on "+link+" menu link" ,
                 "I have clicked on "+link+" menu link", false);
@@ -724,6 +729,9 @@ try{
             case "Please check your information and try again.":
                 testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerPayWithCard()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
+            case "Should contain alphanumeric and -@#$&_: special characters.":
+                testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_BlankspacCodeName()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
         }
 } catch (Exception e) {
     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -739,6 +747,9 @@ try{
         switch(popup) {
             case "Add New Promocode":
             action.click(admin_PromoCodesPage.Button_Cancel());
+            break;
+            case "OK":
+                action.click(admin_BusinessUsersPage.Button_OK());
             break;
             case "Partner":
 //            case "Business Users":
