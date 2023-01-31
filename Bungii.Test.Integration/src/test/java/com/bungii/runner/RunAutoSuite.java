@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
-@CucumberOptions(features = "target/test-classes/features/android", monochrome = true, tags = "@android and @regression", plugin = {
+@CucumberOptions(features = "target/test-classes/features/android", monochrome = true, tags = "@android and @testsweta", plugin = {
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
@@ -50,7 +50,12 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
 
             }
         }
-        if(multipleLoginFile.trim().equalsIgnoreCase("true")){
+        if (Platform.equalsIgnoreCase("android-web")) {
+            device="device2";
+            System.setProperty("DEVICE", device);
+        }
+
+            if(multipleLoginFile.trim().equalsIgnoreCase("true")){
             // ClassName="Parallel02IT";
             String threadNumber = ClassName.substring(2, 4);
             System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);

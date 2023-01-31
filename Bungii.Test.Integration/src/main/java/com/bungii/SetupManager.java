@@ -118,6 +118,13 @@ public class SetupManager extends EventFiringWebDriver {
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
             driver.manage().window().maximize();
         }
+        else if(TARGET_PLATFORM.equalsIgnoreCase("android-web")){
+            String deviceID = System.getProperty("DEVICE");
+            String APPIUM_SERVER_PORT = String.valueOf(returnPortNumber(deviceID));
+            DesiredCapabilities dc = getCapabilities(deviceID);
+            CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
+            driver = (AndroidDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
+        }
         if (driver != null)
         {
             if (!TARGET_PLATFORM.equalsIgnoreCase("WEB")) {
@@ -315,8 +322,8 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.setExperimentalOption("prefs", prefs);
         chromeOptions.addArguments("--no-sandbox");
         //if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
-        chromeOptions.addArguments("--headless");
-        chromeOptions.addArguments("--window-size=1920,1080");
+//        chromeOptions.addArguments("--headless");
+//        chromeOptions.addArguments("--window-size=1920,1080");
         if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
             chromeOptions.addArguments("--disable-dev-shm-usage");
             chromeOptions.addArguments("--disable-gpu");
@@ -369,6 +376,8 @@ public class SetupManager extends EventFiringWebDriver {
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS"))
             deviceInfoFileKey = "ios.capabilities.file";
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
+            deviceInfoFileKey = "android.capabilities.file";
+        else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID-WEB"))
             deviceInfoFileKey = "android.capabilities.file";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -443,6 +452,8 @@ public class SetupManager extends EventFiringWebDriver {
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS"))
             deviceInfoFileKey = "ios.capabilities.file";
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
+            deviceInfoFileKey = "android.capabilities.file";
+        else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID-WEB"))
             deviceInfoFileKey = "android.capabilities.file";
 
         //logger.detail("deviceInfoFileKey=" + deviceInfoFileKey);
