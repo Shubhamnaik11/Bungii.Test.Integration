@@ -60,7 +60,6 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Pending Verification"
 
   @regression
-    @cf
     #test data created in base
   Scenario: Verify Driver Application Rejection With All Fields Approved - NonFountain
     When I click "Verify" button against the "Nilesh PM" applicant
