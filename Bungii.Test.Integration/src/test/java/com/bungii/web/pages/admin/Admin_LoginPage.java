@@ -20,5 +20,13 @@ public class Admin_LoginPage  extends PageBase {
     //Admin ExtraEarnings - text
     public WebElement Label_ExtraEarnings() { return findElement("//strong[text()='Earn Extra Cash.']/parent::p", LocatorType.XPath); }
 
+    public WebElement Button_ForgotPassword() { return findElement("//a[text()=\"forgot password?\"]", LocatorType.XPath); }
+
+    public WebElement Header_ForgotPassword() { return findElement("//div/form/h2", LocatorType.XPath); }
+
+    public WebElement Textbox_CellPhoneNumber() { return findElement("//label[@id=\"cellPhoneNumber\"]/following::input", LocatorType.XPath); }
+
+    public WebElement Button_SendVerificationCode() { return findElement("//button[text()=\"Send Verification Code\"]", LocatorType.XPath); }
+
 
 }

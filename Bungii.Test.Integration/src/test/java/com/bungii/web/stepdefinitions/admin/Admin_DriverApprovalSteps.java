@@ -453,6 +453,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 case "Edit Email Address":
                     action.click(Page_PartnerManagement_Email.Button_EditEmailAddress(1));
                     break;
+                case "Forget Password":
+                    action.click(adminLoginPage.Button_ForgotPassword());
+                    break;
+                case "Send Verification Code":
+                    action.click(adminLoginPage.Button_SendVerificationCode());
+                    break;
             }
             log("I click on the " + arg0 + " button",
                     "I have clicked on the " + arg0 + " button");
