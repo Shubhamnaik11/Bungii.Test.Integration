@@ -212,7 +212,7 @@ public class Admin_RefundSteps extends DriverBase {
            testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header, "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
            admin_refundsPage.TextBox_RefundAmount().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));;
         String driverEarning = action.getAttributeValue(admin_refundsPage.Label_Driver());
-        String bungiiEarning = action.getAttributeValue(admin_refundsPage.Label_Bungii());
+        String bungiiEarning = action.getText(admin_refundsPage.Label_Bungii());
         cucumberContextManager.setScenarioContext("DRIVER_EARNINGS_BEFORE",driverEarning);
         cucumberContextManager.setScenarioContext("BUNGII_EARNINGS_BEFORE",bungiiEarning);
     } catch(Exception e){
@@ -367,7 +367,7 @@ try{
         Double bungiiEarnings = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS")));
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverBeforeRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS_BEFORE")), "Driver Earnings Before should be displayed", "Driver Earnings Before is displayed","Driver Earnings Before is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverAfterRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS")), "Driver Earnings After should be displayed", "Driver Earnings After is displayed","Driver Earnings Aftere is not displayed");
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiBeforeRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS_BEFORE")), "Bungii Earnings Before should be displayed", "Bungii Earnings Before is displayed","Bungii Earnings Before is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiBeforeRefund()),String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS_BEFORE")), "Bungii Earnings Before should be displayed", "Bungii Earnings Before is displayed","Bungii Earnings Before is not displayed");
         if(bungiiEarnings>=0)
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiAfterRefund()),"($"+df.format(bungiiEarnings)+")", "Bungii Earnings After should be displayed", "Bungii Earnings After is displayed","Bungii Earnings After is not displayed");
          else

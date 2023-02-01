@@ -1072,7 +1072,7 @@ Feature: Admin_Trips
       | Assigning Driver(s) |
 
 # Driver with Same day payment setting:9049840342
-  @testAllan
+  @ready
   Scenario:Verify that 'i' icon is displayed on delivery details page for those drivers who has selected same day payment
     When I request "duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |

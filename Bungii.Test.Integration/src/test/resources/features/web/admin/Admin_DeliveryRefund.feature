@@ -744,8 +744,8 @@ Feature: Admin_Refund
   Scenario:Verify customer full refund changing driver earnings is taken by Same day job if driver payment setting is Same day
 	  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 		  | Bungii Time   | Customer Phone | Customer Name                  |
-		  | NEXT_POSSIBLE | 9999999602     | Testcustomertywd_appleNewB Customer|
-	  And As a driver "Testdrivertywd_appledc_a_drvab Washingtonab" perform below action with respective "Solo Scheduled" Delivery
+		  | NEXT_POSSIBLE | 8877661180     |Testcustomertywd_appleMarkFY LutherFY|
+	  And As a driver "Testdrivertywd_appledc_a_drvac Washingtonac" perform below action with respective "Solo Scheduled" Delivery
 		  | driver1 state|
 		  |Accepted |
 		  | Enroute  |
@@ -781,8 +781,8 @@ Feature: Admin_Refund
 	Scenario:Verify customer full refund without changing driver earnings is taken by Same day job if driver payment setting is Same day
 		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 			| Bungii Time   | Customer Phone | Customer Name                  |
-			| NEXT_POSSIBLE | 9999999602     | Testcustomertywd_appleNewB Customer|
-		And As a driver "Testdrivertywd_appledc_a_drvab Washingtonab" perform below action with respective "Solo Scheduled" Delivery
+			| NEXT_POSSIBLE | 8877661179     | Testcustomertywd_appleMarkFX LutherFX|
+		And As a driver "Testdrivertywd_appledc_a_drvad Washingtonad" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state|
 			|Accepted |
 			| Enroute  |
@@ -812,12 +812,13 @@ Feature: Admin_Refund
 
 	 #CORE-4730:Verify Customer Partial refund with changing driver earnings is taken by Same day job if driver payment setting is Same day
 	 #CORE-4730:Verify Customer Partial refund making driver earnings zero is taken by Same day job if driver payment setting is Same day
+	#Issue logged CORE-5802
 	@ready
 	Scenario Outline:Verify Customer Partial refund with changing driver earnings is taken by Same day job if driver payment setting is Same day
 		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 			| Bungii Time   | Customer Phone | Customer Name                  |
 			| NEXT_POSSIBLE | <Customer Phone>     | <Customer Name>|
-		And As a driver "Testdrivertywd_appledc_a_drvab Washingtonab" perform below action with respective "Solo Scheduled" Delivery
+		And As a driver "<Driver Name>" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state|
 			|Accepted |
 			| Enroute  |
@@ -848,9 +849,9 @@ Feature: Admin_Refund
 		And The amount should be "Refunded" and in "voided" state
 
 		Examples:
-			| Customer Name                       |   Customer Phone    |  Driver Earning  |
-			| Testcustomertywd_appleNewB Customer |   9999999602        |  10.00           |
-			| Testcustomertywd_appleNewB Customer |   9999999602        |  0               |
+			| Customer Name                         |         Driver Name                         |   Customer Phone  |  Driver Earning  |
+			| Testcustomertywd_appleMarkFR LutherFR | Testdrivertywd_appledc_a_drvae Washingtonae |     8877661173    |  10.00           |
+			| Testcustomertywd_appleMarkFS LutherFS |Testdrivertywd_appledc_a_drvaf Washingtonaf  |   8877661174      |  0               |
 
 
 
