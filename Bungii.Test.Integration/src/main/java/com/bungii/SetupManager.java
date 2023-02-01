@@ -118,13 +118,6 @@ public class SetupManager extends EventFiringWebDriver {
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
             driver.manage().window().maximize();
         }
-        else if(TARGET_PLATFORM.equalsIgnoreCase("android-web")){
-            String deviceID = System.getProperty("DEVICE");
-            String APPIUM_SERVER_PORT = String.valueOf(returnPortNumber(deviceID));
-            DesiredCapabilities dc = getCapabilities(deviceID);
-            CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
-            driver = (AndroidDriver<MobileElement>) startAppiumDriver(dc, APPIUM_SERVER_PORT);
-        }
         if (driver != null)
         {
             if (!TARGET_PLATFORM.equalsIgnoreCase("WEB")) {
@@ -377,8 +370,6 @@ public class SetupManager extends EventFiringWebDriver {
             deviceInfoFileKey = "ios.capabilities.file";
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
             deviceInfoFileKey = "android.capabilities.file";
-        else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID-WEB"))
-            deviceInfoFileKey = "android.capabilities.file";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
@@ -452,8 +443,6 @@ public class SetupManager extends EventFiringWebDriver {
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS"))
             deviceInfoFileKey = "ios.capabilities.file";
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
-            deviceInfoFileKey = "android.capabilities.file";
-        else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID-WEB"))
             deviceInfoFileKey = "android.capabilities.file";
 
         //logger.detail("deviceInfoFileKey=" + deviceInfoFileKey);
@@ -575,7 +564,6 @@ public class SetupManager extends EventFiringWebDriver {
             DriverManager.getObject().storeDriverInstance(key, newDriverInstance);
         }
     }
-
     /**
      * Create new appium driver instance as per setting in config file and assign it to variable
      */

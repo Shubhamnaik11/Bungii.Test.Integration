@@ -783,4 +783,16 @@ public class ActionManager {
             return element.isEnabled() ? element : null;
         };
     }
+    public void swipeForApps( WebElement sliderStart, WebElement sliderEnd){
+        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+        int startX = sliderStart.getLocation().getX() + (sliderStart.getSize().getWidth() / 2);
+        int startY = sliderStart.getLocation().getY() + (sliderStart.getSize().getHeight() / 2);
+        int endX = sliderEnd.getLocation().getX() + (sliderEnd.getSize().getWidth() / 2);
+        int endY = sliderEnd.getLocation().getY() + (sliderEnd.getSize().getHeight() / 2);
+        new TouchAction(driver)
+                .press(point(startX,startY))
+                .waitAction(waitOptions(Duration.ofMillis(1000)))
+                .moveTo(point(endX, endY))
+                .release().perform();
+    }
 }

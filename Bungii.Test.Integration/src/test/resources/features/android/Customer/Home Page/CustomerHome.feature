@@ -9,7 +9,6 @@ Feature: Customer Home screen
   
 
   @regression
-    @testsweta
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     When I tap on "Menu" > "Home" link
     And I enter "Goa pickup and dropoff locations" on Bungii estimate screen
