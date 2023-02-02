@@ -55,7 +55,7 @@ public class DriverMenuSteps extends DriverBase {
         }
     }
 
-    @And("^the \"([^\"]*)\" page is opened$")
+    @And("^The \"([^\"]*)\" page is opened$")
     public void the_something_page_is_opened(String Title) throws Throwable {
         try {
             testStepVerify.isElementTextEquals(homePage.Title_Status(), Title);

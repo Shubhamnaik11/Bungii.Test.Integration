@@ -13,35 +13,35 @@ Feature: DriverMenu
   @regression
   Scenario: Verify Driver Menus - Leaderboard | Scheduled And Available Bungiis | Earnigs | Account |  Alert Settings | Privacy Policy | Store | Logout
     When I Select "LEADERBOARD" from driver App menu
-    And the "LEADERBOARD" page is opened
+    And The "LEADERBOARD" page is opened
     Then I should be able to see data on "LEADERBOARD" page
     When I Select "SCHEDULED BUNGIIS" from driver App menu
-    And the "SCHEDULED BUNGIIS" page is opened
+    And The "SCHEDULED BUNGIIS" page is opened
     Then I should be able to see data on "SCHEDULED BUNGIIS" page
     When I Select "AVAILABLE BUNGIIS" from driver App menu
-    And the "AVAILABLE BUNGIIS" page is opened
+    And The "AVAILABLE BUNGIIS" page is opened
     Then I should be able to see data on "AVAILABLE BUNGIIS" page
     When I Select "EARNINGS" from driver App menu
-    And the "EARNINGS" page is opened
+    And The "EARNINGS" page is opened
     Then I should be able to see data on "EARNINGS" page
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "ACCOUNT INFO" from ACCOUNT menu
     Then I should be able to see data on "ACCOUNT INFO" page
     Then I click on "Navigate Back" button on the "ACCOUNT INFO" page
     And I Select "ALERT SETTINGS" from ACCOUNT menu
-    And the "ALERT SETTINGS" page is opened
+    And The "ALERT SETTINGS" page is opened
     Then I should be able to see data on "ALERT SETTINGS" page
     Then I click on "Navigate Back" button on the "ALERT SETTINGS" page
     And I Select "PRIVACY POLICY" from ACCOUNT menu
-    And the "PRIVACY POLICY" page is opened
+    And The "PRIVACY POLICY" page is opened
     Then I should be able to see data on "PRIVACY POLICY" page
     Then I click on "Navigate Back" button on the "PRIVACY POLICY" page
     When I Select "BUNGII STORE" from driver App menu
-    And the "STORE" page is opened
+    And The "STORE" page is opened
     Then I should be able to see data on "BUNGII STORE" page
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "LOGOUT" from ACCOUNT menu
     Then I should be able to see data on "LOGOUT" page
   
@@ -49,11 +49,11 @@ Feature: DriverMenu
     #stable
   Scenario: Verify Driver Menus - FAQ
     When I Select "FAQ" from driver App menu
-    And the "FAQ" page is opened
+    And The "FAQ" page is opened
     And I wait for "2" mins
     Then I should be able to see data on "FAQ" page
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "LOGOUT" from ACCOUNT menu
     Then I should be able to see data on "LOGOUT" page
 
@@ -61,7 +61,7 @@ Feature: DriverMenu
   #stable
   Scenario: Verify Driver Can Access Trip Histoy Page Upon Clicking Itemised Earnings Hyperlink
     When I Select "EARNINGS" from driver App menu
-    And the "EARNINGS" page is opened
+    And The "EARNINGS" page is opened
     Then I should be able to see data on "EARNINGS" page
     When I click on "Itemized Earnings" button
     Then I am redirected to "Itemized Earnings page"
@@ -71,7 +71,7 @@ Feature: DriverMenu
   Scenario: Verify Device Token De-registration Upon Driver Logout
     Then Driver active flag should be "1"
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "LOGOUT" from ACCOUNT menu
     #When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
