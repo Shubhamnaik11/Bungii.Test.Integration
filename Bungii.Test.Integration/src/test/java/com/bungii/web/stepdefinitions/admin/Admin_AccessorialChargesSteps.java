@@ -15,12 +15,14 @@ import com.bungii.web.pages.admin.Admin_LiveTripsPage;
 import com.bungii.web.pages.admin.Admin_TripsPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
+import com.google.common.collect.Ordering;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +58,7 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 String comment = DataList.get(i).get("Comment").trim();
                 if (DataList.get(i).containsKey("Driver Cut")){
                     String driver_cut = DataList.get(i).get("Driver Cut").trim();
-                    action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
+                    action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriverCut(),driver_cut);
                 }
                 else {
                     cucumberContextManager.setScenarioContext("TripType", "PartnerTrip");
@@ -78,6 +80,46 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
+    }
+
+    @When("I add following accessorial charges for Duo trip and save it")
+    public void iAddFollowingAccessorialChargesForDuoTripAndSaveIt(DataTable data) {
+        try {
+            List<Map<String, String>> DataList = data.asMaps();
+            int i = 0;
+            while (i < DataList.size()) {
+                String amount = DataList.get(i).get("Amount").trim();
+                String feeType = DataList.get(i).get("Fee Type").trim();
+                String comment = DataList.get(i).get("Comment").trim();
+
+                if (DataList.get(i).containsKey("Driver1 Cut")){
+                    String driver1_cut = DataList.get(i).get("Driver1 Cut").trim();
+                    String driver2_cut = DataList.get(i).get("Driver2 Cut").trim();
+
+                    action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver1_cut);
+                    action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver2Cut(),driver2_cut);
+
+                }
+//                else {
+//                    cucumberContextManager.setScenarioContext("TripType", "PartnerTrip");
+//                }
+                Thread.sleep(5000);
+                action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
+                action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
+                action.clearSendKeys(admin_accessorialChargesPage.TextBox_Comment(), comment);
+                cucumberContextManager.setScenarioContext("NOTE",comment);
+                action.click(admin_accessorialChargesPage.Button_Save());
+                action.click(admin_accessorialChargesPage.Button_Confirm());
+                Thread.sleep(7000);
+                i++;
+            }
+            log("I add following accessorial charges and save it", "I added field values in accessorial charges and saved it", false);
+
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should see \"([^\"]*)\" section displayed$")
@@ -120,6 +162,30 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                         String otherChargeText = otherCharge[0].trim();
                         testStepAssert.isEquals(otherChargeText,feeType,"Other charges should match","Other charges match","Other charges dont match");
                         break;
+                    case "Additional Mileage":
+                        Thread.sleep(2000);
+                        String[] additionalMileageCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(5)).split("-");
+                        String additionalMileageChargeText = additionalMileageCharge[0].trim();
+                        testStepAssert.isEquals(additionalMileageChargeText,feeType,"Additional Mileage charges should match","Additional Mileage charges match","Additional Mileage charges dont match");
+                        break;
+                    case "Additional Weight / Pallet":
+                        Thread.sleep(2000);
+                        String[] additionalWeightPalletCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(6)).split("-");
+                        String additionalWeightPerPalletChargeText = additionalWeightPalletCharge[0].trim();
+                        testStepAssert.isEquals(additionalWeightPerPalletChargeText,feeType,"Additional Weight / Pallet charges should match","Additional Weight / Pallet charges match","Additional Weight / Pallet charges dont match");
+                        break;
+                    case "Customer Rejected / Returned":
+                        Thread.sleep(2000);
+                        String[] customerRejectedReturenedCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(7)).split("-");
+                        String customerRejectedReturenedChargeText = customerRejectedReturenedCharge[0].trim();
+                        testStepAssert.isEquals(customerRejectedReturenedChargeText,feeType,"Customer Rejected / Returned charges should match","Customer Rejected / Returned charges match","Customer Rejected / Returned charges dont match");
+                        break;
+                    case "Limited Access":
+                        Thread.sleep(2000);
+                        String[] limitedAccessCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(8)).split("-");
+                        String limitedAccessChargeText = limitedAccessCharge[0].trim();
+                        testStepAssert.isEquals(limitedAccessChargeText,feeType,"Customer Rejected / Returned charges should match","Customer Rejected / Returned charges match","Customer Rejected / Returned charges dont match");
+                        break;
                 }
                 i++;
             }
@@ -133,8 +199,12 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
     @Then("^I should see following details in the Accessorial charges section$")
     public void i_should_see_following_details_in_the_accessorial_charges_section(DataTable data) throws Throwable {
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
-        String excessWaitTimeAmount = dataMap.get("Excess Wait Time").trim();
+        String additionalMileageAmount = dataMap.get("Additional Mileage").trim();
+        String additionalWeightPalletAmount = dataMap.get("Additional Weight / Pallet").trim();
         String cancelationAmount = dataMap.get("Cancelation").trim();
+        String customerRejectedReturedAmount = dataMap.get("Customer Rejected / Returned").trim();
+        String excessWaitTimeAmount = dataMap.get("Excess Wait Time").trim();
+        String limitedAccessAmount = dataMap.get("Limited Access").trim();
         String mountainousAmount = dataMap.get("Mountainous").trim();
         String otherAmount = dataMap.get("Other").trim();
         String totalAmount = dataMap.get("Total").trim();
@@ -149,11 +219,23 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         String actualMountainiousCharge = mountainiousCharge[1].trim();
         String[] otherCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(4)).split("-");
         String actualOtherCharge = otherCharge[1].trim();
+        String[] additionalMileageCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(5)).split("-");
+        String actualAdditionalMileage = additionalMileageCharge[1].trim();
+        String[] additionalWeightPalletCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(6)).split("-");
+        String actualAdditionalWeightPallet = additionalWeightPalletCharge[1].trim();
+        String[] customerRejectedReturedCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(7)).split("-");
+        String actualCustomerRejectedRetured = customerRejectedReturedCharge[1].trim();
+        String[] limitedAccessCharge = action.getText(admin_accessorialChargesPage.Text_DiffAccessorial(8)).split("-");
+        String actualLimitedAccess = limitedAccessCharge[1].trim();
         Thread.sleep(2000);
         testStepAssert.isEquals(actualExcessWaitTime,excessWaitTimeAmount,"Expected excess time charges should match the Actual excess time charges","Expected excess time charges matches the Actual excess time charges","Expected excess time charges doesnt match the Actual excess time charges");
         testStepAssert.isEquals(actualCancelation,cancelationAmount,"Expected cancellation charges should match the Actual cancellation charges","Expected cancellation charges matches match the Actual cancellation charges","Expected cancellation charges doesnt match the Actual cancellation charges");
         testStepAssert.isEquals(actualMountainiousCharge,mountainousAmount,"Expected mountainious charges should match the Actual mountainious charges","Expected mountainious charges matches the Actual mountainious charges","Expected mountainious charges doesnt match the Actual mountainious charges");
         testStepAssert.isEquals(actualOtherCharge,otherAmount,"Expected other charges should match the Actual other charges","Expected other charges matches the Actual other charges","Expected other charges doesnt match the Actual other charges");
+        testStepAssert.isEquals(actualAdditionalMileage,additionalMileageAmount,"Additional mileage charges should match the Actual other charges","Additional mileage charges matches the Actual other charges","Additional mileage charges doesnt match the Actual other charges");
+        testStepAssert.isEquals(actualAdditionalWeightPallet,additionalWeightPalletAmount,"Additional weight / pallet charges should match the Actual other charges","Additional weight / pallet charges matches the Actual other charges","Additional weight / pallet charges doesnt match the Actual other charges");
+        testStepAssert.isEquals(actualCustomerRejectedRetured,customerRejectedReturedAmount,"Customer rejected / returned charges should match the Actual other charges","Customer rejected / returned charges matches the Actual other charges","Customer rejected / returned charges doesnt match the Actual other charges");
+        testStepAssert.isEquals(actualLimitedAccess,limitedAccessAmount,"Limited Access charges should match the Actual other charges","Limited Access charges matches the Actual other charges","Limited Access charges doesnt match the Actual other charges");
 
 //        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Excess Wait Time"),excessWaitTimeAmount, "Excess Wait Time "+excessWaitTimeAmount+" should be displayed", excessWaitTimeAmount+" is displayed", excessWaitTimeAmount+" is not displayed");
 //        testStepAssert.isElementTextEquals(admin_accessorialChargesPage.GridRow("Cancelation"),cancelationAmount, "Cancelation "+cancelationAmount+" should be displayed", cancelationAmount+" is displayed", cancelationAmount+" is not displayed");
@@ -212,6 +294,46 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                         String properDriverCutValueForOther =entireDriverCutForOther[1];
                         cucumberContextManager.setScenarioContext("OtherCut",properDriverCutValueForOther.trim());
                         testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("OtherCut"), "Other driver cut charges should match","Other driver cut charges match","Other driver cut charges dont match");
+                        break;
+                    case "Additional Mileage" :
+                        String additionalMileage= feeType.replace(" ", "") +"s";
+                        action.click(admin_accessorialChargesPage.Text_DiffAccessorial(5));
+                        Thread.sleep(2000);
+
+                        String entireDriverCutForAdditionalMileage[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(5)).split("\\$");
+                        String properDriverCutValueForAdditionalMileage =entireDriverCutForAdditionalMileage[1];
+                        cucumberContextManager.setScenarioContext("AdditionalMileage",properDriverCutValueForAdditionalMileage.trim());
+                        testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("AdditionalMileage"), "Additional Mileage driver cut charges should match","Additional Mileage driver cut charges match","Additional Mileage driver cut charges dont match");
+                        break;
+                    case "Additional Weight / Pallet" :
+                        String additionalWeightPallet= feeType.replace(" ", "") +"s";
+                        action.click(admin_accessorialChargesPage.Text_DiffAccessorial(6));
+                        Thread.sleep(2000);
+
+                        String entireDriverCutForAdditionalWeightPallet[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(6)).split("\\$");
+                        String properDriverCutValueForAdditionalWeightPallet= entireDriverCutForAdditionalWeightPallet[1];
+                        cucumberContextManager.setScenarioContext("AdditionalWeightPallet",properDriverCutValueForAdditionalWeightPallet.trim());
+                        testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("AdditionalWeightPallet"), "Additional Weight / Pallet driver cut charges should match","Additional Weight / Pallet driver cut charges match","Additional Weight / Pallet driver cut charges dont match");
+                        break;
+                    case "Customer Rejected / Returned" :
+                        String additionalCustomerRejectedReturned= feeType.replace(" ", "") +"s";
+                        action.click(admin_accessorialChargesPage.Text_DiffAccessorial(7));
+                        Thread.sleep(2000);
+
+                        String entireDriverCutForCustomerRejectedReturned[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(7)).split("\\$");
+                        String properDriverCutValueForCustomerRejectedReturned= entireDriverCutForCustomerRejectedReturned[1];
+                        cucumberContextManager.setScenarioContext("CustomerRejectedReturned",properDriverCutValueForCustomerRejectedReturned.trim());
+                        testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("CustomerRejectedReturned"), "Customer Rejected / Returned driver cut charges should match","Customer Rejected / Returned driver cut charges match","Customer Rejected / Returned driver cut charges dont match");
+                        break;
+                    case "Limited Access" :
+                        String additionalLimitedAccess= feeType.replace(" ", "") +"s";
+                        action.click(admin_accessorialChargesPage.Text_DiffAccessorial(8));
+                        Thread.sleep(2000);
+
+                        String entireDriverCutForLimitedAccess[]=action.getText(admin_accessorialChargesPage.Text_DriverCut(8)).split("\\$");
+                        String properDriverCutValueForLimitedAccess= entireDriverCutForLimitedAccess[1];
+                        cucumberContextManager.setScenarioContext("LimitedAccess",properDriverCutValueForLimitedAccess.trim());
+                        testStepAssert.isEquals(driverCut, (String) cucumberContextManager.getScenarioContext("LimitedAccess"), "Limited Access driver cut charges should match","Limited Access driver cut charges match","Limited Access driver cut charges dont match");
                         break;
                 }
                 i++;
@@ -312,9 +434,9 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
             }
             if(driver_cut.equalsIgnoreCase("Blank")){
-                action.clearAllText(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut());
+                action.clearAllText(admin_accessorialChargesPage.TextBox_AccessorialDriverCut());
             }else{
-                action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver1Cut(),driver_cut);
+                action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriverCut(),driver_cut);
             }
             if(feeType.equalsIgnoreCase("Blank")) {
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), "--Select Fee Type--");
@@ -562,12 +684,15 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
 
         Float entireDriverEarning = Float.parseFloat(action.getText(Page_Driver_Details.Text_DriverTotalEarnings()).replace("$", ""));
         String initialDriverTotal =(String)  cucumberContextManager.getScenarioContext("Initial_Driver_Total_Earning").toString().replace("$","");
+        String driverAdditionalMileageCutAmount =(String) cucumberContextManager.getScenarioContext("AdditionalMileage").toString().replace("$","");
+        String driverAdditionalWeightPalletCutAmount =(String) cucumberContextManager.getScenarioContext("AdditionalWeightPallet").toString().replace("$","");
+        String driverCustomerRejectedReturnedCutAmount =(String) cucumberContextManager.getScenarioContext("CustomerRejectedReturned").toString().replace("$","");
+        String driverLimitedAccessCutAmount =(String) cucumberContextManager.getScenarioContext("LimitedAccess").toString().replace("$","");
         String driverExcessWaitCutAmount =(String) cucumberContextManager.getScenarioContext("ExcessWaitCut").toString().replace("$","");
         String driverCancellationCutAmount =(String) cucumberContextManager.getScenarioContext("CancellationCut").toString().replace("$","");
         String driverMountainousCutAmount =(String)cucumberContextManager.getScenarioContext("MountainousCut").toString().replace("$","");
         String driverOtherCutAmount =(String) cucumberContextManager.getScenarioContext("OtherCut").toString().replace("$","");
-        Float newDriverTotalEarning = Float.parseFloat(driverExcessWaitCutAmount) + Float.parseFloat(driverCancellationCutAmount) +Float.parseFloat(driverMountainousCutAmount) + Float.parseFloat(driverOtherCutAmount) +Float.parseFloat(initialDriverTotal);
-
+        Float newDriverTotalEarning = Float.parseFloat(driverAdditionalMileageCutAmount) +Float.parseFloat(driverAdditionalWeightPalletCutAmount) +Float.parseFloat(driverCustomerRejectedReturnedCutAmount) +Float.parseFloat(driverLimitedAccessCutAmount) +Float.parseFloat(driverExcessWaitCutAmount) + Float.parseFloat(driverCancellationCutAmount) +Float.parseFloat(driverMountainousCutAmount) + Float.parseFloat(driverOtherCutAmount) +Float.parseFloat(initialDriverTotal);
         testStepAssert.isTrue(newDriverTotalEarning>Float.parseFloat(initialDriverTotal),"Accessorial charges cut should be displayed in total earning","Accessorial charges cut is displayed in total earning","Accessorial charges cut is not displayed in total earning");
         testStepAssert.isEquals(String.format("%.1f",newDriverTotalEarning),String.valueOf(entireDriverEarning),"Proper driver cut amount should be displayed","Proper driver cut amount is displayed","Proper driver cut amount is not displayed");
     } catch(Exception e){
@@ -601,4 +726,46 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
         }
     }
 
+    @Then("I should see Fee type sorted in alphabetical order")
+    public void iShouldSeeFeeTypeSortedInAlphabeticalOrder() {
+        try {
+            List<WebElement> allFeeTypes= admin_accessorialChargesPage.List_SelectFeeType();
+            ArrayList<String> tabs = new ArrayList<String>();
+            for (WebElement feeType : allFeeTypes) {
+                tabs.add(feeType.getText());
+            }
+            tabs.remove(0);
+            boolean areFeeTypesOrderedAlphabetically = Ordering.natural().isOrdered(tabs);;
+            testStepAssert.isTrue(areFeeTypesOrderedAlphabetically,"Fee Type should be alphabetically ordered","Fee Type are alphabetically ordered","Fee Type are not alphabetically ordered");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I verify correct disbursement type is set in db for accessorial charge")
+    public void iVerifyCorrectDisbursementTypeIsSetInDbForAccessorialCharge() {
+        try {
+            String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String driverOne = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String driverTwo = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
+            String disbursmentTypeDriverOne = dbUtility.getDisbursementTypeForAccCharge(pickUpRef, driverOne);
+            String disbursmentTypeDriverTwo = dbUtility.getDisbursementTypeForAccCharge(pickUpRef, driverTwo);
+            testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
+                    "Correct disbursement type value should be set for same day payment setting",
+                    "Correct disbursement type value is set for same day payment setting",
+                    "Incorrect disbursement type value is set for same day payment setting");
+            testStepAssert.isEquals(disbursmentTypeDriverTwo, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
+                    "Correct disbursement type value should be set for weekly payment setting",
+                    "Correct disbursement type value is set for weekly payment setting",
+                    "Incorrect disbursement type value is set for weekly payment setting");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

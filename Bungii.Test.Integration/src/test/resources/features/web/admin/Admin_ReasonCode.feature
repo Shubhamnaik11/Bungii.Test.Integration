@@ -482,11 +482,15 @@ Feature: Admin_Reason_Code
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I search the delivery of Customer and view it
     When I add following accessorial charges and save it
-      | Amount   | Fee Type         | Comment                           | Driver Cut |
-      |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
-      |   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
-      |  25.65   | Mountainous      | Charges due to mountainous reason | 10       |
-      |  100     | Other            | Charges due to other reasons      | 20         |
+      | Amount   | Fee Type                     | Comment                                    | Driver Cut |
+      |  18      | Additional Mileage           | Charges due to Additional Mileage          | 1          |
+      |  12      | Additional Weight / Pallet   | Charges due to Additional Weight / Pallet  | 2          |
+      |  14      | Cancelation                  | Charges due to Cancelation                 | 3          |
+      |  18      | Customer Rejected / Returned | Charges due to Customer Rejected / Returned| 4          |
+      |  10      | Excess Wait Time             | Charges due to Excess wait                 | 2          |
+      |  30.50   | Limited Access               | Charges due to Limited Access              | 4.5        |
+      |  25.65   | Mountainous                  | Charges due to mountainous reason          | 10         |
+      |  100     | Other                        | Charges due to other reasons               | 20         |
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     Then I should see the change status link "Is Displayed"
@@ -497,8 +501,9 @@ Feature: Admin_Reason_Code
     And I click on "Confirm Status" button
     And I click on "Cancel Status" button
     Then The Below accessorial charges should be present in the db
-      | Excess Wait Time | Cancelation | Mountainous | Other |
-      | 10.00            | 20.50      | 25.65        | 100.00 |
+      | Additional Mileage  | Additional Weight / Pallet| Cancelation| Customer Rejected / Returned| Excess Wait Time | Limited Access | Mountainous | Other | Total   |
+      | $18                 | $12                       | $14        |  $18                        | $10              | $30.50          | $25.65      | $100  | $228.15 |
+
 
 #   Core-3390: Verify driver tracking in each statues of ongoing trip
   @regression

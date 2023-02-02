@@ -621,7 +621,7 @@ public class DbUtility extends DbContextManager {
     }
     public static List<HashMap<String,Object>>  getAccessorialAmount(String Pickup_Reference) {
         List<HashMap<String,Object>> allcharges = new ArrayList<>();
-        String queryString = "select Amount from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 5";
+        String queryString = "select Amount from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 8";
         allcharges = getListDataFromMySqlMgmtServer(queryString);
         return allcharges;
 
@@ -715,6 +715,17 @@ public class DbUtility extends DbContextManager {
         driverId = getDataFromMySqlMgmtServer(queryString);
         logger.detail("The driver Id for "+driverPhone+" is "+driverId);
         String queryString1 ="select disbursement_type from payment_trans_disburse_branch where payment_transaction_id in (select Id from paymenttransaction where clientgroupref in ('"+pickUpRef+"')) and driver_id="+driverId;
+        disbursementType = getDataFromMySqlMgmtServer(queryString1);
+        logger.detail("The disbursement type for "+driverId+" is "+disbursementType);
+        return disbursementType;
+    }
+    public static String getDisbursementTypeForAccCharge(String pickUpRef,String driverPhone) {
+        String disbursementType;
+        String driverId;
+        String queryString = "Select Id from driver where phone= "+driverPhone;
+        driverId = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("The driver Id for "+driverPhone+" is "+driverId);
+        String queryString1 ="select disbursement_type from bungii_admin_qa_auto.payment_trans_disburse_branch where driver_id ="+driverId+" limit 1";
         disbursementType = getDataFromMySqlMgmtServer(queryString1);
         logger.detail("The disbursement type for "+driverId+" is "+disbursementType);
         return disbursementType;
