@@ -109,4 +109,6 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),'Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
 
+    public WebElement Text_ScheduleDriverSearchTime() {return findElement("//td[text()='Scheduled driver search time']/following::td[1]/div[1]/div/div/div/input", LocatorType.XPath);}
+
 }

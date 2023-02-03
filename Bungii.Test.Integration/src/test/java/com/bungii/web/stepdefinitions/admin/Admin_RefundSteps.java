@@ -462,6 +462,15 @@ try{
                             "The driver earnings after edit should not contain *",
                             "The driver earnings after edit contains *");
                     break;
+                case "scheduled driver search time":
+                    cucumberContextManager.setScenarioContext("DRIVER_SEARCH_TIME",action.getAttributeValue(admin_refundsPage.Text_ScheduleDriverSearchTime()));
+                    break;
+                case "scheduled driver search time after edit":
+                    testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.Text_ScheduleDriverSearchTime()),(String)cucumberContextManager.getScenarioContext("DRIVER_SEARCH_TIME"),
+                            "Scheduled driver search time should remain unchanged after changing driver boosted earnings",
+                            "Scheduled driver search time remain unchanged after changing driver boosted earnings",
+                            "Scheduled driver search time are changed after changing driver boosted earnings" );
+                    break;
             }
 
         log("I check  "+field ,"I checked "+field  ,false );

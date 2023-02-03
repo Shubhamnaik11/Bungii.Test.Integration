@@ -123,7 +123,7 @@ Feature: Delivery Flows
     And I Count the number of available bungiis
 
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "ALERT SETTINGS" from ACCOUNT menu
     And I update trip setting of "TODAY" to "12:00 AM" to "12:05 AM"
 
@@ -139,7 +139,7 @@ Feature: Delivery Flows
     Then I should be navigated to "AVAILABLE BUNGIIS" screen
     And I should able to see "old" available trip
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "ALERT SETTINGS" from ACCOUNT menu
     And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
     Then I cancel all bungiis of customer
