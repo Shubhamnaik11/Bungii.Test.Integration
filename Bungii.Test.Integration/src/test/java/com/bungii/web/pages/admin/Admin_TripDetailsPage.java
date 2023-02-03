@@ -93,5 +93,6 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Text_ScheduleTime() {return findElement("//td[text()='Scheduled Time']/following::td[1]/strong", LocatorType.XPath);}
     public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),'Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Text_TripStatus() {return findElement("//td[contains(text(),'Status')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Input_DriverBoostedPeriod() {return findElement("//td[text()='Driver Boosted earning period']/following::td[1]/div[1]/div/div/div/input", LocatorType.XPath);}
 
 }
