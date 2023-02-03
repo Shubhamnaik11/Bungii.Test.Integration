@@ -211,5 +211,8 @@ Feature: On Demand Bungii
     Then for a Bungii I should see "Bungii search screen"
     And I wait for "3" mins
     Then for a Bungii I should see "SET PICKUP TIME SCREEN"
-  
-    
+    When I tap "Schedule Bungii" button on DRIVER NOT AVAILABLE screen
+    Then I should be navigated to "Success!" screen
+    And I click "Done" button on "Success" screen
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
