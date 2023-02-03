@@ -16,16 +16,16 @@ Feature: Trip Alert Settings Menu
     And I click "Log In" button on Log In screen on driver app
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     And I Select "ALERT SETTINGS" from ACCOUNT menu
     #And I Select "ALERT SETTINGS" from driver App menu
-    And the "ALERT SETTINGS" page is opened
+    And The "ALERT SETTINGS" page is opened
     And I click on "Delivery Alerts" tab
     Then I should be able to see "Delivery Alerts" Text and Time
     Then I click on "Navigate Back" button on the "ALERT SETTINGS" page
     #And I Select "LOGOUT" from driver App menu
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "LOGOUT" from ACCOUNT menu
     
     Examples:
@@ -39,16 +39,16 @@ Feature: Trip Alert Settings Menu
     And I click "Log In" button on Log In screen on driver app
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     And I Select "ALERT SETTINGS" from ACCOUNT menu
     #And I Select "ALERT SETTINGS" from driver App menu
-    And the "ALERT SETTINGS" page is opened
+    And The "ALERT SETTINGS" page is opened
     And I click on "SMS Alerts" tab
     Then I should be able to see "SMS Alerts" Text and Time
     Then I click on "Navigate Back" button on the "ALERT SETTINGS" page
     #And I Select "LOGOUT" from driver App menu
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "LOGOUT" from ACCOUNT menu
   
     Examples:
@@ -61,10 +61,10 @@ Feature: Trip Alert Settings Menu
     And I click "Log In" button on Log In screen on driver app
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     And I Select "ALERT SETTINGS" from ACCOUNT menu
     #And I Select "ALERT SETTINGS" from driver App menu
-    And the "ALERT SETTINGS" page is opened
+    And The "ALERT SETTINGS" page is opened
       And I click on "Delivery Alerts" tab
       And I click on time and change "From" time
       And I click on "SAVE TIME" button
@@ -74,3 +74,33 @@ Feature: Trip Alert Settings Menu
       Examples:
         | Username   | Password   |
         | 8888881001 | Cci12345   |
+
+    @ready
+      #CORE-2965 Sprint 47: Total earning on stats screen with default dropdown are incorrect
+    Scenario: Verify Driver Can Access Total Earnings Upon Clicking Earnings Page
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      |
+      | NEXT_POSSIBLE | 8877661181     | Testcustomertywd_BppleMarkFZ LutherFZ|
+    And As a driver "Testdrivertywd_appledc_a_drvag Washingtonag" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+      | Arrived       |
+      | Loading Item   |
+      | Driving To Dropoff |
+      | Unloading Item     |
+      | Bungii Completed     |
+
+    #login to driver
+      And I am logged in as "Testdrivertywd_appledc_a_drvag Washingtonag" driver
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      When I Select "EARNINGS" from driver App menu
+      And The "EARNINGS" page is opened
+      Then I should be able to see data on "EARNINGS" page
+      And I click on "year" dropdown
+      Then I click on "first value" dropdown
+      And I click on "year" dropdown
+      Then I click on "second value" dropdown
+      And I click on "year" dropdown
+      Then I click on "third value" dropdown
+      Then I check "total earnings"
