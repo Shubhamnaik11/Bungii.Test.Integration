@@ -307,7 +307,7 @@ public class Admin_DriverDetails extends DriverBase{
                 case "Customer Name":
                     String CustomerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
                     action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(), CustomerName);
-                    admin_Driverspage.Button_Search().click();
+                    action.click(admin_Driverspage.Button_Search());
                     break;
             }
 
@@ -322,7 +322,7 @@ public class Admin_DriverDetails extends DriverBase{
         }
     }
 
-    @Then("^Column \"([^\"]*)\" should display Correct details$")
+    @Then("^Column \"([^\"]*)\" should display correct details$")
     public void column_something_should_display_correct_details(String Column) throws Throwable{
         try
         {
@@ -332,7 +332,7 @@ public class Admin_DriverDetails extends DriverBase{
                     String ActualCustomerName=action.getText(admin_Driverspage.Text_CustomerNameRow1());
                     testStepAssert.isEquals(ExpectedCustomerName , ActualCustomerName,ExpectedCustomerName +" should be displayed",ActualCustomerName+" is displayed", ActualCustomerName+" is displayed instead of "+ExpectedCustomerName );
                     action.clear(admin_Driverspage.Textbox_SearchCriteria());
-                    admin_Driverspage.Button_Search().click();
+                    action.click(admin_Driverspage.Button_Search());
                     break;
             }
             log("Should display correct details",

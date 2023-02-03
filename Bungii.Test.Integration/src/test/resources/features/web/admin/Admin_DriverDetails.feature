@@ -49,7 +49,7 @@ Feature: Admin_DriverDetails
 #    And I edit the Driver
 #    And I click on "Save Driver Details" button
 #    Then I check if driver SSN is masked
-  @regression
+    @regression
   Scenario: Verify Driver Trip List Status Updation for Solo Scheduled Bungii
     When I search driver "Macy Chang"
     And I click on "Driver Trips" icon
@@ -64,7 +64,7 @@ Feature: Admin_DriverDetails
     Then The Driver Trip List page should display the trip in "Driver(s) Accepted" state
     #CORE-4198
     And I search by "Customer Name"
-    Then Column "Customer" should display Correct details
+    Then Column "Customer" should display correct details
     When As a driver "Macy Chang" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Enroute |
