@@ -117,6 +117,7 @@ public class Admin_PromoCodesPage extends PageBase {
 
     public WebElement DropDown_PromotionOption (String eventOption) { return findElement(String.format("//a/span[text()='%s']", eventOption), PageBase.LocatorType.XPath); }
 
+    public WebElement Label_BlankspacCodeName() { return findElement("//*[text()='Should contain alphanumeric and -@#$&_: special characters.']", LocatorType.XPath);}
 
 
 

@@ -121,7 +121,11 @@ Feature: Admin_Refund
 	When I click on "OK" button
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
-	
+#	  Core-2748: Refund receipt emails sent to Bungii Admin email.
+	And Customer should receive "Bungii: Refund Confirmation" email  
+	And Admin should receive "Bungii Refund Receipt for customer" email
+
+
   @regression
   Scenario: Verify Close Reset and Go Back on Issue Refund Popup
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -301,10 +305,10 @@ Feature: Admin_Refund
 	Then The "Issue Refund" section should be displayed
 	When I select "Complete Refund" radio button
 	When I update "Earnings" as "10.00" dollars
-	And I check "Same for 2nd driver"
 	Then I should see Customer Refund Amount and Driver Earnings
 	When I enter "Bungii Internal Notes" as "Internal Note"
 	When I enter "Notes" as "Driver Note" for both drivers
+	  And I check "Same for 2nd driver"
 	And I click on "Continue" button on Issue Refund popup
 	Then I should see "Issue Refund - Confirm Details" popup
 	And I should see Original Delivery Charge & Customer Refund & Total Customer Charge

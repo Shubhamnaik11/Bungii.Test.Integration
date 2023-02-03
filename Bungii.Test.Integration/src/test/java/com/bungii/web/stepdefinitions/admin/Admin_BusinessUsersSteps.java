@@ -161,8 +161,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         try{
         String invalidEmailId = PropertyUtility.getDataProperties("invalid.email.id");
         String invalidPhoneNo = PropertyUtility.getDataProperties("invalid.phone.number");
-        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),invalidEmailId);
         action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),invalidPhoneNo);
+        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),invalidEmailId+Keys.TAB);
         log("I enter invalid values on Add Business User page",
                 "I entered  invalid values on Add Business User page", false);
     } catch(Exception e){
@@ -328,7 +328,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void the_business_user_is_displayed_in_bulk_trips_since_payment_is_set() throws Throwable {
         try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
-        Select select = new Select(admin_BusinessUsersPage.DropDown_BusinessUser());
+        Select select = new Select(admin_BusinessUsersPage.DropDown_Partner());
 //        System.out.println("Expected text===="+Name);
 
         List<WebElement> dropdown = select.getOptions();
@@ -534,8 +534,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void i_select_user_something(String uniqueno) throws Throwable {
         try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
-        action.click(admin_BusinessUsersPage.DropDown_BusinessUser());
-        action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUser(),Name);
+        action.click(admin_BusinessUsersPage.DropDown_Partner());
+        action.selectElementByText(admin_BusinessUsersPage.DropDown_Partner(),Name);
         log("I select "+uniqueno+" from Bulk Trips page",
                 "I have selected "+uniqueno+" from Bulk Trips page", false);
     } catch(Exception e){
@@ -711,7 +711,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         try {
             String errorFileName = cucumberContextManager.getScenarioContext("CSVFILE").toString();
             errorFileName = utility.GetFormattedString(errorFileName, ".csv");
-            errorFileName = errorFileName + "_errors";
+            errorFileName = errorFileName + "_error";
             String home = SystemUtils.getUserHome().getPath();//System.getProperty("user.home");
             File file = new File(home + "/Downloads/" + errorFileName + ".csv");
             try {
@@ -730,7 +730,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             do {
                 getLatestFile = GetLatestFilefromDir(dirPath);
                 fileName = getLatestFile.getName();
-                if (fileName.equalsIgnoreCase(errorFileName))
+                if (fileName.equalsIgnoreCase(errorFileName+ ".csv"))
                     break;
             }
             while (!fileName.equalsIgnoreCase(errorFileName + ".csv"));
