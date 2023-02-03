@@ -574,4 +574,65 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
         List<WebElement> elements = tripAlertSettingsPage.Text_TripAlertsDay();
         return elements.get(5);
     }
+
+    @Then("I click on {string} dropdown")
+    public void iClickOnDropdown(String dropdown) {
+        try {
+            switch(dropdown){
+                case "year":
+                    action.click(earningsPage.Dropdown_Year());
+                    break;
+                case "first value":
+                    action.click(earningsPage.Dropdown_Firstvalue());
+                    String earnings = action.getText(earningsPage.Text_Earnings());
+                    cucumberContextManager.setScenarioContext("FIRST_VALUE",earnings);
+                    break;
+                case "second value":
+                    action.click(earningsPage.Dropdown_Secondvalue());
+                    String earnings2 = action.getText(earningsPage.Text_Earnings());
+                    cucumberContextManager.setScenarioContext("SECOND_VALUE",earnings2);
+                    break;
+                case "third value":
+                    action.click(earningsPage.Dropdown_Thirdvalue());
+                    String earnings3 = action.getText(earningsPage.Text_Earnings());
+                    cucumberContextManager.setScenarioContext("THIRD_VALUE",earnings3);
+                    break;
+            }
+            log("I should be able to click on the "+dropdown+" dropdown",
+                    "I could click on the "+dropdown+" dropdown",false);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I check {string}")
+    public void iCheck(String type) {
+        try {
+            switch (type) {
+                case "total earnings":
+                    String firstValue = (String) cucumberContextManager.getScenarioContext("FIRST_VALUE");
+                    String secondValue = (String) cucumberContextManager.getScenarioContext("SECOND_VALUE");
+                    String thirdValue = (String) cucumberContextManager.getScenarioContext("THIRD_VALUE");
+                    firstValue = firstValue.substring(1);
+                    secondValue = secondValue.substring(1);
+                    thirdValue = thirdValue.substring(1);
+                    float totalEarnings = Float.parseFloat(secondValue) + Float.parseFloat(thirdValue);
+                    testStepAssert.isTrue(Float.parseFloat(firstValue)==totalEarnings,"First value should be the sum of second & third value","First value is not the sum of second & third value");
+                    break;
+
+            }
+        }
+
+
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+
+    }
 }
