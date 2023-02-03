@@ -8,6 +8,12 @@ public class BungiiDetailsPage extends PageBase {
     public WebElement Button_CancelBungii() { return findElement("com.bungii.customer:id/scheduled_bungii_details_tv_cancel_bungii",LocatorType.Id); }
     public WebElement Button_CancelAccept () { return findElement("android:id/button2", LocatorType.Id); }
     public WebElement Button_Yes () { return findElement("android:id/button1", LocatorType.Id); }
+    public WebElement Button_GetEstimate () { return findElement("//android.widget.Button[contains(@text,'Submit')]", LocatorType.XPath); }
+    public WebElement Button_ScheduleBungii () { return findElement("//android.widget.Button[contains(@text,'SCHEDULE BUNGII')]", LocatorType.XPath); }
+    public WebElement Button_GetQuote() { return findElement("//android.widget.Button[@text=\"GET QUOTE\"]", LocatorType.XPath);}
+    public WebElement Button_Continue() { return findElement("//android.widget.Button[@text=\"Continue\"]", LocatorType.XPath);}
+    public WebElement Checkbox_Disclaimer() { return findElement("//android.view.View[contains(@text,'$1/min + $1/mile which includes 0 minutes ($0) of Load + Unload time.')]", LocatorType.XPath);}
+
 
     public WebElement Text_Driver1Status(){ return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_container_no_drivers']/descendant::android.widget.TextView", LocatorType.XPath).get(1);}
     public WebElement Text_Driver2Status(){ return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_container_no_drivers']/descendant::android.widget.TextView", LocatorType.XPath).get(3);}
