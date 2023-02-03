@@ -12,7 +12,7 @@ Feature: Admin_Login_Page
 
  #CORE-4493:Reset password functionality is not working. "An Application Error Has Occurred"
   @ready
-  Scenario: Verify updated text is displayed in "Earn Extra Cash" potential earnings on admin portal
+  Scenario:To verify Admin user can reset the password by sending verification code
     When I click on the "Forget Password" Button
     Then The "Forgot Password" "Header" should be displayed
     When I enter "valid" phone number
