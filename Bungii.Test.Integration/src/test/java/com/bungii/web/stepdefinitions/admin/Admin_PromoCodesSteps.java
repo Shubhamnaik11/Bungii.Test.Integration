@@ -729,6 +729,9 @@ try{
             case "Please check your information and try again.":
                 testStepAssert.isEquals(action.getText(admin_paymentMethodsPage.Label_ErrorContainerPayWithCard()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
+            case "Should contain alphanumeric and -@#$&_: special characters.":
+                testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_BlankspacCodeName()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
         }
 } catch (Exception e) {
     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

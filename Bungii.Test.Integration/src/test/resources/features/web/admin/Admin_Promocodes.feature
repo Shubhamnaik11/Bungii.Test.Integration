@@ -179,3 +179,10 @@ Feature: Admin_Promocodes
     When I search by string "<script>alert('hello')</script>"
     Then the "No data. " message is displayed
 
+#  CORE-4776 - Verify Promo code name field does not accepts all blank spaces
+  @ready
+  Scenario: Verify Promo code name field does not accepts all blank spaces
+    When I click on the "New Code" Button
+    And I enter "Standard Code Name" as "Blank space"
+    And I enter "Code" as "CORE-4776"
+    Then the "Should contain alphanumeric and -@#$&_: special characters." message is displayed

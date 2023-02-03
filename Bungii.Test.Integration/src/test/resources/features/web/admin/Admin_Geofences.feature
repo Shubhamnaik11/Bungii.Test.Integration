@@ -306,3 +306,15 @@ Feature: Admin_Geofence
       And I "reduce" geofence polylines
       And I click on "Download Zip Codes" button
       Then I verify if "count of Chicago after reduce" are downloaded
+
+
+# Core-4701 Verify that Scheduled Driver Search time doesn't change when Driver Boosted Earning Period is changed
+  @ready
+  Scenario: Verify that Scheduled Driver Search time doesnt change when Driver Boosted Earning Period is changed
+    When I click on the geofence "Chicago"
+    And I click on the "Settings" Button on "Geofence" Screen
+    Then I check "scheduled driver search time"
+    And I change the "driver boosted earnings"
+    Then I click on the "Save" Button on "Geofence" Screen
+    And I click on the "Settings" Button on "Geofence" Screen
+    Then I check "scheduled driver search time after edit"

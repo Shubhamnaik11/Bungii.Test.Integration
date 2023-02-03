@@ -11,6 +11,7 @@ public class EarningsPage extends PageBase {
 
     public WebElement Text_TotalEarning() { return findElement("//android.view.View[contains(@text,'TOTAL') and contains(@text,'EARNINGS')]", LocatorType.XPath); }
     public WebElement Text_TotalEarningValue() { return findElement("//android.view.View[contains(@text,'TOTAL') and contains(@text,'EARNINGS')]/following-sibling::android.view.View", LocatorType.XPath); }
+    public WebElement Text_Earnings() { return findElement("com.bungii.driver:id/appCompatTextView6", LocatorType.Id); }
 
 
 
@@ -55,6 +56,13 @@ public class EarningsPage extends PageBase {
     public WebElement Button_Confirm() { return findElement("com.bungii.driver:id/tv_confirm", LocatorType.Id);}
     public WebElement Checkbox_TwiceWeek() { return findElement("//androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[1]/android.view.ViewGroup/android.widget.ImageView", LocatorType.XPath);}
     public WebElement Checkbox_SameDay() { return findElement("//androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[2]/android.view.ViewGroup/android.widget.ImageView", LocatorType.XPath);}
+    public WebElement Dropdown_Year() { return findElement("com.bungii.driver:id/earnings_spinner_tv", LocatorType.Id);}
+
+    public WebElement Dropdown_Firstvalue() { return findElement("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.TextView[1]", LocatorType.XPath);}
+    public WebElement Dropdown_Secondvalue() { return findElement("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.TextView[2]", LocatorType.XPath);}
+
+    public WebElement Dropdown_Thirdvalue() { return findElement("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.TextView[3]", LocatorType.XPath);}
+
 
 
 }
