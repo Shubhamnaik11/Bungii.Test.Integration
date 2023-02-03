@@ -60,11 +60,11 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Label_DriverStatus() {return findElement("//div/h4[text()=\"Driver Status\"]",LocatorType.XPath);}
 
-    public WebElement TextBox_DriverStatusChangeComment() {return findElement("Comments",LocatorType.Id);}
+    public WebElement TextBox_DriverStatusChangeComment() {return findElement("Comments",LocatorType.Name);}
 
-    public WebElement Button_ConfirmDriverStatusChange() {return findElement("//div[1]/div/div/div/button[@id='btnagree']",LocatorType.XPath);}
+    public WebElement Button_ConfirmDriverStatusChange() {return findElement("//button[text()=\"Confirm\"]",LocatorType.XPath);}
 
-    public WebElement Button_OkDriverStatusChange() {return findElement("btnDriverStatusChangeOK",LocatorType.Id);}
+    public WebElement Button_OkDriverStatusChange() {return findElement("//button[text()=\"OK\"]",LocatorType.XPath);}
 
     public WebElement Text_DriverApplicationStatus() {return findElement("//div/table/tbody/tr/td[8]",LocatorType.XPath);}
 

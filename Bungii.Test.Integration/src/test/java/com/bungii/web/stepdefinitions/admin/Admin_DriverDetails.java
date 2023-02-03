@@ -13,6 +13,7 @@ import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -298,4 +299,44 @@ public class Admin_DriverDetails extends DriverBase{
                     true);
         }
     }
+    @And("^I check if driver \"([^\"]*)\" is eligible for the delivery having status \"([^\"]*)\"$")
+    public void i_check_if_driver_something_is_eligible_for_the_delivery_having_status_something(String driverName, String driverStatus) throws Throwable {
+      try {
+          String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+          String driverPhoneNum = getDriverPhoneNumber(driverName);
+          boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
+          String DriverActiveORInActive = new DbUtility().isDriverActive(driverPhoneNum);
+          if (driverStatus.equals("Active")) {
+              testStepAssert.isTrue(DriverActiveORInActive.equals("1"), "Driver " + driverName + " status should is active",
+                      "Driver " + driverName + " status is active",
+                      "Driver " + driverName + " status  is " + DriverActiveORInActive + " ,it should be 1");
+              testStepAssert.isTrue(isDriverEligible, "Driver " + driverName + " should be eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is not eligible for delivery having pickup ref " + pickupRequest);
+          } else {
+              testStepAssert.isTrue(DriverActiveORInActive.equals("0"), "Driver " + driverName + " status should is inactive",
+                      "Driver " + driverName + " status is inactive",
+                      "Driver " + driverName + " status  is " + DriverActiveORInActive + " ,it should be 0");
+              testStepAssert.isFalse(isDriverEligible, "Driver " + driverName + " should not be eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is not eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is eligible for delivery having pickup ref " + pickupRequest);
+          }
+      }catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    public static String getDriverPhoneNumber(String driverName) {
+        String phone = null;
+        switch (driverName) {
+            case "Testdrivertywd_appleks_a_drvca Kansas_ca":
+                phone = PropertyUtility.getDataProperties("Kansas.driver75.phone");
+                break;
+            default:
+                throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
+        }
+        return phone;
+    };
 }

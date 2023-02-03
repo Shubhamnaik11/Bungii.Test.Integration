@@ -770,5 +770,33 @@ public class DbUtility extends DbContextManager {
         logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[1]);
         return tripLocation;
     }
+
+    public static boolean isDriverEligibleForTrip(String phoneNumber, String pickupRequest) {
+        String queryString = "SELECT Id FROM driver WHERE phone = " + phoneNumber;
+        String driverID = getDataFromMySqlServer(queryString);
+        String queryString2 = "select DriverID from eligibletripdriver where pickupid IN (select PickupID from pickupdetails where pickupRef ='" + pickupRequest + "' )";
+        boolean isDriverEligible =false;/* checkIfExpectedDataFromMySqlServer(queryString2,driverID);*/
+
+        for(int i=0;i<8 && !isDriverEligible;i++){
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            isDriverEligible = checkIfExpectedDataFromMySqlServer(queryString2,driverID);
+
+        }
+        return isDriverEligible;
+
+    }
+
+    public static String isDriverActive(String phoneNumber) {
+        String driverStatus = "";
+        String queryString = "select IsDriverActive from driver where phone= " + phoneNumber;
+        driverStatus = getDataFromMySqlServer(queryString);
+        logger.detail("Driver having  Phone Number " + phoneNumber + " has  " + driverStatus + " status");
+        return driverStatus;
+    }
+
 }
 
