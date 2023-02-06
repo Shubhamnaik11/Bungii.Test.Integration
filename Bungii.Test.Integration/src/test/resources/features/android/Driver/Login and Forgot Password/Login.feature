@@ -108,7 +108,7 @@ Feature: Log In
     When I verify and allow access of Location from Bungii driver application
     Then I should be navigated to Home screen on driver app
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "LOGOUT" from driver App menu
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on Log In screen on driver app
