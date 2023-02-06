@@ -1,4 +1,4 @@
-  @android
+@android
 
   Feature: Partner Portal Cases for mobile friendly portals
   #  Core-4584

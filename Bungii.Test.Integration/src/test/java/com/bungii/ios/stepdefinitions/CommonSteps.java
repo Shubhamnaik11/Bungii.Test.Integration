@@ -18,6 +18,7 @@ import com.bungii.ios.pages.driver.BungiiRequestPage;
 import com.bungii.ios.pages.driver.DriverBungiiDetailsPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.other.NotificationPage;
+import com.bungii.ios.pages.other.SafariPage;
 import com.bungii.ios.stepdefinitions.customer.HomeSteps;
 import com.bungii.ios.stepdefinitions.customer.LogInSteps;
 import com.bungii.ios.stepdefinitions.driver.*;
@@ -160,6 +161,7 @@ public class CommonSteps extends DriverBase {
         this.driverhomepage = driverhomepage;
     }
     LiveTripsPage liveTripsPage=new LiveTripsPage();
+    SafariPage safariPage=new SafariPage();
     com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage = new com.bungii.ios.pages.driver.UpdateStatusPage();
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page$")
@@ -2039,8 +2041,17 @@ public class CommonSteps extends DriverBase {
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
         try {
 
-            SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
-            SetupManager.getObject().useDriverInstance(instanceName);
+            switch (instanceName){
+                case "ADMIN PORTAL":
+                    SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
+                    SetupManager.getObject().useDriverInstance(instanceName);
+                    break;
+                case "MOBILE DEVICE":
+                    action.click(safariPage.Icon_Safari());
+                    break;
+
+            }
+
             log(
                     "I open new " + browser + " browser for " + instanceName + " instance",
                     "I open new " + browser + " browser for " + instanceName + " instance", true);
