@@ -347,9 +347,13 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                     float expectedDriverCharge = (float) (Math.floor( Float.parseFloat(driverCharges)* 100) / 100);
                     action.clearSendKeys(admin_tripDetailsPage.Textbox_Override_Customer_Price(), String.valueOf(expectedDriverCharge));
                     break;
+
+                case "driver boosted earnings":
+                    action.clearSendKeys(admin_tripDetailsPage.Input_DriverBoostedPeriod(),(String) cucumberContextManager.getScenarioContext("DRIVER_SEARCH_TIME"));
+                    break;
             }
-            log("I should be able to override the customer price and driver cut",
-                    "I could override the customer price and driver cut",false);
+            log("I should be able to change "+price,
+                    "I could change "+price,false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
