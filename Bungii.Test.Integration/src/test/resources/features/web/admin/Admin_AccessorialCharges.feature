@@ -47,7 +47,7 @@ Then I should see the following fee type displayed
 | Other                        |
 And I should see following details in the Accessorial charges section
 | Additional Mileage | Additional Weight / Pallet | Cancelation |Customer Rejected / Returned |Excess Wait Time | Limited Access | Mountainous | Other | Total   |
-| $8 | $12 | $15 | $18 | $20 | $20.5 | $25.65 | $100  | $219.15 |
+| $8                 | $12                        | $15         | $18                         | $20             | $20.5          | $25.65      | $100  | $219.15 |
 And I click on the Accessorial Charges links and I should see the Drivers cut displayed
 | Fee Type                     | Driver Cut |
 | Additional Mileage           | 1          |
@@ -72,7 +72,7 @@ And I click on the Accessorial Charges links and I should see the Drivers cut di
 | Mountainous                  |
 | Other                        |
 
-@regression
+@ready
 Scenario: Verify Accessorial Charges Field Validations - Blank
 When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 | Bungii Time   | Customer Phone | Customer Name |

@@ -100,9 +100,6 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                     action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialDriver2Cut(),driver2_cut);
 
                 }
-//                else {
-//                    cucumberContextManager.setScenarioContext("TripType", "PartnerTrip");
-//                }
                 Thread.sleep(5000);
                 action.clearSendKeys(admin_accessorialChargesPage.TextBox_AccessorialAmount(), amount);
                 action.selectElementByText(admin_accessorialChargesPage.DropDown_AccessorialFeeType(), feeType);
