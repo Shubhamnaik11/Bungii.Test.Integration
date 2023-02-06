@@ -111,4 +111,8 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Text_ScheduleDriverSearchTime() {return findElement("//td[text()='Scheduled driver search time']/following::td[1]/div[1]/div/div/div/input", LocatorType.XPath);}
 
+    public WebElement Text_DriverEarningsValue() {return findElement("//table[@class=\"table table-striped\"]/tbody/tr[18]/td[text()='Driver Earnings']/following::td[1]/strong", LocatorType.XPath);}
+
+    public WebElement Text_DeliveryPaymentValue() {return findElement("//table[@class=\"table table-striped\"]/tbody/tr[19]/td[text()='Delivery Payment']/following::td[1]/strong", LocatorType.XPath);}
+
 }
