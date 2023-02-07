@@ -93,4 +93,24 @@ Feature: Floor and Decore Service Level
     Then I should get Confirmation Alert popup
     And I click on Continue button on popup
     Then I should see header as "Get Quote"
+    When I request "Solo" Bungii trip in partner portal configured for "FloorDecor service level" in "washingtondc" geofence
+      | Pickup_Address                                                                     | Delivery_Address                                                    |
+      | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 14531 Montevideo Road, Poolesville, United States, Maryland, 20837  |
+    And I click "Service Level List" button on Partner Portal
+    Then I should "see all the Service Level" for "Floor & Decor #240" Alias
+    And I change the service level to "First Threshold" in "Partner" portal
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    And I click "Continue" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    When I enter all details on "Delivery Details" for "FloorDecor service level" on partner screen
+      |Product_Description|Dimensions|Weight|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Delivery_Purpose|Rb_Sb_Number|ScheduledBy|
+      |20 boxes           |20X20X20  | 1570 |Handle with care   |Testartner T    |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |For decoration  |007         |UserFND    |
+    And I click "Schedule Bungii" button on Partner Portal
+    Then I should "see Done screen"
+#    CORE-4615--LOGO does not take to HOME page after scheduling page
+    And I click on Partner Portal Logo in header
+    Then I should see header as "Get Quote"
+
 

@@ -161,3 +161,83 @@ Feature: Rejection Popup on Driver App
       And I Switch to "driver" application on "same" devices
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       Then I Select Trip from available trip
+
+
+  @ready
+  #CORE-3545
+  Scenario:To verify that driver can successfully Complete on going trip when admin cancels Stack trip
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | atlanta  | UNLOADING ITEM |
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 8877661175     | Testcustomertywd_appleMarkFT LutherFT | 2              | Cci12345          |
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "view stack message" request
+    And I tap on the "ACCEPT" Button on Bungii Request screen
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I wait for "2" mins
+    And I open the trip for "Testcustomertywd_appleMarkFT LutherFT" the customer for delivery details
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Canceled" radiobutton
+    And I click on "UPDATE BUNGII" button
+    Then The "Pick up has been successfully canceled." message should be displayed for live delivery
+    And I Switch to "driver" application on "ORIGINAL" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    Then Bungii driver should see "Unloading Items screen"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "skips to rate customer"
+    Then Bungii Driver "completes Bungii"
+
+  @ready
+  #CORE-4426
+  Scenario:To verify that driver can successfully Complete on going trip when admin manually completes Stack trip
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | atlanta  | UNLOADING ITEM |
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    When I Switch to "customer" application on "same" devices
+    And I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 8877661176     | Testcustomertywd_appleMarkFU LutherFU | 2              | Cci12345          |
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "view stack message" request
+    And I tap on the "ACCEPT" Button on Bungii Request screen
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I wait for "2" mins
+    And I open the trip for "Testcustomertywd_appleMarkFU LutherFU" the customer for delivery details
+    And I click on "Edit" link beside live delivery
+    And I click on "Edit Delivery Status" radiobutton
+    And I click on "Delivery Completed" radiobutton
+    And I enter delivery completion date and time as per geofence
+    And I click on "CALCULATE COST" button
+    Then Confirmation message on edit live delivery pop up should be displayed
+    And I click on "Confirm" button
+    Then The "Pick up has been successfully updated." message should be displayed for live delivery
+    And I Switch to "driver" application on "ORIGINAL" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+    Then Bungii driver should see "Unloading Items screen"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "skips to rate customer"
+    Then Bungii Driver "completes Bungii"

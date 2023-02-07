@@ -310,3 +310,68 @@ Then I cancel all bungiis of customer
 	Then I cancel all bungiis of customer
 	  | Customer Phone  | Customer2 Phone |
 	  | CUSTOMER1_PHONE |  9403960183   |
+
+  #CORE-3545
+  @ready
+  Scenario:To verify that driver can successfully Complete on going trip when admin cancels Stack trip
+	Given that ondemand bungii is in progress
+	  | geofence | Bungii State   |
+	  | goa      | UNLOADING ITEM |
+	When I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
+	 | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
+	 | now         | 8877661177     | Testcustomertywd_BppleMarkFV LutherFV | 2             | Cci12345         |
+	And I view and accept virtual notification for "Driver" for "stack trip"
+	And stack trip information should be displayed on deck
+	When I open new "Chrome" browser for "ADMIN PORTAL"
+	And I navigate to admin portal
+	And I log in to admin portal
+	And I Select "live trips" from admin sidebar
+	And I wait for "2" mins
+	And I open the trip for "LutherFV" the customer for delivery details
+	And I click on "Edit" link beside live delivery
+	And I click on "Edit Delivery Status" radiobutton
+	And I click on "Delivery Canceled" radiobutton
+	And I click on "UPDATE BUNGII" button
+	Then The "Pick up has been successfully canceled." message should be displayed for live delivery
+	And I Switch to "driver" application on "ORIGINAL" devices
+	And I slide update button on "UNLOADING ITEM" Screen
+	And I click "Skip This Step" button on "Rate customer" screen
+	Then I should be navigated to "Bungii Completed" screen
+
+  #CORE-4426
+  @ready
+  Scenario:To verify that driver can successfully Complete on going trip when admin manually completes Stack trip
+	Given that ondemand bungii is in progress
+	 | geofence | Bungii State   |
+	 | goa      | UNLOADING ITEM |
+	When I Switch to "driver" application on "same" devices
+	And I am on the "LOG IN" page on driverApp
+	And I am logged in as "valid" driver
+	And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+	When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
+	 | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
+	 | now         | 8877661178     | Testcustomertywd_appleMarkFW LutherFW | 2              | Cci12345          |
+	And I view and accept virtual notification for "Driver" for "stack trip"
+	And stack trip information should be displayed on deck
+	When I open new "Chrome" browser for "ADMIN PORTAL"
+	And I navigate to admin portal
+	And I log in to admin portal
+	And I Select "live trips" from admin sidebar
+	And I wait for "2" mins
+	And I open the trip for "LutherFW" the customer for delivery details
+	And I click on "Edit" link beside live delivery
+	And I click on "Edit Delivery Status" radiobutton
+	And I click on "Delivery Completed" radiobutton
+	And I enter delivery completion date and time as per geofence
+	And I click on "CALCULATE COST" button
+	Then Confirmation message on edit live delivery pop up should be displayed
+	And I click on "Confirm" button
+	Then The "Pick up has been successfully updated." message should be displayed for live delivery
+	And I Switch to "driver" application on "ORIGINAL" devices
+	And I slide update button on "UNLOADING ITEM" Screen
+	And I click "Skip This Step" button on "Rate customer" screen
+	Then I should be navigated to "Bungii Completed" screen

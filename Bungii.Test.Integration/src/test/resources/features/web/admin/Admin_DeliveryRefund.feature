@@ -76,6 +76,8 @@ Feature: Admin_Refund
 	And I click on "Process Refund" button on Issue Refund popup
 	Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
 	When I click on "OK" button
+   #CORE-4730:Verify customer full refund without changing driver earrings should be taken by weekly job if driver has weekly payment settings
+	And I check the status for "weekly payment" in db
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
    #CORE-2507: Verify Change status icon is not displayed for trip which was already refunded prior status change
@@ -736,3 +738,120 @@ Feature: Admin_Refund
 	And I select a range from "First Date" of current month to the "Last Date" of the month for "Most Recent Delivery"
 	And I click on Apply button on Filter
 	Then The "Testdrivertywd_appleks_a_drvbs Kansas_bs" "Driver name" should be displayed
+
+ #CORE-4730:Verify customer full refund changing driver earnings is taken by Same day job if driver payment setting is Same day
+  @ready
+  Scenario:Verify customer full refund changing driver earnings is taken by Same day job if driver payment setting is Same day
+	  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+		  | Bungii Time   | Customer Phone | Customer Name                  |
+		  | NEXT_POSSIBLE | 8877661180     |Testcustomertywd_appleMarkFY LutherFY|
+	  And As a driver "Testdrivertywd_appledc_a_drvac Washingtonac" perform below action with respective "Solo Scheduled" Delivery
+		  | driver1 state|
+		  |Accepted |
+		  | Enroute  |
+		  | Arrived |
+		  | Loading Item |
+		  | Driving To Dropoff |
+		  | Unloading Item |
+		  | Bungii Completed |
+	  And I view the Deliveries list on the admin portal
+	  And I wait for 2 minutes
+	  And I search the delivery of Customer and view it
+	  When I click on "ISSUE REFUND" button
+	  Then The "Issue Refund" section should be displayed
+	  When I select "Complete Refund" radio button
+	  When I update "Earnings" as "10.00" dollars
+	  Then I should see Customer Refund Amount and Driver Earnings
+	  When I enter "Bungii Internal Notes" as "Internal Note"
+	  When I enter "Notes" as "Driver Note"
+	  And I click on "Continue" button on Issue Refund popup
+	  Then I should see "Issue Refund - Confirm Details" popup
+	  And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
+	  And I should see breakdown of Before and After Refund earnings
+	  And I should see Bungii Internal Note
+	  When I select "Are you sure you want to proceed with refund request ?" checkbox
+	  And I click on "Process Refund" button on Issue Refund popup
+	  Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+	  When I click on "OK" button
+	  And I check the status for "same day payment" in db
+	  And The amount should be "Refunded" and in "voided" state
+
+	   #CORE-4730:Verify customer full refund without changing driver earnings is taken by Same day job if driver payment setting is Same day
+	@ready
+	Scenario:Verify customer full refund without changing driver earnings is taken by Same day job if driver payment setting is Same day
+		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+			| Bungii Time   | Customer Phone | Customer Name                  |
+			| NEXT_POSSIBLE | 8877661179     | Testcustomertywd_appleMarkFX LutherFX|
+		And As a driver "Testdrivertywd_appledc_a_drvad Washingtonad" perform below action with respective "Solo Scheduled" Delivery
+			| driver1 state|
+			|Accepted |
+			| Enroute  |
+			| Arrived |
+			| Loading Item |
+			| Driving To Dropoff |
+			| Unloading Item |
+			| Bungii Completed |
+		And I view the Deliveries list on the admin portal
+		And I wait for 2 minutes
+		And I search the delivery of Customer and view it
+		When I click on "ISSUE REFUND" button
+		Then The "Issue Refund" section should be displayed
+		When I select "Complete Refund" radio button
+		Then I should see Customer Refund Amount and Driver Earnings
+		When I enter "Bungii Internal Notes" as "Internal Note"
+		And I click on "Continue" button on Issue Refund popup
+		Then I should see "Issue Refund - Confirm Details" popup
+		And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
+		And I should see breakdown of Before and After Refund earnings
+		And I should see Bungii Internal Note
+		When I select "Are you sure you want to proceed with refund request ?" checkbox
+		And I click on "Process Refund" button on Issue Refund popup
+		Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+		When I click on "OK" button
+		And I check the status for "same day payment" in db
+
+	 #CORE-4730:Verify Customer Partial refund with changing driver earnings is taken by Same day job if driver payment setting is Same day
+	 #CORE-4730:Verify Customer Partial refund making driver earnings zero is taken by Same day job if driver payment setting is Same day
+	#Issue logged CORE-5802
+	@ready
+	Scenario Outline:Verify Customer Partial refund with changing driver earnings is taken by Same day job if driver payment setting is Same day
+		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+			| Bungii Time   | Customer Phone | Customer Name                  |
+			| NEXT_POSSIBLE | <Customer Phone>     | <Customer Name>|
+		And As a driver "<Driver Name>" perform below action with respective "Solo Scheduled" Delivery
+			| driver1 state|
+			|Accepted |
+			| Enroute  |
+			| Arrived |
+			| Loading Item |
+			| Driving To Dropoff |
+			| Unloading Item |
+			| Bungii Completed |
+		And I view the Deliveries list on the admin portal
+		And I wait for 2 minutes
+		And I search the delivery of Customer and view it
+		When I click on "ISSUE REFUND" button
+		Then The "Issue Refund" section should be displayed
+		When I select "Partial Refund" radio button
+		And I enter "Customer Refund Amount" as "5" dollars
+		When I update "Earnings" as "<Driver Earning>" dollars
+		When I enter "Notes" as "Driver Note"
+		And I enter "Bungii Internal Notes" as "Internal Note"
+		And I click on "Continue" button on Issue Refund popup
+		Then I should see "Issue Refund - Confirm Details" popup
+		And I should see Original Delivery Charge & Customer Refund & Total Customer Charge
+		And I should see Bungii Internal Note
+		When I select "Are you sure you want to proceed with refund request ?" checkbox
+		And I click on "Process Refund" button on Issue Refund popup
+		Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+		When I click on "OK" button
+		And I check the status for "same day payment" in db
+		And The amount should be "Refunded" and in "voided" state
+
+		Examples:
+			| Customer Name                         |         Driver Name                         |   Customer Phone  |  Driver Earning  |
+			| Testcustomertywd_appleMarkFR LutherFR | Testdrivertywd_appledc_a_drvae Washingtonae |     8877661173    |  10.00           |
+			| Testcustomertywd_appleMarkFS LutherFS |Testdrivertywd_appledc_a_drvaf Washingtonaf  |   8877661174      |  0               |
+
+
+

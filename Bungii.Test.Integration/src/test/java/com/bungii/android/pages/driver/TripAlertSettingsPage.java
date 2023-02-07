@@ -33,6 +33,8 @@ public class TripAlertSettingsPage extends PageBase {
     public WebElement TimePicker_ChangeTime(){return findElement("//android.widget.RadialTimePickerView.RadialPickerTouchHelper[contains(@content-desc,\"8\")]", LocatorType.XPath);}
 
     public WebElement TimePicker_OK(){return findElement("//*[@resource-id='android:id/button1']", LocatorType.XPath);}
+    public WebElement Button_UpdateBungii(){return findElement("//button[contains(text(),'UPDATE BUNGII')]", LocatorType.XPath);}
+
 
     public WebElement Text_Sunday() {return findElement("//*[@resource-id='com.bungii.driver:id/text_settings_row_text_day' and @text='Sunday']", LocatorType.XPath);}
 

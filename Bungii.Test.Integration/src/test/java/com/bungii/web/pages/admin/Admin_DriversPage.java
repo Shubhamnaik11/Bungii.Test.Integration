@@ -108,4 +108,8 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Button_CalenderPreviousMonthForActivatedDate() {return findElement("//div[@class=\"react-datepicker\"]/button[1]",LocatorType.XPath);}
 
+    public WebElement Text_CustomerNameRow1() {return findElement("//table[@class='table table-striped table-hover']/tbody/tr[1]/td[8]",LocatorType.XPath);}
+
+    public WebElement Button_Search() {return findElement("btnSearch",LocatorType.Id);}
+
 }
