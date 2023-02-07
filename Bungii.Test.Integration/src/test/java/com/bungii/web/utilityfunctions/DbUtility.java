@@ -790,12 +790,20 @@ public class DbUtility extends DbContextManager {
 
     }
 
-    public static String isDriverActive(String phoneNumber) {
+    public static String isDriverActive(String driverName) {
         String driverStatus = "";
-        String queryString = "select IsDriverActive from driver where phone= " + phoneNumber;
+        String queryString = "select IsDriverActive from driver where FirstName= '"+driverName+"'";
         driverStatus = getDataFromMySqlServer(queryString);
-        logger.detail("Driver having  Phone Number " + phoneNumber + " has  " + driverStatus + " status");
+        logger.detail("Driver " + driverName + " has  " + driverStatus + " status");
         return driverStatus;
+    }
+
+    public static String getDriverPhoneNumber(String driverName) {
+        String driverPhoneNumber = "";
+        String queryString = "select Phone from driver where FirstName= '"+driverName+"'";
+        driverPhoneNumber = getDataFromMySqlServer(queryString);
+        logger.detail("Driver " + driverName + " Phone number is   " + driverPhoneNumber);
+        return driverPhoneNumber;
     }
 
 }

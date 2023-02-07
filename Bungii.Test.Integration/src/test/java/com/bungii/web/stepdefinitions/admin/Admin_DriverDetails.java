@@ -299,24 +299,19 @@ public class Admin_DriverDetails extends DriverBase{
                     true);
         }
     }
-    @And("^I check if driver \"([^\"]*)\" is eligible for the delivery having status \"([^\"]*)\"$")
-    public void i_check_if_driver_something_is_eligible_for_the_delivery_having_status_something(String driverName, String driverStatus) throws Throwable {
+
+    @Then("^The delivery \"([^\"]*)\" eligible for driver \"([^\"]*)\"$")
+    public void the_delivery_something_eligible_for_driver_something(String driverEligibility, String driverName) throws Throwable {
       try {
           String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-          String driverPhoneNum = getDriverPhoneNumber(driverName);
+          String []driverFirstName =driverName.split(" ") ;
+          String driverPhoneNum = new DbUtility().getDriverPhoneNumber(driverFirstName[0]);
           boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
-          String DriverActiveORInActive = new DbUtility().isDriverActive(driverPhoneNum);
-          if (driverStatus.equals("Active")) {
-              testStepAssert.isTrue(DriverActiveORInActive.equals("1"), "Driver " + driverName + " status should is active",
-                      "Driver " + driverName + " status is active",
-                      "Driver " + driverName + " status  is " + DriverActiveORInActive + " ,it should be 1");
+          if (driverEligibility.equals("Should be")) {
               testStepAssert.isTrue(isDriverEligible, "Driver " + driverName + " should be eligible for delivery having pickup ref " + pickupRequest,
                       "Driver " + driverName + " is eligible for delivery having pickup ref " + pickupRequest,
                       "Driver " + driverName + " is not eligible for delivery having pickup ref " + pickupRequest);
           } else {
-              testStepAssert.isTrue(DriverActiveORInActive.equals("0"), "Driver " + driverName + " status should is inactive",
-                      "Driver " + driverName + " status is inactive",
-                      "Driver " + driverName + " status  is " + DriverActiveORInActive + " ,it should be 0");
               testStepAssert.isFalse(isDriverEligible, "Driver " + driverName + " should not be eligible for delivery having pickup ref " + pickupRequest,
                       "Driver " + driverName + " is not eligible for delivery having pickup ref " + pickupRequest,
                       "Driver " + driverName + " is eligible for delivery having pickup ref " + pickupRequest);
@@ -328,15 +323,26 @@ public class Admin_DriverDetails extends DriverBase{
         }
     }
 
-    public static String getDriverPhoneNumber(String driverName) {
-        String phone = null;
-        switch (driverName) {
-            case "Testdrivertywd_appleks_a_drvca Kansas_ca":
-                phone = PropertyUtility.getDataProperties("Kansas.driver75.phone");
-                break;
-            default:
-                throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
+    @And("^I check if Driver status is \"([^\"]*)\" for driver \"([^\"]*)\"$")
+    public void i_check_if_driver_status_is_something_for_driver_something(String driverStatus, String driverName) throws Throwable {
+        try{
+        String [] onlyFirstName = driverName.split(" ");
+        String DriverActiveORInActive = new DbUtility().isDriverActive(onlyFirstName[0]);
+        if (driverStatus.equals("Active")) {
+            testStepAssert.isTrue(DriverActiveORInActive.equals("1"), "Driver " + driverName + " status should is active",
+                    "Driver " + driverName + " status is active",
+                    "Driver " + driverName + " status  is " + DriverActiveORInActive + " ,it should be 1");
         }
-        return phone;
-    };
+        else {
+            testStepAssert.isTrue(DriverActiveORInActive.equals("0"), "Driver " + driverName + " status should is inactive",
+                    "Driver " + driverName + " status is inactive",
+                    "Driver " + driverName + " status  is " + DriverActiveORInActive + " ,it should be 0");
+        }
+    }catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
+    }
 }
