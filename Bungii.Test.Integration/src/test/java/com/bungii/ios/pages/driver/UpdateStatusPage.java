@@ -80,7 +80,7 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_SkipCustomerSignature(){return findElement("Skip customer signature",LocatorType.AccessibilityId);}
 	public WebElement Alert_DropOffInstructionsGotIt(){return findElement("Got it",LocatorType.AccessibilityId);}
 	public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//i[contains(text(),'Pick up has been successfully updated.')]", LocatorType.XPath); }
-	public WebElement Label_CancelSuccessMessageLive () { return findElement("//p[@id='delivery-cancelled-success-message']/i[2]", LocatorType.XPath); }
+	public WebElement Label_CancelSuccessMessageLive () { return findElement("//i[contains(text(),'Pick up has been successfully canceled.')]", LocatorType.XPath); }
 	public WebElement Message_AdminCompleteConfirm() {return findElement("//span[contains(text(),'Once you confirm, the delivery status and the upda')]",LocatorType.XPath);}
 	public WebElement Button_CalculateCost() { return findElement("//button[contains(text(),'Calculate cost')]",LocatorType.XPath);}
 	public WebElement Textbox_PickupEndDate () { return findElement("//input[@name='Date']", LocatorType.XPath); }
@@ -89,6 +89,8 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement RadioButton_EditDeliveryStatus() { return findElement("//label[contains(text(),'Edit Delivery Status')]",LocatorType.XPath);}
 
 	public WebElement RadioButton_BungiiComlpeted() { return findElement("//label[contains(text(),'Delivery Completed')]",LocatorType.XPath);}
+
+	public WebElement RadioButton_DeliveryCanceled() { return findElement("//label[contains(text(),'Delivery Canceled')]",LocatorType.XPath);}
 
 	public WebElement Header_DeliveryDetails(){return findElement("DELIVERY DETAILS",LocatorType.AccessibilityId);}
 	public WebElement Button_CloseDeliveryDetails() { return findElement("//XCUIElementTypeNavigationBar[@name=\"Bungii_Driver.NewPickupDetail\"]/XCUIElementTypeButton[1]",LocatorType.XPath);}
@@ -111,6 +113,8 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Text_ScanBarCode(){return findElement("Scan barcode",LocatorType.AccessibilityId);}
 	public WebElement Text_BarCodeScanningInstructions(){return findElement( "//XCUIElementTypeStaticText[@name=\"Hold steady and center the barcode to scan. You need to scan any one item to proceed.\"]",LocatorType.XPath);}
 	public WebElement Button_SkipBarCode(){return findElement( "Skip",LocatorType.AccessibilityId);}
+
+	public WebElement Button_UpdateBungii(){return findElement( "//button[contains(text(),'UPDATE BUNGII')]",LocatorType.XPath);}
 	public WebElement Text_NotificationTextOnLoadingItemsForBarCode(){return findElement("//XCUIElementTypeStaticText[@name=\"Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.\"]",LocatorType.XPath);}
 	public WebElement Text_NotificationTextOnUnloadingForBarCode(){return findElement("//XCUIElementTypeStaticText[@name=\"Please take photos and scan item(s) barcode before loading, just ‘slide to load items’ and follow the prompts.\"]",LocatorType.XPath);}
 
