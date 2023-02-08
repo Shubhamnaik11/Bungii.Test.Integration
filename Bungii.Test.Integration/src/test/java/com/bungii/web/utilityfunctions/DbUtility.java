@@ -780,10 +780,11 @@ public class DbUtility extends DbContextManager {
         for(int i=0;i<8 && !isDriverEligible;i++){
             try {
                 Thread.sleep(5000);
+                isDriverEligible = checkIfExpectedDataFromMySqlServer(queryString2,driverID);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            isDriverEligible = checkIfExpectedDataFromMySqlServer(queryString2,driverID);
+            
 
         }
         return isDriverEligible;

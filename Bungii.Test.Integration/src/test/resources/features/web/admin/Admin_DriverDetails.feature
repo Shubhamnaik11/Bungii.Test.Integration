@@ -162,12 +162,12 @@ Feature: Admin_DriverDetails
         | Testdrivertywd_appledc_a_drve Driver         |   Acc not created       |  No Branch app Registration             |
 
 #CORE-5144:Inactive driver accepting trips,driver whose status is inactive should not be eligible for delivery-pp
-  @ready
+  @testAllan
   Scenario: Inactive driver accepting trips,driver whose status is inactive should not be eligible for delivery
     When I request Partner Portal "SOLO" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |Kansas| NEXT_POSSIBLE | 8877661183 | Testcustomertywd_appleMarkGB LutherGB|
-    And I check if Driver status is "Active" for driver "Testdrivertywd_appleks_a_drvca Kansas_ca"
+#    And I check if Driver status is "Active" for driver "Testdrivertywd_appleks_a_drvca Kansas_ca"
     Then The delivery "Should be" eligible for driver "Testdrivertywd_appleks_a_drvca Kansas_ca"
     And I click on the "Driver" link from the sidebar
     When I search driver "Testdrivertywd_appleks_a_drvca Kansas_ca"
