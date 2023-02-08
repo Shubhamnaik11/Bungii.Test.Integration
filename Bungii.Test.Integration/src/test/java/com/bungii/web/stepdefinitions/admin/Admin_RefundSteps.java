@@ -777,10 +777,12 @@ try{
     public void iCheckTheStatusForInDb(String checkingParameter) {
         try {
             String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String type;
             switch (checkingParameter) {
                 case "same day payment":
                     String driverOne = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-                    String disbursmentTypeDriverOne = dbUtility.getDisbursementType(pickUpRef, driverOne);
+                    type = "Disbursment type";
+                    String disbursmentTypeDriverOne = dbUtility.getDisbursementType(type,pickUpRef, driverOne);
                     testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
                             "Correct disbursement type value should be set for same day payment setting",
                             "Correct disbursement type value is set for same day payment setting",
@@ -788,7 +790,8 @@ try{
                     break;
                 case "weekly payment":
                     String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-                    String disbursmentTypeDriver = dbUtility.getDisbursementType(pickUpRef,driver);
+                    type = "Disbursment type";
+                    String disbursmentTypeDriver = dbUtility.getDisbursementType(type,pickUpRef,driver);
                     testStepAssert.isEquals(disbursmentTypeDriver, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
                             "Correct disbursement type value should be set for weekly payment setting",
                             "Correct disbursement type value is set for weekly payment setting",

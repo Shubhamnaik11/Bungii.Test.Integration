@@ -708,27 +708,31 @@ public class DbUtility extends DbContextManager {
 
 
     }
-    public static String getDisbursementType(String pickUpRef,String driverPhone) {
-        String disbursementType;
+
+    public static String getDisbursementType(String type,String pickUpRef,String driverPhone) {
+        String transactionType = null;
         String driverId;
-        String queryString = "Select Id from driver where phone= "+driverPhone;
-        driverId = getDataFromMySqlMgmtServer(queryString);
-        logger.detail("The driver Id for "+driverPhone+" is "+driverId);
-        String queryString1 ="select disbursement_type from payment_trans_disburse_branch where payment_transaction_id in (select Id from paymenttransaction where clientgroupref in ('"+pickUpRef+"')) and driver_id="+driverId;
-        disbursementType = getDataFromMySqlMgmtServer(queryString1);
-        logger.detail("The disbursement type for "+driverId+" is "+disbursementType);
-        return disbursementType;
-    }
-    public static String getDisbursementTypeForAccCharge(String pickUpRef,String driverPhone) {
-        String disbursementType;
-        String driverId;
-        String queryString = "Select Id from driver where phone= "+driverPhone;
-        driverId = getDataFromMySqlMgmtServer(queryString);
-        logger.detail("The driver Id for "+driverPhone+" is "+driverId);
-        String queryString1 ="select disbursement_type from bungii_admin_qa_auto.payment_trans_disburse_branch where driver_id ="+driverId+" limit 1";
-        disbursementType = getDataFromMySqlMgmtServer(queryString1);
-        logger.detail("The disbursement type for "+driverId+" is "+disbursementType);
-        return disbursementType;
+        String queryString;
+
+        switch (type) {
+            case "Disbursment type":
+                queryString = "Select Id from driver where phone= "+driverPhone;
+                driverId = getDataFromMySqlMgmtServer(queryString);
+                String queryString1 ="select disbursement_type from payment_trans_disburse_branch where payment_transaction_id in (select Id from paymenttransaction where clientgroupref in ('"+pickUpRef+"')) and driver_id="+driverId;
+                transactionType = getDataFromMySqlMgmtServer(queryString1);
+                logger.detail("The driver Id for "+driverPhone+" is "+driverId);
+                logger.detail("The disbursement type for "+driverId+" is "+transactionType);
+            break;
+
+            case "Payment Transaction Type":
+                queryString = "Select Id from driver where phone= "+driverPhone;
+                driverId = getDataFromMySqlMgmtServer(queryString);
+                String queryString2 ="select PaymentTransactionType  from bungii_admin_qa_auto.paymenttransaction where Driver= "+driverId+ " and PaymentTransactionType =10 limit 1";
+                transactionType = getDataFromMySqlMgmtServer(queryString2);
+                logger.detail("The payment transaction type for "+driverId+" is "+transactionType);
+            break;
+        }
+        return transactionType;
     }
     public static String getDriverPaidStatus(String pickUpRef) {
         String driverStatus;

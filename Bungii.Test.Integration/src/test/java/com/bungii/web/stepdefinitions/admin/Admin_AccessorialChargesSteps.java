@@ -741,24 +741,23 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                     true);
         }
     }
-
-    @Then("I verify correct disbursement type is set in db for accessorial charge")
-    public void iVerifyCorrectDisbursementTypeIsSetInDbForAccessorialCharge() {
+    @Then("I verify correct Payment transaction type is set in db for accessorial charge")
+    public void iVerifyCorrectPaymentTransactionTypeIsSetInDbForAccessorialCharge() {
         try {
             String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
             String driverOne = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
             String driverTwo = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
-            String disbursmentTypeDriverOne = dbUtility.getDisbursementTypeForAccCharge(pickUpRef, driverOne);
-            String disbursmentTypeDriverTwo = dbUtility.getDisbursementTypeForAccCharge(pickUpRef, driverTwo);
-            testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
-                    "Correct disbursement type value should be set for same day payment setting",
-                    "Correct disbursement type value is set for same day payment setting",
-                    "Incorrect disbursement type value is set for same day payment setting");
-            testStepAssert.isEquals(disbursmentTypeDriverTwo, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
-                    "Correct disbursement type value should be set for weekly payment setting",
-                    "Correct disbursement type value is set for weekly payment setting",
-                    "Incorrect disbursement type value is set for weekly payment setting");
-
+            String type = "Payment Transaction Type";
+            String paymenttransTypeDriverOne = dbUtility.getDisbursementType(type, pickUpRef, driverOne);
+            String paymenttransTypeDriverTwo = dbUtility.getDisbursementType(type, pickUpRef, driverTwo);
+            testStepAssert.isEquals(paymenttransTypeDriverOne, PropertyUtility.getDataProperties("accessorial.charge.transaction.type.value"),
+                    "Correct Payment transaction type value should be set for Accessorial charge in DB",
+                    "Correct Payment transaction type value is set for Accessorial charge in DB",
+                    "Incorrect Payment transaction type value should be set for Accessorial charge in DB");
+            testStepAssert.isEquals(paymenttransTypeDriverTwo, PropertyUtility.getDataProperties("accessorial.charge.transaction.type.value"),
+                    "Correct Payment transaction type value should be set for Accessorial charge in DB",
+                    "Correct Payment transaction type value is set for Accessorial charge in DB",
+                    "Incorrect Payment transaction type value should be set for Accessorial charge in DB");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",

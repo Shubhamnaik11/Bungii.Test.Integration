@@ -280,8 +280,9 @@ public class Admin_DriverDetails extends DriverBase{
             String pickUpRef= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
             String driverOne= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
             String driverTwo= (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
-            String disbursmentTypeDriverOne = dbUtility.getDisbursementType(pickUpRef,driverOne);
-            String disbursmentTypeDriverTwo = dbUtility.getDisbursementType(pickUpRef,driverTwo);
+            String type ="Disbursment type";
+            String disbursmentTypeDriverOne = dbUtility.getDisbursementType(type,pickUpRef,driverOne);
+            String disbursmentTypeDriverTwo = dbUtility.getDisbursementType(type,pickUpRef,driverTwo);
             testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
                     "Correct disbursement type value should be set for same day payment setting",
                     "Correct disbursement type value is set for same day payment setting",
@@ -290,7 +291,6 @@ public class Admin_DriverDetails extends DriverBase{
                     "Correct disbursement type value should be set for weekly payment setting",
                     "Correct disbursement type value is set for weekly payment setting",
                     "Incorrect disbursement type value is set for weekly payment setting");
-
         }
         catch(Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
