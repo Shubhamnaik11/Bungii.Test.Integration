@@ -615,7 +615,8 @@ try{
     @And("^I enter \"([^\"]*)\" phone number$")
     public void i_enter_something_phone_number(String passwordType) throws Throwable {
         try{
-        action.clearSendKeys(adminLoginPage.Textbox_CellPhoneNumber(), PropertyUtility.getDataProperties("admin.user"));
+        action.clearSendKeys(adminLoginPage.Textbox_CellPhoneNumber(), PropertyUtility.getDataProperties("admin.user3"));
+        cucumberContextManager.setScenarioContext("Admin3LoginPhoneNumber",PropertyUtility.getDataProperties("admin.user3"));
             log("I should able to enter "+ passwordType+" phone number","I could enter "+ passwordType+" phone number", false);
     }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

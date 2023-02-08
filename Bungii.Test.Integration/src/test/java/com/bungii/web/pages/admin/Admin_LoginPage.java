@@ -28,5 +28,10 @@ public class Admin_LoginPage  extends PageBase {
 
     public WebElement Button_SendVerificationCode() { return findElement("//button[text()=\"Send Verification Code\"]", LocatorType.XPath); }
 
+    public WebElement Textbox_NewPassword() { return findElement("newPassword", LocatorType.Id); }
+
+    public WebElement Textbox_ConfrimNewPassword() { return findElement("confirmPassword", LocatorType.Id); }
+
+    public WebElement Button_ResetPassword() { return findElement("//button[text()=\"RESET PASSWORD\"]", LocatorType.XPath); }
 
 }

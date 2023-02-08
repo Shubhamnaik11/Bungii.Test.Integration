@@ -18,3 +18,6 @@ Feature: Admin_Login_Page
     When I enter "valid" phone number
     And  I click on the "Send Verification Code" Button
     Then The "Verify your phone" "Header" should be displayed
+    And I enter "valid" Verification code
+    And I enter "New" admin password
+    And I click on the "Reset Button" Button

@@ -459,6 +459,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 case "Send Verification Code":
                     action.click(adminLoginPage.Button_SendVerificationCode());
                     break;
+                case "Reset Password":
+                    action.click(adminLoginPage.Button_ResetPassword());
+                    break;
             }
             log("I click on the " + arg0 + " button",
                     "I have clicked on the " + arg0 + " button");
@@ -802,6 +805,41 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             logger.error("Error performing step", e);
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+    @When("^I enter \"([^\"]*)\" Verification code$")
+    public void i_enter_something_verificationcode(String strArg1) {
+        String smsCode = "";
+        try {
+            switch (strArg1) {
+                case "valid":
+                   Thread.sleep(3000);
+                   String adminPhoneNumber = (String) cucumberContextManager.getScenarioContext("Admin3LoginPhoneNumber");
+                    smsCode = "";
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I enter \"([^\"]*)\" admin password$")
+    public void i_enter_something_admin_password(String passwordType) throws Throwable {
+        try{
+       switch (passwordType){
+           case "New":
+               action.clearSendKeys(adminLoginPage.Textbox_NewPassword(),PropertyUtility.getDataProperties("admin.user3.new.password"));
+               Thread.sleep(3000);
+               action.clearSendKeys(adminLoginPage.Textbox_ConfrimNewPassword(),PropertyUtility.getDataProperties("admin.user3.new.password"));
+               break;
+       }
+       log("I should be able to enter "+passwordType+" password in the new password textbox","I could enter "+passwordType+" password in the new password textbox",false );
+    } catch (Exception e){
+        logger.error("Error performing step", e);
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
 
     public String[] getTruckImages() {
