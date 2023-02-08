@@ -1031,7 +1031,18 @@ public class BungiiInProgressSteps extends DriverBase {
         try{
             switch (radiobutton) {
                 case "Edit Delivery Status":
+                    Thread.sleep(3000);
                     action.click(updateStatusPage.RadioButton_EditDeliveryStatus());
+                    Thread.sleep(1000);
+                    break;
+                case "Delivery Canceled":
+                    Thread.sleep(3000);
+                    action.click(updateStatusPage.RadioButton_DeliveryCanceled());
+                    Thread.sleep(1000);
+                    break;
+                case "Delivery Completed":
+                    Thread.sleep(3000);
+                    action.click(updateStatusPage.RadioButton_DeliveryCompleted());
                     Thread.sleep(1000);
                     break;
                 default:

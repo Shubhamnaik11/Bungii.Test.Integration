@@ -4286,5 +4286,22 @@ public class CommonSteps extends DriverBase {
         return convertedTime;
     }
 
+    @Then("^I should able to see \"([^\"]*)\" scheduled trip$")
+    public void i_should_able_to_see_something_scheduled_trip(String strArg1) throws Throwable {
+        try{
+            List<WebElement> listOfScheduledTrip = updateStatusPage.List_ScheduledBungiis();
+            switch (strArg1) {
+                case "one":
+                    testStepAssert.isTrue(listOfScheduledTrip.size() == 1, "There should be one scheduled trip", "There is/are "+listOfScheduledTrip.size()+" Scheduled trips");
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect scheduled delivery count", "Incorrect scheduled delivery count");
+            }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
 
+    }
 }

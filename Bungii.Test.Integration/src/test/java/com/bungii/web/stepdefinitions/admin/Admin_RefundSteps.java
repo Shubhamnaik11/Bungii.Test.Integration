@@ -33,7 +33,9 @@ public class Admin_RefundSteps extends DriverBase {
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_DashboardPage admin_DashboardPage = new Admin_DashboardPage();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
-     boolean partial = true;
+    Admin_PromoCodesPage admin_PromoCodesPage = new Admin_PromoCodesPage();
+
+    boolean partial = true;
 
     @When("^I select \"([^\"]*)\" radio button$")
     public void i_select_something_radio_button(String radioButton) throws Throwable {
@@ -116,6 +118,12 @@ public class Admin_RefundSteps extends DriverBase {
             case "Notes":
                 action.clearSendKeys(admin_refundsPage.TextBox_Notes(),value);
                 cucumberContextManager.setScenarioContext("BUNGII_DRIVER_NOTE",value);
+                break;
+            case "Standard Code Name":
+                action.clearSendKeys(admin_PromoCodesPage.TextBox_PromoCodeName(),"    ");
+                break;
+            case "Code":
+                action.clearSendKeys(admin_PromoCodesPage.TextBox_Code(),value);
                 break;
         }
         log("I enter value in "+field,"I entered  "+value+" in field "+field+" on Refund popup" ,false );
@@ -204,7 +212,7 @@ public class Admin_RefundSteps extends DriverBase {
            testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header, "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
            admin_refundsPage.TextBox_RefundAmount().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));;
         String driverEarning = action.getAttributeValue(admin_refundsPage.Label_Driver());
-        String bungiiEarning = action.getAttributeValue(admin_refundsPage.Label_Bungii());
+        String bungiiEarning = action.getText(admin_refundsPage.Label_Bungii());
         cucumberContextManager.setScenarioContext("DRIVER_EARNINGS_BEFORE",driverEarning);
         cucumberContextManager.setScenarioContext("BUNGII_EARNINGS_BEFORE",bungiiEarning);
     } catch(Exception e){
@@ -359,7 +367,7 @@ try{
         Double bungiiEarnings = Double.parseDouble(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS")));
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverBeforeRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS_BEFORE")), "Driver Earnings Before should be displayed", "Driver Earnings Before is displayed","Driver Earnings Before is not displayed");
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_DriverAfterRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS")), "Driver Earnings After should be displayed", "Driver Earnings After is displayed","Driver Earnings Aftere is not displayed");
-        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiBeforeRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS_BEFORE")), "Bungii Earnings Before should be displayed", "Bungii Earnings Before is displayed","Bungii Earnings Before is not displayed");
+        testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiBeforeRefund()),String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS_BEFORE")), "Bungii Earnings Before should be displayed", "Bungii Earnings Before is displayed","Bungii Earnings Before is not displayed");
         if(bungiiEarnings>=0)
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_BungiiAfterRefund()),"($"+df.format(bungiiEarnings)+")", "Bungii Earnings After should be displayed", "Bungii Earnings After is displayed","Bungii Earnings After is not displayed");
          else
@@ -453,6 +461,15 @@ try{
                     testStepAssert.isFalse(earnings.contains("*"),
                             "The driver earnings after edit should not contain *",
                             "The driver earnings after edit contains *");
+                    break;
+                case "scheduled driver search time":
+                    cucumberContextManager.setScenarioContext("DRIVER_SEARCH_TIME",action.getAttributeValue(admin_refundsPage.Text_ScheduleDriverSearchTime()));
+                    break;
+                case "scheduled driver search time after edit":
+                    testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.Text_ScheduleDriverSearchTime()),(String)cucumberContextManager.getScenarioContext("DRIVER_SEARCH_TIME"),
+                            "Scheduled driver search time should remain unchanged after changing driver boosted earnings",
+                            "Scheduled driver search time remain unchanged after changing driver boosted earnings",
+                            "Scheduled driver search time are changed after changing driver boosted earnings" );
                     break;
             }
 
@@ -756,5 +773,33 @@ try{
                 true);
     }
         }
+    @And("I check the status for {string} in db")
+    public void iCheckTheStatusForInDb(String checkingParameter) {
+        try {
+            String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            switch (checkingParameter) {
+                case "same day payment":
+                    String driverOne = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+                    String disbursmentTypeDriverOne = dbUtility.getDisbursementType(pickUpRef, driverOne);
+                    testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
+                            "Correct disbursement type value should be set for same day payment setting",
+                            "Correct disbursement type value is set for same day payment setting",
+                            "Incorrect disbursement type value is set for same day payment setting");
+                    break;
+                case "weekly payment":
+                    String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+                    String disbursmentTypeDriver = dbUtility.getDisbursementType(pickUpRef,driver);
+                    testStepAssert.isEquals(disbursmentTypeDriver, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
+                            "Correct disbursement type value should be set for weekly payment setting",
+                            "Correct disbursement type value is set for weekly payment setting",
+                            "Incorrect disbursement type value is set for weekly payment setting");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     }

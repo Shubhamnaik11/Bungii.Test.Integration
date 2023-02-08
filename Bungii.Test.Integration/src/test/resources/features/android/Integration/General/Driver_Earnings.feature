@@ -83,7 +83,7 @@ Feature: Driver Earnings
     Then I compare with earnings from admin portal for "duo first driver"
     And I click on "BACK" button
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "LOGOUT" from ACCOUNT menu
     And I am on the LOG IN page on driver app
     And I am logged in as "Testdrivertywd_appleks_a_drvw Kansas_w" driver
@@ -263,7 +263,7 @@ Feature: Driver Earnings
     And I click on "Payment Setting" button
     And I click on "Change default payment" button
     When I Select "ACCOUNT" from driver App menu
-    And the "ACCOUNT" page is opened
+    And The "ACCOUNT" page is opened
     When I Select "LOGOUT" from ACCOUNT menu
     And I am on the LOG IN page on driver app
     And I am logged in as "Testdrivertywd_appleks_a_drvu Kansas_u" driver

@@ -39,6 +39,14 @@
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
+
+        When I switch to "ORIGINAL" instance
+        And I Switch to "driver" application on "same" devices
+        And I am on the LOG IN page on driver app
+        And I am logged in as "Testdriver_goa_a Android_test" driver
+        And I Select "SCHEDULED BUNGIIS" from driver App menu
+        #CORE-2718:Driver was assigned to delivery and could not see it in app issue
+        Then I should able to see "one" scheduled trip
      
         
       @regression

@@ -230,7 +230,6 @@ Feature: SoloScheduled
 
  #CORE-3606 : Verify Customer signature can be skipped on driver app
   @regression
-    @sn
   Scenario:Verify Customer signature can be skipped on driver app
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
