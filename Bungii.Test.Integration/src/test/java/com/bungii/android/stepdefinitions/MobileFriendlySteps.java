@@ -43,6 +43,8 @@ public class MobileFriendlySteps extends DriverBase {
             action.waitUntilIsElementExistsAndDisplayed(chromePage.Textbox_EnterPassword());
             action.clearSendKeys(chromePage.Textbox_EnterPassword(),PropertyUtility.getDataProperties("PartnerPassword"));
             action.click(chromePage.Button_SignIn());
+            log("I should be able to login to "+portal,"I am able to login to "+portal,false);
+
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -58,6 +60,7 @@ public class MobileFriendlySteps extends DriverBase {
             switch (pageName){
                 case "get estimate":
                     action.waitUntilIsElementExistsAndDisplayed(chromePage.Icon_BungiiLogo());
+                    action.scrollToTop();
                     testStepAssert.isElementDisplayed(chromePage.Icon_BungiiLogo(),
                             "Bungii Logo should be displayed",
                             "Bungii Logo is displayed",
@@ -164,6 +167,8 @@ public class MobileFriendlySteps extends DriverBase {
                     break;
 
             }
+            log("I should be able to verify ui elements on "+pageName,"I am able to verify ui elements on "+pageName,false);
+
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -224,7 +229,11 @@ public class MobileFriendlySteps extends DriverBase {
                         action.scrollToBottom();
                         action.clearSendKeys(chromePage.Textbox_CustomerName(),dataMapDetails.get("Customer_Name"));
                         action.clearSendKeys(chromePage.Textbox_CustomerNumber(),dataMapDetails.get("Customer_Mobile"));
+                        action.clearSendKeys(chromePage.Textbox_PickupName(),dataMapDetails.get("Pickup_Contact_Name"));
                         action.scrollToBottom();
+                        action.clearSendKeys(chromePage.Textbox_PickupNumber(),dataMapDetails.get("Pickup_Contact_Phone"));
+                        action.clearSendKeys(chromePage.Textbox_DropOffName(),dataMapDetails.get("Drop_Off_Contact_Name"));
+                        action.clearSendKeys(chromePage.Textbox_DropOffNumber(),dataMapDetails.get("Drop_Contact_Phone"));
                         action.clearSendKeys(chromePage.Textbox_DeliveryPurpose(),dataMapDetails.get("Delivery_Purpose"));
                         action.clearSendKeys(chromePage.Textbox_LotNumber(),dataMapDetails.get("Lot_Number"));
                         action.clearSendKeys(chromePage.Textbox_BidderNumber(),dataMapDetails.get("Bidder_Number"));
@@ -232,6 +241,8 @@ public class MobileFriendlySteps extends DriverBase {
                     }
                     break;
             }
+            log("I should be able to enter all the details on "+pageName,"I am able to enter all the details on "+pageName,false);
+
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

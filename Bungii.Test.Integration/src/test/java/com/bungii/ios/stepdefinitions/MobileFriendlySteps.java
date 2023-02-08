@@ -24,7 +24,6 @@ public class MobileFriendlySteps extends DriverBase {
     private static LogUtility logger = new LogUtility(CommonSteps.class);
     ActionManager action = new ActionManager();
     SafariPage safariPage= new SafariPage();
-    HomeSteps homeSteps;
     @When("^I terminate \"([^\"]*)\" app on \"([^\"]*)\" devices$")
     public void i_terminate_app(String appName, String device) {
 

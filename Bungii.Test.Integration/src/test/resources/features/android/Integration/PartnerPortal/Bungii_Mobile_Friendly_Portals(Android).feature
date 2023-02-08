@@ -33,8 +33,8 @@
       And I click on "Get Quote" button
       And I click on "CONTINUE" button
       When I enter all details on "delivery details" for "geofence based portal"
-        |Product_Description|Customer_Name   |Customer_Mobile|Lot_Number |Delivery_Purpose|Bidder_Number|
-        |20 boxes           |Testartner T    |9998881111     |002        |Decor           |007          |
+        |Product_Description|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Lot_Number |Delivery_Purpose|Bidder_Number|
+        |20 boxes           |Testartner T    |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |002        |Decor           |007          |
       And I enter following Credit Card details on Partner Portal
         |CardNo   |Expiry |Postal_Code      |Cvv      |
         |VISA CARD|12/25  |VALID POSTAL CODE|VALID CVV|

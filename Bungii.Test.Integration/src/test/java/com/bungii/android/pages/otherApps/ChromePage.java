@@ -51,6 +51,10 @@ public class ChromePage extends PageBase {
     public WebElement Textbox_DeliveryPurpose() { return findElement("//android.view.View[contains(@text,'DELIVERY PURPOSE*')]/following-sibling::android.widget.EditText", LocatorType.XPath);}
     public WebElement Textbox_RbNumber() { return findElement("//android.view.View[contains(@text,'RB/SB NUMBER*')]/following-sibling::android.widget.EditText", LocatorType.XPath);}
     public WebElement Textbox_ScheduleBy() { return findElement("//android.view.View[contains(@text,'SCHEDULED BY*')]/following-sibling::android.widget.EditText", LocatorType.XPath);}
+    public WebElement Textbox_PickupName() { return findElement("//android.widget.EditText[contains(@resource-id,'f2bd9004-6757-11ea-a4a3-00155d0a8706')]", LocatorType.XPath);}
+    public WebElement Textbox_PickupNumber() { return findElement("//android.widget.EditText[contains(@resource-id,'f2bd908c-6757-11ea-a4a3-00155d0a8706')]", LocatorType.XPath);}
+    public WebElement Textbox_DropOffName() { return findElement("//android.widget.EditText[contains(@resource-id,'f2bd90b3-6757-11ea-a4a3-00155d0a8706')]", LocatorType.XPath);}
+    public WebElement Textbox_DropOffNumber() { return findElement("//android.widget.EditText[contains(@resource-id,'f2bd90d3-6757-11ea-a4a3-00155d0a8706')]", LocatorType.XPath);}
 
 
     //Geofence-based Portal

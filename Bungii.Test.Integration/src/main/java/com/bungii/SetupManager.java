@@ -315,8 +315,8 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.setExperimentalOption("prefs", prefs);
         chromeOptions.addArguments("--no-sandbox");
         //if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
-//        chromeOptions.addArguments("--headless");
-//        chromeOptions.addArguments("--window-size=1920,1080");
+        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--window-size=1920,1080");
         if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
             chromeOptions.addArguments("--disable-dev-shm-usage");
             chromeOptions.addArguments("--disable-gpu");
@@ -564,6 +564,7 @@ public class SetupManager extends EventFiringWebDriver {
             DriverManager.getObject().storeDriverInstance(key, newDriverInstance);
         }
     }
+
     /**
      * Create new appium driver instance as per setting in config file and assign it to variable
      */
