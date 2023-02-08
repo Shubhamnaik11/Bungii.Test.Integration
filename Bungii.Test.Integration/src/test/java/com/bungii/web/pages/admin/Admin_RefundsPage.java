@@ -71,15 +71,15 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Label_NoteBungiiInternal() { return findElement("//b[contains(text(),'Bungii Internal:')]/following-sibling::span", LocatorType.XPath); }
 
-    public WebElement Label_NoteDriver() { return findElement("//b[contains(text(),'Driver Name:')]/following-sibling::span", LocatorType.XPath); }
+    public WebElement Label_NoteDriver() { return findElement("//b[contains(text(),'Driver')]/parent::span/b/parent::span/parent::div/span[1]/span", LocatorType.XPath); }
 
-    public WebElement Label_NoteDriver2() { return findElement("//b[contains(text(),'Driver')]/parent::p/parent::div/parent::div/parent::div/div[4]", LocatorType.XPath); }
+    public WebElement Label_NoteDriver2() { return findElement("//b[contains(text(),'Driver')]/parent::span/b/parent::span/parent::div/span[2]/span", LocatorType.XPath); }
 
     public WebElement Header_Popup() { return findElement("//div[contains(text(),'Issue Refund - Confirm Details')]", LocatorType.XPath); }
 
-    public WebElement Label_Success() { return findElement("//div[@id='swal2-html-container']", LocatorType.XPath); }
+    public WebElement Label_Success() { return findElement("swal2-html-container", LocatorType.Id); }
 
-    public WebElement Button_OK() { return findElement("//button[text()='Ok']|//button[text()='OK'] ", LocatorType.XPath); }
+    public WebElement Button_OK() { return findElement("//button[text()='Ok']|//button[text()='OK']", LocatorType.XPath); }
 
     public WebElement Label_CustomerRefundComplete() { return findElement("//div[contains(text(),'Customer Refund Amount:')]/following-sibling::div/span", LocatorType.XPath); }
 
@@ -89,13 +89,13 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Button_Close() { return findElement("//div[contains(text(),'Issue Refund')]/following-sibling::button[@class='btn-close']", LocatorType.XPath); }
 
-    public WebElement Checkbox_same() { return findElement("//label[contains(text(),'Same for Driver ')]/preceding::input[1]", LocatorType.XPath); }
+    public WebElement Checkbox_same() { return findElement("//div/label[contains(text(),\"Same for Driver\")]/preceding-sibling::input", LocatorType.XPath); }
 
     public WebElement TextBox_RefundAmount2() { return findElement("TripDetails_1__RefundAmount", LocatorType.Id); }
 
     public WebElement TextBox_RefundPercentage2() { return findElement("TripDetails_1__RefundPercentage", LocatorType.Id); }
 
-    public WebElement TextBox_DriverEarnings2() { return findElement("driver2Earning", LocatorType.Id); }
+    public WebElement TextBox_DriverEarnings2() { return findElement("//label[@id='dollar-icon']/div/div/input[@id='driver2Earning']", LocatorType.XPath); }
 
     public WebElement TextBox_DriverPercentage2() { return findElement("TripDetails_1__Driver_EarningsPercentage", LocatorType.Id); }
 
@@ -103,12 +103,16 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement TextBox_BungiiPercentage2() { return findElement("TripDetails_1__PostRefundBusinessPercentage", LocatorType.Id); }
 
-    public WebElement TextBox_Notes2() { return findElement("TripDetails_1__Driver_Notes", LocatorType.Id); }
+    public WebElement TextBox_Notes2() { return findElement("//div/textarea[@id='driver2Notes']", LocatorType.XPath); }
 
     public WebElement Button_TransactionDetails() { return findElement("//div/h4[text()='Transaction history']/following::div/a[text()='View Details']", LocatorType.XPath); }
 
     public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),'Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
 
     public WebElement Text_ScheduleDriverSearchTime() {return findElement("//td[text()='Scheduled driver search time']/following::td[1]/div[1]/div/div/div/input", LocatorType.XPath);}
+
+    public WebElement Text_DriverEarningsValue() {return findElement("//table[@class=\"table table-striped\"]/tbody/tr[18]/td[text()='Driver Earnings']/following::td[1]/strong", LocatorType.XPath);}
+
+    public WebElement Text_DeliveryPaymentValue() {return findElement("//table[@class=\"table table-striped\"]/tbody/tr[19]/td[text()='Delivery Payment']/following::td[1]/strong", LocatorType.XPath);}
 
 }
