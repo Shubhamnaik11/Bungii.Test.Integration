@@ -803,6 +803,9 @@ public class CommonStepsDriver extends DriverBase {
                 case "Skip":
                     action.click(updateStatusPage.Button_SkipBarCode());
                     break;
+                case "UPDATE BUNGII":
+                    action.click(updateStatusPage.Button_UpdateBungii());
+                    break;
                 case "Continue":
                     action.click(safariPage.Button_Continue());
                 case "Schedule Bungii":

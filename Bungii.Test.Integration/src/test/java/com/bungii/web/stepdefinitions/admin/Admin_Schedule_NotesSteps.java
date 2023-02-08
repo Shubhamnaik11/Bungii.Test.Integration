@@ -7,10 +7,7 @@ import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
-import com.bungii.web.pages.admin.Admin_LiveTripsPage;
-import com.bungii.web.pages.admin.Admin_LoginPage;
-import com.bungii.web.pages.admin.Admin_ScheduledTripsPage;
-import com.bungii.web.pages.admin.Admin_TripsPage;
+import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -44,6 +41,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     Admin_LiveTripsPage admin_LiveTripsPage = new Admin_LiveTripsPage();
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     DbUtility dbUtility = new DbUtility();
+    Admin_RefundsPage admin_refundsPage = new Admin_RefundsPage();
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
 
     private int notesCount = 0;
@@ -997,6 +995,39 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @And("^I Store the value for driver earnings and delivery payment$")
+    public void i_store_the_value_for_driver_earnings_and_delivery_payment() throws Throwable {
+        try{
+        String beforeChangeStateDriverEarning = action.getText(admin_refundsPage.Text_DriverEarningsValue());
+        String beforeChangeDeliveryPayment= action.getText(admin_refundsPage.Text_DeliveryPaymentValue());
+        cucumberContextManager.setScenarioContext("DriverEarning",beforeChangeStateDriverEarning);
+        cucumberContextManager.setScenarioContext("DeliveryPayment",beforeChangeDeliveryPayment);
+        log("I should be able to save the driver earnings and delivery payment values","I could save the driver earnings and delivery payment values",false);
+    }    catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
+
+    @Then("^The driver earnings and the delivery payment should be \"([^\"]*)\"$")
+    public void the_driver_earnings_and_the_delivery_payment_should_be_something(String expectedAmount) throws Throwable {
+        try{
+        String driverEarningsBeforeStatusChange = (String) cucumberContextManager.getScenarioContext("DriverEarning");
+        String deliveryPaymentBeforeStatusChange = (String) cucumberContextManager.getScenarioContext("DeliveryPayment");
+        String driverEarningsAfterStatusChange = action.getText(admin_refundsPage.Text_DriverEarningsValue()).trim();
+        String deliveryPaymentAfterStatusChange = action.getText(admin_refundsPage.Text_DeliveryPaymentValue()).trim();
+        testStepAssert.isFalse(driverEarningsBeforeStatusChange.contentEquals(driverEarningsAfterStatusChange),"Driver earnings should get changed to "+expectedAmount,"Driver earnings have changed to "+expectedAmount,"Driver earnings have not changed to "+ expectedAmount+" , Driver earnings currently are "+ driverEarningsAfterStatusChange);
+        testStepAssert.isFalse(deliveryPaymentBeforeStatusChange.contentEquals(deliveryPaymentAfterStatusChange),"Delivery payment should get changed to "+expectedAmount,"Delivery payment have changed to "+expectedAmount,"Delivery payment have not changed to "+expectedAmount+" , Delivery payment value is "+deliveryPaymentAfterStatusChange );
+        testStepAssert.isTrue(driverEarningsAfterStatusChange.contentEquals(expectedAmount),"Driver earnings should be equal to " +expectedAmount,"Driver earnings is equal to " +expectedAmount,"Driver earnings is not equal to " +expectedAmount +" ,its value is "+driverEarningsAfterStatusChange);
+        testStepAssert.isTrue(deliveryPaymentAfterStatusChange.contentEquals(expectedAmount),"Delivery payment should be equal to " +expectedAmount,"Delivery payment is equal to " +expectedAmount,"Delivery payment is not equal to " +expectedAmount +" ,its value is "+deliveryPaymentAfterStatusChange);
+    }    catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     private String roundedUpTime(String IncorrectTime) throws ParseException {

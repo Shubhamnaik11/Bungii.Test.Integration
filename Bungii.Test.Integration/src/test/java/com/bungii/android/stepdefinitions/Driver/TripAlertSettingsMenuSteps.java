@@ -277,6 +277,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     action.click(tripAlertSettingsPage.TimePicker_OK());
                     action.click(tripAlertSettingsPage.Button_SaveTime());
                     break;
+                case "UPDATE BUNGII":
+                    action.click(tripAlertSettingsPage.Button_UpdateBungii());
+                    break;
 
                 case "ADD":
                     action.click(promosPage.Button_AddPromoCode());
