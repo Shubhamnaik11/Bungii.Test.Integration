@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 public class Admin_LoginPage  extends PageBase {
 
     //Admin Login - Header
-    public WebElement Header_AdminLogin() { return findElement("//div[@id='login']/h2", LocatorType.XPath); }
+    public WebElement Header_AdminLogin() { return findElement("//h2[text()=\"Admin Login\"]", LocatorType.XPath); }
 
     //Admin Login - Phone Number
     public WebElement TextBox_Phone() { return findElement("phoneno", LocatorType.Name); }
@@ -30,8 +30,15 @@ public class Admin_LoginPage  extends PageBase {
 
     public WebElement Textbox_NewPassword() { return findElement("newPassword", LocatorType.Id); }
 
+    public WebElement Textbox_VerificationCode() { return findElement("verificationcode", LocatorType.Id); }
+
     public WebElement Textbox_ConfrimNewPassword() { return findElement("confirmPassword", LocatorType.Id); }
 
     public WebElement Button_ResetPassword() { return findElement("//button[text()=\"RESET PASSWORD\"]", LocatorType.XPath); }
+
+    public WebElement Header_AdminDashboard() { return findElement("//div/h4[text()=\"Dashboard\"]", LocatorType.XPath); }
+
+    public WebElement Text_AccountBlockedMessage() { return findElement("//p[text()=\"Invalid login credentials. Your account has been locked.\"]", LocatorType.XPath); }
+
 
 }

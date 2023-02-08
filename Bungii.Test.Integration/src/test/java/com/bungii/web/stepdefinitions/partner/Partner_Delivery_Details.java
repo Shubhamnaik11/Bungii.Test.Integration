@@ -1377,6 +1377,15 @@ public class Partner_Delivery_Details extends DriverBase {
                     String expectedHeaderText = action.getText(adminLoginPage.Header_ForgotPassword());
                     testStepAssert.isEquals(expectedHeaderText,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed , "+expectedHeaderText +" is displayed" );
                     break;
+                case "Admin Login":
+                    testStepAssert.isTrue(action.isElementPresent(adminLoginPage.Header_AdminLogin()),element+" header should be displayed",element+" header is displayed",element+" header is not displayed");
+                    String adminloginText = action.getText(adminLoginPage.Header_AdminLogin());
+                    testStepAssert.isEquals(adminloginText,element,element + " Header text should be displayed",element + " Header text is displayed",element + " Header text is not displayed");
+                    break;
+                case "Admin Dashboard":
+                    Thread.sleep(5000);
+                    testStepAssert.isTrue(action.isElementPresent(adminLoginPage.Header_AdminDashboard()),element+" header should be displayed",element+" header is displayed",element+" header is not displayed");
+                    break;
             }
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
