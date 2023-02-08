@@ -300,6 +300,12 @@ public class CommonSteps extends DriverBase {
                     String arrivedTextMessage= action.getAlertMessage().toString();
                     testStepAssert.isTrue(message.contains(arrivedTextMessage),"Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message should be shown.","Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message is not shown instead of that following message is shown "+arrivedTextMessage);
                     break;
+                case "Admin Password Required":
+                    testStepAssert.isElementDisplayed(safariPage.PopUp_AdminPassword(),"Admin Password Required pop-up should be displayed","Admin Password Required is displayed","Admin Password Required is not displayed");
+                    break;
+                case "Password is required.":
+                    testStepAssert.isElementDisplayed(safariPage.Text_PasswordRequired(),"Admin Password Required pop-up should be displayed","Admin Password Required is displayed","Admin Password Required is not displayed");
+                    break;
             }
             log("No Mail Accounts Popup should be displayed",
                     "No Mail Accounts Popup is displayed", true);

@@ -13,6 +13,7 @@ import com.bungii.ios.pages.customer.EnableLocationPage;
 import com.bungii.ios.pages.customer.EnableNotificationPage;
 import com.bungii.ios.pages.driver.*;
 import com.bungii.ios.pages.other.NotificationPage;
+import com.bungii.ios.pages.other.SafariPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.stepdefinitions.driver.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
@@ -57,6 +58,7 @@ public class CommonStepsDriver extends DriverBase {
     private ScheduledBungiiPage scheduledBungiipage = new ScheduledBungiiPage();
     DashBoardPage admin_dashboardPage = new DashBoardPage();
     DriversPage driversPage = new DriversPage();
+    SafariPage safariPage= new SafariPage();
     AvailableTripsPage availableTripsPage;
     com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage = new com.bungii.ios.pages.driver.UpdateStatusPage();
 
@@ -801,6 +803,17 @@ public class CommonStepsDriver extends DriverBase {
                 case "Skip":
                     action.click(updateStatusPage.Button_SkipBarCode());
                     break;
+                case "Continue":
+                    action.click(safariPage.Button_Continue());
+                case "Schedule Bungii":
+                    action.click(safariPage.Button_ScheduleBungii());
+                    break;
+                case "Get Estimate":
+                    action.click(safariPage.Button_GetEstimate());
+                    break;
+                case "Continue Kioski":
+                    action.click(safariPage.Button_ContinueKiosk());
+                    break;
             }
             log("I should be able to click on "+button+" button","I am able to click on "+button+" button",false);
         }
@@ -1064,6 +1077,12 @@ public class CommonStepsDriver extends DriverBase {
                             "Button to get the branch app should be displayed",
                             "Button to get the branch app is displayed",
                             "Button to get the branch app is not displayed");
+                    break;
+                case "login page":
+                    testStepAssert.isElementDisplayed(safariPage.Textbox_EnterPassword(),
+                            "I should be on partner login screen.",
+                            "I am on partner login screen",
+                            "I am not navigated to partner login screen");
                     break;
             }
             log("I should be able to navigate to "+screen,"I am able to navigate to "+screen,false);

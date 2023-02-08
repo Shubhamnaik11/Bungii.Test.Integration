@@ -36,8 +36,10 @@ try{
                 break;
             case "Partner Pay":
                 action.click(Page_Partner_Delivery.Radio_Button_Partner_Pay());
+                break;
             case "Partner Invoice":
                 action.click(Page_Partner_Delivery.RadioButton_PartnerInvoice());
+                break;
             default:break;
 
         }
