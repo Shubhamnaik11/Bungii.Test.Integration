@@ -334,14 +334,14 @@ public class DbUtility extends DbContextManager {
         logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[2]+","+tripLocation[3]);
         return tripLocation;
     }
-    public static String getTimeAtPickUpAndDrop(String type) {
+    public static String getTimeAtPickUpAndDrop(String type, String subdomainName) {
         String time = "";
         String queryString = "select "+type+"\n" +
                 "from bungii_admin_qa_auto.bp_service_level sl\n" +
                 "join bungii_admin_qa_auto.bp_store_setting_fn_matrix fnm on fnm.bp_config_version_id = sl.bp_config_version_id\n" +
                 "join bungii_admin_qa_auto.bp_store s on s.bp_store_id = fnm.bp_store_id\n" +
                 "where bungii_admin_qa_auto.fnm.bp_setting_fn_id = 3 and subdomain_name is not null\n" +
-                "and subdomain_name like 'qaauto-biglots%' and service_level_number=3\n" +
+                "and subdomain_name like '"+subdomainName+"%' and service_level_number=3\n" +
                 "order by subdomain_name, service_level_number, service_name;";
         time = getDataFromMySqlServer(queryString);
         logger.detail("Time at pickup/dropoff is "+ time);

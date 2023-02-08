@@ -1236,8 +1236,8 @@ public class BungiiInProgressSteps extends DriverBase {
                             long[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(pickupLocations, dropLocation);
                             logger.detail("timeToCoverDistance [google api call] "+timeToCoverDistance[0]+" and "+timeToCoverDistance[1]);
 
-                            String timeAtPick=DbUtility.getTimeAtPickUpAndDrop("default_pickup_time");
-                            String timeAtDrop=DbUtility.getTimeAtPickUpAndDrop("default_dropoff_time");
+                            String timeAtPick=DbUtility.getTimeAtPickUpAndDrop("default_pickup_time",PropertyUtility.getDataProperties("subdomain.name.biglots"));
+                            String timeAtDrop=DbUtility.getTimeAtPickUpAndDrop("default_dropoff_time",PropertyUtility.getDataProperties("subdomain.name.biglots"));
                             int pickUpInMins = (Integer.parseInt(timeAtPick)/1000)/60;
                             int dropOffInMins = (Integer.parseInt(timeAtDrop)/1000)/60;
                             int mins = (int) ((((timeToCoverDistance[0]/60)+dropOffInMins+pickUpInMins)*1.5));
