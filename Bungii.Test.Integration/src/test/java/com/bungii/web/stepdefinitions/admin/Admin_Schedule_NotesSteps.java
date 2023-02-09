@@ -27,8 +27,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -83,7 +81,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             switch (searchParameter){
                 case "Pickup Reference":
                     action.refreshPage();
-//                    cucumberContextManager.setScenarioContext("PICKUP_REQUEST", "");
+//                  cucumberContextManager.setScenarioContext("PICKUP_REQUEST", "");
                     cucumberContextManager.setScenarioContext("ADMIN1_NAME", action.getText(admin_ScheduledTripsPage.Text_AdminName()));
                     String pickupRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
                     Thread.sleep(2000);
@@ -99,7 +97,6 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     action.clearSendKeys(adminTripsPage.TextBox_Search(), invalidExternalODerNumber+Keys.ENTER);
                     break;
             }
-
             log("I should be able to search the delivery using pickup reference","I could search the delivery using pickup reference",false);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1079,19 +1076,12 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
         try{
             String expectedDropOffName = (String) cucumberContextManager.getScenarioContext("Drop_Off_Contact_Name");
             String expectedDropOffPhone = (String) cucumberContextManager.getScenarioContext("Drop_Contact_Phone");
-
+            String expectedDropOffPhoneNumber= "(" + expectedDropOffPhone.substring(0, 3) + ") " + expectedDropOffPhone.substring(3, 6) + "-" + expectedDropOffPhone.substring(6);
             String actualDropOffDetails=action.getText(admin_ScheduledTripsPage.Text_DropOff_Details());
-
-            String regex="(.*) \\d+";
-            Pattern pattern=Pattern.compile(regex);
-            Matcher matcher=pattern.matcher(actualDropOffDetails);
-
-            if(matcher.find()){
-             System.out.println("Drop Off name: "+ matcher.group(1));
-            }
-            else {
-                System.out.println("No match Found");
-            }
+            String actualDropOffName = actualDropOffDetails.substring(0, actualDropOffDetails.indexOf("(")).trim();
+            String actualDropOfPhone = actualDropOffDetails.substring(actualDropOffDetails.indexOf("("), actualDropOffDetails.length());
+            testStepAssert.isEquals(expectedDropOffName,actualDropOffName,"The drop off contact name should match", "The drop off contact name is matched", "The drop off contact name is not matched");
+            testStepAssert.isEquals(expectedDropOffPhoneNumber,actualDropOfPhone,"The drop off contact number should match", "The drop off contact number is matched", "The drop off contact number is not matched");
         }    catch(Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",

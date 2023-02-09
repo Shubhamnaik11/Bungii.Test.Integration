@@ -147,11 +147,11 @@ public class Admin_TripsSteps extends DriverBase {
 
         log("I view the Scheduled Deliveries list on the admin portal",
                 "I have viewed the Scheduled Deliveries list on the admin portal", false);
-    } catch(Exception e){
+        } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
+        }
     }
     @When("^I change filter to \"([^\"]*)\" on Scheduled deliveries$")
     public void i_change_filter_to_something_on_scheduled_deliveries(String filter) throws Throwable {
@@ -855,11 +855,11 @@ try{
                     action.click(admin_TripsPage.Link_DeliveryDetails());
                     break;
             }
-    } catch(Exception e){
+        } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
+        }
     }
 
     @When("^I click on \"([^\"]*)\" link beside live delivery$")

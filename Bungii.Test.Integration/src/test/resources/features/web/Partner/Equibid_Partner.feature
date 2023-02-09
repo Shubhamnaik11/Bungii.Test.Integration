@@ -8,7 +8,6 @@ Feature: Equibid Partner Portal
     Then I should "be logged in"
 
   @regression
-    @sn
   Scenario: To check pickup addres is editable for Equip-bid Partner Portal
       When I request "Solo" Bungii trip in partner portal configured for "Equip-bid" in "Kansas" geofence
         | Pickup_Address                                                 | Delivery_Address                                                    |
@@ -29,9 +28,11 @@ Feature: Equibid Partner Portal
         |VISA CARD3|12/29  |VALID POSTAL CODE|VALID CVV|
       And I click "Schedule Bungii" button on Partner Portal
       Then I should "see Done screen"
-#      When I click "Track Deliveries" button on Partner Portal
-#      Then I should "see the trip in the Delivery List"
+      When I click "Track Deliveries" button on Partner Portal
+      Then I should "see the trip in the Delivery List"
       When  I am logged in as Admin
+      And I wait for "2" mins
+      #CORE-4969 : Verify Drop Off contact name & Phone number is displayed on Scheduled delivery details page on admin Portal
       And I view the all Scheduled Deliveries list on the admin portal
       And I search the delivery using "Pickup Reference"
       And I click on "Delivery Details" link beside scheduled bungii
