@@ -27,6 +27,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -1070,5 +1072,30 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
         String timeInCST = instantInUTC.format(formatter);
         return timeInCST;
+    }
+
+    @Then("I should see correct Drop Off details on Delivery Details page")
+    public void iShouldSeeCorrectDropOffDetailsOnDeliveryDetailsPage() {
+        try{
+            String expectedDropOffName = (String) cucumberContextManager.getScenarioContext("Drop_Off_Contact_Name");
+            String expectedDropOffPhone = (String) cucumberContextManager.getScenarioContext("Drop_Contact_Phone");
+
+            String actualDropOffDetails=action.getText(admin_ScheduledTripsPage.Text_DropOff_Details());
+
+            String regex="(.*) \\d+";
+            Pattern pattern=Pattern.compile(regex);
+            Matcher matcher=pattern.matcher(actualDropOffDetails);
+
+            if(matcher.find()){
+             System.out.println("Drop Off name: "+ matcher.group(1));
+            }
+            else {
+                System.out.println("No match Found");
+            }
+        }    catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 }
