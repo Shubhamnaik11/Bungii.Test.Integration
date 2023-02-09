@@ -867,4 +867,3 @@ Feature: Scheduled DUO Bungii
     And I calculate the "telet-short stack" time after "changed pickup"
     Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
 
-
