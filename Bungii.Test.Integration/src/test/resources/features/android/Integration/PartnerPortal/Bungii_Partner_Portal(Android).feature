@@ -2,6 +2,7 @@
 
   Feature: Partner Portal Cases integration with Android
   @ready
+    @cf
   Scenario: Verify that the Partner name shown on driver app
     And I am logged in as "Testdrivertywd_appleks_a_drva Kansas_a" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -21,6 +22,8 @@
     And I check if "i" icon is displayed
     And I click on "i earning" icon
     And I click on "Close Payment Settings" button
+    #CORE-4983 Customer names is trimmed on all delivery pages for driver app
+    And I check if customer name is "Testcustomertywd_appleNewU C" under "available bungii details"
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
@@ -29,6 +32,7 @@
     And I click on "Close Payment Settings" button
     And I check if variable sign is shown under "schedule bungii details"
     Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
+    And I check if customer name is "Testcustomertywd_appleNewU C" under "schedule bungii details"
     And I start selected Bungii
     Then Bungii driver should see "General Instructions"
     Then Bungii driver should see "Enroute screen"
