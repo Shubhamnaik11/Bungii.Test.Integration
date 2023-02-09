@@ -32,9 +32,9 @@
         And I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_a Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
         
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
@@ -84,9 +84,9 @@
         And I Select "Edit Trip Details" option
         And I assign driver for the "Solo" trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
     
         When I switch to "ORIGINAL" instance
         And I Switch to "customer" application on "same" devices
@@ -115,7 +115,7 @@
         And I change the "trip time to past" to future time
         And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
-        Then the "Please check the date/time selected. You cannot select a past date/time." message is displayed
+        Then The "Please check the date/time selected. You cannot select a past date/time." message is displayed
     
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
@@ -161,9 +161,9 @@
         And I assign driver "Testdriver_goa_a Android_test" for the trip
         And I assign driver "Testdriver_goa_b Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
     
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
@@ -188,9 +188,9 @@
         And I change the "trip time" to future time
         And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
-        Then the "Your changes are good to be saved." message is displayed
+        Then The "Your changes are good to be saved." message is displayed
         And I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
         When I close "Edit Trip Details" popup
     
         And I wait for "2" mins
@@ -234,9 +234,9 @@
         When I Select "Edit Trip Details" option
         And I assign driver "Testdriver_goa_c Android_test" for the trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9393939393      |                 |
@@ -258,9 +258,9 @@
         And I change the "trip time" to future time
         And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
-        Then the "Your changes are good to be saved." message is displayed
+        Then The "Your changes are good to be saved." message is displayed
         And I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
         When I close "Edit Trip Details" popup
     
         And I wait for "2" mins
@@ -303,9 +303,9 @@
         And I check if a validation message "Driver 1: Add driver below or Bungii driver search will continue" is shown
         And I assign driver for the "control" trip
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
         
         #need to work on this step
         And I verify that noncontrol driver becomes control driver
@@ -393,9 +393,9 @@
         And I change the "particular trip time 2 hours later" to future time
         And I Select reason as "Customer initiated" to edit datetime
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
         And I cancel all bungiis of customer
           | Customer Phone | Customer2 Phone |
           | 9393939393     |  9999992222     |
@@ -421,7 +421,7 @@
         And I change the "particular trip time 2 hours later" to future time
         And I Select reason as "Partner initiated" to edit datetime
         And I click on "VERIFY" button
-        Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
+        Then The "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
         And I cancel all bungiis of customer
           | Customer Phone | Customer2 Phone |
           | 9393939393     |                 |
@@ -458,9 +458,9 @@
         And I Select "Edit Trip Details" option
         And I remove current driver from edit popup
         And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
+        And The "Your changes are good to be saved." message is displayed
         Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
+        And The "Bungii Saved!" message is displayed
         And I wait for "2" mins
         Then new pickuref is generated
     

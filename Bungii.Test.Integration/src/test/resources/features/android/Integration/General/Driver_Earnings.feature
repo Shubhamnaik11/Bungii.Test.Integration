@@ -121,9 +121,9 @@ Feature: Driver Earnings
       And I edit the pickup address
       Then I change the pickup address to "6700 Lewis Road, Kansas City"
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
 
       And I wait for "2" mins
       When I switch to "ORIGINAL" instance
@@ -166,9 +166,9 @@ Feature: Driver Earnings
       And I edit the pickup address
       Then I change the pickup address to "6700 Lewis Road, Kansas City"
       And I click on "VERIFY" button
-      And the "Your changes are good to be saved." message is displayed
+      And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
-      And the "Bungii Saved!" message is displayed
+      And The "Bungii Saved!" message is displayed
 
       And I wait for "2" mins
       When I switch to "ORIGINAL" instance
@@ -237,9 +237,9 @@ Feature: Driver Earnings
      And I edit the drop off address
      Then I change the drop off address to "2200 Belcourt Parkway, Roswell"
      And I click on "VERIFY" button
-     And the "Your changes are good to be saved." message is displayed
+     And The "Your changes are good to be saved." message is displayed
      Then I click on "SAVE CHANGES" button
-     And the "Bungii Saved!" message is displayed
+     And The "Bungii Saved!" message is displayed
 
      When I switch to "ORIGINAL" instance
      When I Switch to "driver" application on "same" devices

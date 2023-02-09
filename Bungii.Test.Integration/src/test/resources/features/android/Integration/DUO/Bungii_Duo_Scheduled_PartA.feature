@@ -466,14 +466,14 @@ Feature: Bungii Duo Scheduled Part A
     And I edit the pickup address
     Then I change the pickup address to "Hair Kymistry, Powers"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     When I Switch to "customer" application on "same" devices
     And I calculate the "telet" time after "changed pickup"
-    Then correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
+    Then Correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
 
 
 # Core 448: Verify Projected Arrival Time and Try to Finish time for short stack when admin edits the drop off address of the Stacked trip
@@ -507,15 +507,61 @@ Feature: Bungii Duo Scheduled Part A
     And I edit the drop off address
     Then I change the drop off address to "Hair Kymistry, Powers"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "ORIGINAL" devices
     And stack trip information should be displayed on deck
     Then try to finish time should be correctly displayed for short stack trip
 
+    #   Core-2369: Verify time calculation for Short stack trip after editing the service level on Live deliveries
+  @ready
+  Scenario: Verify time calculation for Short stack trip after editing the service level on Live deliveries
+    When I request Partner Portal "SOLO" Trip for "Biglots" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |atlanta  | NEXT_POSSIBLE | 8877661132 | Testcustomertywd_appleMarkEC LutherEC|
+    And As a driver "Testdrivertywd_applega_a_steveE Stark_altOnEE" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+      | Arrived       |
+      | Loading Item   |
+      | Driving To Dropoff |
 
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Testdrivertywd_applega_a_steveE Stark_altOnEE" driver
+
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
+
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "accepts stack message" request
+    And I accept Alert message for "Alert: Display Stack trip after current trip"
+    And stack trip information should be displayed on deck
+
+    When I Switch to "customer" application on "same" devices
+    And I am logged in as "Testcustomertywd_apple_AGQFCg Test" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select the live trip for "Testcustomertywd_appleMarkEC LutherEC"
+    And I Select "Edit Trip Details" option
+    And I change the service level to "Room of Choice" in "Admin" portal
+    And I click on "VERIFY" button
+    And The "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And The "Bungii Saved!" message is displayed
+
+    When I Switch to "customer" application on "same" devices
+    And I calculate the "telet" time after "changed service level"
+    Then Correct details should do be displayed on BUNGII ACCEPTED with recalculation screen for Stack screen
 
 
