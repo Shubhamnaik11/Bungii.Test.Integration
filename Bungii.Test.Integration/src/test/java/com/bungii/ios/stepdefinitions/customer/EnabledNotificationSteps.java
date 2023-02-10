@@ -90,8 +90,16 @@ public class EnabledNotificationSteps extends DriverBase {
                 logger.detail("On Locations Popup");
 
                 Thread.sleep(3000);
-                action.clickAlertButton("Always Allow");
+                action.clickAlertButton("Allow While Using App");
                 //pageName = utility.getPageHeader();
+            }
+            if(action.isAlertPresent()){
+                logger.detail("On Location Always Allow Popup");
+                Thread.sleep(3000);
+                action.clickAlertButton("Change to Always Allow");
+                if(action.isElementPresent(enableLocationPage.Button_Done())){
+                    action.click(enableLocationPage.Button_Done());
+                }
             }
 
         } catch (Exception e) {
