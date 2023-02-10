@@ -376,9 +376,9 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	And I Select "Edit Trip Details" option
 	And I assign driver for the "Duo" trip
 	And I click on "VERIFY" button
-	And the "Your changes are good to be saved." message is displayed
+	And The "Your changes are good to be saved." message is displayed
 	Then I click on "SAVE CHANGES" button
-	And the "Bungii Saved!" message is displayed
+	And The "Bungii Saved!" message is displayed
 
 	#commenting below steps since push notification is not implemented for action carried out from Admin portal
 	#Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
