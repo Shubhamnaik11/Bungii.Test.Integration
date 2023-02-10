@@ -51,6 +51,7 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+    Admin_LiveTripsPage admin_liveTripsPage = new Admin_LiveTripsPage();
     LiveTripsPage liveTripsPage = new LiveTripsPage();
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
     ActionManager action = new ActionManager();
@@ -146,11 +147,11 @@ public class Admin_TripsSteps extends DriverBase {
 
         log("I view the Scheduled Deliveries list on the admin portal",
                 "I have viewed the Scheduled Deliveries list on the admin portal", false);
-    } catch(Exception e){
+        } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
+        }
     }
     @When("^I change filter to \"([^\"]*)\" on Scheduled deliveries$")
     public void i_change_filter_to_something_on_scheduled_deliveries(String filter) throws Throwable {
@@ -840,17 +841,25 @@ try{
     @When("^I click on \"([^\"]*)\" link beside scheduled bungii$")
     public void i_click_on_something_link_beside_scheduled_bungii(String link) throws Throwable {
         try{
-        Thread.sleep(4000);
-        action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/div/img")));
-            Thread.sleep(3000);
-            action.click(admin_EditScheduledBungiiPage.Button_Edit());
-            log(" I click on Edit link besides the scheduled bungii",
-                "I have clicked on Edit link besides the scheduled bungii", false);
-    } catch(Exception e){
+            switch (link) {
+                case "Edit":
+                    Thread.sleep(4000);
+                    action.click(SetupManager.getDriver().findElement(By.xpath((String) cucumberContextManager.getScenarioContext("XPATH") + "/parent::tr")).findElement(By.xpath("td/div/img")));
+                    Thread.sleep(3000);
+                    action.click(admin_EditScheduledBungiiPage.Button_Edit());
+                    log(" I click on Edit link besides the scheduled bungii",
+                        "I have clicked on Edit link besides the scheduled bungii", false);
+                    break;
+                case "Delivery Details":
+                    action.click(admin_liveTripsPage.Dropdown_Icon());
+                    action.click(admin_TripsPage.Link_DeliveryDetails());
+                    break;
+            }
+        } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
+        }
     }
 
     @When("^I click on \"([^\"]*)\" link beside live delivery$")
