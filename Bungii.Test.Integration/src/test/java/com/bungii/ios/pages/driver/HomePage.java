@@ -50,7 +50,7 @@ public class HomePage extends PageBase {
     public WebElement NavigationBar_Text() {return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName); }
     public WebElement Text_Bungii_Completed() { return findElement("//XCUIElementTypeStaticText[@name='Bungii completed']",LocatorType.XPath);}
     public WebElement Header_ItemizedEarnings() { return findElement("//XCUIElementTypeOther[@name=\"ITEMIZED EARNINGS\"]",LocatorType.XPath);}
-    public WebElement Header_Earnings() { return findElement("//XCUIElementTypeOther[@name=\"EARNINGS\"]",LocatorType.XPath);}
+    public WebElement Header_Earnings() { return findElement("//XCUIElementTypeStaticText[@name=\"EARNINGS\"]",LocatorType.XPath);}
 
     //public WebElement Button_AppMenu () { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
     public WebElement Button_AppMenu (boolean ...ignoreException) { return findElement("**/XCUIElementTypeNavigationBar/XCUIElementTypeButton", LocatorType.ClassChain, ignoreException); }

@@ -27,4 +27,7 @@ public class EnableLocationPage extends PageBase{
     public WebElement Text_Label() {
         return findElements("XCUIElementTypeStaticText", PageBase.LocatorType.ClassName).get(1);
     }
+    public WebElement Button_Done(boolean ...ignoreException) {
+        return findElement("//XCUIElementTypeButton[@name='DONE']",LocatorType.XPath,ignoreException);
+    }
 }
