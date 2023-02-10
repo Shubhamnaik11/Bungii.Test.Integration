@@ -21,9 +21,9 @@ And I open the trip for "Testcustomertywd_appleand_B Android" customer
 And I Select "Edit Trip Details" option
 And I assign driver for the "Duo" trip
 And I click on "VERIFY" button
-And the "Your changes are good to be saved." message is displayed
+And The "Your changes are good to be saved." message is displayed
 Then I click on "SAVE CHANGES" button
-And the "Bungii Saved!" message is displayed
+And The "Bungii Saved!" message is displayed
 
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
@@ -55,9 +55,9 @@ And I open the trip for "Testcustomertywd_appleand_B Android" the customer
 And I Select "Edit Trip Details" option
 And I assign driver for the "Solo" trip
 And I click on "VERIFY" button
-And the "Your changes are good to be saved." message is displayed
+And The "Your changes are good to be saved." message is displayed
 Then I click on "SAVE CHANGES" button
-And the "Bungii Saved!" message is displayed
+And The "Bungii Saved!" message is displayed
 
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
@@ -91,9 +91,9 @@ And I open the trip for "Testcustomertywd_appleMarkDN LutherDN" the customer
 And I Select "Edit Trip Details" option
 And I assign driver for the "control" trip
 And I click on "VERIFY" button
-And the "Your changes are good to be saved." message is displayed
+And The "Your changes are good to be saved." message is displayed
 Then I click on "SAVE CHANGES" button
-And the "Bungii Saved!" message is displayed
+And The "Bungii Saved!" message is displayed
 
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
@@ -128,9 +128,9 @@ And I open the trip for "Testcustomertywd_appleMarkDO LutherDO" the customer
 And I Select "Edit Trip Details" option
   And I assign "noncontroller" driver to Bungii
 And I click on "VERIFY" button
-And the "Your changes are good to be saved." message is displayed
+And The "Your changes are good to be saved." message is displayed
 Then I click on "SAVE CHANGES" button
-And the "Bungii Saved!" message is displayed
+And The "Bungii Saved!" message is displayed
 
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
@@ -163,12 +163,12 @@ And I remove current driver and researches Bungii
   And I open the trip for "Testcustomertywd_appleand_B android" the customer
 
 And I Select "Edit Trip Details" option
-And the "Adding a driver through this feature overrides driver assigning restrictions." message is displayed
+And The "Adding a driver through this feature overrides driver assigning restrictions." message is displayed
 And I assign driver for the "Duo" trip
 And I click on "VERIFY" button
-And the "Your changes are good to be saved." message is displayed
+And The "Your changes are good to be saved." message is displayed
 Then I click on "SAVE CHANGES" button
-And the "Bungii Saved!" message is displayed
+And The "Bungii Saved!" message is displayed
 
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
@@ -209,9 +209,9 @@ And I assign "noncontroller" driver to Bungii
  # And I assign driver for the "control driver" trip
    #this guy will become non control once saved and trip will start
 And I click on "VERIFY" button
-And the "Your changes are good to be saved." message is displayed
+And The "Your changes are good to be saved." message is displayed
 Then I click on "SAVE CHANGES" button
-And the "Bungii Saved!" message is displayed
+And The "Bungii Saved!" message is displayed
 
 When I switch to "ORIGINAL" instance
 And I Switch to "customer" application on "same" devices
