@@ -338,18 +338,18 @@ public class Partner_Delivery_Details extends DriverBase {
                         //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
                         action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
-
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
                         action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_DropOff_Contact_Name(), DropOffContactName);
+                        action.click(Page_Partner_Delivery.TextBox_DropOff_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_DropOff_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_LotNumber(), String.valueOf(ThreadLocalRandom.current().nextInt()));
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(),DeliveryPurpose);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_BidderNumber(),bidderNumber);
                         action.click(Page_Partner_Delivery.Checkbox_Helper());
-
                         String scheduled_date_time1 = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
                         cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time1);
-
                         break;
                     default:
                         break;
