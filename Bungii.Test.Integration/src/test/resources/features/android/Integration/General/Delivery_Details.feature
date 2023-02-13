@@ -29,9 +29,9 @@ Feature: Bungii Details and Pickup Note
     And I Select "Edit Trip Details" option
     And I assign driver for the "Solo" trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 9403960181     |                 |
@@ -149,9 +149,9 @@ Feature: Bungii Details and Pickup Note
     And I Select "Edit Trip Details" option
     And I assign driver for the "Solo" trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
     When I close "Edit Trip Details" popup
   
     And I wait for "2" mins

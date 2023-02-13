@@ -174,9 +174,9 @@ Feature: SoloScheduled Part K
 	And I Select "Edit Trip Details" option
 	And I assign driver for the "Solo" trip
 	And I click on "VERIFY" button
-	And the "Your changes are good to be saved." message is displayed
+	And The "Your changes are good to be saved." message is displayed
 	Then I click on "SAVE CHANGES" button
-	And the "Bungii Saved!" message is displayed
+	And The "Bungii Saved!" message is displayed
 	
 	When I switch to "ORIGINAL" instance
 	When that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
