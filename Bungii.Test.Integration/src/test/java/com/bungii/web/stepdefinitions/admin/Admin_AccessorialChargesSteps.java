@@ -741,13 +741,12 @@ public class Admin_AccessorialChargesSteps extends DriverBase {
                     true);
         }
     }
-    @Then("I verify correct Payment transaction type is set in db for accessorial charge")
-    public void iVerifyCorrectPaymentTransactionTypeIsSetInDbForAccessorialCharge() {
+    @Then("I verify correct {string} is set in db for accessorial charge")
+    public void iVerifyCorrectPaymentTransactionTypeIsSetInDbForAccessorialCharge(String type) {
         try {
             String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
             String driverOne = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
             String driverTwo = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
-            String type = "Payment Transaction Type";
             String paymenttransTypeDriverOne = dbUtility.getDisbursementType(type, pickUpRef, driverOne);
             String paymenttransTypeDriverTwo = dbUtility.getDisbursementType(type, pickUpRef, driverTwo);
             testStepAssert.isEquals(paymenttransTypeDriverOne, PropertyUtility.getDataProperties("accessorial.charge.transaction.type.value"),

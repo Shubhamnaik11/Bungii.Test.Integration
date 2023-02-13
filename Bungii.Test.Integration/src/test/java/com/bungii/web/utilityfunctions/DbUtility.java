@@ -715,7 +715,7 @@ public class DbUtility extends DbContextManager {
         String queryString;
 
         switch (type) {
-            case "Disbursment type":
+            case "Disbursement type":
                 queryString = "Select Id from driver where phone= "+driverPhone;
                 driverId = getDataFromMySqlMgmtServer(queryString);
                 String queryString1 ="select disbursement_type from payment_trans_disburse_branch where payment_transaction_id in (select Id from paymenttransaction where clientgroupref in ('"+pickUpRef+"')) and driver_id="+driverId;
@@ -724,7 +724,7 @@ public class DbUtility extends DbContextManager {
                 logger.detail("The disbursement type for "+driverId+" is "+transactionType);
             break;
 
-            case "Payment Transaction Type":
+            case "Payment transaction type":
                 queryString = "Select Id from driver where phone= "+driverPhone;
                 driverId = getDataFromMySqlMgmtServer(queryString);
                 String queryString2 ="select PaymentTransactionType  from bungii_admin_qa_auto.paymenttransaction where Driver= "+driverId+ " and PaymentTransactionType =10 limit 1";

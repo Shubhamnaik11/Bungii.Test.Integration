@@ -1129,7 +1129,7 @@ Feature: Admin_Trips
     And I click on "Process Refund" button on Issue Refund popup
     Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
     When I click on "OK" button
-    Then I verify correct disbursement type is set in db
+    Then I verify correct "Disbursement type" is set in db
     When I add following accessorial charges for Duo trip and save it
       | Amount   | Fee Type                     | Comment                                    | Driver1 Cut| Driver2 Cut|
       |  25      | Additional Mileage           | Charges due to Additional Mileage          | 5          | 5          |
@@ -1154,7 +1154,7 @@ Feature: Admin_Trips
     And I should see following details in the Accessorial charges section
       | Additional Mileage | Additional Weight / Pallet | Cancelation |Customer Rejected / Returned |Excess Wait Time | Limited Access | Mountainous | Other | Total   |
       | $25                | $15                        | $18         | $19                         | $10             | $30.5          | $45.65      | $80   | $243.15 |
-    Then I verify correct Payment transaction type is set in db for accessorial charge
+    Then I verify correct "Payment transaction type" is set in db for accessorial charge
 
 
   #CORE-4520
