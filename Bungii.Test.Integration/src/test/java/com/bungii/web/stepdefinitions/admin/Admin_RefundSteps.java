@@ -765,23 +765,21 @@ try{
         else {
             testStepAssert.isTrue(true,"Drivers profiles should be displayed based on "+ expectedGeofenceRegion+" geofence",
                     "Drivers profiles is displayed based on "+ expectedGeofenceRegion+" geofence" ,"Drivers profiles is not displayed based on "+ expectedGeofenceRegion+" geofence" );
-
         }
     } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
         }
-    @And("I check the status for {string} in db")
-    public void iCheckTheStatusForInDb(String checkingParameter) {
+    }
+
+    @And("I check the status for {string} of {string} in db")
+    public void iCheckTheStatusForInDb(String checkingParameter,String type) {
         try {
             String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            String type;
             switch (checkingParameter) {
                 case "same day payment":
                     String driverOne = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-                    type = "Disbursment type";
                     String disbursmentTypeDriverOne = dbUtility.getDisbursementType(type,pickUpRef, driverOne);
                     testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
                             "Correct disbursement type value should be set for same day payment setting",
@@ -790,7 +788,6 @@ try{
                     break;
                 case "weekly payment":
                     String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-                    type = "Disbursment type";
                     String disbursmentTypeDriver = dbUtility.getDisbursementType(type,pickUpRef,driver);
                     testStepAssert.isEquals(disbursmentTypeDriver, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
                             "Correct disbursement type value should be set for weekly payment setting",
@@ -803,6 +800,5 @@ try{
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
-    }
-
+        }
     }

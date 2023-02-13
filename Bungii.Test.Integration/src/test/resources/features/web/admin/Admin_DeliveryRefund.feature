@@ -77,7 +77,7 @@ Feature: Admin_Refund
 	Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
 	When I click on "OK" button
    #CORE-4730:Verify customer full refund without changing driver earrings should be taken by weekly job if driver has weekly payment settings
-	And I check the status for "weekly payment" in db
+	And I check the status for "weekly payment" of "Disbursement type" in db
 	And I search the delivery of Customer and view it
 	Then The "Issue Refund" button should not be displayed
    #CORE-2507: Verify Change status icon is not displayed for trip which was already refunded prior status change
@@ -773,7 +773,7 @@ Feature: Admin_Refund
 	  And I click on "Process Refund" button on Issue Refund popup
 	  Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
 	  When I click on "OK" button
-	  And I check the status for "same day payment" in db
+	  And I check the status for "same day payment" of "Disbursement type" in db
 	  And The amount should be "Refunded" and in "voided" state
 
 	   #CORE-4730:Verify customer full refund without changing driver earnings is taken by Same day job if driver payment setting is Same day
@@ -808,7 +808,7 @@ Feature: Admin_Refund
 		And I click on "Process Refund" button on Issue Refund popup
 		Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
 		When I click on "OK" button
-		And I check the status for "same day payment" in db
+		And I check the status for "same day payment" of "Disbursement type" in db
 
 	 #CORE-4730:Verify Customer Partial refund with changing driver earnings is taken by Same day job if driver payment setting is Same day
 	 #CORE-4730:Verify Customer Partial refund making driver earnings zero is taken by Same day job if driver payment setting is Same day
@@ -845,7 +845,7 @@ Feature: Admin_Refund
 		And I click on "Process Refund" button on Issue Refund popup
 		Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
 		When I click on "OK" button
-		And I check the status for "same day payment" in db
+		And I check the status for "same day payment" of "Disbursement type" in db
 		And The amount should be "Refunded" and in "voided" state
 
 		Examples:
