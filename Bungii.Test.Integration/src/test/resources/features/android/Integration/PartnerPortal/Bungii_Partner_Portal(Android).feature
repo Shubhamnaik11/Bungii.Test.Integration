@@ -2,7 +2,6 @@
 
   Feature: Partner Portal Cases integration with Android
   @ready
-    @cf
   Scenario: Verify that the Partner name shown on driver app
     And I am logged in as "Testdrivertywd_appleks_a_drva Kansas_a" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
