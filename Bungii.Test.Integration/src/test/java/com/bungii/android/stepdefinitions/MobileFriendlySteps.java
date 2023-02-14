@@ -255,7 +255,7 @@ public class MobileFriendlySteps extends DriverBase {
     public void i_enter_credit_card_details(DataTable data) {
 
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
-        String cardType = dataMap.get("CardNo");
+        String cardType = dataMap.get("Card_Type");
         String expiry = dataMap.get("Expiry");
         String postal_code = dataMap.get("Postal_Code");
         String cvv = dataMap.get("Cvv");
@@ -264,6 +264,9 @@ public class MobileFriendlySteps extends DriverBase {
             switch (cardType.toUpperCase()) {
                 case "VISA CARD":
                     cardNumber = PropertyUtility.getDataProperties("payment.valid.card.visa");
+                    break;
+                case "MASTER CARD":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.mastercard");
                     break;
                 default:
                     cardNumber = cardType;
