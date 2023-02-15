@@ -770,5 +770,13 @@ public class DbUtility extends DbContextManager {
         logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[1]);
         return tripLocation;
     }
+
+    public static String getDriverVehicleInfo(String phoneNumber) {
+        String custRef = "";
+        String queryString = "select vehicle_info  from driver where phone=" + phoneNumber;
+        custRef = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "Drivers vehicle information is " + phoneNumber);
+        return custRef;
+    }
 }
 

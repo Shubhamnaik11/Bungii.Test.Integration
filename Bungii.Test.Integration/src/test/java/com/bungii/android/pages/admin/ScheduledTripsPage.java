@@ -91,7 +91,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_VerifyDriver(){return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
     public WebElement Button_VerifyDriverForScheduled(){return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
 
-    public WebElement Select_TestDriver(){return findElement("//input[@placeholder='Enter driver name']/following-sibling::div/div[1", LocatorType.XPath);}
+    public WebElement Select_TestDriver(){return findElement("//input[@placeholder='Enter driver name']/following-sibling::div/div[1]", LocatorType.XPath);}
 
     public WebElement Text_EditTrpDetailsDriver1Name(){return findElement("//div[@class=\"driver-edit\"]/div/span[1]", LocatorType.XPath);} //3 is correct index
     public WebElement Text_EditTrpDetailsDriver2Name(){return findElement("//table[@id='editTripDrivers']/tbody/tr[2]/td/table/tbody/tr/td[3]", LocatorType.XPath);} //3 is correct index

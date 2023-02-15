@@ -1837,4 +1837,27 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^Partner firm should receive \"([^\"]*)\" email$")
+    public void partner_firm_should_receive_something_email(String emailSubject) throws Throwable {
+        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
+        emailBody= emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
+        String message = "";
+        logger.detail("Email Body (Actual) : "+ emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""));
+
+        switch (emailSubject) {
+            case "":
+                String partnerPortalName=PropertyUtility.getDataProperties("partner.baltimore.name");
+//                message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName);
+
+                break;
+        }
+        message= message.replaceAll(" ","");
+        //message= message.replaceAll("EST","EDT");
+        logger.detail("Email Body (Expected): "+message);
+        testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
+
+    }
 }

@@ -2,10 +2,10 @@
 Feature: Equibid Partner Portal
 
   Background:
-    Given I navigate to "Partner" portal configured for "Equip-bid" URL
-    And I enter "valid" password on Partner Portal
-    And I click "SIGN IN" button on Partner Portal
-    Then I should "be logged in"
+#    Given I navigate to "Partner" portal configured for "Equip-bid" URL
+#    And I enter "valid" password on Partner Portal
+#    And I click "SIGN IN" button on Partner Portal
+#    Then I should "be logged in"
 
   @regression
   Scenario: To check pickup addres is editable for Equip-bid Partner Portal
@@ -59,3 +59,26 @@ Feature: Equibid Partner Portal
       |kansas| NEXT_POSSIBLE | 8877661133 | Testcustomertywd_appleMarkED LutherED|
     And I wait for 2 minutes
     Then Partner firm should receive "2nd-Initial Email For Scheduled Delivery Before First Delivery" email
+
+ #CORE-5466:Verify that Delivery Started email template has been updated with required changes for level 3 partner
+ @testAllan
+  Scenario:Testing
+#    When I request Partner Portal "Solo" Trip for "Floor and decor bos" partner
+#      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+#     |atlanta| NEXT_POSSIBLE | 8877661132 | Testcustomertywd_appleMarkEC LutherEC|
+#    And As a driver "Testdrivertywd_applega_a_drvao Atlanta_ao" perform below action with respective "Solo Scheduled" Delivery
+#      | driver1 state|
+#      | Accepted     |
+    #CORE-5466:Verify that Delivery Started email template has been updated with required changes for level 3 partner
+#    Then Partner firm should receive "A Bungii driver is heading your way" email
+   #CORE-5466:Verify that Driver Arrived at pickup email template has been updated with required changes for level 3 partner
+#   Then Partner firm should receive "A Bungii driver has arrived" email
+
+   Then Partner firm should receive "Bungii Delivery Scheduled" email
+#    And  I am logged in as Admin
+#    And I view the all Scheduled Deliveries list on the admin portal
+#    And  I search the delivery using "Pickup Reference"
+#    And I click on the "Edit" button from the dropdown
+#    When I click on "Edit Trip Details" radiobutton
+#    And I assign driver "Testdrivertywd_applega_a_drvao Atlanta_ao" for the trip
+

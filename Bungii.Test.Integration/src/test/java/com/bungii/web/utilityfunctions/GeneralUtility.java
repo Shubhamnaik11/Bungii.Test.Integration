@@ -807,6 +807,83 @@ public class GeneralUtility extends DriverBase {
         return emailMessage;
     }
 
+    public String getABungiiDriverIsHeadingYourWay(String driverName,String driverPhone,String driverCarLicenceNumber,String Customer_Name) {
+        String emailMessage = "";
+        FileReader fr;
+        try {
+            fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\ABungiiDriverIsHeadingYourWay.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%driverName%",driverName);
+                    s = s.replaceAll("%DriverPhoneNumber%",driverPhone);
+                    s = s.replaceAll("%driverCarLicenceNumber%",driverCarLicenceNumber);
+                    s = s.replaceAll("%CustomerName%",Customer_Name);
+                    emailMessage += s;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+    public String getABungiiDriverHasArrived(String driverName,String driverPhone,String driverCarLicenceNumber,String Customer_Name) {
+        String emailMessage = "";
+        FileReader fr;
+        try {
+            fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\ABungiiDriverHasArrived.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%driverName%",driverName);
+                    s = s.replaceAll("%DriverPhoneNumber%",driverPhone);
+                    s = s.replaceAll("%driverCarLicenceNumber%",driverCarLicenceNumber);
+                    s = s.replaceAll("%CustomerName%",Customer_Name);
+                    emailMessage += s;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+
+    public String getABungiiDeliveryScheduled(String driverName,String driverPhone,String driverCarLicenceNumber,String Customer_Name) {
+        String emailMessage = "";
+        FileReader fr;
+        try {
+            fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\ABungiiDriverIsHeadingYoursdsaWay.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%driverName%",driverName);
+                    s = s.replaceAll("%DriverPhoneNumber%",driverPhone);
+                    s = s.replaceAll("%driverCarLicenceNumber%",driverCarLicenceNumber);
+                    s = s.replaceAll("%CustomerName%",Customer_Name);
+                    emailMessage += s;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+
     public String getExpectedPartnerDeliveryScheduledBeyondSecondaryPolyline(String scheduled_Date, String pickup_Address, String dropup_Address, String customer_Name, String customer_Phone, String items_To_Deliver, String pickup_Contact_Name, String pickup_Contact_Phone, String tracking_Id) {
         String emailMessage = "";
 

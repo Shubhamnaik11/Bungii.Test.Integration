@@ -2327,6 +2327,106 @@ public class CoreServices extends DriverBase {
                 JsonPath jsonPathEvaluator = response.jsonPath();
                 ApiHelper.genericResponseValidation(response, RequestText);
             }
+            else if( Partner_Portal.equalsIgnoreCase("Floor and Decor bos")) {
+                String AccessToken = (String) cucumberContextManager.getScenarioContext("Partner_Access_Token");
+
+                String Pickup_Address1 = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.pickup_address1");
+                String Pickup_City = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.pickup_city");
+                String Pickup_Country = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.pickup_country");
+                String Pickup_Latitude = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.pickup_latitude");
+                String Pickup_Longitude = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.pickup_longitude");
+                String Pickup_State = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.pickup_state");
+                String Pickup_ZipPostalCode = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.pickup_zippostalcode");
+
+                String ServiceLevelRef = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.service_level_ref");
+                String PricingModelConfigVersionRef=PropertyUtility.getDataProperties("partner.floor.and.decor.bos.pricing_model_ref");
+
+                String DropOff_Address_Id = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.dropoff_address_id");
+                String DropOff_Address1 = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.dropoff_address1");
+                String DropOff_City = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.dropoff_city");
+                String DropOff_Country = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.dropoff_country");
+                String DropOff_Latitude = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.dropoff_latitude");
+                String DropOff_Longitude = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.dropoff_longitude");
+                String DropOff_State = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.dropoff_state");
+                String DropOff_ZipPostalCode = PropertyUtility.getDataProperties("partner.floor.and.decor.bos.dropoff_zippostalcode");
+
+                //for Pickup Location
+                JSONObject jsonPickupLocation = new JSONObject();
+                jsonPickupLocation.put("Latitude", Pickup_Latitude);
+                jsonPickupLocation.put("Longitude", Pickup_Longitude);
+
+                //for Default Feilds
+                JSONArray DefaultFeilds = new JSONArray();
+
+                //for Pickup Address
+                JSONObject jsonPickupAddress = new JSONObject();
+                jsonPickupAddress.put("Address1", Pickup_Address1);
+                jsonPickupAddress.put("Address2", JSONObject.NULL);
+                jsonPickupAddress.put("AddressLabel", "store address");
+                jsonPickupAddress.put("BusinessPartnerDefaultAddressRef", BusinessPartnerDefaultAddressRef);
+                jsonPickupAddress.put("BusinessPartnerDefaultAddressConfigVersionID",BusinessPartnerDefaultAddressConfigVersionID);
+                jsonPickupAddress.put("City", Pickup_City);
+                jsonPickupAddress.put("Country", Pickup_Country);
+                jsonPickupAddress.put("DefaultStaticFields", DefaultFeilds);
+                jsonPickupAddress.put("IsDefault", true);
+                jsonPickupAddress.put("Location", jsonPickupLocation);
+                jsonPickupAddress.put("PickupInstructions",JSONObject.NULL );
+                jsonPickupAddress.put("State", Pickup_State);
+                jsonPickupAddress.put("ZipPostalCode", Pickup_ZipPostalCode);
+
+                //for Dropoff location
+                JSONObject jsonDropOffLocation = new JSONObject();
+                jsonDropOffLocation.put("Latitude", DropOff_Latitude);
+                jsonDropOffLocation.put("Longitude", DropOff_Longitude);
+
+                //for Dropoff Address
+                JSONObject jsonDropoffAddress = new JSONObject();
+                jsonDropoffAddress.put("AddressId", DropOff_Address_Id);
+                jsonDropoffAddress.put("Address1", DropOff_Address1);
+                jsonDropoffAddress.put("Address2", JSONObject.NULL);
+                jsonDropoffAddress.put("City", DropOff_City);
+                jsonDropoffAddress.put("Country", DropOff_Country);
+                jsonDropoffAddress.put("Location", jsonDropOffLocation);
+                jsonDropoffAddress.put("State", DropOff_State);
+                jsonDropoffAddress.put("ZipPostalCode", DropOff_ZipPostalCode);
+
+                JSONArray jsonCompletePickup= new JSONArray();
+                jsonCompletePickup.put(jsonPickupAddress);
+                JSONArray jsonCompleteDropOff= new JSONArray();
+                jsonCompleteDropOff.put(jsonDropoffAddress);
+
+                //for Service Level
+                String apiServiceLevel = null;
+                apiServiceLevel = UrlBuilder.createApiUrl("core",PARTNER_SERVICELEVEL);
+                JSONObject jsonServiceLevel = new JSONObject();
+                jsonServiceLevel.put("DropoffLocation", jsonDropOffLocation);
+                jsonServiceLevel.put("NoOfDrivers",No_of_Driver);
+                jsonServiceLevel.put("PickupLocation",jsonPickupLocation);
+                jsonServiceLevel.put("PricingModelConfigVersionRef",PricingModelConfigVersionRef);
+                response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonServiceLevel.toString()).when().post(apiServiceLevel);//body(jsonObj.toString()).
+
+                //final main json for request payload
+                JSONObject jsonObj = new JSONObject();
+                jsonObj.put("PickupAddress", jsonPickupAddress);
+                jsonObj.put("DropOffAddress", jsonDropoffAddress);
+                jsonObj.put("DeliveryDateTime", nextAvailableBungii[0]);
+                jsonObj.put("EstLoadUnloadTimeInMilliseconds", 0);
+                jsonObj.put("IsScheduledPickup", true);
+                jsonObj.put("PricingModelConfigVersionRef", PricingModelConfigVersionRef);
+                jsonObj.put("PickupRequestID",JSONObject.NULL);
+                jsonObj.put("ServiceLevelRef", ServiceLevelRef);
+                jsonObj.put("NoOfDrivers",No_of_Driver);
+                jsonObj.put("BusinessPartnerDefaultAddressRef", BusinessPartnerDefaultAddressRef);
+                jsonObj.put("BusinessPartnerDefaultAddressConfigVersionID",BusinessPartnerDefaultAddressConfigVersionID);
+
+                //Header header = new Header("AuthorizationToken", AccessToken);
+                response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().post(apiURL);//body(jsonObj.toString()).
+                //response.then().log().body();
+                JsonPath jsonPathEvaluator = response.jsonPath();
+                ApiHelper.genericResponseValidation(response, RequestText);
+
+            }
+
         }
         else if(Geofence.equalsIgnoreCase("nashville")) {
 
@@ -3175,7 +3275,7 @@ public class CoreServices extends DriverBase {
             ApiHelper.genericResponseValidation(response, RequestText);
 
         }
-        else if(Partner_Portal.equalsIgnoreCase("Floor and Decor 106")) {
+        else if(Partner_Portal.equalsIgnoreCase("Floor and Decor 106")|| Partner_Portal.equalsIgnoreCase("Floor and Decor bos")) {
             String dimensionsItemOne = PropertyUtility.getDataProperties("partner.floor.and.decor.106.dimensions.item.one");
             String nameItemOne = PropertyUtility.getDataProperties("partner.floor.and.decor.106.name.item.one");
             String weightItemOne = PropertyUtility.getDataProperties("partner.floor.and.decor.106.weight.item.one");
@@ -3188,6 +3288,8 @@ public class CoreServices extends DriverBase {
             field1.put("FieldRef", "8b0c893b-0be2-11ec-a1b2-0280ec37d420");
             field1.put("FieldValue", "Today");
             customFields.put(field1);
+
+            cucumberContextManager.setScenarioContext("ScheduleBY",field1);
 
             JSONArray ItemsToDeliver = new JSONArray();
             if (No_Of_Driver.equalsIgnoreCase("1")) {
@@ -3248,7 +3350,8 @@ public class CoreServices extends DriverBase {
             staticFields.put(field6);
             staticFields.put(field7);
 
-
+            cucumberContextManager.setScenarioContext("ScheduledBy",field6);
+            cucumberContextManager.setScenarioContext("RB/SB_Number",field7);
             //main payload
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("PickupRequestID", PickupRequest);
@@ -3262,6 +3365,8 @@ public class CoreServices extends DriverBase {
             jsonObj.put("PaymentOption", "MI");
             jsonObj.put("SpecialInstructions", "SPL from QA script");
 
+            cucumberContextManager.setScenarioContext("SpecialInstruction",jsonObj.get("SpecialInstructions"));
+            System.out.println(cucumberContextManager.getScenarioContext("SpecialInstruction"));
             Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
             JsonPath jsonPathEvaluator = response.jsonPath();
             ApiHelper.genericResponseValidation(response, RequestText);

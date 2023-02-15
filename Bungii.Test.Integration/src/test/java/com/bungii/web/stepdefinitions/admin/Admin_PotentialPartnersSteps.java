@@ -102,7 +102,7 @@ public class Admin_PotentialPartnersSteps extends DriverBase {
         try{
             Thread.sleep(5000);
             admin_potentialPartnersPage.TextBox_DriverSearch().sendKeys(driverName);
-            admin_potentialPartnersPage.Select_TestDriver().click();
+            action.JavaScriptClick(admin_potentialPartnersPage.Select_TestDriver());
             //String driver1Name=admin_potentialPartnersPage.Text_EditTrpDetailsDriver1Name().getText();
             cucumberContextManager.setScenarioContext("DRIVER1_NAME",driverName);
             cucumberContextManager.setScenarioContext("DRIVER2_NAME",driverName);
