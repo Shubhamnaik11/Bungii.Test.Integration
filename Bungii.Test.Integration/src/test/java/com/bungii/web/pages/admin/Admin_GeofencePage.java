@@ -43,7 +43,7 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Label_NameErrorContainer() { return findElement("Name-error", LocatorType.Id); }
 
-    public WebElement Button_Edit() { return findElement("(//a[text()='cancel']//following-sibling::button)[1]", LocatorType.XPath); }
+    public WebElement Button_Edit() { return findElement("//button[text()=\"Edit\"]", LocatorType.XPath); }
 
     public WebElement Button_Settings() { return findElement("(//a[text()='cancel']//following-sibling::button)[2]", LocatorType.XPath); }
 

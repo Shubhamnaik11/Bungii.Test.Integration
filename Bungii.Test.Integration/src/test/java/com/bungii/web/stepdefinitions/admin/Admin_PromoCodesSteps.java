@@ -290,7 +290,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     break;
                 case "Profile":
                     driver=(String) cucumberContextManager.getScenarioContext("DRIVER");
-                    xpath= String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Profile']", driver);
+                    xpath= String.format("//td[contains(text(),'%s')]/following-sibling::td[7]/div/a/img[@title='Profile']", driver);
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
             }
             log("I click on " + button + " icon",
