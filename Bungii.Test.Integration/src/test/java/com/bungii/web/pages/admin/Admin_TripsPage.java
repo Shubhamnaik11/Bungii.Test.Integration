@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Admin_TripsPage extends PageBase {
 
-    public WebElement Menu_Trips () { return findElement("//ul[@id='side-menu']/li/p/span[contains(text(),'Deliveries')]", LocatorType.XPath); }
+    public WebElement Menu_Trips () { return findElement("//ul[@id='side-menu']/li/p/a/span[contains(text(),'Deliveries')]", LocatorType.XPath); }
 
     public WebElement Menu_CompletedTrips () { return findElement("//a[contains(text(),'Completed Deliveries')]", LocatorType.XPath); }
 

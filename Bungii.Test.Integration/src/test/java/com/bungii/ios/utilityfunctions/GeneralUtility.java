@@ -924,7 +924,7 @@ try {
             if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                 Thread.sleep(3000);
                 action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Always Allow");
+                action.clickAlertButton("Allow While Using App");
             }
 
         }
@@ -933,7 +933,7 @@ try {
             if (navigationBarName.equals("LOCATION")) {
                 Thread.sleep(3000);
                 action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Always Allow");
+                action.clickAlertButton("Allow While Using App");
             }
         }
 }
