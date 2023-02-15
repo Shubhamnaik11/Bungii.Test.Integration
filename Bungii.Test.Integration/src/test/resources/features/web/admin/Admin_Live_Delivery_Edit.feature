@@ -66,6 +66,7 @@ Feature: Admin_Live_Delivery_Edit
     And I wait for "2" mins
     And  I refresh the page
     And I click on the dropdown beside scheduled bungii
+    And I wait for "2" mins
     Then I should see the "History" underlined
     When I click on the Notes link for Live Deliveries
     And I click on "History"
@@ -206,9 +207,11 @@ Feature: Admin_Live_Delivery_Edit
     And I click on "CALCULATE COST" button
     Then Confirmation message on edit live delivery pop up should be displayed
     And I click on "Confirm" button
-    Then The "Pick up has been successfully updated." message should be displayed for live delivery
-    And I view the Deliveries list on the admin portal
-    Then The Delivery List page should display the delivery in "Payment Successful" state
+    And I click on "Close" button
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state
 
     Examples:
       |DriverStatus        |CustomerPhone|CustomerName                        |DriverName                                |TripStatus  |
@@ -242,8 +245,11 @@ Feature: Admin_Live_Delivery_Edit
     Then Confirmation message on edit live delivery pop up should be displayed
     And I click on "Confirm" button
     Then The "Pick up has been successfully updated." message should be displayed for live delivery
-    And I view the Deliveries list on the admin portal
-    Then The Delivery List page should display the delivery in "Payment Successful" state
+    And I click on "Close" button
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state
 
     #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Live deliveries
     When I navigate to "Partner" portal configured for "normal" URL

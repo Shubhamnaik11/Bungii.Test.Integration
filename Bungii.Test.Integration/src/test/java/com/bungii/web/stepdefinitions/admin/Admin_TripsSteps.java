@@ -1067,7 +1067,7 @@ try{
             String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
             String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
             Calendar calendar = Calendar.getInstance();
-            DateFormat formatter = new SimpleDateFormat("MMddYYYY-hh:mm-a");
+            DateFormat formatter = new SimpleDateFormat("MMddYYYY-hhmm-a");
             formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
            // calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)-1);
             //calendar.add(Calendar.MINUTE,-5);

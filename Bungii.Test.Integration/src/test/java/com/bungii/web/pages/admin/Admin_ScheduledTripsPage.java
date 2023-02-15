@@ -77,7 +77,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Label_CancelSuccessMessageLive () { return findElement("//i[contains(text(),'Pick up has been successfully canceled.')]", LocatorType.XPath); }
 
-    public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//span[@id='cancel-success-message']/i[2]", LocatorType.XPath); }
+    public WebElement Label_DeliverySuccessMessageLive()  { return findElement("//i[contains(text(),'Pick up has been successfully updated.')]", LocatorType.XPath); }
 
     public WebElement Dropdown_SearchForPeriod () { return findElement("//select[@class='user-trip-dropdown form-select']", LocatorType.XPath); }
 
@@ -172,7 +172,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_Notes(){return  findElement("//span[text()='Notes']",LocatorType.XPath);}
 
-    public WebElement Link_History(){return  findElement("//span[text()='History']",LocatorType.XPath);}
+    public WebElement Link_History(){return  findElement("//span[contains(text(),'History')]",LocatorType.XPath);}
 
     public List<WebElement> List_Notes(){return  findElements("//div[@class ='note']/div/span",LocatorType.XPath);}
 
