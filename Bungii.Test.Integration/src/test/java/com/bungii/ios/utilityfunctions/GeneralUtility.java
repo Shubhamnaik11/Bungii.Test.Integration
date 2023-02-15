@@ -158,6 +158,10 @@ public class GeneralUtility extends DriverBase {
                     if (getListOfAlertButton.contains("Done")) {
                         action.clickAlertButton("Done");
                     }
+                }else if (alertMessage.contains("would like to paste from")) {
+                    if (getListOfAlertButton.contains("Allow Paste")) {
+                        action.clickAlertButton("Allow Paste");
+                    }
                 }
 
             }

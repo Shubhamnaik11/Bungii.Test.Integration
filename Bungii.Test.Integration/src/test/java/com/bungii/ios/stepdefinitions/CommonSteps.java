@@ -1370,6 +1370,30 @@ public class CommonSteps extends DriverBase {
             {
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Allow While Using App");
+                Thread.sleep(3000);
+                if(action.isAlertPresent()){
+                    action.clickAlertButton("Change to Always Allow");
+                    if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                        action.click(enableLocationPage.Button_Done());
+                    }
+                }
+            }
+            else{
+                if (action.isAlertPresent()) {
+                    String alertMessage = action.getAlertMessage();
+                    logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                    List<String> getListOfAlertButton = action.getListOfAlertButton();
+                    if (getListOfAlertButton.contains("Allow While Using App")){
+                        action.clickAlertButton("Allow While Using App");
+                    }
+                    Thread.sleep(3000);
+                    if(action.isAlertPresent()){
+                        action.clickAlertButton("Change to Always Allow");
+                        if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                            action.click(enableLocationPage.Button_Done());
+                        }
+                    }
+                }
             }
             if (!navigationBarName.equals("SIGN UP"))
             homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
