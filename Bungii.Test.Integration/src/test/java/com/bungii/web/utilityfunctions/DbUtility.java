@@ -770,5 +770,42 @@ public class DbUtility extends DbContextManager {
         logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[1]);
         return tripLocation;
     }
+
+    public static boolean isDriverEligibleForTrip(String phoneNumber, String pickupRequest) {
+        String queryString = "SELECT Id FROM driver WHERE phone = " + phoneNumber;
+        String driverID = getDataFromMySqlServer(queryString);
+        String queryString2 = "select DriverID from eligibletripdriver where pickupid IN (select PickupID from pickupdetails where pickupRef ='" + pickupRequest + "' )";
+        boolean isDriverEligible =false;/* checkIfExpectedDataFromMySqlServer(queryString2,driverID);*/
+
+        for(int i=0;i<8 && !isDriverEligible;i++){
+            try {
+                Thread.sleep(5000);
+                isDriverEligible = checkIfExpectedDataFromMySqlServer(queryString2,driverID);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            
+
+        }
+        return isDriverEligible;
+
+    }
+
+    public static String isDriverActive(String driverName) {
+        String driverStatus = "";
+        String queryString = "select IsDriverActive from driver where FirstName= '"+driverName+"'";
+        driverStatus = getDataFromMySqlServer(queryString);
+        logger.detail("Driver " + driverName + " has  " + driverStatus + " status");
+        return driverStatus;
+    }
+
+    public static String getDriverPhoneNumber(String driverName) {
+        String driverPhoneNumber = "";
+        String queryString = "select Phone from driver where FirstName= '"+driverName+"'";
+        driverPhoneNumber = getDataFromMySqlServer(queryString);
+        logger.detail("Driver " + driverName + " Phone number is   " + driverPhoneNumber);
+        return driverPhoneNumber;
+    }
+
 }
 
