@@ -513,8 +513,7 @@ Feature: SoloScheduled
     Then I slide update button on "ARRIVED" Screen
 
   #Feature: CORE-5039_Solo
-  @sn
-  Scenario: To verify CORE 5039
+  Scenario: To verify CORE 5039_Android
     When I Switch to "driver" application on "same" devices
     And I am logged in as "Testdrivertywd_appledc_a_drvah Washingtonah" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -535,7 +534,7 @@ Feature: SoloScheduled
     And I click "Done" button on "Success" screen
 
     When I Switch to "driver" application on "same" devices
-    And I wait for "2" mins
+    And I wait for "4" mins
     Then I should see a popup "New Bungii Request" displayed
     And I click on "View Request" button
 
@@ -543,8 +542,10 @@ Feature: SoloScheduled
     And I am logged in as "TestDrivertywd_applemd_a_billL BaltimoreL" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I tap on "Go Online button" on Driver Home page
-    And I wait for "2" mins
+    And I wait for "4" mins
     Then I should see a popup "New Bungii Request" displayed
     And I click on "View Request" button
     And I wait for 1 minutes
     And I click on "Accept" button
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
