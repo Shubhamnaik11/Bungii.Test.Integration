@@ -697,6 +697,11 @@ public class GeneralUtility extends DriverBase {
                 logger.detail("DRIVER APP");
                 isCorrectPage = action.getScreenHeader(driverHomePage.Header_ReferralHistory()).equals("REFERRAL HISTORY");
                 break;
+            case "SEARCHING":
+                logger.detail("CUSTOMER APP");
+                String expectedHeader = getExpectedHeader(key.toUpperCase(), currentApplication);
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_Searching()).equals(expectedHeader);
+                break;
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {
