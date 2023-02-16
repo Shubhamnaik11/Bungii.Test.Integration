@@ -50,11 +50,19 @@ public class TermsAndConditionSteps extends DriverBase {
             }
             if(action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                 action.click(enableLocationPage.Button_Sure());
-                Thread.sleep(3000);
-                action.clickAlertButton("Always Allow");  //Customer App alert for ios 12 and below
+                action.waitForAlert();
+               // Thread.sleep(3000);
+                action.clickAlertButton("Allow While Using App");  //Customer App alert for ios 16
                 //Thread.sleep(3000);
                // pageHeader = utility.getPageHeader();
 
+            }
+            Thread.sleep(3000);
+            if(action.isAlertPresent()) {
+                action.clickAlertButton("Change to Always Allow");
+                if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                    action.click(enableLocationPage.Button_Done());
+                }
             }
 
         } catch (Exception e) {

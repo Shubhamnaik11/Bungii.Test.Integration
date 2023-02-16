@@ -1,10 +1,12 @@
 {
 
+
+
   "extra1": {
     "platformName": "iOS",
-    "os_version": "12",
+    "os_version": "16",
     "automationName": "XCUITest",
-    "deviceName": "iPhone XS Max",
+    "deviceName": "iPhone 14",
     "browserstack.appium_version": "1.18.0",
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
@@ -19,12 +21,14 @@
     "browserstack.acceptSslCerts": true,
     "newCommandTimeout":0
 
+
+
   },
   "device1": {
     "platformName": "iOS",
-    "os_version": "12",
+    "os_version": "16",
     "automationName": "XCUITest",
-    "deviceName": "iPhone XS Max",
+    "deviceName": "iPhone 14",
     "browserstack.appium_version": "1.18.0",
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
@@ -39,6 +43,8 @@
     "browserstack.acceptSslCerts": true,
     "newCommandTimeout":0
   },
+
+
 
   "connection": {
     "device1": "",

@@ -270,7 +270,7 @@ Scenario:To verify that for converted trip from solo to duo displays the vehicle
 	And I change delivery type from "Solo to Duo"
 	And I click on "VERIFY" button
 	Then I click on "SAVE CHANGES" button
-	And the "Bungii Saved!" message is displayed
+	And The "Bungii Saved!" message is displayed
 	When I click on "Close" button
 	Then I wait for "2" mins
 	And I get the new pickup reference generated
@@ -340,7 +340,7 @@ Scenario:To verify that for converted trip from duo to solo does not display the
 	And I change delivery type from "Duo to Solo"
 	And I click on "VERIFY" button
 	Then I click on "SAVE CHANGES" button
-	And the "Bungii Saved!" message is displayed
+	And The "Bungii Saved!" message is displayed
 	When I click on "Close" button
 	Then I wait for "2" mins
 	And I get the new pickup reference generated
