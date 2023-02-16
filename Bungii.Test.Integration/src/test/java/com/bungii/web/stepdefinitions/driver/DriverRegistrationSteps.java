@@ -612,8 +612,8 @@ try{
             }
     }
 
-    @And("^I enter \"([^\"]*)\" phone number$")
-    public void i_enter_something_phone_number(String passwordType) throws Throwable {
+    @When("^I enter \"([^\"]*)\" phone number on \"([^\"]*)\" screen$")
+    public void i_enter_something_phone_number_on_something_screen(String passwordType, String strArg2) throws Throwable {
         try{
         action.clearSendKeys(adminLoginPage.Textbox_CellPhoneNumber(), PropertyUtility.getDataProperties("admin.user3"));
         cucumberContextManager.setScenarioContext("Admin3LoginPhoneNumber",PropertyUtility.getDataProperties("admin.user3"));

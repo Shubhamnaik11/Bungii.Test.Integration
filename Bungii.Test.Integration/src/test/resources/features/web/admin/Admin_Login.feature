@@ -13,11 +13,11 @@ Feature: Admin_Login_Page
  #CORE-4493:Reset password functionality is not working. "An Application Error Has Occurred"
   @ready
   Scenario:To verify Admin user can reset the password by sending verification code
-    When I block test admin3
+    When I block test "admin3"
     And the "Invalid login credentials. Your account has been locked." message is displayed
     When I click on the "Forget Password" Button
     Then The "Forgot Password" "Header" should be displayed
-    When I enter "valid" phone number
+    When I enter "valid" phone number on "Forgot Password" screen
     And  I click on the "Send Verification Code" Button
     Then The "Verify your phone" "Header" should be displayed
     And I enter "valid" Verification code

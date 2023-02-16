@@ -858,14 +858,19 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     }
     }
 
-    @When("^I block test admin3$")
-    public void i_block_test_admin3() throws Throwable {
+    @When("^I block test \"([^\"]*)\"$")
+    public void i_block_test_something(String admin) throws Throwable {
         try{
-        for(int passwordBlockTries =1; passwordBlockTries<=5;passwordBlockTries++){  // 5 is the number of attempts required to block admin
-            action.clearSendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user3"));
-            action.clearSendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.user3.fake.password"));
-            action.click(Page_AdminLogin.Button_AdminLogin());
-        }
+            switch (admin){
+                case "admin3":
+                    for(int passwordBlockTries =1; passwordBlockTries<=5;passwordBlockTries++){  // 5 is the number of attempts required to block admin
+                        action.clearSendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user3"));
+                        action.clearSendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.user3.fake.password"));
+                        action.click(Page_AdminLogin.Button_AdminLogin());
+                    }
+                break;
+            }
+
         log("I should be able to block test admin3", "I could block test admin3",false);
     } catch (Exception e){
         logger.error("Error performing step", e);
