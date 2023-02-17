@@ -1518,8 +1518,8 @@ try{
         cucumberContextManager.setScenarioContext("CUSTOMER","Testcustomertywd_appleMarkEC LutherEC");
         cucumberContextManager.setScenarioContext("DRIVER_1","Testdrivertywd_applega_a_drvao Atlanta_ao");
         cucumberContextManager.setScenarioContext("DRIVER_1_PHONE","9049840304");
-        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","atlanta");
-        cucumberContextManager.setScenarioContext("PICKUP_REQUEST","d30a07c9-e940-5699-24ae-f95e6987b9be");
+//        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","atlanta");
+//        cucumberContextManager.setScenarioContext("PICKUP_REQUEST","d30a07c9-e940-5699-24ae-f95e6987b9be");
 
 
         String supportNumber = PropertyUtility.getDataProperties("support.phone.number");
@@ -1656,7 +1656,6 @@ try{
                 String driverCarLicenceNumber = getDriverVehicleInfo(driverPhone);
                 String []OnlyLicenceplate = driverCarLicenceNumber.replace("}","").replace("\"","").split(":");
                 if(emailSubject.contentEquals("A Bungii driver is heading your way")){
-                    String [] locations=DbUtility.getFullPickUpAndDropOff(pickUpRef);
                     message = utility.getABungiiDriverIsHeadingYourWay(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name);
                 }
                 else if(emailSubject.contentEquals("Bungii Delivery Scheduled")){
@@ -1665,7 +1664,14 @@ try{
 
                 }
                 else {
-                    message = utility.getABungiiDriverHasArrived(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name);
+                    String [] locations=DbUtility.getFullPickUpAndDropOff(pickUpRef);
+                    String scheduledBy = (String) cucumberContextManager.getScenarioContext("ScheduledBy");
+                    String rbsbNumber = (String) cucumberContextManager.getScenarioContext("RB/SB_Number");
+                    String specialInstructions = (String) cucumberContextManager.getScenarioContext("SpecialInstruction");
+                    String deliveryPurpose = (String) cucumberContextManager.getScenarioContext("DeliveryPurpose");
+                    String itemsToDeliver = (String) cucumberContextManager.getScenarioContext("ItemsToDeliver");
+
+                    message = utility.getABungiiDriverHasArrived(locations[0],pickupdate,customerName, customerPhone,driverName,driverPhone,OnlyLicenceplate[3],itemsToDeliver,specialInstructions,deliveryPurpose,rbsbNumber,scheduledBy);
                 }
                 break;
         }

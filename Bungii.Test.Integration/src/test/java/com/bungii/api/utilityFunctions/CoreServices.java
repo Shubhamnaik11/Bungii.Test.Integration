@@ -3289,7 +3289,8 @@ public class CoreServices extends DriverBase {
             field1.put("FieldValue", "Today");
             customFields.put(field1);
 
-            cucumberContextManager.setScenarioContext("ScheduleBY",field1);
+            cucumberContextManager.setScenarioContext("ItemsToDeliver",nameItemOne);
+            cucumberContextManager.setScenarioContext("ScheduleBY",field1.get("FieldValue"));
 
             JSONArray ItemsToDeliver = new JSONArray();
             if (No_Of_Driver.equalsIgnoreCase("1")) {
@@ -3350,7 +3351,7 @@ public class CoreServices extends DriverBase {
             staticFields.put(field6);
             staticFields.put(field7);
 
-            cucumberContextManager.setScenarioContext("ScheduledBy",field6);
+            cucumberContextManager.setScenarioContext("DeliveryPurpose",field6);
             cucumberContextManager.setScenarioContext("RB/SB_Number",field7);
             //main payload
             JSONObject jsonObj = new JSONObject();
@@ -3366,7 +3367,7 @@ public class CoreServices extends DriverBase {
             jsonObj.put("SpecialInstructions", "SPL from QA script");
 
             cucumberContextManager.setScenarioContext("SpecialInstruction",jsonObj.get("SpecialInstructions"));
-            System.out.println(cucumberContextManager.getScenarioContext("SpecialInstruction"));
+
             Response response = ApiHelper.givenPartnerAccess(AccessToken).body(jsonObj.toString()).when().patch(apiURL);
             JsonPath jsonPathEvaluator = response.jsonPath();
             ApiHelper.genericResponseValidation(response, RequestText);

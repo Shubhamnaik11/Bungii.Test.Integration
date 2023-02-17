@@ -832,7 +832,7 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
-    public String getABungiiDriverHasArrived(String driverName,String driverPhone,String driverCarLicenceNumber,String Customer_Name) {
+    public String getABungiiDriverHasArrived(String pickUp,String pickupdate,String Customer_Name ,String CustomerPhone ,String driverName,String driverPhone,String driverCarLicenceNumber,String itemsToDeliver,String specialInstructions,String deliveryPurpose,String rbsbNumber,String scheduledBy) {
         String emailMessage = "";
         FileReader fr;
         try {
@@ -843,10 +843,20 @@ public class GeneralUtility extends DriverBase {
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%pickupLocation%",pickUp);
+                    s = s.replaceAll("%TimeStamp%",pickupdate);
+                    s = s.replaceAll("%CustomerName%",Customer_Name);
+                    s = s.replaceAll("%CustomerPhone%",CustomerPhone);
                     s = s.replaceAll("%driverName%",driverName);
                     s = s.replaceAll("%DriverPhoneNumber%",driverPhone);
                     s = s.replaceAll("%driverCarLicenceNumber%",driverCarLicenceNumber);
-                    s = s.replaceAll("%CustomerName%",Customer_Name);
+                    s = s.replaceAll("%itemsToDeliver%",itemsToDeliver);
+                    s = s.replaceAll("%SpecialInstructions%",specialInstructions);
+                    s = s.replaceAll("%DeliveryPurpose%",deliveryPurpose);
+                    s = s.replaceAll("%rbsbNumber%",rbsbNumber);
+                    s = s.replaceAll("%scheduledBy%",scheduledBy);
+
+
                     emailMessage += s;
                 }
 
