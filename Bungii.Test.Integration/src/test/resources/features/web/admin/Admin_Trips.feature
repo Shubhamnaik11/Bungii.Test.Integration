@@ -1109,7 +1109,7 @@ Feature: Admin_Trips
     Then The "All Deliveries" should be in "Payment Successful" state
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I check if "same day payment i" icon is displayed
-     #CORE-5251 :Verify correct disbursement type set in db for driver with same day & 2x payment setting
+    #CORE-5251 :Verify correct disbursement type set in db for driver with same day & 2x payment setting
     #CORE-4730:Verify refund changing driver earrings for duo trip with one driver payment setting as weekly and other as Same day
     When I click on "ISSUE REFUND" button
     Then The "Issue Refund" section should be displayed
@@ -1138,7 +1138,7 @@ Feature: Admin_Trips
       |  19      | Customer Rejected / Returned | Charges due to Customer Rejected / Returned| 4          | 3          |
       |  10      | Excess Wait Time             | Charges due to Excess wait                 | 2          | 3          |
       |  30.5    | Limited Access               | Charges due to Limited Access              | 4          | 7          |
-# CORE-5467: Verify that Added accessorial charges are displyaed under accessorial charge section when one driver cut is 0
+    #CORE-5467: Verify that Added accessorial charges are displyaed under accessorial charge section when one driver cut is 0
       |  45.65   | Mountainous                  | Charges due to mountainous reason          | 10         | 0          |
       |  80      | Other                        | Charges due to other reasons               | 0          | 6          |
     Then I should see the following fee type displayed

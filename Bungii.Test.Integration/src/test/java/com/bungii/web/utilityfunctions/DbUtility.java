@@ -710,7 +710,7 @@ public class DbUtility extends DbContextManager {
     }
 
     public static String getDisbursementType(String type,String pickUpRef,String driverPhone) {
-        String transactionType = null;
+        String transactionType = "";
         String driverId;
         String queryString;
 
