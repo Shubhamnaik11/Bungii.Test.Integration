@@ -162,10 +162,10 @@ public class AvailableTripsSteps extends DriverBase {
     @And("^I Select Trip from available trip$")
     public void i_select_trip_from_available_trip() throws Throwable {
         try{
+            Thread.sleep(6000);
             if(action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true))){
                 action.click(Page_BungiiRequest.Button_No_Thanks());
             }
-            Thread.sleep(6000);
             String expectedText = action.getText(availableTrips.Text_FromHomeMiles());
             boolean textDisplayed = (expectedText.contains("miles") || expectedText.contains("mile") )? true : false;
 
@@ -205,13 +205,13 @@ public class AvailableTripsSteps extends DriverBase {
                 case "AVAILABLE BUNGIIS":
                 case "SCHEDULED BUNGIIS":
                     String partnerName = action.getText(availableTrips.Partner_Name());
-                    testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be displayed on " + Screen + " screen", "Partner Portal name is displayed in " + Screen + " screen", "Partner Portal name is not displayed in " + Screen + " screen");
+                    testStepAssert.isEquals(partnerName, partnerNameExpected,"Partner Portal name should be displayed on " + Screen + " screen","Partner Portal name is displayed in " + Screen + " screen","Partner Portal name is not displayed in " + Screen + " screen");
                     break;
                 case "EN ROUTE":
                 case "ARRIVED":
                 case "LOADING ITEMS":
                     String partnerNameText = action.getText(availableTrips.Partner_Name_For_Enroute());
-                    testStepAssert.isEquals(partnerNameText, partnerNameExpected, "Partner Portal name should be displayed on " + Screen + " screen", "Partner Portal name is displayed in " + Screen + " screen", "Partner Portal name is not displayed in " + Screen + " screen");
+                    testStepAssert.isEquals(partnerNameText, partnerNameExpected,"Partner Portal name should be displayed on " + Screen + " screen","Partner Portal name is displayed in " + Screen + " screen","Partner Portal name is not displayed in " + Screen + " screen");
                     break;
                 case "DRIVING TO DROP-OFF":
                 case "UNLOADING ITEMS":
@@ -1028,6 +1028,39 @@ public class AvailableTripsSteps extends DriverBase {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
         String convertedTime = instantInUTC.format(formatter);
         return convertedTime;
+    }
+
+
+
+    @And("I check if customer name is {string} under {string}")
+    public void iCheckIfCustomerNameIsUnder(String name, String page) throws Throwable {
+        try{
+            switch (page){
+                case "available bungii details":
+                case "schedule bungii details":
+                case "EN ROUTE":
+                case "ARRIVED":
+                case "LOADING ITEMS":
+                case "DRIVING TO DROP-OFF":
+                case "UNLOADING ITEMS":
+
+                    Thread.sleep(2000);
+                    action.scrollToBottom();
+                    List<WebElement> customerNameSchedulePage =availableTrips.List_CustomerName();
+                    testStepAssert.isEquals(customerNameSchedulePage.get(1).getText(),name,
+                            "The customer name should be trimmed & only initial should be displayed of second word",
+                            "The customer name is trimmed & only initial is displayed of second word",
+                            "The customer name is not trimmed & whole second word is displayed");
+                    action.scrollToTop();
+                    break;
+            }
+            log("I should be able to check the variable sign","I was able to check the variable sign",false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
     }
 }
 

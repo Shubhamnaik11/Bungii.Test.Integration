@@ -21,6 +21,8 @@
     And I check if "i" icon is displayed
     And I click on "i earning" icon
     And I click on "Close Payment Settings" button
+    #CORE-4983 Customer names is trimmed on all delivery pages for driver app
+    And I check if customer name is "Testcustomertywd_appleNewU C" under "available bungii details"
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
@@ -29,24 +31,38 @@
     And I click on "Close Payment Settings" button
     And I check if variable sign is shown under "schedule bungii details"
     Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
+    And I check if customer name is "Testcustomertywd_appleNewU C" under "schedule bungii details"
     And I start selected Bungii
     Then Bungii driver should see "General Instructions"
     Then Bungii driver should see "Enroute screen"
     Then Partner Portal name should be displayed in "EN ROUTE" section
 #   Core-2618 Verify that referral icon is not shown during in process trip on driver app
+    And I swipe to check trip details
+    And I check if customer name is "Testcustomertywd_appleNewU C" under "EN ROUTE"
+    And I click on "CLOSE" button
     And I check if referral icon is not shown
     And I slide update button on "EN ROUTE" Screen
     Then Bungii driver should see "Arrived screen"
     Then Partner Portal name should be displayed in "ARRIVED" section
+    And I swipe to check trip details
+    And I check if customer name is "Testcustomertywd_appleNewU C" under "ARRIVED"
+    And I click on "CLOSE" button
     And I slide update button on "ARRIVED" Screen
     Then Bungii driver should see "Loading Items screen"
     Then Partner Portal name should be displayed in "LOADING ITEMS" section
+    And I swipe to check trip details
+    And I check if customer name is "Testcustomertywd_appleNewU C" under "LOADING ITEMS"
+    And I click on "CLOSE" button
     And I slide update button on "LOADING ITEM" Screen
     Then Bungii driver should see "Driving to Drop-Off screen"
     Then Partner Portal name should be displayed in "DRIVING TO DROP-OFF" section
+    And I swipe to check trip details
+    And I check if customer name is "Testcustomertywd_appleNewU C" under "DRIVING TO DROP-OFF"
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then Bungii driver should see "Unloading Items screen"
     Then Partner Portal name should be displayed in "UNLOADING ITEMS" section
+    And I swipe to check trip details
+    And I check if customer name is "Testcustomertywd_appleNewU C" under "UNLOADING ITEMS"
     And I slide update button on "UNLOADING ITEM" Screen
 
 #  Core-3098 Verify online/offline pop up is shown for solo Partner portal trip and check stay online functionality
