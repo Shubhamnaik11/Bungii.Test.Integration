@@ -54,8 +54,8 @@ public class MobileFriendlySteps extends DriverBase {
         }
     }
 
-    @And("I verify the ui elements on {string} page for {string} partner")
-    public void iVerifyTheUiElementsOnPageForPartner(String pageName, String portalName) {
+    @And("I verify the ui links on {string} page for {string} partner")
+    public void iVerifyTheUiLinksOnPageForPartner(String pageName, String portalName) {
         try{
             switch (pageName){
                 case "get estimate":

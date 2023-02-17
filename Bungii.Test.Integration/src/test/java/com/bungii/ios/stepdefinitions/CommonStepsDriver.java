@@ -814,7 +814,7 @@ public class CommonStepsDriver extends DriverBase {
                 case "Get Estimate":
                     action.click(safariPage.Button_GetEstimate());
                     break;
-                case "Continue Kioski":
+                case "Kioski mode Continue":
                     action.click(safariPage.Button_ContinueKiosk());
                     break;
             }
