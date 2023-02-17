@@ -298,6 +298,52 @@ public class Admin_DriverDetails extends DriverBase{
         }
     }
 
+    @Then("^The delivery \"([^\"]*)\" eligible for driver \"([^\"]*)\"$")
+    public void the_delivery_something_eligible_for_driver_something(String driverEligibility, String driverName) throws Throwable {
+      try {
+          String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+          String []driverFirstName =driverName.split(" ") ;
+          String driverPhoneNum = new DbUtility().getDriverPhoneNumber(driverFirstName[0]);
+          boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
+          if (driverEligibility.equals("Should be")) {
+              testStepAssert.isTrue(isDriverEligible, "Driver " + driverName + " should be eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is not eligible for delivery having pickup ref " + pickupRequest);
+          } else {
+              testStepAssert.isFalse(isDriverEligible, "Driver " + driverName + " should not be eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is not eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is eligible for delivery having pickup ref " + pickupRequest);
+          }
+      }catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I check if Driver status is \"([^\"]*)\" for driver \"([^\"]*)\"$")
+    public void i_check_if_driver_status_is_something_for_driver_something(String driverStatus, String driverName) throws Throwable {
+        try{
+        String [] onlyFirstName = driverName.split(" ");
+        String DriverActiveORInActive = new DbUtility().isDriverActive(onlyFirstName[0]);
+        if (driverStatus.equals("Active")) {
+            testStepAssert.isTrue(DriverActiveORInActive.equals("1"), "Driver " + driverName + " status should is active",
+                    "Driver " + driverName + " status is active",
+                    "Driver " + driverName + " status  is " + DriverActiveORInActive + " ,it should be 1");
+        }
+        else {
+            testStepAssert.isTrue(DriverActiveORInActive.equals("0"), "Driver " + driverName + " status should is inactive",
+                    "Driver " + driverName + " status is inactive",
+                    "Driver " + driverName + " status  is " + DriverActiveORInActive + " ,it should be 0");
+        }
+    }catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
+    }
+
     @And("^I search by \"([^\"]*)\"$")
     public void i_search_by_something(String SerachCriteria) throws Throwable{
         try

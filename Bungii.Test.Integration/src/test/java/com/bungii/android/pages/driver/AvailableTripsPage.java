@@ -82,4 +82,6 @@ public class AvailableTripsPage extends PageBase {
     public WebElement CustomerName(int number) {return findElement(String.format("//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[%d]/android.view.ViewGroup/android.widget.TextView[1]",number),LocatorType.XPath);}
     public WebElement Text_CustomerDeliveryTime(int number) {return findElement(String.format("//android.view.ViewGroup/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[%d]/android.widget.RelativeLayout/android.widget.TextView[1]",number),LocatorType.XPath);}
 
+    //customer name xpath
+    public List <WebElement> List_CustomerName()         {return findElements("//android.widget.TextView[contains(@resource-id,'com.bungii.driver:id/layout_waypoint_name')]",LocatorType.XPath);}
 }

@@ -150,4 +150,6 @@ public class HomePage extends PageBase {
     public WebElement Option_SameDay() { return findElement("//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='Same day*']", LocatorType.XPath);}
     public WebElement Button_Close() { return findElement("//XCUIElementTypeButton[@name='Close']", LocatorType.XPath);}
     public WebElement Button_Confirm() { return findElement("//XCUIElementTypeButton[@name='Confirm']", LocatorType.XPath);}
+    public WebElement Header_Searching(){return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText[@name=\"SEARCHING...\"]", LocatorType.XPath);}
+
 }
