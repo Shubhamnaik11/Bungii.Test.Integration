@@ -58,6 +58,5 @@ public class PartnerSteps extends DriverBase {
         //String token = coreServices.partner_graphql();
         coreServices.partnerDeliveryInformation(PickupRequestID,Partner_Portal);
         coreServices.partnerConfirmPickup(PickupRequestID);
-
     }
 }

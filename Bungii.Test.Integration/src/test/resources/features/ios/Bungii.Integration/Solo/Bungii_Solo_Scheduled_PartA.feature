@@ -821,14 +821,13 @@ Feature: Solo Scheduled Bungii Part A
 #    And I click "Done" button on "Success" screen
     When I Switch to "driver" application on "same" devices
     And I wait for "2" mins
-    Then I view and reject virtual notification for "Driver" for "solo scheduled trip"
+    Then I view and reject virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "testdrivertywd_applemd_a_billl baltimorel" driver
-    And I wait for "2" mins
+    And I wait for "4" mins
     And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-    When I Select "SCHEDULED BUNGIIS" from driver App menu
     Then I should be navigated to "SCHEDULED BUNGII" screen
     And I Select Trip from scheduled trip

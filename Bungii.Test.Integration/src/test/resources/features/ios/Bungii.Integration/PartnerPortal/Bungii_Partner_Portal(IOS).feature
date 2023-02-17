@@ -854,3 +854,24 @@ Feature: Partner Portal Cases integration with IOS
     And I slide update button on "UNLOADING ITEMS" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
+
+
+  Scenario:CORE-5039
+    When I request Partner Portal "Solo" Trip for "Equip-bid" partner
+      |Geofence    | Bungii Time   | Customer Phone | Customer Name                        |
+      |washingtondc| NEXT_POSSIBLE | 8877661139     | Testcustomertywd_appleMarkEJ LutherEJ|
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "driver" application on "same" devices
+    And I login as "new washington" driver on "same" device and make driver status as "Online"
+    And I wait for "2" mins
+    Then I view and reject virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+
+    And I connect to "extra1" using "Driver2" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "testdrivertywd_applemd_a_billl baltimorel" driver
+    And I wait for "4" mins
+    And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    Then I should be navigated to "SCHEDULED BUNGII" screen
+    And I Select Trip from scheduled trip
