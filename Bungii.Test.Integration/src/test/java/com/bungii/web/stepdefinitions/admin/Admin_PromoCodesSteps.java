@@ -49,7 +49,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_PartnerPortalPage admin_partnerPortalPage = new Admin_PartnerPortalPage();
     Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
     PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
-
+    Admin_LoginPage adminLoginPage = new Admin_LoginPage();
 
     @When("^I click on \"([^\"]*)\" Menu$")
     public void i_click_something_menu(String link) throws Throwable {
@@ -290,7 +290,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     break;
                 case "Profile":
                     driver=(String) cucumberContextManager.getScenarioContext("DRIVER");
-                    xpath= String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Profile']", driver);
+                    xpath= String.format("//td[contains(text(),'%s')]/following-sibling::td[7]/div/a/img[@title='Profile']", driver);
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
             }
             log("I click on " + button + " icon",
@@ -732,6 +732,11 @@ try{
             case "Should contain alphanumeric and -@#$&_: special characters.":
                 testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_BlankspacCodeName()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
+            case "Invalid login credentials. Your account has been locked.":
+                Thread.sleep(4000);
+                testStepAssert.isEquals(action.getText(adminLoginPage.Text_AccountBlockedMessage()),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
+
         }
 } catch (Exception e) {
     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

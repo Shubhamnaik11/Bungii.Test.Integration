@@ -848,7 +848,7 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
             }
-            testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+            testStepAssert.isTrue(isCorrectPage, "I should be navigated to " + screen + " screen",
                     "I should be navigated to " + screen, "Error in navigating to " + screen + " screen ");
 
         } catch (Throwable e) {
@@ -922,7 +922,8 @@ public class CommonSteps extends DriverBase {
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
                 Thread.sleep(3000);
-                action.clickAlertButton("Always Allow");  //Customer App alert for ios 12 and below
+                action.waitForAlert();
+                action.clickAlertButton("Allow While Using App");  //Customer App alert for ios 16
                 Thread.sleep(3000);
                 pageHeader = utility.getPageHeader();
                 // pageHeader = utility.getPageHeader();
@@ -1299,8 +1300,15 @@ public class CommonSteps extends DriverBase {
             Thread.sleep(3000);
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Always Allow");
+                action.clickAlertButton("Allow While Using App");
                 //pageName = utility.getPageHeader();
+            }
+            Thread.sleep(3000);
+            if(action.isAlertPresent()) {
+                action.clickAlertButton("Change to Always Allow");
+                if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                    action.click(enableLocationPage.Button_Done());
+                }
             }
 
         } catch (Exception e) {
@@ -1369,7 +1377,31 @@ public class CommonSteps extends DriverBase {
             if (navigationBarName.equals("LOCATION"))
             {
                 action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Always Allow");
+                action.clickAlertButton("Allow While Using App");
+                Thread.sleep(3000);
+                if(action.isAlertPresent()){
+                    action.clickAlertButton("Change to Always Allow");
+                    if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                        action.click(enableLocationPage.Button_Done());
+                    }
+                }
+            }
+            else{
+                if (action.isAlertPresent()) {
+                    String alertMessage = action.getAlertMessage();
+                    logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                    List<String> getListOfAlertButton = action.getListOfAlertButton();
+                    if (getListOfAlertButton.contains("Allow While Using App")){
+                        action.clickAlertButton("Allow While Using App");
+                    }
+                    Thread.sleep(3000);
+                    if(action.isAlertPresent()){
+                        action.clickAlertButton("Change to Always Allow");
+                        if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                            action.click(enableLocationPage.Button_Done());
+                        }
+                    }
+                }
             }
             if (!navigationBarName.equals("SIGN UP"))
             homeSteps.i_select_something_from_driver_app_memu("LOGOUT");

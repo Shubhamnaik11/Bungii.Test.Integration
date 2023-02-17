@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.driver.*;
 import com.bungii.web.pages.partner.Partner_Delivery_StatusPage;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -44,6 +45,8 @@ public class DriverRegistrationSteps extends DriverBase {
     Partner_Delivery_StatusPage partner_Delivery_StatusPage= new Partner_Delivery_StatusPage();
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
+    Admin_LoginPage adminLoginPage = new Admin_LoginPage();
+
     WebDriver driver = SetupManager.getDriver();
 
 
@@ -607,5 +610,18 @@ try{
                 error("Step should be successful", "Error performing step,Please check logs for more details",
                         true);
             }
+    }
+
+    @When("^I enter \"([^\"]*)\" phone number on \"([^\"]*)\" screen$")
+    public void i_enter_something_phone_number_on_something_screen(String passwordType, String strArg2) throws Throwable {
+        try{
+        action.clearSendKeys(adminLoginPage.Textbox_CellPhoneNumber(), PropertyUtility.getDataProperties("admin.user3"));
+        cucumberContextManager.setScenarioContext("Admin3LoginPhoneNumber",PropertyUtility.getDataProperties("admin.user3"));
+            log("I should able to enter "+ passwordType+" phone number","I could enter "+ passwordType+" phone number", false);
+    }catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 }

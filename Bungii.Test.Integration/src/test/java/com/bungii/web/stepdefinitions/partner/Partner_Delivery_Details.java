@@ -7,6 +7,7 @@ import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
+import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.pages.partnerManagement.PartnerManagement_Email;
@@ -42,7 +43,7 @@ public class Partner_Delivery_Details extends DriverBase {
     PartnerManagement_Email Page_PartnerManagement_Email = new PartnerManagement_Email();
     PartnerManagement_LoginPage Page_PartnerManagement_Login = new PartnerManagement_LoginPage();
     PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
-
+    Admin_LoginPage adminLoginPage = new Admin_LoginPage();
 
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
@@ -1368,6 +1369,22 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Testdrivertywd_appleks_a_drvbs Kansas_bs":
                     String driverName = action.getText(admin_DriverPage.Text_CurrentOnlineDriver(element));
                     testStepAssert.isEquals(driverName,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    break;
+                case "Verify your phone":
+                case "Forgot Password":
+                    testStepAssert.isTrue(action.isElementPresent(adminLoginPage.Header_ForgotPassword()),element+" header should be displayed",element+" header is displayed",element+" header is not displayed");
+                    Thread.sleep(4000);
+                    String expectedHeaderText = action.getText(adminLoginPage.Header_ForgotPassword());
+                    testStepAssert.isEquals(expectedHeaderText,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed , "+expectedHeaderText +" is displayed" );
+                    break;
+                case "Admin Login":
+                    testStepAssert.isTrue(action.isElementPresent(adminLoginPage.Header_AdminLogin()),element+" header should be displayed",element+" header is displayed",element+" header is not displayed");
+                    String adminloginText = action.getText(adminLoginPage.Header_AdminLogin());
+                    testStepAssert.isEquals(adminloginText,element,element + " Header text should be displayed",element + " Header text is displayed",element + " Header text is not displayed");
+                    break;
+                case "Admin Dashboard":
+                    Thread.sleep(5000);
+                    testStepAssert.isTrue(action.isElementPresent(adminLoginPage.Header_AdminDashboard()),element+" header should be displayed",element+" header is displayed",element+" header is not displayed");
                     break;
             }
     } catch (Exception e) {

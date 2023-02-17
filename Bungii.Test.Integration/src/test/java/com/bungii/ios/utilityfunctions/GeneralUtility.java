@@ -158,6 +158,10 @@ public class GeneralUtility extends DriverBase {
                     if (getListOfAlertButton.contains("Done")) {
                         action.clickAlertButton("Done");
                     }
+                }else if (alertMessage.contains("would like to paste from")) {
+                    if (getListOfAlertButton.contains("Allow Paste")) {
+                        action.clickAlertButton("Allow Paste");
+                    }
                 }
 
             }
@@ -693,6 +697,11 @@ public class GeneralUtility extends DriverBase {
                 logger.detail("DRIVER APP");
                 isCorrectPage = action.getScreenHeader(driverHomePage.Header_ReferralHistory()).equals("REFERRAL HISTORY");
                 break;
+            case "SEARCHING":
+                logger.detail("CUSTOMER APP");
+                String expectedHeader = getExpectedHeader(key.toUpperCase(), currentApplication);
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_Searching()).equals(expectedHeader);
+                break;
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {
@@ -924,7 +933,7 @@ try {
             if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                 Thread.sleep(3000);
                 action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Always Allow");
+                action.clickAlertButton("Allow While Using App");
             }
 
         }
@@ -933,7 +942,7 @@ try {
             if (navigationBarName.equals("LOCATION")) {
                 Thread.sleep(3000);
                 action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Always Allow");
+                action.clickAlertButton("Allow While Using App");
             }
         }
 }
