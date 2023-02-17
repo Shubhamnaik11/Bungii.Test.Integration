@@ -894,15 +894,33 @@ public class GeneralUtility extends DriverBase {
 
 
     public void grantPermissionToDriverApp() throws InterruptedException {
-        action.click(enableNotificationPage.Button_Sure());
-        action.clickAlertButton("Allow");
-        Thread.sleep(5000);
+        List<String> getListOfAlertButton = action.getListOfAlertButton();
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Always Allow");
+            if(getListOfAlertButton.contains("Allow")){
+                action.clickAlertButton("Allow");
+                Thread.sleep(5000);
+            }
         }
-        else if(action.isAlertPresent()){
-            action.clickAlertButton("Always Allow");
+        if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+            action.click(enableLocationPage.Button_Sure());
+            action.clickAlertButton("Allow While Using App");
+        }
+        Thread.sleep(3000);
+        if(action.isAlertPresent()){
+            if(getListOfAlertButton.contains("Allow While Using App")){
+                action.clickAlertButton("Allow While Using App");
+                Thread.sleep(3000);
+            }
+            if(action.isAlertPresent()){
+                if(getListOfAlertButton.contains("Change to Always Allow")) {
+                    action.clickAlertButton("Change to Always Allow");
+                    Thread.sleep(3000);
+                }
+            if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                action.click(enableLocationPage.Button_Done());
+            }
+            }
         }
     }
 
@@ -927,22 +945,20 @@ try {
     navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status(true));
 
     if (navigationBarName != null && !navigationBarName.isEmpty())
-        if (navigationBarName.equals("NOTIFICATIONS")) {
+        if (navigationBarName.equals("NOTIFICATIONS") || navigationBarName.equals(PropertyUtility.getDataProperties("driver.notification.class.name"))) {
             grantPermissionToDriverApp();
             Thread.sleep(3000);
             if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                 Thread.sleep(3000);
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Allow While Using App");
-            }
-
-        }
-        else
-        {
-            if (navigationBarName.equals("LOCATION")) {
                 Thread.sleep(3000);
-                action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Allow While Using App");
+                if(action.isAlertPresent()){
+                    action.clickAlertButton("Change to Always Allow");
+                    if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                        action.click(enableLocationPage.Button_Done());
+                    }
+                }
             }
         }
 }
