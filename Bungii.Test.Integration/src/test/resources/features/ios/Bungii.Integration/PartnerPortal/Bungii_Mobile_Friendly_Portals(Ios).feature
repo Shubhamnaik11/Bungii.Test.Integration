@@ -60,3 +60,39 @@
       And I click on "Kioski mode Continue" button
       And I click on "Schedule Bungii" button
       Then I verify the ui links on "success" page for "fixed pricing" partner
+
+    @sn
+    Scenario: CORE-5039_PP
+      When I switch to "ORIGINAL" instance
+      And I terminate "customer" app on "same" devices
+      When I open new "Safari" browser for "MOBILE DEVICE"
+
+      And I open "fixed pricing" partner portal
+      And I verify the ui links on "get estimate" page for "fixed pricing" partner
+      When I enter all details on "get estimate page" for "fixed pricing"
+        | Pickup_Address                                                      | Delivery_Address                             |
+        | 198 Laurel Race Track Road, Laurel, United States, Maryland, 20725  | 1318 Annapolis Road, Odenton, MD 21113, USA  |
+      And I select "Threshold" service level
+      And I click on "Continue" button
+      When I enter all details on "delivery details" for "fixed pricing portal"
+        |Product_Description|Special_Instruction|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Reciept|
+        |20 boxes           |Handle with care   |Biglots         |2442442440     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |1212   |
+      And I enter following Credit Card details on Partner Portal
+        |Card_Type   |Expiry |Postal_Code      |Cvv      |
+        |VISA CARD|12/25  |VALID POSTAL CODE|VALID CVV|
+      And I click on "Schedule Bungii" button
+      Then I verify the ui links on "success" page for "fixed pricing" partner
+      When I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
+      And I login as "new washington" driver on "same" device and make driver status as "Online"
+      And I wait for "2" mins
+      Then I view and reject virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+
+      And I connect to "extra1" using "Driver2" instance
+      And I Switch to "driver" application on "same" devices
+      And I am on the "LOG IN" page on driverApp
+      And I am logged in as "testdrivertywd_applemd_a_billl baltimorel" driver
+      And I wait for "4" mins
+      And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+      Then I should be navigated to "SCHEDULED BUNGII" screen
+      And I Select Trip from scheduled trip
