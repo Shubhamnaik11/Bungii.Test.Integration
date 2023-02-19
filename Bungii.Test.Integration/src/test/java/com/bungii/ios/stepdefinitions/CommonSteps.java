@@ -18,6 +18,7 @@ import com.bungii.ios.pages.driver.BungiiRequestPage;
 import com.bungii.ios.pages.driver.DriverBungiiDetailsPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.other.NotificationPage;
+import com.bungii.ios.pages.other.SafariPage;
 import com.bungii.ios.stepdefinitions.customer.HomeSteps;
 import com.bungii.ios.stepdefinitions.customer.LogInSteps;
 import com.bungii.ios.stepdefinitions.driver.*;
@@ -160,6 +161,7 @@ public class CommonSteps extends DriverBase {
         this.driverhomepage = driverhomepage;
     }
     LiveTripsPage liveTripsPage=new LiveTripsPage();
+    SafariPage safariPage=new SafariPage();
     com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage = new com.bungii.ios.pages.driver.UpdateStatusPage();
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page$")
@@ -297,6 +299,12 @@ public class CommonSteps extends DriverBase {
                 case "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading":
                     String arrivedTextMessage= action.getAlertMessage().toString();
                     testStepAssert.isTrue(message.contains(arrivedTextMessage),"Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message should be shown.","Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message is not shown instead of that following message is shown "+arrivedTextMessage);
+                    break;
+                case "Admin Password Required":
+                    testStepAssert.isElementDisplayed(safariPage.PopUp_AdminPassword(),"Admin Password Required pop-up should be displayed","Admin Password Required is displayed","Admin Password Required is not displayed");
+                    break;
+                case "Password is required.":
+                    testStepAssert.isElementDisplayed(safariPage.Text_PasswordRequired(),"Admin Password Required pop-up should be displayed","Admin Password Required is displayed","Admin Password Required is not displayed");
                     break;
             }
             log("No Mail Accounts Popup should be displayed",
@@ -2101,8 +2109,17 @@ public class CommonSteps extends DriverBase {
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
         try {
 
-            SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
-            SetupManager.getObject().useDriverInstance(instanceName);
+            switch (instanceName){
+                case "ADMIN PORTAL":
+                    SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
+                    SetupManager.getObject().useDriverInstance(instanceName);
+                    break;
+                case "MOBILE DEVICE":
+                    action.click(safariPage.Icon_Safari());
+                    break;
+
+            }
+
             log(
                     "I open new " + browser + " browser for " + instanceName + " instance",
                     "I open new " + browser + " browser for " + instanceName + " instance", true);

@@ -497,6 +497,22 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Continue":
                     action.click(bungiiDetailsPage.Button_Yes());
                     break;
+                case "Get Estimate":
+                    action.click(bungiiDetailsPage.Button_GetEstimate());
+                    break;
+                case "Schedule Bungii":
+                    action.click(bungiiDetailsPage.Button_ScheduleBungii());
+                    break;
+                case "Get Quote":
+                    action.click(bungiiDetailsPage.Button_GetQuote());
+                    break;
+                case "CONTINUE":
+                    action.click(bungiiDetailsPage.Button_Continue());
+                    break;
+                case "Disclaimer":
+                    action.scrollToBottom();
+                    action.click(bungiiDetailsPage.Checkbox_Disclaimer());
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }

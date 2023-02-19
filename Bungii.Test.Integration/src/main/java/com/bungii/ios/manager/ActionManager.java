@@ -933,4 +933,16 @@ try {
                     true);
         }
     }
+    public void clear(WebElement element) {
+        try {
+            element.clear();
+            logger.detail("ACTION | Clear element " + getElementDetails(element));
+        }
+        catch(Exception ex)
+        {
+            logger.error("ACTION FAILED | Clear element  " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Clear element  " + getElementDetails(element), "Unable to clear element " + getElementDetails(element),
+                    true);
+        }
+    }
 }

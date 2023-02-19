@@ -309,6 +309,7 @@ Feature: Admin_Reason_Code
 
 
   @ready
+    #Raised CORE-5958 as Admin is unable to edit the date to future.
   Scenario: Verify Reason dropdown for PARTNER SOLO(Weight based pricing) re-scheduled delivery when NO Driver accepts and Admin edits only Date when Partner Initiated
     When I navigate to "Partner" portal configured for "FloorDecor service level" URL
     And I enter "valid" password on Partner Portal

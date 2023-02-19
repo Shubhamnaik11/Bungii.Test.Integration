@@ -784,7 +784,7 @@ public class DbUtility extends DbContextManager {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            
+
 
         }
         return isDriverEligible;
@@ -807,5 +807,13 @@ public class DbUtility extends DbContextManager {
         return driverPhoneNumber;
     }
 
+
+    public static String getAdminVerificationCode(String phoneNumber) {
+        String verificationCode = "";
+        String queryString = "select SmsVerificationCode from bouser where phone =" + phoneNumber;
+        verificationCode = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("SMS verification code for admin having phone number " + phoneNumber + "  is " + verificationCode);
+        return verificationCode;
+    }
 }
 

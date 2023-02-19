@@ -14,6 +14,7 @@ import com.bungii.web.pages.driver.Driver_PickUpInfoPage;
 import com.bungii.web.pages.partnerManagement.PartnerManagement_Email;
 import com.bungii.web.pages.partnerManagement.PartnerManagement_LocationPage;
 import com.bungii.web.pages.partnerManagement.PartnerManagement_LoginPage;
+import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -52,6 +53,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
     Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
     Driver_DashboardPage Page_Driver_Dashboard = new Driver_DashboardPage();
+    Admin_LoginPage Page_AdminLogin = new Admin_LoginPage();
 
     @Given("^I am logged in as Admin$")
     public void i_am_logged_in_as_admin() throws Throwable {
@@ -453,6 +455,15 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 case "Edit Email Address":
                     action.click(Page_PartnerManagement_Email.Button_EditEmailAddress(1));
                     break;
+                case "Forget Password":
+                    action.click(adminLoginPage.Button_ForgotPassword());
+                    break;
+                case "Send Verification Code":
+                    action.click(adminLoginPage.Button_SendVerificationCode());
+                    break;
+                case "Reset Password":
+                    action.click(adminLoginPage.Button_ResetPassword());
+                    break;
             }
             log("I click on the " + arg0 + " button",
                     "I have clicked on the " + arg0 + " button");
@@ -797,6 +808,76 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @When("^I enter \"([^\"]*)\" Verification code$")
+    public void i_enter_something_verificationcode(String type) {
+        try {
+            switch (type) {
+                case "valid":
+                   Thread.sleep(3000);
+                   String adminPhoneNumber = (String) cucumberContextManager.getScenarioContext("Admin3LoginPhoneNumber");
+                    String smsCode =  DbUtility.getAdminVerificationCode(adminPhoneNumber);
+                    action.sendKeys(adminLoginPage.Textbox_VerificationCode(),smsCode);
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+            }
+            log("I should be able to enter "+type+" verification code","I could enter "+type+" verification code",false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I enter \"([^\"]*)\" admin password$")
+    public void i_enter_something_admin_password(String passwordType) throws Throwable {
+        try{
+       switch (passwordType){
+           case "New":
+               action.clearSendKeys(adminLoginPage.Textbox_NewPassword(),PropertyUtility.getDataProperties("admin.user3.new.password"));
+               Thread.sleep(3000);
+               action.clearSendKeys(adminLoginPage.Textbox_ConfrimNewPassword(),PropertyUtility.getDataProperties("admin.user3.new.password"));
+               break;
+       }
+       log("I should be able to enter "+passwordType+" password in the new password textbox","I could enter "+passwordType+" password in the new password textbox",false );
+    } catch (Exception e){
+        logger.error("Error performing step", e);
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+    @When("^I login to admin portal with new password$")
+    public void i_login_to_admin_portal_with_new_password() throws Throwable {
+        try{
+        Thread.sleep(2000);
+        action.clearSendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user3"));
+        action.clearSendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.user3.new.password"));
+        action.click(Page_AdminLogin.Button_AdminLogin());
+        log("I should be able to login to admin portal with new password","I could login to admin portal with new password",false);
+    } catch (Exception e){
+        logger.error("Error performing step", e);
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+    @When("^I block test \"([^\"]*)\"$")
+    public void i_block_test_something(String admin) throws Throwable {
+        try{
+            switch (admin){
+                case "admin3":
+                    for(int passwordBlockTries =1; passwordBlockTries<=5;passwordBlockTries++){  // 5 is the number of attempts required to block admin
+                        action.clearSendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user3"));
+                        action.clearSendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.user3.fake.password"));
+                        action.click(Page_AdminLogin.Button_AdminLogin());
+                    }
+                break;
+            }
+
+        log("I should be able to block test admin3", "I could block test admin3",false);
+    } catch (Exception e){
+        logger.error("Error performing step", e);
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
+
 
     public String[] getTruckImages() {
         String[] truckImageList = new String[3];
