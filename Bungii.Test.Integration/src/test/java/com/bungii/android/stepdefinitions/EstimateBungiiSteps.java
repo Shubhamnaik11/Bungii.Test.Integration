@@ -609,6 +609,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("boston.customer3.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("boston.customer3.phone"));
                     break;
+                case "Testcustomertywd_appleMarkGJ LutherGJ":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer5.phone"), PropertyUtility.getDataProperties("goa.customer5.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("goa.customer5.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("goa.customer5.phone"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;

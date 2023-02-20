@@ -600,6 +600,7 @@ public class ScheduledTripSteps extends DriverBase {
 			action.click(scheduledTripsPage.Button_Search());
 
 			Thread.sleep(25000);
+			action.click(scheduledTripsPage.Button_Search());
 /*			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
 			if(rows.size()>0)
 			rows.get(0).click();
@@ -1238,7 +1239,7 @@ public class ScheduledTripSteps extends DriverBase {
 			switch (tripType) {
 				case "Solo":
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
-					action.click(scheduledTripsPage.Select_TestDriver());
+					action.JavaScriptClick(scheduledTripsPage.Select_TestDriver());
 					String driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
 					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
 					break;

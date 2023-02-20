@@ -4641,6 +4641,15 @@ else
                 Details[4]=PropertyUtility.getDataProperties("goa.driver9.password");
                 Details[5]=PropertyUtility.getDataProperties("goa.driver9.name");
                 break;
+            case "Testcustomertywd_appleMarkGJ LutherGJ":
+                Details[0]=PropertyUtility.getDataProperties("goa.customer5.phone");
+                Details[1]=PropertyUtility.getDataProperties("goa.customer5.password");
+                Details[2]=PropertyUtility.getDataProperties("goa.customer5.name");
+
+                Details[3]=PropertyUtility.getDataProperties("goa.driver10.phone");
+                Details[4]=PropertyUtility.getDataProperties("goa.driver10.password");
+                Details[5]=PropertyUtility.getDataProperties("goa.driver10.name");
+                break;
             default:
                 throw new IllegalStateException("The entry for the customer with the name: " + custName +" is not present.");
         }
