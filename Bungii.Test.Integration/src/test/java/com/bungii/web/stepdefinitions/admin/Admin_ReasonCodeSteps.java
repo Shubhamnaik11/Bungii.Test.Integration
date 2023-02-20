@@ -66,6 +66,11 @@ public class Admin_ReasonCodeSteps extends DriverBase {
         switch (scheduleDate) {
             case "Time":
                     String time = (String) cucumberContextManager.getScenarioContext("SCHEDULED_BUNGII_TIME");
+                    String time2 = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
+                    if (time.equalsIgnoreCase(""))
+                    {
+                        time = time2;
+                    }
                     time=time.substring(8,16);
                     action.click(admin_EditScheduledBungiiPage.TimePicker_Time());
                     Thread.sleep(3000);
@@ -174,7 +179,7 @@ public class Admin_ReasonCodeSteps extends DriverBase {
     public void i_click_on_something_for_change_time_and_check_reason_dropdown_values(String strArg1) throws Throwable {
         try {
             List<String> expectedOptions = new ArrayList() {{
-                add("Select reason");
+                add("Select Reason");
                 add("Partner initiated");
                 add("Customer initiated");
                 add("No drivers available");
