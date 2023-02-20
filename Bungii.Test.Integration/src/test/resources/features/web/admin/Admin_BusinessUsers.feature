@@ -13,18 +13,18 @@ Feature: Admin_BusinessUsers
   Scenario: Verify Add Edit New Bulk Delivery Upload
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
-      | Name                                              | Phone                   | Email  |
-      | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
+      | Name                                  | Phone                   | Email  |
+      | Testcustomertywdapple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
     When I click on the "Save" Button on "Partner" popup
     Then the partner gets saved successfully and it is displayed in the "Partners" grid
-    When I search by Name "Testcustomertywd_apple<<UniqueNo>>" in "Business Users" page
-    Then the user "Testcustomertywd_appleBiz<<UniqueNo>>" is displayed in the Partners grid
+    When I search by Name "Testcustomertywdapple<<UniqueNo>>" in "Business Users" page
+    Then the user "TestcustomertywdappleBiz<<UniqueNo>>" is displayed in the Partners grid
     When I edit the "Phone Number" and "Email"
     And I click on the "Save" Button on "Partner" popup
     Then the partner gets updated successfully and it is displayed in the Partners grid
     #BOC
     #update existing business user
-    When I search by Name "Testcustomertywd_apple" in "Partners" page
+    When I search by Name "Testcustomertywdapple" in "Partners" page
     And I Update the "Phone Number" and "Email"
     And I click on the "Save" Button on "Partner" popup
     Then the partner gets updated successfully and it is displayed in the Partners grid
@@ -36,7 +36,7 @@ Feature: Admin_BusinessUsers
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
       | Name                                              | Phone                   | Email  |
-      | Testcustomertywd_apple<<UniqueNo>>	  | 9999839229         | test@creativecapsule.com       |
+      | Testcustomertywdapple<<UniqueNo>>	  | 9999839229         | test@creativecapsule.com       |
     And I enter above same Phone number in Phone Number fields
     And I click on the "Save" Button on "Partner" popup
     Then the "Phone number already exists." message is displayed
@@ -45,7 +45,7 @@ Feature: Admin_BusinessUsers
     And I click on the "New Partner" Button
     And I enter the following values in "New Partner" fields
       | Name                                              | Phone                   | Email  |
-      | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
+      | Testcustomertywdapple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
     And I change the status to "Inactive"
     Then I click on the "Save" Button on "Partner" popup
     And the partner does not get saved successfully
@@ -57,20 +57,20 @@ Feature: Admin_BusinessUsers
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
       | Name                                              | Phone                   | Email  |
-      | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
+      | Testcustomertywdapple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
     When I click on the "Save" Button on "Partner" popup
     Then the partner gets updated successfully and it is displayed in the Partners grid
     When I click on "Bulk Delivery Upload  > Partner Payment" Menu
-    And I select "Testcustomertywd_apple<<UniqueNo>>" from the "Select Partner" dropdown
+    And I select "Testcustomertywdapple<<UniqueNo>>" from the "Select Partner" dropdown
     And I click on "Add Payment Method" button on "Partner Payment" page
     And I enter following card details
       |Card Number | Expiration Date | CVV | Postal Code|
       |4242424242424242 | 11/29      | 123  |      12345|
     And I click on "Save" button on "Partner Payment" screen
-    Then the card is added to the user "Testcustomertywd_apple<<UniqueNo>>"
+    Then the card is added to the user "Testcustomertywdapple<<UniqueNo>>"
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     Then the partner is displayed in Upload Deliveries since payment is set
-    When I select user "Testcustomertywd_apple<<UniqueNo>>"
+    When I select user "Testcustomertywdapple<<UniqueNo>>"
     And I upload image to be associated with the delivery
     And I click on "Upload" button on "Upload Deliveries" page
     Then the pickup from the csv are listed down
@@ -82,11 +82,11 @@ Feature: Admin_BusinessUsers
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
       | Name                                              | Phone                   | Email  |
-      | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
+      | Testcustomertywdapple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
     When I click on the "Save" Button on "Partner" popup
     Then the partner gets updated successfully and it is displayed in the Partners grid
     When I click on "Bulk Delivery Upload  > Partner Payment" Menu
-    And I select "Testcustomertywd_apple<<UniqueNo>>" from the "Select Partner" dropdown
+    And I select "Testcustomertywdapple<<UniqueNo>>" from the "Select Partner" dropdown
     And I click on "Add Payment Method" button on "Partner Payment" page
     And I enter following card details
       |Card Number | Expiration Date | CVV | Postal Code|
@@ -101,7 +101,7 @@ Feature: Admin_BusinessUsers
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
       | Name                                              | Phone                   | Email  |
-      | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
+      | Testcustomertywdapple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
     And I click on the "Save" Button on "Partner" popup
     Then the partner gets updated successfully and it is displayed in the Partners grid
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
@@ -113,7 +113,7 @@ Feature: Admin_BusinessUsers
     And I click on the "Cancel" Button on "Partner" popup
     Then the "Partners" popup gets removed from UI
     #BOC search to check pagination
-    When I search by the Code "Testcustomertywd_apple"
+    When I search by the Code "Testcustomertywdapple"
     And I check if pages exists
     And I check that "Previous" and "Next" button exists
     Then I verify that pagination exists
@@ -138,44 +138,44 @@ Feature: Admin_BusinessUsers
     When I click on the "New Partner" Button
     And I enter following values in "New Partner" fields
       | Name                                              | Phone                   | Email  |
-      | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
+      | Testcustomertywdapple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
     And I click on the "Save" Button on "Partner" popup
     Then the partner gets updated successfully and it is displayed in the Partners grid
     When I click on "Bulk Delivery Upload  > Partner Payment" Menu
-    And I select "Testcustomertywd_apple<<UniqueNo>>" from the "Select Partner" dropdown
+    And I select "Testcustomertywdapple<<UniqueNo>>" from the "Select Partner" dropdown
     And I click on "Add Payment Method" button on "Partner Payment" page
     And I enter following card details
       |Card Number | Expiration Date | CVV | Postal Code|
       |4242424242424242 | 11/29      | 123  |      12345|
     And I click on "Save" button on "Partner Payment" screen
-    Then the card is added to the user "Testcustomertywd_apple<<UniqueNo>>"
+    Then the card is added to the user "Testcustomertywdapple<<UniqueNo>>"
     When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     Then the partner is displayed in Upload Deliveries since payment is set
-    When I select user "Testcustomertywd_apple<<UniqueNo>>"
+    When I select user "Testcustomertywdapple<<UniqueNo>>"
     And I select the file with invalid data for "Pickup address"
     And I click on "Upload" button on "Upload Deliveries" page
     And I click on the error link and download the file with error
     Then the error "Max pickup Dropoff Distance exceeded" is displayed in the csv file
     When I click on "Cancel" button on "Upload Deliveries" page
-    And  I select user "Testcustomertywd_apple<<UniqueNo>>"
+    And  I select user "Testcustomertywdapple<<UniqueNo>>"
     And I select the file with invalid data for "Pickup Date"
     And I click on "Upload" button on "Upload Deliveries" page
     And I click on the error link and download the file with error
     Then the error "Please enter a valid date time" is displayed in the csv file
     When I click on "Cancel" button on "Upload Deliveries" page
-    And I select user "Testcustomertywd_apple<<UniqueNo>>"
+    And I select user "Testcustomertywdapple<<UniqueNo>>"
     And I select the file with invalid data for "Loading/Unloading time"
     And I click on "Upload" button on "Upload Deliveries" page
     And I click on the error link and download the file with error
     Then the error "Loading/Unloading time should be a multiple of 15 minutes ranging from 15 to 90" is displayed in the csv file
     When I click on "Cancel" button on "Upload Deliveries" page
-    And I select user "Testcustomertywd_apple<<UniqueNo>>"
+    And I select user "Testcustomertywdapple<<UniqueNo>>"
     And I select the file with invalid data for "No of Drivers"
     And I click on "Upload" button on "Upload Deliveries" page
     And I click on the error link and download the file with error
     Then the error "Invalid no. of drivers" is displayed in the csv file
     When I click on "Cancel" button on "Upload Deliveries" page
-    And I select user "Testcustomertywd_apple<<UniqueNo>>"
+    And I select user "Testcustomertywdapple<<UniqueNo>>"
     And I select the file with invalid data for "Blank CSV"
     And I click on "Upload" button on "Upload Deliveries" page
     Then the error "Please check the CSV for errors." is displayed

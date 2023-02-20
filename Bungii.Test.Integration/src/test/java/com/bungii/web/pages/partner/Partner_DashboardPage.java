@@ -326,4 +326,8 @@ public class Partner_DashboardPage extends PageBase {
 
     //Quote request header title
     public WebElement Text_QuoteRequestPageHeader() { return findElement("//h1[contains(text(),'Quote Request')]", LocatorType.XPath);}
+
+    //Quote request header title
+    public WebElement Header_AdminPasswordRequired() { return findElement("//h2[contains(text(),'Admin Password Required')]", LocatorType.XPath);}
+
 }
