@@ -162,7 +162,7 @@ Feature: Admin_DriverDetails
         | Testdrivertywd_appledc_a_drve Driver         |   Acc not created       |  No Branch app Registration             |
 
 #CORE-5144:Inactive driver accepting trips,driver whose status is inactive should not be eligible for delivery-pp
-  @testAllan
+  @ready
   Scenario: Inactive driver accepting trips,driver whose status is inactive should not be eligible for delivery
     When I request Partner Portal "SOLO" Trip for "MRFM" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
