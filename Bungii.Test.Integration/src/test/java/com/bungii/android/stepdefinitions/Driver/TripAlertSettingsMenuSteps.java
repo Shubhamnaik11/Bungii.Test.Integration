@@ -277,6 +277,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     action.click(tripAlertSettingsPage.TimePicker_OK());
                     action.click(tripAlertSettingsPage.Button_SaveTime());
                     break;
+                case "UPDATE BUNGII":
+                    action.click(tripAlertSettingsPage.Button_UpdateBungii());
+                    break;
 
                 case "ADD":
                     action.click(promosPage.Button_AddPromoCode());
@@ -493,6 +496,22 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
                 case "Continue":
                     action.click(bungiiDetailsPage.Button_Yes());
+                    break;
+                case "Get Estimate":
+                    action.click(bungiiDetailsPage.Button_GetEstimate());
+                    break;
+                case "Schedule Bungii":
+                    action.click(bungiiDetailsPage.Button_ScheduleBungii());
+                    break;
+                case "Get Quote":
+                    action.click(bungiiDetailsPage.Button_GetQuote());
+                    break;
+                case "CONTINUE":
+                    action.click(bungiiDetailsPage.Button_Continue());
+                    break;
+                case "Disclaimer":
+                    action.scrollToBottom();
+                    action.click(bungiiDetailsPage.Checkbox_Disclaimer());
                     break;
                 default:
                     error("Implemented Step", "UnImplemented Step");

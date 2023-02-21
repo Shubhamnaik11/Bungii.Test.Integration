@@ -14,6 +14,7 @@ import com.bungii.ios.pages.driver.ForgotPasswordPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
+import com.bungii.ios.pages.other.SafariPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -58,6 +59,7 @@ public class UpdateStatusSteps extends DriverBase {
         this.driverUpdateStatusPage = driverUpdateStatusPage;
     }
     ForgotPasswordPage driverforgotPasswordPage=new ForgotPasswordPage();
+    SafariPage safariPage= new SafariPage();
 
     @Then("^I check ETA of \"([^\"]*)\"$")
     public void i_check_eta_of_something(String strArg1){
@@ -802,7 +804,7 @@ public class UpdateStatusSteps extends DriverBase {
 
     @Then("^try to finish time should be correctly displayed for long stack trip$")
     public void try_to_finish_time_should_be_correctly_displayed() throws Throwable {
-
+        try{
         if(((String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")).equalsIgnoreCase(""))
         {
             String[] calculatedTime=utility.getTeletTimeinLocalTimeZone();
@@ -820,46 +822,69 @@ public class UpdateStatusSteps extends DriverBase {
         expectedTime=expectedTime.replace("am", "").replace("pm","").replace("AM", "").replace("PM","").trim();
         String actualValue= action.getText(updateStatusPage.Text_StackInfo());
         testStepAssert.isTrue(actualValue.contains(expectedTime), "Try to finish by should be displayed","Try to finish by "+expectedTime+" is displayed", "Try to finish by "+expectedTime+ " is not displayed. instead "+ actualValue +"is displayed");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @Then("^try to finish time should be correctly displayed for short stack trip$")
     public void try_to_finish_time_should_be_correctly_displayed_ShortStack() throws Throwable {
-        if(((String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")).equalsIgnoreCase(""))
-        {
-            String[] calculatedTime=utility.getTeletTimeinLocalTimeZone();
-            cucumberContextManager.setScenarioContext("DRIVER_TELET",calculatedTime[0]);
-            cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL",calculatedTime[1]);
-            cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",calculatedTime[2]);
+        try {
+            if (((String) cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")).equalsIgnoreCase("")) {
+                String[] calculatedTime = utility.getTeletTimeinLocalTimeZone();
+                cucumberContextManager.setScenarioContext("DRIVER_TELET", calculatedTime[0]);
+                cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL", calculatedTime[1]);
+                cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL", calculatedTime[2]);
+            }
+            String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+            String expectedTime = "";
+            if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+                expectedTime = ((String) cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " ";//+ PropertyUtility.getDataProperties("browserstack.time.label");
+            else
+                expectedTime = ((String) cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + utility.getTimeZoneBasedOnGeofence();
+            // expectedTime=expectedTime.replace("am", "AM").replace("pm","PM");
+            expectedTime = expectedTime.replace("am", "").replace("pm", "").replace("AM", "").replace("PM", "").trim();
+            String elementText = updateStatusPage.Text_StackInfo().getText();
+            elementText = elementText.replace("  ", "").trim();
+            logger.detail("Element Text" + elementText);
+            testStepAssert.isTrue(elementText.contains(expectedTime), "Try to finish by should be displayed", "Try to finish by " + expectedTime + " is displayed", "Try to finish by " + expectedTime + " is not displayed");
         }
-        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
-        String expectedTime="";
-        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
-            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " ;//+ PropertyUtility.getDataProperties("browserstack.time.label");
-        else
-            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + utility.getTimeZoneBasedOnGeofence();
-       // expectedTime=expectedTime.replace("am", "AM").replace("pm","PM");
-        expectedTime=expectedTime.replace("am", "").replace("pm","").replace("AM", "").replace("PM","").trim();
-        String elementText=updateStatusPage.Text_StackInfo().getText();elementText=elementText.replace("  ","").trim();
-        logger.detail("Element Text"+elementText);
-        testStepAssert.isTrue(elementText.contains(expectedTime), "Try to finish by should be displayed","Try to finish by "+expectedTime+" is displayed", "Try to finish by "+expectedTime+ " is not displayed");
-
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
     @Then("^I calculate projected driver arrival time$")
     public void i_calculate_projected_driver_arrival_time() throws Throwable {
+        try{
         utility.calculateShortStack();
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
+
 
     @When("^I verify that driver to pickup time is greater than 100 mins for second trip$")
     public void i_verify_that_driver_to_pickup_time_is_greater_than_100_mins_for_second_trip() {
-        String customer2PhoneNumber=(String)cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
-        String driverPhoneNumber=(String)cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-        String custRef = DbUtility.getCustomerRefference(customer2PhoneNumber);
-        String pickupID = DbUtility.getPickupID(custRef);
-        String pickupRef = DbUtility.getPickupRef(customer2PhoneNumber);
-        DbUtility.isDriverEligibleForTrip(driverPhoneNumber,pickupRef);
-        int driverToPickUP=Integer.valueOf(DbUtility.getDriverToPickupTime(driverPhoneNumber,pickupID));
+        try {
+            String customer2PhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
+            String driverPhoneNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String custRef = DbUtility.getCustomerRefference(customer2PhoneNumber);
+            String pickupID = DbUtility.getPickupID(custRef);
+            String pickupRef = DbUtility.getPickupRef(customer2PhoneNumber);
+            DbUtility.isDriverEligibleForTrip(driverPhoneNumber, pickupRef);
+            int driverToPickUP = Integer.valueOf(DbUtility.getDriverToPickupTime(driverPhoneNumber, pickupID));
 
-        testStepVerify.isTrue(driverToPickUP>100,"Driver to pickp value should be greater that 100 ", "Driver to pickup value is "+driverToPickUP +" min","Driver to pickup value is "+driverToPickUP +" min");
+            testStepVerify.isTrue(driverToPickUP > 100, "Driver to pickp value should be greater that 100 ", "Driver to pickup value is " + driverToPickUP + " min", "Driver to pickup value is " + driverToPickUP + " min");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
     @And("^I click on the Duo teammate image$")
     public void i_click_on_the_duo_teammate_image() throws Throwable {
@@ -917,6 +942,9 @@ public class UpdateStatusSteps extends DriverBase {
                             "Correct alert message should be displayed.",
                             "Correct alert message is displayed.",
                             "Correct alert message is not displayed.");
+                    break;
+                case "log-out":
+                    action.click(safariPage.Icon_Logout());
                     break;
             }
             log("I should be able to click on the icon","I am able to click on the icon",false);

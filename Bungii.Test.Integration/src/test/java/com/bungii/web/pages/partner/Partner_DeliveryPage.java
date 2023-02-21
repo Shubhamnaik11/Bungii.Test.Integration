@@ -57,6 +57,10 @@ public class Partner_DeliveryPage extends PageBase {
     //public WebElement TextBox_Pickup_Contact_Phone() { return findElement("f2bd908c-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
     public WebElement TextBox_Pickup_Contact_Phone() { return findElement("//label[text()='Pickup contact phone']/following::input[1]",LocatorType.XPath);}
 
+    public WebElement TextBox_DropOff_Contact_Name() { return findElement("//label[text()='Drop off contact name']/following::input[1]",LocatorType.XPath);}
+
+    public WebElement TextBox_DropOff_Contact_Phone() { return findElement("//label[text()='Drop off contact phone']/following::input[1]",LocatorType.XPath);}
+
     //Scheduled By
     public WebElement TextBox_Scheduled_By() { return findElement("//label[text()='Scheduled By']/following::input[1]",LocatorType.XPath);}
 

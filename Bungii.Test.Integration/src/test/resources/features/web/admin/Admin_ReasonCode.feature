@@ -309,6 +309,7 @@ Feature: Admin_Reason_Code
 
 
   @ready
+    #Raised CORE-5958 as Admin is unable to edit the date to future.
   Scenario: Verify Reason dropdown for PARTNER SOLO(Weight based pricing) re-scheduled delivery when NO Driver accepts and Admin edits only Date when Partner Initiated
     When I navigate to "Partner" portal configured for "FloorDecor service level" URL
     And I enter "valid" password on Partner Portal
@@ -629,6 +630,11 @@ Feature: Admin_Reason_Code
       | Unloading Item |
       | Bungii Completed |
     And I wait for 2 minutes
+    #CORE-3822:Delivery Payment and driver earnings not displayed on admin portal for trips marked admin canceled after payment successful status
+    And  I view the Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    And I Store the value for driver earnings and delivery payment
     And  I view the Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     And I select "Admin Canceled" from the dropdown
@@ -636,6 +642,10 @@ Feature: Admin_Reason_Code
     And I click on "Confirm" button
     And I click on "Cancel Status" button
     And I wait for 2 minutes
+    And  I view the Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then The driver earnings and the delivery payment should be "$0.00"
     #CORE-4152:Verify that Estimated Delivery time is displayed correctly on all deliveries details page of Admin portal
     And I view the Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"

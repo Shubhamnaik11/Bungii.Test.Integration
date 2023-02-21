@@ -18,6 +18,7 @@ import com.bungii.ios.pages.driver.BungiiRequestPage;
 import com.bungii.ios.pages.driver.DriverBungiiDetailsPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.other.NotificationPage;
+import com.bungii.ios.pages.other.SafariPage;
 import com.bungii.ios.stepdefinitions.customer.HomeSteps;
 import com.bungii.ios.stepdefinitions.customer.LogInSteps;
 import com.bungii.ios.stepdefinitions.driver.*;
@@ -160,6 +161,7 @@ public class CommonSteps extends DriverBase {
         this.driverhomepage = driverhomepage;
     }
     LiveTripsPage liveTripsPage=new LiveTripsPage();
+    SafariPage safariPage=new SafariPage();
     com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage = new com.bungii.ios.pages.driver.UpdateStatusPage();
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page$")
@@ -297,6 +299,12 @@ public class CommonSteps extends DriverBase {
                 case "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading":
                     String arrivedTextMessage= action.getAlertMessage().toString();
                     testStepAssert.isTrue(message.contains(arrivedTextMessage),"Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message should be shown.","Your duo teammate has arrived at the pickup location. Please coordinate to begin loading. message is not shown instead of that following message is shown "+arrivedTextMessage);
+                    break;
+                case "Admin Password Required":
+                    testStepAssert.isElementDisplayed(safariPage.PopUp_AdminPassword(),"Admin Password Required pop-up should be displayed","Admin Password Required is displayed","Admin Password Required is not displayed");
+                    break;
+                case "Password is required.":
+                    testStepAssert.isElementDisplayed(safariPage.Text_PasswordRequired(),"Admin Password Required pop-up should be displayed","Admin Password Required is displayed","Admin Password Required is not displayed");
                     break;
             }
             log("No Mail Accounts Popup should be displayed",
@@ -844,7 +852,7 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
             }
-            testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+            testStepAssert.isTrue(isCorrectPage, "I should be navigated to " + screen + " screen",
                     "I should be navigated to " + screen, "Error in navigating to " + screen + " screen ");
 
         } catch (Throwable e) {
@@ -918,7 +926,8 @@ public class CommonSteps extends DriverBase {
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
                 Thread.sleep(3000);
-                action.clickAlertButton("Always Allow");  //Customer App alert for ios 12 and below
+                action.waitForAlert();
+                action.clickAlertButton("Allow While Using App");  //Customer App alert for ios 16
                 Thread.sleep(3000);
                 pageHeader = utility.getPageHeader();
                 // pageHeader = utility.getPageHeader();
@@ -1295,8 +1304,15 @@ public class CommonSteps extends DriverBase {
             Thread.sleep(3000);
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Always Allow");
+                action.clickAlertButton("Allow While Using App");
                 //pageName = utility.getPageHeader();
+            }
+            Thread.sleep(3000);
+            if(action.isAlertPresent()) {
+                action.clickAlertButton("Change to Always Allow");
+                if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                    action.click(enableLocationPage.Button_Done());
+                }
             }
 
         } catch (Exception e) {
@@ -1365,7 +1381,31 @@ public class CommonSteps extends DriverBase {
             if (navigationBarName.equals("LOCATION"))
             {
                 action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Always Allow");
+                action.clickAlertButton("Allow While Using App");
+                Thread.sleep(3000);
+                if(action.isAlertPresent()){
+                    action.clickAlertButton("Change to Always Allow");
+                    if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                        action.click(enableLocationPage.Button_Done());
+                    }
+                }
+            }
+            else{
+                if (action.isAlertPresent()) {
+                    String alertMessage = action.getAlertMessage();
+                    logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                    List<String> getListOfAlertButton = action.getListOfAlertButton();
+                    if (getListOfAlertButton.contains("Allow While Using App")){
+                        action.clickAlertButton("Allow While Using App");
+                    }
+                    Thread.sleep(3000);
+                    if(action.isAlertPresent()){
+                        action.clickAlertButton("Change to Always Allow");
+                        if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                            action.click(enableLocationPage.Button_Done());
+                        }
+                    }
+                }
             }
             if (!navigationBarName.equals("SIGN UP"))
             homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
@@ -2038,13 +2078,38 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I select the live trip for \"([^\"]*)\"$")
+    public void i_select_the_live_trip_for_something(String custName) throws Throwable {
+        try{
+            action.clearSendKeys(scheduledTripsPage.Text_SearchCriteria(),custName);
+            action.click(scheduledTripsPage.Button_Search());
+            Thread.sleep(25000);
+            action.click(scheduledTripsPage.Icon_Dropdown());
+            action.click(scheduledTripsPage.Option_Edit());
+            log("I should be able to see the trip with "+custName,"I am able to see the trip with "+custName,false);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Problem in selecting Live delivery in admin portal for customer "+custName,
+                    true);
+        }
+    }
 
     @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
         try {
 
-            SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
-            SetupManager.getObject().useDriverInstance(instanceName);
+            switch (instanceName){
+                case "ADMIN PORTAL":
+                    SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
+                    SetupManager.getObject().useDriverInstance(instanceName);
+                    break;
+                case "MOBILE DEVICE":
+                    action.click(safariPage.Icon_Safari());
+                    break;
+
+            }
+
             log(
                     "I open new " + browser + " browser for " + instanceName + " instance",
                     "I open new " + browser + " browser for " + instanceName + " instance", true);

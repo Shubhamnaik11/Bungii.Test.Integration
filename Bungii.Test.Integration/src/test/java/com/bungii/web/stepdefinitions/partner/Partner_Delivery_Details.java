@@ -7,6 +7,7 @@ import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.admin.Admin_EditScheduledBungiiPage;
+import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
 import com.bungii.web.pages.partnerManagement.PartnerManagement_Email;
@@ -42,7 +43,7 @@ public class Partner_Delivery_Details extends DriverBase {
     PartnerManagement_Email Page_PartnerManagement_Email = new PartnerManagement_Email();
     PartnerManagement_LoginPage Page_PartnerManagement_Login = new PartnerManagement_LoginPage();
     PartnerManagement_LocationPage Page_PartnerManagement_Location = new PartnerManagement_LocationPage();
-
+    Admin_LoginPage adminLoginPage = new Admin_LoginPage();
 
 
     @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
@@ -338,18 +339,18 @@ public class Partner_Delivery_Details extends DriverBase {
                         //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
                         action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
-
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
                         action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_DropOff_Contact_Name(), DropOffContactName);
+                        action.click(Page_Partner_Delivery.TextBox_DropOff_Contact_Phone());
+                        action.clearSendKeys(Page_Partner_Delivery.TextBox_DropOff_Contact_Phone(), DropOffContactPhone);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_LotNumber(), String.valueOf(ThreadLocalRandom.current().nextInt()));
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_Delivery_Purpose(),DeliveryPurpose);
                         action.clearSendKeys(Page_Partner_Delivery.TextBox_BidderNumber(),bidderNumber);
                         action.click(Page_Partner_Delivery.Checkbox_Helper());
-
                         String scheduled_date_time1 = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
                         cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time1);
-
                         break;
                     default:
                         break;
@@ -1368,6 +1369,22 @@ public class Partner_Delivery_Details extends DriverBase {
                 case "Testdrivertywd_appleks_a_drvbs Kansas_bs":
                     String driverName = action.getText(admin_DriverPage.Text_CurrentOnlineDriver(element));
                     testStepAssert.isEquals(driverName,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed");
+                    break;
+                case "Verify your phone":
+                case "Forgot Password":
+                    testStepAssert.isTrue(action.isElementPresent(adminLoginPage.Header_ForgotPassword()),element+" header should be displayed",element+" header is displayed",element+" header is not displayed");
+                    Thread.sleep(4000);
+                    String expectedHeaderText = action.getText(adminLoginPage.Header_ForgotPassword());
+                    testStepAssert.isEquals(expectedHeaderText,element,element + " Text should be displayed",element + " Text is displayed",element + " Text is not displayed , "+expectedHeaderText +" is displayed" );
+                    break;
+                case "Admin Login":
+                    testStepAssert.isTrue(action.isElementPresent(adminLoginPage.Header_AdminLogin()),element+" header should be displayed",element+" header is displayed",element+" header is not displayed");
+                    String adminloginText = action.getText(adminLoginPage.Header_AdminLogin());
+                    testStepAssert.isEquals(adminloginText,element,element + " Header text should be displayed",element + " Header text is displayed",element + " Header text is not displayed");
+                    break;
+                case "Admin Dashboard":
+                    Thread.sleep(5000);
+                    testStepAssert.isTrue(action.isElementPresent(adminLoginPage.Header_AdminDashboard()),element+" header should be displayed",element+" header is displayed",element+" header is not displayed");
                     break;
             }
     } catch (Exception e) {

@@ -60,11 +60,11 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Label_DriverStatus() {return findElement("//div/h4[text()=\"Driver Status\"]",LocatorType.XPath);}
 
-    public WebElement TextBox_DriverStatusChangeComment() {return findElement("Comments",LocatorType.Id);}
+    public WebElement TextBox_DriverStatusChangeComment() {return findElement("Comments",LocatorType.Name);}
 
-    public WebElement Button_ConfirmDriverStatusChange() {return findElement("//div[1]/div/div/div/button[@id='btnagree']",LocatorType.XPath);}
+    public WebElement Button_ConfirmDriverStatusChange() {return findElement("//button[text()=\"Confirm\"]",LocatorType.XPath);}
 
-    public WebElement Button_OkDriverStatusChange() {return findElement("btnDriverStatusChangeOK",LocatorType.Id);}
+    public WebElement Button_OkDriverStatusChange() {return findElement("//button[text()=\"OK\"]",LocatorType.XPath);}
 
     public WebElement Text_DriverApplicationStatus() {return findElement("//div/table/tbody/tr/td[8]",LocatorType.XPath);}
 
@@ -107,5 +107,9 @@ public class Admin_DriversPage extends PageBase {
     public WebElement Text_CalenderMonthNameForActivatedDate() {return findElement("react-datepicker__current-month",LocatorType.ClassName);}
 
     public WebElement Button_CalenderPreviousMonthForActivatedDate() {return findElement("//div[@class=\"react-datepicker\"]/button[1]",LocatorType.XPath);}
+
+    public WebElement Text_CustomerNameRow1() {return findElement("//table[@class='table table-striped table-hover']/tbody/tr[1]/td[8]",LocatorType.XPath);}
+
+    public WebElement Button_Search() {return findElement("btnSearch",LocatorType.Id);}
 
 }

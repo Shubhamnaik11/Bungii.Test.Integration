@@ -49,8 +49,7 @@ Feature: Admin_DriverDetails
 #    And I edit the Driver
 #    And I click on "Save Driver Details" button
 #    Then I check if driver SSN is masked
-
-  @regression
+    @regression
   Scenario: Verify Driver Trip List Status Updation for Solo Scheduled Bungii
     When I search driver "Macy Chang"
     And I click on "Driver Trips" icon
@@ -63,9 +62,13 @@ Feature: Admin_DriverDetails
       | driver1 state|
       | Accepted |
     Then The Driver Trip List page should display the trip in "Driver(s) Accepted" state
+    #CORE-4198
+    And I search by "Customer Name"
+    Then Column "Customer" should display correct details
     When As a driver "Macy Chang" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Enroute |
+    #CORE-5840 issue logged
     Then The Driver Trip List page should display the trip in "Trip Started" state
     When As a driver "Macy Chang" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
@@ -157,3 +160,49 @@ Feature: Admin_DriverDetails
         | Testdrivertywd_appledv_b_mattH Stark_dvOnEH  |   Processing details    |  Branch app Registration without wallet |
         | Testdrivertywd_appledv_b_mattJ Stark_dvOnEJ  |   Wallet details        |  Branch app registration and wallet     |
         | Testdrivertywd_appledc_a_drve Driver         |   Acc not created       |  No Branch app Registration             |
+
+#CORE-5144:Inactive driver accepting trips,driver whose status is inactive should not be eligible for delivery-pp
+  @ready
+  Scenario: Inactive driver accepting trips,driver whose status is inactive should not be eligible for delivery
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE | 8877661183 | Testcustomertywd_appleMarkGB LutherGB|
+#    And I check if Driver status is "Active" for driver "Testdrivertywd_appleks_a_drvca Kansas_ca"
+    Then The delivery "Should be" eligible for driver "Testdrivertywd_appleks_a_drvca Kansas_ca"
+    And I click on the "Driver" link from the sidebar
+    When I search driver "Testdrivertywd_appleks_a_drvca Kansas_ca"
+    And I click on "Profile" icon
+    And I edit the Driver
+    Then The "Driver Status" "Label" should be displayed
+    And I change the driver status to "Inactive"
+    And I confirm the "Confirm" action
+    And I click on "Driver status change" button
+    And I wait for 1 minutes
+    When I request Partner Portal "SOLO" Trip for "MRFM" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |Kansas| NEXT_POSSIBLE |   8877661184   |Testcustomertywd_appleMarkGC LutherGC |
+    And I check if Driver status is "Inactive" for driver "Testdrivertywd_appleks_a_drvca Kansas_ca"
+    Then The delivery "should not be" eligible for driver "Testdrivertywd_appleks_a_drvca Kansas_ca"
+
+#CORE-5144:Inactive driver accepting trips,driver whose status is inactive should not be eligible for delivery-customer
+  @ready
+  Scenario: Inactive driver accepting trips,driver whose status is inactive should not be eligible for delivery
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Password | Customer Name                       |
+      | NEXT_POSSIBLE |    8877661185  | Cci12345          | Testcustomertywd_appleMarkGD LutherGD|
+    And I check if Driver status is "Active" for driver "Testdrivertywd_appleks_a_drvcb Kansas_cb"
+    Then The delivery "Should be" eligible for driver "Testdrivertywd_appleks_a_drvcb Kansas_cb"
+    And I click on the "Driver" link from the sidebar
+    When I search driver "Testdrivertywd_appleks_a_drvcb Kansas_cb"
+    And I click on "Profile" icon
+    And I edit the Driver
+    Then The "Driver Status" "Label" should be displayed
+    And I change the driver status to "Inactive"
+    And I confirm the "Confirm" action
+    And I click on "Driver status change" button
+    And I wait for 1 minutes
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Password | Customer Name                        |
+      | NEXT_POSSIBLE |  8877661186    | Cci12345          |Testcustomertywd_appleMarkGE LutherGE |
+    And I check if Driver status is "Inactive" for driver "Testdrivertywd_appleks_a_drvcb Kansas_cb"
+    Then The delivery "should not be" eligible for driver "Testdrivertywd_appleks_a_drvcb Kansas_cb"

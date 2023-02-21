@@ -298,4 +298,97 @@ public class Admin_DriverDetails extends DriverBase{
                     true);
         }
     }
+
+    @Then("^The delivery \"([^\"]*)\" eligible for driver \"([^\"]*)\"$")
+    public void the_delivery_something_eligible_for_driver_something(String driverEligibility, String driverName) throws Throwable {
+      try {
+          String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+          String []driverFirstName =driverName.split(" ") ;
+          String driverPhoneNum = new DbUtility().getDriverPhoneNumber(driverFirstName[0]);
+          boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
+          if (driverEligibility.equals("Should be")) {
+              testStepAssert.isTrue(isDriverEligible, "Driver " + driverName + " should be eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is not eligible for delivery having pickup ref " + pickupRequest);
+          } else {
+              testStepAssert.isFalse(isDriverEligible, "Driver " + driverName + " should not be eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is not eligible for delivery having pickup ref " + pickupRequest,
+                      "Driver " + driverName + " is eligible for delivery having pickup ref " + pickupRequest);
+          }
+      }catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I check if Driver status is \"([^\"]*)\" for driver \"([^\"]*)\"$")
+    public void i_check_if_driver_status_is_something_for_driver_something(String driverStatus, String driverName) throws Throwable {
+        try{
+        String [] onlyFirstName = driverName.split(" ");
+        String DriverActiveORInActive = new DbUtility().isDriverActive(onlyFirstName[0]);
+        if (driverStatus.equals("Active")) {
+            testStepAssert.isTrue(DriverActiveORInActive.equals("1"), "Driver " + driverName + " status should is active",
+                    "Driver " + driverName + " status is active",
+                    "Driver " + driverName + " status  is " + DriverActiveORInActive + " ,it should be 1");
+        }
+        else {
+            testStepAssert.isTrue(DriverActiveORInActive.equals("0"), "Driver " + driverName + " status should is inactive",
+                    "Driver " + driverName + " status is inactive",
+                    "Driver " + driverName + " status  is " + DriverActiveORInActive + " ,it should be 0");
+        }
+    }catch(Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+
+    }
+
+    @And("^I search by \"([^\"]*)\"$")
+    public void i_search_by_something(String SerachCriteria) throws Throwable{
+        try
+        {
+            switch (SerachCriteria){
+                case "Customer Name":
+                    String CustomerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                    action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(), CustomerName);
+                    action.click(admin_Driverspage.Button_Search());
+                    break;
+            }
+
+            log("I search by "+SerachCriteria,
+                    "I have searched by " +SerachCriteria, false);
+        }
+
+        catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^Column \"([^\"]*)\" should display correct details$")
+    public void column_something_should_display_correct_details(String Column) throws Throwable{
+        try
+        {
+            switch (Column){
+                case "Customer":
+                    String ExpectedCustomerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                    String ActualCustomerName=action.getText(admin_Driverspage.Text_CustomerNameRow1());
+                    testStepAssert.isEquals(ExpectedCustomerName , ActualCustomerName,ExpectedCustomerName +" should be displayed",ActualCustomerName+" is displayed", ActualCustomerName+" is displayed instead of "+ExpectedCustomerName );
+                    action.clear(admin_Driverspage.Textbox_SearchCriteria());
+                    action.click(admin_Driverspage.Button_Search());
+                    break;
+            }
+            log("Should display correct details",
+                    "have displayed correct details under " +Column, false);
+        }
+
+        catch(Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }
