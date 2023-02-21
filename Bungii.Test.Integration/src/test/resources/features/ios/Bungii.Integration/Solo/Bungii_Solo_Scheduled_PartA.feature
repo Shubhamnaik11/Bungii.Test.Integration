@@ -800,34 +800,3 @@ Feature: Solo Scheduled Bungii Part A
     And I Select "live trips" from admin sidebar
     And I select the live trip for "Vishal Bagi" customer for delivery details
     Then The "Photos" "on admin portal" should be displayed
-
-
-    @sn
-  Scenario: To verify CORE 5039_iOS
-    Given I login as "valid washington" customer and on Home page
-    When I Switch to "driver" application on "same" devices
-    And I login as "new washington" driver on "same" device and make driver status as "Online"
-    And I Switch to "customer" application on "ORIGINAL" devices
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                                     | Drop Location                               | Geofence     |
-      | Solo   | 198 Laurel Race Track Road, Laurel, Maryland, 20725 | 1318 Annapolis Road, Odenton, MD 21113, USA | washingtondc |
-
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      | 30       |           |              | 30_MIN_AHEAD  | Default     |
-#    Then I should be navigated to "Success" screen
-#    And I click "Done" button on "Success" screen
-    When I Switch to "driver" application on "same" devices
-    And I wait for "2" mins
-    Then I view and reject virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-
-    And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "testdrivertywd_applemd_a_billl baltimorel" driver
-    And I wait for "4" mins
-    And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-    Then I should be navigated to "SCHEDULED BUNGII" screen
-    And I Select Trip from scheduled trip

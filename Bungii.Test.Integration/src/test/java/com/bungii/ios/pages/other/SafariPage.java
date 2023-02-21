@@ -51,6 +51,7 @@ public class SafariPage extends PageBase {
 
 
     public WebElement Textbox_Items() { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField[1]", LocatorType.XPath);}
+    public WebElement Textbox_CustomerMobile() { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField[3]", LocatorType.XPath);}
     public WebElement Textbox_Instructions() { return findElement("//XCUIElementTypeStaticText[contains(@name,'Enter any special instructions for the delivery')]", LocatorType.XPath);}
     public WebElement Textbox_PickupName() { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField[4]", LocatorType.XPath);}
     public WebElement Textbox_PickupNumber() { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField[5]", LocatorType.XPath);}

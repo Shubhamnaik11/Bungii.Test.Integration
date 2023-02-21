@@ -512,8 +512,9 @@ Feature: SoloScheduled
     When Bungii driver uploads "1" image
     Then I slide update button on "ARRIVED" Screen
 
-  #Feature: CORE-5039_Solo
-  Scenario: To verify CORE 5039_Android
+  @ready
+  #CORE-5039: To verify that secondary geofence driver receives PN for within 30 miles from the driver's home location for scheduled deliveries
+  Scenario: To verify that secondary geofence driver receives PN for within 30 miles from the driver's home location for scheduled deliveries
     When I Switch to "driver" application on "same" devices
     And I am logged in as "Testdrivertywd_appledc_a_drvah Washingtonah" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
@@ -547,5 +548,4 @@ Feature: SoloScheduled
     And I click on "View Request" button
     And I wait for 1 minutes
     And I click on "Accept" button
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip

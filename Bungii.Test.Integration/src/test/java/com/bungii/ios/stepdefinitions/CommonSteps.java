@@ -1839,12 +1839,6 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver9.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
-                case "valid washington":
-                    userName = PropertyUtility.getDataProperties("Washington.customer2.phone");
-                    password = PropertyUtility.getDataProperties("Washington.customer2.password");
-                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Washington.customer2.name"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
-                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;

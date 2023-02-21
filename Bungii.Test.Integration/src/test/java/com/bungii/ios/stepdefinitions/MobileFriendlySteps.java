@@ -2,6 +2,7 @@ package com.bungii.ios.stepdefinitions;
 
 
 import com.bungii.SetupManager;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -9,6 +10,7 @@ import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.other.SafariPage;
 
 import com.bungii.ios.stepdefinitions.customer.HomeSteps;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
@@ -24,6 +26,7 @@ public class MobileFriendlySteps extends DriverBase {
     private static LogUtility logger = new LogUtility(CommonSteps.class);
     ActionManager action = new ActionManager();
     SafariPage safariPage= new SafariPage();
+    GeneralUtility utility = new GeneralUtility();
     @When("^I terminate \"([^\"]*)\" app on \"([^\"]*)\" devices$")
     public void i_terminate_app(String appName, String device) {
 
@@ -179,8 +182,9 @@ public class MobileFriendlySteps extends DriverBase {
                             "New Bungii button is displayed",
                             "New Bungii button is not displayed");
                     break;
-
             }
+            String pickupRequest= DbUtility.getPickupRefForPartnerTrips((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
             log("I should be able to verify ui elements on "+pageName,"I am able to verify ui elements on "+pageName,false);
         }
         catch (Exception e) {
@@ -242,7 +246,9 @@ public class MobileFriendlySteps extends DriverBase {
                         action.clearSendKeys(safariPage.Textbox_DropOffName(),dataMapDetails.get("Drop_Off_Contact_Name"));
                         action.clearSendKeys(safariPage.Textbox_DropOffNumber(),dataMapDetails.get("Drop_Contact_Phone"));
                         action.clearSendKeys(safariPage.Textbox_Receipt(),dataMapDetails.get("Reciept"));
-
+                        action.swipeDown();
+                        action.clearSendKeys(safariPage.Textbox_CustomerMobile(),dataMapDetails.get("Customer_Mobile"));
+                        cucumberContextManager.setScenarioContext("CUSTOMER_PHONE",dataMapDetails.get("Customer_Mobile"));
                         action.click(safariPage.Button_Done());
                         action.swipeUP();
                     }

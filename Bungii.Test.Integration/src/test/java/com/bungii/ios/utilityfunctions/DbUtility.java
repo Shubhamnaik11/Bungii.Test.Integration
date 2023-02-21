@@ -525,4 +525,15 @@ public class DbUtility extends DbContextManager {
         logger.detail("The external reference is "+reference);
         return reference;
     }
+    public static String getPickupRefForPartnerTrips(String phoneNumber) {
+        String pickupId = "";
+        String pickupRef = "";
+        String queryString = "SELECT pickup_id from pickup_additional_info where customer_phone=" + phoneNumber + " order by  pickup_id desc limit 1";
+        pickupId = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + " latest PickupId is " + pickupId);
+        String queryString1 = "SELECT PickupRef FROM pickupdetails WHERE PickupId= "+pickupId;
+        pickupRef = getDataFromMySqlServer(queryString1);
+        logger.detail("For Pickup ID " + pickupId + " latest Pickup Ref is " + pickupRef);
+        return pickupRef;
+    }
 }
