@@ -14,6 +14,7 @@ import com.bungii.ios.pages.driver.ForgotPasswordPage;
 import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
+import com.bungii.ios.pages.other.SafariPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -58,6 +59,7 @@ public class UpdateStatusSteps extends DriverBase {
         this.driverUpdateStatusPage = driverUpdateStatusPage;
     }
     ForgotPasswordPage driverforgotPasswordPage=new ForgotPasswordPage();
+    SafariPage safariPage= new SafariPage();
 
     @Then("^I check ETA of \"([^\"]*)\"$")
     public void i_check_eta_of_something(String strArg1){
@@ -940,6 +942,9 @@ public class UpdateStatusSteps extends DriverBase {
                             "Correct alert message should be displayed.",
                             "Correct alert message is displayed.",
                             "Correct alert message is not displayed.");
+                    break;
+                case "log-out":
+                    action.click(safariPage.Icon_Logout());
                     break;
             }
             log("I should be able to click on the icon","I am able to click on the icon",false);

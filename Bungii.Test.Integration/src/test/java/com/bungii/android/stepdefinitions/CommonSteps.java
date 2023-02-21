@@ -8,6 +8,7 @@ import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.LocationPage;
 import com.bungii.android.pages.driver.*;
+import com.bungii.android.pages.otherApps.ChromePage;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
@@ -73,6 +74,7 @@ public class CommonSteps extends DriverBase {
     LogInPage logInPage=  new LogInPage();
     DashBoardPage dashBoardPage=new DashBoardPage();
     PhonePage phonePage = new PhonePage();
+    ChromePage chromePage = new ChromePage();
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     AvailableTripsPage availableTrips = new AvailableTripsPage();
     DashBoardPage admin_dashboardPage = new DashBoardPage();
@@ -517,19 +519,31 @@ public class CommonSteps extends DriverBase {
     @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
         try {
-            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") || PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
-                String currentKey = DriverManager.getCurrentKey();
-                if(DriverManager.driverArray.size()>1) {
-                    for (Map.Entry<String, WebDriver> entry : DriverManager.driverArray.entrySet()) {
-                        entry.getValue().getPageSource();
-                        logger.detail("Pinging : "+ entry.getKey());
+            switch (instanceName){
+                case "ADMIN PORTAL":
+                    if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") || PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
+                        String currentKey = DriverManager.getCurrentKey();
+                        if(DriverManager.driverArray.size()>1) {
+                            for (Map.Entry<String, WebDriver> entry : DriverManager.driverArray.entrySet()) {
+                                entry.getValue().getPageSource();
+                                logger.detail("Pinging : "+ entry.getKey());
+                            }
+                            DriverManager.driverArray.get(currentKey).getPageSource();
+                            //Ping all instances to keep them running in browserstack, used in duo scenarioss
+                        }
                     }
-                    DriverManager.driverArray.get(currentKey).getPageSource();
-                    //Ping all instances to keep them running in browserstack, used in duo scenarioss
-                }
+                    SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
+                    SetupManager.getObject().useDriverInstance(instanceName);
+                    break;
+                case "MOBILE DEVICE":
+                    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+                    driver.navigate().back();
+                    action.swipeForApps(chromePage.Icon_Swipe(),chromePage.Swipe_EndPoint());
+                    action.click(chromePage.Textbox_SearchBar());
+                    action.clearSendKeys(chromePage.Textbox_SearchBar(),browser);
+                    action.click(chromePage.Icon_Chrome());
+                    break;
             }
-            SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
-            SetupManager.getObject().useDriverInstance(instanceName);
             log(
                     "I open new " + browser + " browser for " + instanceName + " instance",
                     "I open new " + browser + " browser for " + instanceName + " instance", true);
@@ -1942,4 +1956,5 @@ public class CommonSteps extends DriverBase {
         testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
 
     }
+
 }

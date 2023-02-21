@@ -808,6 +808,14 @@ public class DbUtility extends DbContextManager {
     }
 
 
+    public static String getAdminVerificationCode(String phoneNumber) {
+        String verificationCode = "";
+        String queryString = "select SmsVerificationCode from bouser where phone =" + phoneNumber;
+        verificationCode = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("SMS verification code for admin having phone number " + phoneNumber + "  is " + verificationCode);
+        return verificationCode;
+    }
+
     public static String getDriverVehicleInfo(String phoneNumber) {
         String custRef = "";
         String queryString = "select vehicle_info  from driver where phone=" + phoneNumber;

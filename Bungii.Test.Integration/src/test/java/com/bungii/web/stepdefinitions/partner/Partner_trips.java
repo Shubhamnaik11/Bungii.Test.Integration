@@ -414,6 +414,9 @@ try{
                 testStepVerify.isElementDisplayed(Page_Partner_Dashboard.Text_EmailSupport(),"Email Support text should be shown.","Email Support text is shown.","Email Support text is not shown.");
                 testStepVerify.isElementTextEquals(Page_Partner_Dashboard.Email_EmailSupport(),PropertyUtility.getDataProperties("support.email.address"));
                 break;
+            case "Admin Password Required":
+                testStepVerify.isElementDisplayed(Page_Partner_Dashboard.Header_AdminPasswordRequired(),"Admin Password Required popup should be shown.","Admin Password Required popup is shown.","Admin Password Required popup not shown.");
+                break;
             default: break;
         }
         } catch (Exception e) {

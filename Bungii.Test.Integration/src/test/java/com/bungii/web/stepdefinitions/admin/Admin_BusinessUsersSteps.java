@@ -219,6 +219,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
+        Thread.sleep(2000);
         action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
         Thread.sleep(4000);
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td//button[text()='Edit']",Name,Phone,Email,Status);
@@ -277,7 +278,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void the_business_user_is_not_displayed_in_bulk_trips_since_payment_is_not_set() throws Throwable {
     try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
-        Select select = new Select(admin_BusinessUsersPage.DropDown_BusinessUser());
+        Select select = new Select(admin_BusinessUsersPage.DropDown_BusinessUserUploadDeliveries());
 
         List<WebElement> dropdown = select.getOptions();
 
