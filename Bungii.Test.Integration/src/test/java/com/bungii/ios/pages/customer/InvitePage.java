@@ -29,7 +29,7 @@ public class InvitePage  extends PageBase {
 	public WebElement Buttin_Tweet() { return findElement("Tweet", LocatorType.Name);}
 	public WebElement Button_TwitterCancel() { return findElement("Cancel", PageBase.LocatorType.Name);}*/
 	public WebElement Button_Share() { return findElement("SHARE", LocatorType.AccessibilityId);}
-	public WebElement Button_Done() { return findElement("Done", PageBase.LocatorType.AccessibilityId);}
+	public WebElement Button_Done(boolean...ignoreException) { return findElement("Done", PageBase.LocatorType.AccessibilityId,ignoreException);}
 	public WebElement Image_InviteIcon() { return findElement("icon_invite_referrals", PageBase.LocatorType.AccessibilityId);}
 	public WebElement Text_PromoCode() { return findElement("PROMO CODE", PageBase.LocatorType.AccessibilityId);}
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }

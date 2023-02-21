@@ -151,5 +151,6 @@ public class HomePage extends PageBase {
     public WebElement Button_Close() { return findElement("//XCUIElementTypeButton[@name='Close']", LocatorType.XPath);}
     public WebElement Button_Confirm() { return findElement("//XCUIElementTypeButton[@name='Confirm']", LocatorType.XPath);}
     public WebElement Header_Searching(){return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText[@name=\"SEARCHING...\"]", LocatorType.XPath);}
+    public WebElement Header_Invite(){return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText[@name=\"INVITE\"]", LocatorType.XPath);}
 
 }

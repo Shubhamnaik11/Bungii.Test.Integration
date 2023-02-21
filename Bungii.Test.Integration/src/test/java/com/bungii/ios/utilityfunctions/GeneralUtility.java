@@ -702,6 +702,10 @@ public class GeneralUtility extends DriverBase {
                 String expectedHeader = getExpectedHeader(key.toUpperCase(), currentApplication);
                 isCorrectPage = action.getScreenHeader(driverHomePage.Header_Searching()).equals(expectedHeader);
                 break;
+            case "INVITE":
+                logger.detail("CUSTOMER APP");
+                isCorrectPage = action.getScreenHeader(driverHomePage.Header_Invite()).equals(getExpectedHeader(key.toUpperCase(), currentApplication));
+                break;
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {
@@ -894,9 +898,9 @@ public class GeneralUtility extends DriverBase {
 
 
     public void grantPermissionToDriverApp() throws InterruptedException {
-        List<String> getListOfAlertButton = action.getListOfAlertButton();
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
+            List<String> getListOfAlertButton = action.getListOfAlertButton();
             if(getListOfAlertButton.contains("Allow")){
                 action.clickAlertButton("Allow");
                 Thread.sleep(5000);
@@ -908,6 +912,7 @@ public class GeneralUtility extends DriverBase {
         }
         Thread.sleep(3000);
         if(action.isAlertPresent()){
+            List<String> getListOfAlertButton = action.getListOfAlertButton();
             if(getListOfAlertButton.contains("Allow While Using App")){
                 action.clickAlertButton("Allow While Using App");
                 Thread.sleep(3000);
