@@ -1839,6 +1839,13 @@ public class CommonSteps extends DriverBase {
     }
     @Then("^Partner firm should receive \"([^\"]*)\" email$")
     public void partner_firm_should_receive_something_email(String emailSubject) throws Throwable {
+        String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+        String driverPhone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        String Customer_Name = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        String pickUpRef =(String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+
+        boolean hasDST=false;
         String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
         if (emailBody == null) {
             testStepAssert.isFail("Email : " + emailSubject + " not received");
@@ -1847,11 +1854,86 @@ public class CommonSteps extends DriverBase {
         String message = "";
         logger.detail("Email Body (Actual) : "+ emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""));
 
+        String pickupdate = (String) cucumberContextManager.getScenarioContext("PICKUP_TIME");
+        if (pickupdate == "") {
+
+            pickupdate = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+
+            if (pickupdate == "" || pickupdate == "NOW") {
+                pickupdate = DbUtility.getOndemandStartTime((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST"));
+                TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+                Date date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS").parse(pickupdate);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.add(Calendar.MINUTE, 30);
+                int min = calendar.getTime().getMinutes();
+                int remainder = (min % 15);
+                int minutes = (15 - remainder);
+                calendar.add(Calendar.MINUTE, minutes);
+                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"))));
+                Date date1 = calendar.getTime();
+
+                TimeZone zone = TimeZone.getTimeZone("America/New_York");
+
+                hasDST = zone.observesDaylightTime();
+
+                if(hasDST){
+
+//                    int hr1 = date1.getHours() + 1;
+//                    date1.setHours(hr1);
+                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
+                    //pickupdate.replaceAll("EST","EDT");
+                    //emailBody.replaceAll("EST","EDT");
+                }
+                else{
+                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
+                }
+                // pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date1).toString();
+
+            } else {
+                TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"))));
+                Date date = new SimpleDateFormat("MMM dd, hh:mm a z").parse(pickupdate);
+                int year = Calendar.getInstance().get(Calendar.YEAR);
+                Calendar c = Calendar.getInstance();
+                c.setTime(date);
+                c.set(Calendar.YEAR, year);
+                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();
+
+//                int year = Calendar.getInstance().get(Calendar.YEAR);
+//                date.setYear(date.getYear()-(year+date.getYear()));
+//                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date).toString();
+            }
+        }
         switch (emailSubject) {
             case "":
                 String partnerPortalName=PropertyUtility.getDataProperties("partner.baltimore.name");
 //                message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName);
 
+                break;
+            case "Bungii Delivery Scheduled":
+            case "A Bungii driver is heading your way":
+            case "A Bungii driver has arrived":
+                String driverCarLicenceNumber = DbUtility.getDriverVehicleInfo(driverPhone);
+                String []OnlyLicenceplate = driverCarLicenceNumber.replace("}","").replace("\"","").split(":");
+                if(emailSubject.contentEquals("A Bungii driver is heading your way")){
+                    message = utility.getABungiiDriverIsHeadingYourWay(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name);
+                }
+                else if(emailSubject.contentEquals("Bungii Delivery Scheduled")){
+//                    message = utility.getABungiiDeliveryScheduled(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name,customerContactNumber));
+                    message = utility.getABungiiDriverHasArrived(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name);
+
+                }
+                else {
+                    String [] locations=DbUtility.getFullPickUpAndDropOff(pickUpRef);
+                    String scheduledBy = (String) cucumberContextManager.getScenarioContext("ScheduledBy");
+                    String rbsbNumber = (String) cucumberContextManager.getScenarioContext("RB/SB_Number");
+                    String specialInstructions = (String) cucumberContextManager.getScenarioContext("SpecialInstruction");
+                    String deliveryPurpose = (String) cucumberContextManager.getScenarioContext("DeliveryPurpose");
+                    String itemsToDeliver = (String) cucumberContextManager.getScenarioContext("ItemsToDeliver");
+
+                    message = utility.getABungiiDeliveryScheduled(locations[0],pickupdate,Customer_Name, customerPhone,driverName,driverPhone,OnlyLicenceplate[3],itemsToDeliver,specialInstructions,deliveryPurpose,rbsbNumber,scheduledBy);
+                }
                 break;
         }
         message= message.replaceAll(" ","");

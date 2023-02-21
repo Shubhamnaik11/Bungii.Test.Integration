@@ -235,7 +235,7 @@ Feature: SoloScheduled Part B
     
     And I Switch to "customer" application on "same" devices
     Given I login as customer "9999990069" and is on Home Page
-    
+
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate

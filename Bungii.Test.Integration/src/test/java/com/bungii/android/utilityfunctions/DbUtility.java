@@ -503,4 +503,30 @@ public class DbUtility extends DbContextManager {
         logger.detail("The expected Loading/Unloading time for the delivery having customer refernce "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[2]);
         return ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer;
     }
+
+    public static String getDriverVehicleInfo(String phoneNumber) {
+        String custRef = "";
+        String queryString = "select vehicle_info  from driver where phone=" + phoneNumber;
+        custRef = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "Drivers vehicle information is " + phoneNumber);
+        return custRef;
+    }
+
+    public static String[] getFullPickUpAndDropOff(String reference){
+        String pickupID = getPickupId(reference);
+        String tripLocation[] = new String[2];
+        tripLocation[0]=    getDataFromMySqlServer("SELECT concat(ifnull(PickupAddress1,''),', ',ifnull(PickupAddress2,''),', ',ifnull(PickupCity,''),', ',ifnull(PickupState,''),', ',ifnull(PickupCountry,''),', ',ifnull(PickupZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId="+pickupID);
+        tripLocation[1]=    getDataFromMySqlServer("SELECT concat(ifnull(DropOffAddress1,''),', ',ifnull(DropOffAddress2,''),', ',ifnull(DropOffCity,''),', ',ifnull(DropOffState,''),', ',ifnull(DropOffCountry,''),', ',ifnull(DropOffZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId ="+pickupID);
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[1]);
+        return tripLocation;
+    }
+
+    public static String getOndemandStartTime(String pickupref) {
+        String ondemandStartTime = "";
+        String queryString = "SELECT StatusTimestamp  FROM tripevents where TripStatus = 23 and pickupid in (SELECT pickupid FROM pickupdetails WHERE pickupref ='" + pickupref + "')";
+        ondemandStartTime = getDataFromMySqlServer(queryString);
+        logger.detail("Ondemand Start time  " + ondemandStartTime + " of PickupRef " + pickupref);
+        return ondemandStartTime;
+    }
 }

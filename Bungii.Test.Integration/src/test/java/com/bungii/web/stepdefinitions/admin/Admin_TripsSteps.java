@@ -1671,7 +1671,7 @@ try{
                     String deliveryPurpose = (String) cucumberContextManager.getScenarioContext("DeliveryPurpose");
                     String itemsToDeliver = (String) cucumberContextManager.getScenarioContext("ItemsToDeliver");
 
-                    message = utility.getABungiiDriverHasArrived(locations[0],pickupdate,customerName, customerPhone,driverName,driverPhone,OnlyLicenceplate[3],itemsToDeliver,specialInstructions,deliveryPurpose,rbsbNumber,scheduledBy);
+//                    message = utility.getABungiiDriverHasArrived(locations[0],pickupdate,customerName, customerPhone,driverName,driverPhone,OnlyLicenceplate[3],itemsToDeliver,specialInstructions,deliveryPurpose,rbsbNumber,scheduledBy);
                 }
                 break;
         }

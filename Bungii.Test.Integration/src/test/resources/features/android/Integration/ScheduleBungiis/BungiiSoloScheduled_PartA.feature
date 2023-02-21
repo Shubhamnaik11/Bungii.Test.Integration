@@ -511,3 +511,21 @@ Feature: SoloScheduled
     And I slide update button on "ARRIVED" Screen
     When Bungii driver uploads "1" image
     Then I slide update button on "ARRIVED" Screen
+
+
+  @testAllan
+  Scenario:Test
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_applega_a_drvao Atlanta_ao" driver
+    When I request Partner Portal "Solo" Trip for "Floor and decor bos" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+     |atlanta| NEXT_POSSIBLE | 8877661132 | Testcustomertywd_appleMarkEC LutherEC|
+    And I wait for 1 minutes
+    And I click on "View Request" button
+    And I click on "Accept" button
+    Then Partner firm should receive "Bungii Delivery Scheduled" email
+    And I Select Trip from driver scheduled trip
+    And I start selected Bungii for "floor and decor"
+
+
+

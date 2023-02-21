@@ -832,7 +832,7 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
-    public String getABungiiDriverHasArrived(String pickUp,String pickupdate,String Customer_Name ,String CustomerPhone ,String driverName,String driverPhone,String driverCarLicenceNumber,String itemsToDeliver,String specialInstructions,String deliveryPurpose,String rbsbNumber,String scheduledBy) {
+    public String getABungiiDeliveryScheduled(String pickUp,String pickupdate,String Customer_Name ,String CustomerPhone ,String driverName,String driverPhone,String driverCarLicenceNumber,String itemsToDeliver,String specialInstructions,String deliveryPurpose,String rbsbNumber,String scheduledBy) {
         String emailMessage = "";
         FileReader fr;
         try {
@@ -868,11 +868,11 @@ public class GeneralUtility extends DriverBase {
         return emailMessage;
     }
 
-    public String getABungiiDeliveryScheduled(String driverName,String driverPhone,String driverCarLicenceNumber,String Customer_Name) {
+    public String getABungiiDriverHasArrived(String driverName,String driverPhone,String driverCarLicenceNumber,String Customer_Name) {
         String emailMessage = "";
         FileReader fr;
         try {
-            fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\ABungiiDriverIsHeadingYoursdsaWay.txt");
+            fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\ABungiiDriverIsHeadingYourWay.txt");
             String s;
             try (
 
