@@ -1913,7 +1913,7 @@ public class CommonSteps extends DriverBase {
                 c.setTime(date);
                 c.set(Calendar.YEAR, year);
                 pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();
-
+                System.out.println(pickupdate);
 //                int year = Calendar.getInstance().get(Calendar.YEAR);
 //                date.setYear(date.getYear()-(year+date.getYear()));
 //                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date).toString();
@@ -1933,14 +1933,14 @@ public class CommonSteps extends DriverBase {
                 if(emailSubject.contentEquals("A Bungii driver is heading your way")){
                     message = utility.getABungiiDriverIsHeadingYourWay(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name);
                 }
-                else if(emailSubject.contentEquals("Bungii Delivery Scheduled")){
+                else if(emailSubject.contentEquals("A Bungii driver has arrived")){
 //                    message = utility.getABungiiDeliveryScheduled(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name,customerContactNumber));
                     message = utility.getABungiiDriverHasArrived(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name);
 
                 }
                 else {
                     String [] locations=DbUtility.getFullPickUpAndDropOff(pickUpRef);
-                    String scheduledBy = (String) cucumberContextManager.getScenarioContext("ScheduledBy");
+                    String scheduledBy = (String) cucumberContextManager.getScenarioContext("ScheduleBY");
                     String rbsbNumber = (String) cucumberContextManager.getScenarioContext("RB/SB_Number");
                     String specialInstructions = (String) cucumberContextManager.getScenarioContext("SpecialInstruction");
                     String deliveryPurpose = (String) cucumberContextManager.getScenarioContext("DeliveryPurpose");

@@ -526,6 +526,10 @@ Feature: SoloScheduled
     Then Partner firm should receive "Bungii Delivery Scheduled" email
     And I Select Trip from driver scheduled trip
     And I start selected Bungii for "floor and decor"
-
+    And Bungii driver should see "General Instructions"
+    Then Partner firm should receive "A Bungii driver is heading your way" email
+    And I slide update button on "EN ROUTE" Screen
+    Then Bungii driver should see "Pickup Instructions"
+    And I slide update button on "ARRIVED" Screen
 
 

@@ -3290,7 +3290,7 @@ public class CoreServices extends DriverBase {
             customFields.put(field1);
 
             cucumberContextManager.setScenarioContext("ItemsToDeliver",nameItemOne);
-            cucumberContextManager.setScenarioContext("ScheduleBY",field1.get("FieldValue"));
+            cucumberContextManager.setScenarioContext("ScheduleBY",customFields.getJSONObject(0).get("FieldValue"));
 
             JSONArray ItemsToDeliver = new JSONArray();
             if (No_Of_Driver.equalsIgnoreCase("1")) {
@@ -3351,8 +3351,8 @@ public class CoreServices extends DriverBase {
             staticFields.put(field6);
             staticFields.put(field7);
 
-            cucumberContextManager.setScenarioContext("DeliveryPurpose",field6);
-            cucumberContextManager.setScenarioContext("RB/SB_Number",field7);
+            cucumberContextManager.setScenarioContext("DeliveryPurpose",field6.get("FieldValue"));
+            cucumberContextManager.setScenarioContext("RB/SB_Number",field7.get("FieldValue"));
             //main payload
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("PickupRequestID", PickupRequest);
