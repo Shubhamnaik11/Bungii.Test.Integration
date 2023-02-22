@@ -865,11 +865,12 @@ try{
     @When("^I click on \"([^\"]*)\" link beside live delivery$")
     public void i_click_on_something_link_beside_live_delivery(String link) throws Throwable {
         try{
-        Thread.sleep(4000);
            // action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnLiveEdit']")));
 //            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//td/div/img")));
 //            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'Edit')]")));
+            action.waitUntilIsElementExistsAndDisplayed(admin_EditScheduledBungiiPage.Icon_Dropdown(), (long) 4000);
             action.click(admin_EditScheduledBungiiPage.Icon_Dropdown());
+            action.waitUntilIsElementExistsAndDisplayed(admin_EditScheduledBungiiPage.Option_Edit(), (long) 3000);
             action.click(admin_EditScheduledBungiiPage.Option_Edit());
             log(" I click on Edit link besides the live delivery",
                 "I have clicked on Edit link besides the live delivery", false);
