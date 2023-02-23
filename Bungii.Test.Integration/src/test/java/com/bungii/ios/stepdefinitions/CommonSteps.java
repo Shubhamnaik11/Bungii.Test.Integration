@@ -737,7 +737,7 @@ public class CommonSteps extends DriverBase {
                     action.click(driverUpdateStatusPage.Button_Submit());
                     break;
                 case "AVAILABLE BUNGII ICON":
-                    action.clickBy2Points(38,74);
+                    action.click(driverUpdateStatusPage.Icon_AvailableBungii());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -1953,20 +1953,13 @@ public class CommonSteps extends DriverBase {
             action.click(scheduledTripsPage.Button_Search());
 
             Thread.sleep(25000);
-/*			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
-			if(rows.size()>0)
-			rows.get(0).click();
-			else {
-			    String xpath = String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]);
-                error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
-            }*/
 
-            List<WebElement> rows_editicon = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]),PageBase.LocatorType.XPath);
-            List<WebElement> rows_editlink = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Edit')]",name[0]),PageBase.LocatorType.XPath);
+            List<WebElement> rows_editicon = scheduledTripsPage.findElements(String.format("//td/span[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]),PageBase.LocatorType.XPath);
 
             if(rows_editicon.size()>0)
             {
                 rows_editicon.get(0).click();
+                List<WebElement> rows_editlink = scheduledTripsPage.findElements(String.format("//td/span[contains(text(),'%s')]/ancestor::td/following::div/div/a[contains(text(),'Edit')]",name[0]),PageBase.LocatorType.XPath);
                 rows_editlink.get(0).click();
             }
 
@@ -2057,28 +2050,29 @@ public class CommonSteps extends DriverBase {
     }
 
     @Then("^I change the drop off address to \"([^\"]*)\"$")
-    public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
+    public void i_change_the_drop_off_address_to_something(String address) throws Throwable {
 
         try{
             String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
             if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
-                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(), arg1);
+                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(), address);
                 Thread.sleep(3000);
-                action.clickOnDropdown();
+//                action.clickOnDropdown();
+                action.click(scheduledTripsPage.Dropdown_FirstAddress(address));
                 Thread.sleep(1000);
                 String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
                 cucumberContextManager.setScenarioContext("Change_Drop_Off", Change_Address);
             }
             else {
-                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location_For_Scheduled(), arg1);
+                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location_For_Scheduled(), address);
                 Thread.sleep(3000);
                 action.clickOnDropdown();
                 Thread.sleep(1000);
                 String Change_Address = action.getText(scheduledTripsPage.DropOff_Address_For_Scheduled());
                 cucumberContextManager.setScenarioContext("Change_Drop_Off", Change_Address);
             }
-            log("I change the dropoff address to "+arg1,
-                    "I have changed the dropoff address to "+arg1);
+            log("I change the dropoff address to "+address,
+                    "I have changed the dropoff address to "+address);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",

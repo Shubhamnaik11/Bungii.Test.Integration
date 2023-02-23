@@ -130,4 +130,6 @@ public class UpdateStatusPage extends PageBase {
 	public List<WebElement> List_ScheduledBungiis() { return findElements("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell", LocatorType.XPath); }
 
 	public WebElement Button_ScheduledBungiiFromMoreOptions(){return findElement("Scheduled Bungiis",LocatorType.AccessibilityId);}
+	public WebElement Icon_AvailableBungii(){return findElement( "//XCUIElementTypeNavigationBar/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeImage",LocatorType.XPath);}
+
 }
