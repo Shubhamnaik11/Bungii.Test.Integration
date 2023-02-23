@@ -1861,7 +1861,6 @@ public class CommonSteps extends DriverBase {
         String customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         String pickUpRef =(String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
-        boolean hasDST=false;
         String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
         if (emailBody == null) {
             testStepAssert.isFail("Email : " + emailSubject + " not received");
@@ -1886,7 +1885,6 @@ public class CommonSteps extends DriverBase {
                     message = utility.getABungiiDriverIsHeadingYourWay(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name);
                 }
                 else if(emailSubject.contentEquals("A Bungii driver has arrived")){
-//                    message = utility.getABungiiDeliveryScheduled(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name,customerContactNumber));
                     message = utility.getABungiiDriverHasArrived(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name);
 
                 }
@@ -1921,6 +1919,16 @@ public class CommonSteps extends DriverBase {
         logger.detail("Email Body (Expected): "+message);
         testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
 
+    }
+
+    @Then("^The partner firm should not receive \"([^\"]*)\" email$")
+    public void the_partner_firm_should_not_receive_something_email(String emailSubject) throws Throwable {
+        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+        if (emailBody == null) {
+            testStepAssert.isTrue(true, "Email having subject '"+ emailSubject + "' should  not be received",
+                    "Email having subject '"+ emailSubject + "' is not  received",
+                    "Email having subject '"+ emailSubject + "' is received");
+        }
     }
 
 }
