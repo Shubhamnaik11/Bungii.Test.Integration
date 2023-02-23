@@ -26,10 +26,6 @@ public class Admin_DashboardPage extends PageBase {
 
     public WebElement TextBox_SearchCustomer() { return findElement("SearchCriteria", LocatorType.Id); }
 
-    public WebElement Textbox_DriverSearch () { return findElement("//h4[text()='Recent Driver Registrations']/ancestor::div[@class='col-sm-5']/following-sibling::div/div/div/input",LocatorType.XPath);}
-    public WebElement Link_Drivers() { return findElement("//li/p/a/span[text()=\"Drivers\"]", LocatorType.XPath); }
-    public WebElement Link_Customers() { return findElement("//span[contains(text(),'Customers')]", LocatorType.XPath); }
-    public WebElement Link_NonActiveDriver() { return findElement("//a[contains(text(),'Non Active Drivers')]", LocatorType.XPath); }
     public WebElement Textbox_DriverSearch () { return findElement("//h4[text()='Recent Driver Registrations']/ancestor::div[@class='col-sm-6']/following-sibling::div/div/div/input",LocatorType.XPath);}
     public WebElement Link_Drivers() { return findElement("//li/p/span[text()=\"Drivers\"]", LocatorType.XPath); }
     public WebElement Link_Customers() { return findElement("//*[@id='adminmenu-customers']/a", LocatorType.XPath); }
