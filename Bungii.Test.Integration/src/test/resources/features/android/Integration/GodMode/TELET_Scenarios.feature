@@ -13,10 +13,10 @@
       And I get TELET time of of the current trip
       When I request another "Solo Scheduled" Bungii as a customer in "goa" geofence
         | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
-        | TELET SAME TIME  | 8877661004     | Testcustomertywd_appleMarkE LutherE | Cci12345          |
+        | TELET SAME TIME  | 8877661192     | Testcustomertywd_appleMarkGK LutherGK | Cci12345          |
    
       Then I wait for "2" mins
-      When I open new "Chrome" browser for "ADMIN"
+      When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
@@ -31,7 +31,7 @@
       When I click on "Close" button
    
       #And I click on "Edit Trip2" button
-   And I open the trip for "Testcustomertywd_appleMarkE LutherE" the customer
+   And I open the trip for "Testcustomertywd_appleMarkGK LutherGK" the customer
    And I Select "Edit Trip Details" option
       And I assign driver "Testdriver_goa_d Android_test" for the trip
       And I click on "VERIFY" button
@@ -48,13 +48,17 @@
    
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
-        | 8877661003      | 8877661004      |
+        | 8877661003      | 8877661192      |
   
   
 	  @regression
    #Stable
+        @testAllan
     Scenario: Verify that TELET time of solo scheduled when trip is not started and same driver is assigned to another scheduled trip at overlapping time
-    
+        When I Switch to "driver" application on "same" devices
+        And I am on the LOG IN page on driver app
+        And I am logged in as "GoaN DriverN" driver
+
       When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
         | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
         | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
@@ -63,13 +67,13 @@
         | Bungii Time    | Customer Phone | Customer Name                       | Customer Password |
         | TELET OVERLAP  | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
       Then I wait for "2" mins
-      When I open new "Chrome" browser for "ADMIN"
+      When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
    And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I Select "Edit Trip Details" option
-      And I assign driver "Testdriver_goa_d Android_test" for the trip
+      And I assign driver "GoaN DriverN" for the trip
       And I click on "VERIFY" button
       And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
@@ -78,7 +82,7 @@
    
    And I open the trip for "Testcustomertywd_appleand_C Android" the customer
       And I Select "Edit Trip Details" option
-      And I assign driver "Testdriver_goa_d Android_test" for the trip
+      And I assign driver "GoaN DriverN" for the trip
       And I click on "VERIFY" button
       And The "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
@@ -86,8 +90,6 @@
 
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
-      And I am on the LOG IN page on driver app
-      And I am logged in as "Testdriver_goa_d Android_test" driver
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       Then I should able to see "two" scheduled trip
    
@@ -108,7 +110,7 @@
         | TELET SAME TIME  | 8877661039     | Testcustomertywd_appleMarkAN LutherAN | Cci12345          |
 
       Then I wait for "2" mins
-      When I open new "Chrome" browser for "ADMIN"
+      When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
@@ -145,6 +147,9 @@
 	@regression
    #Stable
     Scenario: Verify that TELET time of duo scheduled when trip is not started and non controlled driver is assigned to another scheduled trip at same time
+      And I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "GoaO DriverO" driver
 
       When I request "duo" Bungii as a customer in "goa" geofence
         | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -155,14 +160,14 @@
         | TELET SAME TIME  | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
    
       Then I wait for "2" mins
-      When I open new "Chrome" browser for "ADMIN"
+      When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
   
    And I open the trip for "Testcustomertywd_appleand_D Android" the customer
       And I Select "Edit Trip Details" option
-      And I assign driver "Testdriver_goa_d Android_test" for the trip
+      And I assign driver "GoaO DriverO" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
       And I click on "VERIFY" button
       And The "Your changes are good to be saved." message is displayed
@@ -172,7 +177,7 @@
       When I click on "Close" button
    And I open the trip for "Testcustomertywd_appleand_C Android" the customer
       And I Select "Edit Trip Details" option
-      And I assign driver "Testdriver_goa_d Android_test" for the trip
+      And I assign driver "GoaO DriverO" for the trip
       And I assign driver "Testdriver_goa_c Android_test" for the trip
       And I click on "VERIFY" button
       And The "Your changes are good to be saved." message is displayed
@@ -202,7 +207,7 @@
         | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
         | TELET SAME TIME  | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
       Then I wait for "2" mins
-      When I open new "Chrome" browser for "ADMIN"
+      When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
@@ -227,8 +232,7 @@
 
       When I switch to "ORIGINAL" instance
       And I Switch to "driver" application on "same" devices
-      And I am on the LOG IN page on driver app
-      And I am logged in as "Testdriver_goa_d Android_test" driver
+      And I click on "No Thanks" button
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       Then I should able to see "two" scheduled trip
   
@@ -248,7 +252,7 @@
           | Bungii Time    | Customer Phone | Customer Name                       | Customer Password |
           | TELET OVERLAP  | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
         Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -294,7 +298,7 @@
           | Bungii Time    | Customer Phone | Customer Name                       | Customer Password |
           | TELET OVERLAP  | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
         Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -438,7 +442,7 @@
         And I am logged in as "Testdriver_goa_c Android_test" driver
         
         Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -492,7 +496,7 @@
         And I am logged in as "Testdriver_goa_d Android_test" driver
         
       Then I wait for "1" mins
-      When I open new "Chrome" browser for "ADMIN"
+      When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar

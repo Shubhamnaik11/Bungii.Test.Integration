@@ -106,7 +106,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_VerifyChangesSavedMessage() {return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
     public WebElement Button_SaveChanges(){return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath);}
 
-    public WebElement Text_SuccessMessage(){return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
+    public WebElement Text_SuccessMessage(){return findElement("//i[text()=\"Bungii Saved!\"]", LocatorType.XPath);}
     public WebElement Label_IconTextMessage(){return findElement("//table[@id='editTripDrivers']/tbody/tr/td/table/tbody/tr/td", LocatorType.XPath);}
     public WebElement Label_StaticText(){return findElement("//em", LocatorType.XPath);}
 

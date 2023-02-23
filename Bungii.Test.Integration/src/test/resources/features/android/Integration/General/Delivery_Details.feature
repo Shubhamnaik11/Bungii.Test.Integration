@@ -38,7 +38,7 @@ Feature: Bungii Details and Pickup Note
     
   @regression
     #stable
-    @testAllan
+#    @testAllan
   Scenario: Verify that the My Bungii Past trip is visible when admin manually ends bungii
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleMarkGJ LutherGJ"
       | geofence | Bungii State | Bungii Time     |
@@ -119,7 +119,6 @@ Feature: Bungii Details and Pickup Note
   
   @regression
     #Stable
-    @testAllan
   Scenario: Apostrophe in Customer note : Verify that application error is not thrown on re-search of delivery with apostrophe in Customer notes
     Given I am on customer Log in page
     And I am logged in as "Testcustomertywd_appleMarkF LutherF" customer
