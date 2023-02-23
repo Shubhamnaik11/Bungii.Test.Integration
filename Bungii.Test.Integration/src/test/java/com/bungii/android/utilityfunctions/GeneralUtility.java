@@ -2222,7 +2222,7 @@ Thread.sleep(5000);
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%driverName%",driverName);
+                    s = s.replaceAll("%DriverName%",driverName);
                     s = s.replaceAll("%DriverPhoneNumber%",driverPhone);
                     s = s.replaceAll("%driverCarLicenceNumber%",driverCarLicenceNumber);
                     s = s.replaceAll("%CustomerName%",Customer_Name);
@@ -2251,7 +2251,7 @@ Thread.sleep(5000);
                     s = s.replaceAll("%TimeStamp%",pickupdate);
                     s = s.replaceAll("%CustomerName%",Customer_Name);
                     s = s.replaceAll("%CustomerPhone%",CustomerPhone);
-                    s = s.replaceAll("%driverName%",driverName);
+                    s = s.replaceAll("%DriverName%",driverName);
                     s = s.replaceAll("%DriverPhoneNumber%",driverPhone);
                     s = s.replaceAll("%driverCarLicenceNumber%",driverCarLicenceNumber);
                     s = s.replaceAll("%itemsToDeliver%",itemsToDeliver);

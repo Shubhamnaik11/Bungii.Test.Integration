@@ -515,8 +515,16 @@ public class DbUtility extends DbContextManager {
     public static String[] getFullPickUpAndDropOff(String reference){
         String pickupID = getPickupId(reference);
         String tripLocation[] = new String[2];
-        tripLocation[0]=    getDataFromMySqlServer("SELECT concat(ifnull(PickupAddress1,''),', ',ifnull(PickupAddress2,''),', ',ifnull(PickupCity,''),', ',ifnull(PickupState,''),', ',ifnull(PickupCountry,''),', ',ifnull(PickupZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId="+pickupID);
-        tripLocation[1]=    getDataFromMySqlServer("SELECT concat(ifnull(DropOffAddress1,''),', ',ifnull(DropOffAddress2,''),', ',ifnull(DropOffCity,''),', ',ifnull(DropOffState,''),', ',ifnull(DropOffCountry,''),', ',ifnull(DropOffZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId ="+pickupID);
+        String containsAddress2 = getDataFromMySqlServer("SELECT PickupAddress2 FROM pickupdropaddress WHERE pickupId= "+ pickupID);
+
+        if(containsAddress2 ==null){
+            tripLocation[0] =getDataFromMySqlServer("SELECT concat(ifnull(PickupAddress1,''),', ',ifnull(PickupCity,''),', ',ifnull(PickupState,''),', ',ifnull(PickupCountry,''),', ',ifnull(PickupZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId=" +pickupID);
+        }
+        else {
+            tripLocation[0]= getDataFromMySqlServer("SELECT concat(ifnull(PickupAddress1,''),', ',ifnull(PickupAddress2,''),', ',ifnull(PickupCity,''),', ',ifnull(PickupState,''),', ',ifnull(PickupCountry,''),', ',ifnull(PickupZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId="+pickupID);
+
+        }
+        tripLocation[1]= getDataFromMySqlServer("SELECT concat(ifnull(DropOffAddress1,''),', ',ifnull(DropOffAddress2,''),', ',ifnull(DropOffCity,''),', ',ifnull(DropOffState,''),', ',ifnull(DropOffCountry,''),', ',ifnull(DropOffZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId ="+pickupID);
         logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]);
         logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[1]);
         return tripLocation;

@@ -516,7 +516,7 @@ Feature: SoloScheduled
   @testAllan
   Scenario:Test
     And I Switch to "driver" application on "same" devices
-    And I am logged in as "Testdrivertywd_applega_a_drvao Atlanta_ao" driver
+    And I am logged in as "Testdrivertywd_applega_a_drval Atlanta_al" driver
     When I request Partner Portal "Solo" Trip for "Floor and decor bos" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
      |atlanta| NEXT_POSSIBLE | 8877661132 | Testcustomertywd_appleMarkEC LutherEC|
@@ -531,5 +531,6 @@ Feature: SoloScheduled
     And I slide update button on "EN ROUTE" Screen
     Then Bungii driver should see "Pickup Instructions"
     And I slide update button on "ARRIVED" Screen
+    Then Partner firm should receive "A Bungii driver has arrived" email
 
 
