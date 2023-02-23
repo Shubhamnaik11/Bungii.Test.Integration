@@ -1305,27 +1305,67 @@ public class CommonSteps extends DriverBase {
         try {
             GeneralUtility utility = new GeneralUtility();
             //String pageName = utility.getPageHeader();
-            if(action.isAlertPresent())
-            {
-                action.clickAlertButton("Always Allow");
+            if(action.isElementPresent(enableNotificationPage.Icon_Notification())){
+                if(action.isElementPresent(enableNotificationPage.Button_Sure())){
+                    action.click(enableNotificationPage.Button_Sure());
+                }
             }
-
-            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
-                action.click(enableNotificationPage.Button_Sure());
-                action.clickAlertButton("Allow");
-                // pageName = utility.getPageHeader();
-            }
-            Thread.sleep(3000);
-            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
-                action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Allow While Using App");
-                //pageName = utility.getPageHeader();
-            }
-            Thread.sleep(3000);
+            action.waitForAlert();
             if(action.isAlertPresent()) {
-                action.clickAlertButton("Change to Always Allow");
-                if(action.isElementPresent(enableLocationPage.Button_Done())) {
-                    action.click(enableLocationPage.Button_Done());
+                String alertMessage = action.getAlertMessage();
+                logger.detail("Alert is present on screen,Alert message:" + alertMessage);
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if (alertMessage.contains(PropertyUtility.getDataProperties("driver.notification.alert"))) {
+                    if (getListOfAlertButton.contains("Allow")) {
+                        action.clickAlertButton("Allow");
+                    }
+                    Thread.sleep(3000);
+                }
+                else if(alertMessage.contains(PropertyUtility.getDataProperties("driver.location.alert"))){
+                    if (getListOfAlertButton.contains("Allow While Using App")) {
+                        action.clickAlertButton("Allow While Using App");
+                        Thread.sleep(3000);
+                    }
+                }
+                else if(alertMessage.contains(PropertyUtility.getDataProperties("driver.always.allow.location.alert"))){
+                    if (getListOfAlertButton.contains("Change to Always Allow")) {
+                        action.clickAlertButton("Change to Always Allow");
+                        Thread.sleep(3000);
+                        if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                            action.click(enableLocationPage.Button_Done());
+                        }
+                    }
+                }
+                Thread.sleep(3000);
+                if(!action.isAlertPresent()){
+                    if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+                        action.click(enableLocationPage.Button_Sure());
+                    }
+                }
+                Thread.sleep(3000);
+                if(action.isAlertPresent())
+                {
+                    if (alertMessage.contains(PropertyUtility.getDataProperties("driver.location.alert"))) {
+                        if (getListOfAlertButton.contains("Allow While Using App")) {
+                            action.clickAlertButton("Allow While Using App");
+                            Thread.sleep(3000);
+                        }
+                    }
+                    Thread.sleep(3000);
+                    if (alertMessage.contains(PropertyUtility.getDataProperties("driver.always.allow.location.alert"))) {
+                        if (getListOfAlertButton.contains("Change to Always Allow")) {
+                            action.clickAlertButton("Change to Always Allow");
+                            if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                                action.click(enableLocationPage.Button_Done());
+                                Thread.sleep(3000);
+                            }
+                        }
+                    }
+                }
+                if(!action.isAlertPresent()){
+                    if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                        action.click(enableLocationPage.Button_Done());
+                    }
                 }
             }
 
