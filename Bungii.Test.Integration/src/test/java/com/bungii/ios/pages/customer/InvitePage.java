@@ -50,8 +50,5 @@ public class InvitePage  extends PageBase {
 	public WebElement Text_TwitterBody() { return findElement("XCUIElementTypeTextView", LocatorType.ClassName);}
 	public WebElement Buttin_Tweet() { return findElement("Tweet", LocatorType.AccessibilityId);}
 	public WebElement Button_TwitterCancel() { return findElement("Cancel", PageBase.LocatorType.AccessibilityId);}
-
-
-
-
+	public WebElement Button_ScheduleBungii() { return findElement("//XCUIElementTypeButton[@name='SCHEDULE BUNGII']", LocatorType.XPath);}
 }

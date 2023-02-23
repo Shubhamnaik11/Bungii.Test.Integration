@@ -844,6 +844,10 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
             }
+            else if (screen.equalsIgnoreCase("Set pickup time")) {
+                Thread.sleep(5000);
+                isCorrectPage = utility.verifyPageHeader(screen);
+            }
             else {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
@@ -859,6 +863,20 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @And("^I tap \"([^\"]*)\" button on DRIVER NOT AVAILABLE screen$")
+    public void i_tap_something_button_on_driver_not_available_screen(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "Schedule Bungii":
+                    action.click(invitePage.Button_ScheduleBungii());
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @Given("^I have \"([^\"]*)\" app \"([^\"]*)\"$")
     public void i_have_something_app_something(String appName, String expectedOutcome) throws Throwable {
         try {
