@@ -124,10 +124,16 @@ Feature: Partner Portal Cases integration with IOS
 #  Core-2418: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
   @ready
   Scenario: Verify Driver Pricing by weight for Solo delivery for Floor n Decor Partner
+    When I Switch to "driver" application on "same" devices
+    And I enter phoneNumber :9766000001 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
     When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |washingtondc| NEXT_POSSIBLE | 8877661044 | Testcustomertywd_appleMarkAS LutherAS|
     And I wait for "2" mins
+
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -139,9 +145,6 @@ Feature: Partner Portal Cases integration with IOS
 
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
-    And I enter phoneNumber :9766000001 and  Password :Cci12345
-    And I click "Log In" button on "Log In" screen on driverApp
-    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
 #    Core-2537 Verify whether driver can accept deliveries which have suitable payload for his vehicle
@@ -629,16 +632,16 @@ Feature: Partner Portal Cases integration with IOS
 
 #CORE-4122: To verify 'Arrival time at pickup' and 'Expected time at drop off' values displayed for Live Bungii delivery where admin edits addresses during Enroute state
  @ready
-  Scenario:To verify 'Arrival time at pickup' and 'Expected time at drop off' values displayed for Live Bungii delivery where admin edits addresses during Enroute state
+  Scenario:To verify Arrival time at pickup and Expected time at drop off values displayed for Live Bungii delivery where admin edits addresses during Enroute state
     When I request Partner Portal "Solo" Trip for "Equip-bid" partner
      |Geofence| Bungii Time   | Customer Phone | Customer Name |
      |kansas| NEXT_POSSIBLE | 8877661137 | Testcustomertywd_appleMarkEH LutherEH|
-   And As a driver "Testdrivertywd_appleks_a_drvbn Kansas_bn" perform below action with respective "Solo Scheduled" trip
+   And As a driver "Testdrivertywd_appleks_a_drvci Kansas_ci" perform below action with respective "Solo Scheduled" trip
      | driver1 state |
      | Accepted      |
    When I Switch to "driver" application on "same" devices
    And I am on the "LOG IN" page on driverApp
-   And I am logged in as "Testdrivertywd_appleks_a_drvbn Kansas_bn" driver
+   And I am logged in as "Testdrivertywd_appleks_a_drvci Kansas_ci" driver
    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
    And I Select "SCHEDULED BUNGIIS" from driver App menu
    And I open first Trip from driver scheduled trip
@@ -649,6 +652,7 @@ Feature: Partner Portal Cases integration with IOS
    And I start selected Bungii
 
     #CORE-4122:To verify 'Arrival time at pickup' and 'Expected time at drop off' values displayed for Live Bungii delivery where admin edits addresses during Enroute state   When I open new "Chrome" browser for "ADMIN PORTAL"
+   When I open new "Chrome" browser for "ADMIN PORTAL"
    And I navigate to admin portal
    And I log in to admin portal
    And  I wait for 2 minutes
@@ -684,7 +688,7 @@ Feature: Partner Portal Cases integration with IOS
 
 #CORE-4122:To verify 'Arrival time at pickup' and 'Expected time at drop off' values displayed for Live Bungii delivery where admin edits addresses after Arrived state
   @ready
-  Scenario:To verify 'Arrival time at pickup' and 'Expected time at drop off' values displayed for Live Bungii delivery where admin edits addresses after Arrived state
+  Scenario:Verify Arrival time at pickup and Expected time at drop off values displayed for Live Bungii delivery where admin edits addresses after Arrived state
     When I request Partner Portal "Solo" Trip for "Equip-bid" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |kansas| NEXT_POSSIBLE | 8877661139 | Testcustomertywd_appleMarkEJ LutherEJ|
@@ -753,14 +757,18 @@ Feature: Partner Portal Cases integration with IOS
 #    Core-4556: Verify DB after trip id completed for driver with same day payment
   @ready
   Scenario: Verify DB after trip id completed for driver with same day payment
-    When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
-      |Geofence| Bungii Time   | Customer Phone | Customer Name |
-      |washingtondc| NEXT_POSSIBLE | 8877661111 | Testcustomertywd_BppleMarkDH LutherDH|
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I enter phoneNumber :9049840343 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |washingtondc| NEXT_POSSIBLE | 8877661111 | Testcustomertywd_BppleMarkDH LutherDH|
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
     When I accept selected Bungii

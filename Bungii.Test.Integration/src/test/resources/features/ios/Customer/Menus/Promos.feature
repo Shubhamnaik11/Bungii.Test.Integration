@@ -46,7 +46,7 @@ Feature: Promos
     When I accept selected Bungii
     Then I wait for "2" mins
     
-    When I open new "Chrome" browser for "ADMIN"
+    When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar

@@ -61,15 +61,16 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(customerHomePage.TextBox_PickUpLocLine2(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
                     testStepVerify.isElementTextEquals(customerHomePage.TextBox_DropOffLine1(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(customerHomePage.TextBox_DropOffLine2(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
-
                     break;
-
                 case "Bungii search screen":
                     Thread.sleep(2000);
                     testStepVerify.isElementDisplayed(Page_BungiiSearch.Loader(), "I should able  to see Loader on Bungii search screen ", "I was able to see Loader on Bungii search screen", "Loader was not displayed on Bungii Search screen");
                     testStepVerify.isElementDisplayed(Page_BungiiSearch.Text_MsgSearching(), "I should able  see Searching message on Bungii search screen", "I was able to see Searching message Loader on Bungii search screen", "Searching message was not displayed on Bungii Search screen");
                     testStepVerify.isElementDisplayed(Page_BungiiSearch.ProgressBar(), "I should able  to see Progress bar on Bungii search screen", "I was able to see Progress Bar on Bungii search screen", "Progress bar was not displayed on Bungii Search screen");
                     Thread.sleep(1000);
+                    break;
+                case "SET PICKUP TIME SCREEN":
+                    testStepVerify.isElementDisplayed(Page_BungiiSearch.Header_SetPickupTime(), "I should able  to see Set pickup time screen ", "I was able to see Set pickup time screen", "Set pickup time screen not displyed on screen");
                     break;
                 case "Enroute screen":
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should not be highlighted ", "Arrived icon is not highlighted", "Arrived icon is  highlighted");

@@ -40,7 +40,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     
   @regression
   Scenario Outline:Verify Customer Can Submit Registration Form With Promocode
-    When I open new "Chrome" browser for "ADMIN"
+    When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Promo Code" from admin sidebar

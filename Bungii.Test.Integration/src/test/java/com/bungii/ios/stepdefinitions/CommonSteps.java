@@ -737,7 +737,7 @@ public class CommonSteps extends DriverBase {
                     action.click(driverUpdateStatusPage.Button_Submit());
                     break;
                 case "AVAILABLE BUNGII ICON":
-                    action.clickBy2Points(38,74);
+                    action.click(driverUpdateStatusPage.Icon_AvailableBungii());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -844,6 +844,10 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
             }
+            else if (screen.equalsIgnoreCase("Set pickup time")) {
+                Thread.sleep(5000);
+                isCorrectPage = utility.verifyPageHeader(screen);
+            }
             else {
                 Thread.sleep(5000);
                 isCorrectPage = utility.verifyPageHeader(screen);
@@ -859,6 +863,20 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @And("^I tap \"([^\"]*)\" button on DRIVER NOT AVAILABLE screen$")
+    public void i_tap_something_button_on_driver_not_available_screen(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "Schedule Bungii":
+                    action.click(invitePage.Button_ScheduleBungii());
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @Given("^I have \"([^\"]*)\" app \"([^\"]*)\"$")
     public void i_have_something_app_something(String appName, String expectedOutcome) throws Throwable {
         try {
@@ -1287,27 +1305,67 @@ public class CommonSteps extends DriverBase {
         try {
             GeneralUtility utility = new GeneralUtility();
             //String pageName = utility.getPageHeader();
-            if(action.isAlertPresent())
-            {
-                action.clickAlertButton("Always Allow");
+            if(action.isElementPresent(enableNotificationPage.Icon_Notification())){
+                if(action.isElementPresent(enableNotificationPage.Button_Sure())){
+                    action.click(enableNotificationPage.Button_Sure());
+                }
             }
-
-            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
-                action.click(enableNotificationPage.Button_Sure());
-                action.clickAlertButton("Allow");
-                // pageName = utility.getPageHeader();
-            }
-            Thread.sleep(3000);
-            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
-                action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Allow While Using App");
-                //pageName = utility.getPageHeader();
-            }
-            Thread.sleep(3000);
+            action.waitForAlert();
             if(action.isAlertPresent()) {
-                action.clickAlertButton("Change to Always Allow");
-                if(action.isElementPresent(enableLocationPage.Button_Done())) {
-                    action.click(enableLocationPage.Button_Done());
+                String alertMessage = action.getAlertMessage();
+                logger.detail("Alert is present on screen,Alert message:" + alertMessage);
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if (alertMessage.contains(PropertyUtility.getDataProperties("driver.notification.alert"))) {
+                    if (getListOfAlertButton.contains("Allow")) {
+                        action.clickAlertButton("Allow");
+                    }
+                    Thread.sleep(3000);
+                }
+                else if(alertMessage.contains(PropertyUtility.getDataProperties("driver.location.alert"))){
+                    if (getListOfAlertButton.contains("Allow While Using App")) {
+                        action.clickAlertButton("Allow While Using App");
+                        Thread.sleep(3000);
+                    }
+                }
+                else if(alertMessage.contains(PropertyUtility.getDataProperties("driver.always.allow.location.alert"))){
+                    if (getListOfAlertButton.contains("Change to Always Allow")) {
+                        action.clickAlertButton("Change to Always Allow");
+                        Thread.sleep(3000);
+                        if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                            action.click(enableLocationPage.Button_Done());
+                        }
+                    }
+                }
+                Thread.sleep(3000);
+                if(!action.isAlertPresent()){
+                    if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+                        action.click(enableLocationPage.Button_Sure());
+                    }
+                }
+                Thread.sleep(3000);
+                if(action.isAlertPresent())
+                {
+                    if (alertMessage.contains(PropertyUtility.getDataProperties("driver.location.alert"))) {
+                        if (getListOfAlertButton.contains("Allow While Using App")) {
+                            action.clickAlertButton("Allow While Using App");
+                            Thread.sleep(3000);
+                        }
+                    }
+                    Thread.sleep(3000);
+                    if (alertMessage.contains(PropertyUtility.getDataProperties("driver.always.allow.location.alert"))) {
+                        if (getListOfAlertButton.contains("Change to Always Allow")) {
+                            action.clickAlertButton("Change to Always Allow");
+                            if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                                action.click(enableLocationPage.Button_Done());
+                                Thread.sleep(3000);
+                            }
+                        }
+                    }
+                }
+                if(!action.isAlertPresent()){
+                    if(action.isElementPresent(enableLocationPage.Button_Done())) {
+                        action.click(enableLocationPage.Button_Done());
+                    }
                 }
             }
 
@@ -1913,20 +1971,13 @@ public class CommonSteps extends DriverBase {
             action.click(scheduledTripsPage.Button_Search());
 
             Thread.sleep(25000);
-/*			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
-			if(rows.size()>0)
-			rows.get(0).click();
-			else {
-			    String xpath = String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]);
-                error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
-            }*/
 
-            List<WebElement> rows_editicon = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]),PageBase.LocatorType.XPath);
-            List<WebElement> rows_editlink = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Edit')]",name[0]),PageBase.LocatorType.XPath);
+            List<WebElement> rows_editicon = scheduledTripsPage.findElements(String.format("//td/span[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]),PageBase.LocatorType.XPath);
 
             if(rows_editicon.size()>0)
             {
                 rows_editicon.get(0).click();
+                List<WebElement> rows_editlink = scheduledTripsPage.findElements(String.format("//td/span[contains(text(),'%s')]/ancestor::td/following::div/div/a[contains(text(),'Edit')]",name[0]),PageBase.LocatorType.XPath);
                 rows_editlink.get(0).click();
             }
 
@@ -2017,28 +2068,29 @@ public class CommonSteps extends DriverBase {
     }
 
     @Then("^I change the drop off address to \"([^\"]*)\"$")
-    public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
+    public void i_change_the_drop_off_address_to_something(String address) throws Throwable {
 
         try{
             String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
             if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
-                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(), arg1);
+                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location(), address);
                 Thread.sleep(3000);
-                action.clickOnDropdown();
+//                action.clickOnDropdown();
+                action.click(scheduledTripsPage.Dropdown_FirstAddress(address));
                 Thread.sleep(1000);
                 String Change_Address = action.getText(scheduledTripsPage.DropOff_Address());
                 cucumberContextManager.setScenarioContext("Change_Drop_Off", Change_Address);
             }
             else {
-                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location_For_Scheduled(), arg1);
+                action.sendKeys(scheduledTripsPage.Textbox_Drop_Off_Location_For_Scheduled(), address);
                 Thread.sleep(3000);
                 action.clickOnDropdown();
                 Thread.sleep(1000);
                 String Change_Address = action.getText(scheduledTripsPage.DropOff_Address_For_Scheduled());
                 cucumberContextManager.setScenarioContext("Change_Drop_Off", Change_Address);
             }
-            log("I change the dropoff address to "+arg1,
-                    "I have changed the dropoff address to "+arg1);
+            log("I change the dropoff address to "+address,
+                    "I have changed the dropoff address to "+address);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
