@@ -46,10 +46,10 @@ public class HomePage extends PageBase {
     public WebElement Text_NavigationBar (boolean ...ignoreException) { return findElement("//XCUIElementTypeNavigationBar", LocatorType.XPath,ignoreException); }
     public WebElement Text_DriverNavigationBar (String screen) { return findElement("//XCUIElementTypeStaticText[@name='"+screen+"']", LocatorType.XPath); }
     public WebElement Text_LoginNavigationBar (String screen) { return findElement("//XCUIElementTypeNavigationBar[@name='"+screen+"']", LocatorType.XPath); }
-    public WebElement Text_HomeLoginNavigationBar () { return findElement("title-bungii-logo", LocatorType.AccessibilityId); }
+    public WebElement Text_HomeLoginNavigationBar () { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeImage", LocatorType.XPath); }
     public WebElement NavigationBar_Text() {return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName); }
     public WebElement Text_Bungii_Completed() { return findElement("//XCUIElementTypeStaticText[@name='Bungii completed']",LocatorType.XPath);}
-    public WebElement Header_ItemizedEarnings() { return findElement("//XCUIElementTypeOther[@name=\"ITEMIZED EARNINGS\"]",LocatorType.XPath);}
+    public WebElement Header_ItemizedEarnings() { return findElement("//XCUIElementTypeStaticText[@name=\"ITEMIZED EARNINGS\"]",LocatorType.XPath);}
     public WebElement Header_Earnings() { return findElement("//XCUIElementTypeStaticText[@name=\"EARNINGS\"]",LocatorType.XPath);}
 
     //public WebElement Button_AppMenu () { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
@@ -132,17 +132,17 @@ public class HomePage extends PageBase {
     public WebElement Text_DisbursementInfo(){return findElement("//XCUIElementTypeStaticText[@name=\"Disbursement info\"]", LocatorType.XPath);}
 
     //Admin Driver Page
-    public WebElement Icon_DriverEarnings(){return findElement("//tbody[@id='NewApplicantsTBody']/tr/td/a/img[@title='Driver Earnings']", LocatorType.XPath);}
-    public WebElement Link_ViewTrips(){return findElement("//div/a[text()='View']", LocatorType.XPath);}
-    public WebElement Text_DriverEarnings(){return findElement("//div[@class='info-box']/h1[@class='text-info']", LocatorType.XPath);}
+    public WebElement Icon_DriverEarnings(){return findElement("//img[@title='Driver Earnings']", LocatorType.XPath);}
+    public WebElement Link_ViewTrips(){return findElement("//p/a[text()='View']", LocatorType.XPath);}
+    public WebElement Text_DriverEarnings(){return findElement("//div[@class='card-title h5']/h1[@class='info']", LocatorType.XPath);}
 
 
     //driver duo rating page
     public WebElement Header_RateDuoTeammate(){return findElement("//XCUIElementTypeStaticText[@name=\"Rate duo teammate\"]", LocatorType.XPath);}
 
-    public WebElement Header_Referral(){return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther[@name=\"REFERRAL\"]", LocatorType.XPath);}
+    public WebElement Header_Referral(){return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText[@name=\"REFERRAL\"]", LocatorType.XPath);}
 
-    public WebElement Header_ReferralHistory(){return findElement("//XCUIElementTypeOther[@name=\"REFERRAL HISTORY\"]", LocatorType.XPath);}
+    public WebElement Header_ReferralHistory(){return findElement("//XCUIElementTypeStaticText[@name=\"REFERRAL HISTORY\"]", LocatorType.XPath);}
 
     public WebElement Text_PaymentSetting() { return findElement("//XCUIElementTypeStaticText[@name='Payment settings']", LocatorType.XPath);}
     public WebElement Text_PaymentSettingInfo() { return findElement("//XCUIElementTypeStaticText[@name='Would you like to change the default payment settings for your future deliveries?']", LocatorType.XPath);}

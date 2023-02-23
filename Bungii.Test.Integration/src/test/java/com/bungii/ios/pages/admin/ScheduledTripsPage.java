@@ -66,7 +66,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Textbox_Pickup_Location () { return findElement("PickupDetails_PickupOriginAddress",LocatorType.Id);}
     public WebElement DropdownPickupResult (String address) { return findElement(String.format("//div[@id='divPickupPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
     public WebElement Pickup_Address() { return findElement("//label[@id='lblPickupAddress']",LocatorType.XPath);}
-    public WebElement Button_VerifyDriver(){return findElement("//div[@class=\"live-edit\"]/div/div[6]//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
+    public WebElement Button_VerifyDriver(){return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
     public WebElement Text_VerifyChangesSavedMessage() {return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
     public WebElement Button_SaveChanges(){return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath);}
     public WebElement Text_SuccessMessage(){return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
@@ -74,14 +74,15 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Dropdown_Result (boolean ...ignoreException) { return findElement("ddEditDeliveryRemark",LocatorType.Id, ignoreException); }
     public WebElement Dropdown_ScheduledDateTime() { return findElement("//li[@class='ui-timepicker-am ui-timepicker-selected']/following-sibling::li[3]", LocatorType.XPath); }
     public WebElement RadioButton_Solo() { return findElement("//input[@value='Solo']", LocatorType.XPath); }
+    public WebElement Dropdown_FirstAddress (String address) { return findElement(String.format("//span[contains(text(),'%s')][1]",address),LocatorType.XPath);}
 
     //Driver earnings
-    public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
-    public WebElement Text_DuoDriver1Earnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings - Pallet 1')]/following-sibling::td/strong", LocatorType.XPath);}
-    public WebElement Text_DuoDriver2Earnings() {return findElement("//td[contains(text(),' Driver Fixed Earnings - Pallet 2')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),'Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_DuoDriver1Earnings() {return findElement("//td[contains(text(),'Driver Fixed Earnings - Pallet 1')]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_DuoDriver2Earnings() {return findElement("//td[contains(text(),'Driver Fixed Earnings - Pallet 2')]/following-sibling::td/strong", LocatorType.XPath);}
 
     public WebElement Text_EstimateCharge() {return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong", LocatorType.XPath);}
-    public WebElement Text_SoloDriverEarningsApp() {return findElement("//XCUIElementTypeOther[@name=\"Floor & Decor\"]/XCUIElementTypeStaticText[5]", LocatorType.XPath);}
+    public WebElement Text_SoloDriverEarningsApp() {return findElement("//XCUIElementTypeStaticText[contains(@name,'$')]", LocatorType.XPath);}
     public WebElement Text_DuoDriver1EarningsApp() {return findElement("//XCUIElementTypeStaticText[@name=\"Pallet 1\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
     public WebElement Text_DuoDriver2EarningsApp() {return findElement("//XCUIElementTypeStaticText[@name=\"Pallet 2\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
 
@@ -146,7 +147,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_VerifyDriverForScheduled(){return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
     public WebElement Image_ThreeDots () {return findElement("//tr[1]/td[14]/div/img",LocatorType.XPath);}
 
-    public WebElement Menu_Trips () { return findElement("//ul[@id='side-menu']/li/p/span[contains(text(),'Deliveries')]", LocatorType.XPath); }
+    public WebElement Menu_Trips () { return findElement("//ul[@id='side-menu']/li/p/a/span[contains(text(),'Deliveries')]", LocatorType.XPath); }
     public WebElement Dropdown_SearchForPeriod () { return findElement("//div[text()='The following deliveries from:']/select", LocatorType.XPath); }
     public WebElement Menu_AllDeliveries () { return findElement("//a[contains(text(),'Completed Deliveries')]",LocatorType.XPath);}
     public WebElement Text_DeliveryStatus(int number) { return findElement(String.format("//tbody/tr/td[%d]",number), LocatorType.XPath);}
