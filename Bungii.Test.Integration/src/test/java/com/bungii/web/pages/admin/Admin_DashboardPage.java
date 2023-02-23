@@ -31,7 +31,7 @@ public class Admin_DashboardPage extends PageBase {
     public WebElement Link_Customers() { return findElement("//span[contains(text(),'Customers')]", LocatorType.XPath); }
     public WebElement Link_NonActiveDriver() { return findElement("//a[contains(text(),'Non Active Drivers')]", LocatorType.XPath); }
 
-    public WebElement Link_Partners() { return findElement("//ul[@id=\"side-menu\"]/li/p/span[text()=\"Partners\"]", LocatorType.XPath); }
+    public WebElement Link_Partners() { return findElement("//ul[@id=\"side-menu\"]/li/p/a/span[text()=\"Partners\"]", LocatorType.XPath); }
 
     public WebElement Link_PartnerSettings() { return findElement("//ul/li/a[text()=\"Partner Settings\"]", LocatorType.XPath); }
 

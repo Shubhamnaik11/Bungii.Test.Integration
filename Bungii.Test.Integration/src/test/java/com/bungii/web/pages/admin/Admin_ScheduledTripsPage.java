@@ -156,7 +156,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_Admin2Name(){return  findElement("//div[2][@class =\"note\"]/h5",LocatorType.XPath);}
 
-    public WebElement Link_EditNote(){return  findElement("//div/a[text() =\"Edit\"]",LocatorType.XPath);}
+    public WebElement Link_EditNote(){return  findElement("(//div/a[text() =\"Edit\"])[2]",LocatorType.XPath);}
 
     public WebElement Link_EditNote_NotDisplayed(boolean...ignoreException){return  findElement("(//div/a[text() =\"Edit\"])[2]",LocatorType.XPath,ignoreException); }
 
@@ -166,9 +166,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Button_NoteClose(){return  findElement("//button[@class='btn-close']",LocatorType.XPath);}
 
-    public WebElement Text_EditNote_TextArea(){return  findElement("//div[1]/div/textarea",LocatorType.XPath);}
+    public WebElement Text_EditNote_TextArea(){return  findElement("(//div[1]/div/textarea)[1]",LocatorType.XPath);}
 
-    public WebElement Link_NoteUpdate(){return  findElement("//div/div/button[text() =\"Update\"]",LocatorType.XPath);}
+    public WebElement Link_NoteUpdate(){return  findElement("//div/div/a[text() =\"Update\"]",LocatorType.XPath);}
 
     public WebElement Link_Notes(){return  findElement("//span[text()='Notes']",LocatorType.XPath);}
 
@@ -186,7 +186,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_DeliveryStatus(int status) { return findElement(String.format("//tr/td[%d]",status), LocatorType.XPath); }
 
-    public WebElement Button_View(){return  findElement("//div/button[text() =\"View\"]",LocatorType.XPath);}
+    public WebElement Button_View(){return  findElement("//div/a[text() =\"View\"]",LocatorType.XPath);}
 
     public WebElement Text_TripIndicator(boolean...ignoreException){return  findElement("//tr[@id=\"row1\"]/td[1]/label",LocatorType.XPath,ignoreException);}
 
