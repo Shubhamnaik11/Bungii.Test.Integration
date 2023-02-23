@@ -30,9 +30,9 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Label_SuccessTripCount (String xpath) {return  findElement(xpath,LocatorType.XPath); }
 
-    public WebElement Button_Next() {return findElement("//div/nav/ul/li/a[@aria-label=\"Next\"]",LocatorType.XPath);}
+    public WebElement Button_Next() {return findElement("//span[contains(text(),'»')]",LocatorType.XPath);}
 
-    public WebElement Link_SortCity() {return findElement("span-City",LocatorType.Id);}
+    public WebElement Link_SortCity() {return findElement("//thead/tr/th[5]/span",LocatorType.XPath);}
 
     public List<WebElement> List_AllCityNames() {return findElements("//tbody[@id=\"NewApplicantsTBody\"]/tr/td[5]",LocatorType.XPath);}
 

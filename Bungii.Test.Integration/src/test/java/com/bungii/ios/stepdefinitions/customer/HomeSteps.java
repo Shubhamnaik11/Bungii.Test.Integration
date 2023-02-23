@@ -474,9 +474,11 @@ public class HomeSteps extends DriverBase {
                 }
             }
             String header = getNavigationBarName();
-            if (header.equalsIgnoreCase("INVITE"))
+            if (header.equalsIgnoreCase("INVITE") ||header.equalsIgnoreCase("BUNGII"))
             {
-                action.click(invitePage.Button_Done());
+                if(action.isElementPresent(invitePage.Button_Done(true))){
+                        action.click(invitePage.Button_Done());
+                }
             }
             if (header.equalsIgnoreCase("ACCOUNT INFO")||header.equalsIgnoreCase("PRIVACY POLICY")||header.equalsIgnoreCase("PROMOS")||header.equalsIgnoreCase("PAYMENT"))
             {
