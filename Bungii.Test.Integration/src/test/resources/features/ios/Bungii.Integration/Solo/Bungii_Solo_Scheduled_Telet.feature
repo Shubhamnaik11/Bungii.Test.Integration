@@ -293,9 +293,9 @@ Feature: Solo Scheduled Bungii - TELET
     And I edit the drop off address
     Then I change the drop off address to "100 Robin Road Extension"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
     And I get the new pickup reference generated
 
@@ -403,9 +403,9 @@ Feature: Solo Scheduled Bungii - TELET
     And I Select "Edit Trip Details" option
     And I assign driver "Testdrivertywd_applega_a_bryan Stark_altFour" for the trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
     And I get the new pickup reference generated
     And As a driver "Testdrivertywd_applega_a_drvae Atlanta_ae" and "Testdrivertywd_applega_a_bryan Stark_altFour" perform below action with respective "DUO SCHEDULED" trip

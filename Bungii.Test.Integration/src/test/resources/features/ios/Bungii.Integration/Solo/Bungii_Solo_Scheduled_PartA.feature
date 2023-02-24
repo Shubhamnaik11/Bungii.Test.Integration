@@ -693,9 +693,9 @@ Feature: Solo Scheduled Bungii Part A
     And I Select "Edit Trip Details" option
     And I assign driver "Testdrivertywd_appledc_a_drvY WashingtonY" for the trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
 
     When I switch to "ORIGINAL" instance
