@@ -724,7 +724,6 @@ public class BungiiSteps extends DriverBase {
             //Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             List<Map<String, String>> DataList = data.asMaps();
 
-//            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","atlanta");
 
             String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 

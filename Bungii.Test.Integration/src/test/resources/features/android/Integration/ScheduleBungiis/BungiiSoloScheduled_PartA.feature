@@ -516,7 +516,7 @@ Feature: SoloScheduled
   @ready
   Scenario:Verify that Delivery Started email template has been updated with required changes for level 3 partner
     And I Switch to "driver" application on "same" devices
-    And I am logged in as "Testdrivertywd_applega_a_drval Atlanta_al" driver
+    And I am logged in as "Testdrivertywd_applega_a_drvap Atlanta_ap" driver
     When I request Partner Portal "Solo" Trip for "Floor and decor bos" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
      |atlanta| NEXT_POSSIBLE | 8877661132 | Testcustomertywd_appleMarkEC LutherEC|

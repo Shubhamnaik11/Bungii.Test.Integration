@@ -2,10 +2,10 @@
 Feature: Equibid Partner Portal
 
   Background:
-#    Given I navigate to "Partner" portal configured for "Equip-bid" URL
-#    And I enter "valid" password on Partner Portal
-#    And I click "SIGN IN" button on Partner Portal
-#    Then I should "be logged in"
+    Given I navigate to "Partner" portal configured for "Equip-bid" URL
+    And I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    Then I should "be logged in"
 
   @regression
   Scenario: To check pickup addres is editable for Equip-bid Partner Portal
@@ -59,4 +59,3 @@ Feature: Equibid Partner Portal
       |kansas| NEXT_POSSIBLE | 8877661133 | Testcustomertywd_appleMarkED LutherED|
     And I wait for 2 minutes
     Then Partner firm should receive "2nd-Initial Email For Scheduled Delivery Before First Delivery" email
-    

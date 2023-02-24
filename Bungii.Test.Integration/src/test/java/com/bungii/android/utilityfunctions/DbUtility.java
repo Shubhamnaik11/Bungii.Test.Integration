@@ -505,11 +505,11 @@ public class DbUtility extends DbContextManager {
     }
 
     public static String getDriverVehicleInfo(String phoneNumber) {
-        String custRef = "";
+        String driverVehicleInfo = "";
         String queryString = "select vehicle_info  from driver where phone=" + phoneNumber;
-        custRef = getDataFromMySqlServer(queryString);
-        logger.detail("For Phone Number " + phoneNumber + "Drivers vehicle information is " + phoneNumber);
-        return custRef;
+        driverVehicleInfo = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "Drivers vehicle information is " + driverVehicleInfo);
+        return driverVehicleInfo;
     }
 
     public static String[] getFullPickUpAndDropOff(String reference){
@@ -530,11 +530,4 @@ public class DbUtility extends DbContextManager {
         return tripLocation;
     }
 
-    public static String getOndemandStartTime(String pickupref) {
-        String ondemandStartTime = "";
-        String queryString = "SELECT StatusTimestamp  FROM tripevents where TripStatus = 23 and pickupid in (SELECT pickupid FROM pickupdetails WHERE pickupref ='" + pickupref + "')";
-        ondemandStartTime = getDataFromMySqlServer(queryString);
-        logger.detail("Ondemand Start time  " + ondemandStartTime + " of PickupRef " + pickupref);
-        return ondemandStartTime;
-    }
 }

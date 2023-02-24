@@ -1855,6 +1855,7 @@ public class CommonSteps extends DriverBase {
     }
     @Then("^Partner firm should receive \"([^\"]*)\" email$")
     public void partner_firm_should_receive_something_email(String emailSubject) throws Throwable {
+        try{
         String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String driverPhone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
         String Customer_Name = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
@@ -1871,11 +1872,6 @@ public class CommonSteps extends DriverBase {
 
 
         switch (emailSubject) {
-            case "":
-                String partnerPortalName=PropertyUtility.getDataProperties("partner.baltimore.name");
-//                message = utility.getExpectedPartnerFirmFirstEmailContent(partnerPortalName);
-
-                break;
             case "Bungii Delivery Scheduled":
             case "A Bungii driver is heading your way":
             case "A Bungii driver has arrived":
@@ -1918,19 +1914,28 @@ public class CommonSteps extends DriverBase {
         //message= message.replaceAll("EST","EDT");
         logger.detail("Email Body (Expected): "+message);
         testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
-
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @Then("^The partner firm should not receive \"([^\"]*)\" email$")
     public void the_partner_firm_should_not_receive_something_email(String emailSubject) throws Throwable {
-        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
-        if (emailBody == null) {
-            testStepAssert.isTrue(true, "Email having subject '"+ emailSubject + "' should  not be received",
-                    "Email having subject '"+ emailSubject + "' is not  received",
-                    "Email having subject '"+ emailSubject + "' is received");
-        }
-        else{
-            testStepAssert.isFail("Email with subject "+emailSubject+" is present in mail" );
+        try {
+            String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+            if (emailBody == null) {
+                testStepAssert.isTrue(true, "Email having subject '" + emailSubject + "' should  not be received",
+                        "Email having subject '" + emailSubject + "' is not  received",
+                        "Email having subject '" + emailSubject + "' is received");
+            } else {
+                testStepAssert.isFail("Email with subject " + emailSubject + " is present in mail");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 

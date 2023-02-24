@@ -606,19 +606,18 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
-                case "testdrivertywd_applega_a_drval atlanta_al":
-                    phone = PropertyUtility.getDataProperties("atlanta.driver22.phone");
-                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-                    password = PropertyUtility.getDataProperties("atlanta.driver22.password");
-                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver22.name"));
-                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
-                    shouldLoginSucessful = true;
-                    break;
                 case "testdrivertywd_applega_a_drvao atlanta_ao":
                     phone = PropertyUtility.getDataProperties("atlanta.driver23.phone");
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                     password = PropertyUtility.getDataProperties("atlanta.driver23.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver23.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                case "testdrivertywd_applega_a_drvap atlanta_ap":
+                    phone = PropertyUtility.getDataProperties("atlanta.driver24.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("atlanta.driver24.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver24.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;

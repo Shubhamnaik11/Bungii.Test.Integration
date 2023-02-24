@@ -1515,9 +1515,6 @@ try{
         }
         emailBody=emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
         logger.detail("Email Body (Actual): "+ emailBody);
-
-
-
         String supportNumber = PropertyUtility.getDataProperties("support.phone.number");
         String firmName = PropertyUtility.getDataProperties("washington.Partner.Firm.Name");
         String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
