@@ -600,6 +600,7 @@ public class ScheduledTripSteps extends DriverBase {
 			action.click(scheduledTripsPage.Button_Search());
 
 			Thread.sleep(25000);
+			action.click(scheduledTripsPage.Button_Search());
 /*			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
 			if(rows.size()>0)
 			rows.get(0).click();
@@ -1238,7 +1239,7 @@ public class ScheduledTripSteps extends DriverBase {
 			switch (tripType) {
 				case "Solo":
 					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
-					action.click(scheduledTripsPage.Select_TestDriver());
+					action.JavaScriptClick(scheduledTripsPage.Select_TestDriver());
 					String driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
 					cucumberContextManager.setScenarioContext("ASSIGNED_DRIVER1_NAME", driver1Name);
 					break;
@@ -1440,7 +1441,7 @@ public class ScheduledTripSteps extends DriverBase {
 		try{
 			scheduledTripsPage.TextBox_DriverSearch().sendKeys(driverName);
 			Thread.sleep(5000);
-			scheduledTripsPage.Select_TestDriver().click();
+			action.JavaScriptClick(scheduledTripsPage.Select_TestDriver());
 			String driver1Name=scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
 			cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);      
 			cucumberContextManager.setScenarioContext("DRIVER2_NAME",driver1Name);
@@ -1489,11 +1490,11 @@ public class ScheduledTripSteps extends DriverBase {
 			String actualMessage = null;
 			switch (message){
 				case "Your changes are good to be saved.":
-					Thread.sleep(3000);
 					actualMessage=action.getText(scheduledTripsPage.Text_VerifyChangesSavedMessage());
 					break;
 
 				case "Bungii Saved!":
+					Thread.sleep(5000);
 					actualMessage=action.getText(scheduledTripsPage.Text_SuccessMessage());
 					break;
 

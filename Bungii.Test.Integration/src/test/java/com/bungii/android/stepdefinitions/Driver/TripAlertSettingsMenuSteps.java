@@ -513,6 +513,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     action.scrollToBottom();
                     action.click(bungiiDetailsPage.Checkbox_Disclaimer());
                     break;
+                case "No Thanks":
+                    action.click(Page_BungiiRequest.Button_No_Thanks());
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
             }

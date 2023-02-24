@@ -710,6 +710,18 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appleks_a_drvci Kansas_ci":
                 phone = PropertyUtility.getDataProperties("Kansas.driver83.phone");
                 break;
+            case "GoaT DriverT":
+                phone = PropertyUtility.getDataProperties("goa.driver17.phone");
+                break;
+            case "GoaU DriverU":
+                phone = PropertyUtility.getDataProperties("goa.driver18.phone");
+                break;
+            case "GoaV DriverV":
+                phone = PropertyUtility.getDataProperties("goa.driver19.phone");
+                break;
+            case "GoaW DriverW":
+                phone = PropertyUtility.getDataProperties("goa.driver19.phone");
+                break;
             default:
                 throw new PendingException("New Driver used which is not added to BungiiSteps.java and login properties file");
 
@@ -4649,6 +4661,15 @@ else
                 Details[3]=PropertyUtility.getDataProperties("goa.driver9.phone");
                 Details[4]=PropertyUtility.getDataProperties("goa.driver9.password");
                 Details[5]=PropertyUtility.getDataProperties("goa.driver9.name");
+                break;
+            case "Testcustomertywd_appleMarkGJ LutherGJ":
+                Details[0]=PropertyUtility.getDataProperties("goa.customer5.phone");
+                Details[1]=PropertyUtility.getDataProperties("goa.customer5.password");
+                Details[2]=PropertyUtility.getDataProperties("goa.customer5.name");
+
+                Details[3]=PropertyUtility.getDataProperties("goa.driver10.phone");
+                Details[4]=PropertyUtility.getDataProperties("goa.driver10.password");
+                Details[5]=PropertyUtility.getDataProperties("goa.driver10.name");
                 break;
             default:
                 throw new IllegalStateException("The entry for the customer with the name: " + custName +" is not present.");
