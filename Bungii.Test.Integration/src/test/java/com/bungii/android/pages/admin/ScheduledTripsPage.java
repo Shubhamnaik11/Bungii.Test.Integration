@@ -66,14 +66,14 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Option_Edit(){return  findElement("//div/a[text()=\"Edit\"]",LocatorType.XPath);}
 
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
-    public WebElement Button_Research() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[2]", LocatorType.XPath); }
+    public WebElement Button_Research() {return findElement("//strong[text()=\"Re-search a driver\"]", LocatorType.XPath); }
     // wait
     //public WebElement CheckBox_Driver1() {return findElement("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath); }
     public WebElement CheckBox_DriverByName(String Name) {return findElement(String.format("//div[@id='tripDriverDetails']/div[@class='driver-research row']/span[contains(text(),'%s')]/preceding-sibling::label/span",Name), LocatorType.XPath); }
 
-    public WebElement CheckBox_Driver1() {return findElements("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath).get(0); }
+    public WebElement CheckBox_Driver1() {return findElement("checkbox0", LocatorType.Id);}
     public WebElement CheckBox_Driver2() {return findElements("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath).get(1); }
-    public WebElement Button_Remove() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[1]", LocatorType.XPath); }
+    public WebElement Button_Remove() {return findElement("//strong[text()=\"Remove\"]", LocatorType.XPath); }
 
     public WebElement CheckBox_Driver1_Edit() {return findElement("//tr[1]/td/label/input", LocatorType.XPath); }
     public WebElement CheckBox_Driver2_Edit() {return findElement("//tr[2]/td/label/input", LocatorType.XPath); }

@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
-import static com.bungii.web.utilityfunctions.DbUtility.getLinkedPickupRef;
+
 
 public class TripDetailsSteps extends DriverBase {
 
