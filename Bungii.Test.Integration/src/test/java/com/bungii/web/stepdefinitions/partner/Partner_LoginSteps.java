@@ -773,7 +773,6 @@ public class Partner_LoginSteps extends DriverBase {
     public void i_should_not_be_able_to_see_filter_screen() throws Throwable {
         //throw new PendingException();
         testStepAssert.isNotElementDisplayed(Page_Partner_Done.Button_Apply(),"Filter window should close and Apply button shouldn't be shown","Filter window is close and Apply button is not shown","Filter window is not close and Apply button is shown");
-
     }
 
     @Then("^I open the link to provide driver rating$")
@@ -787,7 +786,6 @@ public class Partner_LoginSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Link should get open for providing the driver rating", "Error performing step,Please check logs for more details",
                     true);
-
         }
     }
 

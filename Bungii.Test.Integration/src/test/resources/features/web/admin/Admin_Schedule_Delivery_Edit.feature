@@ -268,9 +268,9 @@ Feature: Admin_Schedule_Delivery_Edit
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                    |
       | NEXT_POSSIBLE_FIRST_SLOT | 8877661022     | Cci12345          | Testcustomertywd_appleMarkW LutherW |
     And I wait for "3" mins
-    When  I search the delivery using "Pickup Reference"
     #CORE-3295:Verify status is shown as 'No Driver(s) Found' on All deliveries screen when required number of drivers has not accepted the trip
-    And I view the all Scheduled Deliveries list on the admin portal
+    When I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
     Then The delivery should be in "Assigning Driver(s)" state
     Then I should be able to see the respective bungii with the below status
       | Status           |

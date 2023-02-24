@@ -241,7 +241,7 @@ Feature: Admin Notes & History
       | 20 boxes            | 20X20X20   | 100   | Handle with care    | Testartner T  | 9998881111      | Test Pickup         | 9999999359           | Test Dropcontact      | 9998881112         | For decoration   | 007          | FND166  |
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
-    When I navigate to "Admin" portal
+    When I am logged in as Admin
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     And I search the delivery using "Pickup Reference" as "Admin1"
