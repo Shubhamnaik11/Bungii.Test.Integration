@@ -1929,6 +1929,9 @@ public class CommonSteps extends DriverBase {
                     "Email having subject '"+ emailSubject + "' is not  received",
                     "Email having subject '"+ emailSubject + "' is received");
         }
+        else{
+            testStepAssert.isFail("Email with subject "+emailSubject+" is present in mail" );
+        }
     }
 
 }
