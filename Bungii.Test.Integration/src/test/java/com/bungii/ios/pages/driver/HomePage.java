@@ -118,8 +118,8 @@ public class HomePage extends PageBase {
     public WebElement Button_ItemizedEarnings() {return findElement("//XCUIElementTypeButton[@name=\"Itemized earnings\"]",LocatorType.XPath);}
     public WebElement Text_ItemizedEarnings() {return findElement("//XCUIElementTypeOther/XCUIElementTypeStaticText[2]",LocatorType.XPath);}
     public WebElement Button_BackItemizedEarnings() {return findElement("//XCUIElementTypeButton[@name=\"Back\"]",LocatorType.XPath);}
-    public WebElement Dropdown_StartDate(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]", LocatorType.XPath);}
-    public WebElement Dropdown_EndDate(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]", LocatorType.XPath);}
+    public WebElement Dropdown_StartDate(){return findElement("//XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]", LocatorType.XPath);}
+    public WebElement Dropdown_EndDate(){return findElement("//XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]", LocatorType.XPath);}
     public WebElement Calendar_StartDate(){return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[4]/XCUIElementTypeOther/XCUIElementTypeOther", LocatorType.XPath);}
     public WebElement Button_Cancel(){return findElement("//XCUIElementTypeButton[@name=\"Cancel\"]", LocatorType.XPath);}
 

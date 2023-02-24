@@ -100,7 +100,7 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement Time_EditTripDetailsTime(){return findElement("PickupDetails_ScheduledTime", LocatorType.Id);}
     public WebElement Select_EditReason() {return findElement("ddEditDeliveryRemark",LocatorType.Id);}
-    public WebElement Button_ReviveTrip() { return findElement("//a[@class='revive-trip-link']/img",LocatorType.XPath);}
+    public WebElement Button_ReviveTrip() { return findElement("//img[@alt='revive']",LocatorType.XPath);}
     public WebElement Button_Confirm() { return findElement("//button[contains(text(),'Confirm')]", LocatorType.XPath); }
     public WebElement Text_PartnerNameLiveDeliveryPage() { return findElement("//tbody[@id='TripListsTBody']/tr[1]/td[9]",LocatorType.XPath);}
     public WebElement Link_DeliveryDetails(){return  findElement("//div[@class='threedoticon']/img",LocatorType.XPath);}
