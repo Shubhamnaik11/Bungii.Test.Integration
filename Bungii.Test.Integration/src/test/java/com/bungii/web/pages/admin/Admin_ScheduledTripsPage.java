@@ -89,7 +89,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Checkbox_NonControlDriverEdit () { return findElement( "//div[@class='driver-checkbox w1']/input[@id='checkbox1']", LocatorType.XPath);}
 
-    public WebElement Button_RemoveDriversEdit () { return findElement("//body/div[3]/div[1]/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[8]/button[1]/strong[1]", LocatorType.XPath); }
+    public WebElement Button_RemoveDriversEdit () { return findElement("//body/div[3]/div[1]/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[9]/button[1]/strong[1]", LocatorType.XPath); }
 
     public WebElement Label_DriverRemovalSuccessMessage () { return findElement( "//i[text()='Driver(s) removed successfully']" , LocatorType.XPath); }
 
