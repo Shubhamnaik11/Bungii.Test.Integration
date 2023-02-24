@@ -356,8 +356,8 @@ Feature: Admin Notes & History
   @ready
   Scenario:To verify admin is able to see edit History for customer solo trip
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                       |
-      | NEXT_POSSIBLE | 8877661000     | Testcustomertywd_appleMarkA LutherA |
+      | Bungii Time   | Customer Phone | Customer Name                         |
+      | NEXT_POSSIBLE | 8877661201     | Testcustomertywd_BppleMarkGT LutherGT |
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
@@ -368,13 +368,13 @@ Feature: Admin Notes & History
     Then The "History" tab should be selected
     And I should see no history text
     And I close the Note
-    And As a driver "Testdrivertywd_appleks_a_gruE Stark_ksOnE" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appleks_a_drvcj Kansas_cj" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
     And I wait for 2 minutes
-    When As a driver "Testdrivertywd_appleks_a_gruE Stark_ksOnE" perform below action with respective "Solo Scheduled" Delivery
-      | driver1 state |
-      | Enroute       |
+    And As a driver "Testdrivertywd_appleks_a_drvcj Kansas_cj" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state      |
+      | Enroute            |
       | Arrived            |
       | Loading Item       |
       | Driving To Dropoff |

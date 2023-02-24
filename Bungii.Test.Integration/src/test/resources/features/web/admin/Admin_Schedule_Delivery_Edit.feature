@@ -261,7 +261,7 @@ Feature: Admin_Schedule_Delivery_Edit
     When I view the delivery details in admin portal
     And I confirm Pickup note is "Added"
 
-#    Core-3922 Verify trip is highlighted when gap in scheduled time and initial request time is less than 24hrs (Partner portal)
+  #Core-3922 Verify trip is highlighted when gap in scheduled time and initial request time is less than 24hrs (Partner portal)
   @ready
   Scenario: Verify trip is highlighted when gap in scheduled time and initial request time is less than 24hrs (Partner portal)
     Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
@@ -294,7 +294,9 @@ Feature: Admin_Schedule_Delivery_Edit
     Then The delivery should be in "Assigning Driver(s) with no loader" state
     When I click on the "Delivery Details" button from the dropdown
     Then The delivery should show "No Driver(s) Found" status on delivery details
-#    Core-3922 Verify that deliveries are highlighted only on Scheduled and Live deliveries page
+    #Core-3922 Verify that deliveries are highlighted only on Scheduled and Live deliveries page
+    When I view the all Scheduled Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
     Then I should see the "orange" background colour
     And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
@@ -303,6 +305,8 @@ Feature: Admin_Schedule_Delivery_Edit
     Then The delivery should be in "Assigning Driver(s) with no loader" state
     When I click on the "Delivery Details" button from the dropdown
     Then The delivery should show "No Driver(s) Found" status on delivery details
+    And I view the Live Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
     Then I should see the "orange" background colour
     And I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
