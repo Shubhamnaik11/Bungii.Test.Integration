@@ -537,7 +537,7 @@ Feature: SoloScheduled
     Then Partner firm should receive "A Bungii driver has arrived" email
 
     #CORE-5256: Driver Started and Arrived emails are sent to partners not configured with email granularity
-  @testAllan
+  @ready
   Scenario: Driver Started and Arrived emails are sent to partners not configured with email granularity
     And I Switch to "driver" application on "same" devices
     And I am logged in as "Testdrivertywd_applega_a_drvao Atlanta_ao" driver
