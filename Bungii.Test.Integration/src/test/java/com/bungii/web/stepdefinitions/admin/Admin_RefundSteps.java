@@ -296,7 +296,6 @@ try{
     @When("^I select \"([^\"]*)\" checkbox$")
     public void i_select_something_checkbox(String strArg1) throws Throwable {
         action.click(admin_refundsPage.Checkbox_Confirm());
-
     }
 
     @Then("^I should see \"([^\"]*)\" popup$")
@@ -399,6 +398,7 @@ try{
     }
     @Then("^\"([^\"]*)\" is displayed$")
     public void something_is_displayed(String message) throws Throwable {
+        action.waitUntilIsElementExistsAndDisplayed(admin_refundsPage.Label_Success(), (long) 5000);
         testStepAssert.isEquals(action.getText(admin_refundsPage.Label_Success()),message, message+ " should be displayed", message+ " is displayed",message+ " is not displayed");
     }
 
@@ -633,10 +633,11 @@ try{
         try{
         switch (navigateTo){
             case "Customer":
+                action.waitUntilIsElementExistsAndDisplayed(admin_DashboardPage.Link_Customers(), (long) 5000);
                 action.click(admin_DashboardPage.Link_Customers());
                 break;
             case "Driver":
-                Thread.sleep(5000);
+                action.waitUntilIsElementExistsAndDisplayed(admin_DashboardPage.Link_Drivers(), (long) 5000);
                 action.click(admin_DashboardPage.Link_Drivers());
                 break;
             case "Non Active Drivers":

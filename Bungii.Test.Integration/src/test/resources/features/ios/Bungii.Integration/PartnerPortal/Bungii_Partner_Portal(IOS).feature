@@ -164,9 +164,9 @@ Feature: Partner Portal Cases integration with IOS
     Then I change the drop off address to "14800 Carrs Mill Road, Woodbine"
     And I change the service level to "Customer Return - First Threshold" in "Admin" portal
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    Then the "Bungii Saved!" message is displayed
+    Then The "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
     And I get the new pickup reference generated
     And I wait for "2" mins
@@ -202,9 +202,9 @@ Feature: Partner Portal Cases integration with IOS
     Then I change the drop off address to "3315 Shepherd Street, Chevy Chase, Maryland"
     And I change the service level to "First Threshold" in "Admin" portal
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    Then the "Bungii Saved!" message is displayed
+    Then The "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
     And I get the new pickup reference generated
     And I wait for "2" mins
@@ -270,9 +270,9 @@ Feature: Partner Portal Cases integration with IOS
     And I click on "Reason" for change time
     And I click on "Customer initiated" in the dropdown
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    Then the "Bungii Saved!" message is displayed
+    Then The "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
     And I wait for "2" mins
     And I Select "Scheduled Trip" from admin sidebar
@@ -299,9 +299,9 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "Edit Trip Details" option
     And I assign driver "Testdrivertywd_appledc_a_drvH WashingtonH" for the trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
 
 #  Driver : 9049840254 Payload capacity : 500 lbs
@@ -346,9 +346,9 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "Edit Trip Details" option
     And I change delivery type from "Duo to Solo"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    Then the "Bungii Saved!" message is displayed
+    Then The "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
     And I wait for "2" mins
     And I Select "Scheduled Trip" from admin sidebar
@@ -433,9 +433,9 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "Edit Trip Details" option
     And I change delivery type from "Duo to Solo"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    Then the "Bungii Saved!" message is displayed
+    Then The "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
 
     When I Switch to "driver" application on "same" devices
@@ -505,7 +505,7 @@ Feature: Partner Portal Cases integration with IOS
     And I edit the drop off address
     Then I change the drop off address to "4800 East 63rd Street, Kansas City"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
 
     When I switch to "ORIGINAL" instance
@@ -570,9 +570,9 @@ Feature: Partner Portal Cases integration with IOS
     And I edit the pickup address
     Then I change the pickup address to "The Punchline Comedy Club"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
     And I wait for "2" mins
     And I Select "live trips" from admin sidebar
@@ -620,9 +620,9 @@ Feature: Partner Portal Cases integration with IOS
     And I edit the drop off address
     Then I change the drop off address to "14800 Carrs Mill Road, Woodbine"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    Then the "Bungii Saved!" message is displayed
+    Then The "Bungii Saved!" message is displayed
     When I click on "CLOSE" button
     And I wait for "2" mins
     And I Select "live trips" from admin sidebar
@@ -662,7 +662,7 @@ Feature: Partner Portal Cases integration with IOS
    And I edit the drop off address
    Then I change the drop off address to "4800 East 63rd Street, Kansas City"
    And I click on "VERIFY" button
-   And the "Your changes are good to be saved." message is displayed
+   And The "Your changes are good to be saved." message is displayed
    Then I click on "SAVE CHANGES" button
 
 
@@ -719,7 +719,7 @@ Feature: Partner Portal Cases integration with IOS
    And I edit the drop off address
    Then I change the drop off address to "4800 East 63rd Street, Kansas City"
    And I click on "VERIFY" button
-   And the "Your changes are good to be saved." message is displayed
+   And The "Your changes are good to be saved." message is displayed
    Then I click on "SAVE CHANGES" button
 
 

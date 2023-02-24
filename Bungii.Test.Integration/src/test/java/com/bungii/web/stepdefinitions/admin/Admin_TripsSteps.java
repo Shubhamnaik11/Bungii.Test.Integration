@@ -1095,7 +1095,7 @@ try{
 
     @And("^I change delivery type from \"([^\"]*)\"")
     public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
-try{
+    try{
         switch (radiobutton) {
             case "Solo to Duo":
                 action.click(admin_EditScheduledBungiiPage.RadioButton_Duo());
@@ -1105,14 +1105,13 @@ try{
                 action.click(admin_EditScheduledBungiiPage.RadioButton_Solo());
                 cucumberContextManager.setScenarioContext("BUNGII_TYPE","SOLO");
                 break;
-        }
-        log("I change delivery type from  "+ radiobutton,
-                "I changed delivery type from "+ radiobutton, false);
-} catch(Exception e){
-    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-    error("Step should be successful", "Error performing step,Please check logs for more details",
+            }
+            log("I change delivery type from  "+ radiobutton, "I changed delivery type from "+ radiobutton, false);
+         } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
             true);
-}
+        }
     }
     @And("^I get the new pickup reference generated$")
     public void i_get_the_new_pickup_reference_generated() throws Throwable {
@@ -1889,11 +1888,11 @@ try{
         action.click(admin_ScheduledTripsPage.Button_RemoveDriversEdit());
         log("I remove control driver on edit popup",
                 "I have removed control driver on edit popup", false);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
+        }
     }
     @Then("^The driver should get removed successfully$")
     public void the_driver_should_get_removed_successfully() throws Throwable {
@@ -1902,11 +1901,11 @@ try{
         action.click((admin_ScheduledTripsPage.Button_Close()));
         log("I click close button",
                 "I have clicked close button ", false);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
+         } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
+        }
     }
 
     @When("^I search by client name \"([^\"]*)\"$")
@@ -2308,12 +2307,11 @@ try{
 
     @Then("^\"([^\"]*)\" message should be displayed$")
     public void something_message_should_be_displayed(String message) throws Throwable {
-try{
+    try{
         switch(message) {
-
             case "Your changes are good to be saved.":
             testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifiedMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
-            break;
+                break;
             case "Bungii Saved":
                 Thread.sleep(6000);
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_SuccessMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
@@ -2329,13 +2327,12 @@ try{
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifyError(), message,message +" should be displayed", message +" is displayed",message +" is not displayed");
                 action.click(admin_EditScheduledBungiiPage.Button_Close());
                 break;
-        }
-} catch(Exception e){
-    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-    error("Step should be successful", "Error performing step,Please check logs for more details",
+            }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
             true);
-}
-
+        }
     }
 
     @And("^I update the Scheduled date of the trip by 15 minutes$")
@@ -2568,7 +2565,7 @@ try{
         try{
             switch (notetype){
                 case "Additional Notes":
-                    Thread.sleep(1000);
+                    action.waitUntilIsElementExistsAndDisplayed(admin_EditScheduledBungiiPage.Text_Additional_Note(), (long) 5000);
                     String addNote = action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note());
                     testStepAssert.isTrue(addNote.length() <1,"Additional notes field should be empty","Additional notes field is empty","Additional notes field is not empty");
                     break;

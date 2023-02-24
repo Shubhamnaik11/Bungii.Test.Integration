@@ -114,9 +114,9 @@ Feature: Driver Earnings
     And I edit the pickup address
     Then I change the pickup address to "6700 Lewis Road, Kansas City"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
@@ -164,9 +164,9 @@ Feature: Driver Earnings
     And I edit the pickup address
     Then I change the pickup address to "6700 Lewis Road, Kansas City"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
@@ -216,9 +216,9 @@ Feature: Driver Earnings
     And I edit the drop off address
     Then I change the drop off address to "Margao Railway Overbridge"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
@@ -246,7 +246,6 @@ Feature: Driver Earnings
     Then I check if "changed payment" button is displayed
 #   Validating Driver not registered for Branch app in Db
     And I check "no branch registration" in db
-    And I Select "EARNINGS" from driver App menu
     Then I check if "Branch app" button is displayed
     And I click on "Branch app" button
     Then I should be navigated to "default browser"

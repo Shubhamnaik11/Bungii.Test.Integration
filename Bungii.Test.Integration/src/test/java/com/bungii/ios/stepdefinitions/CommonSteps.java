@@ -2398,8 +2398,8 @@ public class CommonSteps extends DriverBase {
         }
 
     }
-    @And("^the \"([^\"]*)\" message is displayed$")
-    public void the_something_message_is_displayed(String message) throws Throwable {
+    @And("^The \"([^\"]*)\" message is displayed$")
+    public void The_something_message_is_displayed(String message) throws Throwable {
         try{
             String actualMessage = null;
             switch (message){
@@ -2407,6 +2407,7 @@ public class CommonSteps extends DriverBase {
                     actualMessage=action.getText(scheduledTripsPage.Text_VerifyChangesSavedMessage());
                     break;
                 case "Bungii Saved!":
+                    Thread.sleep(3000);
                     actualMessage=action.getText(scheduledTripsPage.Text_SuccessMessage());
                     break;
                 default:
