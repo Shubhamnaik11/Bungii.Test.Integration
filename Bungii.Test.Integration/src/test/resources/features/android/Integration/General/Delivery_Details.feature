@@ -38,7 +38,6 @@ Feature: Bungii Details and Pickup Note
     
   @regression
     #stable
-#    @testAllan
   Scenario: Verify that the My Bungii Past trip is visible when admin manually ends bungii
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleMarkGJ LutherGJ"
       | geofence | Bungii State | Bungii Time     |
