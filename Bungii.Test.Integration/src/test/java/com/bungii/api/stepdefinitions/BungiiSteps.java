@@ -4,6 +4,7 @@ import com.bungii.api.utilityFunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.common.utilities.UrlBuilder;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
@@ -13,6 +14,8 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.joda.time.DateTime;
 
@@ -31,6 +34,8 @@ public class BungiiSteps extends DriverBase {
     CustomerServices customerServices = new CustomerServices();
     com.bungii.android.utilityfunctions.GeneralUtility utility=new com.bungii.android.utilityfunctions.GeneralUtility();
     DbUtility dbUtility = new DbUtility();
+
+    private static String DRIVER_LOGIN_ENDPOINT = "/api/driver/login";
 
     public void givenIamOnSearchingpage() {
         String custPhoneCode = "1", custPhoneNum = "9871450101", custPassword = "Cci12345";
@@ -4940,5 +4945,33 @@ else
         return rtnArray[0];
     }
 
+    @When("I hit the Driver Auth services API & view the HTTP response headers for a page")
+    public void iHitTheDriverAuthServicesAPIViewTheHTTPResponseHeadersForAPage() {
+        try{
+            String driverPhoneCode = "1", driverPhoneNum = "9049840019", driverPassword = "Cci12345";
+            authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword);
+            } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
+    @Then("I verify {string} key is removed from HTTP response headers")
+    public void iVerifyKeyIsRemovedFromHTTPResponseHeaders(String arg0) {
+        try{
+            OkHttpClient client=new OkHttpClient();
+            String loginURL = UrlBuilder.createApiUrl("driver_auth", DRIVER_LOGIN_ENDPOINT);
+            Request request=new Request.Builder().url(loginURL).build();
+            okhttp3.Response response= client.newCall(request).execute();
+
+            Map<String, List<String>> headersMap = response.headers().toMultimap();
+            for (Map.Entry<String, List<String>> entry : headersMap.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
+            testStepVerify.isFalse(headersMap.containsKey("X-Powered-By"), "X-Powered-By key should be removed from HTTP response headers", "X-Powered-By key is removed from HTTP response headers", "X-Powered-By key is not removed from HTTP response headers");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 }

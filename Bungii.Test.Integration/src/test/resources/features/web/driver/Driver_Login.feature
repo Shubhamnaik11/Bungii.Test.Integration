@@ -52,3 +52,9 @@ Feature: Driver_Login
   Scenario: Verify updated text is displayed in "Earn Extra Cash" potential earnings on bungii.com portal
     When I am on the "bungii.com" Portal
     Then I should see updated text "$45" in "Earn Extra Cash" potential earnings on "bungii.com" portal
+
+  @ready
+  #CORE-5314: Verify removal of "X-Powered-By" key from HTTP response headers
+  Scenario: Verify "X-Powered-By" key is removed from HTTP response headers of Driver Auth services
+    When I hit the Driver Auth services API & view the HTTP response headers for a page
+    Then I verify "X-Powered-By" key is removed from HTTP response headers
