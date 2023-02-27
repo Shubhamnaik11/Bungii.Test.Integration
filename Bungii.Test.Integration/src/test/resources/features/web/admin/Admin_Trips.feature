@@ -1167,3 +1167,22 @@ Feature: Admin_Trips
     Then I should be directed to "Rejected API Deliveries Page"
     And I select partner to "E-API Walmart"
     Then I check if Export All Records button is disabled
+
+  #CORE-4693 Deliveries gets stuck in "Trip completed" status when the deliveries are scheduled using customer card and their Drivers do not have Branch wallet
+  @ready
+  Scenario: To Verify the status of customer trip completed by driver(s) with no Branch app wallet
+    When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_mattK Stark_dvOnEK" perform below action with respective "Solo Ondemand" Delivery
+      | driver1 state |
+      | Accepted  |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
+      | Bungii Completed |
+    And I wait for 2 minutes
+    And I view All Deliveries list on the admin portal
+    And I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state

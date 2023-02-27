@@ -83,3 +83,25 @@ Scenario: Display and search delivery by Order ID or Receipt Number on partner p
   Then I should see the below trip status for search trip on partner portal
     | Partner_Status |
     | Canceled    |
+
+  @ready
+  @sc
+  #CORE-4693 Deliveries gets stuck in "Trip completed" status when the deliveries are scheduled using customer card and their Drivers do not have Branch wallet
+  Scenario: To Verify the status of partner portal trip completed by driver(s) with no Branch app wallet
+    Given I'm logged into "Partner" portal and  created a new  delivery
+      |PickupAddress                                           |DropdownAddress                                                                        |ItemToDelivery|CustomerName |CustomerMobile|PickupContactName|PickupContactMobile|ReceiptNumber|
+      |East 11th Avenue, Denver, United States, Colorado, 80203|Wewatta Way St Denver Colorado 80216Wewatta Way, Denver, United States, Colorado, 80216|Furniture     |TestCustomer1|9998887778    |TestPickup1      |9999999360         |RN           |
+    And As a driver "Testdrivertywd_appledv_b_mattK Stark_dvOnEK" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state |
+      | Accepted  |
+      | Enroute   |
+      | Arrived |
+      | Loading Item |
+      | Driving To Dropoff |
+      | Unloading Item |
+      | Bungii Completed |
+    When I am logged in as Admin
+    And I wait for 2 minutes
+    And I view All Deliveries list on the admin portal
+    And I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state

@@ -134,9 +134,15 @@ public class Partner_TrackingIdSteps extends DriverBase {
             testStepAssert.isTrue(cucumberContextManager.getScenarioContext("TRACKINGID_SUMMARY").toString().length()>0,"Tracking ID should be displayed","Tracking ID is displayed","Tracking ID is not displayed");
 
             cucumberContextManager.setScenarioContext("DELIVERY_SUMMARY", Page_Partner_Dashboard.Text_Summary_DeliveryAddress().getText().replace(",", "").replace(" United States", ""));
+            if(dataMap.get("CustomerMobile").equals("9998887778")){
+                String PickupRequest = new DbUtility().getPickupRef(dataMap.get("CustomerMobile"));
+                cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
+            }
+            else{
+                String PickupRequest = new DbUtility().getPickupRef("9998887777");
+                cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
 
-            String PickupRequest = new DbUtility().getPickupRef("9998887777");
-            cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
+            }
          log("I should be logged into Partner portal and create a new delivery","I could log into Partner portal and create a new delivery");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
