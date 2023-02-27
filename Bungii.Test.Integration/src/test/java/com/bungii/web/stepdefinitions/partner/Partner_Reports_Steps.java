@@ -120,7 +120,7 @@ public class Partner_Reports_Steps extends DriverBase {
                 action.click(Page_Partner_Delivery.Link_ReportFilter(text));
                 break;
             case "Sort City":
-                Thread.sleep(2000);
+                action.waitUntilIsElementExistsAndDisplayed(admin_DriverPage.Link_SortCity(), (long) 5000);
                 action.click(admin_DriverPage.Link_SortCity());
                 break;
             case "Partner location":

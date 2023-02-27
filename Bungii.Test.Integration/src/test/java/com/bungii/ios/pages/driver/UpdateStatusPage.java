@@ -44,7 +44,7 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_SupportSms() { return findElement("//XCUIElementTypeImage[@name='slide_to_start_button']/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[3]", LocatorType.XPath); }
 	public WebElement Button_ViewItems() { return findElement("//XCUIElementTypeImage[@name='slide_to_start_button']/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[2]", LocatorType.XPath); }
 //	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.Name); }
-	public WebElement Button_MoreOptions() { return findElement("//XCUIElementTypeImage[@name='slide_to_start_button']/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[4]", LocatorType.XPath); }
+	public WebElement Button_MoreOptions() { return findElement("//XCUIElementTypeStaticText[@name='More options']", LocatorType.XPath); }
 	public WebElement Tab_CancelDelivery() { return findElement("//XCUIElementTypeButton[@name=\"Cancel delivery\"]", LocatorType.XPath); }
 	public WebElement Text_NavigationBarScreen(String screen) { return findElement("//XCUIElementTypeStaticText[@name='"+screen+"']", LocatorType.XPath); }
 	public WebElement Text_NavigationBar(boolean ...ignoreException) { return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName,ignoreException); }
@@ -130,4 +130,6 @@ public class UpdateStatusPage extends PageBase {
 	public List<WebElement> List_ScheduledBungiis() { return findElements("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell", LocatorType.XPath); }
 
 	public WebElement Button_ScheduledBungiiFromMoreOptions(){return findElement("Scheduled Bungiis",LocatorType.AccessibilityId);}
+	public WebElement Icon_AvailableBungii(){return findElement( "//XCUIElementTypeNavigationBar/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeImage",LocatorType.XPath);}
+
 }

@@ -19,6 +19,8 @@ public class SearchingPage extends PageBase {
 
     public WebElement Loader () { return findElement("com.bungii.customer:id/searching_view_progressbar", LocatorType.Id); }
 
+    public WebElement Header_SetPickupTime () { return findElement("//android.widget.TextView[@text='Set pickup time']", LocatorType.XPath); }
+
     public WebElement Text_MsgSearching () { return findElement("com.bungii.customer:id/searching_view_subtitle", LocatorType.Id); }
 
     public WebElement ProgressBar (boolean...ignoreException) { return findElement("com.bungii.customer:id/searching_view_horizontal_progressbar", LocatorType.Id,ignoreException); }

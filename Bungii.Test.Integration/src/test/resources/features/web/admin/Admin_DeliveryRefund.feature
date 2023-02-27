@@ -464,13 +464,13 @@ Feature: Admin_Refund
 		Then I should see the region of the city highlighted
 		And I clear the filter applied
 		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-			| Bungii Time   | Customer Phone | Customer Name |
-			| NEXT_POSSIBLE | 8877661060 | Testcustomertywd_appleMarkBI LutherBI|
+			| Bungii Time   | Customer Phone | Customer Name                        |
+			| NEXT_POSSIBLE | 8877661060     | Testcustomertywd_appleMarkBI LutherBI|
 		And I wait for 2 minutes
 		And I view the all Scheduled Deliveries list on the admin portal
 		And I clear the filter applied
 		Then I should be able to see the respective bungii with the below status
-			|  Status |
+			|  Status            |
 			| Assigning Driver(s)|
 		And I should see the region of the city highlighted
 		And I clear the filter applied
@@ -482,13 +482,13 @@ Feature: Admin_Refund
 		Then I should see the message "No deliveries found." displayed
 		When As a driver "Testdrivertywd_appledc_a_drvL WashingtonL" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state|
-			| Accepted  |
-		    |Enroute    |
+			| Accepted     |
+		    | Enroute      |
 		And I wait for 2 minutes
 		And I view the Live Deliveries list on  admin portal
 		And I clear the filter applied
 		Then I should be able to see the respective bungii with the below status
-			|  Status |
+			|  Status     |
 			| Trip Started|
 		And I clear the filter applied
 		When I click on the "Select Geofence" dropdown
@@ -499,12 +499,12 @@ Feature: Admin_Refund
 		And I search the delivery of Customer
 		Then I should see the message "No deliveries found." displayed
 		And As a driver "Testdrivertywd_appledc_a_drvL WashingtonL" perform below action with respective "Solo Scheduled" Delivery
-			| driver1 state|
-			| Arrived |
-			| Loading Item |
+			| driver1 state      |
+			| Arrived            |
+			| Loading Item       |
 			| Driving To Dropoff |
-			| Unloading Item |
-			| Bungii Completed |
+			| Unloading Item     |
+			| Bungii Completed   |
 		And I wait for 2 minutes
 		And I view All Deliveries list on the admin portal
 		When I clear the filter applied
@@ -743,17 +743,17 @@ Feature: Admin_Refund
   @ready
   Scenario:Verify customer full refund changing driver earnings is taken by Same day job if driver payment setting is Same day
 	  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-		  | Bungii Time   | Customer Phone | Customer Name                  |
+		  | Bungii Time   | Customer Phone | Customer Name                       |
 		  | NEXT_POSSIBLE | 8877661180     |Testcustomertywd_appleMarkFY LutherFY|
 	  And As a driver "Testdrivertywd_appledc_a_drvac Washingtonac" perform below action with respective "Solo Scheduled" Delivery
 		  | driver1 state|
-		  |Accepted |
-		  | Enroute  |
-		  | Arrived |
+		  | Accepted     |
+		  | Enroute      |
+		  | Arrived      |
 		  | Loading Item |
 		  | Driving To Dropoff |
-		  | Unloading Item |
-		  | Bungii Completed |
+		  | Unloading Item     |
+		  | Bungii Completed   |
 	  And I view the Deliveries list on the admin portal
 	  And I wait for 2 minutes
 	  And I search the delivery of Customer and view it
@@ -776,21 +776,21 @@ Feature: Admin_Refund
 	  And I check the status for "same day payment" in db
 	  And The amount should be "Refunded" and in "voided" state
 
-	   #CORE-4730:Verify customer full refund without changing driver earnings is taken by Same day job if driver payment setting is Same day
+	#CORE-4730:Verify customer full refund without changing driver earnings is taken by Same day job if driver payment setting is Same day
 	@ready
 	Scenario:Verify customer full refund without changing driver earnings is taken by Same day job if driver payment setting is Same day
 		When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-			| Bungii Time   | Customer Phone | Customer Name                  |
+			| Bungii Time   | Customer Phone | Customer Name                        |
 			| NEXT_POSSIBLE | 8877661179     | Testcustomertywd_appleMarkFX LutherFX|
 		And As a driver "Testdrivertywd_appledc_a_drvad Washingtonad" perform below action with respective "Solo Scheduled" Delivery
 			| driver1 state|
-			|Accepted |
-			| Enroute  |
-			| Arrived |
+			| Accepted     |
+			| Enroute      |
+			| Arrived      |
 			| Loading Item |
 			| Driving To Dropoff |
-			| Unloading Item |
-			| Bungii Completed |
+			| Unloading Item     |
+			| Bungii Completed   |
 		And I view the Deliveries list on the admin portal
 		And I wait for 2 minutes
 		And I search the delivery of Customer and view it

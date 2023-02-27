@@ -119,9 +119,9 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
                     break;
                 case "Live Deliveries":
                 case "All Deliveries":
-                    Thread.sleep(4000);
+                    action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Link_DeliveryDetails(), (long) 3000);
                     action.click(admin_ScheduledTripsPage.Link_DeliveryDetails());
-                    Thread.sleep(2000);
+                    action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Link_Notes(), (long) 3000);
                     boolean notesDisplayed = admin_ScheduledTripsPage.Link_Notes().isDisplayed();
                     testStepAssert.isTrue(notesDisplayed,"Notes & History option should be displayed","Notes & History option is displayed","Notes & History option is not be displayed");
                     action.click(admin_ScheduledTripsPage.Link_Notes());
@@ -154,21 +154,21 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
     @Then("^I should see the following text message \"([^\"]*)\" displayed$")
     public void i_should_see_the_following_text_message_somethingdisplayed(String Message) throws Throwable {
         try{
-            Thread.sleep(2000);
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Text_NotesEmpty_Message(), (long) 5000);
             String defaultMessage = action.getText(admin_ScheduledTripsPage.Text_NotesEmpty_Message());
             testStepAssert.isEquals(defaultMessage,Message,"Text message should match","Text message matches","Text message doesnt match");
-        } catch(Exception e){
+           } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
-
     @When("^I enter the text \"([^\"]*)\" in the text area$")
     public void i_enter_the_text_something_in_the_text_area(String Text) throws Throwable {
         try{
             cucumberContextManager.setScenarioContext("ADMIN1_NOTE",Text);
-            Thread.sleep(1000);
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Textbox_AddNote(), (long) 3000);
+            action.JavaScriptClear(admin_ScheduledTripsPage.Textbox_AddNote());
             action.clearSendKeys(admin_ScheduledTripsPage.Textbox_AddNote(),Text);
             log("I should be able to enter the text"+Text+"in the text area","I could enter the text"+Text+"in the text area",false);
         } catch(Exception e){
