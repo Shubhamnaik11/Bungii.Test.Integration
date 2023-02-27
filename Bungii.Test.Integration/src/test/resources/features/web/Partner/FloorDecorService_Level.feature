@@ -113,4 +113,13 @@ Feature: Floor and Decore Service Level
     And I click on Partner Portal Logo in header
     Then I should see header as "Get Quote"
 
-
+  @sn
+  #CORE-5307: Verify space between What's needed section & custom Quote when disclaimer message is not present
+  Scenario: Verify the UI for space between 'Whats's Needed' & 'Custom Quote' when disclaimer message is not present
+    When I navigate to "Partner" portal configured for "FloorDecor service level" URL
+    And I enter "valid" password on Partner Portal
+    And I click "SIGN IN" button on Partner Portal
+    And I check "What's needed?" section is displayed
+    And I check "Custom Quotes" section is displayed
+    And I check "Disclaimer message" is not present
+    Then I verify the UI for Spece between "What's Needed" & "Custom Quotes" section is corectly displayed

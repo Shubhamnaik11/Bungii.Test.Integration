@@ -330,4 +330,10 @@ public class Partner_DashboardPage extends PageBase {
     //Quote request header title
     public WebElement Header_AdminPasswordRequired() { return findElement("//h2[contains(text(),'Admin Password Required')]", LocatorType.XPath);}
 
+    public WebElement Section_WhatsNeeded() { return findElement("//body/div/main/div/div/div/form/div[1]/div[1]", LocatorType.XPath);}
+
+    public WebElement Section_CustomQuotes() { return findElement("//body/div/main/div/div/div/form/div[1]/div[2]", LocatorType.XPath);}
+
+    public WebElement Text_DisclaimerMessage() { return findElement("//body/div/main/div/div/div/form/div/ul/li", LocatorType.XPath);}
+
 }
