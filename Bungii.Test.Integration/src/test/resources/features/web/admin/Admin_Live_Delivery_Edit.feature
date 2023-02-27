@@ -122,6 +122,7 @@ Feature: Admin_Live_Delivery_Edit
       Then I should be able to see the respective bungii with the below status
         |  Status       |
         | <TripStatus> |
+      And I wait for 2 minutes
       And I click on "Edit" link beside live delivery
       And I click on "Edit Delivery Status" radiobutton
       And I click on "Delivery Canceled" radiobutton
