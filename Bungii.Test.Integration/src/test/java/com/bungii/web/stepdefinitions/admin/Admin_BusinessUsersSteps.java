@@ -76,7 +76,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         switch (fields) {
 //            case "Business Users" :
             case "New Partner" :
-                String Name = dataMap.get("Name").trim().replace("<<UniqueNo>>", Integer.toString(i));
+                String Name;
+                if(dataMap.get("Name").equalsIgnoreCase("BLANK")){
+                     Name = "  ";
+                }else {
+                     Name = dataMap.get("Name").trim().replace("<<UniqueNo>>", Integer.toString(i));
+                }
                 String Phone = dataMap.get("Phone").trim().replace("<<UniquePhone>>", "");
                 String Email = dataMap.get("Email").trim();
                 if (Phone.isEmpty())
@@ -751,9 +756,21 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     true);
         }
     }
-    @Then("^the error \"([^\"]*)\" is displayed$")
+    @Then("^The error \"([^\"]*)\" is displayed$")
     public void the_error_something_is_displayed(String message) throws Throwable {
-        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.",message + " is not displayed.");
+        switch (message){
+            case "Please check the CSV for errors.":
+                testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.",message + " is not displayed.");
+                break;
+            case "Oops! The name is invalid.":
+                testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorOnInvalidName()),message, message + " should be displayed.",message + " is displayed.",message+ " is not displayed.");
+                break;
+            case "Validation Message":
+                testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorOnInvalidName()),PropertyUtility.getMessage("Err_InputValidation"), PropertyUtility.getMessage("Err_InputValidation") + " should be displayed.",PropertyUtility.getMessage("Err_InputValidation") + " is displayed.",PropertyUtility.getMessage("Err_InputValidation")+ " is not displayed.");
+                break;
+        }
+        log("The "+message+" should be displayed.",
+                "I am able to see the "+message+ " displayed", true);
     }
     @And("^the error \"([^\"]*)\" is displayed in the csv file$")
     public void the_error_something_is_displayed_in_the_csv_file(String message) throws Throwable {

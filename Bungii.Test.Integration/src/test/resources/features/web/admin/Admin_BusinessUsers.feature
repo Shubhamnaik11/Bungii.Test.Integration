@@ -178,4 +178,19 @@ Feature: Admin_BusinessUsers
     And I select user "Testcustomertywdapple<<UniqueNo>>"
     And I select the file with invalid data for "Blank CSV"
     And I click on "Upload" button on "Upload Deliveries" page
-    Then the error "Please check the CSV for errors." is displayed
+    Then The error "Please check the CSV for errors." is displayed
+
+#    Core-5313 : Verify input validations for partner name
+  @ready
+  Scenario Outline: Verify input validations for partner name for <Scenario>
+    When I click on the "New Partner" Button
+    And I enter following values in "New Partner" fields
+      | Name                      | Phone                   | Email  |
+      | <Partner Name>            	  | <<UniquePhone>>         | test@creativecapsule.com       |
+    Then The error "<Expected Message>" is displayed
+
+    Examples:
+      | Scenario                | Partner Name             | Expected Message |
+      | Blank                   | BLANK                    | Oops! The name is invalid. |
+      | Underscore              | Test_Partner             | Validation Message         |
+      | Invalid Name            | <>.,/";:()*&^%$#@!       | Validation Message         |
