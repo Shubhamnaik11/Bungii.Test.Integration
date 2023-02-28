@@ -7,9 +7,12 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 
 import java.util.Map;
 
@@ -37,6 +40,10 @@ public class MobileFriendlySteps extends DriverBase {
                     break;
                 case "fixed pricing":
                     action.clearSendKeys(chromePage.Textbox_GoogleSearchBar(),PropertyUtility.getDataProperties("qa.service_level_partner.url"));
+                    action.click(chromePage.DropDown_FirstValue());
+                    break;
+                case "FloorDecor service level #214":
+                    action.clearSendKeys(chromePage.Textbox_GoogleSearchBar(),PropertyUtility.getDataProperties("qa.fnd_service_level#214_partner.url"));
                     action.click(chromePage.DropDown_FirstValue());
                     break;
             }
@@ -355,6 +362,18 @@ public class MobileFriendlySteps extends DriverBase {
                     testStepAssert.isFalse(isDisclaimerMessagePresent, "Disclaimer message should not be present","Disclaimer message is not present","Disclaimer message is present");
                     break;
             }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I verify the UI for Space between {string} & {string} section is corectly displayed")
+    public void iVerifyTheUIForSpaceBetweenSectionIsCorectlyDisplayed(String arg0, String arg1) {
+        try{
+
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

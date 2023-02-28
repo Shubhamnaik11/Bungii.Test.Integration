@@ -72,4 +72,4 @@
       And I check "What's needed?" section is displayed
       And I check "Custom Quotes" section is displayed
       And I check "Disclaimer message" is not present
-      Then I verify the UI for Spece between "What's Needed" & "Custom Quotes" section is corectly displayed
+      Then I verify the UI for Space between "What's Needed" & "Custom Quotes" section is corectly displayed

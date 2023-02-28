@@ -17,6 +17,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
@@ -1172,9 +1173,10 @@ public class Partner_LoginSteps extends DriverBase {
         try{
             switch(message) {
                 case "Disclaimer message":
-                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Text_DisclaimerMessage(), (long) 5000);
-                    boolean isDisclaimerMessagePresent=Page_Partner_Dashboard.Text_DisclaimerMessage().isDisplayed();
-                    testStepAssert.isFalse(isDisclaimerMessagePresent, "Disclaimer message should not be present","Disclaimer message is not present","Disclaimer message is present");
+                    testStepAssert.isFalse(action.isElementPresent(Page_Partner_Dashboard.Text_DisclaimerMessage(true)),
+                            "Disclaimer message should not be present",
+                            "Disclaimer message is not present",
+                            "Disclaimer message is present");
                     break;
             }
         }
@@ -1185,15 +1187,20 @@ public class Partner_LoginSteps extends DriverBase {
         }
     }
 
-    @Then("I verify the UI for Spece between {string} & {string} section is corectly displayed")
-    public void iVerifyTheUIForSpeceBetweenSectionIsCorectlyDisplayed(String arg0, String arg1) {
+    @Then("I verify the UI for Space between {string} & {string} section is corectly displayed")
+    public void iVerifyTheUIForSpaceBetweenSectionIsCorectlyDisplayed(String arg0, String arg1) {
         try{
             Point whatsNeededSection= Page_Partner_Dashboard.Section_WhatsNeeded().getLocation();
-            Point customQuoteSection= Page_Partner_Dashboard.Section_CustomQuotes().getLocation();
+            Dimension whatsNeededSectionSize=Page_Partner_Dashboard.Section_WhatsNeeded().getSize();
+            int whatsNeededSectionBottom= whatsNeededSection.getY() + whatsNeededSectionSize.getHeight();
 
-            int actualSpace= customQuoteSection.x - (whatsNeededSection.x + whatsNeededSection.y);
-            String actualSpacing=Integer.toString(actualSpace);
-            String expctedspacing= "15";
+            Point customQuoteSection= Page_Partner_Dashboard.Section_CustomQuotes().getLocation();
+            int customQuoteSectionTop= customQuoteSection.getY();
+
+            int spacing= customQuoteSectionTop -whatsNeededSectionBottom;
+            String actualSpacing=Integer.toString(spacing);
+
+            String expctedspacing = PropertyUtility.getDataProperties("spacing.between.whatsneeded.and.customquote.in.pixel");
 
             testStepAssert.isEquals(actualSpacing, expctedspacing,
                     "Sufficient space should be present in between What's Needed & Custom Quote",

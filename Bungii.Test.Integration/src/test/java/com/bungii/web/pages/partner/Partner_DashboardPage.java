@@ -334,6 +334,6 @@ public class Partner_DashboardPage extends PageBase {
 
     public WebElement Section_CustomQuotes() { return findElement("//body/div/main/div/div/div/form/div[1]/div[2]", LocatorType.XPath);}
 
-    public WebElement Text_DisclaimerMessage() { return findElement("//body/div/main/div/div/div/form/div/ul/li", LocatorType.XPath);}
+    public WebElement Text_DisclaimerMessage(boolean...ignoreException) { return findElement("//body/div/main/div/div/div/form/div/ul/li", LocatorType.XPath,ignoreException);}
 
 }
