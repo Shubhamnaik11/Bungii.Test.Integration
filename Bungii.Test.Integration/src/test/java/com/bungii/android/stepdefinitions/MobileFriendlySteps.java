@@ -314,4 +314,52 @@ public class MobileFriendlySteps extends DriverBase {
                     true);
         }
     }
+
+    @And("I check {string} section is displayed")
+    public void iCheckSectionIsDisplayed(String section) {
+        try{
+            switch(section) {
+                case "What's needed?":
+                    action.waitUntilIsElementExistsAndDisplayed(chromePage.Section_WhatsNeeded());
+                    boolean isWhatsNeedDisplayed= chromePage.Section_WhatsNeeded().isDisplayed();
+                    testStepAssert.isTrue(isWhatsNeedDisplayed,
+                            "What's Needed section should be displayed",
+                            "What's Needed section is displayed",
+                            "What's Needed section is not displayed");
+                    break;
+
+                case "Custom Quotes":
+                    action.waitUntilIsElementExistsAndDisplayed(chromePage.Section_CustomQuote());
+                    boolean isCustomQuoteDisplayed= chromePage.Section_CustomQuote().isDisplayed();
+                    testStepAssert.isTrue(isCustomQuoteDisplayed,
+                            "Custom Quotes section should be displayed",
+                            "Custom Quotes section is displayed",
+                            "Custom Quotes section is not displayed");
+                    break;
+            }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("I check {string} is not present")
+    public void iCheckIsNotPresent(String message) {
+        try{
+            switch(message) {
+                case "Disclaimer message":
+                    action.waitUntilIsElementExistsAndDisplayed(chromePage.Text_DisclaimerMessage());
+                    boolean isDisclaimerMessagePresent=chromePage.Text_DisclaimerMessage().isDisplayed();
+                    testStepAssert.isFalse(isDisclaimerMessagePresent, "Disclaimer message should not be present","Disclaimer message is not present","Disclaimer message is present");
+                    break;
+            }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

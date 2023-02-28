@@ -41,3 +41,15 @@
       And I click on "Disclaimer" button
       Then I click on "Schedule Bungii" button
       Then I verify the ui links on "success" page for "geofence based" partner
+
+#    @sn
+    #CORE-5307: Verify space between What's needed section & custom Quote when disclaimer message is not present
+    Scenario: Verify the UI for space between 'Whats's Needed' & 'Custom Quote' when disclaimer message is not present
+      When I switch to "ORIGINAL" instance
+      And I terminate "customer" app on "same" devices
+      When I open new "Chrome" browser for "MOBILE DEVICE"
+      And I open "weight based fnd partner portal" partner portal
+      And I check "What's needed?" section is displayed
+      And I check "Custom Quotes" section is displayed
+      And I check "Disclaimer message" is not present
+      Then I verify the UI for Spece between "What's Needed" & "Custom Quotes" section is corectly displayed

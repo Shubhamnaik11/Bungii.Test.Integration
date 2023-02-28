@@ -79,4 +79,10 @@ public class SafariPage extends PageBase {
     //Partner Payment
     public WebElement RadioButton_PartnerInvoice() { return findElement("//XCUIElementTypeOther[contains(@name,'Partner Invoice')]", LocatorType.XPath);}
 
+    public WebElement Section_WhatsNeeded() { return findElement("//XCUIElementTypeOther[contains(@name,'WHAT'S NEEDED?')]", LocatorType.XPath);}
+
+    public WebElement Section_CustomQuote() { return findElement("//XCUIElementTypeOther[contains(@name,'Custom Quotes')]", LocatorType.XPath);}
+
+    public WebElement Text_DisclaimerMessage() { return findElement("//XCUIElementTypeOther[contains(@name,'Maximum dimensions/pallet is: 96″L x 50″W x 48″H. Max length for molding: 120″L.')]", LocatorType.XPath);}
+
 }
