@@ -1,5 +1,6 @@
 package com.bungii.web.stepdefinitions.admin;
 
+import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -36,6 +37,7 @@ public class Admin_PriceOverrideSteps extends DriverBase {
     Admin_EditScheduledBungiiPage admin_editScheduledBungiiPage= new Admin_EditScheduledBungiiPage();
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_LiveTripsPage admin_liveTripsPage=new Admin_LiveTripsPage();
+    LiveTripsPage liveTripsPage=new LiveTripsPage();
 
     @And("^I check if \"([^\"]*)\" button is displayed$")
     public void i_check_if_something_button_is_displayed(String button) throws Throwable {
@@ -771,6 +773,34 @@ public class Admin_PriceOverrideSteps extends DriverBase {
             String pickUpId = dbUtility.getPickupId(pickUpRef);
             String driverSearchFlag = dbUtility.getStopSearchStatus(pickUpId);
             testStepAssert.isTrue(driverSearchFlag.contains("1"),"Stop search status is updated","Stop search status is not updated");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I verify overriden prices are retained$")
+    public void i_verify_overriden_prices_are_retained() throws Throwable {
+        try{
+            String newCustomerPrice = (String) cucumberContextManager.getScenarioContext("NEW_CUSTOMER_PRICE");
+            String newDriverCut = (String) cucumberContextManager.getScenarioContext("NEW_DRIVER_CUT");
+            float str1 = Float.parseFloat(newDriverCut);
+            String newDriverCut1 = new DecimalFormat("#.##").format(str1);
+            String tripPayment = action.getText(liveTripsPage.Text_TripPayment());
+            String DriverEarnings = action.getText(liveTripsPage.Text_DriverEarnings());
+            String TrimedTripPayment=(tripPayment.replace('$',' ')).trim();
+            String TrimDriverEarning=(DriverEarnings.replace('$',' ')).trim();
+            testStepAssert.isEquals(TrimedTripPayment,newCustomerPrice,
+                    "The Delivery cost should be retained",
+                    "The Delivery cost are retained",
+                    "The eDelivery cost are not retained");
+            testStepAssert.isEquals(TrimDriverEarning, newDriverCut1,
+                    "The earnings should be retained",
+                    "The earnings are retained",
+                    "The earnings are not retained");
+
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

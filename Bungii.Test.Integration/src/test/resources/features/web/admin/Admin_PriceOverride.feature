@@ -700,3 +700,50 @@ Feature: Admin_Price_Override
     And I select Reason as "Custom Quote"
     And I click on "Save" button on price override pop-up
     Then I check if error message is displayed
+
+  @ready
+  Scenario: Verify Overriden prices are retained after admin edits Live trip
+    When I request Partner Portal "SOLO" Trip for "Biglots" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |atlanta  | NEXT_POSSIBLE_THIRD_SLOT | 8877661059 | Testcustomertywd_BppleMarkBH LutherBH|
+    When I am logged in as Admin
+    And I view the partner portal Scheduled Trips list on the admin portal
+    And I wait for "2" mins
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      |Assigning Driver(s)|
+    When I view the delivery details
+    And I get the old values of "Customer price" for "Service level"
+    And I get the old values of "Driver cut" for "Service level"
+    And I check if "Price Override" button is displayed
+    And I click on "Price Override" button on delivery details
+    And I change the "Customer price"
+    And I select Reason as "Custom Quote"
+    And I change the "Driver cut"
+    And I select Reason as "Driver Incentive"
+    Then I click on "Save" button on price override pop-up
+    And I click on "Ok" button on price override pop-up
+    And As a driver "Testdrivertywd_applega_a_steveD Stark_altOnED" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+      | Arrived       |
+      | Loading Item   |
+    And I wait for 2 minutes
+    And I view the Live Deliveries list on the admin portal
+    When I click on "Edit" link beside live delivery
+    And I click on "Edit Trip Details" radiobutton
+    And I edit the drop off address
+    Then I change the drop off address to "349 Ferst Dr NW"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    When I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    And As a driver "Testdrivertywd_applega_a_steveD Stark_altOnED" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Driving To Dropoff |
+      | Unloading Item |
+      | Bungii Completed |
+    And I wait for "2" mins
+    And I view the Deliveries list on the admin portal
+    And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
+    Then I verify overriden prices are retained
