@@ -853,5 +853,35 @@ Feature: Admin_Refund
 			| Testcustomertywd_appleMarkFR LutherFR | Testdrivertywd_appledc_a_drvae Washingtonae |     8877661173    |  10.00           |
 			| Testcustomertywd_appleMarkFS LutherFS |Testdrivertywd_appledc_a_drvaf Washingtonaf  |   8877661174      |  0               |
 
-
-
+	@ready
+	#PR not yet raised because of issue- CORE-5802 which is related to payment method not automatically getting selected for Partial Refund
+	#CORE-4644: Verify Bungii earnings and Driver share view details link of Transaction history when partial refund is performed
+	Scenario: Verify Partial Refund for Duo Delivery and complete Driver payment
+		When I request "duo" Bungii as a customer in "washingtondc" geofence
+			| Bungii Time   | Customer Phone | Customer Name                      |
+			| NEXT_POSSIBLE | 8877661216	 | Testcustomertywd_appleMarkHI LutherHI|
+		When As a driver "Testdrivertywd_appledc_a_drval Washingtonal" and "Testdrivertywd_appledc_a_drvam Washingtonam" perform below action with respective "Duo Scheduled" trip
+			| driver1 state     | driver2 state    |
+			| Bungii Completed  | Bungii Completed |
+		And I view All Deliveries list on the admin portal
+		And I wait for 2 minutes
+		And I search the delivery of Customer and view it
+		When I click on "ISSUE REFUND" button
+		Then The "Issue Refund" section should be displayed
+		When I select "Partial Refund" radio button
+		And I refund Driver1 earnings to customer
+		And I enter "Driver1 Earnings" as "0" dollars
+		And I note the "Driver2 Earnings"
+		When I enter "Driver1 Notes" as "Partial Refund"
+		And I enter "Bungii Internal Notes" as "Internal Note"
+		And I click on "Continue" button on Issue Refund popup
+		Then I should see "Issue Refund - Confirm Details" popup
+		And I note the "Bungii Earnings after refund"
+		When I select "Are you sure you want to proceed with refund request ?" checkbox
+		And I click on "Process Refund" button on Issue Refund popup
+		Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
+		When I click on "OK" button
+		And I view All Deliveries list on the admin portal
+		And I wait for 2 minutes
+		And I search the delivery of Customer and view it
+		Then I should be able to see correct Transaction history on delivery details page

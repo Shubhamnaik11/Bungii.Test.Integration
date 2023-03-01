@@ -92,6 +92,10 @@ public class Admin_RefundSteps extends DriverBase {
             case "Customer Refund Amount":
                 action.clearSendKeys(admin_refundsPage.TextBox_RefundAmount(),value+Keys.TAB);
                 break;
+
+            case "Driver1 Earnings":
+                action.clearSendKeys(admin_refundsPage.TextBox_DriverEarnings(),value+Keys.TAB);
+                break;
         }
         cucumberContextManager.setScenarioContext("DELIVERY_TOTAL",action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$",""));
         cucumberContextManager.setScenarioContext("REFUND_AMOUNT",action.getAttributeValue(admin_refundsPage.TextBox_RefundAmount()).trim());
@@ -106,6 +110,20 @@ public class Admin_RefundSteps extends DriverBase {
         }
 
     }
+
+
+    @And("I refund Driver{int} earnings to customer")
+    public void iRefundDriverEarningsToCustomer(int arg0) {
+        try {
+            action.clearSendKeys(admin_refundsPage.TextBox_RefundAmount(),action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings())+Keys.TAB);
+            }
+            catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                true);
+        }
+    }
+
     @And("^I enter \"([^\"]*)\" as \"([^\"]*)\"")
     public void i_enter_something_as_something(String field, String value) throws Throwable {
         try{
@@ -124,6 +142,10 @@ public class Admin_RefundSteps extends DriverBase {
                 break;
             case "Code":
                 action.clearSendKeys(admin_PromoCodesPage.TextBox_Code(),value);
+                break;
+            case "Driver1 Notes":
+                action.clearSendKeys(admin_refundsPage.TextBox_Driver1Notes(),value);
+                cucumberContextManager.setScenarioContext("DRIVER1_NOTE",value);
                 break;
         }
         log("I enter value in "+field,"I entered  "+value+" in field "+field+" on Refund popup" ,false );
@@ -209,19 +231,19 @@ public class Admin_RefundSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" section should be displayed$")
     public void the_something_section_should_be_displayed(String header) throws Throwable {
        try{
-           testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header, "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
-           admin_refundsPage.TextBox_RefundAmount().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));;
-        String driverEarning = action.getAttributeValue(admin_refundsPage.Label_Driver());
-        String bungiiEarning = action.getText(admin_refundsPage.Label_Bungii());
-        cucumberContextManager.setScenarioContext("DRIVER_EARNINGS_BEFORE",driverEarning);
-        cucumberContextManager.setScenarioContext("BUNGII_EARNINGS_BEFORE",bungiiEarning);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
+            testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header, "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
+            admin_refundsPage.TextBox_RefundAmount().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));;
+            String driverEarning = action.getAttributeValue(admin_refundsPage.Label_Driver());
+            String bungiiEarning = action.getText(admin_refundsPage.Label_Bungii());
+            cucumberContextManager.setScenarioContext("DRIVER_EARNINGS_BEFORE",driverEarning);
+            cucumberContextManager.setScenarioContext("BUNGII_EARNINGS_BEFORE",bungiiEarning);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
+         }
     }
 
-    }
     @Then("^The \"([^\"]*)\" section should not be displayed$")
     public void the_something_section_should_not_be_displayed(String header) throws Throwable {
         Thread.sleep(5000);
@@ -230,7 +252,7 @@ public class Admin_RefundSteps extends DriverBase {
 
     @Then("^\"([^\"]*)\" fields should be auto calculated based on Delivery Total and Driver Earnings$")
     public void something_fields_should_be_auto_calculated_based_on_delivery_total_and_driver_earnings(String field) throws Throwable {
-try{
+    try{
         String deliveryTotal = action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$","");
         String customerInputAmount = action.getAttributeValue(admin_refundsPage.TextBox_RefundAmount()).trim();
         String customerInputPercentage = action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()).trim();
@@ -247,18 +269,16 @@ try{
                 testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_BungiiPercentage()),String.valueOf(df.format(calculatedBungiiPercentage)), "Bungii Earnings Percentage should be displayed", "Bungii Earnings Percentage is displayed","Bungii Earnings Percentage is not displayed");
                 break;
         }
-} catch(Exception e){
-    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-    error("Step should be successful", "Error performing step,Please check logs for more details",
+        } catch(Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step should be successful", "Error performing step,Please check logs for more details",
             true);
-}
+        }
     }
-
-
 
     @And("^\"([^\"]*)\" field should be auto calculated based on Delivery Total and Driver Earnings$")
     public void something_field_should_be_auto_calculated_based_on_delivery_total_and_driver_earnings(String field) throws Throwable {
-try{
+    try{
         String deliveryTotal = action.getText(admin_refundsPage.Label_DeliveryTotal()).trim().replace("$","");
         String customerInputAmount = action.getAttributeValue(admin_refundsPage.TextBox_RefundAmount()).trim();
         String customerInputPercentage = action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()).trim();
@@ -276,11 +296,11 @@ try{
                 testStepAssert.isEquals(action.getAttributeValue(admin_refundsPage.TextBox_RefundPercentage()),String.valueOf(df.format(calculatedAmountPecentage)), "Customer refund amount percentage should be displayed", "Customer refund amount percentage is displayed","Customer refund amount percentage is not displayed");
                 break;
         }
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
+        }
     }
 
     @And("^Notes text area should be displayed$")
@@ -803,4 +823,37 @@ try{
         }
     }
 
+    @Then("I should be able to see correct Transaction history on delivery details page")
+    public void iShouldBeAbleToSeeCorrectTransactionHistoryOnDeliveryDetailsPage() {
+        try {
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Text_DeliveryTotal()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DELIVERY_TOTAL")),
+                    "Delivery Total Amount should be displayed correctly under transaction history",
+                    "Delivery Total Amount is displayed correctly under transaction history",
+                    "Delivery Total Amount is not displayed correctly under transaction history");
+
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Text_CustomerRefund()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("REFUND_AMOUNT")),
+                    "Customer Refund Amount should be displayed correctly under transaction history",
+                    "Customer Refund Amount is displayed correctly under transaction history",
+                    "Customer Refund Amount is not displayed correctly under transaction history");
+
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Text_Driver1Earnings()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_EARNINGS")+".00"),
+                    "Driver1 earnings should be displayed correctly under transaction history",
+                    "Driver1 earnings is displayed correctly under transaction history",
+                    "Driver1 earnings is not displayed correctly under transaction history");
+
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Text_Driver2Earnings()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("DRIVER2_EARNINGS")),
+                    "Driver2 earnings should be displayed correctly under transaction history",
+                    "Driver2 earnings Amount is displayed correctly under transaction history",
+                    "Driver2 earnings Amount is not displayed correctly under transaction history");
+
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Text_BungiiEarnings()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS_AFTER_REFUND")),
+                    "Bungii earnings should be displayed correctly under transaction history",
+                    "Bungii earnings is displayed correctly under transaction history",
+                    "Bungii earnings is not displayed correctly under transaction history");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
+}
