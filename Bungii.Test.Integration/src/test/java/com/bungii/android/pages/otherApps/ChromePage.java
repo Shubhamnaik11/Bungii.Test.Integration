@@ -72,9 +72,9 @@ public class ChromePage extends PageBase {
     public WebElement Textbox_CVV() { return findElement("//android.widget.EditText[contains(@resource-id,'cvv')]", LocatorType.XPath);}
     public WebElement Textbox_PostalCode() { return findElement("//android.widget.EditText[contains(@resource-id,'postal-code')]", LocatorType.XPath);}
 
-    public WebElement Section_WhatsNeeded() { return findElement("//android.view.View[contains(@text,'WHAT'S NEEDED?')]", LocatorType.XPath);}
+    public WebElement Section_WhatsNeeded() { return findElement("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[2]/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View/android.view.View[3]/android.view.View/android.view.View", LocatorType.XPath);}
 
-    public WebElement Section_CustomQuote() { return findElement("//android.view.View[contains(@text,'Custom Quotes')]", LocatorType.XPath);}
+    public WebElement Section_CustomQuote() { return findElement("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[2]/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View/android.view.View[4]", LocatorType.XPath);}
 
-    public WebElement Text_DisclaimerMessage() { return findElement("//android.view.View[contains(@text,'Maximum dimensions/pallet is: 96″L x 50″W x 48″H. Max length for molding: 120″L.')]", LocatorType.XPath);}
+    public WebElement Text_DisclaimerMessage(boolean...ignoreException) { return findElement("//android.view.View[contains(@text,'Maximum dimensions/pallet is: 96″L x 50″W x 48″H. Max length for molding: 120″L.')]", LocatorType.XPath,ignoreException);}
 }

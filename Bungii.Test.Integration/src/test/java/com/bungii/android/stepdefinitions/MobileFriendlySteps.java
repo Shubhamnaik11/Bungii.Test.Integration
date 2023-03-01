@@ -357,10 +357,10 @@ public class MobileFriendlySteps extends DriverBase {
         try{
             switch(message) {
                 case "Disclaimer message":
-                    action.waitUntilIsElementExistsAndDisplayed(chromePage.Text_DisclaimerMessage());
-                    boolean isDisclaimerMessagePresent=chromePage.Text_DisclaimerMessage().isDisplayed();
-                    testStepAssert.isFalse(isDisclaimerMessagePresent, "Disclaimer message should not be present","Disclaimer message is not present","Disclaimer message is present");
-                    break;
+                testStepAssert.isFalse(action.isElementPresent(chromePage.Text_DisclaimerMessage(true)),
+                        "Disclaimer message should not be present",
+                        "Disclaimer message is not present",
+                        "Disclaimer message is present");
             }
         }
         catch(Exception e){
@@ -373,7 +373,22 @@ public class MobileFriendlySteps extends DriverBase {
     @Then("I verify the UI for Space between {string} & {string} section is corectly displayed")
     public void iVerifyTheUIForSpaceBetweenSectionIsCorectlyDisplayed(String arg0, String arg1) {
         try{
+            Point whatsNeededSection= chromePage.Section_WhatsNeeded().getLocation();
+            Dimension whatsNeededSectionSize=chromePage.Section_WhatsNeeded().getSize();
+            int whatsNeededSectionBottom= whatsNeededSection.getY() + whatsNeededSectionSize.getHeight();
 
+            Point customQuoteSection= chromePage.Section_CustomQuote().getLocation();
+            int customQuoteSectionTop= customQuoteSection.getY();
+
+            int spacing= customQuoteSectionTop -whatsNeededSectionBottom;
+            String actualSpacing=Integer.toString(spacing);
+
+            String expctedspacing ="42";
+
+            testStepAssert.isEquals(actualSpacing, expctedspacing,
+                    "Sufficient space should be present in between What's Needed & Custom Quote",
+                    "Sufficient space is present in between What's Needed & Custom Quote",
+                    "Sufficient space is not present in between What's Needed & Custom Quote");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

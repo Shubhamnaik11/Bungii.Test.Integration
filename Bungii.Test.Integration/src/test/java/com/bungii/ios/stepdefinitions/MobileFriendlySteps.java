@@ -10,11 +10,14 @@ import com.bungii.ios.pages.other.SafariPage;
 
 import com.bungii.ios.stepdefinitions.customer.HomeSteps;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 
 import java.util.Map;
 
@@ -62,6 +65,11 @@ public class MobileFriendlySteps extends DriverBase {
                 case "kiosk mode":
                     action.click(safariPage.Textbox_SafariSearch());
                     action.sendKeys(safariPage.Textbox_SafariSearchBar(),PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url"));
+                    action.click(safariPage.Button_Go());
+                    break;
+                case "FloorDecor service level #214":
+                    action.click(safariPage.Textbox_SafariSearch());
+                    action.sendKeys(safariPage.Textbox_SafariSearchBar(),PropertyUtility.getDataProperties("qa.fnd_service_level#214_partner.url"));
                     action.click(safariPage.Button_Go());
                     break;
             }
@@ -446,11 +454,36 @@ public class MobileFriendlySteps extends DriverBase {
         try{
             switch(message) {
                 case "Disclaimer message":
-                    action.waitUntilIsElementExistsAndDisplayed(safariPage.Text_DisclaimerMessage());
-                    boolean isDisclaimerMessagePresent=safariPage.Text_DisclaimerMessage().isDisplayed();
-                    testStepAssert.isFalse(isDisclaimerMessagePresent, "Disclaimer message should not be present","Disclaimer message is not present","Disclaimer message is present");
-                    break;
+                testStepAssert.isFalse(action.isElementPresent(safariPage.Text_DisclaimerMessage(true)),
+                        "Disclaimer message should not be present", "Disclaimer message is not present", "Disclaimer message is present");
             }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("I verify the UI for Space between {string} & {string} section is corectly displayed")
+    public void iVerifyTheUIForSpaceBetweenSectionIsCorectlyDisplayed(String arg0, String arg1) {
+        try{
+            Point whatsNeededSection= safariPage.Section_WhatsNeeded().getLocation();
+            Dimension whatsNeededSectionSize=safariPage.Section_WhatsNeeded().getSize();
+            int whatsNeededSectionBottom= whatsNeededSection.getY() + whatsNeededSectionSize.getHeight();
+
+            Point customQuoteSection= safariPage.Section_CustomQuote().getLocation();
+            int customQuoteSectionTop= customQuoteSection.getY();
+
+            int spacing= customQuoteSectionTop -whatsNeededSectionBottom;
+            String actualSpacing=Integer.toString(spacing);
+
+            String expctedspacing ="21";
+
+            testStepAssert.isEquals(actualSpacing, expctedspacing,
+                    "Sufficient space should be present in between What's Needed & Custom Quote",
+                    "Sufficient space is present in between What's Needed & Custom Quote",
+                    "Sufficient space is not present in between What's Needed & Custom Quote");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

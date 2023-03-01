@@ -68,7 +68,7 @@
       And I terminate "customer" app on "same" devices
       When I open new "Safari" browser for "MOBILE DEVICE"
 
-      And I open "weight based fnd partner portal" partner portal
+      And I open "FloorDecor service level #214" partner portal
       And I check "What's needed?" section is displayed
       And I check "Custom Quotes" section is displayed
       And I check "Disclaimer message" is not present
