@@ -85,7 +85,6 @@ Scenario: Display and search delivery by Order ID or Receipt Number on partner p
     | Canceled    |
 
   @ready
-  @sc
   #CORE-4693 Deliveries gets stuck in "Trip completed" status when the deliveries are scheduled using customer card and their Drivers do not have Branch wallet
   Scenario: To Verify the status of partner portal trip completed by driver(s) with no Branch app wallet
     Given I'm logged into "Partner" portal and  created a new  delivery
