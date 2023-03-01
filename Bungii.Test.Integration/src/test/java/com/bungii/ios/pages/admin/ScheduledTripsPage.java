@@ -18,10 +18,10 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement TextBox_Phone() {
         return findElement("PhoneNo", LocatorType.Name);
     }
-    public List<WebElement> Row_TripDetails() { return findElements("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]", LocatorType.XPath); }
+    public List<WebElement> Row_TripDetails() { return findElements("//table/tbody/tr", LocatorType.XPath); }
 
     public WebElement TableBody_TripDetails() {
-        return findElement("TripListsTBody", LocatorType.Id);
+        return findElement("//tbody/tr", LocatorType.XPath);
     }
     public WebElement Dropdown_CancellationReason () { return findElement("//div[@class='cancelation-fee']/ancestor::div[1]/following::div/select[@class='form-select']", LocatorType.XPath); }
 
@@ -32,7 +32,7 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement RadioBox_Research() {return findElement("//label[contains(@class,'driverCancel')]/input", LocatorType.XPath); }
  //   public WebElement Button_Research() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[2]", LocatorType.XPath); }
-    public WebElement Button_Research() {return findElement("//*[contains(@id,'tripDriverDetails')]//*[contains(text(),'Re-search a driver')]/parent::button", LocatorType.XPath); }
+    public WebElement Button_Research() {return findElement("//strong[text()='Re-search a driver']", LocatorType.XPath); }
 
     public WebElement TextBox_CancelFee() {
         return findElement("cancelationFee", LocatorType.Id);
@@ -91,9 +91,9 @@ public class ScheduledTripsPage extends PageBase {
         waitForLoadingToDisappear();
     }
 
-    public WebElement CheckBox_Driver1() {return findElement("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath); }
+    public WebElement CheckBox_Driver1() {return findElement("checkbox0", LocatorType.Id); }
     public WebElement CheckBox_Driver2() {return findElements("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath).get(1); }
-    public WebElement Button_Remove() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[1]", LocatorType.XPath); }
+    public WebElement Button_Remove() {return findElement("//strong[text()='Remove']", LocatorType.XPath); }
     public WebElement TextBox_DriverSearch() {return findElement("//div[@class='addDriver']/div/div/input", LocatorType.XPath);}
     public WebElement Select_TestDriver(){return findElement("//input[@placeholder='Enter driver name']/following-sibling::div/div[1]", LocatorType.XPath);}
     public WebElement Text_EditTrpDetailsDriver1Name(){return findElement("//div[@class=\"driver-edit\"]/div/span[1]", LocatorType.XPath);}
