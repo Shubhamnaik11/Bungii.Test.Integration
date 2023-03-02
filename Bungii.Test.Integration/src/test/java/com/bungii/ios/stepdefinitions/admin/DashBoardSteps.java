@@ -73,7 +73,7 @@ public class DashBoardSteps extends DriverBase {
     @And("^I calculate the driver share and check for \"([^\"]*)\"$")
     public void i_calculate_the_driver_share_and_check_for_something(String type) throws Throwable {
        try {
-           float estimateCustomerCharge = Float.parseFloat((String) cucumberContextManager.getScenarioContext("CUSTOMER_CHARGE"));
+           float estimateCustomerCharge = Float.parseFloat(((String) cucumberContextManager.getScenarioContext("CUSTOMER_CHARGE")).replaceAll("Price Override",""));
            switch (type)
            {
                case "solo":
@@ -252,6 +252,7 @@ public class DashBoardSteps extends DriverBase {
             switch (option.toLowerCase()) {
                 case "scheduled trip":
                     action.click(dashBoardPage.Button_Trips());
+                    Thread.sleep(3000);
                     action.click(dashBoardPage.Button_ScheduledTrips());
                     break;
                 case "promo code":
@@ -305,20 +306,13 @@ public class DashBoardSteps extends DriverBase {
             action.click(dashBoardPage.Button_Search());
 
             Thread.sleep(25000);
-/*			List<WebElement> rows = scheduledTripsPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]),PageBase.LocatorType.XPath);
-			if(rows.size()>0)
-			rows.get(0).click();
-			else {
-			    String xpath = String.format("//td/a[contains(text(),'%s')]/ancestor::tr/td/p[@id='btnEdit']",name[0]);
-                error("I open the trip for "+custName+" customer","Not Found Bungii with XPath :" +xpath, true);
-            }*/
 
-            List<WebElement> rows_editicon = dashBoardPage.findElements(String.format("//td/a[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]), PageBase.LocatorType.XPath);
-            List<WebElement> rows_editlink = dashBoardPage.findElements(String.format("//td/a[contains(text(),'%s')]/ancestor::td/following-sibling::td/div/ul/li/p[contains(text(),'Delivery Details')]",name[0]),PageBase.LocatorType.XPath);
+            List<WebElement> rows_editicon = dashBoardPage.findElements(String.format("//td/span[contains(text(),'%s')]/parent::td/following-sibling::td/div/img",name[0]), PageBase.LocatorType.XPath);
 
             if(rows_editicon.size()>0)
             {
                 rows_editicon.get(0).click();
+                List<WebElement> rows_editlink = dashBoardPage.findElements(String.format("//td/span[contains(text(),'%s')]/ancestor::td/following::div/div/a[contains(text(),'Delivery Details')]",name[0]),PageBase.LocatorType.XPath);
                 rows_editlink.get(0).click();
             }
 

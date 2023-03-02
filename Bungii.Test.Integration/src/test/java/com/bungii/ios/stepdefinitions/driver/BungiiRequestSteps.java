@@ -104,6 +104,9 @@ public class BungiiRequestSteps extends DriverBase {
         switch (checkingParameter) {
             case "same day payment":
             String driverOne = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            if(driverOne.equalsIgnoreCase("")){
+                driverOne=(String)cucumberContextManager.getScenarioContext("DRIVER_PHONE_NUMBER");
+            }
             String disbursmentTypeDriverOne = dbUtility.getDisbursementType(pickUpRef, driverOne);
             testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
                     "Correct disbursement type value should be set for same day payment setting",

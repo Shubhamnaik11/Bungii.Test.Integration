@@ -27,7 +27,7 @@ public class DriversPage extends PageBase {
         return findElement("//XCUIElementTypeButton[@name='Branch wallet']", LocatorType.XPath);
     }
     public WebElement Screen_DefaultBrowser() {
-        return findElement("//XCUIElementTypeOther[@name=\"BrowserWindow\"]", LocatorType.XPath);
+        return findElement("//XCUIElementTypeApplication[@name=\"Safari\"]", LocatorType.XPath);
     }
     public WebElement Button_GetBranchApp() {
         return findElement("//XCUIElementTypeLink[@name=\"Get The App\"]", LocatorType.XPath);

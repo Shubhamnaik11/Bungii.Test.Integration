@@ -25,9 +25,9 @@ Feature: Overlapping TELET
     And I Select "Edit Trip Details" option
     And I assign driver "Testdrivertywd_appleks_a_drvar Kansas_ar" for the trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
@@ -68,9 +68,9 @@ Feature: Overlapping TELET
     And I Select reason as "Partner initiated" to edit datetime
     And I assign driver "Testdrivertywd_appleks_a_drvas Kansas_as" for the trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
@@ -109,9 +109,9 @@ Feature: Overlapping TELET
     And I Select "Edit Trip Details" option
     And I assign driver "Testdrivertywd_appleks_a_drvat Kansas_at" for the trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
@@ -139,9 +139,9 @@ Feature: Overlapping TELET
     And I Select "Edit Trip Details" option
     And I assign driver "Testdrivertywd_appleks_a_drvat Kansas_at" for the trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
@@ -180,9 +180,9 @@ Feature: Overlapping TELET
     And I Select "Edit Trip Details" option
     And I assign driver "Testdrivertywd_appleks_a_drvac Kansas_ac" for the trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
@@ -223,9 +223,9 @@ Feature: Overlapping TELET
     And I Select "Edit Trip Details" option
     And I assign driver "Testdrivertywd_appleks_a_drvac Kansas_ac" for the trip
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices

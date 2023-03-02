@@ -642,12 +642,12 @@ Feature: Admin_Price_Override
       And I click on "Verify" button on Edit Scheduled bungii popup
       And I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
-      When I click on "Close" button
       And I wait for 2 minutes
       And I refresh the page
       And I get the new pickup reference generated
       And I view the all Scheduled Deliveries list on the admin portal
-      And I open the trip for "Testcustomertywd_BppleMarkBG LutherBG" the customer for delivery details
+      And I search the delivery of Customer "Testcustomertywd_BppleMarkBG LutherBG"
+      When I click on the "Delivery Details" button from the dropdown
       Then I check "Customer price" is retained after "duo to solo" conversion
       Then I check "Driver Earning" is retained after "duo to solo" conversion
 
@@ -688,10 +688,10 @@ Feature: Admin_Price_Override
     And I click on "Verify" button on Edit Scheduled bungii popup
     And I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
-    When I click on "Close" button
     And I wait for 2 minutes
     And I refresh the page
-    And I open the trip for "Testcustomertywd_BppleMarkBH LutherBH" the customer for delivery details
+    And I search the delivery of Customer "Testcustomertywd_BppleMarkBH LutherBH"
+    When I click on the "Delivery Details" button from the dropdown
     Then I check "Customer price" is retained after "solo to duo" conversion
     Then I check "Driver Earning" is retained after "solo to duo" conversion
 #    Core-2960 Verify price override validation when customer cost is less than or equal to driver earnings in SOLO to DUO

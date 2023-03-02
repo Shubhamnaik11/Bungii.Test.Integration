@@ -274,7 +274,7 @@ public class Partner_DashboardPage extends PageBase {
 
 
     //Partner portal filter
-    public WebElement DropDown_Filter() { return findElement("//div[@class=\"caret filter\"]",LocatorType.XPath);}
+    public WebElement DropDown_Filter() { return findElement("//div[@class='caret filter']",LocatorType.XPath);}
 
     //Select checkbox from partner portal filter
     public WebElement Checkbox_Completed(String filter) { return findElement(String.format("//div/div/label[text()='%s']",filter),LocatorType.XPath);}

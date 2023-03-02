@@ -61,6 +61,7 @@ Feature: Admin_DriverDetails
     And As a driver "Macy Chang" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |
+    And I wait for "2" mins
     Then The Driver Trip List page should display the trip in "Driver(s) Accepted" state
     #CORE-4198
     And I search by "Customer Name"
@@ -150,7 +151,7 @@ Feature: Admin_DriverDetails
 
 #  Core-4175
     @regression
-    Scenario Outline: Verify that existing drivers with Branch app Registration on admin portal
+    Scenario Outline: Verify that existing drivers with Branch app Registration on admin portal for <Type>
       When I search driver "<DriverName>"
       And I click "Profile" button for the "<DriverName>" driver
       Then I check if "<Details>" are displayed

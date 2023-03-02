@@ -23,7 +23,7 @@ public class Partner_Done extends PageBase {
     public WebElement Checkbox_Check_UnCheck_All() { return findElement("//label[contains(text(),'Check / uncheck all')]",LocatorType.XPath);}
 
     //Apply button
-    public WebElement Button_Apply() { return findElement("//button[text()=\"APPLY\"]",LocatorType.XPath);}
+    public WebElement Button_Apply() { return findElement("//div/form/div/div[5]/button[text()=\"APPLY\"]",LocatorType.XPath);}
 
     // Report link in dropdown
     public WebElement Text_Report() { return findElement("//span[contains(text(),'Reports')]",LocatorType.XPath);}

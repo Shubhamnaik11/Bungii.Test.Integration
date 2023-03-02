@@ -203,6 +203,8 @@ Scenario: To verify that admin can add accessorial charges for partner canceled 
 	And I click on "History"
 	Then I should be able to see "partner cancelled event - driver not accepted"
 	And I close the Note
+	When I view the Deliveries list on the admin portal
+	And I search the delivery using "Pickup Reference"
 	Then Revive button should be displayed beside the trip
 	When I click on "Revive" button
 	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin

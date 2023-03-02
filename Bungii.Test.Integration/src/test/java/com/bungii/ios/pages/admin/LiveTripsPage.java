@@ -46,7 +46,7 @@ public class LiveTripsPage extends PageBase{
     //Driver Referral Page
     public WebElement Icon_Referral (boolean ...ignoreException) { return findElement("//XCUIElementTypeImage[@name='referral-invite-foreground']", LocatorType.XPath,ignoreException); }
     public WebElement Text_SubHeader () { return findElement("//XCUIElementTypeStaticText[@name=\"YOUR $5 GUARANTEE IS WAITING*\"]", LocatorType.XPath); }
-    public WebElement Icon_DollarSign () { return findElement("//XCUIElementTypeImage[@name=\"icon-dollar\"]", LocatorType.XPath); }
+    public WebElement Icon_DollarSign () { return findElement("//XCUIElementTypeImage[@name=\"referral-invite-foreground\"]", LocatorType.XPath); }
     public WebElement Text_Instructions () { return findElement("//XCUIElementTypeStaticText[@name=\"Make upto $5 for each new driver you invite that completes 10 deliveries.*\"]", LocatorType.XPath); }
     public WebElement Tab_ReferralCode () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath); }
     public WebElement Text_TapToCopy () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
@@ -64,6 +64,6 @@ public class LiveTripsPage extends PageBase{
     public WebElement Text_ReferralHeader () { return findElement("//XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath); }
     public WebElement Button_Invite () { return findElement("//XCUIElementTypeButton[@name=\"INVITE\"]", LocatorType.XPath); }
 
-    public WebElement Text_EarningsInfo () { return findElement("//XCUIElementTypeApplication[@name=\"Bungii Driver QAAuto\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
+    public WebElement Text_EarningsInfo () { return findElement("//XCUIElementTypeStaticText[contains(@name,'Same day payment')]", LocatorType.XPath); }
 
 }

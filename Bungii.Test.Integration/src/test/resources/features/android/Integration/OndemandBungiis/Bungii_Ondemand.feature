@@ -196,5 +196,23 @@ Feature: On Demand Bungii
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
     And I click "On To The Next One" button on the "Bungii Completed" screen
     Then poor driver ratting should be sent to customer
-  
-    
+
+  @ready
+  #CORE-4732
+  Scenario:Verify Transform pickup for the ondemand trip
+    Given I am logged in as "valid baltimore" customer
+    When I tap on "Menu" > "HOME" link
+    And I enter "new baltimore pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then for a Bungii I should see "Bungii search screen"
+    And I wait for "3" mins
+    Then for a Bungii I should see "SET PICKUP TIME SCREEN"
+    When I tap "Schedule Bungii" button on DRIVER NOT AVAILABLE screen
+    Then I should be navigated to "Success!" screen
+    And I click "Done" button on "Success" screen
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"

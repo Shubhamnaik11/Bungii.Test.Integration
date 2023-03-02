@@ -209,14 +209,14 @@ Feature: Admin_PartnerFirmTrips
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999102 | Testcustomertywd_appleNewQB Customer|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_drvaj Washingtonaj" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |
     And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" Delivery
+    And As a driver "Testdrivertywd_appledc_a_drvaj Washingtonaj" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Enroute  |
       | Arrived |
@@ -226,7 +226,7 @@ Feature: Admin_PartnerFirmTrips
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 8877661115 | Testcustomertywd_appleMarkDL LutherDL|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Ondemand" Delivery
+    And As a driver "Testdrivertywd_appledc_a_drvaj Washingtonaj" perform below action with respective "Solo Ondemand" Delivery
       | driver1 state|
       |Stacked Pickup Accepted |
     And I get the new pickup reference generated

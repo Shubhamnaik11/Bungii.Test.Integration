@@ -865,11 +865,12 @@ try{
     @When("^I click on \"([^\"]*)\" link beside live delivery$")
     public void i_click_on_something_link_beside_live_delivery(String link) throws Throwable {
         try{
-        Thread.sleep(4000);
            // action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnLiveEdit']")));
 //            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//td/div/img")));
 //            action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("//a[contains(text(),'Edit')]")));
+            action.waitUntilIsElementExistsAndDisplayed(admin_EditScheduledBungiiPage.Icon_Dropdown(), (long) 4000);
             action.click(admin_EditScheduledBungiiPage.Icon_Dropdown());
+            action.waitUntilIsElementExistsAndDisplayed(admin_EditScheduledBungiiPage.Option_Edit(), (long) 3000);
             action.click(admin_EditScheduledBungiiPage.Option_Edit());
             log(" I click on Edit link besides the live delivery",
                 "I have clicked on Edit link besides the live delivery", false);
@@ -1094,7 +1095,7 @@ try{
 
     @And("^I change delivery type from \"([^\"]*)\"")
     public void i_change_on_something_radiobutton(String radiobutton) throws Throwable {
-try{
+    try{
         switch (radiobutton) {
             case "Solo to Duo":
                 action.click(admin_EditScheduledBungiiPage.RadioButton_Duo());
@@ -1104,14 +1105,13 @@ try{
                 action.click(admin_EditScheduledBungiiPage.RadioButton_Solo());
                 cucumberContextManager.setScenarioContext("BUNGII_TYPE","SOLO");
                 break;
-        }
-        log("I change delivery type from  "+ radiobutton,
-                "I changed delivery type from "+ radiobutton, false);
-} catch(Exception e){
-    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-    error("Step should be successful", "Error performing step,Please check logs for more details",
+            }
+            log("I change delivery type from  "+ radiobutton, "I changed delivery type from "+ radiobutton, false);
+         } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
             true);
-}
+        }
     }
     @And("^I get the new pickup reference generated$")
     public void i_get_the_new_pickup_reference_generated() throws Throwable {
@@ -1885,11 +1885,11 @@ try{
         action.click(admin_ScheduledTripsPage.Button_RemoveDriversEdit());
         log("I remove control driver on edit popup",
                 "I have removed control driver on edit popup", false);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
+        }
     }
     @Then("^The driver should get removed successfully$")
     public void the_driver_should_get_removed_successfully() throws Throwable {
@@ -1898,11 +1898,11 @@ try{
         action.click((admin_ScheduledTripsPage.Button_Close()));
         log("I click close button",
                 "I have clicked close button ", false);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
+         } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
+        }
     }
 
     @When("^I search by client name \"([^\"]*)\"$")
@@ -2304,12 +2304,11 @@ try{
 
     @Then("^\"([^\"]*)\" message should be displayed$")
     public void something_message_should_be_displayed(String message) throws Throwable {
-try{
+    try{
         switch(message) {
-
             case "Your changes are good to be saved.":
             testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifiedMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
-            break;
+                break;
             case "Bungii Saved":
                 Thread.sleep(6000);
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_SuccessMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
@@ -2325,13 +2324,12 @@ try{
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifyError(), message,message +" should be displayed", message +" is displayed",message +" is not displayed");
                 action.click(admin_EditScheduledBungiiPage.Button_Close());
                 break;
-        }
-} catch(Exception e){
-    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-    error("Step should be successful", "Error performing step,Please check logs for more details",
+            }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
             true);
-}
-
+        }
     }
 
     @And("^I update the Scheduled date of the trip by 15 minutes$")
@@ -2564,7 +2562,7 @@ try{
         try{
             switch (notetype){
                 case "Additional Notes":
-                    Thread.sleep(1000);
+                    action.waitUntilIsElementExistsAndDisplayed(admin_EditScheduledBungiiPage.Text_Additional_Note(), (long) 5000);
                     String addNote = action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note());
                     testStepAssert.isTrue(addNote.length() <1,"Additional notes field should be empty","Additional notes field is empty","Additional notes field is not empty");
                     break;
@@ -2710,7 +2708,7 @@ try{
               testStepAssert.isEquals(deliveryStatusForAdminCancel,deliveryStatus,"Delivery should be in "+deliveryStatus +" state","Delivery is in "+deliveryStatus +" state","Delivery is not in "+deliveryStatus +" state");
               break;
           case "Assigning Driver(s) with no loader":
-              Thread.sleep(2000);
+              Thread.sleep(5000);
               testStepAssert.isNotElementDisplayed(admin_LiveTripsPage.Icon_LoadingIconSearching(true),"Loading animation should not be displayed","Loading animation is not  displayed","Loading animation is displayed");
               boolean isInDriverNoSearchingState = admin_LiveTripsPage.Icon_LoadingIconStoppedSearching().isDisplayed();
               testStepAssert.isTrue(isInDriverNoSearchingState,"No Loading animation should be displayed","No Loading animation is displayed","No Loading animation is not displayed");

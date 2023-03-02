@@ -929,7 +929,7 @@ public class UpdateStatusSteps extends DriverBase {
         try{
             switch (icon){
                 case "$":
-                    action.clickBy2Points(370,67);
+                    action.click(liveTripsPage.Icon_DollarSign());
                     break;
                 case "Back":
                     action.click(liveTripsPage.Button_Back());

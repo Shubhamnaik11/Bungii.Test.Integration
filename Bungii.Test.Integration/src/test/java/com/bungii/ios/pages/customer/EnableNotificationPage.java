@@ -15,15 +15,13 @@ public class EnableNotificationPage extends PageBase {
     public WebElement Text_Label() {
         return findElements("//XCUIElementTypeStaticText", PageBase.LocatorType.XPath).get(1);
     }*/
-public WebElement Button_Sure(boolean ...ignoreException) {
-    return findElement("SURE", LocatorType.AccessibilityId,ignoreException);
-}
+    public WebElement Button_Sure(boolean ...ignoreException) { return findElement("SURE", LocatorType.AccessibilityId,ignoreException);}
 
     public WebElement Text_Header() {
         return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(0);
     }
 
-    public WebElement Text_Label() {
-        return findElements("XCUIElementTypeStaticText", PageBase.LocatorType.ClassName).get(1);
-    }
+    public WebElement Text_Label() { return findElements("XCUIElementTypeStaticText", PageBase.LocatorType.ClassName).get(1);}
+
+    public WebElement Icon_Notification(boolean ...ignoreException) { return findElement("//XCUIElementTypeImage[@name=\"icon_notification_permission\"]", LocatorType.XPath,ignoreException);}
 }

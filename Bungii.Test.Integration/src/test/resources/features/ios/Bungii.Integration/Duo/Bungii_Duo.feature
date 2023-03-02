@@ -800,9 +800,9 @@ Feature: Scheduled DUO Bungii
     And I edit the pickup address
     Then I change the pickup address to "Navelim Village Panchayat"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When  I switch to "Customer2" instance
     And I calculate the "telet" time after "changed pickup"
@@ -859,9 +859,9 @@ Feature: Scheduled DUO Bungii
     And I edit the pickup address
     Then I change the pickup address to "Navelim Village Panchayat"
     And I click on "VERIFY" button
-    And the "Your changes are good to be saved." message is displayed
+    And The "Your changes are good to be saved." message is displayed
     Then I click on "SAVE CHANGES" button
-    And the "Bungii Saved!" message is displayed
+    And The "Bungii Saved!" message is displayed
 
     When  I switch to "Customer2" instance
     And I calculate the "telet-short stack" time after "changed pickup"

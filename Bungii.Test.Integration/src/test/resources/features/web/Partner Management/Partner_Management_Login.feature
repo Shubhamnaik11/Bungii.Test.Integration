@@ -36,6 +36,7 @@ Feature: Partner Management login
     Then The "Dashboard" "Header" should be displayed
     And I click on the "Logout" Button
     And The "Welcome to Bungii Partner Management" "Header" should be displayed
+
   @ready
   Scenario:To verify Valid user can login to Partner Management portal using Admin Portal
     When I am logged in as Admin

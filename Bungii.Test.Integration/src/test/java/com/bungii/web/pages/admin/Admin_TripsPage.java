@@ -109,7 +109,7 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Dropdown_FilterTomorrow() {return findElement("//option[contains(text(),'Tomorrow')]",LocatorType.XPath);}
 
-    public WebElement Header_LiveDeliveries() {return findElement("//h4[contains(text(),'Live Delivery List')]",LocatorType.XPath);}
+    public WebElement Header_LiveDeliveries() {return findElement("//body/div/div/div/div/div/div/div/h4",LocatorType.XPath);}
 
     public WebElement Menu_CompletedDeliveries() {return findElement("//a[contains(text(),'Completed Deliveries')]",LocatorType.XPath);}
     public WebElement Menu_RejectedAPIDeliveries () { return findElement("//a[contains(text(),'Rejected API Deliveries')]", LocatorType.XPath); }
