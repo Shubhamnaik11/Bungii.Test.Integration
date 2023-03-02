@@ -846,7 +846,7 @@ public class Admin_RefundSteps extends DriverBase {
                     "Driver2 earnings Amount is displayed correctly under transaction history",
                     "Driver2 earnings Amount is not displayed correctly under transaction history");
 
-            testStepAssert.isEquals(action.getText(admin_refundsPage.Text_BungiiEarnings()),"$"+String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS_AFTER_REFUND")),
+            testStepAssert.isEquals(action.getText(admin_refundsPage.Text_BungiiEarnings()),String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_EARNINGS_AFTER_REFUND")),
                     "Bungii earnings should be displayed correctly under transaction history",
                     "Bungii earnings is displayed correctly under transaction history",
                     "Bungii earnings is not displayed correctly under transaction history");

@@ -854,7 +854,7 @@ Feature: Admin_Refund
 			| Testcustomertywd_appleMarkFS LutherFS |Testdrivertywd_appledc_a_drvaf Washingtonaf  |   8877661174      |  0               |
 
 	@ready
-	#PR not yet raised because of issue- CORE-5802 which is related to payment method not automatically getting selected for Partial Refund
+	#Issue Raised CORE-5802: Payment method not automatically getting selected for Partial Refund
 	#CORE-4644: Verify Bungii earnings and Driver share view details link of Transaction history when partial refund is performed
 	Scenario: Verify Partial Refund for Duo Delivery and complete Driver payment
 		When I request "duo" Bungii as a customer in "washingtondc" geofence
