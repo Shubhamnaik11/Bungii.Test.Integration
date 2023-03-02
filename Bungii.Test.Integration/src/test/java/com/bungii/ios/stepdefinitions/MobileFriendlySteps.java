@@ -67,11 +67,6 @@ public class MobileFriendlySteps extends DriverBase {
                     action.sendKeys(safariPage.Textbox_SafariSearchBar(),PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url"));
                     action.click(safariPage.Button_Go());
                     break;
-                case "FloorDecor service level #214":
-                    action.click(safariPage.Textbox_SafariSearch());
-                    action.sendKeys(safariPage.Textbox_SafariSearchBar(),PropertyUtility.getDataProperties("qa.fnd_service_level#214_partner.url"));
-                    action.click(safariPage.Button_Go());
-                    break;
             }
             action.waitUntilIsElementExistsAndDisplayed(safariPage.Textbox_EnterPassword());
             action.clearSendKeys(safariPage.Textbox_EnterPassword(),PropertyUtility.getDataProperties("PartnerPassword"));
@@ -402,7 +397,7 @@ public class MobileFriendlySteps extends DriverBase {
         }
     }
     @And("^I enter \"([^\"]*)\" password for Admin access$")
-    public void i_enter_some_password_for_admin_access(String value){
+    public void i_enter_some_password_for_admin_access(String value) {
         try {
             switch (value) {
                 case "valid":
@@ -410,85 +405,11 @@ public class MobileFriendlySteps extends DriverBase {
                     break;
             }
             log("I enter " + value + " password for Admin access", "I have entered " + value + " password for Admin access", false);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
-        }
-    }
-
-    @And("I check {string} section is displayed")
-    public void iCheckSectionIsDisplayed(String section) {
-        try{
-            switch(section) {
-                case "What's needed?":
-                    action.waitUntilIsElementExistsAndDisplayed(safariPage.Section_WhatsNeeded());
-                    boolean isWhatsNeedDisplayed= safariPage.Section_WhatsNeeded().isDisplayed();
-                    testStepAssert.isTrue(isWhatsNeedDisplayed,
-                            "What's Needed section should be displayed",
-                            "What's Needed section is displayed",
-                            "What's Needed section is not displayed");
-                    break;
-
-                case "Custom Quotes":
-                    action.waitUntilIsElementExistsAndDisplayed(safariPage.Section_CustomQuote());
-                    boolean isCustomQuoteDisplayed= safariPage.Section_CustomQuote().isDisplayed();
-                    testStepAssert.isTrue(isCustomQuoteDisplayed,
-                            "Custom Quotes section should be displayed",
-                            "Custom Quotes section is displayed",
-                            "Custom Quotes section is not displayed");
-                    break;
-            }
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-    }
-
-    @And("I check {string} is not present")
-    public void iCheckIsNotPresent(String message) {
-        try{
-            switch(message) {
-                case "Disclaimer message":
-                testStepAssert.isFalse(action.isElementPresent(safariPage.Text_DisclaimerMessage(true)),
-                        "Disclaimer message should not be present", "Disclaimer message is not present", "Disclaimer message is present");
-            }
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-    }
-
-    @Then("I verify the UI for Space between {string} & {string} section is corectly displayed")
-    public void iVerifyTheUIForSpaceBetweenSectionIsCorectlyDisplayed(String arg0, String arg1) {
-        try{
-            Point whatsNeededSection= safariPage.Section_WhatsNeeded().getLocation();
-            Dimension whatsNeededSectionSize=safariPage.Section_WhatsNeeded().getSize();
-            int whatsNeededSectionBottom= whatsNeededSection.getY() + whatsNeededSectionSize.getHeight();
-
-            Point customQuoteSection= safariPage.Section_CustomQuote().getLocation();
-            int customQuoteSectionTop= customQuoteSection.getY();
-
-            int spacing= customQuoteSectionTop -whatsNeededSectionBottom;
-            String actualSpacing=Integer.toString(spacing);
-
-            String expctedspacing ="21";
-
-            testStepAssert.isEquals(actualSpacing, expctedspacing,
-                    "Sufficient space should be present in between What's Needed & Custom Quote",
-                    "Sufficient space is present in between What's Needed & Custom Quote",
-                    "Sufficient space is not present in between What's Needed & Custom Quote");
-        }
-        catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
         }
     }
 }

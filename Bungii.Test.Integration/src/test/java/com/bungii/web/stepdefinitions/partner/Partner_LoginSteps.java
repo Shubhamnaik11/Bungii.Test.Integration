@@ -1163,8 +1163,7 @@ public class Partner_LoginSteps extends DriverBase {
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 
@@ -1182,8 +1181,7 @@ public class Partner_LoginSteps extends DriverBase {
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 
@@ -1209,8 +1207,7 @@ public class Partner_LoginSteps extends DriverBase {
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 }
