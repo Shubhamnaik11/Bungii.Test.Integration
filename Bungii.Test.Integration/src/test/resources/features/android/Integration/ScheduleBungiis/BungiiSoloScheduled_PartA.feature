@@ -548,4 +548,4 @@ Feature: SoloScheduled
     And I click on "View Request" button
     And I wait for 1 minutes
     And I click on "Accept" button
-    And I Select Trip from driver scheduled trip
+    Then I Select Trip from driver scheduled trip

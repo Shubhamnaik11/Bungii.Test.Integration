@@ -95,5 +95,5 @@
       And I am logged in as "testdrivertywd_applemd_a_billl baltimorel" driver
       And I wait for "4" mins
       And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
-      Then I should be navigated to "SCHEDULED BUNGII" screen
-      And I Select Trip from scheduled trip
+      And I should be navigated to "SCHEDULED BUNGII" screen
+      Then I Select Trip from scheduled trip

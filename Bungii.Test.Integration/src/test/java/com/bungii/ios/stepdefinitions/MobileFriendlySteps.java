@@ -2,7 +2,6 @@ package com.bungii.ios.stepdefinitions;
 
 
 import com.bungii.SetupManager;
-import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -26,7 +25,6 @@ public class MobileFriendlySteps extends DriverBase {
     private static LogUtility logger = new LogUtility(CommonSteps.class);
     ActionManager action = new ActionManager();
     SafariPage safariPage= new SafariPage();
-    GeneralUtility utility = new GeneralUtility();
     @When("^I terminate \"([^\"]*)\" app on \"([^\"]*)\" devices$")
     public void i_terminate_app(String appName, String device) {
 
