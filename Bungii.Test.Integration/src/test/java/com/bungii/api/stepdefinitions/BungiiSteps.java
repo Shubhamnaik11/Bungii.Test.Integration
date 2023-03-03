@@ -1132,7 +1132,7 @@ public class BungiiSteps extends DriverBase {
                                 coreServices.updateStatusForDuoWeightBased(pickupRequest, driverAccessToken, 21);
                                 break;
                             case "Enroute":
-                                cucumberContextManager.setScenarioContext("DRIVER1_STATUS","Weight Based Driver1");
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver1");
                                 coreServices.updateStatusForDuoWeightBased(pickupRequest, driverAccessToken, 23);
                                 break;
                             case "Arrived":
