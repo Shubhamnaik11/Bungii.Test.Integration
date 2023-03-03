@@ -183,15 +183,22 @@ Feature: Admin_OndemandTrips
     When  I search the delivery using "Pickup Reference"
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I should see "Accessorial Charges" section displayed
+    #CORE-5251 : To verify the FeeType list under Accessorial charge is displayed with all the option in alphabetical order
+    When I click on "Select Fee Type" dropdown
+    Then I should see Fee type sorted in alphabetical order
     When I add following accessorial charges and save it
-    | Amount   | Fee Type         | Comment                           | Driver Cut |
-    |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
-    |   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
-    |  25.65   | Mountainous      | Charges due to mountainous reason | 10.0       |
-    |  100     | Other            | Charges due to other reasons      | 20         |
+    | Amount   | Fee Type                     | Comment                                   | Driver Cut |
+    |  18      | Additional Mileage           | Charges due to Additional Mileage          | 1          |
+    |  12      | Additional Weight / Pallet   | Charges due to Additional Weight / Pallet  | 2          |
+    |  14      | Cancelation                  | Charges due to Cancelation                 | 3          |
+    |  18      | Customer Rejected / Returned | Charges due to Customer Rejected / Returned| 4          |
+    |  10      | Excess Wait Time             | Charges due to Excess wait                 | 2          |
+    |  20.5    | Limited Access               | Charges due to Limited Access              | 4.5        |
+    |  25.65   | Mountainous                  | Charges due to mountainous reason          | 10         |
+    |  100     | Other                        | Charges due to other reasons               | 20         |
     And I should see following details in the Accessorial charges section
-    | Excess Wait Time | Cancelation | Mountainous | Other | Total   |
-    | $10              | $20.5       | $25.65      | $100  | $156.15 |
+    | Additional Mileage | Additional Weight / Pallet | Cancelation |Customer Rejected / Returned |Excess Wait Time | Limited Access | Mountainous | Other | Total   |
+    | $18 | $12 | $14 | $18 | $10 | $20.5 | $25.65 | $100  | $218.15 |
 #   Core-4307: Verify the history is displayed for accessorial fees
     And I navigate back to Scheduled Deliveries
     And I click on the dropdown beside scheduled bungii
