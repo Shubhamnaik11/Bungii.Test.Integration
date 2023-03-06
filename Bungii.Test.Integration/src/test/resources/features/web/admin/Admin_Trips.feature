@@ -762,7 +762,7 @@ Feature: Admin_Trips
     And I wait for 1 minutes
     And The amount should be "Refunded" and in "voided" state
 
-    #CORE-2584:To verify the customer duo delivery marked as Payment successful from payment unsuccessful
+  #CORE-2584:To verify the customer duo delivery marked as Payment successful from payment unsuccessful
   @ready
   Scenario:To verify the customer duo delivery marked as Payment successful from payment unsuccessful
     When I request "Duo" Bungii as a customer in "phoenix" geofence
@@ -819,12 +819,12 @@ Feature: Admin_Trips
     And I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
     When As a driver "Testdrivertywd_appleph_a_drvax Phoenix_ax" and "Testdrivertywd_appleph_a_drvay Phoenix_ay" perform below action with respective "Duo Scheduled" partner portal trip
-      | driver1 state | driver2 state |
-      |Arrived         |Arrived         |
-      |Loading Item     |Loading Item     |
-      |Driving To Dropoff |Driving To Dropoff |
-      |Unloading Item    |Unloading Item    |
-      |Bungii Completed  |Bungii Completed  |
+      | driver1 state    | driver2 state     |
+      |Arrived           |Arrived            |
+      |Loading Item      |Loading Item       |
+      |Driving To Dropoff|Driving To Dropoff |
+      |Unloading Item    |Unloading Item     |
+      |Bungii Completed  |Bungii Completed   |
     And I wait for 2 minutes
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
@@ -845,14 +845,18 @@ Feature: Admin_Trips
     Then The "Issue Refund" "button" should not be displayed
     Then I should see "Accessorial Charges" section displayed
     When I add following accessorial charges and save it
-      | Amount   | Fee Type         | Comment                           | Driver Cut |
-      |  10      | Excess Wait Time | Charges due to Excess wait        | 2          |
-      |   20.5   | Cancelation      | Charges due to Cancelation        | 4.5        |
-      |  25.65   | Mountainous      | Charges due to mountainous reason | 10       |
-      |  100     | Other            | Charges due to other reasons      | 20         |
+      | Amount   | Fee Type                     | Comment                                    | Driver Cut |
+      |  18      | Additional Mileage           | Charges due to Additional Mileage          | 1          |
+      |  12      | Additional Weight / Pallet   | Charges due to Additional Weight / Pallet  | 2          |
+      |  14      | Cancelation                  | Charges due to Cancelation                 | 3          |
+      |  18      | Customer Rejected / Returned | Charges due to Customer Rejected / Returned| 4          |
+      |  10      | Excess Wait Time             | Charges due to Excess wait                 | 2          |
+      |  20.50    | Limited Access              | Charges due to Limited Access              | 4.5        |
+      |  25.65   | Mountainous                  | Charges due to mountainous reason          | 10         |
+      |  100     | Other                        | Charges due to other reasons               | 20         |
     And I should see following details in the Accessorial charges section
-      | Excess Wait Time | Cancelation | Mountainous | Other | Total   |
-      | $10              | $20.5       | $25.65      | $100  | $156.15 |
+      | Additional Mileage  | Additional Weight / Pallet| Cancelation| Customer Rejected / Returned| Excess Wait Time | Limited Access | Mountainous | Other | Total   |
+      | $18                 | $12                       | $14        |  $18                        |$10               | $20.50         | $25.65      | $110  | $218.15 |
 
 
 #CORE-2584:To verify the Partner geofence based solo delivery marked as Payment successful from payment unsuccessful
@@ -1072,7 +1076,9 @@ Feature: Admin_Trips
       | Assigning Driver(s) |
 
 # Driver with Same day payment setting:9049840342
+# Driver with 2x payment setting:9049830013
   @ready
+  #CORE-5251 : Verify that admin can add accessorial charge for Payment Successful customer Duo Scheduled Deliveries
   Scenario:Verify that 'i' icon is displayed on delivery details page for those drivers who has selected same day payment
     When I request "duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -1099,11 +1105,11 @@ Feature: Admin_Trips
     And I wait for 2 minutes
     When I view All Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
-#  Core-4556: Verify status of the trip is payment successful after driver completes the trip: Same day payment (Customer card)
+    #Core-4556: Verify status of the trip is payment successful after driver completes the trip: Same day payment (Customer card)
     Then The "All Deliveries" should be in "Payment Successful" state
     And I click on the "Delivery details" link beside scheduled bungii for "Completed Deliveries"
     Then I check if "same day payment i" icon is displayed
-    Then I verify correct disbursement type is set in db
+    #CORE-5251 :Verify correct disbursement type set in db for driver with same day & 2x payment setting
     #CORE-4730:Verify refund changing driver earrings for duo trip with one driver payment setting as weekly and other as Same day
     When I click on "ISSUE REFUND" button
     Then The "Issue Refund" section should be displayed
@@ -1123,9 +1129,35 @@ Feature: Admin_Trips
     And I click on "Process Refund" button on Issue Refund popup
     Then "We are processing your Refund Request. We will let you know once it has been processed successfully." is displayed
     When I click on "OK" button
-    Then I verify correct disbursement type is set in db
+    Then I verify correct "Disbursement type" is set in db
+    When I add following accessorial charges for Duo trip and save it
+      | Amount   | Fee Type                     | Comment                                    | Driver1 Cut| Driver2 Cut|
+      |  25      | Additional Mileage           | Charges due to Additional Mileage          | 5          | 5          |
+      |  15      | Additional Weight / Pallet   | Charges due to Additional Weight / Pallet  | 6          | 7          |
+      |  18      | Cancelation                  | Charges due to Cancelation                 | 3          | 6          |
+      |  19      | Customer Rejected / Returned | Charges due to Customer Rejected / Returned| 4          | 3          |
+      |  10      | Excess Wait Time             | Charges due to Excess wait                 | 2          | 3          |
+      |  30.5    | Limited Access               | Charges due to Limited Access              | 4          | 7          |
+    #CORE-5467: Verify that Added accessorial charges are displyaed under accessorial charge section when one driver cut is 0
+      |  45.65   | Mountainous                  | Charges due to mountainous reason          | 10         | 0          |
+      |  80      | Other                        | Charges due to other reasons               | 0          | 6          |
+    Then I should see the following fee type displayed
+      | Fee Type         			 |
+      | Additional Mileage           |
+      | Additional Weight / Pallet   |
+      | Cancelation                  |
+      | Customer Rejected / Returned |
+      | Excess Wait Time 			 |
+      | Limited Access               |
+      | Mountainous                  |
+      | Other                        |
+    And I should see following details in the Accessorial charges section
+      | Additional Mileage | Additional Weight / Pallet | Cancelation |Customer Rejected / Returned |Excess Wait Time | Limited Access | Mountainous | Other | Total   |
+      | $25                | $15                        | $18         | $19                         | $10             | $30.5          | $45.65      | $80   | $243.15 |
+    Then I verify correct "Payment transaction type" is set in db for accessorial charge
 
-     #CORE-4520
+
+  #CORE-4520
   @ready
   Scenario: Verify that admin received outside secondary polyline email for partner delivery
     When I request "duo" Bungii as a customer in "newjersey" geofence

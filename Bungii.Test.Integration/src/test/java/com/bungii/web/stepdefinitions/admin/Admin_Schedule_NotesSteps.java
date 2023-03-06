@@ -690,7 +690,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
 
                 case "History":
                     Thread.sleep(1000);
-                    boolean historyUnderlined = admin_ScheduledTripsPage.Link_History().getCssValue("border-bottom").contentEquals("3px solid rgb(255, 165, 0)");
+                    boolean historyUnderlined = admin_ScheduledTripsPage.Link_History().getCssValue("border-bottom").contentEquals("2.4px solid rgb(255, 165, 0)");
                     testStepAssert.isTrue(historyUnderlined, "History should be underlined", "History is underlined", "History is not Underlined");
                     break;
             }
