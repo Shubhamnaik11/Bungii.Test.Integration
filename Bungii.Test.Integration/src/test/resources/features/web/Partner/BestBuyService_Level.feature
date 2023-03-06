@@ -513,3 +513,51 @@ Feature: Service Level
     Then The "All Deliveries" page should display the delivery in "Payment Successful" form
     And I search the delivery using "Invalid ExternalOrderId"
     Then I should see the message "No deliveries found." displayed
+
+#     CORE-4118: Verify Partner email is sent when admin edit the Service Level of the Ongoing trip- Fixed pricing
+  @ready
+  Scenario: Verify Partner email is sent when admin edit the Service Level of the Ongoing trip- Fixed pricing
+    When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |baltimore| NEXT_POSSIBLE | 8877661217 | Testcustomertywd_BppleMarkHJ LutherHJ|
+    And As a driver "TestDrivertywd_applemd_a_billL BaltimoreL" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted     |
+      | Enroute  |
+    When I navigate to "Admin" portal configured for "QA" URL
+    And I view the Live Deliveries list on the admin portal
+    And I wait for 2 minutes
+    When  I search the delivery using "Pickup Reference"
+    When I click on "Edit" link beside live delivery
+    And I click on "Edit Trip Details" radiobutton
+    And I edit the drop off address
+    Then I change the drop off address to "Club International, West Baltimore Street, Baltimore, MD, USA"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    And I wait for "1" mins
+    Then Partner firm should receive "Bungii Delivery Updated" email
+
+#     CORE-4118: Verify Partner email is sent when payment method used is Customer Card for B2B
+  @ready
+  Scenario: Verify Partner email is sent when payment method used is Customer Card for B2B
+    When I request Partner Portal "SOLO" Trip for "Biglots" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |atlanta  | NEXT_POSSIBLE | 8877661218 | Testcustomertywd_BppleMarkHK LutherHK|
+    And As a driver "Testdrivertywd_applega_a_drvaq Atlanta_aq" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state|
+      | Accepted  |
+      | Enroute  |
+    When I navigate to "Admin" portal configured for "QA" URL
+    And I view the Live Deliveries list on the admin portal
+    And I wait for "2" mins
+    When  I search the delivery using "Pickup Reference"
+    When I click on "Edit" link beside live delivery
+    And I click on "Edit Trip Details" radiobutton
+    And I edit the pickup address
+    Then I change the pickup address to "Atlanta International Airport, Spine"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    And I click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved!" message should be displayed
+    And I wait for "1" mins
+    Then Partner firm should receive "Bungii Delivery Updated" email

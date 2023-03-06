@@ -100,6 +100,8 @@ Feature: Admin_Live_Delivery_Edit
       When I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
       And I wait for "2" mins
+#     CORE-4118: Verify Partner email is not sent when payment method used is Customer Card
+      And Partner firm should not receive "Bungii Delivery Updated" email
       When I open the live delivery details in admin portal
       Then the updated drop off address should be displayed on delivery details page
       And Delivery price is recalculated based on updated value of drop off address
