@@ -4948,7 +4948,9 @@ else
     @When("I hit the Driver Auth services API & view the HTTP response headers for a page")
     public void iHitTheDriverAuthServicesAPIViewTheHTTPResponseHeadersForAPage() {
         try{
-            String driverPhoneCode = "1", driverPhoneNum = "9049840019", driverPassword = "Cci12345";
+            String driverPhoneCode = "1";
+            String driverPhoneNum = PropertyUtility.getDataProperties("Nashville.driver18.phone");
+            String driverPassword = PropertyUtility.getDataProperties("Nashville.driver18.password");
             authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword);
             } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
