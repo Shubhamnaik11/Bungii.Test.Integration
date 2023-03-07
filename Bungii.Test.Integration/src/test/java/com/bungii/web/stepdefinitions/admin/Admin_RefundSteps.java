@@ -818,7 +818,6 @@ public class Admin_RefundSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
-        }
     }
 
     @Then("I should be able to see correct Transaction history on delivery details page")
