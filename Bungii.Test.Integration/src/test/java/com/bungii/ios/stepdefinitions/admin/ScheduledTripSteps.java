@@ -360,10 +360,9 @@ public class ScheduledTripSteps extends DriverBase {
 		WebElement threeDotButton;
 		WebElement editButton;
 		if(rowNumber==0){
-			threeDotButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//div[@class='threedoticon']/img"));
-			//editButton1=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//*[@id='btnEdit']"));
+			logger.detail("No deliveries found.");
 		}else {
-			//vishal[1403] : Updated xpath
+
 			threeDotButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/div[@class='threedoticon']/img"));
 			threeDotButton.click();
 			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//a[text()='Edit']"));
