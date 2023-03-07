@@ -3,10 +3,14 @@ package com.bungii.web.pages.admin;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class Admin_AccessorialChargesPage extends PageBase {
 
     public WebElement TextBox_AccessorialAmount() { return findElement("formHorizontalAmount", LocatorType.Id); }
-    public WebElement TextBox_AccessorialDriver1Cut() { return findElement("formHorizontalDriverShare", LocatorType.Id); }
+    public WebElement TextBox_AccessorialDriverCut() { return findElement("formHorizontalDriverShare", LocatorType.Id); }
+    public WebElement TextBox_AccessorialDriver1Cut() { return findElement("//input[@placeholder='Driver 1 Cut']", LocatorType.XPath); }
+    public WebElement TextBox_AccessorialDriver2Cut() { return findElement("//input[@placeholder='Driver 2 Cut']", LocatorType.XPath); }
     public WebElement TextBox_Comment() { return findElement("Comment", LocatorType.Name); }
     public WebElement DropDown_AccessorialFeeType() { return findElement("formHorizontalFeeType", LocatorType.Id); }
     public WebElement Button_Save() { return findElement("//button[text()='Save']", LocatorType.XPath); }
@@ -23,5 +27,6 @@ public class Admin_AccessorialChargesPage extends PageBase {
     public WebElement Error_AccessorialFeeComment() { return findElement("//label[contains(text(),'Comment*')]/following-sibling::div/div", LocatorType.XPath); }
     public WebElement Text_DiffAccessorial(int Index ) { return findElement(String.format("//div[%d]/button[@class='btn btn-link']",Index) ,LocatorType.XPath);}
     public WebElement Text_DriverCut(int Index) { return findElement(String.format("//div[%d]/button[@class='btn btn-link']/following-sibling::div/div[1]",Index) ,LocatorType.XPath);}
-
+    public WebElement Dropdown_SelectFeeType() { return findElement("formHorizontalFeeType", LocatorType.Id); }
+    public List<WebElement> List_SelectFeeType() { return findElements("//select[@name='FeeType']/option", LocatorType.XPath); }
 }
