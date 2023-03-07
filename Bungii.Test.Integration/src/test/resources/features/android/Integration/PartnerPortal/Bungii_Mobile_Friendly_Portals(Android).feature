@@ -43,7 +43,6 @@
       Then I verify the ui links on "success" page for "geofence based" partner
 
     @ready
-      @sn
     #CORE-5039:To verify that driver receives PN for multiple secondary geofence for fixed pricing partner scheduled deliveries
     Scenario: To verify that driver receives PN for multiple secondary geofence for fixed pricing partner scheduled deliveries
       When I switch to "ORIGINAL" instance
@@ -56,8 +55,8 @@
       And I click on "Get Quote" button
       And I click on "CONTINUE" button
       Then I enter all details on "delivery details" for "geofence based portal"
-        |Product_Description|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Lot_Number |Delivery_Purpose|Bidder_Number|
-        |20 boxes           |Testpartner T   |9998881111     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |002        |Decor           |007          |
+        |Product_Description|Customer_Name                        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|Drop_Off_Contact_Name|Drop_Contact_Phone|Lot_Number |Delivery_Purpose|Bidder_Number|
+        |20 boxes           |Testcustomertywd_BppleMarkHM LutherHM|8877661220     |Test Pickup        |9999999359          |Test Dropcontact     |9998881112        |002        |Decor           |007          |
       And I enter following Credit Card details on Partner Portal
         |Card_Type   |Expiry |Postal_Code      |Cvv      |
         |VISA CARD   |12/25  |VALID POSTAL CODE|VALID CVV|
@@ -74,7 +73,7 @@
       And I click on "View Request" button
 
       When I connect to "extra1" using "Driver2" instance
-      And I am logged in as "TestDrivertywd_applemd_a_billL BaltimoreL" driver
+      And I am logged in as "TestDrivertywd_applemd_a_bilL BaltimoreL" driver
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
       And I tap on "Go Online button" on Driver Home page
       And I wait for "4" mins
