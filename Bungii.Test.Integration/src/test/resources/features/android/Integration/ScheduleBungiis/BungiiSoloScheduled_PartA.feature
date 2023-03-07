@@ -536,9 +536,9 @@ Feature: SoloScheduled
     #CORE-5466:Verify that Driver Arrived at pickup email template has been updated with required changes for level 3 partner
     Then Partner firm should receive "A Bungii driver has arrived" email
 
-    #CORE-5256: Driver Started and Arrived emails are sent to partners not configured with email granularity
+    #CORE-5256: Driver Started and Arrived emails are not sent to partners not configured with email granularity
   @ready
-  Scenario: Driver Started and Arrived emails are sent to partners not configured with email granularity
+  Scenario: Driver Started and Arrived emails are not sent to partners not configured with email granularity
     And I Switch to "driver" application on "same" devices
     And I am logged in as "Testdrivertywd_applega_a_drvao Atlanta_ao" driver
     When I request Partner Portal "SOLO" Trip for "Floor and Decor 106" partner
