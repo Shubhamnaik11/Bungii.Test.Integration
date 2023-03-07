@@ -16,8 +16,6 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 
 import java.util.Map;
 

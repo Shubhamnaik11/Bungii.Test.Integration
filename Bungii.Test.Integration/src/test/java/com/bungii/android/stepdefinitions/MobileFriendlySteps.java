@@ -11,8 +11,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 
 import java.util.Map;
 
