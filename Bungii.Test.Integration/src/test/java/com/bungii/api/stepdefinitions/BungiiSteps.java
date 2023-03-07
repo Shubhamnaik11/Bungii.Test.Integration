@@ -509,6 +509,11 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appleks_a_drvae Kansas_ae":
                 phone = PropertyUtility.getDataProperties("Kansas.driver46.phone");
                 break;
+
+            case "Testdrivertywd_appleks_a_drvbz Kansas_bz":
+                phone = PropertyUtility.getDataProperties("Kansas.driver74.name");
+                break;
+
             case "Testdrivertywd_appledc_a_drvI WashingtonI":
                 phone = PropertyUtility.getDataProperties("Washington.driver10.phone");
                 break;
@@ -721,6 +726,12 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "GoaW DriverW":
                 phone = PropertyUtility.getDataProperties("goa.driver19.phone");
+                break;
+            case "Testdrivertywd_appledv_b_mattL DenverL":
+                phone = PropertyUtility.getDataProperties("denver.driver13.phone");
+                break;
+            case "Testdrivertywd_appledv_b_mattM DenverM":
+                phone = PropertyUtility.getDataProperties("denver.driver14.phone");
                 break;
             case "Testdrivertywd_appledc_a_drval Washingtonal":
                 phone = PropertyUtility.getDataProperties("Washington.driver36.phone");
@@ -3035,6 +3046,30 @@ else
                             geofence = "denver";
                             custPhoneNum = PropertyUtility.getDataProperties("denver12.customer.phone");
                             cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver12.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver14":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver14.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver14.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver15":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver15.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver15.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver16":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver16.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver16.customer.name"));
+                            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                            break;
+                        case "denver17":
+                            geofence = "denver";
+                            custPhoneNum = PropertyUtility.getDataProperties("denver17.customer.phone");
+                            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver17.customer.name"));
                             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
                             break;
                         default:
