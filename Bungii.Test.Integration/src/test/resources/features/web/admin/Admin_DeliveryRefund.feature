@@ -869,7 +869,7 @@ Feature: Admin_Refund
 		When I click on "ISSUE REFUND" button
 		Then The "Issue Refund" section should be displayed
 		When I select "Partial Refund" radio button
-		And I refund Driver1 earnings to customer
+		And I refund "Driver1" earnings to customer
 		And I enter "Driver1 Earnings" as "0" dollars
 		And I note the "Driver2 Earnings"
 		When I enter "Driver1 Notes" as "Partial Refund"

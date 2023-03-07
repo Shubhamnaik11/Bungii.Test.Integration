@@ -108,19 +108,16 @@ public class Admin_RefundSteps extends DriverBase {
             error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
-
     }
 
-
-    @And("I refund Driver{int} earnings to customer")
-    public void iRefundDriverEarningsToCustomer(int arg0) {
+    @And("I refund {string} earnings to customer")
+    public void iRefundEarningsToCustomer(String driverEarnings) {
         try {
             action.clearSendKeys(admin_refundsPage.TextBox_RefundAmount(),action.getAttributeValue(admin_refundsPage.TextBox_DriverEarnings())+Keys.TAB);
             }
             catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 
