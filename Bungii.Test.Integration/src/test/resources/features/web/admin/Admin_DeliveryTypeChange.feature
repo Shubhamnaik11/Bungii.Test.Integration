@@ -170,6 +170,7 @@ Feature: Admin_Delivery_Type_Change
 	  | Assigning Driver(s) |
 	#CORE-4152:Verify that estimated delivery time is calculated correctly when admin edits changes type of customer trip from solo - duo
 	When I click on the "Delivery Details" button from the dropdown
+	And I click on "Delivery Overview" button on delivery details
 	Then The "Scheduled Time" for customer delivery should match
 	Then The "Estimated Delivery Time" for customer delivery should match
 	And I view the all Scheduled Deliveries list on the admin portal
@@ -217,6 +218,7 @@ Feature: Admin_Delivery_Type_Change
 	  | Assigning Driver(s) |
 	 #CORE-4152:Verify that estimated delivery time is calculated correctly when admin edits changes type of customer trip from duo-solo
 	When I click on the "Delivery Details" button from the dropdown
+	And I click on "Delivery Overview" button on delivery details
 	Then The "Scheduled Time" for customer delivery should match
 	Then The "Estimated Delivery Time" for customer delivery should match
 	And I view the all Scheduled Deliveries list on the admin portal
