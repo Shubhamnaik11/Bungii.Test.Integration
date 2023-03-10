@@ -250,6 +250,35 @@ public class DbUtility extends DbContextManager {
         return timeIn12HoursFormat;
 
     }
+
+    public static String getPickupId(String pickupRef) {
+        String pickupid = "";
+        String queryString = "SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef + "'";
+        pickupid = getDataFromMySqlServer(queryString);
+        logger.detail("Pickupid  " + pickupid + " of pickupref " + pickupRef);
+        return pickupid;
+    }
+
+    public static String getTripReference(String reference) {
+        String tripRef = "";
+        String pickupID = getPickupId(reference);
+        String queryString = "select TripRef from triprequest where Pickupid= "+pickupID;
+        tripRef = getDataFromMySqlServer(queryString);
+        logger.detail("Trip reference is "+tripRef);
+        return tripRef;
+    }
+
+    public static String[] getTripReferenceForDuo(String reference) {
+        String pickupID = getPickupId(reference);
+        String tripRefereneces[] = new String[2];
+        String reference1 = "select TripRef from triprequest where Pickupid= "+pickupID + " order by TripRef desc limit 1";
+        String reference2 = "select TripRef from triprequest where Pickupid= "+pickupID + " order by TripRef asc limit 1";
+        tripRefereneces[0] = getDataFromMySqlServer(reference1);
+        tripRefereneces [1]= getDataFromMySqlServer(reference2);
+        logger.detail("Trip reference1 is "+tripRefereneces[0]);
+        logger.detail("Trip reference2 is "+tripRefereneces[1]);
+        return tripRefereneces;
+    }
     public static Double[] getDriverLocation(String phoneNumber) {
         String driverId = "";
         Double driverLocation[] = new Double[2];

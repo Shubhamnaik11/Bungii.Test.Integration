@@ -1139,6 +1139,116 @@ public class CoreServices extends DriverBase {
 
     }
 
+    public void updateStatusForWeightBased(String pickupID, String authToken, int statusID) {
+        try {
+            String utcTime= utility.getCurrentUTCTime();
+            String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID +" at "+ utcTime;
+
+            cucumberContextManager.setScenarioContext("ONDEMAND_PICKUP_ID",pickupID);
+
+
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String tripRef =  DbUtility.getTripReference(pickupRequest);
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+            JSONObject jsonObj = new JSONObject();
+            JSONObject status = new JSONObject();
+            JSONArray statusArray = new JSONArray();
+            JSONObject driverCordinate = new JSONObject();
+            Float[] driverLocations = utility.getDriverLocation(geofence);
+
+            status.put("StatusTimestamp", utcTime);
+
+            driverCordinate.put("Latitude", driverLocations[0]);
+            driverCordinate.put("Longitude", driverLocations[1]);
+            status.put("Location", driverCordinate);
+
+            status.put("TripRef", tripRef);
+            status.put("Status", statusID);
+            status.put("PickupId", pickupID);
+
+            statusArray.put(status);
+            jsonObj.put("Statuses", statusArray);
+
+
+            //make status online
+            jsonObj.put("PickupRequestID", pickupID);
+            Header header = new Header("AuthorizationToken", authToken);
+
+            String apiURL = null;
+
+            apiURL = UrlBuilder.createApiUrl("core", UPDATE_PICKUP_STATUS);
+            Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+            ApiHelper.genericResponseValidation(response,RequestText);
+
+
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+
+    }
+
+    public void updateStatusForDuoWeightBased(String pickupID, String authToken, int statusID) {
+        try {
+            String utcTime= utility.getCurrentUTCTime();
+            String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID +" at "+ utcTime;
+
+            cucumberContextManager.setScenarioContext("ONDEMAND_PICKUP_ID",pickupID);
+            String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+
+            Float[] driverLocations = utility.getDriverLocation(geofence);
+            String[] allTripRef = DbUtility.getTripReferenceForDuo(pickupRequest);
+            if(cucumberContextManager.getScenarioContext("DRIVER_STATUS").toString().contentEquals("Weight Based Driver1")){
+                cucumberContextManager.setScenarioContext("TripRef",allTripRef[1]);
+            }
+            else{
+                cucumberContextManager.setScenarioContext("TripRef",allTripRef[0]);
+            }
+
+            String tripRef = (String) cucumberContextManager.getScenarioContext("TripRef");
+
+            JSONObject jsonObj = new JSONObject();
+            JSONObject status = new JSONObject();
+            JSONArray statusArray = new JSONArray();
+            JSONObject driverCordinate = new JSONObject();
+
+
+            status.put("StatusTimestamp", utcTime);
+
+            driverCordinate.put("Latitude", driverLocations[0]);
+            driverCordinate.put("Longitude", driverLocations[1]);
+            status.put("Location", driverCordinate);
+
+            status.put("TripRef", tripRef);
+            status.put("Status", statusID);
+            status.put("PickupId", pickupID);
+
+            statusArray.put(status);
+            jsonObj.put("Statuses", statusArray);
+
+            System.out.println(jsonObj.toString());
+
+            //make status online
+            jsonObj.put("PickupRequestID", pickupID);
+            Header header = new Header("AuthorizationToken", authToken);
+
+            String apiURL = null;
+
+            apiURL = UrlBuilder.createApiUrl("core", UPDATE_PICKUP_STATUS);
+            Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+            ApiHelper.genericResponseValidation(response,RequestText);
+
+
+
+
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+
+    }
+
+
     public Response AcceptBungii(String pickupID, String authToken) {
         Response response = null;
         try {
