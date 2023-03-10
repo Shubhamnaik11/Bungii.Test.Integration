@@ -250,4 +250,17 @@ public class DbUtility extends DbContextManager {
         return timeIn12HoursFormat;
 
     }
+    public static Double[] getDriverLocation(String phoneNumber) {
+        String driverId = "";
+        Double driverLocation[] = new Double[2];
+        String queryString = "SELECT Id FROM driver WHERE Phone = " + phoneNumber;
+        driverId = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "driverId is " + driverId);
+
+        driverLocation[0]= Double.valueOf(getDataFromMySqlServer("select Latitude from driverlocation where driverid = "+driverId));
+        driverLocation[1]= Double.valueOf(getDataFromMySqlServer("select Longitude from driverlocation where driverid = "+driverId));
+        logger.detail("For driverId " + driverId + " driver location is " + driverLocation[0]+","+driverLocation[1]);
+
+        return driverLocation;
+    }
 }

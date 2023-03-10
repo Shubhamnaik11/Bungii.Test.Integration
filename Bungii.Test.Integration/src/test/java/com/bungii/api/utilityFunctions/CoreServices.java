@@ -1102,27 +1102,35 @@ public class CoreServices extends DriverBase {
             String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID +" at "+ utcTime;
 
             cucumberContextManager.setScenarioContext("ONDEMAND_PICKUP_ID",pickupID);
+                Double[] driverLocations = DbUtility.getDriverLocation((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"));
+                JSONObject driverCoordinates = new JSONObject();
+                driverCoordinates.put("Latitude", driverLocations[0]);
+                driverCoordinates.put("Longitude", driverLocations[1]);
 
-            JSONObject jsonObj = new JSONObject();
-            JSONObject status = new JSONObject();
-            JSONArray statusArray = new JSONArray();
-            status.put("PickupId", pickupID);
-            status.put("PickupStatusId", pickupID);
-            status.put("synced", false);
-            status.put("StatusTimestamp", utcTime);
-            status.put("Status", statusID);
-            statusArray.put(status);
-            jsonObj.put("Statuses", statusArray);
+                JSONObject jsonObj = new JSONObject();
+                JSONObject status = new JSONObject();
+                JSONArray statusArray = new JSONArray();
+                status.put("PickupId", pickupID);
+                status.put("PickupStatusId", pickupID);
+                status.put("synced", false);
+                status.put("StatusTimestamp", utcTime);
+                status.put("Status", statusID);
+                status.put("Location", driverCoordinates);
+                status.put("WaypointId", "c0be158c-bbfb-11ed-b9b7-067b045391ec");
+                statusArray.put(status);
+                jsonObj.put("Statuses", statusArray);
+                jsonObj.put("PickupRequestID", pickupID);
 
+                Header header = new Header("AuthorizationToken", authToken);
+
+                String apiURL = null;
+
+                apiURL = UrlBuilder.createApiUrl("core", UPDATE_PICKUP_STATUS);
+                Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+                response.then().log().body();
+                ApiHelper.genericResponseValidation(response,RequestText);
             //make status online
-            jsonObj.put("PickupRequestID", pickupID);
-            Header header = new Header("AuthorizationToken", authToken);
 
-            String apiURL = null;
-
-            apiURL = UrlBuilder.createApiUrl("core", UPDATE_PICKUP_STATUS);
-            Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-            ApiHelper.genericResponseValidation(response,RequestText);
 
 
         } catch (Exception e) {
