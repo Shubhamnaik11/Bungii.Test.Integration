@@ -285,15 +285,15 @@ public class ScheduledBungiiSteps extends DriverBase {
     @Then("^I should see a popup \"([^\"]*)\" displayed$")
     public void i_should_see_a_popup_something_displayed(String popupNotificationText) throws Throwable {
         try{
-        Thread.sleep(3000);
-        boolean isDisplayed = action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true));
-        testStepAssert.isTrue(isDisplayed,"Schedule bungii popup should be displayed","Schedule bungii popup is displayed","Schedule bungii popup is not displayed");
-        String  popupText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
-        testStepVerify.isEquals(popupText,popupNotificationText,"New bungii request text should displayed","New bungii request text is displayed","New bungii request text is not displayed");
-    } catch (Exception e) {
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
-    }
+            Thread.sleep(3000);
+            boolean isDisplayed = action.isElementPresent(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+            testStepAssert.isTrue(isDisplayed,"Schedule bungii popup should be displayed","Schedule bungii popup is displayed","Schedule bungii popup is not displayed");
+            String  popupText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
+            testStepVerify.isEquals(popupText,popupNotificationText,"New bungii request text should displayed","New bungii request text is displayed","New bungii request text is not displayed");
+            } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @Then("^I should see the trip details$")
