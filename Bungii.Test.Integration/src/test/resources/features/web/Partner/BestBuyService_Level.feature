@@ -514,9 +514,9 @@ Feature: Service Level
     And I search the delivery using "Invalid ExternalOrderId"
     Then I should see the message "No deliveries found." displayed
 
-#     CORE-4118: Verify Partner email is sent when admin edit the Service Level of the Ongoing trip- Fixed pricing
+#     CORE-4118: Verify Partner email is sent when admin edit the drop off address of the Ongoing trip- Fixed pricing - B2C
   @ready
-  Scenario: Verify Partner email is sent when admin edit the Service Level of the Ongoing trip- Fixed pricing
+  Scenario: Verify Partner email is sent when admin edit the drop off address  of the Ongoing trip- Fixed pricing - B2C
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | 8877661217 | Testcustomertywd_BppleMarkHJ LutherHJ|
