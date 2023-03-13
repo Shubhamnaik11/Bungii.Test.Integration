@@ -1236,6 +1236,14 @@ public class CommonSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver48.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+
+            case "new washington":
+                phone = PropertyUtility.getDataProperties("Washington.driver37.phone");
+                password = PropertyUtility.getDataProperties("Washington.driver11.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Washington.driver37.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             default:
                 throw new Exception("Please specify valid input");
         }
@@ -1268,7 +1276,7 @@ public class CommonSteps extends DriverBase {
     public void i_login_as_something_driver_on_something_device_and_make_driver_status_something_as(String user, String device, String driverStatus) throws Throwable {
         try {
             String navigationBarName = "";
-          //  utility.switchToApp("driver",device);
+            //utility.switchToApp("driver",device);
             int retry =2;
             while(retry>0) {
                 if (action.isElementPresent(driverHomePage.Text_NavigationBar(true)))
@@ -1284,7 +1292,7 @@ public class CommonSteps extends DriverBase {
             Thread.sleep(5000);
 
             acceptDriverPermissions("ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
-           // navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
+            // navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
             // new GeneralUtility().logDriverDeviceToken(credentials.get(0));
                     switch (driverStatus.toUpperCase()) {
                         case "ONLINE":
