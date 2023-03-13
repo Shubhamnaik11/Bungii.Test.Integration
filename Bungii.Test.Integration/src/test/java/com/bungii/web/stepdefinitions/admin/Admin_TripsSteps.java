@@ -1637,7 +1637,8 @@ try{
                     }    
                     else{        
                         pickupdate=pickupdate.replaceAll("CDT","EST");    
-                 }
+                    }
+                }
                 if (portalName.equalsIgnoreCase("BestBuy2 service level")) {
                     message = utility.getExpectedPartnerFirmEmailForDropOffAddressEdit(PropertyUtility.getDataProperties("partner.baltimore.name"), pickupdate, address[0], address[1], PropertyUtility.getDataProperties("best.buy.service.level"), dbUtility.getEstPrice((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST")), customerName, (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"), driverName, driverPhone, driverLicenceNumber[3]);
                 }
