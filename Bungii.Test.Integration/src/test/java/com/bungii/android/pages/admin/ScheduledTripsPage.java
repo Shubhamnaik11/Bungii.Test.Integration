@@ -87,7 +87,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement icon_Close(){return findElement("//button[@class='close']", LocatorType.XPath);}
 
     public WebElement Time_EditTripDetailsTime(){return findElement("PickupDetails_ScheduledTime", LocatorType.Id);}
-    public WebElement TextBox_DriverSearch() {return findElement("//div[@class='addDriver']/div/div/input", LocatorType.XPath);}
+    public WebElement TextBox_DriverSearch() {return findElement("//div/div/input[@placeHolder=\"Enter driver name\"]", LocatorType.XPath);}
     public WebElement Button_VerifyDriver(){return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
     public WebElement Button_VerifyDriverForScheduled(){return findElement("//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
 
@@ -103,7 +103,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_Driver1Name(){ return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_tv_drivername_value']", LocatorType.XPath).get(0);}
     public WebElement Text_Driver2Name(){ return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_tv_drivername_value']", LocatorType.XPath).get(1);}
      //v2 changes
-    public WebElement Text_VerifyChangesSavedMessage() {return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
+    public WebElement Text_VerifyChangesSavedMessage() {return findElement("//span[@id='verified-message']/span", LocatorType.XPath);}
     public WebElement Button_SaveChanges(){return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath);}
 
     public WebElement Text_SuccessMessage(){return findElement("//i[text()=\"Bungii Saved!\"]", LocatorType.XPath);}
