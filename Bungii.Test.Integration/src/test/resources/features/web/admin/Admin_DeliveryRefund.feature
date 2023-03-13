@@ -374,35 +374,35 @@ Feature: Admin_Refund
 	When I click on "ISSUE REFUND" button
 	Then The "Issue Refund" section should be displayed
 	When I select "Partial Refund" radio button
-	
+
 	And I enter "Customer Refund Amount" as "5.01" dollars
 	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
 	And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
-	
+
 	When I enter "Customer Refund Amount" as "10" percentage
 	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
 	And "Customer Refund Amount" field should be auto calculated based on Delivery Total and Driver Earnings
-	
+
 	When I update "Earnings" as "10.00" dollars
 	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
 	And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
 	And Notes text area should be displayed
-	
+
 	When I update "Earnings" as origional value of amount
 	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
 	And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
 	And Notes text area should not be displayed
-	
+
 	When I update "Earnings" as "5.01" percentage
 	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
 	And "Customer Refund Amount" field should be auto calculated based on Delivery Total and Driver Earnings
 	And Notes text area should be displayed
-	
+
 	When I update "Earnings" as origional value of percentage
 	Then "Bungii Earnings and percentage" fields should be auto calculated based on Delivery Total and Driver Earnings
 	And "Customer Refund Amount Percentage" field should be auto calculated based on Delivery Total and Driver Earnings
 	And Notes text area should not be displayed
-  
+
   @regression
   Scenario: Verify Partial Refund for Duo Delivery and complete Driver payment
 	When I request "duo" Bungii as a customer in "washingtondc" geofence

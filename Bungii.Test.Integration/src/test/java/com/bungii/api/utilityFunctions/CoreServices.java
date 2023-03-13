@@ -1102,7 +1102,8 @@ public class CoreServices extends DriverBase {
             String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID +" at "+ utcTime;
 
             cucumberContextManager.setScenarioContext("ONDEMAND_PICKUP_ID",pickupID);
-                Double[] driverLocations = DbUtility.getDriverLocation((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"));
+            Double[] driverLocations = DbUtility.getDriverLocation((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"));
+                String waypointId=DbUtility.getWaypointId((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST"),statusID);
                 JSONObject driverCoordinates = new JSONObject();
                 driverCoordinates.put("Latitude", driverLocations[0]);
                 driverCoordinates.put("Longitude", driverLocations[1]);
@@ -1116,7 +1117,7 @@ public class CoreServices extends DriverBase {
                 status.put("StatusTimestamp", utcTime);
                 status.put("Status", statusID);
                 status.put("Location", driverCoordinates);
-                status.put("WaypointId", "c0be158c-bbfb-11ed-b9b7-067b045391ec");
+                status.put("WaypointId", waypointId);
                 statusArray.put(status);
                 jsonObj.put("Statuses", statusArray);
                 jsonObj.put("PickupRequestID", pickupID);
@@ -1127,11 +1128,8 @@ public class CoreServices extends DriverBase {
 
                 apiURL = UrlBuilder.createApiUrl("core", UPDATE_PICKUP_STATUS);
                 Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-                response.then().log().body();
                 ApiHelper.genericResponseValidation(response,RequestText);
             //make status online
-
-
 
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());

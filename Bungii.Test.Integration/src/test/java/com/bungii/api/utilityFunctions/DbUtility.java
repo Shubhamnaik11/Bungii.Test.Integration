@@ -292,4 +292,17 @@ public class DbUtility extends DbContextManager {
 
         return driverLocation;
     }
+    public static String getWaypointId(String reference,int statusId) {
+        String waypointId = "";
+        String queryString;
+        String pickupID = getPickupId(reference);
+        if(statusId==26 || statusId==27 || statusId==28){
+            queryString = "select delivery_stop_ref from delivery_stop where pickupid ="+pickupID+" and delivery_stop_type=2";
+        }else{
+         queryString = "select delivery_stop_ref from delivery_stop where pickupid ="+pickupID+" and delivery_stop_type=1";
+        }
+        waypointId = getDataFromMySqlServer(queryString);
+        logger.detail("Waypoint ID is "+waypointId);
+        return waypointId;
+    }
 }
