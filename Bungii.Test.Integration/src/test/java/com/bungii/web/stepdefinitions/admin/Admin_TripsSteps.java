@@ -1625,14 +1625,19 @@ try{
                 String [] address = dbUtility.getFullPickUpAndDropOff((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST"));
                 driverLicencePlate= dbUtility.getDriverVehicleInfo(driverPhone);
                 String []driverLicenceNumber = driverLicencePlate.replace("}","").replace("\"","").split(":");
-                if(pickupdate.contains("CST")){
-                    Date date = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").parse(pickupdate);
-                    Calendar c = Calendar.getInstance();
-                    c.setTime(date);
-                    c.add(Calendar.MINUTE, 60);
-                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();
-                    pickupdate=pickupdate.replaceAll("CST","EST");
-                }
+                if(pickupdate.contains("CST") || pickupdate.contains("CDT"))
+                {    
+                    Date date = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").parse(pickupdate);    
+                    Calendar c = Calendar.getInstance();    
+                    c.setTime(date);    
+                    c.add(Calendar.MINUTE, 60);    
+                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();    
+                    if(pickupdate.contains("CST")){        
+                        pickupdate=pickupdate.replaceAll("CST","EST");    
+                    }    
+                    else{        
+                        pickupdate=pickupdate.replaceAll("CDT","EST");    
+                 }
                 if (portalName.equalsIgnoreCase("BestBuy2 service level")) {
                     message = utility.getExpectedPartnerFirmEmailForDropOffAddressEdit(PropertyUtility.getDataProperties("partner.baltimore.name"), pickupdate, address[0], address[1], PropertyUtility.getDataProperties("best.buy.service.level"), dbUtility.getEstPrice((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST")), customerName, (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"), driverName, driverPhone, driverLicenceNumber[3]);
                 }
