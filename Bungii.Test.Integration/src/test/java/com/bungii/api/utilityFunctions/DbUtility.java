@@ -279,4 +279,30 @@ public class DbUtility extends DbContextManager {
         logger.detail("Trip reference2 is "+tripRefereneces[1]);
         return tripRefereneces;
     }
+    public static Double[] getDriverLocation(String phoneNumber) {
+        String driverId = "";
+        Double driverLocation[] = new Double[2];
+        String queryString = "SELECT Id FROM driver WHERE Phone = " + phoneNumber;
+        driverId = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "driverId is " + driverId);
+
+        driverLocation[0]= Double.valueOf(getDataFromMySqlServer("select Latitude from driverlocation where driverid = "+driverId));
+        driverLocation[1]= Double.valueOf(getDataFromMySqlServer("select Longitude from driverlocation where driverid = "+driverId));
+        logger.detail("For driverId " + driverId + " driver location is " + driverLocation[0]+","+driverLocation[1]);
+
+        return driverLocation;
+    }
+    public static String getWaypointId(String reference,int statusId) {
+        String waypointId = "";
+        String queryString;
+        String pickupID = getPickupId(reference);
+        if(statusId==26 || statusId==27 || statusId==28){
+            queryString = "select delivery_stop_ref from delivery_stop where pickupid ="+pickupID+" and delivery_stop_type=2";
+        }else{
+         queryString = "select delivery_stop_ref from delivery_stop where pickupid ="+pickupID+" and delivery_stop_type=1";
+        }
+        waypointId = getDataFromMySqlServer(queryString);
+        logger.detail("Waypoint ID is "+waypointId);
+        return waypointId;
+    }
 }
