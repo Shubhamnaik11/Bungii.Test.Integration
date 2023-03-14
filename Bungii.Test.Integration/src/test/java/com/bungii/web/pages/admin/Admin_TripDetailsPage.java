@@ -95,4 +95,6 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Text_TripStatus() {return findElement("//td[contains(text(),'Status')]/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Input_DriverBoostedPeriod() {return findElement("//td[text()='Driver Boosted earning period']/following::td[1]/div[1]/div/div/div/input", LocatorType.XPath);}
 
+    public WebElement Button_DeliveryOverview() { return findElement("//button[contains(text(),'Delivery Overview')]",LocatorType.XPath);}
+
 }

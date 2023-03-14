@@ -59,13 +59,20 @@ public class Admin_PriceOverrideSteps extends DriverBase {
     }
 
     @And("^I click on \"([^\"]*)\" button on delivery details$")
-    public void i_click_on_something_button_on_delivery_details(String strArg1) throws Throwable {
+    public void i_click_on_something_button_on_delivery_details(String button) throws Throwable {
         try{
-            action.click(admin_tripDetailsPage.Button_Price_Override());
-            Thread.sleep(5000);
+            switch (button){
+                case "Price Override":
+                    action.click(admin_tripDetailsPage.Button_Price_Override());
+                    Thread.sleep(5000);
+                    break;
+                case "Delivery Overview":
+                    action.click(admin_tripDetailsPage.Button_DeliveryOverview());
+                    break;
+            }
 
-            log("I should be able to click on Price Override button ",
-                    "I could click on Price Override button",false);
+            log("I should be able to click on "+button+" button ",
+                    "I could click on "+button+" button",false);
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -1236,6 +1236,14 @@ public class CommonSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver48.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+
+            case "new washington":
+                phone = PropertyUtility.getDataProperties("Washington.driver37.phone");
+                password = PropertyUtility.getDataProperties("Washington.driver11.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Washington.driver37.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             default:
                 throw new Exception("Please specify valid input");
         }
@@ -1268,7 +1276,7 @@ public class CommonSteps extends DriverBase {
     public void i_login_as_something_driver_on_something_device_and_make_driver_status_something_as(String user, String device, String driverStatus) throws Throwable {
         try {
             String navigationBarName = "";
-          //  utility.switchToApp("driver",device);
+            //utility.switchToApp("driver",device);
             int retry =2;
             while(retry>0) {
                 if (action.isElementPresent(driverHomePage.Text_NavigationBar(true)))
@@ -1284,7 +1292,7 @@ public class CommonSteps extends DriverBase {
             Thread.sleep(5000);
 
             acceptDriverPermissions("ALLOW NOTIFICATIONS" , "ALLOW LOCATION");
-           // navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
+            // navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
             // new GeneralUtility().logDriverDeviceToken(credentials.get(0));
                     switch (driverStatus.toUpperCase()) {
                         case "ONLINE":
@@ -2387,8 +2395,16 @@ public class CommonSteps extends DriverBase {
     @And("^I edit the pickup address$")
     public void i_edit_the_pickup_address() throws Throwable {
         try{
-            testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Pickup_Location(),"Pickup location should display","Pickup location is display","Pickup location is not display");
-            action.click(scheduledTripsPage.Button_Edit_Pickup_Address());
+            String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+            if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Pickup_Location_For_Live(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                action.click(scheduledTripsPage.Button_Edit_Pickup_Address_For_Live());
+            }
+            else {
+                testStepAssert.isElementDisplayed(scheduledTripsPage.Label_Drop_Off_Location(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
+                action.click(scheduledTripsPage.Button_Edit_Pickup_Address());
+
+            }
             log("I edit the pickup address.",
                     "I have edited the pickup address.");
         } catch(Exception e){
@@ -2423,22 +2439,28 @@ public class CommonSteps extends DriverBase {
         }
     }
     @Then("^I change the pickup address to \"([^\"]*)\"$")
-    public void i_change_the_pickup_address_to_something(String arg1) throws Throwable {
+    public void i_change_the_pickup_address_to_something(String address) throws Throwable {
 
         try{
-            action.sendKeys(scheduledTripsPage.Textbox_Pickup_Location(),arg1);
-            //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
-            Thread.sleep(1000);
-            action.sendKeys(scheduledTripsPage.Textbox_Pickup_Location()," ");
-            Thread.sleep(2000);
-            //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-            action.JavaScriptClick(scheduledTripsPage.DropdownPickupResult(arg1));
-            Thread.sleep(1000);
-            String Change_Address = action.getText(scheduledTripsPage.Pickup_Address());
-            cucumberContextManager.setScenarioContext("Change_Pickup",Change_Address);
-
-            log("I change the pickup address to "+arg1,
-                    "I have changed the pickup address to "+arg1);
+            String editLiveDelivery = action.getText(scheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
+            if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                action.click(scheduledTripsPage.Textbox_Pickup_Location_For_Live());
+                action.sendKeys(scheduledTripsPage.Textbox_Pickup_Location_For_Live(),address);
+                Thread.sleep(1000);
+                action.click(scheduledTripsPage.DropdownPickupResult(address));
+                String Change_Address = action.getText(scheduledTripsPage.Text_Pickup_Address_For_Live());
+                cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
+            }
+            else {
+                action.sendKeys(scheduledTripsPage.Textbox_Pickup_Location(),address);
+                Thread.sleep(1000);
+                action.click(scheduledTripsPage.DropdownPickupResult(address));
+                Thread.sleep(1000);
+                String Change_Address = action.getText(scheduledTripsPage.Pickup_Address());
+                cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
+            }
+            log("I change the pickup address to "+address,
+                    "I have changed the pickup address to "+address);
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",

@@ -251,6 +251,7 @@ public class DashBoardSteps extends DriverBase {
         try {
             switch (option.toLowerCase()) {
                 case "scheduled trip":
+                    Thread.sleep(5000);
                     action.click(dashBoardPage.Button_Trips());
                     Thread.sleep(3000);
                     action.click(dashBoardPage.Button_ScheduledTrips());
@@ -294,8 +295,15 @@ public class DashBoardSteps extends DriverBase {
     }
     @And("^I uncheck the Active Geofences Only$")
     public void i_uncheck_the_active_geofence_only() throws InterruptedException {
+        try{
         action.click(dashBoardPage.Checkbox_Active_geofence());
         Thread.sleep(1000);
+        }
+        catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
     @And("^I open the trip for \"([^\"]*)\" the customer for delivery details$")
     public void i_open_the_trip_for_something_the_customer_for_delivery_details(String custName) throws Throwable {
