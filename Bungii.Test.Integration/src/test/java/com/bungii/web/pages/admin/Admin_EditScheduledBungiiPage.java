@@ -104,7 +104,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement RadioButton_EditTripDetails_For_Live() { return findElement("radio5", LocatorType.Id); }
 
 
-    public WebElement Icon_Dropdown(){return  findElement("threedoticon",LocatorType.ClassName);}
+    public WebElement Icon_Dropdown(){return  findElement("//div[@class='threedoticon']/img",LocatorType.XPath);}
 
     public WebElement Option_Edit(){return  findElement("//div/a[text()=\"Edit\"]",LocatorType.XPath);}
 }
