@@ -4970,11 +4970,7 @@ else
             String loginURL = UrlBuilder.createApiUrl("driver_auth", DRIVER_LOGIN_ENDPOINT);
             Request request=new Request.Builder().url(loginURL).build();
             okhttp3.Response response= client.newCall(request).execute();
-
             Map<String, List<String>> headersMap = response.headers().toMultimap();
-            for (Map.Entry<String, List<String>> entry : headersMap.entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue());
-            }
             testStepVerify.isFalse(headersMap.containsKey("X-Powered-By"), "X-Powered-By key should be removed from HTTP response headers", "X-Powered-By key is removed from HTTP response headers", "X-Powered-By key is not removed from HTTP response headers");
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
