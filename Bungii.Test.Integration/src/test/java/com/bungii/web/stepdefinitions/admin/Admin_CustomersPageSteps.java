@@ -571,7 +571,7 @@ try{
     @When("^I navigate to Customer List$")
     public void i_navigate_to_customer_list() {
         try {
-            String url = utility.GetAdminUrl().replace("/login", "") + "/BungiiReports/Customers";
+            String url = utility.GetAdminUrl().replace("/admin/login", "") + "/BungiiReports/Customers";
             action.navigateTo(url);
             Thread.sleep(5000);
             action.isElementPresent(admin_customerPage.TextBox_SearchCustomer());

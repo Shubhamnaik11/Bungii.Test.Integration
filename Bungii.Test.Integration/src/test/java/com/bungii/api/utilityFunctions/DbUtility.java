@@ -250,4 +250,59 @@ public class DbUtility extends DbContextManager {
         return timeIn12HoursFormat;
 
     }
+
+    public static String getPickupId(String pickupRef) {
+        String pickupid = "";
+        String queryString = "SELECT Pickupid FROM pickupdetails WHERE pickupref ='" + pickupRef + "'";
+        pickupid = getDataFromMySqlServer(queryString);
+        logger.detail("Pickupid  " + pickupid + " of pickupref " + pickupRef);
+        return pickupid;
+    }
+
+    public static String getTripReference(String reference) {
+        String tripRef = "";
+        String pickupID = getPickupId(reference);
+        String queryString = "select TripRef from triprequest where Pickupid= "+pickupID;
+        tripRef = getDataFromMySqlServer(queryString);
+        logger.detail("Trip reference is "+tripRef);
+        return tripRef;
+    }
+
+    public static String[] getTripReferenceForDuo(String reference) {
+        String pickupID = getPickupId(reference);
+        String tripRefereneces[] = new String[2];
+        String reference1 = "select TripRef from triprequest where Pickupid= "+pickupID + " order by TripRef desc limit 1";
+        String reference2 = "select TripRef from triprequest where Pickupid= "+pickupID + " order by TripRef asc limit 1";
+        tripRefereneces[0] = getDataFromMySqlServer(reference1);
+        tripRefereneces [1]= getDataFromMySqlServer(reference2);
+        logger.detail("Trip reference1 is "+tripRefereneces[0]);
+        logger.detail("Trip reference2 is "+tripRefereneces[1]);
+        return tripRefereneces;
+    }
+    public static Double[] getDriverLocation(String phoneNumber) {
+        String driverId = "";
+        Double driverLocation[] = new Double[2];
+        String queryString = "SELECT Id FROM driver WHERE Phone = " + phoneNumber;
+        driverId = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "driverId is " + driverId);
+
+        driverLocation[0]= Double.valueOf(getDataFromMySqlServer("select Latitude from driverlocation where driverid = "+driverId));
+        driverLocation[1]= Double.valueOf(getDataFromMySqlServer("select Longitude from driverlocation where driverid = "+driverId));
+        logger.detail("For driverId " + driverId + " driver location is " + driverLocation[0]+","+driverLocation[1]);
+
+        return driverLocation;
+    }
+    public static String getWaypointId(String reference,int statusId) {
+        String waypointId = "";
+        String queryString;
+        String pickupID = getPickupId(reference);
+        if(statusId==26 || statusId==27 || statusId==28){
+            queryString = "select delivery_stop_ref from delivery_stop where pickupid ="+pickupID+" and delivery_stop_type=2";
+        }else{
+         queryString = "select delivery_stop_ref from delivery_stop where pickupid ="+pickupID+" and delivery_stop_type=1";
+        }
+        waypointId = getDataFromMySqlServer(queryString);
+        logger.detail("Waypoint ID is "+waypointId);
+        return waypointId;
+    }
 }

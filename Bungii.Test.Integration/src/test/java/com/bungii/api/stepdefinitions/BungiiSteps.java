@@ -727,6 +727,12 @@ public class BungiiSteps extends DriverBase {
             case "GoaW DriverW":
                 phone = PropertyUtility.getDataProperties("goa.driver19.phone");
                 break;
+            case "TestDrivertywd_applemd_a_billL BaltimoreL":
+                phone = PropertyUtility.getDataProperties("baltimore.driver10.phone");
+                break;
+            case "Testdrivertywd_applega_a_drvaq Atlanta_aq":
+                phone = PropertyUtility.getDataProperties("atlanta.driver27.phone");
+                break;
             case "Testdrivertywd_appledv_b_mattL DenverL":
                 phone = PropertyUtility.getDataProperties("denver.driver13.phone");
                 break;
@@ -848,6 +854,40 @@ public class BungiiSteps extends DriverBase {
                         }
 
                     }
+                else if (bungiiType.equalsIgnoreCase("Solo Scheduled Weight Based")){
+                        if (driver1State.equalsIgnoreCase("Accepted")) {
+
+                            coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
+                            coreServices.updateStatusForWeightBased(pickupRequest, driverAccessToken, 21);
+                        } else if (driver1State.equalsIgnoreCase("Enroute")) {
+                            coreServices.updateStatusForWeightBased(pickupRequest, driverAccessToken, 23);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                        } else if (driver1State.equalsIgnoreCase("Arrived")) {
+
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                            coreServices.updateStatusForWeightBased(pickupRequest, driverAccessToken, 24);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                        } else if (driver1State.equalsIgnoreCase("Loading Item")) {
+
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                            coreServices.updateStatusForWeightBased(pickupRequest, driverAccessToken, 25);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                        } else if (driver1State.equalsIgnoreCase("Driving To Dropoff")) {
+
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                            coreServices.updateStatusForWeightBased(pickupRequest, driverAccessToken, 26);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                        } else if (driver1State.equalsIgnoreCase("Unloading Item")) {
+
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                            coreServices.updateStatusForWeightBased(pickupRequest, driverAccessToken, 27);
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                        } else if (driver1State.equalsIgnoreCase("Bungii Completed")) {
+
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                            coreServices.updateStatusForWeightBased(pickupRequest, driverAccessToken, 28);
+                        }
+                }
                     i++;
                     pass("As a driver, perform  action on Delivery", "As a driver "+driverName+" perform "+ driver1State+" action on "+bungiiType+" Delivery : "+ pickupRequest);
 
@@ -1102,9 +1142,71 @@ public class BungiiSteps extends DriverBase {
 
 
                     }
+                    else  if (bungiiType.equalsIgnoreCase("Duo Scheduled Weight based")) {
+                        switch(driver1State){
+                            case "Accepted":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver1");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driverAccessToken, 21);
+                                break;
+                            case "Enroute":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver1");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driverAccessToken, 23);
+                                break;
+                            case "Arrived":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver1");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driverAccessToken, 24);
+                                break;
+                            case "Loading Item":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver1");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driverAccessToken, 25);
+                                break;
+                            case "Driving To Dropoff":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver1");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driverAccessToken, 26);
+                                break;
+                            case "Unloading Item":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver1");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driverAccessToken, 27);
+                                break;
+                            case "Bungii Completed":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver1");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driverAccessToken, 28);
+                                break;
+                    }
+                        switch(driver2State){
+                            case "Accepted":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver2");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest,driver2AccessToken, 21);
+                                break;
+                            case "Enroute":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver2");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driver2AccessToken, 23);
+                                break;
+                            case "Arrived":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver2");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driver2AccessToken, 24);
+                                break;
+                            case "Loading Item":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver2");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driver2AccessToken, 25);
+                                break;
+                            case "Driving To Dropoff":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver2");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driver2AccessToken, 26);
+                                break;
+                            case "Unloading Item":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver2");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driver2AccessToken, 27);
+                                break;
+                            case "Bungii Completed":
+                                cucumberContextManager.setScenarioContext("DRIVER_STATUS","Weight Based Driver2");
+                                coreServices.updateStatusForDuoWeightBased(pickupRequest, driver2AccessToken, 28);
+                                break;
+                        }
 
+                }
                     i++;
-                } catch (Exception e) {
+                }catch (Exception e) {
 
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
                     error("Step  Should be successful", "Error performing step,Please check logs for more details",
