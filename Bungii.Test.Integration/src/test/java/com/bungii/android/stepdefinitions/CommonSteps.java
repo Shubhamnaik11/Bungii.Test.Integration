@@ -80,6 +80,7 @@ public class CommonSteps extends DriverBase {
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     AvailableTripsPage availableTrips = new AvailableTripsPage();
     DashBoardPage admin_dashboardPage = new DashBoardPage();
+    TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
 
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
@@ -1938,5 +1939,22 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I click on the \"([^\"]*)\" Button on \"([^\"]*)\" popup$")
+    public void i_click_on_the_something_button_on_something_popup(String button, String popup) throws Throwable {
+        try{
+            switch (popup){
+                case "Accept Delivery":
+                    Thread.sleep(5000);
+                    action.click(tripAlertSettingsPage.Button_OKPopupOnAcceptedDelivery());
+                    break;
+            }
 
+            log("I click on "+button+" on "+ popup ,
+                    "I have clicked on "+button+" on "+ popup, false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+    }
 }

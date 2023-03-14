@@ -38,4 +38,6 @@ public class TripAlertSettingsPage extends PageBase {
 
     public WebElement Text_Sunday() {return findElement("//*[@resource-id='com.bungii.driver:id/text_settings_row_text_day' and @text='Sunday']", LocatorType.XPath);}
 
+    public WebElement Button_OKPopupOnAcceptedDelivery() {return findElement("com.bungii.driver:id/tv_submit", LocatorType.Id);}
+
 }

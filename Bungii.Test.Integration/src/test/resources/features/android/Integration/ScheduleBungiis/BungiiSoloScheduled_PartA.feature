@@ -523,13 +523,13 @@ Feature: SoloScheduled
     And I wait for 1 minutes
     And I click on "View Request" button
     And I click on "Accept" button
+    And I click on the "OK" Button on "Accept Delivery" popup
     And I wait for 1 minutes
-
     Then Partner firm should receive "Bungii Delivery Scheduled" email
     And I Select Trip from driver scheduled trip
     And I start selected Bungii for "floor and decor"
     And Bungii driver should see "General Instructions"
-  #CORE-5466:Verify that Delivery Started email template has been updated with required changes for level 3 partner
+   #CORE-5466:Verify that Delivery Started email template has been updated with required changes for level 3 partner
     Then Partner firm should receive "A Bungii driver is heading your way" email
     And I slide update button on "EN ROUTE" Screen
     Then Bungii driver should see "Pickup Instructions"
@@ -547,6 +547,7 @@ Feature: SoloScheduled
     And I wait for 1 minutes
     And I click on "View Request" button
     And I click on "Accept" button
+    And I click on the "OK" Button on "Accept Delivery" popup
     And I Select Trip from driver scheduled trip
     And I start selected Bungii for "floor and decor"
     And Bungii driver should see "General Instructions"
