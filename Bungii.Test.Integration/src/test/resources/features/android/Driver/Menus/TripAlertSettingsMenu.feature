@@ -104,3 +104,27 @@ Feature: Trip Alert Settings Menu
       And I click on "year" dropdown
       Then I click on "third value" dropdown
       Then I check "total earnings"
+
+ #CORE-4749: The 'i' icon should be displayed on itemized earning screen on android device when delivery is completed with same day configuration
+  @ready
+  Scenario:The 'i' icon should be displayed on itemized earning screen on android device when delivery is completed with same day configuration
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      |
+      | NEXT_POSSIBLE | 8877661181     | Testcustomertywd_BppleMarkFZ LutherFZ|
+    And As a driver "Testdrivertywd_appledc_a_drvap Washingtonap" perform below action with respective "Solo Scheduled" Delivery
+      | driver1 state |
+      | Accepted      |
+      | Enroute       |
+      | Arrived       |
+      | Loading Item   |
+      | Driving To Dropoff |
+      | Unloading Item     |
+      | Bungii Completed     |
+    Given I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Testdrivertywd_appledc_a_drvap Washingtonap" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    When I Select "EARNINGS" from driver App menu
+    When I click on "Itemized Earnings" button
+  #CORE-4749:The 'i' icon should be displayed on itemized earning screen on android device when delivery is completed with same day configuration
+    Then The "i" icon should be displayed for the completed delivery
