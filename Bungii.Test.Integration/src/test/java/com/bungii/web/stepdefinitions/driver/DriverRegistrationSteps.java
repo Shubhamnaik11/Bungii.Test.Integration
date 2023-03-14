@@ -112,13 +112,12 @@ try{
     @Then("^the driver logout from dashboard$")
     public void the_driver_logout_from_dashboard() throws Throwable {
         try{
-        utility.DriverLogout();
-        log("I should be logged out from dashboard ","I clicked ", false);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
-    }
+            utility.DriverLogout();
+            log("I should be logged out from dashboard ","I clicked ", false);
+            } catch(Exception e){
+             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+             error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @When("^I enter \"([^\"]*)\" details on Signup page$")
@@ -207,7 +206,6 @@ try{
             case "I agree to the Terms and Conditions":
                 if (Page_Driver_Terms.CheckBox_Agree(true) != null) {
                     if (Page_Driver_Terms.CheckBox_Agree(true).isSelected() == false)
-
                         action.click(Page_Driver_Terms.CheckBox_Agree_Click());
                 }
                 break;
@@ -329,7 +327,6 @@ try{
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Email()), PropertyUtility.getMessage("DReg_Email_Invalid"),  PropertyUtility.getMessage("DReg_Email_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_Email_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_Email_Invalid")+" is not displayed");
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Phone()), PropertyUtility.getMessage("DReg_Phone_Invalid"),  PropertyUtility.getMessage("DReg_Phone_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_Phone_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_Phone_Invalid")+" is not displayed");
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_CreatePassword()), PropertyUtility.getMessage("DReg_Password_Invalid"),  PropertyUtility.getMessage("DReg_Password_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_Password_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_Password_Invalid")+" is not displayed");
-                //testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_ConfirmPassword()), PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect"),  PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" should be displayed", PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" is displayed", PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" is not displayed");
                 break;
             case "Global validation message":
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_BlankFields()), PropertyUtility.getMessage("Err_Pages_BlankFields"),  PropertyUtility.getMessage("Err_Pages_BlankFields")+" should be displayed", PropertyUtility.getMessage("Err_Pages_BlankFields")+" is displayed", PropertyUtility.getMessage("Err_Pages_BlankFields")+" is not displayed");
@@ -514,15 +511,14 @@ try{
     @Then("^I should see the \"([^\"]*)\" displayed$")
     public void i_should_see_the_something_displayed(String strArg1) throws Throwable {
         try {
-        String updatedVerbiage = "Driving with Bungii is a flexible, easy way to earn extra money on the side. To get started, fill out the application below and we’ll get you on the road in no time.";
-        Thread.sleep(1000);
-        String existingVerbiage = action.getText(Page_Driver_Reg.Text_Verbiage());
-        testStepAssert.isEquals(existingVerbiage,updatedVerbiage,"Verbiage text should be updated to newest text","Verbiage text is updated to newest text","Verbiage text is not updated to newest text");
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
-    }
+            String updatedVerbiage = "Driving with Bungii is a flexible, easy way to earn extra money on the side. To get started, fill out the application below and we’ll get you on the road in no time.";
+            action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Reg.Text_Verbiage(), (long) 5000);
+            String existingVerbiage = action.getText(Page_Driver_Reg.Text_Verbiage());
+            testStepAssert.isEquals(existingVerbiage,updatedVerbiage,"Verbiage text should be updated to newest text","Verbiage text is updated to newest text","Verbiage text is not updated to newest text");
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @Then("^I should see the \"([^\"]*)\" textbox not displayed$")
@@ -543,25 +539,22 @@ try{
             Thread.sleep(1000);
             String expectedPasswordMasked =Page_Driver_Reg.TextBox_CreatePassword().getAttribute("type");
             testStepAssert.isTrue(expectedPasswordMasked.contentEquals(passwordMasked),"Password should be masked","Password is masked","Password is not masked");
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
-    }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @When("^I click on the \"([^\"]*)\" button$")
     public void i_click_on_the_something_button(String strArg1) throws Throwable {
         try {
-        Thread.sleep(1000);
-        action.click(Page_Driver_Reg.Link_EyeOpen());
-        log("I should be able to click on the closed eye button","I could click on the closed eye button",false);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
-    }
-
+            action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Reg.Link_EyeOpen(), (long) 5000);
+            action.click(Page_Driver_Reg.Link_EyeOpen());
+            log("I should be able to click on the closed eye button","I could click on the closed eye button",false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @Then("^I should see the password as text$")
