@@ -66,6 +66,7 @@ Feature: Admin_Live_Delivery_Edit
     And I wait for "2" mins
     And  I refresh the page
     And I click on the dropdown beside scheduled bungii
+    And I wait for "2" mins
     Then I should see the "History" underlined
     When I click on the Notes link for Live Deliveries
     And I click on "History"
@@ -100,6 +101,8 @@ Feature: Admin_Live_Delivery_Edit
       When I click on "Save" button on Edit Scheduled bungii popup
       Then "Bungii Saved!" message should be displayed
       And I wait for "2" mins
+#     CORE-4118: Verify Partner email is not sent when payment method used is Customer Card
+      And Partner firm should not receive "Bungii Delivery Updated" email
       When I open the live delivery details in admin portal
       Then the updated drop off address should be displayed on delivery details page
       And Delivery price is recalculated based on updated value of drop off address
@@ -121,6 +124,7 @@ Feature: Admin_Live_Delivery_Edit
       Then I should be able to see the respective bungii with the below status
         |  Status       |
         | <TripStatus> |
+      And I wait for 2 minutes
       And I click on "Edit" link beside live delivery
       And I click on "Edit Delivery Status" radiobutton
       And I click on "Delivery Canceled" radiobutton
@@ -206,9 +210,11 @@ Feature: Admin_Live_Delivery_Edit
     And I click on "CALCULATE COST" button
     Then Confirmation message on edit live delivery pop up should be displayed
     And I click on "Confirm" button
-    Then The "Pick up has been successfully updated." message should be displayed for live delivery
-    And I view the Deliveries list on the admin portal
-    Then The Delivery List page should display the delivery in "Payment Successful" state
+    And I click on "Close" button
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state
 
     Examples:
       |DriverStatus        |CustomerPhone|CustomerName                        |DriverName                                |TripStatus  |
@@ -242,8 +248,11 @@ Feature: Admin_Live_Delivery_Edit
     Then Confirmation message on edit live delivery pop up should be displayed
     And I click on "Confirm" button
     Then The "Pick up has been successfully updated." message should be displayed for live delivery
-    And I view the Deliveries list on the admin portal
-    Then The Delivery List page should display the delivery in "Payment Successful" state
+    And I click on "Close" button
+    And I wait for 2 minutes
+    When I view All Deliveries list on the admin portal
+    And  I search the delivery using "Pickup Reference"
+    Then The "All Deliveries" should be in "Payment Successful" state
 
     #CORE-3372:To verify delivery status is updated when PartnerPortal delivery is marked as Delivery complete on Live deliveries
     When I navigate to "Partner" portal configured for "normal" URL

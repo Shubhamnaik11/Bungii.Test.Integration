@@ -621,7 +621,7 @@ public class DbUtility extends DbContextManager {
     }
     public static List<HashMap<String,Object>>  getAccessorialAmount(String Pickup_Reference) {
         List<HashMap<String,Object>> allcharges = new ArrayList<>();
-        String queryString = "select Amount from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 5";
+        String queryString = "select Amount from bungii_admin_qa_auto.paymenttransaction where clientgroupref ='" + Pickup_Reference + "' ORDER BY ID DESC limit 8";
         allcharges = getListDataFromMySqlMgmtServer(queryString);
         return allcharges;
 
@@ -708,16 +708,31 @@ public class DbUtility extends DbContextManager {
 
 
     }
-    public static String getDisbursementType(String pickUpRef,String driverPhone) {
-        String disbursementType;
+
+    public static String getDisbursementType(String type,String pickUpRef,String driverPhone) {
+        String transactionType = "";
         String driverId;
-        String queryString = "Select Id from driver where phone= "+driverPhone;
-        driverId = getDataFromMySqlMgmtServer(queryString);
-        logger.detail("The driver Id for "+driverPhone+" is "+driverId);
-        String queryString1 ="select disbursement_type from payment_trans_disburse_branch where payment_transaction_id in (select Id from paymenttransaction where clientgroupref in ('"+pickUpRef+"')) and driver_id="+driverId;
-        disbursementType = getDataFromMySqlMgmtServer(queryString1);
-        logger.detail("The disbursement type for "+driverId+" is "+disbursementType);
-        return disbursementType;
+        String queryString;
+
+        switch (type) {
+            case "Disbursement type":
+                queryString = "Select Id from driver where phone= "+driverPhone;
+                driverId = getDataFromMySqlMgmtServer(queryString);
+                String queryString1 ="select disbursement_type from payment_trans_disburse_branch where payment_transaction_id in (select Id from paymenttransaction where clientgroupref in ('"+pickUpRef+"')) and driver_id="+driverId;
+                transactionType = getDataFromMySqlMgmtServer(queryString1);
+                logger.detail("The driver Id for "+driverPhone+" is "+driverId);
+                logger.detail("The disbursement type for "+driverId+" is "+transactionType);
+            break;
+
+            case "Payment transaction type":
+                queryString = "Select Id from driver where phone= "+driverPhone;
+                driverId = getDataFromMySqlMgmtServer(queryString);
+                String queryString2 ="select PaymentTransactionType  from bungii_admin_qa_auto.paymenttransaction where Driver= "+driverId+ " and PaymentTransactionType =10 limit 1";
+                transactionType = getDataFromMySqlMgmtServer(queryString2);
+                logger.detail("The payment transaction type for "+driverId+" is "+transactionType);
+            break;
+        }
+        return transactionType;
     }
     public static String getDriverPaidStatus(String pickUpRef) {
         String driverStatus;
@@ -764,8 +779,20 @@ public class DbUtility extends DbContextManager {
     public static String[] getFullPickUpAndDropOff(String reference){
         String pickupID = getPickupId(reference);
         String tripLocation[] = new String[2];
-        tripLocation[0]=    getDataFromMySqlServer("SELECT concat(ifnull(PickupAddress1,''),', ',ifnull(PickupAddress2,''),', ',ifnull(PickupCity,''),', ',ifnull(PickupState,''),', ',ifnull(PickupCountry,''),', ',ifnull(PickupZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId="+pickupID);
-        tripLocation[1]=    getDataFromMySqlServer("SELECT concat(ifnull(DropOffAddress1,''),', ',ifnull(DropOffAddress2,''),', ',ifnull(DropOffCity,''),', ',ifnull(DropOffState,''),', ',ifnull(DropOffCountry,''),', ',ifnull(DropOffZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId ="+pickupID);
+        String pickUpAddress2 = getDataFromMySqlServer("SELECT PickupAddress2 FROM pickupdropaddress WHERE pickupId= "+ pickupID);
+        String dropOffAddress2 = getDataFromMySqlServer("SELECT DropOffAddress2 FROM pickupdropaddress WHERE pickupId= "+ pickupID);
+        if (!(pickUpAddress2==null)){
+            tripLocation[0]= getDataFromMySqlServer("SELECT concat(ifnull(PickupAddress1,''),', ',ifnull(PickupAddress2,''),', ',ifnull(PickupCity,''),', ',ifnull(PickupState,''),', ',ifnull(PickupCountry,''),', ',ifnull(PickupZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId="+pickupID);
+        }
+        else{
+            tripLocation[0]= getDataFromMySqlServer("SELECT concat(ifnull(PickupAddress1,''),', ',ifnull(PickupCity,''),', ',ifnull(PickupState,''),', ',ifnull(PickupCountry,''),', ',ifnull(PickupZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId="+pickupID);
+        }
+        if(!(dropOffAddress2==null)){
+            tripLocation[1]= getDataFromMySqlServer("SELECT concat(ifnull(DropOffAddress1,''),', ',ifnull(DropOffAddress2,''),', ',ifnull(DropOffCity,''),', ',ifnull(DropOffState,''),', ',ifnull(DropOffCountry,''),', ',ifnull(DropOffZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId ="+pickupID);
+        }
+        else{
+            tripLocation[1]= getDataFromMySqlServer("SELECT concat(ifnull(DropOffAddress1,''),', ',ifnull(DropOffCity,''),', ',ifnull(DropOffState,''),', ',ifnull(DropOffCountry,''),', ',ifnull(DropOffZipPostalCode,'')) FROM pickupdropaddress WHERE pickupId="+pickupID);
+        }
         logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]);
         logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[1]);
         return tripLocation;
@@ -814,6 +841,13 @@ public class DbUtility extends DbContextManager {
         verificationCode = getDataFromMySqlMgmtServer(queryString);
         logger.detail("SMS verification code for admin having phone number " + phoneNumber + "  is " + verificationCode);
         return verificationCode;
+    }
+    public static String getDriverVehicleInfo(String phoneNumber) {
+        String driverVehicleInfo = "";
+        String queryString = "select vehicle_info  from driver where phone=" + phoneNumber;
+        driverVehicleInfo = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "Drivers vehicle information is " + driverVehicleInfo);
+        return driverVehicleInfo;
     }
 
 }

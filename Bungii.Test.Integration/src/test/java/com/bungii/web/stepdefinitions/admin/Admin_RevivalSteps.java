@@ -350,7 +350,12 @@ public class Admin_RevivalSteps extends DriverBase {
     @Then("^The Below accessorial charges should be present in the db$")
     public void the_below_accessorial_charges_should_be_present_in_the_db(DataTable data) throws Throwable {
         try{
-            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+
+        String additionalMileageAmount = dataMap.get("Additional Mileage").trim();
+        String additionalWeightPalletAmount = dataMap.get("Additional Weight / Pallet").trim();
+        String customerRejectedReturnedAmount = dataMap.get("Customer Rejected / Returned").trim();
+        String limitedAccessAmount = dataMap.get("Limited Access").trim();
         String excessWaitTimeAmount = dataMap.get("Excess Wait Time").trim();
         String cancelationAmount = dataMap.get("Cancelation").trim();
         String mountainousAmount = dataMap.get("Mountainous").trim();
@@ -359,38 +364,57 @@ public class Admin_RevivalSteps extends DriverBase {
         String TripType = (String) cucumberContextManager.getScenarioContext("TripType");
 
         if(TripType.equals("PartnerTrip")) {
-
             List<HashMap<String, Object>> isDriverPaid = new DbUtility().getAccessorialAmount(PickupRequest);
-            String DB_ExcessWaitTime_Amount = isDriverPaid.get(3).get("Amount").toString();
-            String DB_Cancellation_Amount = isDriverPaid.get(2).get("Amount").toString();
-            String DB_Mountainious_Amount = isDriverPaid.get(1).get("Amount").toString();
-            String DB_Other_Amount = isDriverPaid.get(0).get("Amount").toString();
 
-            testStepAssert.isEquals(DB_ExcessWaitTime_Amount,excessWaitTimeAmount,"Excess wait time charges should be present and not refunded","Excess wait time charges is present and not refunded","Excess wait time charges is not present in db");
-            testStepAssert.isEquals(DB_Cancellation_Amount,cancelationAmount,"Cancellation charges should be present and not refunded","Cancellation charges is present and not refunded","Cancellation charges is not present in db");
-            testStepAssert.isEquals(DB_Mountainious_Amount,mountainousAmount,"Mountainious charges should be present and not refunded","Mountainious charges is present and not refunded","Mountainious charges is not present in db");
-            testStepAssert.isEquals(DB_Other_Amount,otherAmount,"Other charges should be present and not refunded","Other charges is present and not refunded","Other charges is not present in db");
-
+            String[] amt = new String[10];
+            for (int i = 0; i < isDriverPaid.size(); i++) {
+                String amount;
+                if (isDriverPaid.get(i).get("Amount").toString().contains(".00")) {
+                    amount = "$" + isDriverPaid.get(i).get("Amount").toString().replace(".00", "");
+                    amt[i] = amount;
+                } else {
+                    amount = "$" + isDriverPaid.get(i).get("Amount");
+                    amt[i] = amount;
+                }
+            }
+            testStepAssert.isEquals(amt[0], otherAmount, "Other charges should be present and not refunded", "Other charges is present and not refunded", "Other charges is not present in db");
+            testStepAssert.isEquals(amt[1], mountainousAmount, "Mountainious charges should be present and not refunded", "Mountainious charges is present and not refunded", "Mountainious charges is not present in db");
+            testStepAssert.isEquals(amt[2], limitedAccessAmount, "Limited Access Amount charges should be present and not refunded", "Limited Access Amount charges is present and not refunded", "Limited Access Amount charges is not present in db");
+            testStepAssert.isEquals(amt[3], excessWaitTimeAmount, "Excess wait time charges should be present and not refunded", "Excess wait time charges is present and not refunded", "Excess wait time charges is not present in db");
+            testStepAssert.isEquals(amt[4], customerRejectedReturnedAmount, "Customer Rejected Returned Amount charges should be present and not refunded", "Customer Rejected Returned Amount charges is present and not refunded", "Customer Rejected Returned Amount charges is not present in db");
+            testStepAssert.isEquals(amt[5], cancelationAmount, "Cancellation charges should be present and not refunded", "Cancellation charges is present and not refunded", "Cancellation charges is not present in db");
+            testStepAssert.isEquals(amt[6], additionalWeightPalletAmount, "Additional Weight / Pallet Amount charges should be present and not refunded", "Additional Weight / Pallet Amount charges is present and not refunded", "Additional Weight / Pallet Amount charges is not present in db");
+            testStepAssert.isEquals(amt[7], additionalMileageAmount, "Additional Mileage Amount charges should be present and not refunded", "Additional Mileage Amount charges is present and not refunded", "Additional Mileage Amount charges is not present in db");
         }
+
         else {
-
             List<HashMap<String, Object>> isDriverPaid = new DbUtility().getAccessorialAmount(PickupRequest);
-            String DB_ExcessWaitTime_Amount = isDriverPaid.get(4).get("Amount").toString();
-            String DB_Cancellation_Amount = isDriverPaid.get(3).get("Amount").toString();
-            String DB_Mountainious_Amount = isDriverPaid.get(2).get("Amount").toString();
-            String DB_Other_Amount = isDriverPaid.get(1).get("Amount").toString();
-
-            testStepAssert.isEquals(DB_ExcessWaitTime_Amount,excessWaitTimeAmount,"Excess wait time charges should be present and not refunded","Excess wait time charges is present and not refunded","Excess wait time charges is not present in db");
-            testStepAssert.isEquals(DB_Cancellation_Amount,cancelationAmount,"Cancellation charges should be present and not refunded","Cancellation charges is present and not refunded","Cancellation charges is not present in db");
-            testStepAssert.isEquals(DB_Mountainious_Amount,mountainousAmount,"Mountainious charges should be present and not refunded","Mountainious charges is present and not refunded","Mountainious charges is not present in db");
-            testStepAssert.isEquals(DB_Other_Amount,otherAmount,"Other charges should be present and not refunded","Other charges is present and not refunded","Other charges is not present in db");
+            String[] amt = new String[10];
+            for (int i = 0; i < isDriverPaid.size(); i++) {
+                String amount;
+                if (isDriverPaid.get(i).get("Amount").toString().contains(".00")) {
+                    amount = "$" + isDriverPaid.get(i).get("Amount").toString().replace(".00", "");
+                    amt[i] = amount;
+                } else {
+                    amount = "$" + isDriverPaid.get(i).get("Amount");
+                    amt[i] = amount;
+                }
+            }
+            testStepAssert.isEquals(amt[0], otherAmount, "Other charges should be present and not refunded", "Other charges is present and not refunded", "Other charges is not present in db");
+            testStepAssert.isEquals(amt[1], mountainousAmount, "Mountainious charges should be present and not refunded", "Mountainious charges is present and not refunded", "Mountainious charges is not present in db");
+            testStepAssert.isEquals(amt[2], limitedAccessAmount, "Limited Access Amount charges should be present and not refunded", "Limited Access Amount charges is present and not refunded", "Limited Access Amount charges is not present in db");
+            testStepAssert.isEquals(amt[3], excessWaitTimeAmount, "Excess wait time charges should be present and not refunded", "Excess wait time charges is present and not refunded", "Excess wait time charges is not present in db");
+            testStepAssert.isEquals(amt[4], customerRejectedReturnedAmount, "Customer Rejected Returned Amount charges should be present and not refunded", "Customer Rejected Returned Amount charges is present and not refunded", "Customer Rejected Returned Amount charges is not present in db");
+            testStepAssert.isEquals(amt[5], cancelationAmount, "Cancellation charges should be present and not refunded", "Cancellation charges is present and not refunded", "Cancellation charges is not present in db");
+            testStepAssert.isEquals(amt[6], additionalWeightPalletAmount, "Additional Weight / Pallet Amount charges should be present and not refunded", "Additional Weight / Pallet Amount charges is present and not refunded", "Additional Weight / Pallet Amount charges is not present in db");
+            testStepAssert.isEquals(amt[7], additionalMileageAmount, "Additional Mileage Amount charges should be present and not refunded", "Additional Mileage Amount charges is present and not refunded", "Additional Mileage Amount charges is not present in db");
         }
     }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
     }
-}
+    }
 
     @Then("^I should see the cancelled trip icon displayed for the delivery$")
     public void i_should_see_the_cancelled_trip_icon_displayed_for_the_delivery() throws Throwable {

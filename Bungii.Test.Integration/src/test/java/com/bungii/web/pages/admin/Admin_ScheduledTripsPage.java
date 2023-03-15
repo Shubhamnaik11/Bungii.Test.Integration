@@ -172,7 +172,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Link_Notes(){return  findElement("//span[text()='Notes']",LocatorType.XPath);}
 
-    public WebElement Link_History(){return  findElement("//span[text()='History']",LocatorType.XPath);}
+    public WebElement Link_History(){return  findElement("//span[contains(text(),'History')]",LocatorType.XPath);}
 
     public List<WebElement> List_Notes(){return  findElements("//div[@class ='note']/div/span",LocatorType.XPath);}
 
@@ -229,7 +229,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_HistoryNewValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[3]",LocatorType.XPath);}
 
-    public WebElement Link_NotesHistoryLiveDelivery(){return findElement("//ul[@class=\"dropdown-menu\"]/li[3]/p",LocatorType.XPath);}
+//    public WebElement Link_NotesHistoryLiveDelivery(){return findElement("//ul[@class=\"dropdown-menu\"]/li[3]/p",LocatorType.XPath);}
+    public WebElement Link_NotesHistoryLiveDelivery(){return findElement("//body/div[@id='popover-basic']/div[2]/div[3]",LocatorType.XPath);}
+
 
     public WebElement Text_HistoryTabInformation(int row ,int col){return  findElement(String.format("//div[@class=\"old-note\"]/table/tbody/tr[%d]/td[%d]",row,col),LocatorType.XPath);}
 
@@ -268,9 +270,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Label_Pickup_Location_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[3]/div/span[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
     public WebElement Textbox_Pickup_Location_For_Live () { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div[1]/div[@class=\"address-textbox\"]/div/input",LocatorType.XPath);}
     public WebElement Button_Edit_Pickup_Address_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[3]/div[2]/div/div[2]/img[@title='Edit Pickup Location']",LocatorType.XPath);}
-    public WebElement Text_EstimatedDeliveryTime() {return findElement("//td[text()=\"Estimated Delivery Time\"]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_EstimatedDeliveryTime() {return findElement("//h6[contains(text(),'Estimated Delivery Time')]/following-sibling::p", LocatorType.XPath);}
 
-    public WebElement Text_ScheduledDelivery() {return findElement("//td[text()=\"Scheduled Time\"]/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Text_ScheduledDelivery() {return findElement("//td/strong[text()=\"Scheduled Time: \"]/following::td[1]", LocatorType.XPath);}
 
     public WebElement Text_AdvanceScheduledStatus() {return  findElement("//table[contains(@class, 'ScheduledDeliveries')]//td[contains(text(),'Pending')]", LocatorType.XPath);}
 }

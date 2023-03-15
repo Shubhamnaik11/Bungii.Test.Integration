@@ -512,6 +512,44 @@ Feature: SoloScheduled
     When Bungii driver uploads "1" image
     Then I slide update button on "ARRIVED" Screen
 
+  @ready
+  #CORE-5039: To verify that secondary geofence driver receives PN for within 30 miles from the driver's home location for scheduled deliveries
+  Scenario: To verify that secondary geofence driver receives PN for within 30 miles from the driver's home location for scheduled deliveries
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appledc_a_drvah Washingtonah" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I tap on "Go Online button" on Driver Home page
+
+    When I Switch to "customer" application on "same" devices
+    And I am logged in as "Testcustomertywd_BppleMarkGH LutherGH" customer
+    And I enter "Odenton pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    When I confirm trip with following detail
+      | Day | Trip Type |
+      | 1   | SOLO      |
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    When I Switch to "driver" application on "same" devices
+    And I wait for "4" mins
+    Then I should see a popup "New Bungii Request" displayed
+    And I click on "View Request" button
+
+    When I connect to "extra1" using "Driver2" instance
+    And I am logged in as "TestDrivertywd_applemd_a_billL BaltimoreL" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I tap on "Go Online button" on Driver Home page
+    And I wait for "4" mins
+    Then I should see a popup "New Bungii Request" displayed
+    And I click on "View Request" button
+    And I wait for 1 minutes
+    And I click on "Accept" button
+    Then I Select Trip from driver scheduled trip
+
 #CORE-5466:Verify that Delivery Started email template has been updated with required changes for level 3 partner
   @ready
   Scenario:Verify that Delivery Started email template has been updated with required changes for level 3 partner

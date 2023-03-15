@@ -25,7 +25,7 @@ Feature: Bungii Details and Pickup Note
     Then I Select "SCHEDULED BUNGIIS" from driver App menu
     
     And I open Admin portal and navigate to "Scheduled Deliveries" page
-    And I open the trip for "johnny oliver" customer
+    And I open the trip for "johnny oliver" the customer
     And I Select "Edit Trip Details" option
     And I assign driver for the "Solo" trip
     And I click on "VERIFY" button
@@ -39,14 +39,14 @@ Feature: Bungii Details and Pickup Note
   @regression
     #stable
   Scenario: Verify that the My Bungii Past trip is visible when admin manually ends bungii
-    Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
+    Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleMarkGJ LutherGJ"
       | geofence | Bungii State | Bungii Time     |
       | goa      | Unloading Items | 0.5 hour ahead  |
     When bungii admin manually end bungii created by "CUSTOMER1"
   
 	Then I Switch to "customer" application on "same" devices
 	When I am on customer Log in page
-	And I am logged in as "Testcustomertywd_appleand_F Android" customer
+	And I am logged in as "Testcustomertywd_appleMarkGJ LutherGJ" customer
     And I tap on "Menu" > "MY BUNGIIS" link
     And "MY BUNGIIS" page should be opened
     And I click on "Past" tab
