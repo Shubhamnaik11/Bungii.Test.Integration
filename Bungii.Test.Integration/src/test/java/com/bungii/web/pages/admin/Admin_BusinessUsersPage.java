@@ -103,5 +103,6 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Label_ErrorOnInvalidCard(){ return findElement("//span[@class='text-error']", LocatorType.XPath);}
 
+    public WebElement Label_ErrorOnInvalidName(){ return findElement("//label[text()=\"Name:\"]/following-sibling::div/div[2]", LocatorType.XPath);}
 
 }
