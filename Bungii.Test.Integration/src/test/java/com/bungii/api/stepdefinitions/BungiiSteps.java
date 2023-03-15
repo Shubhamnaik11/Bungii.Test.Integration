@@ -3703,6 +3703,7 @@ else
             //request Bungii
             coreServices.validatePickupRequest(custAccessToken, geofence);
             String pickupRequest = coreServices.getPickupRequest(custAccessToken, 1, geofence);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
             //In case of having default promo code  "ADDED_PROMOCODE_WALLETREF" hold value of wallet ref, else return empty string
             if (tripLabel.trim().equalsIgnoreCase(""))
