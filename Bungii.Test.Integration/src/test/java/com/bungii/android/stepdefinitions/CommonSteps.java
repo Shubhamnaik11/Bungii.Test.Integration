@@ -464,7 +464,7 @@ public class CommonSteps extends DriverBase {
     @And("^I open Admin portal and navigate to \"([^\"]*)\" page$")
     public void i_open_admin_portal_and_navigate_to_something_page(String option) throws Throwable {
         try {
-        i_open_new_something_browser_for_something_instance("CHROME","ADMIN");
+        i_open_new_something_browser_for_something_instance("CHROME","ADMIN PORTAL");
         SetupManager.getDriver().get(utility.GetAdminUrl());
         logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
         logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));

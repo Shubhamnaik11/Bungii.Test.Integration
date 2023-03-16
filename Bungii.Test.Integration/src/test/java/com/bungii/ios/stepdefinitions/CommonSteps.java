@@ -1925,7 +1925,7 @@ public class CommonSteps extends DriverBase {
     @When("^I navigate to \"([^\"]*)\" on Admin portal$")
     public void i_navigate_to_something_on_admin_portal(String option) throws Throwable {
         try {
-        i_open_new_something_browser_for_something_instance("Chrome", "ADMIN");
+        i_open_new_something_browser_for_something_instance("Chrome", "ADMIN PORTAL");
         SetupManager.getDriver().get(utility.GetAdminUrl());
         logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
         logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
@@ -3390,8 +3390,7 @@ public class CommonSteps extends DriverBase {
     @And("^I open Admin portal and navigate to \"([^\"]*)\" page$")
     public void i_open_admin_portal_and_navigate_to_something_page(String option) throws Throwable {
         try {
-            SetupManager.getObject().createNewWebdriverInstance("ADMIN", "CHROME");
-            SetupManager.getObject().useDriverInstance("ADMIN");
+            i_open_new_something_browser_for_something_instance("CHROME","ADMIN PORTAL");
             SetupManager.getDriver().navigate().to(utility.GetAdminUrl());
             SetupManager.getDriver().getCurrentUrl();
             action.sendKeys(logInPage.TextBox_Phone(),PropertyUtility.getDataProperties("admin.user"));

@@ -357,7 +357,7 @@
           | Bungii Time    | Customer Phone | Customer Name                       | Customer Password |
           | TELET OVERLAP  | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
         Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -403,7 +403,7 @@
           | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
           | TELET SAME TIME  | 9999992222     | Testcustomertywd_appleand_C Android | Cci12345          |
         Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
