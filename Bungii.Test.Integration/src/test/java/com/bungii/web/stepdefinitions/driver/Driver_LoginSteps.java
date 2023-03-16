@@ -80,37 +80,34 @@ public class Driver_LoginSteps extends DriverBase {
     @Then("^the driver should \"([^\"]*)\"$")
     public void ThenTheDriverShould(String p0)
     {
-try{
-            switch (p0) {
-                case "be logged in":
-                    try {
-                        //        testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.Header_Dashboard()), PropertyUtility.getMessage("DriverDashboardHeader"));
-                        testStepAssert.isElementDisplayed(Page_Driver_Dashboard.SideNavigationSetting(), "Driver should log in to driver portal", "Driver is logged in to driver portal", "Driver is not logged in to driver portal due to error");
-                        testStepAssert.isElementDisplayed(Page_Driver_Dashboard.SideNavigationGeneral(), "Driver should log in to driver portal", "Driver is logged in to driver portal", "Driver is not logged in to driver portal due to error");
+    try{
+        switch (p0) {
+           case "be logged in":
+               try {
+                    testStepAssert.isElementDisplayed(Page_Driver_Dashboard.SideNavigationSetting(), "Driver should log in to driver portal", "Driver is logged in to driver portal", "Driver is not logged in to driver portal due to error");
+                    testStepAssert.isElementDisplayed(Page_Driver_Dashboard.SideNavigationGeneral(), "Driver should log in to driver portal", "Driver is logged in to driver portal", "Driver is not logged in to driver portal due to error");
                     }
                     catch(Exception ex) {
                         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
                         error("Driver should log in to driver portal", "Driver is not logged in due to error [Probable root cause : encryption decryption in local environment]", true);
                     }
                     break;
-                case "see validation message for blank fields":
+           case "see validation message for blank fields":
                     testStepVerify.isEquals(action.getText(Page_Driver_Login.Err_DriverLogin_Blank()), PropertyUtility.getMessage("Err_Pages_BlankFields"));
                     break;
-                case "see validation message for invalid phone field":
+           case "see validation message for invalid phone field":
                     testStepVerify.isEquals(action.getText(Page_Driver_Login.Err_DriverLogin_Phone()), PropertyUtility.getMessage("Err_DriverLogin_Phone"));
                     break;
-                case "see validation message for incorrect credentials":
+           case "see validation message for incorrect credentials":
                     testStepVerify.isEquals(action.getText(Page_Driver_Login.Err_DriverLogin_FieldValidation()), PropertyUtility.getMessage("Err_DriverLogin_IncorrectCredentials"));
                     break;
-                default:
+                    default:
                     break;
-            }
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
-    }
-
+           }
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @And("^I login to the driver portal as driver \"([^\"]*)\"$")
@@ -133,44 +130,39 @@ try{
     @Given("^I Login as a driver with below phone numbers and Make them online$")
     public void i_login_as_a_driver_with_below_phone_numbers_and_make_them_online(DataTable data) throws Throwable {
        try{
-           Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
-        String phoneNumber = dataMap.get("PhoneNumber").trim();
-
-        String driverAccessToken = authServices.getDriverToken("1", phoneNumber, "cci12345");
-      //  coreServices.updateDriverLocation(driverAccessToken, geofence);
-        coreServices.updateDriverStatus(driverAccessToken);
-        log("I Login as a driver with phone number "+phoneNumber+" and Make him online","I haved Logged in as a driver with phone number "+phoneNumber+" and Make him online", false);
-    } catch(Exception e){
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String phoneNumber = dataMap.get("PhoneNumber").trim();
+            String driverAccessToken = authServices.getDriverToken("1", phoneNumber, "cci12345");
+            coreServices.updateDriverStatus(driverAccessToken);
+            log("I Login as a driver with phone number "+phoneNumber+" and Make him online","I haved Logged in as a driver with phone number "+phoneNumber+" and Make him online", false);
+       } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
-    }
+        error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @When("^I click on the open \"([^\"]*)\" link on the driver login page$")
     public void i_click_on_the_open_something_link_on_the_driver_login_page(String strArg1) throws Throwable {
         try {
-        Thread.sleep(1000);
-        action.click(Page_Driver_Login.Link_Login_OpenEye());
-        log("I should be able to click on the closed eye link","I could click on the closed eye link",false);
-        } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
-    }
+            action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Login.Link_Login_OpenEye(), (long) 3000);
+            action.click(Page_Driver_Login.Link_Login_OpenEye());
+            log("I should be able to click on the closed eye link","I could click on the closed eye link",false);
+            } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @Then("^The password for driver login should be masked$")
     public void the_password_for_driver_login_should_be_masked() throws Throwable {
         try {
-        String passwordMasked = "password";
-        Thread.sleep(1000);
-        String expectedPasswordMasked = Page_Driver_Login.TextBox_DriverLogin_Password().getAttribute("type");
-        testStepAssert.isTrue(expectedPasswordMasked.contentEquals(passwordMasked), "Password should be masked", "Password is masked", "Password is not masked");
-    }catch(Exception e){
+            String passwordMasked = "password";
+            action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Login.TextBox_DriverLogin_Password(), (long) 5000);
+            String expectedPasswordMasked = Page_Driver_Login.TextBox_DriverLogin_Password().getAttribute("type");
+            testStepAssert.isTrue(expectedPasswordMasked.contentEquals(passwordMasked), "Password should be masked", "Password is masked", "Password is not masked");
+        }catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 
@@ -178,7 +170,7 @@ try{
     public void i_should_see_the_password_in_the_form_of_text() throws Throwable {
         try {
             String passwordUnmasked = "text";
-            Thread.sleep(1000);
+            action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Login.TextBox_DriverLogin_Password(), (long) 3000);
             String expectedPasswordUnMasked = Page_Driver_Login.TextBox_DriverLogin_Password().getAttribute("type");
             testStepAssert.isTrue(expectedPasswordUnMasked.contentEquals(passwordUnmasked), "Password should not be masked", "Password is not masked", "Password is masked");
         }catch(Exception e){
@@ -187,5 +179,4 @@ try{
                     true);
         }
     }
-
 }

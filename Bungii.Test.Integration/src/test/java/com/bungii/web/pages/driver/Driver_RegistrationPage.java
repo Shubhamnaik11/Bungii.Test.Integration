@@ -7,53 +7,53 @@ public class Driver_RegistrationPage extends PageBase {
 
     //------------------------------driver Registration---------------------------------------------------------------
     //driver Registration - Header
-    public WebElement Header_DriverRegistration () { return findElement("//div[@id='signup']/h2", LocatorType.XPath); }
+    public WebElement Header_DriverRegistration () { return findElement("//body/div/div/div/div/div/aside/div/div[1]/form[1]/h2", LocatorType.XPath); }
 
     //driver Registration - Click Here link
     public WebElement Link_ClickHere () { return findElement("signup", LocatorType.Id); }
 
     //driver Registration - First Name
-    public WebElement TextBox_FirstName () { return findElement("first-name", LocatorType.Id); }
+    public WebElement TextBox_FirstName () { return findElement("//input[@name='FirstName']", LocatorType.XPath); }
 
     //driver Registration - Last Name
-    public WebElement TextBox_LastName () { return findElement("LastName", LocatorType.Id); }
+    public WebElement TextBox_LastName () { return findElement("//input[@name='LastName']", LocatorType.XPath); }
 
     //driver Registration - Email
-    public WebElement TextBox_Email () { return findElement("email", LocatorType.Id); }
+    public WebElement TextBox_Email () { return findElement("//input[@name='EmailAddress']", LocatorType.XPath); }
 
     //driver Registration - Phone number
-    public WebElement TextBox_PhoneNumber () { return findElement("phone", LocatorType.Id); }
+    public WebElement TextBox_PhoneNumber () { return findElement("//input[@type='tel']", LocatorType.XPath); }
 
     //driver Registration - Create password
-    public WebElement TextBox_CreatePassword () { return findElement("password", LocatorType.Id); }
+    public WebElement TextBox_CreatePassword () { return findElement("//input[@class='form-control password form-control']", LocatorType.XPath); }
 
     //driver Registration - Confirm password
     public WebElement TextBox_ConfirmPassword (boolean ...ignoreException) { return findElement("confirmpassword", LocatorType.Id,ignoreException); }
 
     //driver Registration - Sign Up Button
-    public WebElement Button_SignUp () { return findElement("btnRegister", LocatorType.Id); }
+    public WebElement Button_SignUp () { return findElement("//button[@class='mb30 btn btn-primary']", LocatorType.XPath); }
 
     //------------------ERRORS----------------------------------
     //ERROR - First Name
-    public WebElement ERR_FirstName () { return findElement("first-name-error", LocatorType.Id); }
+    public WebElement ERR_FirstName () { return findElement("//body/div/div/div/div/div/aside/div/div[1]/form/div[1]/div", LocatorType.XPath); }
 
     //ERROR - Last Name
-    public WebElement ERR_LastName () { return findElement("LastName-error", LocatorType.Id); }
+    public WebElement ERR_LastName () { return findElement("//body/div/div/div/div/div/aside/div/div[1]/form/div[2]/div", LocatorType.XPath); }
 
     //ERROR - Email
-    public WebElement ERR_Email () { return findElement("email-error", LocatorType.Id); }
+    public WebElement ERR_Email () { return findElement("//body/div/div/div/div/div/aside/div/div/form/div[3]/div[1]", LocatorType.XPath); }
 
     //ERROR - Phone Number
-    public WebElement ERR_Phone () { return findElement("phone-error", LocatorType.Id); }
+    public WebElement ERR_Phone () { return findElement("//body/div/div/div/div/div/aside/div/div/form/div[4]/div[1]", LocatorType.XPath); }
 
     //ERROR - Create password
-    public WebElement ERR_CreatePassword () { return findElement("password-error", LocatorType.Id); }
+    public WebElement ERR_CreatePassword () { return findElement("//body/div/div/div/div/div/aside/div/div/form/div[6]/div[2]", LocatorType.XPath); }
 
     //ERROR - Confirm password
     public WebElement ERR_ConfirmPassword () { return findElement("confirmpassword-error", LocatorType.Id); }
 
     //ERROR - Blank fields
-    public WebElement ERR_BlankFields () { return findElement("summary", LocatorType.Id); }
+    public WebElement ERR_BlankFields () { return findElement("//body/div/div/div/div/div/aside/div/div/form/span", LocatorType.XPath); }
 
     public WebElement Label_Success () { return findElement("//h3", LocatorType.XPath); }
 
@@ -63,19 +63,19 @@ public class Driver_RegistrationPage extends PageBase {
     public WebElement Text_Verification () { return findElement("//div/h3[contains(text(), 'Verify your phone')]/following-sibling::p[1]", LocatorType.XPath); }
 
     //driver Registration - Verification code field
-    public WebElement TextBox_VerificationCode () { return findElement("SMSVerificationCode", LocatorType.Id); }
+    public WebElement TextBox_VerificationCode () { return findElement("formHorizontalEmail", LocatorType.Id); }
 
     //driver Registration - Error Verification Code - blank
-    public WebElement ERR_VerifiCode_Blank () { return findElement("validation-summary", LocatorType.Id); }
+    public WebElement ERR_VerifiCode_Blank () { return findElement("//p[contains(text(),'Oops! Please enter verification code to proceed.')]", LocatorType.XPath); }
 
     //driver Registration - Error Verification Code - invalid
-    public WebElement ERR_VerifiCode_Invlid () { return findElement("//p[@id='validation-summary']/following-sibling::p/span", LocatorType.XPath); }
+    public WebElement ERR_VerifiCode_Invlid () { return findElement("//p[contains(text(),'Oops! It looks like the verification code you ente')]", LocatorType.XPath); }
 
     //driver Registration - Resend Code Button
-    public WebElement Button_ResendCode () { return findElement("btnResendSMS", LocatorType.Id); }
+    public WebElement Button_ResendCode () { return findElement("//button[contains(text(),'RESEND CODE')]", LocatorType.XPath); }
 
     //driver Registration - Submit button
-    public WebElement Button_SubmitVerification () { return findElement("btnSMSVerification", LocatorType.Id); }
+    public WebElement Button_SubmitVerification () { return findElement("//button[contains(text(),'SUBMIT')]", LocatorType.XPath); }
 
     //------------------------------driver Verification---------------------------------------------------------------
 
@@ -83,7 +83,7 @@ public class Driver_RegistrationPage extends PageBase {
     public WebElement Header_VerificationSuccess () { return findElement("//div[@class = 'row']/div/img/following-sibling::h3", LocatorType.XPath); }
 
     //driver Verification driver Name
-    public WebElement Text_DriverName () { return findElement("//p/span[contains (text(), 'Welcome')]/following-sibling::strong", LocatorType.XPath); }
+    public WebElement Text_DriverName () { return findElement("//body/div/div/div/nav/div/div/div/div[3]/p", LocatorType.XPath); }
 
     //driver Verification Successful - Continue Button
     public WebElement Button_ContinueReg () { return findElement("//div[@class = 'row']/div/h3/following-sibling::a[contains (text(), 'Continue')]", LocatorType.XPath); }
@@ -91,9 +91,9 @@ public class Driver_RegistrationPage extends PageBase {
     //Logout Link
     public WebElement Link_Logout () { return findElement("//div[@class='pull-left info']/p/a[contains(text()='log out')]", LocatorType.XPath); }
 
-    public WebElement Dropdown_Location () { return findElement("location", LocatorType.Id); }
+    public WebElement Dropdown_Location () { return findElement("//select[@name='Location']", LocatorType.XPath); }
 
-    public WebElement Text_Verbiage  () { return findElement("//div[@id='signup']/p[1]", LocatorType.XPath); }
+    public WebElement Text_Verbiage  () { return findElement("//body/div/div/div/div/div/aside/div/div[1]/form/p[1]", LocatorType.XPath); }
 
     public WebElement Link_EyeOpen  () { return findElement("//div/span[@class ='close-eye']", LocatorType.XPath); }
 }

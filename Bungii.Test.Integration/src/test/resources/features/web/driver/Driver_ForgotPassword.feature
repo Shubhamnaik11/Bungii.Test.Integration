@@ -61,6 +61,7 @@ Feature: Driver_ForgotPassword
     Then driver should see "validation for invalid code" during phone verification
 
   @regression
+    #Issue Raised-ADP-827
   Scenario: Verify Driver Reset Password Field Validation For Invalid Password
     When I enter "valid" Phone Number on Forgot password page
     And I click "Send Verification Code" on driver portal

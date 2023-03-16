@@ -86,7 +86,7 @@ public class Driver_DetailsPage extends PageBase {
     public WebElement CheckBox_Consent () { return findElement("//input[@id='DriverDetails.HasBackgroundConsent']/following-sibling::label", LocatorType.XPath); }
 
     //Details - Next Button
-    public WebElement Button_DetailsNext () { return findElement("btnAddInfo", LocatorType.Id); }
+    public WebElement Button_DetailsNext () { return findElement("//span[contains(text(),'Driver Details')]", LocatorType.XPath); }
 
     public WebElement DropZoneHiddenFileTag_ProfileImage () { return findElement("//input[@class = 'dz-hidden-input']", LocatorType.XPath, true); }
 
