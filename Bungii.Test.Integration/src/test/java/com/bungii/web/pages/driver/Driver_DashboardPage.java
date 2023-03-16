@@ -6,11 +6,13 @@ import org.openqa.selenium.WebElement;
 public class Driver_DashboardPage extends PageBase {
 
 //Header - Dashboard
-    public WebElement Header_Dashboard () { return findElement("//input[@id='DriverCurrentStatus']/following-sibling::h4", LocatorType.XPath); }
-    public WebElement SideNavigationSetting () { return findElement("//ul[@class='sidebar-nav']/li[3]", LocatorType.XPath); }
-    public WebElement SideNavigationGeneral () { return findElement("//ul[@class='sidebar-nav']/li[1]", LocatorType.XPath); }
+    public WebElement Header_Dashboard () { return findElement("//body/div/div/div/div/div/h4", LocatorType.XPath); }
 
-    public WebElement Link_Logout(){return  findElement("//a[.='log out']", LocatorType.XPath);}
+    public WebElement SideNavigationSetting () { return findElement("//ul[@class='nav metismenu']/li[3]", LocatorType.XPath); }
+
+    public WebElement SideNavigationGeneral () { return findElement("//ul[@class='nav metismenu']/li[1]", LocatorType.XPath); }
+
+    public WebElement Link_Logout(){return  findElement("//a[contains(text(),'log out')]", LocatorType.XPath);}
 
     public WebElement Link_DriverDetails(){return  findElement("driver-details", LocatorType.Id);}
 
@@ -25,20 +27,24 @@ public class Driver_DashboardPage extends PageBase {
     public WebElement Button_Yes(){return  findElement("btnsendagree", LocatorType.Id);}
 
     public WebElement Link_RemoveFile1(){return  findElement("//div[@id='dropzone1']/div[2]/a[text()='Remove file']", LocatorType.XPath);}
+
     public WebElement Link_RemoveFile2(){return  findElement("//div[@id='dropzone1']/div[3]/a[text()='Remove file']]", LocatorType.XPath);}
+
     public WebElement Link_RemoveFile3(){return  findElement("//div[@id='dropzone1']/div[4]/a[text()='Remove file']", LocatorType.XPath);}
 
     public WebElement TextBox_DOB(){return  findElement("DateOfBirth", LocatorType.Id);}
 
     public WebElement Text_BranchWalletCreated() {return findElement("//td[contains(text(),'Payment Account Status')]/following-sibling::td/strong[text()='Wallet Created']", LocatorType.XPath);}
+
     public WebElement Text_BranchProcessing() {return findElement("//td[contains(text(),'Payment Account Status')]/following-sibling::td/strong[text()='Proccessing']", LocatorType.XPath);}
+
     public WebElement Text_AccNotCreated() {return findElement("//h4[contains(text(),'Branch Account Details')]/following-sibling::div/strong", LocatorType.XPath);}
 
     public WebElement Menu_PrivacyPolicy() { return findElement("//a[contains(text(),'Privacy Policy')]", LocatorType.XPath); }
 
     public WebElement Menu_Terms() { return findElement("//a[contains(text(),'Terms')]", LocatorType.XPath); }
 
-    public WebElement Menu_TermsAndConditions() { return findElement("//a[contains(text(),'Terms & Conditions')]", LocatorType.XPath); }
+    public WebElement Menu_TermsAndConditions() { return findElement("//span[contains(text(),'Terms & Conditions')]", LocatorType.XPath); }
 
     public WebElement Heading_DriverAgreement() { return findElement("//h1[contains(text(),'Bungii™ Driver Agreement')]", LocatorType.XPath);}
 
