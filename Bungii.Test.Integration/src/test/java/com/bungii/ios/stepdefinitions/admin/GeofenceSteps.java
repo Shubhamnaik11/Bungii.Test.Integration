@@ -77,8 +77,8 @@ public class GeofenceSteps extends DriverBase {
                         break;
                 }
         }
-        log("AndIclickonthe"+button+"Buttonon"+screen,
-                "Ihaveclickedonthe"+button+"Buttonon"+screen,true);
+        log("I click on the "+button+" Button on "+screen,
+                "I have clicked on the "+button+" Button on "+screen,true);
     } catch (Throwable e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -117,12 +117,12 @@ public class GeofenceSteps extends DriverBase {
         switch(type){
 
             case "Minimum scheduled time for Duo trip":
-                action.clearEnterText(geofencePage.TextBox_MinimumScheduledtimeforduo(), timeValue);
+                action.clearSendKeys(geofencePage.TextBox_MinimumScheduledtimeforduo(), timeValue);
                 cucumberContextManager.setScenarioContext("MIN_TIME_DUO", timeValue);
                 break;
 
             case "Minimum scheduled time for Solo trip":
-                action.clearEnterText(geofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
+                action.clearSendKeys(geofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
                 cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", timeValue);
                 break;
         }

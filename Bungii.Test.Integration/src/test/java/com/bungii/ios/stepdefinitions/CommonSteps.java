@@ -3390,11 +3390,15 @@ public class CommonSteps extends DriverBase {
     @And("^I open Admin portal and navigate to \"([^\"]*)\" page$")
     public void i_open_admin_portal_and_navigate_to_something_page(String option) throws Throwable {
         try {
-            i_open_new_something_browser_for_something_instance("CHROME","ADMIN");
-            SetupManager.getDriver().get(utility.GetAdminUrl());
-            logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
-            logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
-            logInPage.Button_LogIn().click();
+            SetupManager.getObject().createNewWebdriverInstance("ADMIN", "CHROME");
+            SetupManager.getObject().useDriverInstance("ADMIN");
+            SetupManager.getDriver().navigate().to(utility.GetAdminUrl());
+            SetupManager.getDriver().getCurrentUrl();
+            action.sendKeys(logInPage.TextBox_Phone(),PropertyUtility.getDataProperties("admin.user"));
+            action.sendKeys(logInPage.TextBox_Pass(),PropertyUtility.getDataProperties("admin.password"));
+            action.click(logInPage.Button_LogIn());
+            pass("I log in to admin portal",
+                    "I got log in to admin portal", true);
 
             switch (option.toLowerCase()) {
                 case "scheduled deliveries":
@@ -3403,6 +3407,7 @@ public class CommonSteps extends DriverBase {
                     action.click(dashBoardPage.Button_ScheduledTrips());
                     break;
                 case "live deliveries":
+                    Thread.sleep(3000);
                     action.click(dashBoardPage.Button_Trips());
                     action.click(dashBoardPage.Button_LiveTrips());
                     break;
@@ -3419,6 +3424,10 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "deliveries":
                     action.click(dashBoardPage.Button_Trips());
+                    break;
+                case "geofence":
+                    Thread.sleep(2000);
+                    action.click(dashBoardPage.Menu_Geofences());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

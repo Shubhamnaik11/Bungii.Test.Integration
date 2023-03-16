@@ -19,10 +19,7 @@ Feature: Solo Scheduled Bungii Part C
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
     Then I wait for "1" mins
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I remove current driver and researches Bungii
 
     When I switch to "ORIGINAL" instance
@@ -81,10 +78,10 @@ Feature: Solo Scheduled Bungii Part C
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Solo Scheduled Trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | denver   | Accepted     | 1 hour ahead |
+      | denver11   | Accepted     | 1 hour ahead |
     Given that ondemand bungii is in progress for the minimum distance chosen
       | geofence | Bungii State | Driver label | Trip Label |
-      | denver   | Enroute      | driver 2     | 2          |
+      | denver11   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices
     And I wait for 2 minutes
     And I am on the "LOG IN" page on driverApp

@@ -82,8 +82,8 @@ public class AvailableTripsSteps extends DriverBase {
 
 			String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
 
-			//selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));--removing this since now full name is displaying
-			selectBungiiFromList(numberOfDriver,customerName);
+			selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));
+//			selectBungiiFromList(numberOfDriver,customerName);--removing this since now full name is not displayed
 
 			log( "I Select Partner portal Trip from available trip of driver", "I selected trip for partner portal customer " +customerName + " of "+ numberOfDriver +" type",true);
 		} catch (Exception e) {
@@ -185,13 +185,13 @@ public class AvailableTripsSteps extends DriverBase {
 			imageTag=Image_Duo;
 		}
 		if(action.isAlertPresent()) SetupManager.getDriver().switchTo().alert().dismiss();
-		WebElement Image_SelectBungii = availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+		WebElement Image_SelectBungii = availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']", PageBase.LocatorType.XPath);
 		action.click(Image_SelectBungii);
 
 		//sometime row is not getting clicked due to alert
 		if(action.isAlertPresent()) SetupManager.getDriver().switchTo().alert().dismiss();
-		if(action.isElementPresent(availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true)))
-			action.click(availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true));
+		if(action.isElementPresent(availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']", PageBase.LocatorType.XPath,true)))
+			action.click(availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']", PageBase.LocatorType.XPath,true));
 	}
 
 	@And("^I click on the back button and verify the rejection popup$")
