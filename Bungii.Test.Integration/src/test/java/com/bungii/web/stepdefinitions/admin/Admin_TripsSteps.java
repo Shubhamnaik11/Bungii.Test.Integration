@@ -1189,19 +1189,6 @@ try{
     public void i_change_the_drop_off_address_to_something(String arg1) throws Throwable {
 
         try{
-//        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location(),arg1);
-
-        //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
-//        Thread.sleep(1000);
-//        action.sendKeys(admin_ScheduledTripsPage.Textbox_Drop_Off_Location()," ");
-
-        //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-     //   action.JavaScriptClick(admin_ScheduledTripsPage.DropdownResult(arg1));
-//            action.clickOnDropdown();
-//        action.click(admin_ScheduledTripsPage.Dropdown_ChangeAddress(arg1));
-//        Thread.sleep(1000);
-//        String Change_Address = action.getText(admin_ScheduledTripsPage.DropOff_Address());
-//        cucumberContextManager.setScenarioContext("Change_Drop_Off",Change_Address);
             String editLiveDelivery = action.getText(admin_ScheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
             if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
                 testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location_For_Live(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
@@ -1232,16 +1219,6 @@ try{
     public void i_change_the_pickup_address_to_something(String address) throws Throwable {
 
         try{
-//        action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location(),address);
-        //action.click(admin_ScheduledTripsPage.Textbox_Drop_Off_Location());
-//        Thread.sleep(1000);
-       // action.sendKeys(admin_ScheduledTripsPage.Textbox_Pickup_Location()," ");
-
-        //action.click(admin_ScheduledTripsPage.DropdownResult(arg1));
-//        action.click(admin_ScheduledTripsPage.DropdownPickupResult());
-//        Thread.sleep(1000);
-//        String Change_Address = action.getText(admin_ScheduledTripsPage.Pickup_Address());
-//        cucumberContextManager.setScenarioContext("Change_Pickup",Change_Address);
             String editLiveDelivery = action.getText(admin_ScheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
             if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
                 action.click(admin_ScheduledTripsPage.Textbox_Pickup_Location_For_Live());
@@ -1500,6 +1477,9 @@ try{
                 cucumberContextManager.setScenarioContext("DELIVERY_COUNT", deliveryCount);
                 emailSubject = partnerPortal + " has completed one of their initial deliveries!";
             }
+            else if(emailSubject.contains("Bungii Delivery Updated")){
+                //do nothing
+            }
             else{
                 emailSubject = partnerPortal + " has scheduled their first delivery!";
             }
@@ -1640,6 +1620,31 @@ try{
             case "Updated First Partner Portal Mail":
                 String partnerPortalName1=PropertyUtility.getDataProperties("partner.atlanta.equip-bid.partner.portal.name");
                 message = utility.getExpectedPartnerFirmSecondEmailForScheduledDeliveryBeforeFirstDeliveryContent(partnerPortalName1);
+                break;
+            case "Bungii Delivery Updated":
+                String [] address = dbUtility.getFullPickUpAndDropOff((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST"));
+                driverLicencePlate= dbUtility.getDriverVehicleInfo(driverPhone);
+                String []driverLicenceNumber = driverLicencePlate.replace("}","").replace("\"","").split(":");
+                if(pickupdate.contains("CST") || pickupdate.contains("CDT"))
+                {    
+                    Date date = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").parse(pickupdate);    
+                    Calendar c = Calendar.getInstance();    
+                    c.setTime(date);    
+                    c.add(Calendar.MINUTE, 60);    
+                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();    
+                    if(pickupdate.contains("CST")){        
+                        pickupdate=pickupdate.replaceAll("CST","EST");    
+                    }    
+                    else{        
+                        pickupdate=pickupdate.replaceAll("CDT","EST");    
+                    }
+                }
+                if (portalName.equalsIgnoreCase("BestBuy2 service level")) {
+                    message = utility.getExpectedPartnerFirmEmailForDropOffAddressEdit(PropertyUtility.getDataProperties("partner.baltimore.name"), pickupdate, address[0], address[1], PropertyUtility.getDataProperties("best.buy.service.level"), dbUtility.getEstPrice((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST")), customerName, (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"), driverName, driverPhone, driverLicenceNumber[3]);
+                }
+                else{
+                    message = utility.getExpectedPartnerFirmEmailForPickUpAddressEdit(portalName, pickupdate, address[0], address[1], PropertyUtility.getDataProperties("biglots.service.level"), dbUtility.getEstPrice((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST")), customerName, (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"), driverName, driverPhone, driverLicenceNumber[3]);
+                }
                 break;
         }
         message= message.replaceAll(" ","");
@@ -1832,9 +1837,15 @@ try{
 
     @Then("^Partner firm should not receive \"([^\"]*)\" email$")
     public void partner_firm_should_not_receive_something_email(String emailSubject) throws Throwable {
+        try{
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody != null) {
             testStepAssert.isFail("Email : " + emailSubject + " received to partner firm though required number of drivers not accepted the trip");
+        }}
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 

@@ -38,9 +38,9 @@ public class Admin_PotentialPartnersPage extends PageBase {
 
     public WebElement Text_Driver1Name(){ return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_tv_drivername_value']", LocatorType.XPath).get(0);}
     public WebElement Text_Driver2Name(){ return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_tv_drivername_value']", LocatorType.XPath).get(1);}
-    public WebElement Text_VerifyChangesSavedMessage() {return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
+    public WebElement Text_VerifyChangesSavedMessage() {return findElement("//span[@id='verified-message']/span", LocatorType.XPath);}
     public WebElement Button_SaveChanges(){return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath);}
-    public WebElement Text_SuccessMessage(){return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
+    public WebElement Text_SuccessMessage(){return findElement("//span[@id='verified-message']/span", LocatorType.XPath);}
     public WebElement Label_IconTextMessage(){return findElement("//div[@class='addDriver ml15 mt20']/small[@class='font-size-79percent']/em", LocatorType.XPath);}
     public WebElement Label_ChangedScheduledTime(){return findElement("//p[contains(text(),'Schedule Time:')]/following-sibling::p", LocatorType.XPath);}
     public WebElement Button_ClosePopUp(){return findElement("//button[@class='btn-close']", LocatorType.XPath);}

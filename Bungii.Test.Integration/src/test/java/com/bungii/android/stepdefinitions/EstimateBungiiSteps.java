@@ -614,9 +614,14 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("goa.customer5.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("goa.customer5.phone"));
                     break;
-                default:
-                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                case "Testcustomertywd_BppleMarkGH LutherGH":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("Washington.customer1.phone"), PropertyUtility.getDataProperties("Washington.customer1.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer3.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("atlanta.customer3.phone"));
                     break;
+                default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                break;
             }
 
         } catch (Exception e) {
@@ -752,6 +757,13 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_CustHome.Button_ETASet());
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.sanFrancisco"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "San Francisco");
+                    break;
+
+                case "Odenton pickup and dropoff locations":
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.odenton"));
+                    action.click(Page_CustHome.Button_ETASet());
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.odenton"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Washington");
                     break;
 
                 case "kansas pickup and dropoff locations greater than 30mins":
