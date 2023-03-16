@@ -40,13 +40,13 @@
     
       And I am on customer Log in page
       When I am logged in as "Testcustomertywd_appleMarkFQ LutherFQ" customer
-      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I close "Tutorial" if exist
       
       And I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
       And I am logged in as "Testdrivertywd_applebs_a_gruC Stark_bsOnC" driver
-      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-      And I close "Tutorial" if exist
+      And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
 #      Then Driver should see "Arrived screen"
       Then Bungii driver should see "Arrived screen"

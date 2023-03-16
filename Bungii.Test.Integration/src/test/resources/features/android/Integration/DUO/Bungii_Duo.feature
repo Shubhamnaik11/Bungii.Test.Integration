@@ -51,6 +51,8 @@ Feature: Scheduled Duo Bungiis
 	Then Bungii driver should see "General Instructions"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
+	  And Driver adds photos to the Bungii
+	  And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at pickup"
 	And Bungii driver should see "Loading Item screen"
 
@@ -67,16 +69,26 @@ Feature: Scheduled Duo Bungiis
 	Then Bungii driver should see "General Instructions"
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "slides to the next state"
+	And Driver adds photos to the Bungii
+	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at pickup"
 	And Bungii driver should see "Loading Item screen"
 	And Bungii Driver "slides to the next state"
+	And Driver adds photos to the Bungii
 	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Driver adds photos to the Bungii
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at drop off"
 
 	When I Switch to "driver" application on "ORIGINAL" devices
 	And Bungii Driver "slides to the next state"
+	And Driver adds photos to the Bungii
 	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Bungii Driver "slides to the next state"
+	And Driver adds photos to the Bungii
 	And Bungii Driver "slides to the next state"
 	Then I accept Alert message for "Reminder: both driver at drop off"
 
