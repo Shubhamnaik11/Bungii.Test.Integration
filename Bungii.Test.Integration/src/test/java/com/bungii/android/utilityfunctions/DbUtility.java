@@ -503,4 +503,37 @@ public class DbUtility extends DbContextManager {
         logger.detail("The expected Loading/Unloading time for the delivery having customer refernce "+Cust_Reference+" is "+ ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer[2]);
         return ArrivalAndLoadingUnloadingTimeAndEstTimeForCustomer;
     }
+
+    public static String getDriverVehicleInfo(String phoneNumber) {
+        String driverVehicleInfo = "";
+        String queryString = "select vehicle_info  from driver where phone=" + phoneNumber;
+        driverVehicleInfo = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "Drivers vehicle information is " + driverVehicleInfo);
+        return driverVehicleInfo;
+    }
+
+    public static String[] getFullPickUpAndDropOff(String reference){
+        String pickupID = getPickupId(reference);
+        String tripLocation[] = new String[2];
+        String pickUpAddress2 = getDataFromMySqlServer("SELECT address2 FROM delivery_stop WHERE pickupId= "+pickupID+" and delivery_stop_type=1");
+        String dropOffAddress2 = getDataFromMySqlServer("SELECT address2 FROM delivery_stop WHERE pickupId= "+pickupID+" and delivery_stop_type=2");
+        if (!(pickUpAddress2==null)){
+            tripLocation[0]= getDataFromMySqlServer("SELECT concat(ifnull(address1,''),', ',ifnull(address2,''),', ',ifnull(city,''),', ',ifnull(state,''),', ',ifnull(country,''),', ',ifnull(zip_postal_code,'')) FROM delivery_stop WHERE pickupId="+pickupID+" and delivery_stop_type=1");
+        }
+
+        else{
+            tripLocation[0]= getDataFromMySqlServer("SELECT concat(ifnull(address1,''),', ',ifnull(city,''),', ',ifnull(state,''),', ',ifnull(country,''),', ',ifnull(zip_postal_code,'')) FROM delivery_stop WHERE pickupId="+pickupID+" and delivery_stop_type=1");
+        }
+
+        if(!(dropOffAddress2==null)){
+            tripLocation[1]= getDataFromMySqlServer("SELECT concat(ifnull(address1,''),', ',ifnull(address2,''),', ',ifnull(city,''),', ',ifnull(state,''),', ',ifnull(country,''),', ',ifnull(zip_postal_code,'')) FROM delivery_stop WHERE pickupId="+pickupID+" and delivery_stop_type=2");
+        }
+        else{
+            tripLocation[1]= getDataFromMySqlServer("SELECT concat(ifnull(address1,''),', ',ifnull(city,''),', ',ifnull(state,''),', ',ifnull(country,''),', ',ifnull(zip_postal_code,'')) FROM delivery_stop WHERE pickupId="+pickupID+" and delivery_stop_type=2");
+        }
+        logger.detail("For PickupID " + pickupID + " Pickup location is " + tripLocation[0]);
+        logger.detail("For PickupID " + pickupID + " DropOff location is " + tripLocation[1]);
+        return tripLocation;
+    }
+
 }
