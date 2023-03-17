@@ -1146,6 +1146,7 @@ public class CoreServices extends DriverBase {
 
 
             String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+            String waypointId=DbUtility.getWaypointId(pickupRequest,statusID);
             String tripRef =  DbUtility.getTripReference(pickupRequest);
             String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
             JSONObject jsonObj = new JSONObject();
@@ -1163,7 +1164,7 @@ public class CoreServices extends DriverBase {
             status.put("TripRef", tripRef);
             status.put("Status", statusID);
             status.put("PickupId", pickupID);
-
+            status.put("WaypointId", waypointId);
             statusArray.put(status);
             jsonObj.put("Statuses", statusArray);
 
@@ -1193,7 +1194,7 @@ public class CoreServices extends DriverBase {
             cucumberContextManager.setScenarioContext("ONDEMAND_PICKUP_ID",pickupID);
             String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
             String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
-
+            String waypointId=DbUtility.getWaypointId(pickupRequest,statusID);
 
             Float[] driverLocations = utility.getDriverLocation(geofence);
             String[] allTripRef = DbUtility.getTripReferenceForDuo(pickupRequest);
@@ -1221,11 +1222,10 @@ public class CoreServices extends DriverBase {
             status.put("TripRef", tripRef);
             status.put("Status", statusID);
             status.put("PickupId", pickupID);
-
+            status.put("WaypointId", waypointId);
             statusArray.put(status);
             jsonObj.put("Statuses", statusArray);
 
-            System.out.println(jsonObj.toString());
 
             //make status online
             jsonObj.put("PickupRequestID", pickupID);

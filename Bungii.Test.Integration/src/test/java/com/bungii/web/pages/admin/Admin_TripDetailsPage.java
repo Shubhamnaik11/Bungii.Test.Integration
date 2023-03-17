@@ -7,6 +7,8 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Link_ManuallyEndBungii () { return findElement("btnEndPickup", LocatorType.Id); }
 
+    public WebElement Link_PrivacyPolicy () { return findElement("//span[contains(text(),'Privacy Policy')]", LocatorType.XPath); }
+
     public WebElement Button_CalculateCost () { return findElement("btnCost", LocatorType.Id); }
 
     public WebElement Button_Cancel () { return findElement("//a[contains(text(),'cancel')]", LocatorType.XPath); }

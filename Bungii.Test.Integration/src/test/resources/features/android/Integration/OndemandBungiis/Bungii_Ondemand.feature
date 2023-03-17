@@ -128,12 +128,16 @@ Feature: On Demand Bungii
 
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
+    And Driver adds photos to the Bungii
+    And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Loading Items screen"
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Loading Item screen"
 
     When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    And Driver adds photos to the Bungii
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Driving to Drop-Off screen"
     When I Switch to "customer" application on "same" devices
@@ -147,7 +151,8 @@ Feature: On Demand Bungii
     Then for a Bungii I should see "Unloading Item screen"
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
-
+    And Driver adds photos to the Bungii
+    And Bungii Driver "slides to the next state"
     And I Switch to "customer" application on "same" devices
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
