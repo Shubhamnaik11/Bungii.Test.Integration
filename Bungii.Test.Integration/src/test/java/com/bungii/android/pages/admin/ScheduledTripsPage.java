@@ -72,7 +72,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement CheckBox_DriverByName(String Name) {return findElement(String.format("//div[@id='tripDriverDetails']/div[@class='driver-research row']/span[contains(text(),'%s')]/preceding-sibling::label/span",Name), LocatorType.XPath); }
 
     public WebElement CheckBox_Driver1() {return findElement("checkbox0", LocatorType.Id);}
-    public WebElement CheckBox_Driver2() {return findElements("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath).get(1); }
+    public WebElement CheckBox_Driver2() {return findElement("checkbox1", LocatorType.Id); }
     public WebElement Button_Remove() {return findElement("//strong[text()=\"Remove\"]", LocatorType.XPath); }
 
     public WebElement CheckBox_Driver1_Edit() {return findElement("//tr[1]/td/label/input", LocatorType.XPath); }
@@ -96,7 +96,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_EditTrpDetailsDriver1Name(){return findElement("//div/span[text()=\"Driver Details:\"]/following::div[@class=\"driver-edit\"][1]/div/span[1]", LocatorType.XPath);} //3 is correct index
     public WebElement Text_EditTrpDetailsDriver2Name(){return findElement("//div/span[text()=\"Driver Details:\"]/following::div[@class=\"driver-edit\"][2]/div/span[1]", LocatorType.XPath);} //3 is correct index
 
-    public WebElement Text_EditTrpDetailsDriver1NamePrefilled(){return findElement("//table[@id='editTripDrivers']/tbody/tr[1]/td/table/tbody/tr/td[2]", LocatorType.XPath);} //2 is correct index for name for prefilled
+    public WebElement Text_EditTrpDetailsDriver1NamePrefilled(){return findElement("//div[1]/div[@class=\"driver-edit\"]/div/span[1]", LocatorType.XPath);} //2 is correct index for name for prefilled
     public WebElement Text_EditTrpDetailsDriver2NamePrefilled(){return findElement("//table[@id='editTripDrivers']/tbody/tr[2]/td/table/tbody/tr/td[2]", LocatorType.XPath);} //2 is correct index for name for preifilled
 
 
@@ -106,7 +106,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_VerifyChangesSavedMessage() {return findElement("//span[@id='verified-message']/span", LocatorType.XPath);}
     public WebElement Button_SaveChanges(){return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath);}
 
-    public WebElement Text_SuccessMessage(){return findElement("//i[text()=\"Bungii Saved!\"]", LocatorType.XPath);}
+    public WebElement Text_SuccessMessage(){return findElement("//span/span[text()=\"Bungii Saved!\"]", LocatorType.XPath);}
     public WebElement Label_IconTextMessage(){return findElement("//table[@id='editTripDrivers']/tbody/tr/td/table/tbody/tr/td", LocatorType.XPath);}
     public WebElement Label_StaticText(){return findElement("//em", LocatorType.XPath);}
 
