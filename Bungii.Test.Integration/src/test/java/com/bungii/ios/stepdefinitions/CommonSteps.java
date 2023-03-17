@@ -3392,7 +3392,6 @@ public class CommonSteps extends DriverBase {
         try {
             i_open_new_something_browser_for_something_instance("CHROME","ADMIN PORTAL");
             SetupManager.getDriver().navigate().to(utility.GetAdminUrl());
-            SetupManager.getDriver().getCurrentUrl();
             action.sendKeys(logInPage.TextBox_Phone(),PropertyUtility.getDataProperties("admin.user"));
             action.sendKeys(logInPage.TextBox_Pass(),PropertyUtility.getDataProperties("admin.password"));
             action.click(logInPage.Button_LogIn());
