@@ -333,7 +333,7 @@ Feature: Solo Scheduled Bungii Part A
   Scenario: Verify When Admin Cancels Bungii Then Trip Is Removed From The Scheduled Trip In App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
+      | denver17   | Scheduled    | NEXT_POSSIBLE |
     #When I am on the "LOG IN" page
     #And I logged in Customer application using  "valid denver" user
     Given I login as "valid denver" customer and on Home page
@@ -440,7 +440,7 @@ Feature: Solo Scheduled Bungii Part A
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has Bungii In Progress
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | denver   | Accepted     | 1 hour ahead |
+      | denver16   | Accepted     | 1 hour ahead |
      And I wait for 2 minutes
     And I Switch to "driver" application on "same" devices
     And I login as "valid denver" driver on "same" device and make driver status as "Online"

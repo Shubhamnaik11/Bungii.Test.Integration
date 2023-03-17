@@ -184,6 +184,7 @@ public class BungiiDetailsSteps extends DriverBase {
             if (action.isAlertPresent())
                 SetupManager.getDriver().switchTo().alert().accept();
 
+            action.swipeUP();
             action.click(bungiiDetailsPage.Button_CancelBungii());
             log("I try to cancel selected Bungii ", "I tried cancel selected Bungii", true);
         } catch (Exception e) {
