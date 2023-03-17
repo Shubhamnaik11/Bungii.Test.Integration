@@ -17,7 +17,7 @@ Feature: CustomerSignup
 
   @regression
   Scenario: Verify Referral Source Count Upon Customer Signup
-    When I open new "Chrome" browser for "ADMIN_PORTAL"
+    When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Referral Source" from admin sidebar
@@ -32,7 +32,7 @@ Feature: CustomerSignup
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     Then The user should be logged in
-    When I switch to "ADMIN_PORTAL" instance
+    When I switch to "ADMIN PORTAL" instance
     And I Select "Referral Source" from admin sidebar
     Then account created info for "OTHER" should be "increase by 1"
 
@@ -98,7 +98,7 @@ Feature: CustomerSignup
   Scenario: Verify Trip completed Count On Admin Portal Is Updated When Driver Completes A Bungii
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 9999999215     | Testcustomertywd_appleNewMB Customer | cci12345          |
+      | NEXT_POSSIBLE | 8877661165	     | Testcustomertywd_appleMarkFJ LutherFJ | Cci12345          |
     And As a driver "Testdrivertywd_appleks_a_kay Stark_ksThreE" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state |
       | Accepted      |
@@ -109,7 +109,7 @@ Feature: CustomerSignup
       |Unloading item    |
       |Completed         |
     And I wait for 2 minutes
-    When I open new "Chrome" browser for "ADMIN_PORTAL"
+    When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Customers" from admin sidebar

@@ -62,7 +62,7 @@ public class ScheduledTripsPage extends PageBase {
     }
     public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria",LocatorType.Id);}
     public WebElement Label_Message(){return  findElement("//span[@id='cancel-success-message']/i[2]",LocatorType.XPath);}
-    public WebElement Icon_Dropdown(){return  findElement("threedoticon",LocatorType.ClassName);}
+    public WebElement Icon_Dropdown(){return  findElement("//tbody/tr/td/div/img | //div[@class=\"threedoticon\"]",LocatorType.XPath);}
     public WebElement Option_Edit(){return  findElement("//div/a[text()=\"Edit\"]",LocatorType.XPath);}
 
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}

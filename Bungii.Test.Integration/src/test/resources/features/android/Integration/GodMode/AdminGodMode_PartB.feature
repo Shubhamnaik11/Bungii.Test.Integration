@@ -12,12 +12,12 @@ Scenario: Admin God Mode: Verify that admin can assign one or both drivers to a 
 When I request "duo" Bungii as a customer in "goa" geofence
 | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
 | NEXT_POSSIBLE | 9999991020     | Testcustomertywd_appleand_B Android | Cci12345         |
-
-When I open new "Chrome" browser for "ADMIN_PORTAL"
+And I wait for 2 minutes
+When I open new "Chrome" browser for "ADMIN PORTAL"
 And I navigate to admin portal
 And I log in to admin portal
 And I Select "Scheduled Trip" from admin sidebar
-And I open the trip for "Testcustomertywd_appleand_B Android" customer
+And I open the trip for "Testcustomertywd_appleand_B Android" the customer
 And I Select "Edit Trip Details" option
 And I assign driver for the "Duo" trip
 And I click on "VERIFY" button

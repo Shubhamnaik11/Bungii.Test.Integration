@@ -492,10 +492,11 @@ public class CommonSteps extends DriverBase {
                    // action.click(dashBoardPage.Link_StandardCodes());
                     break;
                 case "referral source":
-                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ReferralSource");
+//                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ReferralSource");
 
-                   // action.click(dashBoardPage.Button_Marketing());
-                    //action.click(dashBoardPage.Button_ReferralSource());
+                    action.click(dashBoardPage.Button_Marketing());
+                    action.waitUntilElementIsDisplayed(dashBoardPage.Link_ReferralSource());
+                    action.click(dashBoardPage.Link_ReferralSource());
                     break;
                 case "customers":
                     SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Customers");

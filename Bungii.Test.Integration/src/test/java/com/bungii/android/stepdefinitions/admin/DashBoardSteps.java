@@ -49,13 +49,15 @@ public class DashBoardSteps extends DriverBase {
                     //action.click(dashBoardPage.Link_StandardCodes());
                     break;
                 case "referral source":
-                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ReferralSource");
-                   // action.click(dashBoardPage.Button_Marketing());
-                   // action.click(dashBoardPage.Button_ReferralSource());
+//                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ReferralSource");
+                    action.waitUntilElementIsDisplayed(dashBoardPage.Button_Marketing());
+                    action.click(dashBoardPage.Button_Marketing());
+                    Thread.sleep(5000);
+//                    action.click(dashBoardPage.Link_ReferralSource());
                     break;
                 case "customers":
-                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Customers");
-                   // action.click(dashBoardPage.Button_Customers());
+//                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Customers");
+                    action.click(dashBoardPage.Button_Customers());
                     break;
                 case "trips":
                     SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=True");
