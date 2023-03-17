@@ -344,6 +344,48 @@ public class LogInSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("baltimore.driver9.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+            case "testdrivertywd_appledv_b_mattv denverv":
+                phone = PropertyUtility.getDataProperties("denver.driver23.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver23.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_appledv_b_mattw denverw":
+                phone = PropertyUtility.getDataProperties("denver.driver24.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver24.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_appledv_b_mattt denvert":
+                phone = PropertyUtility.getDataProperties("denver.driver21.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver21.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_appledv_b_matty denvery":
+                phone = PropertyUtility.getDataProperties("denver.driver26.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver26.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_appledv_b_matts denvers":
+                phone = PropertyUtility.getDataProperties("denver.driver20.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver20.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "testdrivertywd_appledv_b_mattu denveru":
+                phone = PropertyUtility.getDataProperties("denver.driver22.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver22.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             default:
             throw new Exception("Please specify valid input");
         }

@@ -3834,7 +3834,19 @@ else
                     }
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
-                } else {
+                }
+                else if (geofence.equalsIgnoreCase("denver11")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("denver11.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("denver.customer.password");
+                    geofence="denver";
+                    if (driverLabel.equalsIgnoreCase("driver 2")) {
+                        driverPhoneNum = PropertyUtility.getDataProperties("denver.driver6.phone");
+                        driverPassword = PropertyUtility.getDataProperties("denver.driver.password");
+                    }
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver6.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver11.customer.name"));
+                }
+                else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer.user");
                     custPassword = PropertyUtility.getDataProperties("customer.password");
                     driverPhoneNum = PropertyUtility.getDataProperties("ios.valid.driver.phone");
