@@ -54,7 +54,7 @@ Feature: Login
     And I click on "Delete" button
     Then User should see message "Account deleted successfully" text on the screen
     And I am on customer Log in page
-    When I open new "Chrome" browser for "ADMIN"
+    When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "customers" from admin sidebar

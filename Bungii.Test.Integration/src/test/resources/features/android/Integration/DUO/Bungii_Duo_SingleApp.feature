@@ -362,7 +362,7 @@ Feature: Scheduled Duo Bungiis - Single Phone
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I close "Tutorial" if exist
 	
-	When I open new "Chrome" browser for "ADMIN"
+	When I open new "Chrome" browser for "ADMIN PORTAL"
 	And I navigate to admin portal
 	And I log in to admin portal
 	And I Select "Scheduled Trip" from admin sidebar

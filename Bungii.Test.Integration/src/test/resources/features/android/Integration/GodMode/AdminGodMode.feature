@@ -23,7 +23,7 @@
         And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
     
         Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -76,7 +76,7 @@
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time   |
           | goa  | Scheduled    | NEXT_POSSIBLE |
-        When I open new "Chrome" browser for "ADMIN_PORTAL"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -106,7 +106,7 @@
           | goa  | Scheduled | NEXT_POSSIBLE |
     
         And I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -152,7 +152,7 @@
         And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
     
         Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -178,7 +178,7 @@
           | geofence | Bungii State | Bungii Time  |
           | goa  | Scheduled | NEXT_POSSIBLE |
     
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         Then I wait for "2" mins
@@ -220,7 +220,7 @@
           | Accepted       |  Enroute       |
     
         Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -249,7 +249,7 @@
           | goa  | Accepted | NEXT_POSSIBLE |
     
         And I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -290,7 +290,7 @@
           | Accepted      | Enroute      |
     
         Then I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -325,7 +325,7 @@
           | geofence | Bungii State | Bungii Time   |
           | goa      | Accepted     | NEXT_POSSIBLE |
         And I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN_PORTAL"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -346,7 +346,7 @@
 		  | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
 		  | NEXT_POSSIBLE | 9823741003     | Testcustomertywd_appleNwBBB CustBBB | Cci12345          |
 		Then I wait for "2" mins
-		When I open new "Chrome" browser for "ADMIN"
+		When I open new "Chrome" browser for "ADMIN PORTAL"
 		And I navigate to admin portal
 		And I log in to admin portal
 		And I Select "Scheduled Trip" from admin sidebar
@@ -384,7 +384,7 @@
           | driver1 state |
           | Accepted      |
         And I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -412,7 +412,7 @@
           | geofence | Bungii State | Bungii Time     |
           | goa      | Accepted     | 3 hour ahead  |
         And I wait for "2" mins
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar
@@ -449,7 +449,7 @@
         Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
           | geofence | Bungii State | Bungii Time  |
           | goa      | Accepted     | 0.5 hour ahead |
-        When I open new "Chrome" browser for "ADMIN"
+        When I open new "Chrome" browser for "ADMIN PORTAL"
         And I navigate to admin portal
         And I log in to admin portal
         And I Select "Scheduled Trip" from admin sidebar

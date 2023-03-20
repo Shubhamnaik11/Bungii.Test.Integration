@@ -45,6 +45,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -78,6 +80,7 @@ public class CommonSteps extends DriverBase {
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     AvailableTripsPage availableTrips = new AvailableTripsPage();
     DashBoardPage admin_dashboardPage = new DashBoardPage();
+    TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
 
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
@@ -1853,5 +1856,107 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^Partner firm should receive \"([^\"]*)\" email$")
+    public void partner_firm_should_receive_something_email(String emailSubject) throws Throwable {
+        try{
+        String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+        String driverPhone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        String Customer_Name = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String customerPhone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        String pickUpRef =(String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
+        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
+        emailBody= emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
+        String message = "";
+        logger.detail("Email Body (Actual) : "+ emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""));
+
+
+        switch (emailSubject) {
+            case "Bungii Delivery Scheduled":
+            case "A Bungii driver is heading your way":
+            case "A Bungii driver has arrived":
+                String driverCarLicenceNumber = DbUtility.getDriverVehicleInfo(driverPhone);
+                String []OnlyLicenceplate = driverCarLicenceNumber.replace("}","").replace("\"","").split(":");
+                if(emailSubject.contentEquals("A Bungii driver is heading your way")){
+                    message = utility.getABungiiDriverIsHeadingYourWay(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name);
+                }
+                else if(emailSubject.contentEquals("A Bungii driver has arrived")){
+                    message = utility.getABungiiDriverHasArrived(driverName,driverPhone,OnlyLicenceplate[3],Customer_Name);
+
+                }
+                else {
+                    String pickupdate []=  cucumberContextManager.getScenarioContext("BUNGII_TIME").toString().split(" ");
+
+                    int yearBasedOnDate= LocalDate.now().getYear();
+                    String dayBasedOnDate= LocalDate.now().getDayOfWeek().toString().toLowerCase();
+                    String monthBasedOnDate= LocalDate.now().getMonth().toString().toLowerCase();;
+                    if(pickupdate[2].startsWith("0")){
+                        String timeWithout0 = pickupdate[2].replaceFirst("0","");
+                        cucumberContextManager.setScenarioContext("TimeWithoutZero",timeWithout0);
+                    }
+                    else {
+                        cucumberContextManager.setScenarioContext("TimeWithoutZero",pickupdate[2]);
+                    }
+                    String ProperTime = (String) cucumberContextManager.getScenarioContext("TimeWithoutZero");
+                    String properTime = dayBasedOnDate.substring(0,1).toUpperCase() +dayBasedOnDate.substring(1) +", "+monthBasedOnDate.substring(0,1).toUpperCase() +monthBasedOnDate.substring(1) +" "+pickupdate[1] +" "+yearBasedOnDate+ " "+ProperTime+ " "+pickupdate[3] +" "+pickupdate[4];
+                    String [] locations=DbUtility.getFullPickUpAndDropOff(pickUpRef);
+                    String scheduledBy = (String) cucumberContextManager.getScenarioContext("ScheduleBY");
+                    String rbsbNumber = (String) cucumberContextManager.getScenarioContext("RB/SB_Number");
+                    String specialInstructions = (String) cucumberContextManager.getScenarioContext("SpecialInstruction");
+                    String deliveryPurpose = (String) cucumberContextManager.getScenarioContext("DeliveryPurpose");
+                    String itemsToDeliver = (String) cucumberContextManager.getScenarioContext("ItemsToDeliver");
+
+                    message = utility.getABungiiDeliveryScheduled(locations[0],properTime,Customer_Name, customerPhone,driverName,driverPhone,OnlyLicenceplate[3],itemsToDeliver,specialInstructions,deliveryPurpose,rbsbNumber,scheduledBy);
+                }
+                break;
+        }
+        message= message.replaceAll(" ","");
+        //message= message.replaceAll("EST","EDT");
+        logger.detail("Email Body (Expected): "+message);
+        testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+    @Then("^The partner firm should not receive \"([^\"]*)\" email$")
+    public void the_partner_firm_should_not_receive_something_email(String emailSubject) throws Throwable {
+        try {
+            String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+            if (emailBody == null) {
+                testStepAssert.isTrue(true, "Email having subject '" + emailSubject + "' should  not be received",
+                        "Email having subject '" + emailSubject + "' is not  received",
+                        "Email having subject '" + emailSubject + "' is received");
+            } else {
+                testStepAssert.isFail("Email with subject " + emailSubject + " is present in mail");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I click on the \"([^\"]*)\" Button on \"([^\"]*)\" popup$")
+    public void i_click_on_the_something_button_on_something_popup(String button, String popup) throws Throwable {
+        try{
+            switch (popup){
+                case "Accept Delivery":
+                    Thread.sleep(5000);
+                    action.click(tripAlertSettingsPage.Button_OKPopupOnAcceptedDelivery());
+                    break;
+            }
+
+            log("I click on "+button+" on "+ popup ,
+                    "I have clicked on "+button+" on "+ popup, false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step Should be successful", "Error in viewing result set",
+                    true);
+        }
+    }
 }

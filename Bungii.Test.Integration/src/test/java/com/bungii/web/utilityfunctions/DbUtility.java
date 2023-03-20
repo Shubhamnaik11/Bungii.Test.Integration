@@ -849,5 +849,6 @@ public class DbUtility extends DbContextManager {
         logger.detail("For Phone Number " + phoneNumber + "Drivers vehicle information is " + driverVehicleInfo);
         return driverVehicleInfo;
     }
+
 }
 
