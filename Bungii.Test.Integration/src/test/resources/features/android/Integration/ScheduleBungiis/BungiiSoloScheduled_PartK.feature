@@ -166,7 +166,7 @@ Feature: SoloScheduled Part K
 	And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 	And I wait for "2" mins
 	
-	When I open new "Chrome" browser for "ADMIN_PORTAL"
+	When I open new "Chrome" browser for "ADMIN PORTAL"
 	And I navigate to admin portal
 	And I log in to admin portal
 	And I Select "Scheduled Trip" from admin sidebar

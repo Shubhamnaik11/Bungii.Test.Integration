@@ -55,7 +55,7 @@ public class Driver_DetailsSteps extends DriverBase {
     @When("^I enter \"([^\"]*)\" data on Driver Details page$")
     public void i_enter_something_data_on_driver_details_page(String strArg1) throws Throwable {
         String driverImagePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),
-                PropertyUtility.getImageLocations("DRIVER_IMAGE"));
+                                PropertyUtility.getImageLocations("DRIVER_IMAGE"));
         switch (strArg1) {
             case "valid":
                 action.clearSendKeys(Page_Driver_Details.TextBox_StreetAddress(), PropertyUtility.getDataProperties("DriverStreet"));
@@ -208,20 +208,20 @@ public class Driver_DetailsSteps extends DriverBase {
         try{
         switch (strArg1) {
             case "Driver Details":
+                action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Details.Button_DetailsNext(), (long) 5000);
                 action.click(Page_Driver_Details.Button_DetailsNext());
                 break;
             case "Pickup Information":
                 action.click(Page_Driver_PickupInfo.Button_PickUpNext());
                 break;
             case "Documentation":
-                Thread.sleep(6000);
+                action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Doc.Button_DocNext(), (long) 3000);
                 action.click(Page_Driver_Doc.Button_DocNext());
                 break;
             case "Bank Details":
                 action.click(Page_Driver_Bank.Button_BankNext());
                 break;
             case "Terms & Conditions":
-
                 action.click(Page_Driver_Terms.Button_TermsNext());
                 break;
             case "Video Training":

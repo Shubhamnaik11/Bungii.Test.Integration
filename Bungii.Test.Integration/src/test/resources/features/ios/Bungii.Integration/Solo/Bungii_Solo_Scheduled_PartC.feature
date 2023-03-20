@@ -17,12 +17,9 @@ Feature: Solo Scheduled Bungii Part C
       | denver14   | Accepted     | 2 hour ahead |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattV DenverV" driver
     Then I wait for "1" mins
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I remove current driver and researches Bungii
 
     When I switch to "ORIGINAL" instance
@@ -42,7 +39,7 @@ Feature: Solo Scheduled Bungii Part C
       | denver15   | Accepted     | 2 hour ahead |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattW DenverW" driver
     
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -81,14 +78,14 @@ Feature: Solo Scheduled Bungii Part C
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Solo Scheduled Trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | denver   | Accepted     | 1 hour ahead |
+      | denver11   | Accepted     | 1 hour ahead |
     Given that ondemand bungii is in progress for the minimum distance chosen
       | geofence | Bungii State | Driver label | Trip Label |
-      | denver   | Enroute      | driver 2     | 2          |
+      | denver11   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices
     And I wait for 2 minutes
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattT DenverT" driver
     And I wait for 2 minutes
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -190,7 +187,7 @@ Feature: Solo Scheduled Bungii Part C
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I enter phoneNumber :9999998086 and  Password :Cci12345
+    And I enter phoneNumber :9049840394 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
@@ -212,7 +209,7 @@ Feature: Solo Scheduled Bungii Part C
       | denver17   | Accepted     | NEXT_POSSIBLE |
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattY DenverY" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I try to cancel selected Bungii

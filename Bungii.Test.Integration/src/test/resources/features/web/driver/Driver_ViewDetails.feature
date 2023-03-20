@@ -10,7 +10,7 @@ Feature: Driver_ViewDetails
     #CORE-4163 changes has been added
     #stable
   Scenario: Verify My Stats Section Populated Data on Driver Dashboard
-     # CORE:5065 Verify the 'Drivers Agreement' & Privacy Policy for existing non fountain driver
+    # CORE:5065 Verify the 'Drivers Agreement' & Privacy Policy for existing non fountain driver
     When I click "Terms" on driver portal
     Then I should be directed to "Updated Terms & Conditions"
     And I close "Updated Terms & Conditions" Page
@@ -27,7 +27,7 @@ Feature: Driver_ViewDetails
     Then I should be directed to "Updated Terms & Conditions"
     And I close "Updated Terms & Conditions" Page
     When  I navigate to "Dashboard"
-    And I click "Privacy Policy" on driver portal
+    When I click on "Privacy Policy" link
     Then I should be directed to "Updated Privacy Policy"
     And I close "Updated Privacy Policy" Page
     When  I navigate to "Dashboard"
