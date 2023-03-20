@@ -7,6 +7,8 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Link_ManuallyEndBungii () { return findElement("btnEndPickup", LocatorType.Id); }
 
+    public WebElement Link_PrivacyPolicy () { return findElement("//span[contains(text(),'Privacy Policy')]", LocatorType.XPath); }
+
     public WebElement Button_CalculateCost () { return findElement("btnCost", LocatorType.Id); }
 
     public WebElement Button_Cancel () { return findElement("//a[contains(text(),'cancel')]", LocatorType.XPath); }
@@ -94,5 +96,7 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Text_SoloDriverEarnings() {return findElement("//td[contains(text(),'Driver Fixed Earnings')]/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Text_TripStatus() {return findElement("//td[contains(text(),'Status')]/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Input_DriverBoostedPeriod() {return findElement("//td[text()='Driver Boosted earning period']/following::td[1]/div[1]/div/div/div/input", LocatorType.XPath);}
+
+    public WebElement Button_DeliveryOverview() { return findElement("//button[contains(text(),'Delivery Overview')]",LocatorType.XPath);}
 
 }

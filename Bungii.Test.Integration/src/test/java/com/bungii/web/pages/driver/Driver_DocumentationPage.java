@@ -39,7 +39,7 @@ public class Driver_DocumentationPage extends PageBase {
     public WebElement Err_InsuranceExpiry () { return findElement("DriverDocument_InsuranceExpiry-error", LocatorType.Id); }
 
     //Documentation - Next Button
-    public WebElement Button_DocNext () { return findElement("btnDoc", LocatorType.Id); }
+    public WebElement Button_DocNext () { return findElement("//span[contains(text(),'Documentation Upload')]", LocatorType.XPath); }
 
     public WebElement DropZoneHiddenFileTag_LicenseImage () { return findElement("//input[@class = 'dz-hidden-input'][3]", LocatorType.XPath , true ); }
 

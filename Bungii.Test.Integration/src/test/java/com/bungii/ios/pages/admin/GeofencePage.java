@@ -12,8 +12,8 @@ public class GeofencePage extends PageBase {
 
     public WebElement Button_SaveGeofenceSettings(){return findElement("//button[contains(text(),'Save')]",LocatorType.XPath);}
 
-    public WebElement TextBox_MinimumScheduledtimeforduo(){return findElement("attributeValueEarliestScheduleTimeDuo",LocatorType.Id);}
-    public WebElement TextBox_MinimumScheduledtimeforsolo(){return findElement("attributeValueEarliestScheduleTimeSolo",LocatorType.Id);}
+    public WebElement TextBox_MinimumScheduledtimeforduo(){return findElement("//td[contains(text(),'Minimum scheduled time for Duo trip')]/following-sibling::td/div/div/div/div/input",LocatorType.XPath);}
+    public WebElement TextBox_MinimumScheduledtimeforsolo(){return findElement("//td[contains(text(),'Minimum scheduled time for Solo trip')]/following-sibling::td/div/div/div/div/input",LocatorType.XPath);}
     public WebElement Dropdown_Status() { return findElement("drpStatus", LocatorType.Id); }
 
     public WebElement Button_Scale() { return findElement("btnAddGeofence", LocatorType.Id); }

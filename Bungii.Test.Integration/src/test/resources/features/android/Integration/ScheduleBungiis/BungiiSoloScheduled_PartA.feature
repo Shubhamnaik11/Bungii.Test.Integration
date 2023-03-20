@@ -511,3 +511,87 @@ Feature: SoloScheduled
     And I slide update button on "ARRIVED" Screen
     When Bungii driver uploads "1" image
     Then I slide update button on "ARRIVED" Screen
+
+  @ready
+  #CORE-5039: To verify that secondary geofence driver receives PN for within 30 miles from the driver's home location for scheduled deliveries
+  Scenario: To verify that secondary geofence driver receives PN for within 30 miles from the driver's home location for scheduled deliveries
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_appledc_a_drvah Washingtonah" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I tap on "Go Online button" on Driver Home page
+
+    When I Switch to "customer" application on "same" devices
+    And I am logged in as "Testcustomertywd_BppleMarkGH LutherGH" customer
+    And I enter "Odenton pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    When I confirm trip with following detail
+      | Day | Trip Type |
+      | 1   | SOLO      |
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    When I Switch to "driver" application on "same" devices
+    And I wait for "4" mins
+    Then I should see a popup "New Bungii Request" displayed
+    And I click on "View Request" button
+
+    When I connect to "extra1" using "Driver2" instance
+    And I am logged in as "TestDrivertywd_applemd_a_billL BaltimoreL" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I tap on "Go Online button" on Driver Home page
+    And I wait for "4" mins
+    Then I should see a popup "New Bungii Request" displayed
+    And I click on "View Request" button
+    And I wait for 1 minutes
+    And I click on "Accept" button
+    Then I Select Trip from driver scheduled trip
+
+#CORE-5466:Verify that Delivery Started email template has been updated with required changes for level 3 partner
+  @ready
+  Scenario:Verify that Delivery Started email template has been updated with required changes for level 3 partner
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_applega_a_drvap Atlanta_ap" driver
+    When I request Partner Portal "Solo" Trip for "Floor and decor bos" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+     |atlanta| NEXT_POSSIBLE | 8877661132 | Testcustomertywd_appleMarkEC LutherEC|
+    And I wait for 1 minutes
+    And I click on "View Request" button
+    And I click on "Accept" button
+    And I click on the "OK" Button on "Accept Delivery" popup
+    And I wait for 1 minutes
+    Then Partner firm should receive "Bungii Delivery Scheduled" email
+    And I Select Trip from driver scheduled trip
+    And I start selected Bungii for "floor and decor"
+    And Bungii driver should see "General Instructions"
+   #CORE-5466:Verify that Delivery Started email template has been updated with required changes for level 3 partner
+    Then Partner firm should receive "A Bungii driver is heading your way" email
+    And I slide update button on "EN ROUTE" Screen
+    Then Bungii driver should see "Pickup Instructions"
+    #CORE-5466:Verify that Driver Arrived at pickup email template has been updated with required changes for level 3 partner
+    Then Partner firm should receive "A Bungii driver has arrived" email
+
+    #CORE-5256: Driver Started and Arrived emails are not sent to partners not configured with email granularity
+  @ready
+  Scenario: Driver Started and Arrived emails are not sent to partners not configured with email granularity
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "Testdrivertywd_applega_a_drvao Atlanta_ao" driver
+    When I request Partner Portal "SOLO" Trip for "Floor and Decor 106" partner
+      |Geofence| Bungii Time   | Customer Phone | Customer Name |
+      |atlanta| NEXT_POSSIBLE | 8877661132 | Testcustomertywd_appleMarkEC LutherEC|
+    And I wait for 1 minutes
+    And I click on "View Request" button
+    And I click on "Accept" button
+    And I click on the "OK" Button on "Accept Delivery" popup
+    And I Select Trip from driver scheduled trip
+    And I start selected Bungii for "floor and decor"
+    And Bungii driver should see "General Instructions"
+    Then The partner firm should not receive "A Bungii driver is heading your way" email
+    And I slide update button on "EN ROUTE" Screen
+    Then Bungii driver should see "Pickup Instructions"
+    Then The partner firm should not receive "A Bungii driver has arrived" email
+
+

@@ -22,9 +22,7 @@ public class Driver_ForgotPasswordSteps extends DriverBase {
     Driver_VerifyPhonePage Page_VerifyPhone = new Driver_VerifyPhonePage();
     Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage();
     Driver_DashboardPage Page_Driver_Dashboard = new Driver_DashboardPage();
-
     ActionManager action = new ActionManager();
-
     private static LogUtility logger = new LogUtility(Driver_ForgotPasswordSteps.class);
 
 
@@ -42,65 +40,56 @@ public class Driver_ForgotPasswordSteps extends DriverBase {
                     break;
                 default:
                     break;
-            }
-
-        log("I should able to enter "+strArg1+" driver phone number on Forgot password page","I entered "+strArg1 +" driver phone number on Forgot password page", true);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
+                }
+            log("I should able to enter "+strArg1+" driver phone number on Forgot password page","I entered "+strArg1 +" driver phone number on Forgot password page", true);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
-    }
-
 
     @When("^I enter \"([^\"]*)\" code on Verify your phone page$")
     public void i_enter_something_code_on_verify_your_phone_page(String strArg1) throws Throwable {
         try{
             switch (strArg1)
-        {
-            case "valid":
-                String smscode = DbUtility.getVerificationCode(PropertyUtility.getDataProperties("DriverPhoneNumber"));
-                action.clearSendKeys(Page_VerifyPhone.Textfield_Code(), smscode);
-                break;
-            case "invalid":
-                action.clearSendKeys(Page_VerifyPhone.Textfield_Code(), PropertyUtility.getDataProperties("InvalidValue"));
-                break;
-            default: break;
+            {
+                case "valid":
+                    String smscode = DbUtility.getVerificationCode(PropertyUtility.getDataProperties("DriverPhoneNumber"));
+                    action.clearSendKeys(Page_VerifyPhone.Textfield_Code(), smscode);
+                    break;
+                case "invalid":
+                    action.clearSendKeys(Page_VerifyPhone.Textfield_Code(), PropertyUtility.getDataProperties("InvalidValue"));
+                    break;
+                default: break;
+            }
+            log("I enter "+strArg1+" code on Verify your phone page","I entered "+strArg1 +" code on Verify your phone page", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
         }
-        log("I enter "+strArg1+" code on Verify your phone page","I entered "+strArg1 +" code on Verify your phone page", false);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
     }
-    }
-
-
 
     @And("^I enter \"([^\"]*)\" new password on Verify your phone page$")
     public void i_enter_something_new_password_on_verify_your_phone_page(String strArg1) throws Throwable {
        try{ switch (strArg1)
-        {
-            case "valid":
-                action.clearSendKeys(Page_VerifyPhone.Textfield_Password(), PropertyUtility.getDataProperties("DriverPassword"));
-                break;
-            case "short":
-                action.clearSendKeys(Page_VerifyPhone.Textfield_Password(), PropertyUtility.getDataProperties("Short_DriverPassword"));
-                break;
-            case "invalid":
-                action.clearSendKeys(Page_VerifyPhone.Textfield_Password(), PropertyUtility.getDataProperties("Invalid_DriverPassword"));
-                break;
-            default: break;
-        }
-        log("I enter "+strArg1+" new password on Verify your phone page","I entered "+strArg1 +" new password on Verify your phone page", false);
+            {
+                case "valid":
+                    action.clearSendKeys(Page_VerifyPhone.Textfield_Password(), PropertyUtility.getDataProperties("DriverPassword"));
+                    break;
+                case "short":
+                    action.clearSendKeys(Page_VerifyPhone.Textfield_Password(), PropertyUtility.getDataProperties("Short_DriverPassword"));
+                    break;
+                case "invalid":
+                    action.clearSendKeys(Page_VerifyPhone.Textfield_Password(), PropertyUtility.getDataProperties("Invalid_DriverPassword"));
+                    break;
+                default: break;
+            }
+            log("I enter "+strArg1+" new password on Verify your phone page","I entered "+strArg1 +" new password on Verify your phone page", false);
        } catch(Exception e){
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-           error("Step should be successful", "Error performing step,Please check logs for more details",
-                   true);
+           error("Step should be successful", "Error performing step,Please check logs for more details", true);
        }
     }
-
-
 
     @And("^I enter \"([^\"]*)\" password in Confirm password field$")
     public void i_enter_something_password_in_confirm_password_field(String strArg1) throws Throwable {
@@ -112,20 +101,15 @@ public class Driver_ForgotPasswordSteps extends DriverBase {
                    break;
                default: break;
            }
-
-        log("I should able to enter "+strArg1+" password in Confirm password field","I entered "+strArg1 +" password in Confirm password field", false);
-    } catch(Exception e){
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step should be successful", "Error performing step,Please check logs for more details",
-                true);
+            log("I should able to enter "+strArg1+" password in Confirm password field","I entered "+strArg1 +" password in Confirm password field", false);
+        } catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
-    }
-
-
 
     @Then("^driver should see \"([^\"]*)\" during phone verification$")
     public void driver_should_see_something_during_phone_verification(String strArg1) throws Throwable {
-
         try{
         switch (strArg1)
         {

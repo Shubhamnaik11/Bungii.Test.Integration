@@ -11,6 +11,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import io.cucumber.datatable.DataTable;
@@ -33,6 +34,7 @@ public class ScheduledTripSteps extends DriverBase {
 	ActionManager action = new ActionManager();
 	private static LogUtility logger = new LogUtility(ScheduledTripSteps.class);
 	GeneralUtility utility = new GeneralUtility();
+	DbUtility dbUtility=new DbUtility();
 	public ScheduledTripSteps(ScheduledTripsPage scheduledTripsPage) {
 		this.scheduledTripsPage = scheduledTripsPage;
 	}
@@ -142,13 +144,14 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_remove_current_driver_and_researches_bungii() throws Throwable {
 		try {
 			Map<String, String> tripDetails = new HashMap<String, String>();
-			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+			String custName = dbUtility.getCustomerName((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
 			String tripDistance = (String)  cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
 
 			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
-			action.click(scheduledTripsPage.Button_Search());Thread.sleep(5000);
+			action.click(scheduledTripsPage.Button_Search());
+			Thread.sleep(5000);
 			//On admin panel CST time use to show
 			//	getPortalTime("Aug 09, 06:15 AM CDT");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
@@ -284,10 +287,10 @@ public class ScheduledTripSteps extends DriverBase {
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){
-			String rowCustName= action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[7]"));
-			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]"));
+			String rowCustName= action.getText(action.getElementByXPath("//table/tbody/tr["+i+"]/td[8]"));
+			String rowSchduledTime=action.getText(action.getElementByXPath("//table/tbody/tr["+i+"]/td[6]"));
 		//	String rowEstimatedDistance=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
-			String rowSrNumber=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[2]"));
+			String rowSrNumber=action.getText(action.getElementByXPath("//table/tbody/tr["+i+"]/td[3]"));
 
 			if(rowCustName.equals(custName) &&rowSchduledTime.contains(scheduledDate)){
 				rowNumber=Integer.parseInt(rowSrNumber);
@@ -357,16 +360,16 @@ public class ScheduledTripSteps extends DriverBase {
 		WebElement threeDotButton;
 		WebElement editButton;
 		if(rowNumber==0){
-			threeDotButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//div/*[@id='dLabel']"));
-			//editButton1=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//*[@id='btnEdit']"));
+			logger.detail("No deliveries found.");
 		}else {
-			//vishal[1403] : Updated xpath
-			threeDotButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row" + rowNumber + "']/td/div/*[@id='dLabel']"));
+
+			threeDotButton = scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/div[@class='threedoticon']/img"));
+			threeDotButton.click();
+			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//a[text()='Edit']"));
+			editButton.click();
 		}
-		editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//*[@id='btnEdit']"));
 		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
-		threeDotButton.click();
-		editButton.click();
+
 		action.click(scheduledTripsPage.CheckBox_Driver1());
 		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 		if(numberOfDriver.equalsIgnoreCase("duo"))

@@ -36,7 +36,7 @@ public class PromoCodePage extends PageBase {
 
 
     public List<WebElement> Text_PromoCode() {
-        return findElements("//tr/td[.='Promo']/following-sibling::td[1]/span[text()='Active']/parent::td/preceding-sibling::td[2]", LocatorType.XPath);
+        return findElements("//tr/td[.='Promo']/following-sibling::td[text()='Active']/preceding-sibling::td[2]", LocatorType.XPath);
     }
 
     public List<WebElement> Text_PromoCodeFixed() {
@@ -57,7 +57,7 @@ public class PromoCodePage extends PageBase {
 
 
     public List<WebElement> Text_ExpiredPromoCode() {
-        return findElements("//tr/td[.='Promo']/following-sibling::td[1]/span[text()='Expired']/parent::td/preceding-sibling::td[2]", LocatorType.XPath);
+        return findElements("//tr/td[.='Promo']/following-sibling::td[text()='Expired']/preceding-sibling::td[2]", LocatorType.XPath);
     }
 
 
@@ -79,19 +79,19 @@ public class PromoCodePage extends PageBase {
     public WebElement Button_Nextpage() {
         return findElement("link_Next", LocatorType.Id);
     }
-    public WebElement Button_Filter() { return findElement("btnFilter", LocatorType.Id); }
+    public WebElement Button_Filter() { return findElement("//div[@class='filter']/button", LocatorType.XPath); }
 
     public WebElement CheckBox_FilterAll() { return findElement("chkCodeTypeFilterAll", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterPromo() { return findElement("chkCodeTypeFilterPromo", LocatorType.Id); }
+    public WebElement CheckBox_FilterPromo() { return findElement("Promo", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterReferral() { return findElement("chkCodeTypeFilterReferral", LocatorType.Id); }
+    public WebElement CheckBox_FilterReferral() { return findElement("Referral", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterOneOffByAdmin() { return findElement("chkCodeTypeFilterOneOffByAdmin", LocatorType.Id); }
+    public WebElement CheckBox_FilterOneOffByAdmin() { return findElement("One Off", LocatorType.Id); }
 
     public WebElement CheckBox_FilterOneOffFBShare() { return findElement("chkCodeTypeFilterOneOffFBShare", LocatorType.Id); }
 
-    public WebElement CheckBox_FilterDeliveryChargesByPromoter() { return findElement("chkCodeTypeFilterDeliveryChargesByPromoter", LocatorType.Id); }
-    public WebElement Button_Apply() { return findElement("applyFilter", LocatorType.Id); }
+    public WebElement CheckBox_FilterDeliveryChargesByPromoter() { return findElement("Delivery By Partner", LocatorType.Id); }
+    public WebElement Button_Apply() { return findElement("//button[text()='APPLY']", LocatorType.XPath); }
 
 }

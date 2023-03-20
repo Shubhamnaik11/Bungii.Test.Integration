@@ -14,10 +14,10 @@ Feature: Solo Scheduled Bungii Part C
   Scenario: Verify Re-searched Trip Request Doesnt Show Urgent Notification Text If Is More Than One Hour From The Scheduled Trip Time in iOS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | denver   | Accepted     | 2 hour ahead |
+      | denver14   | Accepted     | 2 hour ahead |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattV DenverV" driver
     Then I wait for "1" mins
     And I open Admin portal and navigate to "Scheduled Deliveries" page
     And I remove current driver and researches Bungii
@@ -36,10 +36,10 @@ Feature: Solo Scheduled Bungii Part C
   Scenario: Verify Validation Message Shown If Driver Tries To Start A Bungii More Than 60 Mins Before The Scheduled Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | denver   | Accepted     | 2 hour ahead |
+      | denver15   | Accepted     | 2 hour ahead |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattW DenverW" driver
     
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -78,14 +78,14 @@ Feature: Solo Scheduled Bungii Part C
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Solo Scheduled Trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | denver   | Accepted     | 1 hour ahead |
+      | denver11   | Accepted     | 1 hour ahead |
     Given that ondemand bungii is in progress for the minimum distance chosen
       | geofence | Bungii State | Driver label | Trip Label |
-      | denver   | Enroute      | driver 2     | 2          |
+      | denver11   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices
     And I wait for 2 minutes
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattT DenverT" driver
     And I wait for 2 minutes
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -173,8 +173,12 @@ Feature: Solo Scheduled Bungii Part C
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting Solo Scheduled Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | denver   | Accepted     | 0.5 hour ahead |
-    And I open Admin portal and navigate to "Scheduled Deliveries" page
+      | denver16   | Accepted     | 0.5 hour ahead |
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I wait for 2 minutes
+    And I Select "Scheduled Trip" from admin sidebar
 
     And I remove current driver and researches Bungii
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" trip
@@ -183,7 +187,7 @@ Feature: Solo Scheduled Bungii Part C
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I enter phoneNumber :9999998086 and  Password :Cci12345
+    And I enter phoneNumber :9049840394 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
@@ -202,10 +206,10 @@ Feature: Solo Scheduled Bungii Part C
   Scenario:Verify Driver Cannot Cancel Scheduled Bungii From App When Bungii Is Not Started And He Should Send SMS To Cancel Solo Scheduled Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Accepted     | NEXT_POSSIBLE |
+      | denver17   | Accepted     | NEXT_POSSIBLE |
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattY DenverY" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I try to cancel selected Bungii
@@ -251,7 +255,7 @@ Feature: Solo Scheduled Bungii Part C
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8877661120     | Testcustomertywd_appleMarkDQ LutherDQ | Cci12345          |
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+    And As a driver "Testdrivertywd_appledv_b_mattM DenverM" and "Testdrivertywd_appledv_b_mattL DenverL" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
     When I Switch to "customer" application on "same" devices
