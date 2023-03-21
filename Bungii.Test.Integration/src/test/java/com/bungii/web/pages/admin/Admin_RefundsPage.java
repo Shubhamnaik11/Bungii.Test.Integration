@@ -15,6 +15,8 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement TextBox_DriverEarnings() { return findElement("//label[@id='dollar-icon']/div/div/input[@id='driver1Earning']", LocatorType.XPath); }
 
+    public WebElement TextBox_Driver2Earnings() { return findElement("//label[@id='dollar-icon']/div/div/input[@id='driver2Earning']", LocatorType.XPath); }
+
     public WebElement TextBox_DriverPercentage() { return findElement("//p[text()='Earnings']/parent::div/following-sibling::div/div/div/label/input", LocatorType.XPath); }
 
     public WebElement TextBox_BungiiEarnings() { return findElement("//p[text()='Bungii Earnings']/parent::div/following-sibling::div/div/div/label[@id='dollar-icon']/input", LocatorType.XPath); }
@@ -22,6 +24,8 @@ public class Admin_RefundsPage extends PageBase {
     public WebElement TextBox_BungiiPercentage() { return findElement("//p[text()='Bungii Earnings']/parent::div/following-sibling::div/div/div/label[@id='percentage-icon']/input", LocatorType.XPath); }
 
     public WebElement TextBox_BusinessNotes() { return findElement("notes", LocatorType.Id); }
+
+    public WebElement TextBox_Driver1Notes() { return findElement("driver1Notes", LocatorType.Id); }
 
     public WebElement TextBox_Notes(boolean... ignoreException) { return findElement("driver1Notes", LocatorType.Id,ignoreException); }
 
@@ -115,4 +119,13 @@ public class Admin_RefundsPage extends PageBase {
 
     public WebElement Text_DeliveryPaymentValue() {return findElement("//table[@class=\"table table-striped\"]/tbody/tr[19]/td[text()='Delivery Payment']/following::td[1]/strong", LocatorType.XPath);}
 
+    public WebElement Text_DeliveryTotal() {return findElement("//html/body/div/div/div[1]/div[2]/div/div[2]/div[2]/div[2]/div[1]/div[1]/div[2]/div/div[2]", LocatorType.XPath);}
+
+    public WebElement Text_CustomerRefund() {return findElement("(//td[@class='text-align'])[1]", LocatorType.XPath);}
+
+    public WebElement Text_Driver1Earnings() {return findElement("(//td[@class='text-align'])[2]", LocatorType.XPath);}
+
+    public WebElement Text_Driver2Earnings() {return findElement("(//td[@class='text-align'])[3]", LocatorType.XPath);}
+
+    public WebElement Text_BungiiEarnings() {return findElement("(//td[@class='text-align'])[4]", LocatorType.XPath);}
 }
