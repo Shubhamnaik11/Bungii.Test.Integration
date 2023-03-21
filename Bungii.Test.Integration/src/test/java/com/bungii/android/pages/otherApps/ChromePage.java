@@ -71,5 +71,4 @@ public class ChromePage extends PageBase {
     public WebElement Textbox_ExpirationDate() { return findElement("//android.widget.EditText[contains(@resource-id,'expiration')]", LocatorType.XPath);}
     public WebElement Textbox_CVV() { return findElement("//android.widget.EditText[contains(@resource-id,'cvv')]", LocatorType.XPath);}
     public WebElement Textbox_PostalCode() { return findElement("//android.widget.EditText[contains(@resource-id,'postal-code')]", LocatorType.XPath);}
-
 }
