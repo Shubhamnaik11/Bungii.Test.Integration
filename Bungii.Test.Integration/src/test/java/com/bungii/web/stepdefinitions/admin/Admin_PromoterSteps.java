@@ -348,7 +348,7 @@ try{
     @Then("^the card is added to the promoter \"([^\"]*)\"$")
     public void the_card_is_added_to_the_promoter_something(String currentdatetime) throws Throwable {
 
-        testStepAssert.isElementTextEquals(admin_PromoterPage.Label_SuccessMessage(),"Bungii Payment Method added successfully.","Payment details added successfully for partner. message should be displayed" ,"Payment details added successfully for partner. message is displayed","Payment details added successfully for partner. message should be displayed is not displayed");
+        testStepAssert.isElementTextEquals(admin_PromoterPage.Label_SuccessMessage(),"Payment details added successfully for partner.","Payment details added successfully for partner. message should be displayed" ,"Payment details added successfully for partner. message is displayed","Payment details added successfully for partner. message should be displayed is not displayed");
 
     }
     private String uniqid() {

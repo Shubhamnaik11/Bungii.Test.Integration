@@ -146,6 +146,7 @@ Feature: SoloScheduled Part B
     And I tap on "Available Trips link" on Driver Home page
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
+    And I click on the "OK" Button on "Accept Delivery" popup
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
