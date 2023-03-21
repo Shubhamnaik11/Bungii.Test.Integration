@@ -77,7 +77,12 @@ public class GeneralUtility extends DriverBase {
             } else if (PP_Site.equalsIgnoreCase("FloorDecor service level")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.fnd_service_level_partner.url");
                 cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref"));
-            } else if (PP_Site.equalsIgnoreCase("kiosk mode")) {
+            }
+            else if (PP_Site.equalsIgnoreCase("FloorDecor service level #214")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.fnd_service_level#214_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.fnd_service_level#214_partner.ref"));
+            }
+            else if (PP_Site.equalsIgnoreCase("kiosk mode")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
                 cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
             } else if (PP_Site.equalsIgnoreCase("BestBuy service level")) {
@@ -1086,6 +1091,77 @@ public class GeneralUtility extends DriverBase {
                     s = s.replaceAll("%DriverName%", driverName);
                     s = s.replaceAll("%PickUp%", pickUp);
                     s = s.replaceAll("%DropOff%", dropOff);
+                    emailMessage += s;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+    public String getExpectedPartnerFirmEmailForDropOffAddressEdit(String firmName,String pickUpdate,String pickUpAddress,String dropOffAddress,String serviceLevel,String deliveryCost,String customerName,String customerPhone,String driverName,String driverPhone,String driverLicencePlate) {
+        String emailMessage = "";
+        FileReader fr;
+        try {
+            if (SystemUtils.IS_OS_WINDOWS) {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\BungiiUpdateDropOffEdit.txt");
+            } else {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/BungiiUpdateDropOffEdit.txt");
+            }
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%PickUpDate%", pickUpdate);
+                    s = s.replaceAll("%PickUpAddress%", pickUpAddress);
+                    s = s.replaceAll("%DropOffAddress%", dropOffAddress);
+                    s = s.replaceAll("%ServiceLevel%", serviceLevel);
+                    s = s.replaceAll("%DeliveryCost%", deliveryCost);
+                    s = s.replaceAll("%CustomerName%", customerName);
+                    s = s.replaceAll("%CustomerPhone%", customerPhone);
+                    s = s.replaceAll("%DriverName%", driverName);
+                    s = s.replaceAll("%DriverPhone%", driverPhone);
+                    s = s.replaceAll("%LicencePlate%", driverLicencePlate);
+                    emailMessage += s;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+    public String getExpectedPartnerFirmEmailForPickUpAddressEdit(String firmName,String pickUpdate,String pickUpAddress,String dropOffAddress,String serviceLevel,String deliveryCost,String customerName,String customerPhone,String driverName,String driverPhone,String driverLicencePlate) {
+        String emailMessage = "";
+        FileReader fr;
+        try {
+            if (SystemUtils.IS_OS_WINDOWS) {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\BungiiUpdatePickUpEdit.txt");
+            } else {
+                fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/BungiiUpdatePickUpEdit.txt");
+            }
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%FirmName%", firmName);
+                    s = s.replaceAll("%PickUpDate%", pickUpdate);
+                    s = s.replaceAll("%PickUpAddress%", pickUpAddress);
+                    s = s.replaceAll("%DropOffAddress%", dropOffAddress);
+                    s = s.replaceAll("%ServiceLevel%", serviceLevel);
+                    s = s.replaceAll("%DeliveryCost%", deliveryCost);
+                    s = s.replaceAll("%CustomerName%", customerName);
+                    s = s.replaceAll("%CustomerPhone%", customerPhone);
+                    s = s.replaceAll("%DriverName%", driverName);
+                    s = s.replaceAll("%DriverPhone%", driverPhone);
+                    s = s.replaceAll("%LicencePlate%", driverLicencePlate);
                     emailMessage += s;
                 }
 

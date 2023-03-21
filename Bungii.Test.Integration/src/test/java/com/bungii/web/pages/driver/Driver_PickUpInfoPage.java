@@ -40,7 +40,7 @@ public class Driver_PickUpInfoPage extends PageBase {
     public WebElement Link_Truck1Image_Remove () { return findElement("//div[@id='dropzone2']/div[2]/a[text()='Remove file']", LocatorType.XPath); }
 
     //ickup Information - Next Button
-    public WebElement Button_PickUpNext () { return findElement("btnPickUpInfo", LocatorType.Id); }
+    public WebElement Button_PickUpNext () { return findElement("//span[contains(text(),'Vehicle Information')]", LocatorType.XPath); }
 
     public WebElement DropZoneHiddenFileTag_TruckImage () { return findElement("//input[@class = 'dz-hidden-input'][2]", LocatorType.XPath, true );}
 

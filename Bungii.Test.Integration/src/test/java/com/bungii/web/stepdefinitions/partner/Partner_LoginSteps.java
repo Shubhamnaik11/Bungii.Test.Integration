@@ -17,7 +17,9 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import java.sql.Time;
@@ -1142,5 +1144,71 @@ public class Partner_LoginSteps extends DriverBase {
         }
     }
 
+    @And("I check {string} section is displayed")
+    public void iCheckSectionIsDisplayed(String section) {
+        try{
+            switch(section) {
+                case "What's needed?":
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Section_WhatsNeeded(), (long) 5000);
+                    boolean isWhatsNeedDisplayed= Page_Partner_Dashboard.Section_WhatsNeeded().isDisplayed();
+                    testStepAssert.isTrue(isWhatsNeedDisplayed, "What's Needed section should be displayed", "What's Needed section is displayed", "What's Needed section is not displayed");
+                    break;
+
+                case "Custom Quotes":
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Section_CustomQuotes(), (long) 5000);
+                    boolean isCustomQuoteDisplayed= Page_Partner_Dashboard.Section_CustomQuotes().isDisplayed();
+                    testStepAssert.isTrue(isCustomQuoteDisplayed, "Customer Quote section should be displayed", "Customer Quote  section is displayed", "Customer Quote  section is not displayed");
+                    break;
+            }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("I check {string} is not present")
+    public void iCheckIsNotPresent(String message) {
+        try{
+            switch(message) {
+                case "Disclaimer message":
+                    testStepAssert.isFalse(action.isElementPresent(Page_Partner_Dashboard.Text_DisclaimerMessage(true)),
+                            "Disclaimer message should not be present",
+                            "Disclaimer message is not present",
+                            "Disclaimer message is present");
+                    break;
+            }
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("I verify the UI for Space between {string} & {string} section is corectly displayed")
+    public void iVerifyTheUIForSpaceBetweenSectionIsCorectlyDisplayed(String arg0, String arg1) {
+        try{
+            Point whatsNeededSection= Page_Partner_Dashboard.Section_WhatsNeeded().getLocation();
+            Dimension whatsNeededSectionSize=Page_Partner_Dashboard.Section_WhatsNeeded().getSize();
+            int whatsNeededSectionBottom= whatsNeededSection.getY() + whatsNeededSectionSize.getHeight();
+
+            Point customQuoteSection= Page_Partner_Dashboard.Section_CustomQuotes().getLocation();
+            int customQuoteSectionTop= customQuoteSection.getY();
+
+            int spacing= customQuoteSectionTop -whatsNeededSectionBottom;
+            String actualSpacing=Integer.toString(spacing);
+
+            String expctedspacing = PropertyUtility.getDataProperties("spacing.between.whatsneeded.and.customquote.in.pixel");
+
+            testStepAssert.isEquals(actualSpacing, expctedspacing,
+                    "Sufficient space should be present in between What's Needed & Custom Quote",
+                    "Sufficient space is present in between What's Needed & Custom Quote",
+                    "Sufficient space is not present in between What's Needed & Custom Quote");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 }
 

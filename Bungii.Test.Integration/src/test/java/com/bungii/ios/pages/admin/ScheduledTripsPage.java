@@ -61,12 +61,16 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Textbox_Drop_Off_Location () { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/div[@class=\"address-textbox\"]/div/input",LocatorType.XPath);}
     public WebElement DropdownResult (String address) { return findElement(String.format("//div[@id='divPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
     public WebElement DropOff_Address() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/label[@class=\"address2\"]",LocatorType.XPath);}
-    public WebElement Label_Pickup_Location () { return findElement("//p[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
-    public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit pickup location']",LocatorType.XPath);}
+    public WebElement Label_Pickup_Location () { return findElement("//span[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
+    public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit Pickup Location']",LocatorType.XPath);}
+    public WebElement Label_Pickup_Location_For_Live () { return findElement("//div[@class=\"live-edit\"]/div/div[3]/div/span[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
+    public WebElement Button_Edit_Pickup_Address_For_Live () { return findElement("//div[@class='live-edit']/div/div[3]/div[2]/div/div[2]/img[@title='Edit Pickup Location']",LocatorType.XPath);}
+    public WebElement Textbox_Pickup_Location_For_Live () { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div[1]/div[@class=\"address-textbox\"]/div/input",LocatorType.XPath);}
     public WebElement Textbox_Pickup_Location () { return findElement("PickupDetails_PickupOriginAddress",LocatorType.Id);}
-    public WebElement DropdownPickupResult (String address) { return findElement(String.format("//div[@id='divPickupPlacesResult']/div[contains(.,'%s')]",address),LocatorType.XPath);}
+    public WebElement DropdownPickupResult (String address) { return findElement(String.format("//div[@class='autocomplete-dropdown-container']/div/span[contains(text(),'"+address+"')]",address),LocatorType.XPath);}
+    public WebElement Text_Pickup_Address_For_Live() { return findElements("//img[@title='Edit Pickup Location']/ancestor::div[2]/div/label",LocatorType.XPath).get(1);}
     public WebElement Pickup_Address() { return findElement("//label[@id='lblPickupAddress']",LocatorType.XPath);}
-    public WebElement Button_VerifyDriver(){return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')]", LocatorType.XPath);}
+    public WebElement Button_VerifyDriver(){return findElement("//div[@class=\"live-edit\"]/div/div[5]//button[contains(text(),'VERIFY')] | //div[@class=\"live-edit\"]/div/div[6]/button[contains(text(),'VERIFY')]", LocatorType.XPath);}
     public WebElement Text_VerifyChangesSavedMessage() {return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}
     public WebElement Button_SaveChanges(){return findElement("//button[contains(text(),'SAVE')]", LocatorType.XPath);}
     public WebElement Text_SuccessMessage(){return findElement("//span[@id='verified-message']/i[2]", LocatorType.XPath);}

@@ -566,6 +566,7 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver21.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
+                    break;
                 case "testdrivertywd_appleks_a_drvbu kansas_bu":
                     phone = PropertyUtility.getDataProperties("Kansas.driver69.phone");
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
@@ -603,6 +604,22 @@ public class LoginSteps extends DriverBase {
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                     password = PropertyUtility.getDataProperties("new.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver4.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdrivertywd_applega_a_drvao atlanta_ao":
+                    phone = PropertyUtility.getDataProperties("atlanta.driver23.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("atlanta.driver23.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver23.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdrivertywd_applega_a_drvap atlanta_ap":
+                    phone = PropertyUtility.getDataProperties("atlanta.driver24.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("atlanta.driver24.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver24.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
@@ -667,6 +684,38 @@ public class LoginSteps extends DriverBase {
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                     password = PropertyUtility.getDataProperties("new.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("goa.driver20.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdrivertywd_appledc_a_drvah washingtonah":
+                    phone = PropertyUtility.getDataProperties("Washington.driver36.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("Washington.driver11.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Washington.driver36.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdrivertywd_appledc_a_drvaq washingtonaq":
+                    phone = PropertyUtility.getDataProperties("Washington.driver41.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("Washington.driver11.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Washington.driver41.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdrivertywd_applemd_a_bill baltimorel":
+                    phone = PropertyUtility.getDataProperties("baltimore.driver11.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("baltimore.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("baltimore.driver11.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdrivertywd_applemd_a_billl baltimorel":
+                    phone = PropertyUtility.getDataProperties("baltimore.driver8.phone");
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    password = PropertyUtility.getDataProperties("baltimore.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("baltimore.driver8.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
