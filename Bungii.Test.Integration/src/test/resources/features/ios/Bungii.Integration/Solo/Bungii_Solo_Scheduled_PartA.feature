@@ -226,6 +226,7 @@ Feature: Solo Scheduled Bungii Part A
     And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
 
     When I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
@@ -604,6 +605,7 @@ Feature: Solo Scheduled Bungii Part A
     And I Select Partner portal Trip from available trip
    Then I should see service level information displayed for "<Delivery Center>" address
     When I accept selected Bungii
+   And I click "OK" button on alert message
    And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then The service level information should be displayed

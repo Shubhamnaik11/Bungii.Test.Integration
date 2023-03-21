@@ -65,5 +65,6 @@ public class LiveTripsPage extends PageBase{
     public WebElement Button_Invite () { return findElement("//XCUIElementTypeButton[@name=\"INVITE\"]", LocatorType.XPath); }
 
     public WebElement Text_EarningsInfo () { return findElement("//XCUIElementTypeStaticText[contains(@name,'Same day payment')]", LocatorType.XPath); }
+    public WebElement Icon_EarningsInfo () { return findElement("//XCUIElementTypeImage[@name=\"icon-info\"]", LocatorType.XPath); }
 
 }

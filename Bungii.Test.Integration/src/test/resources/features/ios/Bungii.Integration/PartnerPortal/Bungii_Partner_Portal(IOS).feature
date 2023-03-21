@@ -11,13 +11,14 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     #And I Select Trip from available trip
     And I Select Partner portal Trip from available trip
+    Then I should be navigated to "BUNGII DETAILS" screen
     And I click on "i earning" icon
     And I click on "Close Payment Settings" button
 #    Core - 2569 Verify ~ sign under earnings is shown on Driver app for Variable pricing Deliveries
     And I check if variable sign is shown under "available bungii details"
-    Then I should be navigated to "BUNGII DETAILS" screen
     Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
     When I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I check if variable sign is shown under "schedule bungii details"
@@ -27,24 +28,24 @@ Feature: Partner Portal Cases integration with IOS
     Then I should be navigated to "BUNGII DETAILS" screen
     Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
-    Then Partner Portal name should be displayed in "EN ROUTE" section
-    And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen on driver
-    Then Partner Portal name should be displayed in "ARRIVED" section
-    And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEMS" trip status screen on driver
-    Then Partner Portal name should be displayed in "LOADING ITEMS" section
-    And I slide update button on "LOADING ITEM" Screen
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen on driver
+    Then Partner Portal name should be displayed in "EN ROUTE TO PICKUP" section
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    Then I should be navigated to "ARRIVED AT PICKUP" trip status screen on driver
+    Then Partner Portal name should be displayed in "ARRIVED AT PICKUP" section
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    Then I should be navigated to "LOADING ITEMS AT PICKUP" trip status screen on driver
+    Then Partner Portal name should be displayed in "LOADING ITEMS AT PICKUP" section
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     #   Core-3412 Verify Photo verification screen is not shown for partner trip which has Photo verification disabled but enabled for geofence
     #    Photo verification disabled for MRFM
     And I check if "photo verification" button is "not displayed"
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
     Then Partner Portal name should be displayed in "DRIVING TO DROP-OFF" section
     And I slide update button on "DRIVING TO DROP-OFF" Screen
-    Then I should be navigated to "UNLOADING ITEMS" trip status screen on driver
-    Then Partner Portal name should be displayed in "UNLOADING ITEMS" section
-    And I slide update button on "UNLOADING ITEMS" Screen
+    Then I should be navigated to "UNLOADING ITEMS AT DROP-OFF" trip status screen on driver
+    Then Partner Portal name should be displayed in "UNLOADING ITEMS AT DROP-OFF" section
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
       #  Core - 3113 Verify that Rate customer page UI and elements are displayed correctly to driver
     And I check the elements displayed on rate customer screen
     And I select "4" customer rating
@@ -79,6 +80,7 @@ Feature: Partner Portal Cases integration with IOS
     And I Select Partner portal Trip from available trip
     And I check if variable sign is not shown under "available bungii details"
     When I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I check if variable sign is not shown under "schedule bungii details"
@@ -98,12 +100,13 @@ Feature: Partner Portal Cases integration with IOS
     Then I should be navigated to "BUNGII DETAILS" screen
     And Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
     When I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
     And Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
     When I start selected Bungii
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     And Driver status should be "Online"
     And I Switch to "customer" application on "same" devices
     When I am on Customer logged in Home page
@@ -149,6 +152,7 @@ Feature: Partner Portal Cases integration with IOS
     And I Select Partner portal Trip from available trip
 #    Core-2537 Verify whether driver can accept deliveries which have suitable payload for his vehicle
     When I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I verify the driver earnings displayed on driver app for "solo"
@@ -181,13 +185,13 @@ Feature: Partner Portal Cases integration with IOS
     And I Select Trip from scheduled trip
     And I verify the driver earnings displayed on driver app for "changed address and service level"
     And I start selected Bungii for "floor and decor"
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen on driver
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then Bungii driver should see "Pickup instructions"
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
 
 #    Core-2418 Verify Driver Pricing is recalculated for Floor n Decor delivery when admin edits the address and service level of Live Trip
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -220,12 +224,12 @@ Feature: Partner Portal Cases integration with IOS
     And I click "More Options" button on "update" screen
     And I click "Take Photo" button on "update" screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then Bungii driver should see "Drop-off instructions"
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
 
@@ -289,6 +293,7 @@ Feature: Partner Portal Cases integration with IOS
 #   Core-2537: Verify whether driver can accept delivery that are upto 100 lb more then the payload
     And I select "Pallet-1" from items
     And I accept selected Bungii
+    And I click "OK" button on alert message
     Then I should be navigated to "AVAILABLE BUNGIIS" screen
 #   Core-2537: Verify whether admin is able to assign the delivery without any validations
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -387,6 +392,7 @@ Feature: Partner Portal Cases integration with IOS
     And I select "Pallet-1" from items
 #   Core-2546: Verify driver can accept using AVAILABLE BUNGII menu when driver pallet is equal to payload capacity
     And I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
 #   Core-2546: Verify pallet details are displayed on SCHEDULE Bungii menu
@@ -447,20 +453,20 @@ Feature: Partner Portal Cases integration with IOS
     And I Select Trip from scheduled trip
     Then I should see "SOLO LIFT" header displayed
     And I start selected Bungii
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     And I click on "GOT IT" button
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then I should see "SOLO LIFT" header displayed
     And I click on "GOT IT" button
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
 
@@ -490,6 +496,7 @@ Feature: Partner Portal Cases integration with IOS
     And I Select Partner portal Trip from available trip
     Then I should see "CUSTOMER HELP" header displayed
     When I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I should see "CUSTOMER HELP" header displayed
@@ -513,19 +520,19 @@ Feature: Partner Portal Cases integration with IOS
     And I swipe to check trip details
     Then The "admin edits dropoff Address" should match
     And I click on "Close" button
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     Then The "DROP-OFF(Expected time)" "Label" should be displayed
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then The "DROP-OFF(Expected time)" "Label" should be displayed
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -554,11 +561,11 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii for "floor and decor"
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     And I click on "GOT IT" button
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -595,18 +602,19 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
     When I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii for "floor and decor"
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then Bungii driver should see "Pickup instructions"
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then Bungii driver should see "Drop-off instructions"
 
@@ -672,17 +680,17 @@ Feature: Partner Portal Cases integration with IOS
     Then The "admin edits dropoff Address" should match
     And I click on "Close" button
 
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
 
@@ -707,7 +715,7 @@ Feature: Partner Portal Cases integration with IOS
    Then The "Arrival time" should match
    Then The "Expected time at drop-off" should match
    And I start selected Bungii
-   And I slide update button on "EN ROUTE" Screen
+   And I slide update button on "EN ROUTE TO PICKUP" Screen
 
    When I open new "Chrome" browser for "ADMIN PORTAL"
    And I navigate to admin portal
@@ -741,16 +749,16 @@ Feature: Partner Portal Cases integration with IOS
     When I accept selected Bungii
     And I click on "BACK" button
 
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
-   And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+   And I slide update button on "LOADING ITEMS AT PICKUP" Screen
    And Driver adds photos to the Bungii
-   And I slide update button on "LOADING ITEM" Screen
+   And I slide update button on "LOADING ITEMS AT PICKUP" Screen
    And I slide update button on "DRIVING TO DROP-OFF" Screen
-   And I slide update button on "UNLOADING ITEMS" Screen
+   And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
    And Driver adds photos to the Bungii
-   And I slide update button on "UNLOADING ITEMS" Screen
+   And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
    And I click "Skip This Step" button on "Rate customer" screen
    Then I should be navigated to "Bungii completed" screen
 
@@ -772,24 +780,25 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
     When I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii for "floor and decor"
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen on driver
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then Bungii driver should see "Pickup instructions"
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then Bungii driver should see "Drop-off instructions"
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
     And I check the status for "same day payment" in db
@@ -818,10 +827,11 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     Then The "Barcode" "Image" should be displayed
     Then The "Scan the item(s) barcode before loading & after unloading." "Instruction" should be displayed
     And I click on "GOT IT" button
@@ -838,12 +848,12 @@ Feature: Partner Portal Cases integration with IOS
     Then The "Skip" "Button" should be displayed
     When I click on "Skip" button
     #CORE-4398:Verify Notification messages shown to driver when barcode is enabled
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     And I click on "GOT IT" button
     And I click "More Options" button on "update" screen
@@ -857,8 +867,8 @@ Feature: Partner Portal Cases integration with IOS
     When I click on "Skip" button
       #CORE-4398:Verify Notification messages shown to driver when barcode is enabled
     Then The "Please take photos and scan item(s) barcode after unloading, just ‘slide to complete Bungii’ and follow the prompts" "Notification" should be displayed
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen

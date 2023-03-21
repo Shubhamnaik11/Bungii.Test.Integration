@@ -13,7 +13,7 @@ public class BungiiDetailsPage extends PageBase {
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
 	//Photo Verification by driver
-	public WebElement Text_PickupInstructions(){return findElement("//XCUIElementTypeStaticText[@name='Pickup instructions']",LocatorType.XPath);}
+	public WebElement Text_PickupInstructions(boolean... ignoreException){return findElement("//XCUIElementTypeStaticText[@name='Pickup instructions']",LocatorType.XPath,ignoreException);}
 	public WebElement Text_PhotoVerification(){return findElement("//XCUIElementTypeNavigationBar[@name='PHOTO VERIFICATION']",LocatorType.XPath);}
 	public WebElement Tab_AddPhoto(boolean...ignoreException){return findElement("//XCUIElementTypeStaticText[@name='Tap to add photo']",LocatorType.XPath,ignoreException);}
 	public WebElement Button_SavePhotos(){return findElement("//XCUIElementTypeButton[@name='Save']",LocatorType.XPath);}
