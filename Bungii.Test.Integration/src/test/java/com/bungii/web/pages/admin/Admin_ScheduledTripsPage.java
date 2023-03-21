@@ -16,15 +16,15 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Textbox_CancellationFee () { return findElement("cancelationFee", LocatorType.Id); }
 
-    public WebElement Label_Drop_Off_Location () { return findElement("//span[contains(text(),'Drop Off Location:')]",LocatorType.XPath);}
+    public WebElement Label_Drop_Off_Location () { return findElement("//label[contains(text(),'DROP-OFF')]",LocatorType.XPath);}
 
-    public WebElement Label_Pickup_Location () { return findElement("//span[contains(text(),'Pickup Location:')]",LocatorType.XPath);}
+    public WebElement Label_Pickup_Location () { return findElement("//label[contains(text(),'PICKUP')]",LocatorType.XPath);}
 
     public WebElement Label_Market () { return findElement("//th[text()='Market']",LocatorType.XPath);}
 
     public WebElement Label_Delivery_Portal () { return findElement("//th[text()='Delivery Type']",LocatorType.XPath);}
 
-    public WebElement Button_Edit_Drop_Off_Address () { return findElement("//img[@title='Edit drop off Location']",LocatorType.XPath);}
+    public WebElement Button_Edit_Drop_Off_Address () { return findElement("//img[@title='Edit Drop-off Location']",LocatorType.XPath);}
 
     public WebElement Button_Edit_Pickup_Address () { return findElement("//img[@title='Edit Pickup Location']",LocatorType.XPath);}
 
@@ -33,8 +33,8 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Admin_Dropdown_ServiceLevel() { return findElement("//select[@class='service-level-mt form-select']",LocatorType.XPath);}
     public WebElement Admin_DropdownServiceLevelSelected() { return findElement("//select[@class='service-level-mt form-select']/option[@selected]",LocatorType.XPath);}
     public WebElement Link_Grid_First_Row() { return findElement("//tr[@id='row1']/td[4]/a",LocatorType.XPath);}
-    public WebElement Textbox_Drop_Off_Location () { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div[1]/div/div/input",LocatorType.XPath);}
-    public WebElement Textbox_Pickup_Location () { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div[1]/div/div/input",LocatorType.XPath);}
+    public WebElement Textbox_Drop_Off_Location () { return findElement("//input[contains(@placeholder,'Enter Drop-off Address')]",LocatorType.XPath);}
+    public WebElement Textbox_Pickup_Location () { return findElement("//input[contains(@placeholder,'Enter Pickup Address')]",LocatorType.XPath);}
 
     //public WebElement FirstAddressDropdownResult () { return findElement("//div[@id='divPlacesResult']/div[1]",LocatorType.XPath);}
 
@@ -42,9 +42,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement DropdownPickupResult () { return findElement(String.format("//div[@class='autocomplete-dropdown-container']/div[1]/span"),LocatorType.XPath);}
 
-    public WebElement DropOff_Address() { return findElement("//img[@title='Edit drop off Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
+    public WebElement DropOff_Address() { return findElement("//label[contains(text(),'DROP-OFF')]/following::span/h4",LocatorType.XPath);}
 
-    public WebElement Pickup_Address() { return findElement("//img[@title='Edit Pickup Location']/ancestor::div[2]/div/label",LocatorType.XPath);}
+    public WebElement Pickup_Address() { return findElement("//label[text()='PICKUP']/following-sibling::span/h4",LocatorType.XPath);}
     public WebElement Text_Pickup_Address_For_Live() { return findElements("//img[@title='Edit Pickup Location']/ancestor::div[2]/div/label",LocatorType.XPath).get(1);}
 
 

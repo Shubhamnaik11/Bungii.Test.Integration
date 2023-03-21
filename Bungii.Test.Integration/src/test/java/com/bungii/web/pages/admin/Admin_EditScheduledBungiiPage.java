@@ -42,7 +42,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_VerifiedMessage() { return findElement("verified-message", LocatorType.Id); }
 
-    public WebElement Label_SuccessMessage() { return findElement("//i[text()='Bungii Saved!']", LocatorType.XPath); }
+    public WebElement Label_SuccessMessage() { return findElement("//i[text()='Bungii Saved!'] | //span[text()='Bungii Saved!']", LocatorType.XPath); }
 
     public WebElement Label_InfoMessage() { return findElement("info-message", LocatorType.Id); }
 
