@@ -37,7 +37,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Estimated_Charge() { return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong",LocatorType.XPath);}
 
-    public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[contains(text(),'Driver Earnings')]/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[contains(text(),'Driver Earnings')]/following::td[1]",LocatorType.XPath);}
 
     public WebElement Text_Driver_Est_Eranings() { return findElement("//tr[19]/td/strong",LocatorType.XPath);}
 
@@ -98,5 +98,7 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Input_DriverBoostedPeriod() {return findElement("//td[text()='Driver Boosted earning period']/following::td[1]/div[1]/div/div/div/input", LocatorType.XPath);}
 
     public WebElement Button_DeliveryOverview() { return findElement("//button[contains(text(),'Delivery Overview')]",LocatorType.XPath);}
+
+    public WebElement Button_PaymentDetails() { return findElement("//button[contains(text(),'Payment Details')]",LocatorType.XPath);}
 
 }

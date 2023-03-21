@@ -1024,10 +1024,10 @@ try{
     @Then("^I note the Driver Est. Earnings for the search delivery$")
     public void i_note_the_Driver_Est_Earnings_for_the_search_delivery()throws Throwable {
         try{
-        String DriverEstEarning= action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Earnings_Customer_Delivery());
+            String DriverEstEarning= action.getText(Page_Admin_Trips_Details.Text_Driver_Est_Earnings_Customer_Delivery());
 
-        DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
-        cucumberContextManager.setScenarioContext("Old_Driver_Earning",DriverEstEarning);
+            DriverEstEarning=DriverEstEarning.substring(1,DriverEstEarning.length());
+            cucumberContextManager.setScenarioContext("Old_Driver_Earning",DriverEstEarning);
 
             log("I should able to note the Driver Est. Earnings for the search delivery.","The noted Driver Est. Earnings for the delivery is: "+DriverEstEarning, true);
         }
@@ -1036,7 +1036,6 @@ try{
             error("Step should be successful", "Unable to note the driver est earning for the search delivery",
                     true);
         }
-
     }
 
     @Then("^I confirm that Driver Est. Earnings for the delivery remain same$")

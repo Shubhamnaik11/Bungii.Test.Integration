@@ -233,6 +233,7 @@ Feature: Admin_Delivery_Type_Change
 	And I should see Bungii Type as "SOLO" in "Edit Trip Details" section
 
   @ready
+	  @sn
   Scenario: Verify that driver est earning doesnt get change for the delivery having Promoter type Promocode when it changes from Solo to Duo and vice-versa
 	  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 		  | Bungii Time   | Customer Phone | Customer Password | Customer Name                       |
@@ -244,6 +245,7 @@ Feature: Admin_Delivery_Type_Change
 		  |  Status |
 		  | Assigning Driver(s) |
 	  When I view the delivery details
+	  And I click on "Payment Details" button on delivery details
 	  Then I note the Driver Est. Earnings for the search delivery
 	  And I navigate back to Scheduled Deliveries
 	  And I click on "Edit" link beside scheduled bungii
@@ -284,6 +286,7 @@ Feature: Admin_Delivery_Type_Change
 		  | Solo |
 	  And the cost of the delivery should be zero
 	  When I view the delivery details
+	  And I click on "Payment Details" button on delivery details
 	  Then I confirm that Driver Est. Earnings for the delivery remain same
   	  And I navigate back to Scheduled Deliveries
 	  Then I should be able to see the respective bungii with the below status
