@@ -29,9 +29,9 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Schedule_Date_Row() {return findElement("//td[3]/a",LocatorType.XPath);}
 
-    public WebElement Text_DropOff_Location() { return findElement("//td[text()='Drop Off Location']/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Text_DropOff_Location() { return findElement("//div[text()='DROP-OFF']/following::h6[text()='Address']/following-sibling::div[1]/div/p",LocatorType.XPath);}
 
-    public WebElement Text_Pickup_Location() { return findElement("//td[text()='Pickup Location']/following::td[1]",LocatorType.XPath);}
+    public WebElement Text_Pickup_Location() { return findElement("//div[text()='PICKUP']/following::h6[1][text()='Address']/following-sibling::div[1]/div/p",LocatorType.XPath);}
 
     public WebElement Text_Service_Level() { return findElement("//td[contains(text(),'Service Level')]/following-sibling::td/strong",LocatorType.XPath);}
 

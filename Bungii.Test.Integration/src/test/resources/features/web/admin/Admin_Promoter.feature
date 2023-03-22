@@ -38,6 +38,7 @@ Feature: Admin_Promoter
   @sanity
   @regression
     #Issue logged ADP-695
+    #Issue logged CORE-6319-promo code popup not getting displayed
   Scenario: Verify Adding Promotion To Promoter And Adding Promocodes to Promotion
     When I click on the "New Partners" Button
     And I enter following values in fields in "Add New Partner" popup
