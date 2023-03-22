@@ -295,7 +295,7 @@ public class Admin_TripsSteps extends DriverBase {
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER_NAME");
         action.selectElementByText(admin_CustomerPage.Dropdown_TimeFrame(), "The Beginning of Time");
         Thread.sleep(5000);
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following::td[2]", tripType, customer);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following::td[2]", tripType.toUpperCase(), customer);
         String actualStatus = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath)));
         testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed", "Trip is displayed", "DATA SYNCH ISSUE | Trip is not displayed");
         testStepAssert.isEquals(status,actualStatus,"Correct status should be displayed","Correct status is displayed","Correct status is not displayed");
@@ -2613,10 +2613,12 @@ try{
                 case "Solo":
                     Thread.sleep(1000);
                     action.click(admin_TripsPage.RadioButton_SoloTrip());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
                     break;
                 case "Duo":
                     Thread.sleep(1000);
                     action.click(admin_TripsPage.RadioButton_DuoTrip());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
                     break;
             }
             log("I should be able to change delivery type to " + expectedTripTypeStatus,"I could change delivery type to " + expectedTripTypeStatus);
