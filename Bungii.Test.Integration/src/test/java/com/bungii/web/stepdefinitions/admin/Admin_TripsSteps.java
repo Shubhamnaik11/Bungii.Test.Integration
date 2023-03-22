@@ -3062,7 +3062,7 @@ try{
         try {
             String customer_Mobile = (String) cucumberContextManager.getScenarioContext("Customer_Mobile");
             String first_CustomerPhone = customer_Mobile.replaceAll("\\D+", "");
-            String phone_No = action.getElementByXPath("//table[@class='table table-striped']/tbody/tr[2]/td[2]").getText();
+            String phone_No = action.getElementByXPath("//td/strong[contains(text(),'Customer Name & Phone Number:')]/following::td[1]").getText();
             String phone_Num = (phone_No.replaceAll("[a-zA-Z]", "")).trim();
             String finaldisplayed_CustNo = phone_Num.replaceAll("\\D+", "");
             testStepAssert.isEquals(finaldisplayed_CustNo, first_CustomerPhone, "First customer number added should be displayed on admin", "First Customer Phone number is correctly displayed on Admin portal", " Incorrect phone number displayed on admin portal");
