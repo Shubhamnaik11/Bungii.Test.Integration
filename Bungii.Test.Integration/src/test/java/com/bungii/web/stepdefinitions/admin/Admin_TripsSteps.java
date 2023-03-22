@@ -3820,28 +3820,40 @@ try{
         }
     }
 
-    @And("I note the trip details")
-    public void iNoteTheTripDetails() {
+    @And("I note the {string}")
+    public void iNoteThe(String details) {
         try{
-            String ScheduledDateTime = action.getText(admin_ScheduledTripsPage.Text_ScheduledTripDate());
-            cucumberContextManager.setScenarioContext("Partner_Schedule_Time",ScheduledDateTime);
-            action.click(admin_ScheduledTripsPage.Text_ScheduledTripDate());
-            String trackingId= action.getText(admin_TripDetailsPage.Text_TrackingId());
-            String trackingId1[] = trackingId.split(":");
-            cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY",trackingId1[1]);
-            String pickup = action.getText(admin_TripDetailsPage.Text_Pickup_Location());
-            cucumberContextManager.setScenarioContext("PickupAddress",pickup);
-            String dropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
-            cucumberContextManager.setScenarioContext("Delivery_Address",dropOff);
+            switch (details) {
+                case "Trip details":
+                    String ScheduledDateTime = action.getText(admin_ScheduledTripsPage.Text_ScheduledTripDate());
+                    cucumberContextManager.setScenarioContext("Partner_Schedule_Time", ScheduledDateTime);
+                    action.click(admin_ScheduledTripsPage.Text_ScheduledTripDate());
+                    String trackingId = action.getText(admin_TripDetailsPage.Text_TrackingId());
+                    String trackingId1[] = trackingId.split(":");
+                    cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY", trackingId1[1]);
+                    String pickup = action.getText(admin_TripDetailsPage.Text_Pickup_Location());
+                    cucumberContextManager.setScenarioContext("PickupAddress", pickup);
+                    String dropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
+                    cucumberContextManager.setScenarioContext("Delivery_Address", dropOff);
+                break;
 
+                case "Driver2 Earnings":
+                    String Driver2Earnings = action.getAttributeValue(admin_refundsPage.TextBox_Driver2Earnings());
+                    cucumberContextManager.setScenarioContext("DRIVER2_EARNINGS", Driver2Earnings);
+                break;
 
+                case "Bungii Earnings after refund":
+                    String BungiiEarningsAfterRefubnd = action.getText(admin_refundsPage.Label_BungiiAfterRefund()).replace("(", "").replace(")", "");
+                    cucumberContextManager.setScenarioContext("BUNGII_EARNINGS_AFTER_REFUND", BungiiEarningsAfterRefubnd);
+                    break;
+            }
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
-
         }
     }
+
     @When("^I click on the \"([^\"]*)\" textbox$")
     public void i_click_on_the_something_textbox(String textbox) throws Throwable {
         try{

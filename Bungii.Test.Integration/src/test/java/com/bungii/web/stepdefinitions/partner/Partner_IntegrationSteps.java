@@ -102,15 +102,16 @@ public class Partner_IntegrationSteps extends DriverBase {
                             Thread.sleep(2000);
                             action.click(Page_Partner_Dashboard.Icon_SearchPickupAdd());
                         }
-//                        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
-//                        Thread.sleep(3000);
-//                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
+//
+                        Thread.sleep(3000);
+                        action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                         Thread.sleep(5000);
                         action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                         if(addressEnter.equalsIgnoreCase("CopyPaste")) {
                             String copyDelivery = Delivery_Address + Keys.chord(Keys.CONTROL, "A") + Keys.chord(Keys.CONTROL, "C");
                             action.sendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), copyDelivery + Keys.chord(Keys.CONTROL, "v"));
+                            action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
                         }else {
 //                            action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(), Delivery_Address + Keys.TAB);

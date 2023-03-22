@@ -176,7 +176,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
         try{
             Thread.sleep(3000);
             String Code = (String) cucumberContextManager.getScenarioContext("PROMOCODE");
-            action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
+            action.clearSendKeys(admin_PromoCodesPage.TextBox_Search(), Code + Keys.ENTER);
 
 
         log("I search "+ Code + "prmocode" ,

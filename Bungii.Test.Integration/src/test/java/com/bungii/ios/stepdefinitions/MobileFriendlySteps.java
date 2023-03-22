@@ -11,6 +11,7 @@ import com.bungii.ios.pages.other.SafariPage;
 import com.bungii.ios.stepdefinitions.customer.HomeSteps;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
@@ -398,7 +399,7 @@ public class MobileFriendlySteps extends DriverBase {
         }
     }
     @And("^I enter \"([^\"]*)\" password for Admin access$")
-    public void i_enter_some_password_for_admin_access(String value){
+    public void i_enter_some_password_for_admin_access(String value) {
         try {
             switch (value) {
                 case "valid":
@@ -406,13 +407,11 @@ public class MobileFriendlySteps extends DriverBase {
                     break;
             }
             log("I enter " + value + " password for Admin access", "I have entered " + value + " password for Admin access", false);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
-
     }
 }
