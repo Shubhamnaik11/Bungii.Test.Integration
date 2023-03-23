@@ -51,9 +51,9 @@ public class Admin_PromoterPage extends PageBase {
 
     public WebElement TextBox_Search () { return findElement("SearchCriteria", LocatorType.Id); }
 
-    public WebElement Label_GeneratePromocodeMessageContainer() { return findElement("//span[text()='Do you wish to generate promo codes?']", LocatorType.XPath); }
+    public WebElement Label_GeneratePromocodeMessageContainer() { return findElement("//p[text()='Do you wish to generate promo codes?']", LocatorType.XPath); }
 
-    public WebElement Label_SuccessMessage( ) { return findElement("//span[text()='Bungii Payment Method added successfully.']", LocatorType.XPath); }
+    public WebElement Label_SuccessMessage( ) { return findElement("//span[text()='Payment details added successfully for partner.']", LocatorType.XPath); }
 
     public WebElement Label_CodeInitialsContainer( ) { return findElement("PromoterItem_CodeInitials-error", LocatorType.Id); }
 

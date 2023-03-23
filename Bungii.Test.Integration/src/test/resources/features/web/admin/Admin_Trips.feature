@@ -1169,7 +1169,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Assigning Driver(s)|
-    And I note the trip details
+    And I note the "Trip details"
     Then Admin should receive the "Delivery scheduled beyond secondary polyline" email
 
 #  Core-4367 Verify "Admin Cancelled" trips for driver(s) with Branch app wallet(customer trip)
