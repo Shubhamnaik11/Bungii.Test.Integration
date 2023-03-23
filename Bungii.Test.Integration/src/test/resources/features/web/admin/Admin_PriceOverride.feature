@@ -99,6 +99,7 @@ Feature: Admin_Price_Override
       | Status           |
       | Assigning Driver(s)|
     When I view the delivery details
+    And I click on "Payment Details" button on delivery details
     And I get the old values of "Customer price" for "Service level"
     And I get the old values of "Driver cut" for "Service level"
     And I check if "Price Override" button is displayed
