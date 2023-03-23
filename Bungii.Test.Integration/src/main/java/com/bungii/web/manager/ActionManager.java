@@ -504,4 +504,14 @@ catch(Exception ex)
                     true);
         }
     }
+    public void JavaScriptScrollToTop(){
+        try {
+            JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+            executor.executeScript("window.scrollBy(0,0)", "");
+        }catch (Exception Ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+            error("Step should be successful", "Unable to scroll to top",
+                    true);
+        }
+    }
 }

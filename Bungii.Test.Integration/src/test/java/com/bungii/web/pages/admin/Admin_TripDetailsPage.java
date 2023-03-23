@@ -98,6 +98,7 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Input_DriverBoostedPeriod() {return findElement("//td[text()='Driver Boosted earning period']/following::td[1]/div[1]/div/div/div/input", LocatorType.XPath);}
 
     public WebElement Button_DeliveryOverview() { return findElement("//button[contains(text(),'Delivery Overview')]",LocatorType.XPath);}
+    public WebElement Button_PaymentDetails() { return findElement("//button[contains(text(),'Payment Details')]",LocatorType.XPath);}
 
     public WebElement Button_PaymentDetails() { return findElement("//button[contains(text(),'Payment Details')]",LocatorType.XPath);}
 

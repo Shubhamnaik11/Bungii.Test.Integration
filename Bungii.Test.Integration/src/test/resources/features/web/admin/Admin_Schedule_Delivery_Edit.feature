@@ -79,6 +79,7 @@ Feature: Admin_Schedule_Delivery_Edit
   
   @regression
     #stable
+   #  ADP-687
   Scenario: Verify editing drop off address outside of scope for the Solo scheduled trip.
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -138,6 +139,7 @@ Feature: Admin_Schedule_Delivery_Edit
 
   @regression
     #stable
+    #  ADP-687
   Scenario: Verify editing drop off address outside of scope for the Duo scheduled trip.
     When I request "Duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |

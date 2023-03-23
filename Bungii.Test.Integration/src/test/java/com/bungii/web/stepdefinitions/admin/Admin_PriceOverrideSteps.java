@@ -72,6 +72,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                 case "Payment Details":
                     action.click(admin_tripDetailsPage.Button_PaymentDetails());
                     break;
+                default:
+                    logger.detail("Unimplemented Step");
             }
             log("I should be able to click on "+button+" button ",
                     "I could click on "+button+" button",false);

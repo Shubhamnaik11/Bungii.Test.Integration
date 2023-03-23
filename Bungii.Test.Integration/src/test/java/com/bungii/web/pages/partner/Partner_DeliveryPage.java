@@ -92,7 +92,7 @@ public class Partner_DeliveryPage extends PageBase {
     public WebElement TextBox_Order_Number() { return findElement("//input[@data-field='Order Number']",LocatorType.XPath);}
 
     //EmployeeID
-    public WebElement Input_EmployeeNo() { return findElement("(//input[@class='form-control'])[9]", LocatorType.XPath);}
+    public WebElement Input_EmployeeNo() { return findElement("f2bd91d1-6757-11ea-a4a3-00155d0a8706", LocatorType.Id);}
 
     //SoldBuy
     public WebElement Dropdown_SoldBuy() { return findElement("//div[@class='MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl']",LocatorType.XPath);}
