@@ -476,6 +476,7 @@ public class CommonSteps extends DriverBase {
                 case "scheduled deliveries":
 //                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
                     Thread.sleep(6000);
+                    action.waitUntilElementIsDisplayed_ForWeb(dashBoardPage.Button_Trips());
                     action.click(dashBoardPage.Button_Trips());
                     Thread.sleep(5000);
                     action.click(dashBoardPage.Button_ScheduledTrips());
@@ -483,10 +484,11 @@ public class CommonSteps extends DriverBase {
                     //action.click(dashBoardPage.Button_ScheduledTrips());
                     break;
                 case "live deliveries":
-                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=False");
-
-                    //action.click(dashBoardPage.Button_Trips());
-                    //action.click(dashBoardPage.Button_LiveTrips());
+//                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Trips?isComplete=False");
+                    action.waitUntilElementIsDisplayed_ForWeb(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_Trips());
+                    action.waitUntilElementIsDisplayed_ForWeb(dashBoardPage.Button_LiveTrips());
+                    action.click(dashBoardPage.Button_LiveTrips());
                     break;
                 case "promo code":
                     SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/PromoCodes");
@@ -494,10 +496,11 @@ public class CommonSteps extends DriverBase {
                    // action.click(dashBoardPage.Link_StandardCodes());
                     break;
                 case "referral source":
-                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ReferralSource");
+//                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ReferralSource");
 
-                   // action.click(dashBoardPage.Button_Marketing());
-                    //action.click(dashBoardPage.Button_ReferralSource());
+                    action.click(dashBoardPage.Button_Marketing());
+                    action.waitUntilElementIsDisplayed_ForWeb(dashBoardPage.Link_ReferralSource());
+                    action.click(dashBoardPage.Link_ReferralSource());
                     break;
                 case "customers":
                     SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/Customers");

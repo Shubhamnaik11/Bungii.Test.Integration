@@ -27,7 +27,7 @@ Feature: Failed Ondemand Delivery
   #stable
   Scenario: Failed Ondemand Delivery : Verify that the customer can schedule pickup by clicking on SCHEDULE BUNGII button.
     Given I am on customer Log in page
-    When I am logged in as "valid goa customer" customer
+    When I am logged in as "Testcustomertywd_appleMarkGY LutherGY" customer
     And I enter "current location in pickup and dropoff fields long distance" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -47,7 +47,7 @@ Feature: Failed Ondemand Delivery
   #stable
   Scenario: Failed Ondemand Delivery : Verify that the textbox is displayed when customer selects Other.. as the cancelling on demand bungii reason
     Given I am on customer Log in page
-    When I am logged in as "valid goa customer" customer
+    When I am logged in as "Testcustomertywd_appleMarkGZ LutherGZ" customer
     And I enter "current location in pickup and dropoff fields long distance" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -66,7 +66,7 @@ Feature: Failed Ondemand Delivery
   @nonstable
   Scenario: Failed Ondemand Delivery : Verify that the customer can schedule pickup by clicking on date & time and selecting different time and date
     Given I am on customer Log in page
-    When I am logged in as "valid goa customer" customer
+    When I am logged in as "Testcustomertywd_appleMarkHA LutherHA" customer
     And I enter "current location in pickup and dropoff fields long distance" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -89,7 +89,7 @@ Feature: Failed Ondemand Delivery
   @nonstable
   Scenario: Failed Ondemand Delivery : Verify that the customer can see 4 options when cancels the on demand trip
     Given I am on customer Log in page
-    When I am logged in as "valid goa customer" customer
+    When I am logged in as "Testcustomertywd_appleMarkHB LutherHB" customer
     And I enter "current location in pickup and dropoff fields long distance" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
