@@ -295,7 +295,7 @@ public class Admin_TripsSteps extends DriverBase {
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER_NAME");
         action.selectElementByText(admin_CustomerPage.Dropdown_TimeFrame(), "The Beginning of Time");
         Thread.sleep(5000);
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following::td[2]", tripType, customer);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following::td[2]", tripType.toUpperCase(), customer);
         String actualStatus = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath)));
         testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed", "Trip is displayed", "DATA SYNCH ISSUE | Trip is not displayed");
         testStepAssert.isEquals(status,actualStatus,"Correct status should be displayed","Correct status is displayed","Correct status is not displayed");
@@ -2613,10 +2613,12 @@ try{
                 case "Solo":
                     Thread.sleep(1000);
                     action.click(admin_TripsPage.RadioButton_SoloTrip());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
                     break;
                 case "Duo":
                     Thread.sleep(1000);
                     action.click(admin_TripsPage.RadioButton_DuoTrip());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
                     break;
             }
             log("I should be able to change delivery type to " + expectedTripTypeStatus,"I could change delivery type to " + expectedTripTypeStatus);
@@ -3060,7 +3062,7 @@ try{
         try {
             String customer_Mobile = (String) cucumberContextManager.getScenarioContext("Customer_Mobile");
             String first_CustomerPhone = customer_Mobile.replaceAll("\\D+", "");
-            String phone_No = action.getElementByXPath("//table[@class='table table-striped']/tbody/tr[2]/td[2]").getText();
+            String phone_No = action.getText(admin_TripsPage.Text_CustomerNameAndNumber());
             String phone_Num = (phone_No.replaceAll("[a-zA-Z]", "")).trim();
             String finaldisplayed_CustNo = phone_Num.replaceAll("\\D+", "");
             testStepAssert.isEquals(finaldisplayed_CustNo, first_CustomerPhone, "First customer number added should be displayed on admin", "First Customer Phone number is correctly displayed on Admin portal", " Incorrect phone number displayed on admin portal");

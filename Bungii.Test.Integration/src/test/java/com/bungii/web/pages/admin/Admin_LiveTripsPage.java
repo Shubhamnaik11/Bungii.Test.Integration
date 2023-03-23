@@ -39,7 +39,7 @@ public class Admin_LiveTripsPage extends PageBase {
 
     public WebElement Icon_LoadingIconStoppedSearching() {return findElement("//div[@class=\"driver-search complete\"]",LocatorType.XPath);}
 
-    public WebElement Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries() {return findElement("//tr[1]/td[13]",LocatorType.XPath);}
+    public WebElement Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries() {return findElement("//div[@class='threedoticon']/preceding::td[1]",LocatorType.XPath);}
 
     public WebElement Text_DeliveryStatusAllDeliveries() {return findElement("//tr/td[12]",LocatorType.XPath);}
 
