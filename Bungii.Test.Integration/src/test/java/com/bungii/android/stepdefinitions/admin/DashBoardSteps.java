@@ -29,6 +29,7 @@ public class DashBoardSteps extends DriverBase {
             switch (option.toLowerCase()) {
                 case "scheduled trip":
 //                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ScheduledTrips");
+                    action.waitUntilElementIsDisplayed_ForWeb(dashBoardPage.Button_Trips());
                     action.click(dashBoardPage.Button_Trips());
                     Thread.sleep(5000);
                     action.click(dashBoardPage.Button_ScheduledTrips());
@@ -50,7 +51,7 @@ public class DashBoardSteps extends DriverBase {
                     break;
                 case "referral source":
 //                    SetupManager.getDriver().get(utility.GetAdminUrl().replace("Admin/Login","")+"BungiiReports/ReferralSource");
-                    action.waitUntilElementIsDisplayed(dashBoardPage.Button_Marketing());
+                    action.waitUntilElementIsDisplayed_ForWeb(dashBoardPage.Button_Marketing());
                     action.click(dashBoardPage.Button_Marketing());
                     Thread.sleep(5000);
 //                    action.click(dashBoardPage.Link_ReferralSource());

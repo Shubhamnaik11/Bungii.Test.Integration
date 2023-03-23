@@ -18,10 +18,18 @@ Feature: On Demand Bungii
     And I am on the LOG IN page on driver app
     And I am logged in as "valid baltimore" driver
     And I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "General Instructions"
+    And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
+    And Bungii driver uploads "1" image
+    And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
+    And Bungii driver uploads "1" image
+    And I slide update button on "LOADING ITEMS" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    And Bungii driver uploads "1" image
     And I slide update button on "UNLOADING ITEM" Screen
        #  Core - 3113 Verify that Rate customer page UI and elements are displayed correctly to driver
     And I check the elements displayed on rate customer screen

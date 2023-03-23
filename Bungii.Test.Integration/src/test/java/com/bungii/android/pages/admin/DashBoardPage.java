@@ -32,7 +32,7 @@ public class DashBoardPage extends PageBase {
         return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Completed Deliveries\"]", LocatorType.XPath);
     }
     public WebElement Button_LiveTrips() {
-        return findElement("adminmenu-livetrips", LocatorType.Id);
+        return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Live Deliveries\"]", LocatorType.XPath);
     }
 
     public  WebElement Button_Customers() { return findElement("//span[text()='Customers']", LocatorType.XPath);}

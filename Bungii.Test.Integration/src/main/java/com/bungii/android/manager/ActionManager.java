@@ -128,7 +128,7 @@ public class ActionManager {
         }
     }
 
-    public void waitUntilElementIsDisplayed(WebElement element) {
+    public void waitUntilElementIsDisplayed_ForWeb(WebElement element) {
         try {
             //for web element
             WebDriver driver = SetupManager.getDriver();
