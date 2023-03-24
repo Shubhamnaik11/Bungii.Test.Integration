@@ -113,6 +113,7 @@ public class ActionManager {
     }
     public void waitUntilIsElementExistsAndDisplayed(WebElement element) {
         try {
+            //for android element
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, 10);
             if(element!= null)
@@ -127,6 +128,19 @@ public class ActionManager {
         }
     }
 
+    public void waitUntilElementIsDisplayed_ForWeb(WebElement element) {
+        try {
+            //for web element
+            WebDriver driver = SetupManager.getDriver();
+            WebDriverWait wait = new WebDriverWait(driver, 12);
+            wait.until((ExpectedConditions.visibilityOf(element)));
+        } catch (Exception ex) {
+            Assert.fail("Following element is not displayed : " + getElementDetails(element));
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Following element is not displayed -> " + getElementDetails(element),
+                    true);
+        }
+    }
     public void waitUntilIsElementExistsAndDisplayed(WebElement element, Long waitTime) {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();

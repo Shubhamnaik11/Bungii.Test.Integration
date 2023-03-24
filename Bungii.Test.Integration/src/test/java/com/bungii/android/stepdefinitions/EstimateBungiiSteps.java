@@ -619,6 +619,26 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer3.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("atlanta.customer3.phone"));
                     break;
+                case "Testcustomertywd_appleMarkGY LutherGY":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer6.phone"), PropertyUtility.getDataProperties("goa.customer6.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("goa.customer6.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("goa.customer6.phone"));
+                    break;
+                case "Testcustomertywd_appleMarkGZ LutherGZ":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer7.phone"), PropertyUtility.getDataProperties("goa.customer7.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("goa.customer7.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("goa.customer7.phone"));
+                    break;
+                case "Testcustomertywd_appleMarkHA LutherHA":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer8.phone"), PropertyUtility.getDataProperties("goa.customer8.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("goa.customer8.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("goa.customer8.phone"));
+                    break;
+                case "Testcustomertywd_appleMarkHB LutherHB":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer9.phone"), PropertyUtility.getDataProperties("goa.customer9.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("goa.customer9.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("goa.customer9.phone"));
+                    break;
                 default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;

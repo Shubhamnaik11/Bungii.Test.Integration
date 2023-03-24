@@ -14,14 +14,14 @@ public class DashBoardPage extends PageBase {
     }
 
     public WebElement Button_Marketing() {
-        return findElement("adminmenu-marketing", LocatorType.Id);
+        return findElement("//p/a/span[text()=\"Marketing\"]", LocatorType.XPath);
     }
     public WebElement Link_StandardCodes() {
         return findElement("adminmenu-promocode", LocatorType.Id);
     }
 
-    public WebElement Button_ReferralSource() {
-        return findElement("adminmenu-referralsource", LocatorType.Id);
+    public WebElement Link_ReferralSource() {
+        return findElement("//a[text()=\"Referral Sources\"]", LocatorType.XPath);
     }
 
     public WebElement Button_ScheduledTrips() {
@@ -32,10 +32,10 @@ public class DashBoardPage extends PageBase {
         return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Completed Deliveries\"]", LocatorType.XPath);
     }
     public WebElement Button_LiveTrips() {
-        return findElement("adminmenu-livetrips", LocatorType.Id);
+        return findElement("//ul[@id=\"side-menu\"]/li/ul/li/a[text()=\"Live Deliveries\"]", LocatorType.XPath);
     }
 
-    public  WebElement Button_Customers() { return findElement("adminmenu-customers", LocatorType.Id);}
+    public  WebElement Button_Customers() { return findElement("//span[text()='Customers']", LocatorType.XPath);}
     public WebElement List_Geofence() {return findElement("dropdownMenuButton" , LocatorType.Id);}
     public WebElement TextBox_SearchGeofence() {return findElement("myInput" , LocatorType.Id);}
     public WebElement Button_ApplyGeofence() {return findElement("btnApply" , LocatorType.Id);}
