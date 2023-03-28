@@ -295,7 +295,7 @@ public class Admin_TripsSteps extends DriverBase {
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER_NAME");
         action.selectElementByText(admin_CustomerPage.Dropdown_TimeFrame(), "The Beginning of Time");
         Thread.sleep(5000);
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following::td[2]", tripType, customer);
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following::td[2]", tripType.toUpperCase(), customer);
         String actualStatus = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath)));
         testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed", "Trip is displayed", "DATA SYNCH ISSUE | Trip is not displayed");
         testStepAssert.isEquals(status,actualStatus,"Correct status should be displayed","Correct status is displayed","Correct status is not displayed");
@@ -1564,6 +1564,14 @@ try{
                 c.setTime(date);
                 c.set(Calendar.YEAR, year);
                 pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();
+                String geofence=(String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+                if(geofence.equalsIgnoreCase("baltimore")||geofence.equalsIgnoreCase("atlanta")){
+                    if((TimeZone.getTimeZone(PropertyUtility.getGeofenceData("atlanta.geofence.timezone.id")).inDaylightTime(new Date()))==true){
+                        if (pickupdate.contains("EST")){
+                            pickupdate = pickupdate.replaceAll("EST","EDT");
+                        }
+                    }
+                }
 
 //                int year = Calendar.getInstance().get(Calendar.YEAR);
 //                date.setYear(date.getYear()-(year+date.getYear()));
@@ -1625,20 +1633,6 @@ try{
                 String [] address = dbUtility.getFullPickUpAndDropOff((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST"));
                 driverLicencePlate= dbUtility.getDriverVehicleInfo(driverPhone);
                 String []driverLicenceNumber = driverLicencePlate.replace("}","").replace("\"","").split(":");
-                if(pickupdate.contains("CST") || pickupdate.contains("CDT"))
-                {    
-                    Date date = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").parse(pickupdate);    
-                    Calendar c = Calendar.getInstance();    
-                    c.setTime(date);    
-                    c.add(Calendar.MINUTE, 60);    
-                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();    
-                    if(pickupdate.contains("CST")){        
-                        pickupdate=pickupdate.replaceAll("CST","EST");    
-                    }    
-                    else{        
-                        pickupdate=pickupdate.replaceAll("CDT","EST");    
-                    }
-                }
                 if (portalName.equalsIgnoreCase("BestBuy2 service level")) {
                     message = utility.getExpectedPartnerFirmEmailForDropOffAddressEdit(PropertyUtility.getDataProperties("partner.baltimore.name"), pickupdate, address[0], address[1], PropertyUtility.getDataProperties("best.buy.service.level"), dbUtility.getEstPrice((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST")), customerName, (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"), driverName, driverPhone, driverLicenceNumber[3]);
                 }
@@ -1840,8 +1834,31 @@ try{
         try{
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody != null) {
-            testStepAssert.isFail("Email : " + emailSubject + " received to partner firm though required number of drivers not accepted the trip");
-        }}
+            switch (emailSubject){
+                case "Bungii Delivery Updated":
+                    String driverName=(String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                    if(emailBody.contains(driverName)) {
+                        testStepAssert.isFail("Email : " + emailSubject + " received to partner firm though required number of drivers not accepted the trip");
+                    }
+                    break;
+                case "Bungii Delivery Pickup Canceled":
+                    String customerName= (String)cucumberContextManager.getScenarioContext("CUSTOMER");
+                    if(emailBody.contains(customerName)) {
+                        testStepAssert.isFail("Email : " + emailSubject + " received to partner firm though required number of drivers not accepted the trip");
+                    }
+                    break;
+            }
+            testStepAssert.isTrue(true, "Email having subject '" + emailSubject + "' should  not be received",
+                    "Email having subject '" + emailSubject + "' is not  received",
+                    "Email having subject '" + emailSubject + "' is received");
+
+        }
+        else{
+            testStepAssert.isTrue(true, "Email having subject '" + emailSubject + "' should  not be received",
+                    "Email having subject '" + emailSubject + "' is not  received",
+                    "Email having subject '" + emailSubject + "' is received");
+        }
+        }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -2613,10 +2630,12 @@ try{
                 case "Solo":
                     Thread.sleep(1000);
                     action.click(admin_TripsPage.RadioButton_SoloTrip());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
                     break;
                 case "Duo":
                     Thread.sleep(1000);
                     action.click(admin_TripsPage.RadioButton_DuoTrip());
+                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
                     break;
             }
             log("I should be able to change delivery type to " + expectedTripTypeStatus,"I could change delivery type to " + expectedTripTypeStatus);
@@ -3060,7 +3079,7 @@ try{
         try {
             String customer_Mobile = (String) cucumberContextManager.getScenarioContext("Customer_Mobile");
             String first_CustomerPhone = customer_Mobile.replaceAll("\\D+", "");
-            String phone_No = action.getElementByXPath("//table[@class='table table-striped']/tbody/tr[2]/td[2]").getText();
+            String phone_No = action.getText(admin_TripsPage.Text_CustomerNameAndNumber());
             String phone_Num = (phone_No.replaceAll("[a-zA-Z]", "")).trim();
             String finaldisplayed_CustNo = phone_Num.replaceAll("\\D+", "");
             testStepAssert.isEquals(finaldisplayed_CustNo, first_CustomerPhone, "First customer number added should be displayed on admin", "First Customer Phone number is correctly displayed on Admin portal", " Incorrect phone number displayed on admin portal");
@@ -3818,28 +3837,40 @@ try{
         }
     }
 
-    @And("I note the trip details")
-    public void iNoteTheTripDetails() {
+    @And("I note the {string}")
+    public void iNoteThe(String details) {
         try{
-            String ScheduledDateTime = action.getText(admin_ScheduledTripsPage.Text_ScheduledTripDate());
-            cucumberContextManager.setScenarioContext("Partner_Schedule_Time",ScheduledDateTime);
-            action.click(admin_ScheduledTripsPage.Text_ScheduledTripDate());
-            String trackingId= action.getText(admin_TripDetailsPage.Text_TrackingId());
-            String trackingId1[] = trackingId.split(":");
-            cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY",trackingId1[1]);
-            String pickup = action.getText(admin_TripDetailsPage.Text_Pickup_Location());
-            cucumberContextManager.setScenarioContext("PickupAddress",pickup);
-            String dropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
-            cucumberContextManager.setScenarioContext("Delivery_Address",dropOff);
+            switch (details) {
+                case "Trip details":
+                    String ScheduledDateTime = action.getText(admin_ScheduledTripsPage.Text_ScheduledTripDate());
+                    cucumberContextManager.setScenarioContext("Partner_Schedule_Time", ScheduledDateTime);
+                    action.click(admin_ScheduledTripsPage.Text_ScheduledTripDate());
+                    String trackingId = action.getText(admin_TripDetailsPage.Text_TrackingId());
+                    String trackingId1[] = trackingId.split(":");
+                    cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY", trackingId1[1]);
+                    String pickup = action.getText(admin_TripDetailsPage.Text_Pickup_Location());
+                    cucumberContextManager.setScenarioContext("PickupAddress", pickup);
+                    String dropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());
+                    cucumberContextManager.setScenarioContext("Delivery_Address", dropOff);
+                break;
 
+                case "Driver2 Earnings":
+                    String Driver2Earnings = action.getAttributeValue(admin_refundsPage.TextBox_Driver2Earnings());
+                    cucumberContextManager.setScenarioContext("DRIVER2_EARNINGS", Driver2Earnings);
+                break;
 
+                case "Bungii Earnings after refund":
+                    String BungiiEarningsAfterRefubnd = action.getText(admin_refundsPage.Label_BungiiAfterRefund()).replace("(", "").replace(")", "");
+                    cucumberContextManager.setScenarioContext("BUNGII_EARNINGS_AFTER_REFUND", BungiiEarningsAfterRefubnd);
+                    break;
+            }
         }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
-
         }
     }
+
     @When("^I click on the \"([^\"]*)\" textbox$")
     public void i_click_on_the_something_textbox(String textbox) throws Throwable {
         try{

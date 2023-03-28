@@ -77,7 +77,12 @@ public class GeneralUtility extends DriverBase {
             } else if (PP_Site.equalsIgnoreCase("FloorDecor service level")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.fnd_service_level_partner.url");
                 cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.fnd_service_level_partner.ref"));
-            } else if (PP_Site.equalsIgnoreCase("kiosk mode")) {
+            }
+            else if (PP_Site.equalsIgnoreCase("FloorDecor service level #214")) {
+                partnerURL = PropertyUtility.getDataProperties("qa.fnd_service_level#214_partner.url");
+                cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.fnd_service_level#214_partner.ref"));
+            }
+            else if (PP_Site.equalsIgnoreCase("kiosk mode")) {
                 partnerURL = PropertyUtility.getDataProperties("qa.kiosk_mode_partner.url");
                 cucumberContextManager.setScenarioContext("PARTNERREF", PropertyUtility.getDataProperties("qa.kiosk_mode_partner.ref"));
             } else if (PP_Site.equalsIgnoreCase("BestBuy service level")) {
@@ -1254,6 +1259,8 @@ public class GeneralUtility extends DriverBase {
             case "Washington DC":
             case "washingtondc":
             case "newjersey":
+            case "baltimore":
+            case "atlanta":
                 timezone = "EST";
                 break;
             case "goa":

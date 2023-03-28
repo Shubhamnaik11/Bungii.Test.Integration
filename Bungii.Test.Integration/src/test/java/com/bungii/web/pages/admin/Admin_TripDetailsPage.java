@@ -7,6 +7,8 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Link_ManuallyEndBungii () { return findElement("btnEndPickup", LocatorType.Id); }
 
+    public WebElement Link_PrivacyPolicy () { return findElement("//span[contains(text(),'Privacy Policy')]", LocatorType.XPath); }
+
     public WebElement Button_CalculateCost () { return findElement("btnCost", LocatorType.Id); }
 
     public WebElement Button_Cancel () { return findElement("//a[contains(text(),'cancel')]", LocatorType.XPath); }
@@ -27,9 +29,9 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Schedule_Date_Row() {return findElement("//td[3]/a",LocatorType.XPath);}
 
-    public WebElement Text_DropOff_Location() { return findElement("//td[text()='Drop Off Location']/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Text_DropOff_Location() { return findElement("//div[text()='DROP-OFF']/following::h6[text()='Address']/following-sibling::div[1]/div/p",LocatorType.XPath);}
 
-    public WebElement Text_Pickup_Location() { return findElement("//td[text()='Pickup Location']/following::td[1]",LocatorType.XPath);}
+    public WebElement Text_Pickup_Location() { return findElement("//div[text()='PICKUP']/following::h6[1][text()='Address']/following-sibling::div[1]/div/p",LocatorType.XPath);}
 
     public WebElement Text_Service_Level() { return findElement("//td[contains(text(),'Service Level')]/following-sibling::td/strong",LocatorType.XPath);}
 
@@ -96,5 +98,6 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Input_DriverBoostedPeriod() {return findElement("//td[text()='Driver Boosted earning period']/following::td[1]/div[1]/div/div/div/input", LocatorType.XPath);}
 
     public WebElement Button_DeliveryOverview() { return findElement("//button[contains(text(),'Delivery Overview')]",LocatorType.XPath);}
+    public WebElement Button_PaymentDetails() { return findElement("//button[contains(text(),'Payment Details')]",LocatorType.XPath);}
 
 }

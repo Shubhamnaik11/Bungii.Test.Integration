@@ -118,6 +118,7 @@ public class Admin_TripsPage extends PageBase {
     public WebElement Dropdown_SelectPartner(String Partner_name) {return findElement("//select[@name='partnerID']/option[text()='"+Partner_name+"']",LocatorType.XPath);}
 
     public WebElement Button_ExportRecords() {return findElement("//button[text()='Export All Records']",LocatorType.XPath);}
+    public WebElement Text_CustomerNameAndNumber() {return findElement("//td/strong[contains(text(),'Customer Name & Phone Number:')]/following::td[1]",LocatorType.XPath);}
 
 
 

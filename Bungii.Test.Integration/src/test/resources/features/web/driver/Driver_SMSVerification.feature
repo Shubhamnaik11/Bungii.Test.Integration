@@ -31,8 +31,7 @@ Feature: Driver_SMSVerification
     When I enter "incorrect" verification code
     And I click "Submit verification code" on driver portal
     Then I should see "validation for incorrect verification code" on Driver Registration
-    
-  
+
   @regression
   Scenario: Verify Incorrect sms verification code message is not displayed for driver registration when user enters correct sms code after incorrect code was entered
     When I enter "incorrect" verification code
@@ -40,4 +39,4 @@ Feature: Driver_SMSVerification
     Then I should see "validation for incorrect verification code" on Driver Registration
     When I enter "correct" verification code
     And I click "Submit verification code" on driver portal
-    Then I should see "Verification Successful" on Driver Registration
+    Then I should see "Logged in user name" on Driver Registration

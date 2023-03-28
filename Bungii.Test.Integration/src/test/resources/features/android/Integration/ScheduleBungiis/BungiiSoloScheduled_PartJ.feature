@@ -146,6 +146,7 @@ Feature: SoloScheduled Part B
     And I tap on "Available Trips link" on Driver Home page
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
+    And I click on the "OK" Button on "Accept Delivery" popup
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
@@ -235,7 +236,7 @@ Feature: SoloScheduled Part B
     
     And I Switch to "customer" application on "same" devices
     Given I login as customer "9999990069" and is on Home Page
-    
+
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
     And I enter "kansas pickup and dropoff locations" on Bungii estimate

@@ -135,8 +135,9 @@ public class Partner_TrackingIdSteps extends DriverBase {
 
             cucumberContextManager.setScenarioContext("DELIVERY_SUMMARY", Page_Partner_Dashboard.Text_Summary_DeliveryAddress().getText().replace(",", "").replace(" United States", ""));
 
-            String PickupRequest = new DbUtility().getPickupRef("9998887777");
+            String PickupRequest = new DbUtility().getPickupRef(dataMap.get("CustomerMobile"));
             cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
+
          log("I should be logged into Partner portal and create a new delivery","I could log into Partner portal and create a new delivery");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

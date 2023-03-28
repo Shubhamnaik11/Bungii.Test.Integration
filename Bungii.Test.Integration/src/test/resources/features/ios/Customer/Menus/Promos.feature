@@ -111,11 +111,7 @@ Feature: Promos
   @regression
   Scenario Outline: Verify Customer Cannot Add Referral Promocode After Creating Account And Is Alerted That Referral Code Are For New Customer Only
 
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
+    When I open Admin portal and navigate to "Promo code" page
     Then I get promo code for "referral"
     And I switch to "ORIGINAL" instance
 
@@ -147,10 +143,7 @@ Feature: Promos
 
   @regression
   Scenario: Verify If Customer Is Alerted While Adding Existing Code
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
+    When I open Admin portal and navigate to "Promo code" page
     Then I get promo code for "VALID"
     And I switch to "ORIGINAL" instance
     And I Select "ACCOUNT > PROMOS" from Customer App menu
@@ -164,10 +157,7 @@ Feature: Promos
 
   @regression
   Scenario: Verify If Customer Is Alerted While Adding Expired Promo code
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
+    When I open Admin portal and navigate to "Promo code" page
     Then I get promo code for "expired"
     When I switch to "ORIGINAL" instance
     And I Select "ACCOUNT > PROMOS" from Customer App menu
@@ -191,10 +181,7 @@ Feature: Promos
     
   @regression
   Scenario: Verify Text On Hover of I On Promos Screen
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
+    When I open Admin portal and navigate to "Promo code" page
     Then I get promo code for "VALID"
     And I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
@@ -209,10 +196,7 @@ Feature: Promos
 
   @regression
   Scenario: Verify Text On Hover of I When First Time Use Only Promo Or Referral Code Is Present In Promos Screen
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
+    When I open Admin portal and navigate to "Promo code" page
     Then I get promo code for "VALID"
     And I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
@@ -229,10 +213,7 @@ Feature: Promos
   @regression
   @testPOC
   Scenario: Verify First Time Promocode Or Referral Code If Present Is Selected By Default
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
+    When I open Admin portal and navigate to "Promo code" page
     Then I get promo code for "VALID"
     And I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
@@ -266,10 +247,7 @@ Feature: Promos
   @regression
     #stable
   Scenario:Verify Promos Can Be Added From Menu And Estimate Screen
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
+    When I open Admin portal and navigate to "Promo code" page
     Then I get promo code for "VALID"
     And I Select "Promo Code" from admin sidebar
     Then I get promo code for "one off"

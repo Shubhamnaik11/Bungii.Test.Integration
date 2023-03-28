@@ -19,29 +19,29 @@ public class Admin_DriverRejectSteps extends DriverBase {
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Driver_LoginPage driver_LoginPage= new Driver_LoginPage();
     private static LogUtility logger = new LogUtility(Admin_DriverRejectSteps.class);
-
     ActionManager action = new ActionManager();
+
     @When("^I click on \"([^\"]*)\" link$")
     public void i_click_on_something_link(String link) throws Throwable {
         try{
-        switch(link) {
-
-            case "Reject Application":
-            action.click(admin_DriverVerificationPage.Link_RejectApplication());
-            break;
-            case "Login":
-                action.click(driver_LoginPage.Tab_LogIn());
-                break;
-            case "Manually End Bungii":
-                action.click(admin_TripDetailsPage.Link_ManuallyEndBungii());
-                break;
-        }
-        log("I click on "+link+" link",
-                "I have clicked on "+link+" link", false);
-        } catch(Exception e){
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
+            switch(link) {
+                case "Reject Application":
+                    action.click(admin_DriverVerificationPage.Link_RejectApplication());
+                    break;
+                case "Login":
+                    action.click(driver_LoginPage.Tab_LogIn());
+                    break;
+                case "Manually End Bungii":
+                    action.click(admin_TripDetailsPage.Link_ManuallyEndBungii());
+                    break;
+                case "Privacy Policy":
+                    action.click(admin_TripDetailsPage.Link_PrivacyPolicy());
+                    break;
+                }
+                log("I click on "+link+" link", "I have clicked on "+link+" link", false);
+            } catch(Exception e){
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 

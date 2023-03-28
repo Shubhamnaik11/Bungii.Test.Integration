@@ -62,7 +62,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I get TELET time of of the current trip
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattS DenverS" driver
     
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
@@ -96,7 +96,7 @@ Feature: Solo Scheduled Bungii - TELET
 
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattT DenverT" driver
     Then I change driver status to "Online"
 
     When I Switch to "customer" application on "same" devices
@@ -118,7 +118,7 @@ Feature: Solo Scheduled Bungii - TELET
     When I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    And I am logged in as "Testdrivertywd_appledv_b_mattU DenverU" driver
     Then I change driver status to "Online"
 
     When I Switch to "customer" application on "same" devices

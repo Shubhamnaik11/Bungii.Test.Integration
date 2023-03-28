@@ -79,5 +79,4 @@ public class SafariPage extends PageBase {
 
     //Partner Payment
     public WebElement RadioButton_PartnerInvoice() { return findElement("//XCUIElementTypeOther[contains(@name,'Partner Invoice')]", LocatorType.XPath);}
-
 }

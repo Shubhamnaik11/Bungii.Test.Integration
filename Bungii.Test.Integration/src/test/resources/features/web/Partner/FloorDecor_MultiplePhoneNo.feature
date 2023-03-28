@@ -40,6 +40,7 @@ Feature: FloorDecor Multiple PhoneNo
       | Status             |
       | Assigning Driver(s)|
     When I view the delivery details in admin portal
+    And I click on "Delivery Overview" button on delivery details
     Then Only First added customer phone number should be displayed on Admin portal Delivery details page
     And Added recipient phone numbers should be stored in database
 
@@ -78,5 +79,6 @@ Feature: FloorDecor Multiple PhoneNo
       | Status             |
       | Assigning Driver(s)|
     When I view the delivery details in admin portal
+    And I click on "Delivery Overview" button on delivery details
     Then Only First added customer phone number should be displayed on Admin portal Delivery details page
     And Added recipient phone numbers should be stored in database
