@@ -65,9 +65,9 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Text_Pickup_Note() { return findElement("//td[text()='Pickup Note']/following-sibling::td",LocatorType.XPath);}
 
-    public WebElement Text_Additional_Note(boolean ...ignoreException) { return findElement("//div[3]/div/div/div[2]/div/div[2]/div[2]/div/div/div[6]/div[2]/div/textarea",LocatorType.XPath,ignoreException);}
+    public WebElement Text_Additional_Note(boolean ...ignoreException) { return findElement("//div/span[text()='Additional notes:']/following::div/div/textarea",LocatorType.XPath,ignoreException);}
 
-    public WebElement Text_Additional_Instructions() { return findElement("//div[3]/div/div/div[2]/div/div[2]/div[2]/div/div/div[7]/div[2]/div/textarea",LocatorType.XPath);}
+    public WebElement Text_Additional_Instructions() { return findElement("//div/div[1]/span[contains(text(),'Special Instructions:')]/following::div/textarea",LocatorType.XPath);}
 
     public WebElement RadioButton_Solo() { return findElement("SOLO", LocatorType.Id); }
     public WebElement RadioButton_Duo() { return findElement("DUO", LocatorType.Id); }
