@@ -73,4 +73,6 @@ public class BungiiRequest extends PageBase {
     public WebElement Text_DropOffAddress() { return findElement("//android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.widget.TextView[4]",LocatorType.XPath);}
     public WebElement Text_PickUpAddress() { return findElement("com.bungii.driver:id/layout_waypoint_address",LocatorType.Id);}
 
+    public WebElement Alert_DeliveryAccepted(boolean ignoreException){return findElement("//android.widget.TextView[@text='Delivery Accepted']",LocatorType.XPath,ignoreException);}
+
 }
