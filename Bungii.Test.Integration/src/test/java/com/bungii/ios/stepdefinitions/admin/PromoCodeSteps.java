@@ -114,7 +114,6 @@ public class PromoCodeSteps extends DriverBase {
       //      promosPage.Button_Previouspage().click();
      //   while (codeList.size() <= 5) {
 
-            while (codeList.size() <= 1) {
             List<WebElement> codes = new ArrayList<WebElement>();
             switch (key.toLowerCase()) {
                 case "referral":
@@ -155,8 +154,8 @@ public class PromoCodeSteps extends DriverBase {
          //   action.click(promosPage.Button_Nextpage());
          //   promosPage.waitForPageLoad();
             //  action.invisibilityOfElementLocated(promosPage.Loadder());
-        }
-        logger.detail("Promo code list for key "+key+ " is "+String.join(", ", codeList));
+                logger.detail("Promo code list for key "+key+ " is "+String.join(", ", codeList));
+
         return codeList;
     }
 

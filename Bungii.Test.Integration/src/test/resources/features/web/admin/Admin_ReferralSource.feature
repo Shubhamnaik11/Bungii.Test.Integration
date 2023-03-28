@@ -37,7 +37,7 @@ Feature: Admin_ReferralSource
     When I click on "Percentage of total(Trips Completed)" header "Descending" on "Referral Sources" grid
     Then the "Referral Sources" list should be sorted by "Descending" order of "Percentage of total(Trips Completed)"
 
-  @knownissue
+  @regression
   Scenario: Verify Field Validations On Referral Source Grid [CORE-1934]
     When I click on "Search" button with entering "From" and "To" date
     Then the "From Date is required" message is displayed beside "From Date" field

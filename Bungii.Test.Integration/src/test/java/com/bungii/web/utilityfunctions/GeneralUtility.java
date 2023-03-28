@@ -1259,6 +1259,8 @@ public class GeneralUtility extends DriverBase {
             case "Washington DC":
             case "washingtondc":
             case "newjersey":
+            case "baltimore":
+            case "atlanta":
                 timezone = "EST";
                 break;
             case "goa":
