@@ -97,19 +97,19 @@ public class UpdateStatusSteps extends DriverBase {
         try {
             String expectedMessage = "";
             switch (screen.toUpperCase()) {
-                case "EN ROUTE":
+                case "EN ROUTE TO PICKUP":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.enroute");
                     break;
-                case "ARRIVED":
+                case "ARRIVED AT PICKUP":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.arrived");
                     break;
-                case "LOADING ITEMS":
+                case "LOADING ITEMS AT PICKUP":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.loading");
                     break;
                 case "DRIVING TO DROP-OFF":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.drop.off");
                     break;
-                case "UNLOADING ITEMS":
+                case "UNLOADING ITEMS AT DROP-OFF":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.unloading");
                     break;
                 default:
@@ -741,6 +741,9 @@ public class UpdateStatusSteps extends DriverBase {
     public void i_should_be_navigated_to_something_trip_status_screen_on_driver(String screen) throws Throwable {
         try{
             Thread.sleep(1000);
+            if(action.isElementPresent(bungiiDetailsPage.Text_PickupInstructions(true))) {
+                action.click(bungiiDetailsPage.Button_General_Instruction_Got_It());
+            }
             testStepAssert.isElementDisplayed(updateStatusPage.Text_Header(screen),"I should be navigated to " + screen + "screen","I have navigated to " + screen + "screen","I have not navigated to " + screen + "screen");
         }
         catch (Throwable e) {
@@ -935,8 +938,7 @@ public class UpdateStatusSteps extends DriverBase {
                     action.click(liveTripsPage.Button_Back());
                     break;
                 case "i earning":
-                    action.clickBy2Points(Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.i.icon")),Integer.parseInt(PropertyUtility.getDataProperties("y.coordinate.for.i.icon")));
-                    action.clickBy2Points(Integer.parseInt(PropertyUtility.getDataProperties("x.coordinate.for.i.icon")),Integer.parseInt(PropertyUtility.getDataProperties("y.coordinate.for.i.icon")));
+                    action.click(liveTripsPage.Icon_EarningsInfo());
                     Thread.sleep(3000);
                     testStepVerify.isEquals(action.getText(liveTripsPage.Text_EarningsInfo()),PropertyUtility.getDataProperties("ios.earnings.alert.info"),
                             "Correct alert message should be displayed.",

@@ -652,6 +652,7 @@ Feature: Scheduled DUO Bungii
     And I select "Pallet-1" from items
     Then I should see "DUO LIFT" header displayed
     And I accept selected Bungii
+    And I click "OK" button on alert message
 
     And I Switch to "driver" application on "driver2" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
@@ -663,6 +664,7 @@ Feature: Scheduled DUO Bungii
     And I select "Pallet-2" from items
     Then I should see "DUO LIFT" header displayed
     When I accept selected Bungii
+    And I click "OK" button on alert message
 
     And I Switch to "driver" application on "driver2" devices
     When I Switch to "driver" application on "ORIGINAL" devices
