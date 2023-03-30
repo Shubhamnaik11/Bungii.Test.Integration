@@ -140,6 +140,7 @@ Feature: Admin Notes & History
       | Accepted      |
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
+    And I search the delivery using "Pickup Reference" as "Admin1"
     Then I should be able to see the respective bungii with the status
       | Status    |
       | Scheduled |

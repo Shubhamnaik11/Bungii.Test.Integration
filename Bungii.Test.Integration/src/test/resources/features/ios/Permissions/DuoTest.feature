@@ -37,6 +37,7 @@ Feature: Duo Test
     And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
 	
 	When I accept selected Bungii
+	And I click "OK" button on alert message
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Switch to "driver" application on "Driver2" devices
 	And I Select "AVAILABLE BUNGIIS" from driver App menu
@@ -44,6 +45,7 @@ Feature: Duo Test
 	#Then Trip Information should be correctly displayed on BUNGII DETAILS screen
 	Then Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
 	When I accept selected Bungii
+	And I click "OK" button on alert message
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from scheduled trip
 	Then I should be navigated to "BUNGII DETAILS" screen

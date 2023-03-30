@@ -657,4 +657,15 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
 
     }
+    @Then("^The \"([^\"]*)\" icon should be displayed for the completed delivery$")
+    public void the_something_icon_should_be_displayed_for_the_completed_delivery(String strArg1) throws Throwable {
+        try{
+            Thread.sleep(2000);
+            testStepAssert.isTrue(action.isElementPresent(earningsPage.Icon_IOnCompletedDelivery()),"The 'i' Icon should be displayed for the completed delivery","The 'i' Icon is displayed for the completed delivery","The 'i' Icon is not  displayed for the completed delivery");
+        }
+        catch (Exception e){
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 }

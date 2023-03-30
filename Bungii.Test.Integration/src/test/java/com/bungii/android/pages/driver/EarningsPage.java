@@ -63,6 +63,6 @@ public class EarningsPage extends PageBase {
 
     public WebElement Dropdown_Thirdvalue() { return findElement("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.TextView[3]", LocatorType.XPath);}
 
-
+    public WebElement Icon_IOnCompletedDelivery() { return findElement("com.bungii.driver:id/iv_delivery_earnings_info", LocatorType.Id);}
 
 }

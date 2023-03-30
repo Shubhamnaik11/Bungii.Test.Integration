@@ -1028,6 +1028,10 @@ public class CommonStepsDriver extends DriverBase {
                     String dropOffInstructionOnPopUp = action.getText(bungiiDetailsPage.Text_DropOffInstructions()).toLowerCase();
                     testStepVerify.isEquals(dropOffInstructionOnPopUp, expectedMessage.toLowerCase(), expectedMessage + " Header should be displayed", dropOffInstructionOnPopUp + " Header is displayed", expectedMessage + " Header is not displayed");
                     break;
+                case "Delivery Accepted":
+                    boolean isDeliveryAcceptedDisplayed = bungiiDetailsPage.Alert_DeliveryAccepted().isDisplayed();
+                    testStepAssert.isTrue(isDeliveryAcceptedDisplayed, "Delivery Accepted alert should be displayed", "Delivery Accepted alert is displayed", "Delivery Accepted alert is not displayed");
+                    break;
             }
         }catch (Exception e){
             logger.error("Error performing step", e);

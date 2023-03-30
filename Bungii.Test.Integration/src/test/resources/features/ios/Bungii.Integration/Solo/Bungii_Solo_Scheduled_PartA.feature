@@ -226,6 +226,9 @@ Feature: Solo Scheduled Bungii Part A
     And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
 
     When I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
@@ -593,21 +596,24 @@ Feature: Solo Scheduled Bungii Part A
  #CORE-2342 :To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
  @ready
   Scenario Outline:To verify whether new pickup instructions are displayed to driver when he receive the Bungii request notification for Distribution center
-    And I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore driver 6" driver
-   And I set the pickup address for "<Delivery Center>"
+    And I set the pickup address for "<Delivery Center>"
     When I request Partner Portal "SOLO" Trip for "BestBuy2 service level" partner
       |Geofence| Bungii Time   | Customer Phone | Customer Name |
       |baltimore| NEXT_POSSIBLE | <Customer Phone> | <Customer Name>|
     And I wait for 1 minutes
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
-   Then I should see service level information displayed for "<Delivery Center>" address
+    Then I should see service level information displayed for "<Delivery Center>" address
     When I accept selected Bungii
-   And I Select "SCHEDULED BUNGIIS" from driver App menu
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
+    And I click "OK" button on alert message
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then The service level information should be displayed
-   And I click on start Bungii for service based delivery
+    And I click on start Bungii for service based delivery
     And I slide update button on "EN ROUTE" Screen
     And I wait for 2 minutes
     When I open new "Chrome" browser for "ADMIN PORTAL"

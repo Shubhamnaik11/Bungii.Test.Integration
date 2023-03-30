@@ -67,7 +67,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Text_Additional_Note(boolean ...ignoreException) { return findElement("//div/span[text()='Additional notes:']/following::div/div/textarea",LocatorType.XPath,ignoreException);}
 
-    public WebElement Text_Additional_Instructions() { return findElement("//span[text()='Special Instructions']/following::div/textarea",LocatorType.XPath);}
+    public WebElement Text_Additional_Instructions() { return findElement("//div/div[1]/span[contains(text(),'Special Instructions:')]/following::div/textarea",LocatorType.XPath);}
 
     public WebElement RadioButton_Solo() { return findElement("SOLO", LocatorType.Id); }
     public WebElement RadioButton_Duo() { return findElement("DUO", LocatorType.Id); }
@@ -94,7 +94,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_ErrorMessage() { return findElement("//h6[@id='input-valid-message']/i", LocatorType.XPath); }
 
-    public WebElement Label_AdditionalNotes() { return findElement("//span[text()='Special Instructions']", LocatorType.XPath); }
+    public WebElement Label_AdditionalNotes() { return findElement("//span[text()='Special Instructions:']", LocatorType.XPath); }
 
     public WebElement Text_LastTimeSlotAdminEdit() { return findElement("//div[@class=\"ui-timepicker-wrapper\"]/ul/li[96]", LocatorType.XPath); }
 

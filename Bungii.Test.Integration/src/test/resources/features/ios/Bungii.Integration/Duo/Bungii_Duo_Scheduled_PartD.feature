@@ -30,6 +30,9 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
+    And I click "OK" button on alert message
     #put driver on background
     When I open "customer" application on "same" devices
 
@@ -176,12 +179,18 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I accept selected Bungii
-    
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
+    And I click "OK" button on alert message
+
     And I Switch to "driver" application on "Driver2" devices
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I accept selected Bungii
-    
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
+    And I click "OK" button on alert message
+
     When I Switch to "driver" application on "ORIGINAL" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select delivery "1" from scheduled deliveries
