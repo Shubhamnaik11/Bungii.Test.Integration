@@ -44,6 +44,7 @@ Feature: Promos
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
     When I accept selected Bungii
+    And I click "OK" button on alert message
     Then I wait for "2" mins
     
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -58,6 +59,7 @@ Feature: Promos
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
     When I accept selected Bungii
+    And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen

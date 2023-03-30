@@ -171,7 +171,7 @@ Feature: Scheduled Bungii on one device
     #CORE-4581: Confirmation of acceptance of delivery in driver's app
     Then I should see "Delivery Accepted" popup displayed
     And I click "OK" button on alert message
-	
+
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select delivery "1" from scheduled deliveries
 	Then I should be navigated to "BUNGII DETAILS" screen
@@ -188,7 +188,7 @@ Feature: Scheduled Bungii on one device
 	When I accept selected Bungii
     Then I should see "Delivery Accepted" popup displayed
     And I click "OK" button on alert message
-	
+
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select delivery "1" from scheduled deliveries
 	Then I should be navigated to "BUNGII DETAILS" screen
@@ -222,7 +222,7 @@ Feature: Scheduled Bungii on one device
     #CORE-4581: Confirmation of acceptance of delivery in driver's app
     Then I should see "Delivery Accepted" popup displayed
     And I click "OK" button on alert message
-	
+
 	When I Switch to "customer" application on "same" devices
 	And I Select "MY BUNGIIS" from Customer App menu
 	And I select already scheduled bungii

@@ -85,7 +85,7 @@ Feature: SoloScheduled
     And I click on device "BACK" button
     And I click on device "BACK" button
     Then Bungii driver should see "Enroute screen"
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
 
     And I cancel all bungiis of customer
      | Customer Phone  | Customer2 Phone |
