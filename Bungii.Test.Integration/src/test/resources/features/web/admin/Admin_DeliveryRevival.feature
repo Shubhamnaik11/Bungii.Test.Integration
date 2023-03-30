@@ -183,11 +183,11 @@ Feature: Admin_Revival
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |
 	  | NEXT_POSSIBLE | 9999999224     | Testcustomertywd_appleNewMK Customer|
-	And As a driver "Testdrivertywd_appledc_a_drvt Driver" perform below action with respective "Solo Scheduled" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvat Washingtonat" perform below action with respective "Solo Scheduled" Delivery
 	  | driver1 state|
 	  |Accepted |
 	  | Enroute  |
-	When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvt Driver"
+	When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvat Washingtonat"
 	And I wait for 2 minutes
 	And I view the Deliveries list on the admin portal
 	And I search the delivery of Customer
@@ -203,18 +203,18 @@ Feature: Admin_Revival
 	  | Assigning Driver(s) |
 	And I click on "Edit" link beside scheduled bungii
 	When I click on "Edit Trip Details" radiobutton
-	And I assign driver "Testdrivertywd_appledc_a_drvt Driver" for the trip
+	And I assign driver "Testdrivertywd_appledc_a_drvat Washingtonat" for the trip
 	And I click on "VERIFY" button
 	And the "Your changes are good to be saved." message is displayed
 	Then I click on "SAVE CHANGES" button
 	And the "Bungii Saved!" message is displayed
 	When I click on "Close" button
 	And I refresh the page
-	And As a driver "Testdrivertywd_appledc_a_drvt Driver" perform below action with respective "Solo Scheduled Researched" Delivery
+	And As a driver "Testdrivertywd_appledc_a_drvat Washingtonat" perform below action with respective "Solo Scheduled Researched" Delivery
 	  | driver1 state|
 	  | Enroute  |
 	  | Arrived |
-	When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvt Driver"
+	When I cancel bungii as a driver "Testdrivertywd_appledc_a_drvat Washingtonat"
 	And I view the Deliveries list on the admin portal
 	And I wait for 2 minutes
 	And I search the delivery of Customer
