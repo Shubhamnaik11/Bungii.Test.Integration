@@ -165,9 +165,12 @@ Feature: Scheduled Bungii on one device
 	And I Select Trip from available trip
 	Then I should be navigated to "BUNGII DETAILS" screen
 	And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
-     #    Core - 2569 Verify ~ sign under earnings is shown on Driver app for Customer Deliveries
+    #Core - 2569 Verify ~ sign under earnings is shown on Driver app for Customer Deliveries
     And I check if variable sign is shown under "available bungii details"
 	When I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
+    And I click "OK" button on alert message
 	
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select delivery "1" from scheduled deliveries
@@ -183,6 +186,8 @@ Feature: Scheduled Bungii on one device
     Then I should be navigated to "BUNGII DETAILS" screen
 	Then Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
 	When I accept selected Bungii
+    Then I should see "Delivery Accepted" popup displayed
+    And I click "OK" button on alert message
 	
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select delivery "1" from scheduled deliveries
@@ -214,6 +219,9 @@ Feature: Scheduled Bungii on one device
 	And I Select "AVAILABLE BUNGIIS" from driver App menu
 	And I Select Trip from available trip
 	When I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
+    And I click "OK" button on alert message
 	
 	When I Switch to "customer" application on "same" devices
 	And I Select "MY BUNGIIS" from Customer App menu
