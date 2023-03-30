@@ -69,8 +69,12 @@ public class Admin_PriceOverrideSteps extends DriverBase {
                 case "Delivery Overview":
                     action.click(admin_tripDetailsPage.Button_DeliveryOverview());
                     break;
+                case "Payment Details":
+                    action.click(admin_tripDetailsPage.Button_PaymentDetails());
+                    break;
+                default:
+                    logger.detail("Unimplemented Step");
             }
-
             log("I should be able to click on "+button+" button ",
                     "I could click on "+button+" button",false);
         }
@@ -79,8 +83,8 @@ public class Admin_PriceOverrideSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
-
     }
+
     @And("^I get the old values of \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_get_the_old_values_of_something_for_something(String price, String type) throws Throwable {
         try {

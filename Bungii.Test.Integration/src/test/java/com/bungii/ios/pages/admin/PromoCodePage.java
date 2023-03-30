@@ -51,7 +51,7 @@ public class PromoCodePage extends PageBase {
     }
 
     public List<WebElement> Text_ReferralCode() {
-        return findElements("//tr/td[.='Referral']/following-sibling::td[1]/span[text()='Active']/parent::td/preceding-sibling::td[2]", LocatorType.XPath);
+        return findElements("//tr/td[.='Referral']/following-sibling::td[text()='Active']/preceding-sibling::td[2]", LocatorType.XPath);
     }
 
 

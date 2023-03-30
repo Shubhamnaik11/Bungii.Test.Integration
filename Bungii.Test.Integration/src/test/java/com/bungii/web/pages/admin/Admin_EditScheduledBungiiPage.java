@@ -42,7 +42,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_VerifiedMessage() { return findElement("verified-message", LocatorType.Id); }
 
-    public WebElement Label_SuccessMessage() { return findElement("//i[text()='Bungii Saved!']", LocatorType.XPath); }
+    public WebElement Label_SuccessMessage() { return findElement("//i[text()='Bungii Saved!'] | //span[text()='Bungii Saved!']", LocatorType.XPath); }
 
     public WebElement Label_InfoMessage() { return findElement("info-message", LocatorType.Id); }
 
@@ -65,9 +65,9 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Text_Pickup_Note() { return findElement("//td[text()='Pickup Note']/following-sibling::td",LocatorType.XPath);}
 
-    public WebElement Text_Additional_Note(boolean ...ignoreException) { return findElement("//span[text()='Additional notes:']/following-sibling::div/textarea",LocatorType.XPath,ignoreException);}
+    public WebElement Text_Additional_Note(boolean ...ignoreException) { return findElement("//div/span[text()='Additional notes:']/following::div/div/textarea",LocatorType.XPath,ignoreException);}
 
-    public WebElement Text_Additional_Instructions() { return findElement("//span[text()='Special Instructions']/following::div/textarea",LocatorType.XPath);}
+    public WebElement Text_Additional_Instructions() { return findElement("//div/div[1]/span[contains(text(),'Special Instructions:')]/following::div/textarea",LocatorType.XPath);}
 
     public WebElement RadioButton_Solo() { return findElement("SOLO", LocatorType.Id); }
     public WebElement RadioButton_Duo() { return findElement("DUO", LocatorType.Id); }
@@ -94,7 +94,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement Label_ErrorMessage() { return findElement("//h6[@id='input-valid-message']/i", LocatorType.XPath); }
 
-    public WebElement Label_AdditionalNotes() { return findElement("//span[text()='Special Instructions']", LocatorType.XPath); }
+    public WebElement Label_AdditionalNotes() { return findElement("//span[text()='Special Instructions:']", LocatorType.XPath); }
 
     public WebElement Text_LastTimeSlotAdminEdit() { return findElement("//div[@class=\"ui-timepicker-wrapper\"]/ul/li[96]", LocatorType.XPath); }
 
@@ -104,7 +104,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
     public WebElement RadioButton_EditTripDetails_For_Live() { return findElement("radio5", LocatorType.Id); }
 
 
-    public WebElement Icon_Dropdown(){return  findElement("threedoticon",LocatorType.ClassName);}
+    public WebElement Icon_Dropdown(){return  findElement("//div[@class='threedoticon']/img",LocatorType.XPath);}
 
     public WebElement Option_Edit(){return  findElement("//div/a[text()=\"Edit\"]",LocatorType.XPath);}
 }

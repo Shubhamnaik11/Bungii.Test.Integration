@@ -228,6 +228,7 @@ Feature: Admin_Trips
       |  Status |
       | Unloading Items |
     And I select the scheduled trip on live delivery
+    And I click on "Payment Details" button on delivery details
     Then I view the correct Driver Est. Earnings for geofence based pricing model
     And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" Delivery
         | driver1 state|
@@ -237,6 +238,7 @@ Feature: Admin_Trips
     When  I search the delivery using "Pickup Reference"
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I select the scheduled trip on All Deliveries
+    And I click on "Payment Details" button on delivery details
     Then I view the correct Driver Earnings for geofence based pricing model
   
   
@@ -609,7 +611,7 @@ Feature: Admin_Trips
   Scenario:To verify that customer trips can be revived after admin cancels
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
-    | NEXT_POSSIBLE | 8877661062 | Testcustomertywd_BppleMarkBK LutherBK|
+    | NEXT_POSSIBLE | 8877661062 | Testcustomertywd_appleMarkBK LutherBK|
    And As a driver "Testdrivertywd_appledc_a_drvM WashingtonM" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
     |Accepted |
@@ -633,6 +635,8 @@ Feature: Admin_Trips
     And I click on "History"
     And I should be able to see "admin cancelled event - driver accepted"
     And I close the Note
+    When I view the Completed Deliveries on the admin portal
+    And  I search the delivery using "Pickup Reference"
     Then Revive button should be displayed beside the trip
     When I click on "Revive" button
 	Then I should see "Are you sure you want to revive the trip?" message on popup with PickupId anad Pickup Origin
@@ -1173,7 +1177,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Assigning Driver(s)|
-    And I note the trip details
+    And I note the "Trip details"
     Then Admin should receive the "Delivery scheduled beyond secondary polyline" email
 
 #  Core-4367 Verify "Admin Cancelled" trips for driver(s) with Branch app wallet(customer trip)

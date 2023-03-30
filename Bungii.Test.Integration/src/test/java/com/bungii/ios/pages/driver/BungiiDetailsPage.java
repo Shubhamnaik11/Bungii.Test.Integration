@@ -40,5 +40,6 @@ public class BungiiDetailsPage extends PageBase {
 	public WebElement Text_TypeTag() { return findElement("//XCUIElementTypeStaticText[@name=\"Type\"]", PageBase.LocatorType.XPath); }
 	public WebElement Text_TypeValue() { return findElement("//XCUIElementTypeStaticText[@name=\"DUO LIFT\"]", PageBase.LocatorType.XPath); }
 
+	public WebElement Alert_DeliveryAccepted() { return findElement("//XCUIElementTypeStaticText[@name='Delivery Accepted']", PageBase.LocatorType.XPath); }
 
 }

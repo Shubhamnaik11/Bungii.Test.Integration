@@ -29,17 +29,17 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Schedule_Date_Row() {return findElement("//td[3]/a",LocatorType.XPath);}
 
-    public WebElement Text_DropOff_Location() { return findElement("//td[text()='Drop Off Location']/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Text_DropOff_Location() { return findElement("//div[text()='DROP-OFF']/following::h6[text()='Address']/following-sibling::div[1]/div/p",LocatorType.XPath);}
 
-    public WebElement Text_Pickup_Location() { return findElement("//td[text()='Pickup Location']/following::td[1]",LocatorType.XPath);}
+    public WebElement Text_Pickup_Location() { return findElement("//div[text()='PICKUP']/following::h6[1][text()='Address']/following-sibling::div[1]/div/p",LocatorType.XPath);}
 
     public WebElement Text_Service_Level() { return findElement("//td[contains(text(),'Service Level')]/following-sibling::td/strong",LocatorType.XPath);}
 
-    public WebElement Text_Estimated_Charge() { return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong",LocatorType.XPath);}
+    public WebElement Text_Estimated_Charge() { return findElement("//body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div[3]/div/div/table/tbody/tr[1]/td[2]",LocatorType.XPath);}
 
-    public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[contains(text(),'Driver Earnings')]/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[contains(text(),'Driver Earnings')]/following::td[1]",LocatorType.XPath);}
 
-    public WebElement Text_Driver_Est_Eranings() { return findElement("//tr[19]/td/strong",LocatorType.XPath);}
+    public WebElement Text_Driver_Est_Eranings() { return findElement("//tr[2]/td[2]",LocatorType.XPath);}
 
     public WebElement Text_Driver_Est_Eranings_Fnd() { return findElement("//tr[19]/td/strong",LocatorType.XPath);}
 
@@ -53,7 +53,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Button_Ok() { return findElement("//button[text()='ok']",LocatorType.XPath);}
 
-    public WebElement Button_Price_Override(boolean...ignoreException) { return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong/a",LocatorType.XPath,ignoreException);}
+    public WebElement Button_Price_Override(boolean...ignoreException) { return findElement("//a[contains(text(),'Price Override')]",LocatorType.XPath,ignoreException);}
 
     public WebElement Textbox_Override_Customer_Price() { return findElement("//input[@name='CustomerPrice']",LocatorType.XPath);}
 
@@ -98,5 +98,6 @@ public class Admin_TripDetailsPage extends PageBase {
     public WebElement Input_DriverBoostedPeriod() {return findElement("//td[text()='Driver Boosted earning period']/following::td[1]/div[1]/div/div/div/input", LocatorType.XPath);}
 
     public WebElement Button_DeliveryOverview() { return findElement("//button[contains(text(),'Delivery Overview')]",LocatorType.XPath);}
+    public WebElement Button_PaymentDetails() { return findElement("//button[contains(text(),'Payment Details')]",LocatorType.XPath);}
 
 }

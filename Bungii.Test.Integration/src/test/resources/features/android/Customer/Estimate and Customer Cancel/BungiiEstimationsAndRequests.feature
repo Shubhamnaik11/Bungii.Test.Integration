@@ -115,6 +115,9 @@
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from available trip
         And I tap on "ACCEPT" on driver Trip details Page
+        #CORE-4581: Confirmation of acceptance of delivery in driver's app
+        Then I should see "Delivery Accepted" popup displayed
+        And I click on the "OK" Button on "Accept Delivery" popup
         And I Select "SCHEDULED BUNGIIS" from driver App menu
         And I Select Trip from driver scheduled trip
         Then I start selected Bungii
@@ -198,6 +201,9 @@
         And I Select "AVAILABLE BUNGIIS" from driver App menu
         And I Select Trip from driver available trip
         And I tap on "ACCEPT" on driver Trip details Page
+        #CORE-4581: Confirmation of acceptance of delivery in driver's app
+        Then I should see "Delivery Accepted" popup displayed
+        And I click on the "OK" Button on "Accept Delivery" popup
         And I Select "SCHEDULED BUNGIIS" from driver App menu
         And I Select Trip from driver scheduled trip
         Then I should be able to see "Customer Note" Text

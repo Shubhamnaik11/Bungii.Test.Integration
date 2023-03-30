@@ -18,6 +18,8 @@ Feature: Partner Portal Cases integration with IOS
     And I check if variable sign is shown under "available bungii details"
     Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
     When I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
     And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -80,6 +82,8 @@ Feature: Partner Portal Cases integration with IOS
     And I Select Partner portal Trip from available trip
     And I check if variable sign is not shown under "available bungii details"
     When I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
     And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -100,6 +104,8 @@ Feature: Partner Portal Cases integration with IOS
     Then I should be navigated to "BUNGII DETAILS" screen
     And Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
     When I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
     And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -392,6 +398,8 @@ Feature: Partner Portal Cases integration with IOS
     And I select "Pallet-1" from items
 #   Core-2546: Verify driver can accept using AVAILABLE BUNGII menu when driver pallet is equal to payload capacity
     And I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
     And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -496,6 +504,8 @@ Feature: Partner Portal Cases integration with IOS
     And I Select Partner portal Trip from available trip
     Then I should see "CUSTOMER HELP" header displayed
     When I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
     And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -780,6 +790,8 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Partner portal Trip from available trip
     When I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
     And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -827,6 +839,8 @@ Feature: Partner Portal Cases integration with IOS
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I accept selected Bungii
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
     And I click "OK" button on alert message
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
