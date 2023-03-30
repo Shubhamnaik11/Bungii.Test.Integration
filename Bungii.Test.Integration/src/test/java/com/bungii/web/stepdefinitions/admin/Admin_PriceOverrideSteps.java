@@ -793,13 +793,13 @@ public class Admin_PriceOverrideSteps extends DriverBase {
             String TrimedTripPayment=(tripPayment.replace('$',' ')).trim();
             String TrimDriverEarning=(DriverEarnings.replace('$',' ')).trim();
             testStepAssert.isEquals(TrimedTripPayment,newCustomerPrice,
-                    "The Delivery cost should be retained",
-                    "The Delivery cost are retained",
-                    "The eDelivery cost are not retained");
+                    "The Delivery cost "+newCustomerPrice+" should be retained",
+                    "The Delivery cost "+newCustomerPrice+" are retained",
+                    "The "+TrimedTripPayment+" cost is shown");
             testStepAssert.isEquals(TrimDriverEarning, newDriverCut1,
-                    "The earnings should be retained",
-                    "The earnings are retained",
-                    "The earnings are not retained");
+                    "The Driver earnings "+newDriverCut1+" should be retained",
+                    "The driver earnings "+newDriverCut1+" are retained",
+                    "The earnings "+TrimDriverEarning+" are shown");
 
         }
         catch(Exception e){
