@@ -24,6 +24,9 @@
     #CORE-4983 Customer names is trimmed on all delivery pages for driver app
     And I check if customer name is "Testcustomertywd_appleNewU C" under "available bungii details"
     And I tap on "ACCEPT" on driver Trip details Page
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
+    And I click on the "OK" Button on "Accept Delivery" popup
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And I check if "i" icon is displayed
@@ -143,6 +146,9 @@
       And I Select Trip from available trip
       And I check if variable sign is not shown under "available bungii details"
       And I tap on "ACCEPT" on driver Trip details Page
+      #CORE-4581: Confirmation of acceptance of delivery in driver's app
+      Then I should see "Delivery Accepted" popup displayed
+      And I click on the "OK" Button on "Accept Delivery" popup
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from driver scheduled trip
       Then I check if variable sign is not shown under "schedule bungii details"
@@ -180,6 +186,9 @@
       And I Select Trip from available trip
       Then Partner Portal name should be displayed in "AVAILABLE BUNGIIS" section
       And I tap on "ACCEPT" on driver Trip details Page
+      #CORE-4581: Confirmation of acceptance of delivery in driver's app
+      Then I should see "Delivery Accepted" popup displayed
+      And I click on the "OK" Button on "Accept Delivery" popup
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       When I Select Trip from driver scheduled trip
       Then Partner Portal name should be displayed in "SCHEDULED BUNGIIS" section
@@ -228,8 +237,11 @@
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       And I verify the driver earnings displayed on driver app for "solo"
-#    Core-2537 Verify whether driver can accept deliveries which have suitable payload for his vehicle
+      #Core-2537 Verify whether driver can accept deliveries which have suitable payload for his vehicle
       And I tap on "ACCEPT" on driver Trip details Page
+      #CORE-4581: Confirmation of acceptance of delivery in driver's app
+      Then I should see "Delivery Accepted" popup displayed
+      And I click on the "OK" Button on "Accept Delivery" popup
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from driver scheduled trip
 
@@ -348,9 +360,12 @@
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       Then I verify the driver earnings displayed on driver app for "duo"
-#   Core-2537: Verify whether driver can accept delivery that are upto 100 lb more then the payload
+      #Core-2537: Verify whether driver can accept delivery that are upto 100 lb more then the payload
       And I select "Pallet-1 available page" from items
       And I tap on "ACCEPT" on driver Trip details Page
+      #CORE-4581: Confirmation of acceptance of delivery in driver's app
+      Then I should see "Delivery Accepted" popup displayed
+      And I click on the "OK" Button on "Accept Delivery" popup
       Then I should be navigated to "AVAILABLE BUNGIIS" screen
 
 #  Driver : 9049840253 Payload capacity : 500 lbs
@@ -428,14 +443,17 @@
 
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
-#   Core-2546: Verify pallet details are displayed on AVAILABLE Bungii menu
+      #Core-2546: Verify pallet details are displayed on AVAILABLE Bungii menu
       And I select "Pallet-1" from items
       And I check "pallet-1" details are displayed on "available bungii" page
-#   Core-2546: Verify driver can accept using AVAILABLE BUNGII menu when driver pallet is equal to payload capacity
+      #Core-2546: Verify driver can accept using AVAILABLE BUNGII menu when driver pallet is equal to payload capacity
       And I tap on "ACCEPT" on driver Trip details Page
+      #CORE-4581: Confirmation of acceptance of delivery in driver's app
+      Then I should see "Delivery Accepted" popup displayed
+      And I click on the "OK" Button on "Accept Delivery" popup
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from driver scheduled trip
-#   Core-2546: Verify pallet details are displayed on SCHEDULE Bungii menu
+      #Core-2546: Verify pallet details are displayed on SCHEDULE Bungii menu
       And I check "pallet-1" details are displayed on "schedule bungii" page
       And I tap on "Back" button of android mobile
       And I connect to "extra1" using "Driver2" instance
@@ -468,14 +486,17 @@
       Then The "Bungii Saved!" message is displayed
       When I click on "CLOSE" button
 
-     When I switch to "ORIGINAL" instance
-     When I Switch to "driver" application on "same" devices
-     And I am logged in as "Testdrivertywd_applens_a_kayT Stark_nsOnET" driver
-     And I Select "AVAILABLE BUNGIIS" from driver App menu
-     And I Select Trip from available trip
-     Then I should see "SOLO LIFT" header displayed
-     And I tap on "ACCEPT" on driver Trip details Page
-     And I Select "SCHEDULED BUNGIIS" from driver App menu
+      When I switch to "ORIGINAL" instance
+      When I Switch to "driver" application on "same" devices
+      And I am logged in as "Testdrivertywd_applens_a_kayT Stark_nsOnET" driver
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
+      And I Select Trip from available trip
+      Then I should see "SOLO LIFT" header displayed
+      And I tap on "ACCEPT" on driver Trip details Page
+      #CORE-4581: Confirmation of acceptance of delivery in driver's app
+      Then I should see "Delivery Accepted" popup displayed
+      And I click on the "OK" Button on "Accept Delivery" popup
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from driver scheduled trip
       Then I should see "SOLO LIFT" header displayed
       And I start selected Bungii
@@ -513,6 +534,9 @@
       Then The "Expected time at drop-off" should match
        Then I should see "CUSTOMER HELP" header displayed
        And I tap on "ACCEPT" on driver Trip details Page
+      #CORE-4581: Confirmation of acceptance of delivery in driver's app
+      Then I should see "Delivery Accepted" popup displayed
+      And I click on the "OK" Button on "Accept Delivery" popup
 
       #Issue raised ADP-744
       When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -599,6 +623,9 @@
       Then The "Arrival time" should match
       Then The "Expected time at drop-off" should match
       And I tap on "ACCEPT" on driver Trip details Page
+      #CORE-4581: Confirmation of acceptance of delivery in driver's app
+      Then I should see "Delivery Accepted" popup displayed
+      And I click on the "OK" Button on "Accept Delivery" popup
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from driver scheduled trip
       Then The "Arrival time at pickup" "Text" should be displayed
@@ -708,6 +735,9 @@
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       And I tap on "ACCEPT" on driver Trip details Page
+      #CORE-4581: Confirmation of acceptance of delivery in driver's app
+      Then I should see "Delivery Accepted" popup displayed
+      And I click on the "OK" Button on "Accept Delivery" popup
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from driver scheduled trip
       And I start selected Bungii for "floor and decor 106"
