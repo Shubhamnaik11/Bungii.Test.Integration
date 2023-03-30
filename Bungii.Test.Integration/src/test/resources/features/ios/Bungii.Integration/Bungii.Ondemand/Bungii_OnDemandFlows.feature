@@ -45,7 +45,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid miami" driver
-    Then I should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen
 
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
@@ -72,7 +72,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid miami" driver
-    Then I should be navigated to "ARRIVED" trip status screen
+    Then I should be navigated to "ARRIVED AT PICKUP" trip status screen
 
     When I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed

@@ -32,19 +32,19 @@ And I view and accept virtual notification for "Driver" for "on demand trip"
   Then Customer should be navigated to "EN ROUTE" trip status screen
   
 When I Switch to "driver" application on "same" devices
-Then I should be navigated to "EN ROUTE" trip status screen
+Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen
 And I slide update button on "EN ROUTE" Screen
-Then I should be navigated to "ARRIVED" trip status screen
+Then I should be navigated to "ARRIVED AT PICKUP" trip status screen
   And I slide update button on "ARRIVED" Screen
   And Driver adds photos to the Bungii
   And I slide update button on "ARRIVED" Screen
-  Then I should be navigated to "LOADING ITEMS" trip status screen
+  Then I should be navigated to "LOADING ITEMS AT PICKUP" trip status screen
   And I slide update button on "LOADING ITEMS" Screen
   And Driver adds photos to the Bungii
   And I slide update button on "LOADING ITEMS" Screen
 Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
 And I slide update button on "DRIVING TO DROP-OFF" Screen
-Then I should be navigated to "UNLOADING ITEMS" trip status screen
+Then I should be navigated to "UNLOADING ITEMS AT DROP-OFF" trip status screen
 And I slide update button on "UNLOADING ITEMS" Screen
 And Driver adds photos to the Bungii
 And I slide update button on "UNLOADING ITEMS" Screen
@@ -127,7 +127,7 @@ Then I should be navigated to "Home" screen
     Then Customer should be navigated to "EN ROUTE" trip status screen
     
     When I Switch to "driver" application on "same" devices
-    Then I should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen
     And I slide update button on "EN ROUTE" Screen
     #Then I should be navigated to "ARRIVED" trip status screen
     Then I should be navigated to "ARRIVED" screen on driverApp

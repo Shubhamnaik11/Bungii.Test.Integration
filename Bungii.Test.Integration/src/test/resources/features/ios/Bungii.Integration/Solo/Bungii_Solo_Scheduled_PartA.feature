@@ -144,7 +144,7 @@ Feature: Solo Scheduled Bungii Part A
     And I slide update button on "ARRIVED" Screen
     And Driver adds photos to the Bungii
     And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEMS" trip status screen
+    Then I should be navigated to "LOADING ITEMS AT PICKUP" trip status screen
     And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     And correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
