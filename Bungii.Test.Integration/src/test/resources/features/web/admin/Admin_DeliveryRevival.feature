@@ -160,6 +160,7 @@ Feature: Admin_Revival
 	  |  Status |
 	  | Loading Items |
 	When I view the delivery details
+	And I click on "Delivery Overview" button on delivery details
 	Then the Bungii details is displayed successfully
 	And Manually end bungii link is removed for live trips
 #	And I click on "Manually End Bungii" link

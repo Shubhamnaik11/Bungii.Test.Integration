@@ -802,7 +802,7 @@ try{
             Date bungiiDate = formatter.parse(scheduled_time);
             Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
             String formattedDate = new SimpleDateFormat("MMM dd, hh:mm:ss a z").format(inputdate).replace("am", "AM").replace("pm", "PM");
-            String xpath_scheduled_time = "//td[contains(text(),'Scheduled Time')]/following-sibling::td/strong[text()='"+ formattedDate + "']";
+            String xpath_scheduled_time = "//td/strong[contains(text(),'Scheduled Time')]/following::td[1][contains(text(),'"+ formattedDate + "')]";
 
             //Verify that the time the customer scheduled the trip for is added to Trip Details page
             testStepAssert.isElementDisplayed(admin_TripDetailsPage.Label_ScheduledTime(xpath_scheduled_time), "Bungii Scheduled Time should be displayed correctly", "Pass", "Fail");
