@@ -28,7 +28,7 @@ Feature: Solo Scheduled Bungii Part A
     
     And I start selected Bungii
     #Then I should be navigated to "EN ROUTE" trip status screen
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen on driver
     And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     
     When I Switch to "customer" application on "same" devices
@@ -36,10 +36,10 @@ Feature: Solo Scheduled Bungii Part A
     And Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
 
     #Then I should be navigated to "ARRIVED" trip status screen
-    Then I should be navigated to "ARRIVED" trip status screen on driver
+    Then I should be navigated to "ARRIVED AT PICKUP" trip status screen on driver
     And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
     
     When I Switch to "customer" application on "same" devices
@@ -47,11 +47,11 @@ Feature: Solo Scheduled Bungii Part A
     And Trip Information should be correctly displayed on "ARRIVED" status screen for customer
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     #Then I should be navigated to "LOADING ITEMS" trip status screen
-    Then I should be navigated to "LOADING ITEMS" trip status screen on driver
+    Then I should be navigated to "LOADING ITEMS AT PICKUP" trip status screen on driver
     And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     
     When I Switch to "customer" application on "same" devices
@@ -59,9 +59,9 @@ Feature: Solo Scheduled Bungii Part A
     And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for customer
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     #Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
     And Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
@@ -73,7 +73,7 @@ Feature: Solo Scheduled Bungii Part A
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     #Then I should be navigated to "UNLOADING ITEMS" trip status screen
-    Then I should be navigated to "UNLOADING ITEMS" trip status screen on driver
+    Then I should be navigated to "UNLOADING ITEMS AT DROP-OFF" trip status screen on driver
     And Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     
     When I Switch to "customer" application on "same" devices
@@ -81,9 +81,9 @@ Feature: Solo Scheduled Bungii Part A
     And Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for customer
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     And I click "On To The Next One" button on "Bungii completed" screen
@@ -122,7 +122,7 @@ Feature: Solo Scheduled Bungii Part A
 
     And I start selected Bungii
     #Then I should be navigated to "EN ROUTE" trip status screen
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen on driver
     And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     And correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
@@ -136,14 +136,14 @@ Feature: Solo Scheduled Bungii Part A
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
  #   When I verify and slide update button on "EN ROUTE" Screen
 
     #Then I should be navigated to "ARRIVED" trip status screen
-    Then I should be navigated to "ARRIVED" trip status screen on driver
-    And I slide update button on "ARRIVED" Screen
+    Then I should be navigated to "ARRIVED AT PICKUP" trip status screen on driver
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then I should be navigated to "LOADING ITEMS AT PICKUP" trip status screen
     And Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     And correct details should be displayed to driver on "SMS" app
@@ -158,14 +158,14 @@ Feature: Solo Scheduled Bungii Part A
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     #Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     #Then I should be navigated to "UNLOADING ITEMS" trip status screen
-    Then I should be navigated to "UNLOADING ITEMS" trip status screen on driver
+    Then I should be navigated to "UNLOADING ITEMS AT DROP-OFF" trip status screen on driver
     And Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     And correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
@@ -179,9 +179,9 @@ Feature: Solo Scheduled Bungii Part A
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     #Then I should be navigated to "Bungii Completed" screen
 
     When I Switch to "customer" application on "same" devices
@@ -235,24 +235,24 @@ Feature: Solo Scheduled Bungii Part A
     When I wait for Minimum duration for Bungii Start Time
     And I start selected Bungii
     #Then I should be navigated to "EN ROUTE" trip status screen
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
-    When I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen on driver
+    When I slide update button on "EN ROUTE TO PICKUP" Screen
     #Then I should be navigated to "ARRIVED" trip status screen
-    Then I should be navigated to "ARRIVED" trip status screen on driver
+    Then I should be navigated to "ARRIVED AT PICKUP" trip status screen on driver
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "ARRIVED" trip status screen
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "ARRIVED" Screen
+    When I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    When I slide update button on "ARRIVED" Screen
+    When I slide update button on "ARRIVED AT PICKUP" Screen
     #Then I should be navigated to "LOADING ITEM" trip status screen
-    Then I should be navigated to "LOADING ITEMS" trip status screen on driver
+    Then I should be navigated to "LOADING ITEMS AT PICKUP" trip status screen on driver
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "LOADING ITEMS" trip status screen
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "LOADING ITEMS" Screen
+    When I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    When I slide update button on "LOADING ITEMS" Screen
+    When I slide update button on "LOADING ITEMS AT PICKUP" Screen
     #Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen on driver
     When I Switch to "customer" application on "same" devices
@@ -260,13 +260,13 @@ Feature: Solo Scheduled Bungii Part A
     When I Switch to "driver" application on "same" devices
     When I slide update button on "DRIVING TO DROP-OFF" Screen
     #Then I should be navigated to "UNLOADING ITEM" trip status screen
-    Then I should be navigated to "UNLOADING ITEMS" trip status screen on driver
+    Then I should be navigated to "UNLOADING ITEMS AT DROP-OFF" trip status screen on driver
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "UNLOADING ITEMS" trip status screen
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "UNLOADING ITEMS" Screen
+    When I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    When I slide update button on "UNLOADING ITEMS" Screen
+    When I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     And I click "On To The Next One" button on "Bungii completed" screen
@@ -525,9 +525,9 @@ Feature: Solo Scheduled Bungii Part A
       When I Switch to "driver" application on "same" devices
       And I am logged in as "valid denver" driver
       And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-      And I slide update button on "UNLOADING ITEMS" Screen
+      And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
       And Driver adds photos to the Bungii
-      And I slide update button on "UNLOADING ITEMS" Screen
+      And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
       And I click "Skip This Step" button on "Rate customer" screen
       Then I should be navigated to "Bungii Completed" screen
       When I click "On To The Next One" button on "Bungii completed" screen
@@ -568,25 +568,25 @@ Feature: Solo Scheduled Bungii Part A
     And I get pickupref for "valid denver5" customer
     And I Switch to "driver" application on "same" devices
     And I wait for 2 minutes
-    And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen on driver
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    Then I should be navigated to "ARRIVED AT PICKUP" trip status screen on driver
     And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP2 AVAILABLE"
     And I click "Scheduled Bungiis" button on "update" screen
     And I should select the "valid denver5" customer on driver app
     Then Start button should not be shown
     And I click on "BACK" button
     And I click on "BACK" button
-    Then I should be navigated to "ARRIVED" trip status screen on driver
-    And I slide update button on "ARRIVED" Screen
+    Then I should be navigated to "ARRIVED AT PICKUP" trip status screen on driver
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP-OFF" Screen
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     When I click "On To The Next One" button on "Bungii completed" screen
     And I Select "SCHEDULED BUNGIIS" from driver App menu
@@ -614,7 +614,7 @@ Feature: Solo Scheduled Bungii Part A
     And I Select Trip from scheduled trip
     Then The service level information should be displayed
     And I click on start Bungii for service based delivery
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     And I wait for 2 minutes
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -728,8 +728,8 @@ Feature: Solo Scheduled Bungii Part A
     Then The "Bungii Support" "Icon" should be displayed
     Then The "More Options" "Icon" should be displayed
    #CORE-3585:To verify that driver is able to successfully swipe through all in progress Bungii states
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then I should see "Pickup Instructions" popup displayed
     Then The driver "Pickup" instructions should be in markdown format
     And I click on "GOT IT" button
@@ -737,18 +737,18 @@ Feature: Solo Scheduled Bungii Part A
     Then The "Item Details" "Icon" should be displayed
     Then The "Bungii Support" "Icon" should be displayed
     Then The "More Options" "Icon" should be displayed
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And  Bungii driver should see "Photo Verification"
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then The "Delivery Instructions" "Icon" should be displayed
     Then The "Item Details" "Icon" should be displayed
     Then The "Bungii Support" "Icon" should be displayed
     Then The "More Options" "Icon" should be displayed
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Bungii driver should see "Photo Verification"
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     Then The "Delivery Instructions" "Icon" should be displayed
     Then The "Item Details" "Icon" should be displayed
     Then The "Bungii Support" "Icon" should be displayed
@@ -761,14 +761,14 @@ Feature: Solo Scheduled Bungii Part A
     Then The "Item Details" "Icon" should be displayed
     Then The "Bungii Support" "Icon" should be displayed
     Then The "More Options" "Icon" should be displayed
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Bungii driver should see "Photo Verification"
     And Driver adds photos to the Bungii
     Then The "Delivery Instructions" "Icon" should be displayed
     Then The "Item Details" "Icon" should be displayed
     Then The "Bungii Support" "Icon" should be displayed
     Then The "More Options" "Icon" should be displayed
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I select "4" customer rating
     And I add comment on rate customer page
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -792,11 +792,11 @@ Feature: Solo Scheduled Bungii Part A
 
     When I Switch to "driver" application on "same" devices
     And I view and accept virtual notification for "Driver" for "stack trip"
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And I check if "Save" button is "disabled"
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And I wait for "2" mins
 #   Core-3412: Verify uploaded photos are shown on admin portal
     When I open new "Chrome" browser for "ADMIN PORTAL"

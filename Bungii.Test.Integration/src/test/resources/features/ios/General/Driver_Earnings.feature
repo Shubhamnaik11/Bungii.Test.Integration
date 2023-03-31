@@ -126,11 +126,11 @@ Feature: Driver Earnings
     And I check if "pickup address" is updated
 #   Core - 3113 Verify that driver can rate customer after delivery completes with any admin edits.
     And I start selected Bungii
-    When I slide update button on "EN ROUTE" Screen
-    When I slide update button on "ARRIVED" Screen
-    When I slide update button on "LOADING ITEMS" Screen
+    When I slide update button on "EN ROUTE TO PICKUP" Screen
+    When I slide update button on "ARRIVED AT PICKUP" Screen
+    When I slide update button on "LOADING ITEMS AT PICKUP" Screen
     When I slide update button on "DRIVING TO DROP-OFF" Screen
-    When I slide update button on "UNLOADING ITEMS" Screen
+    When I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I select "4" customer rating
     And I click "Submit" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen

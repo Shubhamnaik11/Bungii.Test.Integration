@@ -40,7 +40,7 @@ Feature: Overlapping TELET
     And I click on "BACK" button
     And I open first Trip from driver scheduled trip
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen on driver
 
   @ready
   Scenario: Verify when trip1 and trip2 have overlapping time and trip2 time is edited before trip1 and trip2 is able to start
@@ -83,7 +83,7 @@ Feature: Overlapping TELET
     And I click on "BACK" button
     And I open first Trip from driver scheduled trip
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen on driver
 
   @ready
   Scenario: Verify solo1 and solo2 delivery at same time  for same driver , solo2 by admin assign, driver cancelled  solo1 and revived and solo2 is started but before starting driver accepts solo1
@@ -148,7 +148,7 @@ Feature: Overlapping TELET
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I open first Trip from driver scheduled trip
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen on driver
 
   @ready
   Scenario: Verify driver1 control driver of trip1-duo trip accepted and delivery is in no driver found, driver1 accepted trip2 ,admin assign driver2 to trip1, driver1 should be able to start trip1
@@ -191,7 +191,7 @@ Feature: Overlapping TELET
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I open first Trip from driver scheduled trip
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen on driver
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen on driver
 
   @ready
   Scenario: Verify driver1 control driver of trip1-duo trip accepted and delivery is in no driver found, driver1 accepted trip2 ,admin assign driver2 to trip1, driver1 should be able to start trip2

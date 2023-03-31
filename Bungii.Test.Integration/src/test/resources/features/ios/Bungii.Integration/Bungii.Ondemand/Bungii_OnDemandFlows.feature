@@ -116,7 +116,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I click "Ok" button on "BUNGII ACCEPTED" screen
 
     And I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     Then I should be navigated to "ARRIVED" screen
     When I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
