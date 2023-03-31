@@ -5,8 +5,8 @@ Feature: Driver_RegistrationCompletion
     Given I navigate to "Bungii Driver URL"
     Then I should be directed to "signup tab" on Driver portal
     When I click on "Login" link
-    #Driver Hal Drake
-    And I enter driver Phone number as "9999990040" and valid password
+    #Driver Testdrivertywd_applefl_a_gruF Stark_flOnF
+    And I enter driver Phone number as "9049840062" and valid password
     And I click "LOG IN button" on driver portal
     And I click Next on "Driver Details" page
     And I click Next on "Pickup Information" page
@@ -15,7 +15,8 @@ Feature: Driver_RegistrationCompletion
 
   #@ready
   #knownissue fixed
-  @knownissue
+  @outdatedFeature
+  #@knownissue
         #there is one issue There was a problem processing your credit card; please double check your payment information and try again. when saved
   Scenario: Verify Driver Application Terms And Conditions Form - Uncheck Terms On Exisiting Non Fountain Application
     When I uncheck "agree to the Terms and Conditions." checkbox
@@ -24,7 +25,8 @@ Feature: Driver_RegistrationCompletion
 
   #@ready
   # knownissue fixed
-  @knownissue
+  @outdatedFeature
+  #@knownissue
     #there is one issue There was a problem processing your credit card; please double check your payment information and try again. when saved
   Scenario: Verify Driver Application Terms And Conditions Form - Check Terms On Exisiting Non Fountain Application
     When I click "I agree to the Terms and Conditions" on driver portal

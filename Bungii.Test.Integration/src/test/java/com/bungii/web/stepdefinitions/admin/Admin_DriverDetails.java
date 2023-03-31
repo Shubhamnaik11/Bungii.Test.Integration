@@ -275,28 +275,41 @@ public class Admin_DriverDetails extends DriverBase{
 
     @Then("I verify correct {string} is set in db")
     public void iVerifyCorrectDisbursementTypeIsSetInDb(String type) throws Throwable{
-        try
-        {
-            String pickUpRef= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-            String driverOne= (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-            String driverTwo= (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
-            String disbursmentTypeDriverOne = dbUtility.getDisbursementType(type,pickUpRef,driverOne);
-            String disbursmentTypeDriverTwo = dbUtility.getDisbursementType(type,pickUpRef,driverTwo);
-            testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
-                    "Correct disbursement type value should be set for same day payment setting",
-                    "Correct disbursement type value is set for same day payment setting",
-                    "Incorrect disbursement type value is set for same day payment setting");
-            testStepAssert.isEquals(disbursmentTypeDriverTwo, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
-                    "Correct disbursement type value should be set for weekly payment setting",
-                    "Correct disbursement type value is set for weekly payment setting",
-                    "Incorrect disbursement type value is set for weekly payment setting");
+        try{
+            switch (type) {
+                case "Disbursement type":
+                    String pickUpRef = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                    String driverOne = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+                    String driverTwo = (String) cucumberContextManager.getScenarioContext("DRIVER_2_PHONE");
+                    String disbursmentTypeDriverOne = dbUtility.getDisbursementType(type, pickUpRef, driverOne);
+                    String disbursmentTypeDriverTwo = dbUtility.getDisbursementType(type, pickUpRef, driverTwo);
+                    testStepAssert.isEquals(disbursmentTypeDriverOne, PropertyUtility.getDataProperties("same.day.payment.disbursement.type.value"),
+                            "Correct disbursement type value should be set for same day payment setting",
+                            "Correct disbursement type value is set for same day payment setting",
+                            "Incorrect disbursement type value is set for same day payment setting");
+                    testStepAssert.isEquals(disbursmentTypeDriverTwo, PropertyUtility.getDataProperties("weekly.payment.disbursement.type.value"),
+                            "Correct disbursement type value should be set for weekly payment setting",
+                            "Correct disbursement type value is set for weekly payment setting",
+                            "Incorrect disbursement type value is set for weekly payment setting");
+                    break;
+                case "Records":
+
+                    String driverPhone = (String) cucumberContextManager.getScenarioContext("DriverPhone");
+                    String recordphone = dbUtility.getRecord(driverPhone);
+                    testStepAssert.isEquals(driverPhone,recordphone, "Driver record should be present in db after signup", "Driver record is present in db after signup",
+                            "Driver record is not present in db after signup");
+                    break;
+
+            }
         }
-        catch(Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-    }
+
+                catch (Exception e) {
+                    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                    error("Step should be successful", "Error performing step,Please check logs for more details",
+                            true);
+                }
+            }
+
 
     @Then("^The delivery \"([^\"]*)\" eligible for driver \"([^\"]*)\"$")
     public void the_delivery_something_eligible_for_driver_something(String driverEligibility, String driverName) throws Throwable {

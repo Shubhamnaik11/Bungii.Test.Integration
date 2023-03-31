@@ -12,18 +12,19 @@ public class Driver_DetailsPage extends PageBase {
     public WebElement Err_DriverDetails_AllBlank () { return findElement("summary1", LocatorType.Id); }
 
     //Details - Address Information - Street Address
-    public WebElement TextBox_StreetAddress () { return findElement("DriverDetails_Address1", LocatorType.Id); }
+    public WebElement TextBox_StreetAddress () { return findElement("Address1", LocatorType.Name); }
 
     public WebElement List_StreetAddress(){return  findElement("//div[@id='divPlacesResult']/div[1]",LocatorType.XPath);}
 
     //Details - Address Information - City
-    public WebElement TextBox_City () { return findElement("City", LocatorType.Id); }
+    public WebElement TextBox_City () { return findElement("City", LocatorType.Name); }
 
     //Details - Address Information - State
     public WebElement DropDown_State () { return findElement("DriverDetails_State", LocatorType.Id); }
+    public WebElement TextBox_State () { return findElement("State", LocatorType.Name); }
 
     //Details - Address Information - Zip Code
-    public WebElement TextBox_ZipCode () { return findElement("DriverDetails_ZipPostalCode", LocatorType.Id); }
+    public WebElement TextBox_ZipCode () { return findElement("ZipPostalCode", LocatorType.Name); }
 
     //Details - Address Information - Zip Code - Error
     public WebElement Err_ZipCode () { return findElement("DriverDetails_ZipPostalCode-error", LocatorType.Id); }
@@ -86,7 +87,7 @@ public class Driver_DetailsPage extends PageBase {
     public WebElement CheckBox_Consent () { return findElement("//input[@id='DriverDetails.HasBackgroundConsent']/following-sibling::label", LocatorType.XPath); }
 
     //Details - Next Button
-    public WebElement Button_DetailsNext () { return findElement("//span[contains(text(),'Driver Details')]", LocatorType.XPath); }
+    public WebElement Button_DetailsNext () { return findElement("//li[contains(text(),'Driver Details')]", LocatorType.XPath); }
 
     public WebElement DropZoneHiddenFileTag_ProfileImage () { return findElement("//input[@class = 'dz-hidden-input']", LocatorType.XPath, true); }
 
@@ -94,13 +95,13 @@ public class Driver_DetailsPage extends PageBase {
 
     public WebElement loading_Wrapper(boolean...ignoreException){ return  findElement("modal-backdrop fade in",LocatorType.ClassName,ignoreException); }
 
-    public  WebElement Menu_DriverDetails () { return findElement("//li[@id='driver-details']/a", LocatorType.XPath); }
+    public  WebElement Menu_DriverDetails () { return findElement("//li[contains(text(),'Driver Details')]", LocatorType.XPath); }
 
     public WebElement Textbox_DriverDetails_SSN () { return findElement("SocialSecurityNumber", LocatorType.Id); }
 
-    public WebElement Textbox_DriverDetails_DOB () { return findElement("DateOfBirth", LocatorType.Id); }
+    public WebElement Textbox_DriverDetails_DOB () { return findElement("DateOfBirth", LocatorType.Name); }
 
-    public WebElement Button_Update () { return findElement("btnUpdate", LocatorType.Id); }
+    public WebElement Button_Update () { return findElement("//button[text()='UPDATE']", LocatorType.XPath); }
 
     public WebElement Button_Submit () { return findElement("btnsend", LocatorType.Id);}
 
@@ -144,5 +145,11 @@ public class Driver_DetailsPage extends PageBase {
 
     public WebElement Value_HoursWorkedQuarterDate () { return findElement("//p[contains(text(),'Hours worked quarter to date')]/following-sibling::h2",LocatorType.XPath);}
 
+    //Driver Basic info
+    public WebElement Button_BasicInfo () { return findElement("//li[contains(text(),'Driver Basic Info')]", LocatorType.XPath); }
+    public WebElement TextBox_FirstName () { return findElement("FirstName", LocatorType.Name); }
+    public WebElement TextBox_LastName () { return findElement("LastName", LocatorType.Name); }
+    public WebElement TextBox_Email () { return findElement("EmailAddress", LocatorType.Name); }
+    public WebElement TextBox_PhoneNumber () { return findElement("PhoneNo", LocatorType.Name); }
 
 }

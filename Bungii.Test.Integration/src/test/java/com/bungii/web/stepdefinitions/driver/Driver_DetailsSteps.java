@@ -208,9 +208,12 @@ public class Driver_DetailsSteps extends DriverBase {
         try{
         switch (strArg1) {
             case "Driver Details":
+                Thread.sleep(3000);
                 action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Details.Button_DetailsNext(), (long) 5000);
+                Thread.sleep(3000);
                 action.click(Page_Driver_Details.Button_DetailsNext());
                 break;
+            case"Vehicle Information":
             case "Pickup Information":
                 action.click(Page_Driver_PickupInfo.Button_PickUpNext());
                 break;
@@ -224,8 +227,17 @@ public class Driver_DetailsSteps extends DriverBase {
             case "Terms & Conditions":
                 action.click(Page_Driver_Terms.Button_TermsNext());
                 break;
+            case "Privacy Policy":
+                action.click(Page_Driver_Terms.Button_PrivacyPolicyNext());
+                break;
             case "Video Training":
                 action.click(Page_Driver_Video.Button_VideoNext());
+                break;
+            case "Driver Basic Info":
+                Thread.sleep(3000);
+                action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Details.Button_BasicInfo(), (long) 5000);
+                Thread.sleep(3000);
+                action.click(Page_Driver_Details.Button_BasicInfo());
                 break;
             default:
                 break;
@@ -533,4 +545,65 @@ public class Driver_DetailsSteps extends DriverBase {
         return cal.getTime();
     }
 
+    @And("I verify all fields on {string} page")
+    public void iVerifyAllFieldsOnPage(String page) {
+        try{
+            switch (page){
+                case "Driver Basic Info":
+                    Thread.sleep(3000);
+                    testStepAssert.isFalse(Page_Driver_Details.TextBox_FirstName().isEnabled(),"First name should be uneditable on driver portal",
+                            "First name is uneditable on driver portal","First name  is editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_Details.TextBox_LastName().isEnabled(),"Last name  should be uneditable on driver portal",
+                            "Last name is uneditable on driver portal","Last name editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_Details.TextBox_Email().isEnabled(),"Email  should be uneditable on driver portal",
+                            "Email is uneditable on driver portal","Email is editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_Details.TextBox_PhoneNumber().isEnabled(),"Phone number should be uneditable on driver portal",
+                            "Phone number is uneditable on driver portal","Phone number is editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_Details.Button_Update().isEnabled(),"Update button should be disabled on driver portal",
+                            "Update button is disabled  on driver portal","Update button is enabled on driver portal");
+                    break;
+                case "Driver Details":
+                    Thread.sleep(3000);
+                    testStepAssert.isFalse(Page_Driver_Details.TextBox_StreetAddress().isEnabled(),"Street address should be uneditable on driver portal",
+                            "Street address is uneditable on driver portal","Street address is editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_Details.TextBox_City().isEnabled(),"City should be uneditable on driver portal",
+                            "City is uneditable on driver portal","City editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_Details.TextBox_State().isEnabled(),"State should be uneditable on driver portal",
+                            "State is uneditable on driver portal","State is editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_Details.TextBox_ZipCode().isEnabled(),"Zipcode should be uneditable on driver portal",
+                            "Zipcode is uneditable on driver portal","Zipcode is editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_Details.Button_Update().isEnabled(),"Update button should be disabled on driver portal",
+                            "Update button is disabled  on driver portal","Update button is enabled on driver portal");
+                    break;
+                case "Vehicle Information":
+                    Thread.sleep(3000);
+                    testStepAssert.isFalse(Page_Driver_PickupInfo.TextBox_PickupMake().isEnabled(),"Vehicle make should be uneditable on driver portal",
+                            "Vehicle make is uneditable on driver portal","Vehicle make is editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_PickupInfo.TextBox_PickupModel().isEnabled(),"Vehicle model should be uneditable on driver portal",
+                            "Vehicle model is uneditable on driver portal","Vehicle model editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_PickupInfo.DropDown_PickupYear().isEnabled(),"Year should be uneditable on driver portal",
+                            "Year is uneditable on driver portal","Year is editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_PickupInfo.TextBox_LicenseNo().isEnabled(),"VehicleNumber should be uneditable on driver portal",
+                            "VehicleNumber is uneditable on driver portal","VehicleNumber is editable on driver portal");
+                    testStepAssert.isFalse(Page_Driver_Details.Button_Update().isEnabled(),"Update button should be disabled on driver portal",
+                            "Update button is disabled  on driver portal","Update button is enabled on driver portal");
+                    break;
+                case "Documentation":
+                    testStepAssert.isTrue(Page_Driver_Doc.TextBox_LicenseNumber().isEnabled(),"License number should be editable on driver portal",
+                            "License number is editable on driver portal","License number is not editable on driver portal");
+                    testStepAssert.isTrue(Page_Driver_Doc.TextBox_LicenseExpiry().isEnabled(),"License expiry should be editable on driver portal",
+                            "License expiry is editable on driver portal","License expiry is not editable on driver portal");
+                    testStepAssert.isTrue(Page_Driver_Doc.TextBox_InsuranceExpiry().isEnabled(),"Insurance Expiry should be editable on driver portal",
+                            "Insurance Expiry is editable on driver portal","Insurance Expiry is not editable on driver portal");
+                    testStepAssert.isTrue(Page_Driver_Details.Button_Update().isEnabled(),"Update button should be enabled on driver portal",
+                            "Update button is enabled  on driver portal","Update button is disabled on driver portal");
+                    break;
+            }
+            log("I check for data ","I checked for data ", false);
+        }catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

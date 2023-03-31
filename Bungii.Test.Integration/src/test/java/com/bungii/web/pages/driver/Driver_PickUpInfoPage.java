@@ -10,16 +10,16 @@ public class Driver_PickUpInfoPage extends PageBase {
     public WebElement Err_PickupInfo_AllBlank () { return findElement("summary2", LocatorType.Id); }
 
     //Pickup Information - Pickup make
-    public WebElement TextBox_PickupMake () { return findElement("DriverVehicleDetails_Make", LocatorType.Id); }
+    public WebElement TextBox_PickupMake () { return findElement("Make", LocatorType.Name); }
 
     //Pickup Information - Pickup model
-    public WebElement TextBox_PickupModel () { return findElement("DriverVehicleDetails_Model", LocatorType.Id); }
+    public WebElement TextBox_PickupModel () { return findElement("Model", LocatorType.Name); }
 
     //Pickup Information - Pickup year
-    public WebElement DropDown_PickupYear () { return findElement("DriverVehicleDetails_Year", LocatorType.Id); }
+    public WebElement DropDown_PickupYear () { return findElement("Year", LocatorType.Name); }
 
     //Pickup Information - License plate number
-    public WebElement TextBox_LicenseNo () { return findElement("DriverVehicleDetails_VehicleNumber", LocatorType.Id); }
+    public WebElement TextBox_LicenseNo () { return findElement("VehicleNumber", LocatorType.Name); }
 
     //Pickup Information - Truck Image Upload
     public WebElement DropZone2_TruckImages () { return findElement("//div[@id='dropzone2']", LocatorType.XPath); }
@@ -40,7 +40,7 @@ public class Driver_PickUpInfoPage extends PageBase {
     public WebElement Link_Truck1Image_Remove () { return findElement("//div[@id='dropzone2']/div[2]/a[text()='Remove file']", LocatorType.XPath); }
 
     //ickup Information - Next Button
-    public WebElement Button_PickUpNext () { return findElement("//span[contains(text(),'Vehicle Information')]", LocatorType.XPath); }
+    public WebElement Button_PickUpNext () { return findElement("//li[contains(text(),'Vehicle Information')]", LocatorType.XPath); }
 
     public WebElement DropZoneHiddenFileTag_TruckImage () { return findElement("//input[@class = 'dz-hidden-input'][2]", LocatorType.XPath, true );}
 

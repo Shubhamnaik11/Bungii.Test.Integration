@@ -530,6 +530,14 @@ public class DbUtility extends DbContextManager {
         return slotUsedCount;
     }
 
+    public String getRecord(String phonenumber) {
+        String record = "";
+        String queryString = "select phone from driver where phone ="+phonenumber;
+        record = getDataFromMySqlServer(queryString);
+        logger.detail("Records present is" + record);
+        return record;
+    }
+
     public String getSlotUsedCountByStoreName(String date, String time, String storeName) {
         String slotUsedCount = "";
         String queryString = "SELECT slot_used_count\n" +
