@@ -35,11 +35,11 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Text_Service_Level() { return findElement("//td[contains(text(),'Service Level')]/following-sibling::td/strong",LocatorType.XPath);}
 
-    public WebElement Text_Estimated_Charge() { return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong",LocatorType.XPath);}
+    public WebElement Text_Estimated_Charge() { return findElement("//body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div[3]/div/div/table/tbody/tr[1]/td[2]",LocatorType.XPath);}
 
-    public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[contains(text(),'Driver Earnings')]/following::td[1]/strong",LocatorType.XPath);}
+    public WebElement Text_Driver_Est_Earnings_Customer_Delivery() { return findElement("//td[contains(text(),'Driver Earnings')]/following::td[1]",LocatorType.XPath);}
 
-    public WebElement Text_Driver_Est_Eranings() { return findElement("//tr[19]/td/strong",LocatorType.XPath);}
+    public WebElement Text_Driver_Est_Eranings() { return findElement("//tr[2]/td[2]",LocatorType.XPath);}
 
     public WebElement Text_Driver_Est_Eranings_Fnd() { return findElement("//tr[19]/td/strong",LocatorType.XPath);}
 
@@ -53,7 +53,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Button_Ok() { return findElement("//button[text()='ok']",LocatorType.XPath);}
 
-    public WebElement Button_Price_Override(boolean...ignoreException) { return findElement("//td[contains(text(),'Estimated Charge')]/following-sibling::td/strong/a",LocatorType.XPath,ignoreException);}
+    public WebElement Button_Price_Override(boolean...ignoreException) { return findElement("//a[contains(text(),'Price Override')]",LocatorType.XPath,ignoreException);}
 
     public WebElement Textbox_Override_Customer_Price() { return findElement("//input[@name='CustomerPrice']",LocatorType.XPath);}
 

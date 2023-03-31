@@ -244,6 +244,7 @@ Feature: Admin_Delivery_Type_Change
 		  |  Status |
 		  | Assigning Driver(s) |
 	  When I view the delivery details
+	  And I click on "Payment Details" button on delivery details
 	  Then I note the Driver Est. Earnings for the search delivery
 	  And I navigate back to Scheduled Deliveries
 	  And I click on "Edit" link beside scheduled bungii
@@ -284,6 +285,7 @@ Feature: Admin_Delivery_Type_Change
 		  | Solo |
 	  And the cost of the delivery should be zero
 	  When I view the delivery details
+	  And I click on "Payment Details" button on delivery details
 	  Then I confirm that Driver Est. Earnings for the delivery remain same
   	  And I navigate back to Scheduled Deliveries
 	  Then I should be able to see the respective bungii with the below status

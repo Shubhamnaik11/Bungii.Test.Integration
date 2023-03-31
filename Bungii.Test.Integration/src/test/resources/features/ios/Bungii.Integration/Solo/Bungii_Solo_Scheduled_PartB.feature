@@ -85,7 +85,10 @@ Feature: Solo Scheduled Bungii Part B
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
     When I accept selected Bungii
-    
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
+    And I click "OK" button on alert message
+
 	And I view and try accepting virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
     Then user is virtually alerted for "PICKUP ALREADY ACCEPTED BY YOU"
     And I cancel all bungiis of customer

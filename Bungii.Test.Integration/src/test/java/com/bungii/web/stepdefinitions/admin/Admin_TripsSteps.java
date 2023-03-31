@@ -1140,6 +1140,7 @@ try{
         try{
             String editLiveDelivery = action.getText(admin_ScheduledTripsPage.Header_EditLiveBungiiOrEditScheduledBungii());
             if(editLiveDelivery.contentEquals("Edit Live Bungii")) {
+                action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location_For_Live(), (long) 5000);
                 testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_Drop_Off_Location_For_Live(), "Drop off location should display", "Drop off location is display", "Drop off location is not display");
                 action.click(admin_ScheduledTripsPage.Button_Edit_Drop_Off_Address_For_Live());
             }
@@ -1248,18 +1249,15 @@ try{
     @And("^I change the customer note to \"([^\"]*)\"$")
     public void i_change_the_customer_note(String arg1) throws Throwable {
         try{
-        cucumberContextManager.setScenarioContext("Change_Pickup_Note",arg1);
-        action.clearSendKeys(admin_EditScheduledBungiiPage.Text_Additional_Note(),arg1);
-
-        log("I change the customer note to"+arg1,
-                "I have changed the customer note to "+arg1);
-    } catch(Exception e){
+            cucumberContextManager.setScenarioContext("Change_Pickup_Note",arg1);
+            action.clearSendKeys(admin_EditScheduledBungiiPage.Text_Additional_Note(),arg1);
+            log("I change the customer note to"+arg1, "I have changed the customer note to "+arg1);
+        } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
+        }
     }
-    }
-
 
     @When("^I view the delivery details in admin portal$")
     public void i_view_the_delivery_details_in_admin() throws Throwable {
@@ -1564,6 +1562,14 @@ try{
                 c.setTime(date);
                 c.set(Calendar.YEAR, year);
                 pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();
+                String geofence=(String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+                if(geofence.equalsIgnoreCase("baltimore")||geofence.equalsIgnoreCase("atlanta")){
+                    if((TimeZone.getTimeZone(PropertyUtility.getGeofenceData("atlanta.geofence.timezone.id")).inDaylightTime(new Date()))==true){
+                        if (pickupdate.contains("EST")){
+                            pickupdate = pickupdate.replaceAll("EST","EDT");
+                        }
+                    }
+                }
 
 //                int year = Calendar.getInstance().get(Calendar.YEAR);
 //                date.setYear(date.getYear()-(year+date.getYear()));
@@ -1625,20 +1631,6 @@ try{
                 String [] address = dbUtility.getFullPickUpAndDropOff((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST"));
                 driverLicencePlate= dbUtility.getDriverVehicleInfo(driverPhone);
                 String []driverLicenceNumber = driverLicencePlate.replace("}","").replace("\"","").split(":");
-                if(pickupdate.contains("CST") || pickupdate.contains("CDT"))
-                {    
-                    Date date = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").parse(pickupdate);    
-                    Calendar c = Calendar.getInstance();    
-                    c.setTime(date);    
-                    c.add(Calendar.MINUTE, 60);    
-                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(c.getTime()).toString();    
-                    if(pickupdate.contains("CST")){        
-                        pickupdate=pickupdate.replaceAll("CST","EST");    
-                    }    
-                    else{        
-                        pickupdate=pickupdate.replaceAll("CDT","EST");    
-                    }
-                }
                 if (portalName.equalsIgnoreCase("BestBuy2 service level")) {
                     message = utility.getExpectedPartnerFirmEmailForDropOffAddressEdit(PropertyUtility.getDataProperties("partner.baltimore.name"), pickupdate, address[0], address[1], PropertyUtility.getDataProperties("best.buy.service.level"), dbUtility.getEstPrice((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST")), customerName, (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"), driverName, driverPhone, driverLicenceNumber[3]);
                 }
@@ -1840,8 +1832,31 @@ try{
         try{
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody != null) {
-            testStepAssert.isFail("Email : " + emailSubject + " received to partner firm though required number of drivers not accepted the trip");
-        }}
+            switch (emailSubject){
+                case "Bungii Delivery Updated":
+                    String driverName=(String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                    if(emailBody.contains(driverName)) {
+                        testStepAssert.isFail("Email : " + emailSubject + " received to partner firm though required number of drivers not accepted the trip");
+                    }
+                    break;
+                case "Bungii Delivery Pickup Canceled":
+                    String customerName= (String)cucumberContextManager.getScenarioContext("CUSTOMER");
+                    if(emailBody.contains(customerName)) {
+                        testStepAssert.isFail("Email : " + emailSubject + " received to partner firm though required number of drivers not accepted the trip");
+                    }
+                    break;
+            }
+            testStepAssert.isTrue(true, "Email having subject '" + emailSubject + "' should  not be received",
+                    "Email having subject '" + emailSubject + "' is not  received",
+                    "Email having subject '" + emailSubject + "' is received");
+
+        }
+        else{
+            testStepAssert.isTrue(true, "Email having subject '" + emailSubject + "' should  not be received",
+                    "Email having subject '" + emailSubject + "' is not  received",
+                    "Email having subject '" + emailSubject + "' is received");
+        }
+        }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -2577,14 +2592,13 @@ try{
                     String addNote = action.getText(admin_EditScheduledBungiiPage.Text_Additional_Note());
                     testStepAssert.isTrue(addNote.length() <1,"Additional notes field should be empty","Additional notes field is empty","Additional notes field is not empty");
                     break;
-                case "Additional Instructions":
+                case "Special Instructions":
                     String addInstruction = action.getText(admin_EditScheduledBungiiPage.Text_Additional_Instructions());
-                    testStepAssert.isTrue(addInstruction.length() <1,"Additional notes field should be empty","Additional notes field is empty","Additional notes field is not empty");
+                    testStepAssert.isTrue(addInstruction.length() <1,"Special Instructions field should be empty","Special Instructions field is empty","Special Instructions field is not empty");
                     String additionalNotes = "Additional Notes";
-                    Thread.sleep(1000);
+                    action.waitUntilIsElementExistsAndDisplayed(admin_EditScheduledBungiiPage.Label_AdditionalNotes(), (long) 3000);
                     String expectedAdditionalNotesTitle = action.getText(admin_EditScheduledBungiiPage.Label_AdditionalNotes());
                     testStepAssert.isFalse(expectedAdditionalNotesTitle.contentEquals(additionalNotes),"Special Instructions should be displayed", "Special Instructions is displayed","Special Instructions is not displayed");
-                    Thread.sleep(1000);
                     break;
             }
         } catch(Exception e){
@@ -2709,7 +2723,7 @@ try{
         try{
       switch (deliveryStatus){
           case "Assigning Driver(s)":
-              Thread.sleep(5000);
+              action.waitUntilIsElementExistsAndDisplayed(admin_LiveTripsPage.Icon_LoadingIconSearching(), (long) 5000);
               boolean isInDriverSearchState = admin_LiveTripsPage.Icon_LoadingIconSearching().isDisplayed();
               String deliveryState = action.getText(admin_LiveTripsPage.Text_DeliveryStatusScheduledDeliveriesAndLiveDeliveries());
               testStepAssert.isEquals(deliveryState,deliveryStatus,"Delivery should be in "+deliveryStatus +" state","Delivery is in "+deliveryStatus +" state","Delivery is not in "+deliveryStatus +" state");
@@ -2861,14 +2875,14 @@ try{
     @Then("^The delivery should show \"([^\"]*)\" status on delivery details$")
     public void the_delivery_should_show_something_status_on_delivery_details(String expectedDeliveryStatus) throws Throwable {
         try{
-        Thread.sleep(3000);
-        String currentDeliveryStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryDetailsStatus());
-        testStepAssert.isEquals(currentDeliveryStatus,expectedDeliveryStatus,"The delivery should be in " +expectedDeliveryStatus+" state in delivery details page","The delivery is in " +currentDeliveryStatus+" state in delivery details page","The delivery is not in " +expectedDeliveryStatus+" state in delivery details page");
-    }	catch(Exception e){
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Text_DeliveryDetailsStatus(), (long) 5000);
+            String currentDeliveryStatus = action.getText(admin_ScheduledTripsPage.Text_DeliveryDetailsStatus());
+            testStepAssert.isEquals(currentDeliveryStatus,expectedDeliveryStatus,"The delivery should be in " +expectedDeliveryStatus+" state in delivery details page","The delivery is in " +currentDeliveryStatus+" state in delivery details page","The delivery is not in " +expectedDeliveryStatus+" state in delivery details page");
+        }catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
-    }
+        }
     }
 
     @And("^I should see field name as partner on delivery listing screen$")

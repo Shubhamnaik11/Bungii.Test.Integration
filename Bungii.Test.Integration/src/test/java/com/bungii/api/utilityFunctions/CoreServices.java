@@ -1102,7 +1102,7 @@ public class CoreServices extends DriverBase {
             String RequestText = "API REQUEST : Set Status of pickup id : "+ pickupID + " | Authtoken : "+ authToken + " | Status ID : "+ statusID +" at "+ utcTime;
 
             cucumberContextManager.setScenarioContext("ONDEMAND_PICKUP_ID",pickupID);
-            Double[] driverLocations = DbUtility.getDriverLocation((String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"));
+            Float[] driverLocations = utility.getDriverLocation((String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"));
                 String waypointId=DbUtility.getWaypointId((String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST"),statusID);
                 JSONObject driverCoordinates = new JSONObject();
                 driverCoordinates.put("Latitude", driverLocations[0]);

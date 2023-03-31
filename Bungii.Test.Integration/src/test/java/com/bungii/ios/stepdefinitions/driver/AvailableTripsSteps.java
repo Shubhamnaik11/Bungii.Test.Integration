@@ -106,9 +106,9 @@ public class AvailableTripsSteps extends DriverBase {
                     testStepAssert.isEquals(partnerName, partnerNameExpected, "Partner Portal name should be display in " + Screen + " section", "Partner Portal name is displayed in " + Screen + " section", "Partner Portal name is not displayed in " + Screen + " section");
                     break;
 
-				case "EN ROUTE":
-				case "ARRIVED":
-				case "LOADING ITEMS":
+				case "EN ROUTE TO PICKUP":
+				case "ARRIVED AT PICKUP":
+				case "LOADING ITEMS AT PICKUP":
 					String portal = (String) cucumberContextManager.getScenarioContext("Portal_Name");
 					String namePartner= availableTripsPage.Text_PartnerName(portal).getText();
 					String expectedName = (String) cucumberContextManager.getScenarioContext("Partner_Portal_Name");
@@ -116,7 +116,7 @@ public class AvailableTripsSteps extends DriverBase {
 					break;
 
                 case "DRIVING TO DROP-OFF":
-                case "UNLOADING ITEMS"://
+                case "UNLOADING ITEMS AT DROP-OFF"://
 					String expectedCustomerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
 					String customerNamehalf = expectedCustomerName.substring(0,28);
 					String nameCustomer= action.getText(availableTripsPage.Text_PartnerName(customerNamehalf));
