@@ -138,11 +138,11 @@ public class Admin_DriverDetails extends DriverBase{
             Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
             inputdate.setYear(new Date().getYear());
             ZoneId zoneId = TimeZone.getDefault().toZoneId();
-            if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
+            /*if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
              if (timezone=="EST" || timezone=="CST")
                      inputdate.setHours(inputdate.getHours() + 1); /// EDT time when changed to EST it looses 1 hour thus added this code
-            }
+            }*/
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate); // removed ss
             formattedDate= utility.getbungiiDayLightTimeValue(formattedDate);
             XPath = String.format("//a[text()='%s']/parent::td/following-sibling::td[8]", formattedDate);

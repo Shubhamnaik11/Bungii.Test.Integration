@@ -68,7 +68,7 @@ Feature: Admin_Delivery_Type_Change
 	When I click on "Edit Trip Details" radiobutton
 	And I change delivery type from "Duo to Solo"
 	And I click on "VERIFY" button
-	Then I should see "Solo trips cannot have 2 drivers." message on edit popup
+	Then I should see "Solo trip cannot have 2 drivers" message on edit popup
 	When I remove non control driver "Testdrivertywd_appledc_a_webnn Testdrivernn" on edit popup
 	And I change delivery type from "Duo to Solo"
 	And I click on "VERIFY" button
@@ -114,7 +114,7 @@ Feature: Admin_Delivery_Type_Change
 	When I click on "Edit Trip Details" radiobutton
 	And I change delivery type from "Duo to Solo"
 	And I click on "VERIFY" button
-	Then I should see "Solo trips cannot have 2 drivers." message on edit popup
+	Then I should see "Solo trip cannot have 2 drivers" message on edit popup
 	When I remove control driver "Testdrivertywd_appledc_a_weboo Testdriveroo" on edit popup
  
 	#And I change delivery type from "Duo to Solo"

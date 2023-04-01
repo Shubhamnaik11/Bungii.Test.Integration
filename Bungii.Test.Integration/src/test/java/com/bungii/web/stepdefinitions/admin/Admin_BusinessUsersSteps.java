@@ -541,6 +541,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         action.click(admin_BusinessUsersPage.DropDown_Partner());
+        Thread.sleep(3000);
         action.selectElementByText(admin_BusinessUsersPage.DropDown_Partner(),Name);
         log("I select "+uniqueno+" from Bulk Trips page",
                 "I have selected "+uniqueno+" from Bulk Trips page", false);

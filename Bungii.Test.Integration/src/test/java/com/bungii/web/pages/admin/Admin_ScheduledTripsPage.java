@@ -89,7 +89,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Checkbox_NonControlDriverEdit () { return findElement( "//div[@class='driver-checkbox w1']/input[@id='checkbox1']", LocatorType.XPath);}
 
-    public WebElement Button_RemoveDriversEdit () { return findElement("//body/div[3]/div[1]/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[9]/button[1]/strong[1]", LocatorType.XPath); }
+    public WebElement Button_RemoveDriversEdit () { return findElement("(//strong[text()='Remove'])[2]", LocatorType.XPath); }
 
     public WebElement Label_DriverRemovalSuccessMessage () { return findElement( "//i[text()='Driver(s) removed successfully']" , LocatorType.XPath); }
 
@@ -223,7 +223,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_HistoryNewValueDataPreviousEdit(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[2]/td[3]",LocatorType.XPath);}
 
 
-    public WebElement Text_HistoryEventValueRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[1]",LocatorType.XPath);}
+    public WebElement Text_HistoryEventValueRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[2]/td[1]",LocatorType.XPath);}
 
     public WebElement Text_HistoryOldValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[2]",LocatorType.XPath);}
 
