@@ -218,7 +218,9 @@ public class Driver_DetailsSteps extends DriverBase {
                 action.click(Page_Driver_PickupInfo.Button_PickUpNext());
                 break;
             case "Documentation":
+                Thread.sleep(3000);
                 action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Doc.Button_DocNext(), (long) 3000);
+                Thread.sleep(3000);
                 action.click(Page_Driver_Doc.Button_DocNext());
                 break;
             case "Bank Details":
