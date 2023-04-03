@@ -210,7 +210,6 @@ public class Driver_DetailsSteps extends DriverBase {
             case "Driver Details":
                 Thread.sleep(3000);
                 action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Details.Button_DetailsNext(), (long) 5000);
-                Thread.sleep(3000);
                 action.click(Page_Driver_Details.Button_DetailsNext());
                 break;
             case"Vehicle Information":
@@ -219,8 +218,7 @@ public class Driver_DetailsSteps extends DriverBase {
                 break;
             case "Documentation":
                 Thread.sleep(3000);
-                action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Doc.Button_DocNext(), (long) 3000);
-                Thread.sleep(3000);
+                action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Doc.Button_DocNext(), (long) 5000);
                 action.click(Page_Driver_Doc.Button_DocNext());
                 break;
             case "Bank Details":
@@ -238,7 +236,6 @@ public class Driver_DetailsSteps extends DriverBase {
             case "Driver Basic Info":
                 Thread.sleep(3000);
                 action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Details.Button_BasicInfo(), (long) 5000);
-                Thread.sleep(3000);
                 action.click(Page_Driver_Details.Button_BasicInfo());
                 break;
             default:
@@ -552,7 +549,6 @@ public class Driver_DetailsSteps extends DriverBase {
         try{
             switch (page){
                 case "Driver Basic Info":
-                    Thread.sleep(3000);
                     testStepAssert.isFalse(Page_Driver_Details.TextBox_FirstName().isEnabled(),"First name should be uneditable on driver portal",
                             "First name is uneditable on driver portal","First name  is editable on driver portal");
                     testStepAssert.isFalse(Page_Driver_Details.TextBox_LastName().isEnabled(),"Last name  should be uneditable on driver portal",
@@ -565,8 +561,7 @@ public class Driver_DetailsSteps extends DriverBase {
                             "Update button is disabled  on driver portal","Update button is enabled on driver portal");
                     break;
                 case "Driver Details":
-                    Thread.sleep(3000);
-                    testStepAssert.isFalse(Page_Driver_Details.TextBox_StreetAddress().isEnabled(),"Street address should be uneditable on driver portal",
+                     testStepAssert.isFalse(Page_Driver_Details.TextBox_StreetAddress().isEnabled(),"Street address should be uneditable on driver portal",
                             "Street address is uneditable on driver portal","Street address is editable on driver portal");
                     testStepAssert.isFalse(Page_Driver_Details.TextBox_City().isEnabled(),"City should be uneditable on driver portal",
                             "City is uneditable on driver portal","City editable on driver portal");
@@ -578,7 +573,6 @@ public class Driver_DetailsSteps extends DriverBase {
                             "Update button is disabled  on driver portal","Update button is enabled on driver portal");
                     break;
                 case "Vehicle Information":
-                    Thread.sleep(3000);
                     testStepAssert.isFalse(Page_Driver_PickupInfo.TextBox_PickupMake().isEnabled(),"Vehicle make should be uneditable on driver portal",
                             "Vehicle make is uneditable on driver portal","Vehicle make is editable on driver portal");
                     testStepAssert.isFalse(Page_Driver_PickupInfo.TextBox_PickupModel().isEnabled(),"Vehicle model should be uneditable on driver portal",
