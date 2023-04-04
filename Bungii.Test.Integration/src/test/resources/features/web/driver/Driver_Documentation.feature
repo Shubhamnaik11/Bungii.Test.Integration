@@ -5,8 +5,8 @@ Feature: Driver_Documentation
     Given I navigate to "Bungii Driver URL"
     Then I should be directed to "signup tab" on Driver portal
     When I click on "Login" link
-    #Driver Testdrivertywd_applefl_a_gruH Stark_flOnH
-    And I enter driver Phone number as "9049840063" and valid password
+    #Driver Testdrivertywd_applefl_a_gruF Stark_flOnF
+    And I enter driver Phone number as "9049840062" and valid password
     And I click "LOG IN button" on driver portal
     #And I click Next on "Driver Details" page
     #And I click Next on "Pickup Information" page
