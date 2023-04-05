@@ -54,4 +54,6 @@ public class LiveTripsPage extends PageBase {
     public WebElement Menu_Geofences(){return findElement("adminmenu-geofences",LocatorType.Id);}
 
     public WebElement Button_ApplyGeofenceFilter () { return findElement("btnApplyGeofence", LocatorType.Id); }
+    public WebElement Text_DriverEarnings(){return  findElement("//td[text()='Driver Earnings']/following-sibling::td/strong", LocatorType.XPath);}
+
 }

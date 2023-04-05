@@ -787,7 +787,7 @@ try{
 
     @Then("^the Bungii details is displayed successfully$")
     public void the_bungii_details_is_displayed_successfully() throws Throwable {
-try{
+    try{
         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String status = (String) cucumberContextManager.getScenarioContext("STATUS");
@@ -802,7 +802,7 @@ try{
             Date bungiiDate = formatter.parse(scheduled_time);
             Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
             String formattedDate = new SimpleDateFormat("MMM dd, hh:mm:ss a z").format(inputdate).replace("am", "AM").replace("pm", "PM");
-            String xpath_scheduled_time = "//td[contains(text(),'Scheduled Time')]/following-sibling::td/strong[text()='"+ formattedDate + "']";
+            String xpath_scheduled_time = "//td/strong[contains(text(),'Scheduled Time')]/following::td[1][contains(text(),'"+ formattedDate + "')]";
 
             //Verify that the time the customer scheduled the trip for is added to Trip Details page
             testStepAssert.isElementDisplayed(admin_TripDetailsPage.Label_ScheduledTime(xpath_scheduled_time), "Bungii Scheduled Time should be displayed correctly", "Pass", "Fail");
@@ -827,17 +827,12 @@ try{
             String xpath = String.format("option[text()='%s']", driver1);
             testStepAssert.isElementDisplayed(admin_TripDetailsPage.Dropdown_Drivers().findElement(By.xpath(xpath)), " Driver " + driver1 + " should be displayed", " Driver " + driver1 + " is displayed", " Driver " + driver1 + " is not displayed");
         }
-
-    } catch(Exception e){
+        } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
+        }
     }
-
-    }
-
-
-
     @When("^I click on \"([^\"]*)\" link beside scheduled bungii$")
     public void i_click_on_something_link_beside_scheduled_bungii(String link) throws Throwable {
         try{
