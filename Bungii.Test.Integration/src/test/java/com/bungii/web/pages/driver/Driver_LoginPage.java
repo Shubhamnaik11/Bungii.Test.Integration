@@ -18,13 +18,13 @@ public class Driver_LoginPage extends PageBase {
     public WebElement Err_DriverLogin_FieldValidation() { return findElement("//p[contains(text(),'Incorrect cell phone number or password')]", LocatorType.XPath); }
 
     //driver Login - Phone Field
-    public WebElement TextBox_DriverLogin_Phone() { return findElement("(//div[@id='root']/div/div/div/div/aside/div/div[2]/form/div/input)[1]", LocatorType.XPath); }
+    public WebElement TextBox_DriverLogin_Phone() { return findElement("(//div/label[text()='Phone number'])[2]/following-sibling::input", LocatorType.XPath); }
 
     //driver Login - Phone Field - Error
     public WebElement Err_DriverLogin_Phone() { return findElement("//div[@id='root']/div/div/div/div/aside/div/div[2]/form/div[1]/div[1]", LocatorType.XPath); }
 
     //driver Login - Password Field
-    public WebElement TextBox_DriverLogin_Password() { return findElement("(//div[@id='root']/div/div/div/div/aside/div/div[2]/form/div/input)[2]", LocatorType.XPath); }
+    public WebElement TextBox_DriverLogin_Password() { return findElement("//input[@class='form-control password form-control is-valid']", LocatorType.XPath); }
 
     //driver Login - Login Button
     public WebElement Button_DriverLogin() { return findElement("//button[@class='btn btn-primary']", LocatorType.XPath); }
