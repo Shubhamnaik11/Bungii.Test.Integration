@@ -38,7 +38,7 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Label_ErrorContainerEmail( ) { return findElement("//div[text()='Oops! The email address is invalid.']", LocatorType.XPath); }
 
-    public WebElement DropDown_BusinessUser( ) { return findElement("//span[contains(text(),'Select Partner:')]/parent::div/following-sibling::div/select", LocatorType.XPath); }
+    public WebElement DropDown_BusinessUser( ) { return findElement("//span[contains(text(),'Partner:')]/parent::div/following-sibling::div/select", LocatorType.XPath); }
 
     public WebElement DropDown_BusinessUserUploadDeliveries( ) { return findElement("//span[contains(text(),'Partner:')]/parent::div/following-sibling::div/select", LocatorType.XPath); }
 
@@ -68,7 +68,7 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Label_BulkTripSuccess( ) { return findElement("//div[text()='Deliveries have been requested successfully.']", LocatorType.XPath); }
 
-    public WebElement Button_Ok( ) { return findElement("//button[text()='OK']", LocatorType.XPath); }
+    public WebElement Button_Close( ) { return findElement("//button[contains(text(),'Close')]", LocatorType.XPath); }
 
     public WebElement Button_Confirm( ) { return findElement("//button[contains(text(),'Confirm')]", LocatorType.XPath); }
 

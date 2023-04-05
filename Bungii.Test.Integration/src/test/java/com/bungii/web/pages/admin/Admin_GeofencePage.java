@@ -45,7 +45,7 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Button_Edit() { return findElement("//button[text()=\"Edit\"]", LocatorType.XPath); }
 
-    public WebElement Button_Settings() { return findElement("(//a[text()='cancel']//following-sibling::button)[2]", LocatorType.XPath); }
+    public WebElement Button_Settings() { return findElement("//button[contains(text(),'Settings')]", LocatorType.XPath); }
 
     public WebElement Label_CustomerFAQLink() { return findElement("//td[contains(text(),'Customer FAQ link')]//following-sibling::td[2]", LocatorType.XPath); }
 
@@ -63,12 +63,12 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Label_TripCostPerMinute() { return findElement("//td[contains(text(),'Trip cost per minute')]//following-sibling::td[2]", LocatorType.XPath); }
 
-    public WebElement Checkbox_Solo() {return  findElement("(//tr/td[text()='Driver FAQ link']//following-sibling::td/div/input)[1]",LocatorType.XPath);}
+    public WebElement Checkbox_Solo() {return  findElement("//tr/td[text()='Driver(s) for Scheduled trip']/following-sibling::td/div[1]/input",LocatorType.XPath);}
 
-    public WebElement Checkbox_Duo() {return  findElement("(//tr/td[text()='Driver FAQ link']//following-sibling::td/div/input)[2]", LocatorType.XPath);}
+    public WebElement Checkbox_Duo() {return  findElement("//tr/td[text()='Driver(s) for Scheduled trip']/following-sibling::td/div[2]/input", LocatorType.XPath);}
     public WebElement Button_Next() {return  findElement("//a/span[text()='Next']", LocatorType.XPath);}
 
-    public WebElement Checkbox_OnDemand() {return findElement("//tr/td[text()='Trip cost per mile']//following-sibling::td/div/input", LocatorType.XPath);}
+    public WebElement Checkbox_OnDemand() {return findElement("//tr/td[text()='Driver(s) for On-Demand trip']/following-sibling::td/div/input", LocatorType.XPath);}
 
     public WebElement Label_SettingsError() {return  findElement("//p[text()=\"Active geofence should allow either Scheduled or On demand trip.\"]", LocatorType.XPath);}
 
@@ -76,12 +76,12 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Select_ChicagoGeofence() { return findElement("//tbody[@id='NewApplicantsTBody']/tr/td[contains(text(),'Chicago')]", LocatorType.XPath);}
 
-    public WebElement TextBox_MinimumScheduledtimeforduo(){return findElement("//td[text()='Minimum scheduled time for Duo trip']",LocatorType.XPath);}
+    public WebElement TextBox_MinimumScheduledtimeforduo(){return findElement("//td[text()='Minimum scheduled time for Duo trip']/following-sibling::td/div/div[1]/div/div/input",LocatorType.XPath);}
 
-    public WebElement TextBox_MinimumScheduledtimeforsolo(){return findElement("//td[text()='Minimum scheduled time for Solo trip']",LocatorType.XPath);}
+    public WebElement TextBox_MinimumScheduledtimeforsolo(){return findElement("//td[text()='Minimum scheduled time for Solo trip']/following-sibling::td/div/div[1]/div/div/input",LocatorType.XPath);}
 
-    public WebElement Text_ErrorScheduleTimeForDuo() { return findElement("attributeValueEarliestScheduleTimeDuo-error", LocatorType.Id);}
-    public WebElement Text_ErrorScheduleTimeForSolo() { return findElement("attributeValueEarliestScheduleTimeSolo-error", LocatorType.Id);}
+    public WebElement Text_ErrorScheduleTimeForDuo() { return findElement("//tr/td[text()='Minimum scheduled time for Duo trip']/following-sibling::td/div/div/div/div[2]", LocatorType.XPath);}
+    public WebElement Text_ErrorScheduleTimeForSolo() { return findElement("//tr/td[text()='Minimum scheduled time for Solo trip']/following-sibling::td/div/div/div/div[2]", LocatorType.XPath);}
 
     public WebElement Select_KansasGeofence() { return findElement("//tbody[@id='NewApplicantsTBody']/tr/td[contains(text(),'Kansas')]\n", LocatorType.XPath);}
 
@@ -90,8 +90,8 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement TextBox_Bunggi_Cut_Rate() { return findElement("//div[@class=\"row\"][1]/div[1]/div/div[1]/div/input",LocatorType.XPath);}
     public WebElement TextBox_Driver_Cut_Rate() { return findElement("attributeValueDiverCutPerDelivery",LocatorType.Id);}
 
-    public WebElement TextError_BunggiCut() { return findElement("//label[@id='attributeValueBungiiCutPerDelivery-error']",LocatorType.XPath);}
-    public WebElement TextError_General() { return findElement("//p[contains(text(),'Oops! It looks like you missed something. Please fill out all fields before proceeding.')]",LocatorType.XPath);}
+    public WebElement TextError_BunggiCut() { return findElement("//tr/td[text()='Bungii Cut Per Delivery']/following-sibling::td/div/div[1]/div/div/div[2]",LocatorType.XPath);}
+    public WebElement TextError_General() { return findElement("//span[contains(text(),'Oops! It looks like you missed something. Please f')]",LocatorType.XPath);}
 
     public WebElement Checkbox_Active_Geofences() { return findElement("ActiveGeofencesOnly",LocatorType.Id);}
 

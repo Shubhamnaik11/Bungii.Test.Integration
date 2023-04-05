@@ -2336,7 +2336,7 @@ try{
             testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifiedMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
                 break;
             case "Bungii Saved":
-                Thread.sleep(6000);
+                action.waitUntilIsElementExistsAndDisplayed(admin_EditScheduledBungiiPage.Label_SuccessMessage(), (long) 5000);
                 testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_SuccessMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
                 break;
             case "Pickup request is being processed. You may have to refresh the page.":

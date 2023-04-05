@@ -55,7 +55,7 @@ public class Admin_PromoterPage extends PageBase {
 
     public WebElement Label_SuccessMessage( ) { return findElement("//span[text()='Payment details added successfully for partner.']", LocatorType.XPath); }
 
-    public WebElement Label_CodeInitialsContainer( ) { return findElement("PromoterItem_CodeInitials-error", LocatorType.Id); }
+    public WebElement Label_CodeInitialsContainer( ) { return findElement("//div[contains(text(),'Please enter a valid Code containing alphanumeric ')]", LocatorType.XPath); }
 
     public WebElement TextBox_CreditCardNumber( ) { return findElement("credit-card-number", LocatorType.Id); }
 
