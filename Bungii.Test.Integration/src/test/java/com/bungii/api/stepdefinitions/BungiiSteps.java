@@ -516,7 +516,7 @@ public class BungiiSteps extends DriverBase {
                 break;
 
             case "Testdrivertywd_appleks_a_drvbz Kansas_bz":
-                phone = PropertyUtility.getDataProperties("Kansas.driver74.name");
+                phone = PropertyUtility.getDataProperties("Kansas.driver74.phone");
                 break;
 
             case "Testdrivertywd_appledc_a_drvI WashingtonI":
@@ -752,6 +752,9 @@ public class BungiiSteps extends DriverBase {
                 break;
             case "Testdrivertywd_appledc_a_drvam Washingtonam":
                 phone = PropertyUtility.getDataProperties("Washington.driver43.phone");
+                break;
+            case "Testdrivertywd_appledc_a_drvap Washingtonap":
+                phone = PropertyUtility.getDataProperties("Washington.driver40.phone");
                 break;
             case "Testdrivertywd_appledc_a_drvar Washingtonar":
                 phone = PropertyUtility.getDataProperties("Washington.driver44.phone");
@@ -1321,11 +1324,17 @@ public class BungiiSteps extends DriverBase {
                         if (driver1State.equalsIgnoreCase("Enroute")) {
                             //int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
                             int wait = Integer.parseInt((String)cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START"));
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
-                            Thread.sleep(15000); //hardwait for driver2AccessToken to be non control driver
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
-
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+                                Thread.sleep(15000); //hardwait for driver2AccessToken to be non control driver
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                            }
+                            else
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                            }
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                             if (!driver2State.equalsIgnoreCase("Accepted")) { // new addition
                                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
@@ -1345,98 +1354,164 @@ public class BungiiSteps extends DriverBase {
                             coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
                         }
                         if (driver1State.equalsIgnoreCase("Arrived")) {
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);                            }
+                            else
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                            }
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                         }
                         if (driver2State.equalsIgnoreCase("Arrived")) {
-
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
+                            }
+                            else
+                            {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
+                            }
                             coreServices.driverPollingCalls(pickupRequest, geofence, driver2AccessToken);
                         }
 
                         if (driver1State.equalsIgnoreCase("Loading Items")) {
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                            }
+                            else
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                            }
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                         }
                         if (driver2State.equalsIgnoreCase("Loading Items")) {
-
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
+                            }
+                            else
+                            {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
+                            }
                             coreServices.driverPollingCalls(pickupRequest, geofence, driver2AccessToken);
                         }
 
 
                         if (driver1State.equalsIgnoreCase("Driving To Drop-off") ) {
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+                            }
+                            else
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+                            }
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                         }
                         if (driver2State.equalsIgnoreCase("Driving To Drop-off") ) {
-
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 26);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 26);
+                            }
+                            else
+                            {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 26);
+                            }
                             coreServices.driverPollingCalls(pickupRequest, geofence, driver2AccessToken);
                         }
 
 
 
                         if (driver1State.equalsIgnoreCase("Unloading items")) {
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+                            }
+                            else
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+                            }
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                         }
                         if (driver2State.equalsIgnoreCase("Unloading items")) {
-
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 26);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 27);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 26);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 27);
+                            }
+                            else
+                            {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 27);
+                            }
                             coreServices.driverPollingCalls(pickupRequest, geofence, driver2AccessToken);
                         }
 
                         if (driver1State.equalsIgnoreCase("Bungii Completed")) {
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
-                            coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+                            }
+                            else
+                            {
+                                coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+                            }
                             if (!driver2State.equalsIgnoreCase("Bungii Completed")) {
                                 coreServices.updateStatus(pickupRequest, driverAccessToken, 28);  //Control driver completing trip
                             }
                         }
                         if (driver2State.equalsIgnoreCase("Bungii Completed")) {
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 26);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 27);
-                            coreServices.updateStatus(pickupRequest, driver2AccessToken, 28);
+                            if(DataList.size()==1)
+                            {
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 26);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 27);
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 28);
+                            }
+                            else{
+                                coreServices.updateStatus(pickupRequest, driver2AccessToken, 28);
+                            }
                             if (driver1State.equalsIgnoreCase("Bungii Completed")) {
                                 coreServices.updateStatus(pickupRequest, driverAccessToken, 28);  //Control driver completing trip
                             }

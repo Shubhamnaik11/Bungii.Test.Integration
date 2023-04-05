@@ -1106,6 +1106,10 @@ Feature: Admin_Trips
     And I check if "i" icon is displayed
     When As a driver "Testdrivertywd_appledc_a_drvaa Washingtonaa" and "Testdrivertywd_appledc_a_drvm Driver" perform below action with respective "Duo Scheduled" trip
       | driver1 state | driver2 state |
+      | Arrived       | Arrived       |
+      | Loading Items | Loading Items |
+      | Driving To Drop-off | Driving To Drop-off  |
+      | Unloading items     | Unloading items      |
       |Bungii Completed  |Bungii Completed  |
     And I wait for 2 minutes
     When I view All Deliveries list on the admin portal

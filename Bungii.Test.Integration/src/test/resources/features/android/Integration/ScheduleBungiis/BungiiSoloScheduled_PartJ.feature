@@ -146,6 +146,8 @@ Feature: SoloScheduled Part B
     And I tap on "Available Trips link" on Driver Home page
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
     And I click on the "OK" Button on "Accept Delivery" popup
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip

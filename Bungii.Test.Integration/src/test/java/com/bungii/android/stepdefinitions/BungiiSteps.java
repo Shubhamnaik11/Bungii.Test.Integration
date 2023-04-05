@@ -1329,9 +1329,16 @@ public class BungiiSteps extends DriverBase {
                     String popUpText = action.getText(Page_BungiiRequest.Alert_NewBungiiRequest(true));
                     testStepAssert.isEquals(popUpText,expectedMessage,"Stack trip request should be "+expectedMessage,"Stack trip request is "+popUpText,expectedMessage +" request is not present");
                     break;
-            }
 
-     }catch (Exception e){
+                case "Delivery Accepted":
+                    boolean isDeliveryAcceptedDisplayed =Page_BungiiRequest.Alert_DeliveryAccepted(true).isDisplayed();
+                    testStepAssert.isTrue(isDeliveryAcceptedDisplayed,
+                            "Delivery Accepted confirmation popup should be displayed",
+                            "Delivery Accepted confirmation popup is displayed",
+                            "Delivery Accepted confirmation popup is not displayed");
+                    break;
+                }
+            }catch (Exception e){
             logger.error("Error performing step", e);
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }

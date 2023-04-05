@@ -85,7 +85,7 @@ Feature: SoloScheduled
     And I click on device "BACK" button
     And I click on device "BACK" button
     Then Bungii driver should see "Enroute screen"
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
 
     And I cancel all bungiis of customer
      | Customer Phone  | Customer2 Phone |
@@ -561,6 +561,8 @@ Feature: SoloScheduled
     And I wait for 1 minutes
     And I click on "View Request" button
     And I click on "Accept" button
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
     And I click on the "OK" Button on "Accept Delivery" popup
     And I wait for 1 minutes
     Then Partner firm should receive "Bungii Delivery Scheduled" email
@@ -585,6 +587,8 @@ Feature: SoloScheduled
     And I wait for 1 minutes
     And I click on "View Request" button
     And I click on "Accept" button
+    #CORE-4581: Confirmation of acceptance of delivery in driver's app
+    Then I should see "Delivery Accepted" popup displayed
     And I click on the "OK" Button on "Accept Delivery" popup
     And I Select Trip from driver scheduled trip
     And I start selected Bungii for "floor and decor"

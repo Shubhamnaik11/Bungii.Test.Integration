@@ -223,10 +223,10 @@ Feature: Admin_Schedule_Delivery_Edit
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" for "normal" on partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Testpartner A      |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |Testpartner A        |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
-      |CardNo   |Expiry |Postal_Code      |Cvv      |
+      |CardNo    |Expiry |Postal_Code      |Cvv      |
       |VISA CARD3|12/29  |VALID POSTAL CODE|VALID CVV|
     And I click "Schedule Bungii" button on Partner Portal
     Then I should "see Done screen"
@@ -238,14 +238,14 @@ Feature: Admin_Schedule_Delivery_Edit
       |  Assigning Driver(s)  |
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
-    Then I should see "Additional Instructions" field empty
+    Then I should see "Special Instructions" field empty
 
 
   @ready
   Scenario: To verify admin is able to add notes for customer trips in admin portal when customer has not added any additional notes
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name                         | Customer Note|
-      | NEXT_POSSIBLE | 9999999200     | Testcustomertywd_appleNewM Customer  |      Blank    |
+      | NEXT_POSSIBLE | 9999999200     | Testcustomertywd_appleNewM Customer   |      Blank   |
     And I view the all Scheduled Deliveries list on the admin portal
     And I wait for "2" mins
     Then I should be able to see the respective bungii with the below status

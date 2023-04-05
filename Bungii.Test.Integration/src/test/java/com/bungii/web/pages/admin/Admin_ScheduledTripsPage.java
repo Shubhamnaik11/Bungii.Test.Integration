@@ -31,7 +31,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     //public WebElement Admin_Dropdown_ServiceLevel(String serviceLevel) { return findElement("//li/div/div/span[@class='service-title' and @data-name='"+serviceLevel+"']",LocatorType.XPath);}
     public WebElement Admin_Dropdown_ServiceLevel() { return findElement("//select[@class='service-level-mt form-select']",LocatorType.XPath);}
-    public WebElement Admin_DropdownServiceLevelSelected() { return findElement("//select[@class='service-level-mt form-select']/option[@selected]",LocatorType.XPath);}
+    public WebElement Admin_DropdownServiceLevelSelected() { return findElement("//select[@class='service-level-mt form-select']",LocatorType.XPath);}
     public WebElement Link_Grid_First_Row() { return findElement("//tr[@id='row1']/td[4]/a",LocatorType.XPath);}
     public WebElement Textbox_Drop_Off_Location () { return findElement("//input[contains(@placeholder,'Enter Drop-off Address')]",LocatorType.XPath);}
     public WebElement Textbox_Pickup_Location () { return findElement("//input[contains(@placeholder,'Enter Pickup Address')]",LocatorType.XPath);}
@@ -249,7 +249,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Button_Ok() { return findElement("//div[@id='btnOk']",LocatorType.XPath);}
 
-    public WebElement Text_DeliveryDetailsStatus(){return  findElement("//td[text()=\"Status\"]/following-sibling::td/strong",LocatorType.XPath);}
+    public WebElement Text_DeliveryDetailsStatus(){return  findElement("//h4[contains(text(),'Status :')]/following-sibling::span",LocatorType.XPath);}
 
     public WebElement Text_TripStatus(){return  findElement("//td[text()='Status']/following-sibling::td", LocatorType.XPath);}
 
