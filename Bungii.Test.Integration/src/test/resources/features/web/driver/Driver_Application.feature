@@ -11,8 +11,9 @@ Feature: Driver_Application
 
   #@sanity
   #@ready
+  @outdatedFeature
   @email
-    @knownissue
+    #@knownissue
   Scenario: Verify Driver Signup And Form Completion For Non Fountain Flow
     When I enter "correct" verification code
     And I click "Submit verification code" on driver portal
@@ -43,3 +44,8 @@ Feature: Driver_Application
     And Admin should receive "New driver registration complete!" email
     And the driver logout from dashboard
 
+  @ready
+  Scenario: Verify Driver Signup and check in db
+    When I enter "correct" verification code
+    And I click "Submit verification code" on driver portal
+    Then I verify correct "Records" is set in db

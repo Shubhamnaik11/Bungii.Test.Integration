@@ -59,6 +59,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 utility.NavigateToDriverLogin();
                 break;
             case "Driver Details":
+                action.switchToTab(0);
                 action.click(Page_Driver_Details.Menu_DriverDetails());
                 break;
             case "Delivery Status URL":
