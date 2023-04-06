@@ -66,12 +66,12 @@ Feature: Duo Test
 	Then I should be navigated to "EN ROUTE" screen
  
 	When I Switch to "driver" application on "same" devices
-	And I slide update button on "EN ROUTE" Screen
+	And I slide update button on "EN ROUTE TO PICKUP" Screen
  #   Then I should be navigated to "ARRIVED" trip status screen
 	Then I should be navigated to "ARRIVED" screen
  
 	When I Switch to "driver" application on "Driver2" devices
-	And I slide update button on "EN ROUTE" Screen
+	And I slide update button on "EN ROUTE TO PICKUP" Screen
  #   Then I should be navigated to "ARRIVED" trip status screen
 	Then I should be navigated to "ARRIVED" screen
  
@@ -80,13 +80,13 @@ Feature: Duo Test
 	Then I should be navigated to "ARRIVED" screen
  
 	When I Switch to "driver" application on "same" devices
-	And I slide update button on "ARRIVED" Screen
+	And I slide update button on "ARRIVED AT PICKUP" Screen
 	Then I accept Alert message for "Reminder: both driver at pickup"
  #   And I should be navigated to "LOADING ITEM" trip status screen
 	Then I should be navigated to "LOADING ITEM" screen
  
 	When I Switch to "driver" application on "Driver2" devices
-	And I slide update button on "ARRIVED" Screen
+	And I slide update button on "ARRIVED AT PICKUP" Screen
 	Then I accept Alert message for "Reminder: both driver at pickup"
   #  And I should be navigated to "LOADING ITEM" trip status screen
 	Then I should be navigated to "LOADING ITEMS" screen
@@ -96,12 +96,12 @@ Feature: Duo Test
 	Then I should be navigated to "LOADING ITEMS" screen
  
 	When I Switch to "driver" application on "same" devices
-	And I slide update button on "LOADING ITEMS" Screen
+	And I slide update button on "LOADING ITEMS AT PICKUP" Screen
   #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
 	Then I should be navigated to "DRIVING TO DROP-OFF" screen
  
 	When I Switch to "driver" application on "Driver2" devices
-	And I slide update button on "LOADING ITEMS" Screen
+	And I slide update button on "LOADING ITEMS AT PICKUP" Screen
   #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
 	Then I should be navigated to "DRIVING TO DROP-OFF" screen
  
@@ -124,11 +124,11 @@ Feature: Duo Test
 	Then I should be navigated to "UNLOADING ITEMS" screen
  
 	When I Switch to "driver" application on "same" devices
-	And I slide update button on "UNLOADING ITEMS" Screen
+	And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 	Then I accept Alert message for "Reminder: both driver at drop off"
  
 	When I Switch to "driver" application on "Driver2" devices
-	And I slide update button on "UNLOADING ITEMS" Screen
+	And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 	Then I accept Alert message for "Reminder: both driver at drop off"
  
  

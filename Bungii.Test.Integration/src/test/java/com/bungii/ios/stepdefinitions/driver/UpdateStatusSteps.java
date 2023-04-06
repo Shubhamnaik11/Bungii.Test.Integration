@@ -700,20 +700,20 @@ public class UpdateStatusSteps extends DriverBase {
             int activeStatus = 0;
 
             boolean pageFlag = false;
-            if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
-                pageFlag = isUpdatePage(Status.ARRIVED.toString());
+            if (screen.equalsIgnoreCase(Status.ARRIVED_AT_PICKUP.toString())) {
+                pageFlag = isUpdatePage(Status.ARRIVED_AT_PICKUP.toString());
                 activeStatus = 1;
-            } else if (screen.equals(Status.EN_ROUTE.toString())) {
-                pageFlag = isUpdatePage(Status.EN_ROUTE.toString());
+            } else if (screen.equals(Status.EN_ROUTE_TO_PICKUP.toString())) {
+                pageFlag = isUpdatePage(Status.EN_ROUTE_TO_PICKUP.toString());
                 activeStatus = 0;
-            } else if (screen.equals(Status.LOADING_ITEM.toString())) {
-                pageFlag = isUpdatePage(Status.LOADING_ITEM.toString());
+            } else if (screen.equals(Status.LOADING_ITEMS_AT_PICKUP.toString())) {
+                pageFlag = isUpdatePage(Status.LOADING_ITEMS_AT_PICKUP.toString());
                 activeStatus = 2;
             } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
                 pageFlag = isUpdatePage(Status.DRIVING_TO_DROP_OFF.toString());
                 activeStatus = 3;
-            } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
-                pageFlag = isUpdatePage(Status.UNLOADING_ITEM.toString());
+            } else if (screen.equals(Status.UNLOADING_ITEMS_AT_DROP_OFF.toString())) {
+                pageFlag = isUpdatePage(Status.UNLOADING_ITEMS_AT_DROP_OFF.toString());
                 activeStatus = 4;
             }
 

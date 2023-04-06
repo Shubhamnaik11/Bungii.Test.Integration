@@ -44,7 +44,7 @@ public class Driver_DashboardPage extends PageBase {
 
     public WebElement Menu_Terms() { return findElement("//a[contains(text(),'Terms')]", LocatorType.XPath); }
 
-    public WebElement Menu_TermsAndConditions() { return findElement("//span[contains(text(),'Terms & Conditions')]", LocatorType.XPath); }
+    public WebElement Menu_TermsAndConditions() { return findElement("//a[contains(text(),'Terms & Conditions')]", LocatorType.XPath); }
 
     public WebElement Heading_DriverAgreement() { return findElement("//h1[contains(text(),'Bungii™ Driver Agreement')]", LocatorType.XPath);}
 

@@ -127,6 +127,15 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
               //  action.click(Page_Driver_Doc.TextBox_InsuranceExpiry());
                 action.clearSendKeys(Page_Driver_Doc.TextBox_InsuranceExpiry(), PropertyUtility.getDataProperties("Date_2015"));
                 break;
+            case "update":
+                action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseNumber(),Long.toHexString(Double.doubleToLongBits(Math.random())));
+                action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseExpiry(), PropertyUtility.getDataProperties("ExpirationDate"));
+                action.clearSendKeys(Page_Driver_Doc.TextBox_InsuranceExpiry(), PropertyUtility.getDataProperties("ExpirationDate"));
+                action.click(Page_Driver_Details.Button_Update());
+                testStepVerify.isElementDisplayed(Page_Driver_Doc.Text_ValidationMsg(), "Valdiation message should be displayed ", "Valdiation message is displayed", "Valdiation message is not displayed");
+                testStepAssert.isEquals(action.getText(Page_Driver_Doc.Text_ValidationMsg()),PropertyUtility.getMessage("driver.portal.validation.message"),"Valdiation message displayed should match",
+                        "Valdiation message displayed are matches with expected & actual","Valdiation message displayed does not matches with expected & actual");
+                break;
             default:
                 break;
         }

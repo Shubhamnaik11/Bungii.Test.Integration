@@ -195,19 +195,19 @@ Feature: Scheduled DUO Bungii in Goa Geofence
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select delivery "1" from scheduled deliveries
     And I start selected Bungii
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     
     When I Switch to "driver" application on "Driver2" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select delivery "1" from scheduled deliveries
     And I start selected Bungii
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     
     And I Switch to "customer" application on "ORIGINAL" devices

@@ -305,7 +305,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I am logged in as "Testdrivertywd_applega_a_drvac Atlanta_ac" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
     And I click "More Options" button on "update" screen
     And I click "Customer Signature" button on "update" screen
@@ -322,7 +322,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I view and accept virtual notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
     And I should be able to add customer signature
     And I click "Submit Data" button on "update" screen
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     And I wait for 2 minutes
@@ -360,14 +360,14 @@ Feature: Solo Scheduled Bungii - TELET
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "TestDrivertywd_applemd_a_billF Stark_bltTwOF" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I should see the "Customer signature" header "Displayed"
    #CORE-4665:Verify that drop-off contact name populates in customer name on driver app for partner portal trips
     Then I should see the dropoff contact name under the customer name field
     And I click on "Skip Customer Signature" button
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     And I wait for 2 minutes
@@ -433,9 +433,9 @@ Feature: Solo Scheduled Bungii - TELET
     And I click on "Got It" button
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
     And I should be able to add the text "Signed By customer" in the signed by field
@@ -443,7 +443,7 @@ Feature: Solo Scheduled Bungii - TELET
     And I click on "Clear Signature" button
     And I should be able to add customer signature
     And I click "Submit Data" button on "update" screen
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
@@ -475,24 +475,24 @@ Feature: Solo Scheduled Bungii - TELET
     And I click on "Got It" button
     #CORE-4007 :To verify DUO Team mates animation when non control driver reaches Arrived and Control driver is yet to reach
     Then The "Contact Duo Teammate" "Animation Text" should be displayed
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click on "Got It" button
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
     And I should be able to add the text "Signed By customer" in the signed by field
     And I should be able to add customer signature
     And I click "Submit Data" button on "update" screen
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
@@ -564,9 +564,9 @@ Feature: Solo Scheduled Bungii - TELET
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_applega_a_drvai Atlanta_ai" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I should see the "Customer signature" header "Displayed"
     Then I should see the customers name under the customer name field
     And I should be able to add the text "Signed By customer" in the signed by field
