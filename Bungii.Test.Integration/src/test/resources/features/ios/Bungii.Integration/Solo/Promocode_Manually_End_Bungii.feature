@@ -56,9 +56,9 @@ And I Select Trip from scheduled trip
 And I start selected Bungii
 Then I should be navigated to "EN ROUTE" screen on driverApp
 #Then I should be navigated to "EN ROUTE" screen
-And I slide update button on "EN ROUTE" Screen
-And I slide update button on "ARRIVED" Screen
-And I slide update button on "LOADING ITEMS" Screen
+And I slide update button on "EN ROUTE TO PICKUP" Screen
+And I slide update button on "ARRIVED AT PICKUP" Screen
+And I slide update button on "LOADING ITEMS AT PICKUP" Screen
 And I slide update button on "DRIVING TO DROP-OFF" Screen
   When I Switch to "customer" application on "same" devices
 
@@ -76,7 +76,7 @@ And I switch to "ADMIN" instance
 Then manually end bungii should be "disabled"
 When I switch to "ORIGINAL" instance
 When I Switch to "driver" application on "same" devices
-And I slide update button on "UNLOADING ITEMS" Screen
+And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 #And I click on "Manually End Bungii" link
 #And Enter the End Date and Time
 #And Click on "Calculate Cost" button
@@ -142,9 +142,9 @@ And I click "On To The Next One" button on "Bungii completed" screen
 	And I start selected Bungii
 	#Then I should be navigated to "EN ROUTE" screen
 	Then I should be navigated to "EN ROUTE" screen on driverApp
-	And I slide update button on "EN ROUTE" Screen
-	And I slide update button on "ARRIVED" Screen
-	And I slide update button on "LOADING ITEMS" Screen
+	And I slide update button on "EN ROUTE TO PICKUP" Screen
+	And I slide update button on "ARRIVED AT PICKUP" Screen
+	And I slide update button on "LOADING ITEMS AT PICKUP" Screen
 	And I slide update button on "DRIVING TO DROP-OFF" Screen
 	When I Switch to "customer" application on "same" devices
 	Then Customer should be navigated to "UNLOADING ITEM" trip status screen
@@ -158,7 +158,7 @@ And I click "On To The Next One" button on "Bungii completed" screen
 	  Then manually end bungii should be "disabled"
 	  When I switch to "ORIGINAL" instance
 	  When I Switch to "driver" application on "same" devices
-	  And I slide update button on "UNLOADING ITEMS" Screen
+	  And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 
 	#And I click on "Manually End Bungii" link
 	#And Enter the End Date and Time
@@ -228,9 +228,9 @@ And I click "On To The Next One" button on "Bungii completed" screen
 	And I start selected Bungii
 	#Then I should be navigated to "EN ROUTE" screen
 	Then I should be navigated to "EN ROUTE" screen on driverApp
-	And I slide update button on "EN ROUTE" Screen
-	And I slide update button on "ARRIVED" Screen
-	And I slide update button on "LOADING ITEMS" Screen
+	And I slide update button on "EN ROUTE TO PICKUP" Screen
+	And I slide update button on "ARRIVED AT PICKUP" Screen
+	And I slide update button on "LOADING ITEMS AT PICKUP" Screen
 	And I slide update button on "DRIVING TO DROP-OFF" Screen
 	When I Switch to "customer" application on "same" devices
 	
@@ -244,7 +244,7 @@ And I click "On To The Next One" button on "Bungii completed" screen
 	Then manually end bungii should be "disabled"
 	When I switch to "ORIGINAL" instance
 	When I Switch to "driver" application on "same" devices
-	And I slide update button on "UNLOADING ITEMS" Screen
+	And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 	#And I click on "Manually End Bungii" link
 	#And Enter the End Date and Time
 	#And Click on "Calculate Cost" button

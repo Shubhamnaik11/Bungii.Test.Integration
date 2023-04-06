@@ -189,7 +189,7 @@ Feature: Payment page
     And I am on the "LOG IN" page on driverApp
     And I enter phoneNumber :9955112203 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     And I click "On To The Next One" button on "Bungii completed" screen

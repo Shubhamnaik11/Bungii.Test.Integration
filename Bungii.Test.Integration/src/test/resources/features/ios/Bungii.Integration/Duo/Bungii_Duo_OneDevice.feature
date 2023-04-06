@@ -58,16 +58,16 @@ Feature: Scheduled Bungii on one device
     Then "control driver" eta should be displayed to customer
     
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     Then I should be navigated to "ARRIVED" screen
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "LOADING ITEMS" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     Then I should be navigated to "DRIVING TO DROP-OFF" screen
     Then I check ETA of "control driver"
 
@@ -78,7 +78,7 @@ Feature: Scheduled Bungii on one device
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then I should be navigated to "UNLOADING ITEMS" screen
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I select "4" Ratting star for solo Driver 1
     And I click "Submit" button on "Rate duo teammate" screen
