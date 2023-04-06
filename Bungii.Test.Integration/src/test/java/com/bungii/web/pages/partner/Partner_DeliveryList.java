@@ -72,9 +72,9 @@ public class Partner_DeliveryList extends PageBase {
     public WebElement Button_OK_Admin_Portal() { return findElement("//div/a[text()='ok']",LocatorType.XPath);}
 
     //Estimated Duration on Admin Portal
-    public WebElement Text_Estimated_Duration() { return findElement("//td[contains(text(),'Estimated Duration')]/following-sibling::td[1]",LocatorType.XPath);}
+    public WebElement Text_Estimated_Duration() { return findElement("//td/strong[text()=\"Estimated Duration: \"]/parent::td/following-sibling::td",LocatorType.XPath);}
 
-    public WebElement Text_EstimatedDeliveryTime() { return findElement("//td[contains(text(),'Estimated Delivery Time')]/following-sibling::td[1]",LocatorType.XPath);}
+    public WebElement Text_EstimatedDeliveryTime() { return findElement("//div/h6[contains(text(),'Estimated Delivery Time')]/following-sibling::p",LocatorType.XPath);}
 
     public WebElement Row_DeliveryList(String scheduled_time, String customer) { return findElements(String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", scheduled_time, customer),LocatorType.XPath).get(0);}
 
