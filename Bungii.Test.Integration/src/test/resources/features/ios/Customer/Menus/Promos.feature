@@ -64,13 +64,13 @@ Feature: Promos
     And I Select Trip from scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
     And I start selected Bungii
-    When I slide update button on "EN ROUTE" Screen
-    When I slide update button on "ARRIVED" Screen
+    When I slide update button on "EN ROUTE TO PICKUP" Screen
+    When I slide update button on "ARRIVED AT PICKUP" Screen
     And I Switch to "customer" application on "same" devices
     And I Switch to "driver" application on "same" devices
-    When I slide update button on "LOADING ITEMS" Screen
+    When I slide update button on "LOADING ITEMS AT PICKUP" Screen
     When I slide update button on "DRIVING TO DROP-OFF" Screen
-    When I slide update button on "UNLOADING ITEMS" Screen
+    When I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii Completed" screen
     

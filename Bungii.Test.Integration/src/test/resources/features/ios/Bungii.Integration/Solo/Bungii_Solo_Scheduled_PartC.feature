@@ -108,7 +108,7 @@ Feature: Solo Scheduled Bungii Part C
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
@@ -142,7 +142,7 @@ Feature: Solo Scheduled Bungii Part C
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I select "4" Ratting star for solo Driver 1
     And I click "Submit" button on "Rate duo teammate" screen

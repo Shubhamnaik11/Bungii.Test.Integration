@@ -190,7 +190,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_TripIndicator(boolean...ignoreException){return  findElement("//tr[@id=\"row1\"]/td[1]/label",LocatorType.XPath,ignoreException);}
 
-    public WebElement Text_ScheduledTripDate(){return  findElement("//tr[1]/td[6]/a",LocatorType.XPath);}
+    public WebElement Text_ScheduledTripDate(){return  findElement("//tr[1]/td[5]/a",LocatorType.XPath);}
 
     public WebElement Link_EditScheduleTripCalenderNextMonth(){return  findElement("//div/a[2]/span[1]",LocatorType.XPath);}
 
@@ -223,11 +223,11 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Text_HistoryNewValueDataPreviousEdit(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[2]/td[3]",LocatorType.XPath);}
 
 
-    public WebElement Text_HistoryEventValueRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[1]",LocatorType.XPath);}
+    public WebElement Text_HistoryEventValueRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[2]/td[1]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryOldValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[2]",LocatorType.XPath);}
+    public WebElement Text_HistoryOldValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[3]",LocatorType.XPath);}
 
-    public WebElement Text_HistoryNewValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div[2]/div/table/tbody/tr[3]/td[3]",LocatorType.XPath);}
+    public WebElement Text_HistoryNewValueDataRow2(){return findElement("//div[@id=\"history-tab\"]/div[1]/div/table/tbody/tr[2]/td[2]",LocatorType.XPath);}
 
 //    public WebElement Link_NotesHistoryLiveDelivery(){return findElement("//ul[@class=\"dropdown-menu\"]/li[3]/p",LocatorType.XPath);}
     public WebElement Link_NotesHistoryLiveDelivery(){return findElement("//body/div[@id='popover-basic']/div[2]/div[3]",LocatorType.XPath);}

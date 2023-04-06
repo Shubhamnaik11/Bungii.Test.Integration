@@ -86,7 +86,7 @@ Then I cancel all bungiis of customer
 	And stack trip information should be displayed on deck
 
 #	  Core-3098 Verify online/offline pop up is not shown when driver has accepted stack trip
-	  And I slide update button on "UNLOADING ITEMS" Screen
+	  And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 	  And I click "Skip This Step" button on "Rate customer" screen
 	  Then I should be navigated to "Bungii Completed" screen
 	  When I click "On To The Next One" button on "Bungii completed" screen
@@ -115,7 +115,7 @@ When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
 	And I wait for 2 minutes
 And I view and accept virtual notification for "Driver" for "stack trip"
 When I Switch to "driver" application on "ORIGINAL" devices
-And I slide update button on "UNLOADING ITEM" Screen
+And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 Then I should be navigated to "Bungii Completed" screen
 And I click "Skip This Step" button on "Rate customer" screenAnd I click "Skip This Step" button on "Rate customer" screen
 When I click "On To The Next One" button on "Bungii completed" screen
@@ -338,7 +338,7 @@ Then I cancel all bungiis of customer
 	And I click on "UPDATE BUNGII" button
 	Then The "Pick up has been successfully canceled." message should be displayed for live delivery
 	And I Switch to "driver" application on "ORIGINAL" devices
-	And I slide update button on "UNLOADING ITEM" Screen
+	And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 	And I click "Skip This Step" button on "Rate customer" screen
 	Then I should be navigated to "Bungii Completed" screen
 
@@ -372,6 +372,6 @@ Then I cancel all bungiis of customer
 	And I click on "Confirm" button
 	Then The "Pick up has been successfully updated." message should be displayed for live delivery
 	And I Switch to "driver" application on "ORIGINAL" devices
-	And I slide update button on "UNLOADING ITEM" Screen
+	And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 	And I click "Skip This Step" button on "Rate customer" screen
 	Then I should be navigated to "Bungii Completed" screen

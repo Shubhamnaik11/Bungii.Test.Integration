@@ -16,7 +16,7 @@ public class Driver_DashboardPage extends PageBase {
 
     public WebElement Link_DriverDetails(){return  findElement("driver-details", LocatorType.Id);}
 
-    public WebElement Link_DriverBasicInfo(){return  findElement("//ul/li[2]/a", LocatorType.XPath);}
+    public WebElement Link_DriverBasicInfo(){return  findElement("//li[contains(text(),'Driver Basic Info')]", LocatorType.XPath);}
 
     public WebElement Link_PickupInfo(){return  findElement("pickup-info", LocatorType.Id);}
 

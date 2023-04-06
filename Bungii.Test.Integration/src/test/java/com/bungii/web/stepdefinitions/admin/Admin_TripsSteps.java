@@ -787,7 +787,7 @@ try{
 
     @Then("^the Bungii details is displayed successfully$")
     public void the_bungii_details_is_displayed_successfully() throws Throwable {
-try{
+    try{
         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String status = (String) cucumberContextManager.getScenarioContext("STATUS");
@@ -802,7 +802,7 @@ try{
             Date bungiiDate = formatter.parse(scheduled_time);
             Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
             String formattedDate = new SimpleDateFormat("MMM dd, hh:mm:ss a z").format(inputdate).replace("am", "AM").replace("pm", "PM");
-            String xpath_scheduled_time = "//td[contains(text(),'Scheduled Time')]/following-sibling::td/strong[text()='"+ formattedDate + "']";
+            String xpath_scheduled_time = "//td/strong[contains(text(),'Scheduled Time')]/following::td[1][contains(text(),'"+ formattedDate + "')]";
 
             //Verify that the time the customer scheduled the trip for is added to Trip Details page
             testStepAssert.isElementDisplayed(admin_TripDetailsPage.Label_ScheduledTime(xpath_scheduled_time), "Bungii Scheduled Time should be displayed correctly", "Pass", "Fail");
@@ -827,17 +827,12 @@ try{
             String xpath = String.format("option[text()='%s']", driver1);
             testStepAssert.isElementDisplayed(admin_TripDetailsPage.Dropdown_Drivers().findElement(By.xpath(xpath)), " Driver " + driver1 + " should be displayed", " Driver " + driver1 + " is displayed", " Driver " + driver1 + " is not displayed");
         }
-
-    } catch(Exception e){
+        } catch(Exception e){
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step should be successful", "Error performing step,Please check logs for more details",
                 true);
+        }
     }
-
-    }
-
-
-
     @When("^I click on \"([^\"]*)\" link beside scheduled bungii$")
     public void i_click_on_something_link_beside_scheduled_bungii(String link) throws Throwable {
         try{
@@ -2627,12 +2622,12 @@ try{
                 case "Solo":
                     Thread.sleep(1000);
                     action.click(admin_TripsPage.RadioButton_SoloTrip());
-                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
+//                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
                     break;
                 case "Duo":
                     Thread.sleep(1000);
                     action.click(admin_TripsPage.RadioButton_DuoTrip());
-                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
+//                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
                     break;
             }
             log("I should be able to change delivery type to " + expectedTripTypeStatus,"I could change delivery type to " + expectedTripTypeStatus);
@@ -2761,7 +2756,7 @@ try{
         switch (filterBy){
             case "Assigning Driver(s)":
                 boolean isAssigningDriversCheckboxDisplayed =  admin_TripsPage.CheckBox_AssigningDrivers().isDisplayed();
-                String expectedFilterText = action.getText(admin_TripsPage.Text_AllFilterOptions(4));
+                String expectedFilterText = action.getText(admin_TripsPage.Text_AllFilterOptions(3));
                 testStepAssert.isTrue(isAssigningDriversCheckboxDisplayed,filterBy +" filter checkbox should be displayed" ,filterBy +" filter checkbox is displayed",filterBy +" filter checkbox is not displayed");
                 testStepAssert.isEquals(expectedFilterText,filterBy,filterBy +" Text should be displayed" ,expectedFilterText +" text  is displayed",filterBy +" text is not displayed");
                 break;
@@ -3843,8 +3838,7 @@ try{
                     cucumberContextManager.setScenarioContext("Partner_Schedule_Time", ScheduledDateTime);
                     action.click(admin_ScheduledTripsPage.Text_ScheduledTripDate());
                     String trackingId = action.getText(admin_TripDetailsPage.Text_TrackingId());
-                    String trackingId1[] = trackingId.split(":");
-                    cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY", trackingId1[1]);
+                    cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY", trackingId);
                     String pickup = action.getText(admin_TripDetailsPage.Text_Pickup_Location());
                     cucumberContextManager.setScenarioContext("PickupAddress", pickup);
                     String dropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());

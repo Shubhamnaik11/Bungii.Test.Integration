@@ -38,23 +38,23 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Driver(s) Arrived"
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Loading Items"
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Driving To Dropoff"
     Then manually end bungii should be "disabled"
@@ -66,9 +66,9 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then manually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I see "Rate customer" screen
     And I select "4" customer rating
     #And I click "Submit" button on Rate customer screen
@@ -102,7 +102,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
     When I Switch to "customer" application on "same" devices
@@ -112,7 +112,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I click "More Options" button on "update" screen
     And I click "Take Photo" button on "update" screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
 
     When I Switch to "customer" application on "same" devices
@@ -122,7 +122,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I click "More Options" button on "update" screen
     And I click "Take Photo" button on "update" screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
 
     When I Switch to "customer" application on "same" devices
@@ -139,7 +139,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I click "More Options" button on "update" screen
     And I click "Take Photo" button on "update" screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
 
@@ -192,7 +192,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
 
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -225,7 +225,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     And I click "More Options" button on "update" screen
     And I click "Take Photo" button on "update" screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     And I should be navigated to "Bungii completed" screen
     And I click "On To The Next One" button on "Bungii completed" screen
@@ -257,20 +257,20 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     
     And I view and accept virtual notification for "Driver" for "on demand trip"
     
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     And I click "More Options" button on "update" screen
     And I click "Take Photo" button on "update" screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And I click "More Options" button on "update" screen
     And I click "Take Photo" button on "update" screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
     And I click "More Options" button on "update" screen
     And I click "Take Photo" button on "update" screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I should be navigated to "Bungii Completed" screen
 
     And I Switch to "customer" application on "same" devices

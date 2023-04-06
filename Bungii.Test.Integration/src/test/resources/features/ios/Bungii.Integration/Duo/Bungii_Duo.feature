@@ -51,12 +51,12 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
     #Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
     #Then I should be navigated to "ARRIVED" screen
 
@@ -64,9 +64,9 @@ Feature: Scheduled DUO Bungii
     Then I should see "Your duo teammate is on the way" message
     Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
    # When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
 #    Then I accept Alert message for "Reminder: both driver at pickup"
     Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     #Then I should be navigated to "LOADING ITEMS" screen
@@ -74,9 +74,9 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "Driver2" devices
     Then I should see "Your duo teammate is on the way" message
     Then I should see "Your duo teammate has arrived at the pickup location. Please coordinate to begin loading" message
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
 #    Then I accept Alert message for "Reminder: both driver at pickup"
     Then Trip Information should be correctly displayed on "LOADING ITEMS" status screen for driver
     #Then I should be navigated to "LOADING ITEMS" screen
@@ -85,16 +85,16 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "LOADING ITEM" screen
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
     When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
 #   Then Trip Information should be correctly displayed on "DRIVING TO DROP-OFF" status screen for driver
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
 
@@ -107,15 +107,15 @@ Feature: Scheduled DUO Bungii
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then Trip Information should be correctly displayed on "UNLOADING ITEMS" status screen for driver
     #Then I should be navigated to "UNLOADING ITEMS" screen
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 
     #When I Switch to "driver" application on "Driver2" devices
@@ -184,7 +184,7 @@ Feature: Scheduled DUO Bungii
     Then correct details should do be displayed on BUNGII ACCEPTED with arrival time screen for Stack screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     #Then I should be navigated to "ARRIVED" screen
     Then I should be navigated to "ARRIVED" screen on driverApp
     And stack trip information should be displayed on deck
@@ -194,12 +194,12 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     #Then I should be navigated to "LOADING ITEMS" screen
     Then I should be navigated to "LOADING ITEMS" screen on driverApp
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
     Then I should be navigated to "DRIVING TO DROP-OFF" screen on driverApp
     And stack trip information should be displayed on deck
@@ -209,7 +209,7 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "UNLOADING ITEMS" screen on driverApp
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for long stack trip
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -223,13 +223,13 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     #Then I should be navigated to "ARRIVED" screen
     Then I should be navigated to "ARRIVED" screen on driverApp
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     #Then I should be navigated to "LOADING ITEMS" screen
     Then I should be navigated to "LOADING ITEMS" screen on driverApp
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     #Then I should be navigated to "DRIVING TO DROP-OFF" screen
     Then I should be navigated to "DRIVING TO DROP-OFF" screen on driverApp
     And I slide update button on "DRIVING TO DROP-OFF" Screen
@@ -240,7 +240,7 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "UNLOADING ITEM" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -292,15 +292,15 @@ Feature: Scheduled DUO Bungii
     Then correct details should do be displayed on BUNGII ACCEPTED with arrival time screen for Stack screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     Then I should be navigated to "ARRIVED" screen
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then I should be navigated to "LOADING ITEM" screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -314,15 +314,15 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     Then I should be navigated to "ARRIVED" screen
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then I should be navigated to "LOADING ITEM" screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -379,7 +379,7 @@ Feature: Scheduled DUO Bungii
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for short stack trip
     
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -393,11 +393,11 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -445,7 +445,7 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "UNLOADING ITEM" screen
     And stack trip information should be displayed on deck
     And try to finish time should be correctly displayed for short stack trip
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -454,11 +454,11 @@ Feature: Scheduled DUO Bungii
     Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -500,11 +500,11 @@ Feature: Scheduled DUO Bungii
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
-    When I slide update button on "EN ROUTE" Screen
+    When I slide update button on "EN ROUTE TO PICKUP" Screen
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And I accept Alert message for "Reminder: both driver at pickup"
     When I click on the Duo teammate image
     Then I should see the driver vehicle information
@@ -514,23 +514,23 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_appleks_a_drvaz Kansas_az" driver
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And I accept Alert message for "Reminder: both driver at pickup"
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
@@ -538,7 +538,7 @@ Feature: Scheduled DUO Bungii
     And I click on the Duo teammate image
     When I should see the driver vehicle information
     And I navigate back
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
@@ -556,15 +556,15 @@ Feature: Scheduled DUO Bungii
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
-    When I slide update button on "EN ROUTE" Screen
+    When I slide update button on "EN ROUTE TO PICKUP" Screen
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
     #CORE-4007:To verify DUO Team mates details on Customer DUO delivery
     Then The "Contact Duo Teammate" "Animation Text" should be displayed
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And I accept Alert message for "Reminder: both driver at pickup"
     Then The "Contact Duo Teammate" "Animation Text" should not be displayed
 
@@ -576,31 +576,31 @@ Feature: Scheduled DUO Bungii
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     When I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
 
 
     Then I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
 
 
     When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And I click on the Duo teammate image
     Then I should see the driver vehicle information
     And I navigate back
@@ -612,9 +612,9 @@ Feature: Scheduled DUO Bungii
     And I navigate back
     #CORE-4007:To verify DUO Team mates animation when driver is at UNLOADING ITEMS stage (iOS)
     Then The "Contact Duo Teammate" "Animation Text" should be displayed
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEM" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     #CORE-4007 :To verify DUO Team mates animation is not visible when driver has COMPLETED delivery
     Then The "Contact Duo Teammate" "Animation Text" should not be displayed
@@ -690,37 +690,37 @@ Feature: Scheduled DUO Bungii
     When I Switch to "driver" application on "ORIGINAL" devices
     #CORE:4122:To verify Arrival Time/ Expected time values on various states of duo scheduled in progress Bungii
     Then The "PICKUP(Arrival time)" "Label" should be displayed
-    When I slide update button on "EN ROUTE" Screen
+    When I slide update button on "EN ROUTE TO PICKUP" Screen
     And I click on "GOT IT" button
     Then The "PICKUP(Arrival time)" "Label" should be displayed
 #    CORE-4007 :To verify DUO Team mates details for Weight based DUO Partner delivery
     Then The "Contact Duo Teammate" "Animation Text" should be displayed
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then The "PICKUP(Arrival time)" "Label" should be displayed
 
     And I Switch to "driver" application on "driver2" devices
     And I swipe to check trip details
     And I click on "CLOSE" button
     Then The "PICKUP(Arrival time)" "Label" should be displayed
-    When I slide update button on "EN ROUTE" Screen
+    When I slide update button on "EN ROUTE TO PICKUP" Screen
     And I click on "GOT IT" button
     Then The "PICKUP(Arrival time)" "Label" should be displayed
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then The "PICKUP(Arrival time)" "Label" should be displayed
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
 
     And I Switch to "driver" application on "driver2" devices
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
     Then The "DROP-OFF(Expected time)" "Label" should be displayed
@@ -739,16 +739,16 @@ Feature: Scheduled DUO Bungii
     Then The "DROP-OFF(Expected time)" "Label" should be displayed
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 
     And I Switch to "driver" application on "driver2" devices
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I should be navigated to "Rate duo teammate" screen
 

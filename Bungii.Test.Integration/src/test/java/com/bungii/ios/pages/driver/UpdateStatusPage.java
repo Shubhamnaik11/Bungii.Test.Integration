@@ -34,7 +34,7 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Image_Trip_State_4() { return findElement("pickup_state_4", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Image_Trip_State_5() { return findElement("pickup_state_5", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_Slide() { return findElement("slide_to_start_button", PageBase.LocatorType.AccessibilityId); }
-	public WebElement Button_Cancel() { return findElement("Cancel delivery", LocatorType.Name); }
+	public WebElement Button_Cancel() { return findElement("Cancel Delivery", LocatorType.Name); }
 	public WebElement Button_ScheduledBungiis() { return findElement("Scheduled Bungiis", LocatorType.Name); }
 	public WebElement Button_TakePhoto() { return findElement("Take photo", LocatorType.Name); }
 	public WebElement Button_Call() { return findElement("//XCUIElementTypeButton[@name='Call']", LocatorType.XPath); }

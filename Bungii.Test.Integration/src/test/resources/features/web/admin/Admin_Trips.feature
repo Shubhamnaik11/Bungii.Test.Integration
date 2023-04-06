@@ -133,6 +133,7 @@ Feature: Admin_Trips
       | driver1 state|
       | Bungii Completed |
     And I view the Deliveries list on the admin portal
+    And I search the delivery of Customer
     Then The Delivery List page should display the delivery in "Payment Successful" state
     And I search the delivery of Customer
     # CORE-4434 - Browser not detecting a delivery in "Delivery List" page as a link
@@ -339,8 +340,8 @@ Feature: Admin_Trips
   Scenario: To verify search happens when admin changes from solo to duo when trip was accepted by only 1 driver
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999362 | Testcustomertywd_appleWashG Shah|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" Delivery
+      | NEXT_POSSIBLE | 8877661221     | Testcustomertywd_appleMarkHN LutherHN|
+    And As a driver "Testdrivertywd_appledc_a_drvar Washingtonar" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted  |
     And I wait for 2 minutes
@@ -364,7 +365,7 @@ Feature: Admin_Trips
     And  I search the delivery using "Pickup Reference"
     When I click on "Edit" link beside scheduled bungii
     And I click on "Edit Trip Details" radiobutton
-    And I click on "Add Driver" and add "Testdrivertywd_appledc_a_drvl WashingtonDC_l" driver
+    And I click on "Add Driver" and add "Testdrivertywd_appledc_a_drvas Washingtonas" driver
     And I click on "Verify" button on Edit Scheduled bungii popup
     And I click on "Save" button on Edit Scheduled bungii popup
     Then "Bungii Saved!" message should be displayed
@@ -485,7 +486,7 @@ Feature: Admin_Trips
     And I wait for 2 minutes
     And I view the all Scheduled Deliveries list on the admin portal
     And I click on the filter link and should see "Assigning Driver(s)" checkbox displayed
-    And I click on "Apply" button on "All Deliveries" page
+    And I click on "APPLY" button
     When  I search the delivery using "Pickup Reference"
     Then The delivery should be in "Assigning Driver(s)" state
     Then I should be able to see the respective bungii with the below status
@@ -1212,9 +1213,9 @@ Feature: Admin_Trips
   @ready
   Scenario: To Verify the status of customer trip completed by driver(s) with no Branch app wallet
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    And As a driver "Testdrivertywd_appledv_b_mattK Stark_dvOnEK" perform below action with respective "Solo Ondemand" Delivery
+      | Bungii Time   | Customer Phone | Customer Name                         | Customer Password |
+      | NEXT_POSSIBLE | 8877661222     | Testcustomertywd_BppleMarkHO LutherHO | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_mattZ DenverZ" perform below action with respective "Solo Ondemand" Delivery
       | driver1 state |
       | Accepted  |
       | Arrived |
