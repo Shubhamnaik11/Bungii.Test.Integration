@@ -21,5 +21,6 @@ public class Driver_TermsPage extends PageBase {
     public WebElement CheckBox_Agree(boolean...ignoreException) { return findElement("//input[@id='TermsnConditions.HasAgreedToTerms']", LocatorType.XPath,ignoreException); }
 
     //Terms & Conditions - Next Button
-    public WebElement Button_TermsNext () { return findElement("btnTerms", LocatorType.Id); }
+    public WebElement Button_TermsNext () { return findElement("//li[contains(text(),'Terms & Conditions')]", LocatorType.XPath); }
+    public WebElement Button_PrivacyPolicyNext () { return findElement("//li[contains(text(),'Privacy Policy')]", LocatorType.XPath); }
 }

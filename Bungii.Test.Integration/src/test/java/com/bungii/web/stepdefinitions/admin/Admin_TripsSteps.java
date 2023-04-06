@@ -2622,12 +2622,12 @@ try{
                 case "Solo":
                     Thread.sleep(1000);
                     action.click(admin_TripsPage.RadioButton_SoloTrip());
-                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
+//                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
                     break;
                 case "Duo":
                     Thread.sleep(1000);
                     action.click(admin_TripsPage.RadioButton_DuoTrip());
-                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
+//                    cucumberContextManager.setScenarioContext("BUNGII_TYPE",expectedTripTypeStatus);
                     break;
             }
             log("I should be able to change delivery type to " + expectedTripTypeStatus,"I could change delivery type to " + expectedTripTypeStatus);
@@ -2756,7 +2756,7 @@ try{
         switch (filterBy){
             case "Assigning Driver(s)":
                 boolean isAssigningDriversCheckboxDisplayed =  admin_TripsPage.CheckBox_AssigningDrivers().isDisplayed();
-                String expectedFilterText = action.getText(admin_TripsPage.Text_AllFilterOptions(4));
+                String expectedFilterText = action.getText(admin_TripsPage.Text_AllFilterOptions(3));
                 testStepAssert.isTrue(isAssigningDriversCheckboxDisplayed,filterBy +" filter checkbox should be displayed" ,filterBy +" filter checkbox is displayed",filterBy +" filter checkbox is not displayed");
                 testStepAssert.isEquals(expectedFilterText,filterBy,filterBy +" Text should be displayed" ,expectedFilterText +" text  is displayed",filterBy +" text is not displayed");
                 break;
@@ -3838,8 +3838,7 @@ try{
                     cucumberContextManager.setScenarioContext("Partner_Schedule_Time", ScheduledDateTime);
                     action.click(admin_ScheduledTripsPage.Text_ScheduledTripDate());
                     String trackingId = action.getText(admin_TripDetailsPage.Text_TrackingId());
-                    String trackingId1[] = trackingId.split(":");
-                    cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY", trackingId1[1]);
+                    cucumberContextManager.setScenarioContext("TRACKINGID_SUMMARY", trackingId);
                     String pickup = action.getText(admin_TripDetailsPage.Text_Pickup_Location());
                     cucumberContextManager.setScenarioContext("PickupAddress", pickup);
                     String dropOff = action.getText(admin_TripDetailsPage.Text_DropOff_Location());

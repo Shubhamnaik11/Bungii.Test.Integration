@@ -32,22 +32,22 @@ And I view and accept virtual notification for "Driver" for "on demand trip"
   Then Customer should be navigated to "EN ROUTE" trip status screen
   
 When I Switch to "driver" application on "same" devices
-Then I should be navigated to "EN ROUTE" trip status screen
-And I slide update button on "EN ROUTE" Screen
-Then I should be navigated to "ARRIVED" trip status screen
-  And I slide update button on "ARRIVED" Screen
+Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen
+And I slide update button on "EN ROUTE TO PICKUP" Screen
+Then I should be navigated to "ARRIVED AT PICKUP" trip status screen
+  And I slide update button on "ARRIVED AT PICKUP" Screen
   And Driver adds photos to the Bungii
-  And I slide update button on "ARRIVED" Screen
-  Then I should be navigated to "LOADING ITEMS" trip status screen
-  And I slide update button on "LOADING ITEMS" Screen
+  And I slide update button on "ARRIVED AT PICKUP" Screen
+  Then I should be navigated to "LOADING ITEMS AT PICKUP" trip status screen
+  And I slide update button on "LOADING ITEMS AT PICKUP" Screen
   And Driver adds photos to the Bungii
-  And I slide update button on "LOADING ITEMS" Screen
+  And I slide update button on "LOADING ITEMS AT PICKUP" Screen
 Then I should be navigated to "DRIVING TO DROP-OFF" trip status screen
 And I slide update button on "DRIVING TO DROP-OFF" Screen
-Then I should be navigated to "UNLOADING ITEMS" trip status screen
-And I slide update button on "UNLOADING ITEMS" Screen
+Then I should be navigated to "UNLOADING ITEMS AT DROP-OFF" trip status screen
+And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 And Driver adds photos to the Bungii
-And I slide update button on "UNLOADING ITEMS" Screen
+And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
 And I click "Skip This Step" button on "Rate customer" screen
 Then I should be navigated to "Bungii completed" screen
 When I click "On To The Next One" button on "Bungii completed" screen
@@ -80,9 +80,9 @@ Then I should be navigated to "Home" screen
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "Testdrivertywd_applens_a_kayW Stark_nsOnEW" driver
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
@@ -127,8 +127,8 @@ Then I should be navigated to "Home" screen
     Then Customer should be navigated to "EN ROUTE" trip status screen
     
     When I Switch to "driver" application on "same" devices
-    Then I should be navigated to "EN ROUTE" trip status screen
-    And I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "EN ROUTE TO PICKUP" trip status screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     #Then I should be navigated to "ARRIVED" trip status screen
     Then I should be navigated to "ARRIVED" screen on driverApp
     
@@ -136,9 +136,9 @@ Then I should be navigated to "Home" screen
     Then Customer should be navigated to "ARRIVED" trip status screen
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     #Then I should be navigated to "LOADING ITEM" trip status screen
     Then I should be navigated to "LOADING ITEMS" screen on driverApp
     
@@ -146,9 +146,9 @@ Then I should be navigated to "Home" screen
     Then Customer should be navigated to "LOADING ITEMS" trip status screen
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     #Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
     Then I should be navigated to "DRIVING TO DROP-OFF" screen on driverApp
     
@@ -164,9 +164,9 @@ Then I should be navigated to "Home" screen
     Then Customer should be navigated to "UNLOADING ITEMS" trip status screen
     
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen
     When I click "On To The Next One" button on "Bungii completed" screen
@@ -196,20 +196,20 @@ Then I should be navigated to "Home" screen
     Then The "Ondemand delivery dropOff range" should match
     And I click on "Close" button
     Then The "PICKUP(Arrival time)" "Label" should be displayed
-    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "EN ROUTE TO PICKUP" Screen
     Then The "PICKUP(Arrival time)" "at Arrival screen" should be displayed
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "ARRIVED AT PICKUP" Screen
     Then The "PICKUP(Arrival time)" "at Loading Items screen" should be displayed
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "LOADING ITEMS" Screen
+    And I slide update button on "LOADING ITEMS AT PICKUP" Screen
     Then The "DROP-OFF(Expected time)" "Label" should be displayed
     And I slide update button on "DRIVING TO DROP-OFF" Screen
     Then The "DROP-OFF(Expected time)" "at Unloading Items screen" should be displayed
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And Driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I click "Skip This Step" button on "Rate customer" screen
     Then I should be navigated to "Bungii completed" screen

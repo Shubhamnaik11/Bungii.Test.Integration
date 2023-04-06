@@ -8,7 +8,6 @@ public class Driver_RegistrationPage extends PageBase {
     //------------------------------driver Registration---------------------------------------------------------------
     //driver Registration - Header
     public WebElement Header_DriverRegistration () { return findElement("//h2[contains(text(),'Driver Registration')]", LocatorType.XPath); }
-
     //driver Registration - Click Here link
     public WebElement Link_ClickHere () { return findElement("signup", LocatorType.Id); }
 

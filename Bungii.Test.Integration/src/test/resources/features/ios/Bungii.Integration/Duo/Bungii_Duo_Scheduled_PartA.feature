@@ -278,9 +278,9 @@ Feature: Scheduled DUO Bungii Part A
     And I enter phoneNumber :9049840049 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     And I driver adds photos to the Bungii
-    And I slide update button on "UNLOADING ITEMS" Screen
+    And I slide update button on "UNLOADING ITEMS AT DROP-OFF" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
 #  Core-3107 Verify the elements on Driver rating page for each driver in Duo trip
     And I check all the elements are displayed on driver rating page
