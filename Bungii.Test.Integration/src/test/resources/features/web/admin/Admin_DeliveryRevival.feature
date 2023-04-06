@@ -5,6 +5,7 @@ Feature: Admin_Revival
 	Given I am logged in as Admin
 	  
   @regression
+	  @sn
   Scenario: Verify Admin can cancel the Revived Delivery
 	When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
 	  | Bungii Time   | Customer Phone | Customer Name                  |

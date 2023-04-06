@@ -647,12 +647,12 @@ public class Admin_GeofenceSteps extends DriverBase {
             switch(type){
                 case "Minimum scheduled time for Duo trip":
                     action.JavaScriptClear(admin_GeofencePage.TextBox_MinimumScheduledtimeforduo());
-                    action.clearSendKeys(admin_GeofencePage.TextBox_MinimumScheduledtimeforduo(), timeValue);
+                    action.sendKeys(admin_GeofencePage.TextBox_MinimumScheduledtimeforduo(), timeValue);
                     cucumberContextManager.setScenarioContext("MIN_TIME_DUO", timeValue);
                     break;
                 case "Minimum scheduled time for Solo trip":
                     action.JavaScriptClear(admin_GeofencePage.TextBox_MinimumScheduledtimeforsolo());
-                    action.clearSendKeys(admin_GeofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
+                    action.sendKeys(admin_GeofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
                     cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", timeValue);
                     break;
             }
