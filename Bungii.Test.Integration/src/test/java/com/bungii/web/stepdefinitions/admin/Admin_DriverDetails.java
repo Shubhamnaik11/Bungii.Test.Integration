@@ -140,7 +140,7 @@ public class Admin_DriverDetails extends DriverBase{
             ZoneId zoneId = TimeZone.getDefault().toZoneId();
             if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
-             if (timezone=="EST" || timezone=="CST")
+             if (timezone=="EDT" || timezone=="CDT")
                      inputdate.setHours(inputdate.getHours() + 1); /// EDT time when changed to EST it looses 1 hour thus added this code
             }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm a z").format(inputdate); // removed ss

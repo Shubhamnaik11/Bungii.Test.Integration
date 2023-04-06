@@ -1078,7 +1078,7 @@ public class Admin_Schedule_NotesSteps extends DriverBase {
             String expectedDropOffPhone = (String) cucumberContextManager.getScenarioContext("Drop_Contact_Phone");
             String expectedDropOffPhoneNumber= "(" + expectedDropOffPhone.substring(0, 3) + ") " + expectedDropOffPhone.substring(3, 6) + "-" + expectedDropOffPhone.substring(6);
             String actualDropOffDetails=action.getText(admin_ScheduledTripsPage.Text_DropOff_Details());
-            String actualDropOffName = actualDropOffDetails.substring(0, actualDropOffDetails.indexOf("(")).trim();
+            String actualDropOffName = actualDropOffDetails.substring(0, actualDropOffDetails.indexOf("(")).trim().replace(" -", "");
             String actualDropOfPhone = actualDropOffDetails.substring(actualDropOffDetails.indexOf("("), actualDropOffDetails.length());
             testStepAssert.isEquals(expectedDropOffName,actualDropOffName,"The drop off contact name should match", "The drop off contact name is matched", "The drop off contact name is not matched");
             testStepAssert.isEquals(expectedDropOffPhoneNumber,actualDropOfPhone,"The drop off contact number should match", "The drop off contact number is matched", "The drop off contact number is not matched");

@@ -10,7 +10,6 @@ Feature: Admin_Geofence
 
   @sanity
   @regression
-    #Failing-ADP-669
   Scenario: Verify Default Geofences Attribute settings
    When I click on "Geofences  > Attributes" Menu
     Then I should be directed to "Attributes Page"
@@ -122,7 +121,7 @@ Feature: Admin_Geofence
 
   @sanity
   @regression
-    #SIssue raised ADP-749
+    #Issues logged- CORE-6481
     Scenario: Verify Settings Behavior Of Solo And Duo Settings on Geofence
     When I click on the geofence "Denver"
     And I click on the "Settings" Button on "Geofence" Screen
@@ -141,7 +140,6 @@ Feature: Admin_Geofence
   #this test script will fail as the value of above parameters are set as 30 mins and 840 mins.
   #It should be 15 mins and 1410 mins, currently validations are put considering 15 and 1410 mins
   @regression
-    #Issue Raised ADP-669
   Scenario: Verify Minimum Scheduled Time For Solo Or Duo Trip Cannot Be More Than The Difference Between SCHEDULE_PICKUP_FROM_TIME And SCHEDULE_PICKUP_TO_TIME
     When I click on the geofence "Chicago"
     And I click on the "Settings" Button on "Geofence" Screen
@@ -191,7 +189,6 @@ Feature: Admin_Geofence
         #NEED TO VERIFY VALUES OF THIS PARAMETER SCHEDULED_PICKUP_MAX_PROCESSING_TIME
   #In database this value is set as 120 mins, needs to be checked.
   @regression
-  #Issue Raised ADP-669
   Scenario:Verify Minimum Scheduled Time For Solo Or Duo Trip Cannot Be Less Than SCHEDULED_PICKUP_MAX_PROCESSING_TIME
     When I click on the geofence "Chicago"
     And I click on the "Settings" Button on "Geofence" Screen

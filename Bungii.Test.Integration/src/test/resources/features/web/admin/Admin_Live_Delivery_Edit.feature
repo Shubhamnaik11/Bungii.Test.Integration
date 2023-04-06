@@ -33,6 +33,7 @@ Feature: Admin_Live_Delivery_Edit
     And I view the Live Deliveries list on the admin portal
     And  I search the delivery using "Pickup Reference"
     When I click on the "Delivery Details" button from the dropdown
+    And I click on "Delivery Overview" button on delivery details
     Then The "Scheduled Time" for customer delivery should match
     Then The "Estimate dropOff time after admin live edit" for customer delivery should match
     And I view the Live Deliveries list on the admin portal

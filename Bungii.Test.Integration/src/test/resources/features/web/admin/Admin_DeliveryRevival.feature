@@ -45,6 +45,7 @@ Feature: Admin_Revival
 	Then The "Pick up has been successfully canceled." message should be displayed
 	And I wait for 2 minutes
 	When I view the Deliveries list on the admin portal
+	And I search the delivery of Customer
 	Then The Delivery List page should display the delivery in "Admin Canceled" state
 	#	Core-4307: Verify the history is displayed for ADMIN canceled delivery which is revived
 	Then Revive button should be displayed beside the trip
@@ -113,6 +114,7 @@ Feature: Admin_Revival
 	  | Bungii Completed |
 	And I wait for 2 minutes
 	And I view All Deliveries list on the admin portal
+	And I search the delivery of Customer
 	Then The Delivery List page should display the delivery in "Payment Successful" state
   
   @regression

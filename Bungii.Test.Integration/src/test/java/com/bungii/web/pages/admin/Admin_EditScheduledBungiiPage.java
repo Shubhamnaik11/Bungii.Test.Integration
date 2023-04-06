@@ -24,7 +24,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement List_TimeFrame (String time) { return findElement("//div/ul/li[text()='"+time+"']", LocatorType.XPath); }
 
-    public WebElement Link_RemoveDriver() { return findElement("//span[text()='Driver Details:']/parent::div/following-sibling::div[2]/button", LocatorType.XPath); }
+    public WebElement Link_RemoveDriver() { return findElement("(//strong[text()='Remove'])[2]", LocatorType.XPath); }
 
     public WebElement TextBox_DriverSearch() { return findElement("//input[@placeholder='Enter driver name']", LocatorType.XPath); }
 
@@ -50,7 +50,7 @@ public class Admin_EditScheduledBungiiPage extends PageBase {
 
     public WebElement List_DriverSearchResult (String driverName) { return findElement("//input/following-sibling::div[contains(.,'"+driverName+"')]", LocatorType.XPath); }
 
-    public WebElement TickMarkDate () { return findElement("//div[@class='verify-icon col']", LocatorType.XPath); }
+    public WebElement TickMarkDate () { return findElement("//i[@class='fa fa-check text-green-alt success-icon']", LocatorType.XPath); }
 
     public WebElement TickMarkDriver () { return findElement("//div[@class='driver-verify w1 col-sm-1']", LocatorType.XPath); }
 

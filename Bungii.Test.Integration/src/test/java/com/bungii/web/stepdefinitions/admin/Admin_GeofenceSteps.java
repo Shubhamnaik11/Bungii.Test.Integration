@@ -399,7 +399,6 @@ public class Admin_GeofenceSteps extends DriverBase {
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_MinTimeForDuoTrip(), MinTimeForDuoTrip,MinTimeForDuoTrip+" should be displayed", MinTimeForDuoTrip+" is displayed", MinTimeForDuoTrip+" is not displayed");
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_MinTimeForSoloTrip(), MinTimeForSoloTrip,MinTimeForSoloTrip+" should be displayed", MinTimeForSoloTrip+" is displayed", MinTimeForSoloTrip+" is not displayed");
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_MinTripCost(), MinTripCost,MinTripCost+" should be displayed", MinTripCost+" is displayed", MinTripCost+" is not displayed");
-        action.click(admin_GeofencePage.Button_Next());
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_SurveyEmailLink(), SurveyEmailLink,SurveyEmailLink+" should be displayed", SurveyEmailLink+" is displayed", SurveyEmailLink+" is not displayed");
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMile(), TripCostPerMile,TripCostPerMile+" should be displayed", TripCostPerMile+" is displayed", TripCostPerMile+" is not displayed");
         testStepAssert.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMinute(), TripCostPerMinute,TripCostPerMinute+" should be displayed", TripCostPerMinute+" is displayed", TripCostPerMinute+" is not displayed");
@@ -646,14 +645,14 @@ public class Admin_GeofenceSteps extends DriverBase {
     public void i_change_the_value_of_something_to_something_minutes(String type, String timeValue) throws Throwable {
         try{
             switch(type){
-
                 case "Minimum scheduled time for Duo trip":
-                    action.clearSendKeys(admin_GeofencePage.TextBox_MinimumScheduledtimeforduo(), timeValue);
+                    action.JavaScriptClear(admin_GeofencePage.TextBox_MinimumScheduledtimeforduo());
+                    action.sendKeys(admin_GeofencePage.TextBox_MinimumScheduledtimeforduo(), timeValue);
                     cucumberContextManager.setScenarioContext("MIN_TIME_DUO", timeValue);
                     break;
-
                 case "Minimum scheduled time for Solo trip":
-                    action.clearSendKeys(admin_GeofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
+                    action.JavaScriptClear(admin_GeofencePage.TextBox_MinimumScheduledtimeforsolo());
+                    action.sendKeys(admin_GeofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
                     cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", timeValue);
                     break;
             }

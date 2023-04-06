@@ -416,8 +416,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     case "Cancel":
                         action.click(admin_BusinessUsersPage.Button_BulkTripCancel());
                         break;
-                    case "Ok":
-                        action.click(admin_BusinessUsersPage.Button_Ok());
+                    case "Close":
+                        action.click(admin_BusinessUsersPage.Button_Close());
                         break;
                 }
                 break;
