@@ -333,10 +333,10 @@ try{
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_BlankFields()), PropertyUtility.getMessage("Err_Pages_BlankFields"),  PropertyUtility.getMessage("Err_Pages_BlankFields")+" should be displayed", PropertyUtility.getMessage("Err_Pages_BlankFields")+" is displayed", PropertyUtility.getMessage("Err_Pages_BlankFields")+" is not displayed");
                 break;
             case "existing phone error":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Phone()), PropertyUtility.getMessage("DReg_Phone_Exists"),  PropertyUtility.getMessage("DReg_Phone_Exists")+" should be displayed", PropertyUtility.getMessage("DReg_Phone_Exists")+" is displayed", PropertyUtility.getMessage("DReg_Phone_Exists")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_ExistingPhone()), PropertyUtility.getMessage("DReg_Phone_Exists"),  PropertyUtility.getMessage("DReg_Phone_Exists")+" should be displayed", PropertyUtility.getMessage("DReg_Phone_Exists")+" is displayed", PropertyUtility.getMessage("DReg_Phone_Exists")+" is not displayed");
                 break;
             case "field validation for short password":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_CreatePassword()), PropertyUtility.getMessage("DReg_Password_Short"),  PropertyUtility.getMessage("DReg_Password_Short")+" should be displayed", PropertyUtility.getMessage("DReg_Password_Short")+" is displayed", PropertyUtility.getMessage("DReg_Password_Short")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_ShortPassword()), PropertyUtility.getMessage("DReg_Password_Short"),  PropertyUtility.getMessage("DReg_Password_Short")+" should be displayed", PropertyUtility.getMessage("DReg_Password_Short")+" is displayed", PropertyUtility.getMessage("DReg_Password_Short")+" is not displayed");
                 break;
             case "validation for blank verification code":
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_VerifiCode_Blank()), PropertyUtility.getMessage("VerifCode_Err_Blank"),  PropertyUtility.getMessage("VerifCode_Err_Blank")+" should be displayed", PropertyUtility.getMessage("VerifCode_Err_Blank")+" is displayed", PropertyUtility.getMessage("VerifCode_Err_Blank")+" is not displayed");

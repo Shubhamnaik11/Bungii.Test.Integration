@@ -34,25 +34,27 @@ public class Driver_RegistrationPage extends PageBase {
 
     //------------------ERRORS----------------------------------
     //ERROR - First Name
-    public WebElement ERR_FirstName () { return findElement("//body/div/div/div/div/div/aside/div/div[1]/form/div[1]/div", LocatorType.XPath); }
+    public WebElement ERR_FirstName () { return findElement("//div[contains(text(),'Oops! The first name is invalid')]", LocatorType.XPath); }
 
     //ERROR - Last Name
-    public WebElement ERR_LastName () { return findElement("//body/div/div/div/div/div/aside/div/div[1]/form/div[2]/div", LocatorType.XPath); }
+    public WebElement ERR_LastName () { return findElement("//div[contains(text(),'Oops! The last name is invalid')]", LocatorType.XPath); }
 
     //ERROR - Email
-    public WebElement ERR_Email () { return findElement("//body/div/div/div/div/div/aside/div/div/form/div[3]/div[1]", LocatorType.XPath); }
+    public WebElement ERR_Email () { return findElement("//div[contains(text(),'Invalid format.')]", LocatorType.XPath); }
 
     //ERROR - Phone Number
-    public WebElement ERR_Phone () { return findElement("//body/div/div/div/div/div/aside/div/div/form/div[4]/div[1]", LocatorType.XPath); }
+    public WebElement ERR_Phone () { return findElement("//div[contains(text(),'Oops! The Phone number is invalid.')]", LocatorType.XPath); }
+    public WebElement ERR_ExistingPhone () { return findElement("//div[contains(text(),'Oops! It looks like the phone number you entered i')]", LocatorType.XPath); }
 
     //ERROR - Create password
-    public WebElement ERR_CreatePassword () { return findElement("//body/div/div/div/div/div/aside/div/div/form/div[6]/div[2]", LocatorType.XPath); }
+    public WebElement ERR_CreatePassword () { return findElement("//div[contains(text(),'Password should consist of an uppercase, a lowerca')]", LocatorType.XPath); }
+    public WebElement ERR_ShortPassword () { return findElement("//div[contains(text(),'Password should be at least 8 characters long.')]", LocatorType.XPath); }
 
     //ERROR - Confirm password
     public WebElement ERR_ConfirmPassword () { return findElement("confirmpassword-error", LocatorType.Id); }
 
     //ERROR - Blank fields
-    public WebElement ERR_BlankFields () { return findElement("//body/div/div/div/div/div/aside/div/div/form/span", LocatorType.XPath); }
+    public WebElement ERR_BlankFields () { return findElement("//span[contains(text(),'Oops! It looks like you missed something. Please f')]", LocatorType.XPath); }
 
     public WebElement Label_Success () { return findElement("//h3", LocatorType.XPath); }
 
@@ -92,7 +94,7 @@ public class Driver_RegistrationPage extends PageBase {
 
     public WebElement Dropdown_Location () { return findElement("//select[@name='Location']", LocatorType.XPath); }
 
-    public WebElement Text_Verbiage  () { return findElement("//body/div/div/div/div/div/aside/div/div[1]/form/p[1]", LocatorType.XPath); }
+    public WebElement Text_Verbiage  () { return findElement("//p[contains(text(),'Driving with Bungii is a flexible, easy way to ear')]", LocatorType.XPath); }
 
     public WebElement Link_EyeOpen  () { return findElement("//div/span[@class ='close-eye']", LocatorType.XPath); }
 }

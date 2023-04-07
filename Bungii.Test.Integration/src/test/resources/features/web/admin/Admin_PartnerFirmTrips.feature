@@ -154,7 +154,7 @@ Feature: Admin_PartnerFirmTrips
     And I upload image and csv file associated with the "Solo Scheduled" trip
     And I click on "Upload" button on "Upload Deliveries" page
     When I click on "Confirm" button on "Upload Deliveries" page
-    When I click on "Ok" button on "Upload Deliveries" page
+    When I click on "Close" button on "Upload Deliveries" page
     Then the "Trips have been requested successfully." message is displayed
     And I note the Pickupref of trip
     When As a driver "Testdrivertywd_appledc_a_web Sundark" perform below action with respective "Solo Scheduled" Delivery
