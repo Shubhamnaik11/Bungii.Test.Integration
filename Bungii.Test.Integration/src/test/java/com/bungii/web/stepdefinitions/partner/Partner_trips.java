@@ -262,7 +262,7 @@ try{
                 break;
             case "Today+1":
                 action.click(Page_Partner_Dashboard.Pickup_date_Tomorrow());
-                strTime = action.getText(Page_Partner_Dashboard.Pickup_Date());
+                strTime = action.getAttributeValue(Page_Partner_Dashboard.Pickup_Date());
                 break;
             case "Today+2":
                 action.click(Page_Partner_Dashboard.Pickup_date_Today_2());
@@ -285,6 +285,7 @@ try{
         if(!PickUpTime.equalsIgnoreCase("")) {
             Thread.sleep(2000);
             action.getElementByXPath("//li[contains(text(),'"+PickUpTime+"')]").click();
+            cucumberContextManager.setScenarioContext("ScheduledTime",action.getAttributeValue(Page_Partner_Dashboard.Text_Pickup_Time()));
         }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

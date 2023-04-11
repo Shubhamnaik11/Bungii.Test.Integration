@@ -84,7 +84,7 @@ public class Partner_LoginSteps extends DriverBase {
     public void WhenIEnterPasswordOnPartnerPortal(String str)
     {
         try{
-        SetupManager.getObject().manage().window().maximize();
+//        SetupManager.getObject().manage().window().maximize();
         switch (str)
         {
             case "valid":
@@ -1204,6 +1204,23 @@ public class Partner_LoginSteps extends DriverBase {
                     "Sufficient space should be present in between What's Needed & Custom Quote",
                     "Sufficient space is present in between What's Needed & Custom Quote",
                     "Sufficient space is not present in between What's Needed & Custom Quote");
+        }
+        catch(Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("I should see previously selected Date and time correctly")
+    public void iShouldSeePreviouslySelectedDateAndTimeCorrectly() {
+        try{
+            String actualDate=action.getText(Page_Partner_Dashboard.Pickup_Date());
+            String expectedDate=(String) cucumberContextManager.getScenarioContext("ScheduledDate");
+            testStepAssert.isEquals(expectedDate, actualDate, "Updated Date should be displayed correctly", "Updated Date is displayed correctly", "Updated Date is not displayed correctly");
+
+            String actualTime= action.getText(Page_Partner_Dashboard.Text_Pickup_Time());
+            String expectedTime= (String) cucumberContextManager.getScenarioContext("ScheduledTime");
+            testStepAssert.isEquals(expectedTime, actualTime, "Updated Time should be displayed correctly", "Updated Time is displayed correctly", "Updated Time is not displayed correctly");
         }
         catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
