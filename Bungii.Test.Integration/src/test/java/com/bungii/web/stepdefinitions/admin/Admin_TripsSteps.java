@@ -2839,26 +2839,20 @@ try{
     public void i_stop_searching_driver() throws Throwable {
         try{
             action.click(admin_ScheduledTripsPage.Button_StopSearching());
-            Thread.sleep(2000);
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Text_ConfirmationPopUp(), (long) 5000);
             testStepVerify.isElementDisplayed(admin_ScheduledTripsPage.Text_ConfirmationPopUp(),
                     "The confirmation pop-up should be displayed",
                     "The confirmation pop-up is displayed",
                     "The confirmation pop-up is not displayed");
             action.click(admin_ScheduledTripsPage.Button_ConfirmStopSearching());
-            Thread.sleep(2000);
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Text_SuccessPopUp(), (long) 5000);
             testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_SuccessPopUp(),
                     "The stop searching driver success pop-up should be displayed",
                     "The stop searching driver success pop-up is displayed",
                     "The stop searching driver success pop-up is not displayed");
             action.click(admin_ScheduledTripsPage.Button_CloseConfirm());
             Thread.sleep(2000);
-//            action.click(admin_ScheduledTripsPage.Button_Ok());
-
-            Thread.sleep(1000);
-
-            log("I should be able to stop searching driver",
-                    "I am able to stop searching driver",
-                    false);
+            log("I should be able to stop searching driver", "I am able to stop searching driver", false);
 
         }	catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

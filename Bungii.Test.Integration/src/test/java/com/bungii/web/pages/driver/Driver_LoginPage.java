@@ -21,7 +21,7 @@ public class Driver_LoginPage extends PageBase {
     public WebElement TextBox_DriverLogin_Phone() { return findElement("//h2[text()='Driver Login']/ancestor::form/div/input[@name='PhoneNo']", LocatorType.XPath); }
 
     //driver Login - Phone Field - Error
-    public WebElement Err_DriverLogin_Phone() { return findElement("//div[@id='root']/div/div/div/div/aside/div/div[2]/form/div[1]/div[1]", LocatorType.XPath); }
+    public WebElement Err_DriverLogin_Phone() { return findElement("(//div[contains(text(),'Oops! The phone number is invalid.')])[1]", LocatorType.XPath); }
 
     //driver Login - Password Field
     public WebElement TextBox_DriverLogin_Password() { return findElement("//h2[text()='Driver Login']/ancestor::form/div/input[@name='Password']", LocatorType.XPath); }

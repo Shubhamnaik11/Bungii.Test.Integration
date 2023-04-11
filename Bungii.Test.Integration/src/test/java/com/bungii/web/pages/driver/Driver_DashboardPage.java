@@ -8,9 +8,9 @@ public class Driver_DashboardPage extends PageBase {
 //Header - Dashboard
     public WebElement Header_Dashboard () { return findElement("//body/div/div/div/div/div/h4", LocatorType.XPath); }
 
-    public WebElement SideNavigationSetting () { return findElement("//ul[@class='nav metismenu']/li[3]", LocatorType.XPath); }
+    public WebElement SideNavigationSetting () { return findElement("//div[@class='user-panel mb-1 d-flex']", LocatorType.XPath); }
 
-    public WebElement SideNavigationGeneral () { return findElement("//ul[@class='nav metismenu']/li[1]", LocatorType.XPath); }
+    public WebElement SideNavigationGeneral () { return findElement("//ul[@class='w-100 my-lg-0 flex-column navbar-nav navbar-nav-scroll']", LocatorType.XPath); }
 
     public WebElement Link_Logout(){return  findElement("//a[contains(text(),'log out')]", LocatorType.XPath);}
 

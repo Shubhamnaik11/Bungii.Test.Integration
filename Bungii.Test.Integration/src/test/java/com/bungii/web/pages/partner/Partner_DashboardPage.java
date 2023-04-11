@@ -268,9 +268,9 @@ public class Partner_DashboardPage extends PageBase {
     //Tooltip Pickup Date
     public WebElement Label_ToolTip_PickupDate() { return findElement("//div[@class='tooltip-inner']",LocatorType.XPath);}
 
-    public WebElement Text_PartnerName() { return findElement("//tbody[@id='TripListsTBody']/tr[1]/td[8]",LocatorType.XPath);}
-    public WebElement Text_PartnerNameDeliveryDetailsPage() { return findElement("//td[text()='Partner']/following-sibling::td/strong",LocatorType.XPath);}
-    public WebElement Text_PartnerNameAllDeliveryPage() { return findElement("//tbody[@id='TripListsTBody']/tr[1]/td[10]",LocatorType.XPath);}
+    public WebElement Text_PartnerName() { return findElement("//tr/td[8]",LocatorType.XPath);}
+    public WebElement Text_PartnerNameDeliveryDetailsPage() { return findElement("//h4[contains(text(),'Partner :')]/following-sibling::span",LocatorType.XPath);}
+    public WebElement Text_PartnerNameAllDeliveryPage() { return findElement("//tr/td[9]",LocatorType.XPath);}
 
 
     //Partner portal filter

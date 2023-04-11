@@ -251,7 +251,7 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Text_DeliveryDetailsStatus(){return  findElement("//h4[contains(text(),'Status :')]/following-sibling::span",LocatorType.XPath);}
 
-    public WebElement Text_TripStatus(){return  findElement("//td[text()='Status']/following-sibling::td", LocatorType.XPath);}
+    public WebElement Text_TripStatus(){return  findElement("//h4[contains(text(),'Status :')]/following-sibling::span", LocatorType.XPath);}
 
     public WebElement Text_InitialRequestDate(){return findElement("//td[4]", LocatorType.XPath);}
 
