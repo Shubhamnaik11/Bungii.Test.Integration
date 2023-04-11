@@ -84,7 +84,7 @@ public class Partner_LoginSteps extends DriverBase {
     public void WhenIEnterPasswordOnPartnerPortal(String str)
     {
         try{
-//        SetupManager.getObject().manage().window().maximize();
+        SetupManager.getObject().manage().window().maximize();
         switch (str)
         {
             case "valid":
