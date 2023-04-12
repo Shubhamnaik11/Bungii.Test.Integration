@@ -47,6 +47,7 @@ public class Admin_RefundSteps extends DriverBase {
                 partial= true;
                 break;
             case "Complete Refund":
+                action.waitUntilIsElementExistsAndDisplayed(admin_refundsPage.RadioButton_CompleteRefund(), (long) 5000);
                 action.click(admin_refundsPage.RadioButton_CompleteRefund());
                 partial= false;
                 break;

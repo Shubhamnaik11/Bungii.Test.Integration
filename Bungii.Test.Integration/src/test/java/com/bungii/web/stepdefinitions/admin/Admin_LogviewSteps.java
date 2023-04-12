@@ -126,20 +126,6 @@ public class Admin_LogviewSteps extends DriverBase {
         }
     }
 
-    @And("^I navigate to Logview querypanel$")
-    public void i_navigate_to_logview_querypanel() throws Throwable {
-        try{
-            String url = utility.GetAdminUrl().replace("/Admin/Login", "") + "/logview/querypanel";
-            action.navigateTo(url);
-            log("I navigate to Logview querypanel" ,
-                    "I navigated to Logview querypanel" , false);
-        } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step Should be successful", "Error in selecting database",
-                    true);
-        }
-    }
-
     @And("^I enter \"([^\"]*)\" query with limit \"([^\"]*)\"$")
     public void i_enter_query_with_limit_something(String sqlstatement, String limit) throws Throwable {
         try{
@@ -152,10 +138,4 @@ public class Admin_LogviewSteps extends DriverBase {
                     true);
         }
     }
-
-
-
-
-
-
 }

@@ -10,12 +10,15 @@ public class Admin_LoginPage  extends PageBase {
 
     //Admin Login - Phone Number
     public WebElement TextBox_Phone() { return findElement("phoneno", LocatorType.Name); }
+    public WebElement TextBox_QueryPanelPhone() { return findElement("phone", LocatorType.Id); }
 
     //Admin Login - Password
     public WebElement TextBox_Password() { return findElement("password", LocatorType.Name); }
+    public WebElement TextBox_QueryPanelPassword() { return findElement("password", LocatorType.Id); }
 
     //Admin Login - Login Button
     public WebElement Button_AdminLogin() { return findElement("login", LocatorType.Id); }
+    public WebElement Button_QueryPanelLogin() { return findElement("//button[contains(text(),'LOG IN')]", LocatorType.XPath); }
 
     //Admin ExtraEarnings - text
     public WebElement Label_ExtraEarnings() { return findElement("//strong[text()='Earn Extra Cash.']/parent::p", LocatorType.XPath); }

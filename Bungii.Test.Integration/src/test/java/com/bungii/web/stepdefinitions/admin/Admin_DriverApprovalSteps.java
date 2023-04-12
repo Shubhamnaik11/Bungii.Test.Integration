@@ -60,6 +60,11 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         utility.AdminLogin();
     }
 
+    @Given("I am logged in to Query Panel")
+    public void iAmLoggedInToQueryPanel() throws Throwable {
+        utility.QueryPanelLogin();
+    }
+
     @Given("^I am logged in as TestAdmin$")
     public void i_am_logged_in_as_Testadmin() throws Throwable {
         utility.TestAdminLogin();
