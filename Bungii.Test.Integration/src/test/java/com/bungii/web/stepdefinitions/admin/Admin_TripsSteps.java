@@ -2852,6 +2852,7 @@ try{
                     "The stop searching driver success pop-up is not displayed");
             action.click(admin_ScheduledTripsPage.Button_CloseConfirm());
             Thread.sleep(2000);
+            action.click(admin_ScheduledTripsPage.Button_Ok());
             log("I should be able to stop searching driver", "I am able to stop searching driver", false);
 
         }	catch(Exception e){
