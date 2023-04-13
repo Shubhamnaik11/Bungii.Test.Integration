@@ -45,6 +45,7 @@ Feature: Floor and Decore Service Level
 #    Core-3294: Verify Stop search button is displayed for partner portal weight based schedule trips
     And I check if "Stop Searching" button is displayed
     Then I stop searching driver
+    And I navigate back to Scheduled Deliveries
     And I wait for "2" mins
     When I click on the "Delivery Details" button from the dropdown
     Then I check if the status has been changed to "No Driver(s) Found"

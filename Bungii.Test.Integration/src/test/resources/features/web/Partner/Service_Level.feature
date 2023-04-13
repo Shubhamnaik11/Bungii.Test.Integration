@@ -132,6 +132,7 @@ Feature: Service Level
       | Status    |
       | Assigning Driver(s) |
     And I select the partner portal scheduled trip on scheduled delivery
+    And I click on "Delivery Overview" button on delivery details
     Then I should "see correct Estimation Duration" for "Biglots" Alias
 
 #   Core-3391 Verify that Estimated time on partner portal details delivery page gets updated when delivery address is changed

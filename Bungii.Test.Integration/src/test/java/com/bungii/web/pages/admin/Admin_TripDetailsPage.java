@@ -21,7 +21,7 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Dropdown_ddlpickupEndTime () { return findElement("ddlpickupEndTime", LocatorType.Id); }
 
-    public WebElement Label_TripDetails (String label) { return findElement("//td[contains(text(),'"+ label+"')]/following-sibling::td/strong", LocatorType.XPath); }
+    public WebElement Label_TripDetails (String label) { return findElement("//div/h4[contains(text(),'"+ label+"')]/following-sibling::span", LocatorType.XPath); }
 
     public WebElement Dropdown_Drivers () { return findElement("Drivers", LocatorType.Id); }
 
