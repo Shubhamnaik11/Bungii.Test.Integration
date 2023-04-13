@@ -59,7 +59,9 @@
       When I enter following details on "Delivery Details" for "normal" on partner screen
         |Items_To_Deliver|Customer_Name     |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
         |Furniture       |Testpartner B   |9998881111     |Test Pickup        |9999999359          |
+      #CORE-5631:To verify Updated Date and Time when user clicks on Back to Estimate button
       And I click "Back to Estimate" button on Partner Portal
+      Then I should see previously selected Date and time correctly
       And I select Pickup Date and Pickup Time on partner portal
         |PickUp_Date  |PickUp_Time          |
         |Today+2      |10:30 PM             |
