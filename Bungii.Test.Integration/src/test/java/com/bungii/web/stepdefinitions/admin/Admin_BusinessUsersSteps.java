@@ -1054,6 +1054,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     action.click(admin_liveTripsPage.Button_CalculateCost());
                     break;
                 case "Generate Report":
+                    Thread.sleep(3000);
                     action.click(Page_Partner_Delivery.Button_GenerateReport());
                     break;
                 case "Confirm Status":

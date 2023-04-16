@@ -262,7 +262,7 @@ try{
                 break;
             case "Today+1":
                 action.click(Page_Partner_Dashboard.Pickup_date_Tomorrow());
-                strTime = action.getText(Page_Partner_Dashboard.Pickup_Date());
+                strTime = action.getAttributeValue(Page_Partner_Dashboard.Pickup_Date());
                 break;
             case "Today+2":
                 action.click(Page_Partner_Dashboard.Pickup_date_Today_2());
@@ -285,6 +285,7 @@ try{
         if(!PickUpTime.equalsIgnoreCase("")) {
             Thread.sleep(2000);
             action.getElementByXPath("//li[contains(text(),'"+PickUpTime+"')]").click();
+            cucumberContextManager.setScenarioContext("ScheduledTime",action.getAttributeValue(Page_Partner_Dashboard.Text_Pickup_Time()));
         }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -774,19 +775,19 @@ try{
 
     @Then("^Estimate Cost should get recalculate$")
     public void Estimate_Cost_get_recalculate(){
-        try{String Total_Estimated_Cost = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
-        //String Estimated_Cost_Label = Total_Estimated_Cost.substring(0,Total_Estimated_Cost.indexOf(':'));
-        String[] Split_Total_estimated_Cost = Total_Estimated_Cost.split(":");
-        //String Estimated_Cost_Label = Split_Total_estimated_Cost[0];
-        String New_Estimated_Cost = Split_Total_estimated_Cost[1];
-        String Old_Estimated_Cost = (String)cucumberContextManager.getScenarioContext("Estimated_Cost");
+        try{
+            String Total_Estimated_Cost = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
+            //String Estimated_Cost_Label = Total_Estimated_Cost.substring(0,Total_Estimated_Cost.indexOf(':'));
+            String[] Split_Total_estimated_Cost = Total_Estimated_Cost.split(":");
+            //String Estimated_Cost_Label = Split_Total_estimated_Cost[0];
+            String New_Estimated_Cost = Split_Total_estimated_Cost[1];
+            String Old_Estimated_Cost = (String)cucumberContextManager.getScenarioContext("Estimated_Cost");
 
-        testStepAssert
-                .isFalse(New_Estimated_Cost.equals(Old_Estimated_Cost),
+            testStepAssert.isFalse(New_Estimated_Cost.equals(Old_Estimated_Cost),
                         "total Estimated cost should be recalculated",
                         "Total Estimate cost is recalculated , previous cost is" + Old_Estimated_Cost + " , new cost is" + New_Estimated_Cost,
                         "Total Estimate cost was not recalculated");
-        Old_Estimated_Cost = New_Estimated_Cost;
+            Old_Estimated_Cost = New_Estimated_Cost;
         } catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -1542,6 +1543,7 @@ try{
             String aliasPartnerPortalName= PropertyUtility.getDataProperties("partner.floor.and.decor.alias.name");
             switch (page){
                 case "scheduled delivery page":
+                    action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Text_PartnerName(), (long) 5000);
                     testStepAssert.isEquals(action.getText(Page_Partner_Dashboard.Text_PartnerName()),aliasPartnerPortalName,
                             "The portal name displayed should be correct",
                             "The portal name displayed is correct",

@@ -820,7 +820,7 @@ try{
 
         Bunggi_Type = Bunggi_Type.replace("Solo Ondemand","Solo").replace("Duo Ondemand","Duo");
         if(Bunggi_Type.equalsIgnoreCase("Solo")|| Bunggi_Type.equalsIgnoreCase("Solo Scheduled")){
-            String xpath = String.format("//td/strong[contains(text(),'%s')]",driver1);
+            String xpath = String.format("//div/div[contains(text(),'Driver ')]/following-sibling::div[contains(text(),'%s')]",driver1);
             testStepAssert.isElementDisplayed(action.getElementByXPath(xpath)," Driver " + driver1 + " should be displayed", " Driver " + driver1 + " is displayed", " Driver " + driver1 + " is not displayed");
         }
         else {
@@ -2839,26 +2839,21 @@ try{
     public void i_stop_searching_driver() throws Throwable {
         try{
             action.click(admin_ScheduledTripsPage.Button_StopSearching());
-            Thread.sleep(2000);
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Text_ConfirmationPopUp(), (long) 5000);
             testStepVerify.isElementDisplayed(admin_ScheduledTripsPage.Text_ConfirmationPopUp(),
                     "The confirmation pop-up should be displayed",
                     "The confirmation pop-up is displayed",
                     "The confirmation pop-up is not displayed");
             action.click(admin_ScheduledTripsPage.Button_ConfirmStopSearching());
-            Thread.sleep(2000);
+            action.waitUntilIsElementExistsAndDisplayed(admin_ScheduledTripsPage.Text_SuccessPopUp(), (long) 5000);
             testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Text_SuccessPopUp(),
                     "The stop searching driver success pop-up should be displayed",
                     "The stop searching driver success pop-up is displayed",
                     "The stop searching driver success pop-up is not displayed");
             action.click(admin_ScheduledTripsPage.Button_CloseConfirm());
             Thread.sleep(2000);
-//            action.click(admin_ScheduledTripsPage.Button_Ok());
-
-            Thread.sleep(1000);
-
-            log("I should be able to stop searching driver",
-                    "I am able to stop searching driver",
-                    false);
+            action.click(admin_ScheduledTripsPage.Button_Ok());
+            log("I should be able to stop searching driver", "I am able to stop searching driver", false);
 
         }	catch(Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

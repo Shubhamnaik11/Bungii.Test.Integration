@@ -70,7 +70,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Dropdown_Pickup_Date() { return findElement("//div[@class='MuiFormControl-root pickup-date']",LocatorType.XPath);}
 
     //Today and 4 days
-    public WebElement Pickup_Date() { return findElement("//label[contains(text(),'Pickup Date')]/following::div[1]",LocatorType.XPath);}
+    public WebElement Pickup_Date() { return findElement("//label[contains(text(),'Pickup Date')]/following::div[1]/div/div/input",LocatorType.XPath);}
 /*    public WebElement Pickup_Date_Today() { return findElement("//li[contains(@class,'MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-selected')]",LocatorType.XPath);}
     public WebElement Pickup_date_Today_1() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][1]",LocatorType.XPath);}
     public WebElement Pickup_date_Today_2() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][2]",LocatorType.XPath);}
@@ -84,7 +84,8 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Pickup_date_Tomorrow() { return findElement("//div[contains(text(),'Tomorrow')]",LocatorType.XPath);}
 
     //Pickup Time dropdown
-    public WebElement Dropdown_Pickup_Time(boolean...ignoreException) { return findElement("//div[@class='MuiFormControl-root pickup-time']",LocatorType.XPath,ignoreException);}
+    public WebElement Dropdown_Pickup_Time(boolean...ignoreException) { return findElement("//label[contains(text(),'Pickup Time')]/following-sibling::div/div/div",LocatorType.XPath,ignoreException);}
+    public WebElement Text_Pickup_Time() { return findElement("//div[@class='MuiFormControl-root pickup-time']/div/div/input",LocatorType.XPath);}
     public WebElement Pickup_Time1() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][1]",LocatorType.XPath);}
 
     //Get Estimate Button
@@ -268,9 +269,9 @@ public class Partner_DashboardPage extends PageBase {
     //Tooltip Pickup Date
     public WebElement Label_ToolTip_PickupDate() { return findElement("//div[@class='tooltip-inner']",LocatorType.XPath);}
 
-    public WebElement Text_PartnerName() { return findElement("//tbody[@id='TripListsTBody']/tr[1]/td[8]",LocatorType.XPath);}
-    public WebElement Text_PartnerNameDeliveryDetailsPage() { return findElement("//td[text()='Partner']/following-sibling::td/strong",LocatorType.XPath);}
-    public WebElement Text_PartnerNameAllDeliveryPage() { return findElement("//tbody[@id='TripListsTBody']/tr[1]/td[10]",LocatorType.XPath);}
+    public WebElement Text_PartnerName() { return findElement("//tr/td[8]",LocatorType.XPath);}
+    public WebElement Text_PartnerNameDeliveryDetailsPage() { return findElement("//h4[contains(text(),'Partner :')]/following-sibling::span",LocatorType.XPath);}
+    public WebElement Text_PartnerNameAllDeliveryPage() { return findElement("//tr/td[9]",LocatorType.XPath);}
 
 
     //Partner portal filter
