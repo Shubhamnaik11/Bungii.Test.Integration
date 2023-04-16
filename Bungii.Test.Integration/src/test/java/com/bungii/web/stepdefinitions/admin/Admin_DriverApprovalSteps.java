@@ -62,7 +62,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @Given("I am logged in to Query Panel")
     public void iAmLoggedInToQueryPanel() throws Throwable {
-        utility.QueryPanelLogin();
+        try {
+            utility.QueryPanelLogin();
+            } catch (Exception e) {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @Given("^I am logged in as TestAdmin$")
