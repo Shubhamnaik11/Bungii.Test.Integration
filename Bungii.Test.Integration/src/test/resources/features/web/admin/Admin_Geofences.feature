@@ -118,9 +118,9 @@ Feature: Admin_Geofence
     Then I should see active zone in the dropdown on the "respective" page
     And I should not see inactive zone in the dropdown on the "respective" page
 
-
+#  Due to issue Core-6481 other testcases are being affected
   @sanity
-  @regression
+#  @regression
     #Issues logged- CORE-6481
     Scenario: Verify Settings Behavior Of Solo And Duo Settings on Geofence
     When I click on the geofence "Denver"
