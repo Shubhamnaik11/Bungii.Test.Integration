@@ -334,7 +334,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void the_business_user_is_displayed_in_bulk_trips_since_payment_is_set() throws Throwable {
         try{
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
-        Select select = new Select(admin_BusinessUsersPage.DropDown_Partner());
+        Select select = new Select(admin_BusinessUsersPage.DropDown_PartnerSelect());
 //        System.out.println("Expected text===="+Name);
 
         List<WebElement> dropdown = select.getOptions();
@@ -542,6 +542,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         action.click(admin_BusinessUsersPage.DropDown_Partner());
         Thread.sleep(2000);
+        action.waitUntilIsElementExistsAndDisplayed(admin_BusinessUsersPage.DropDown_PartnerOption(Name), (long) 5000);
         action.selectElementByText(admin_BusinessUsersPage.DropDown_Partner(),Name);
         log("I select "+uniqueno+" from Bulk Trips page",
                 "I have selected "+uniqueno+" from Bulk Trips page", false);

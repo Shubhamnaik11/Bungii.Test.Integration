@@ -43,6 +43,9 @@ public class Admin_BusinessUsersPage extends PageBase {
     public WebElement DropDown_BusinessUserUploadDeliveries( ) { return findElement("//span[contains(text(),'Partner:')]/parent::div/following-sibling::div/select", LocatorType.XPath); }
 
     public WebElement DropDown_Partner( ) { return findElement("//span[contains(text(),'Partner:')]/parent::div/following-sibling::div/select", LocatorType.XPath); }
+    public WebElement DropDown_PartnerSelect( ) { return findElement("//span[contains(text(),'Partner:')]/parent::div/following-sibling::div/select", LocatorType.XPath); }
+
+    public WebElement DropDown_PartnerOption(String partnerName) { return findElement("//span[contains(text(),'Partner:')]/parent::div/following-sibling::div/select/option[contains(text(),'"+partnerName+"')]", LocatorType.XPath); }
 
     public WebElement DropDown_AddBusinessUserPayment( ) { return findElement("//select[@class='form-select']", LocatorType.XPath); }
 
