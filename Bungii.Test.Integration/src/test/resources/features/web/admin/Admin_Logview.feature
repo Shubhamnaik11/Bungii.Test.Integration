@@ -2,8 +2,7 @@
 Feature: Admin_Logview
   
   Background:
-	Given I am logged in as Admin
-	And I navigate to Logview querypanel
+	  Given I am logged in to Query Panel
 	
 	@regression
 	  #stable
