@@ -133,6 +133,18 @@ public class GeneralUtility extends DriverBase {
         return adminURL;
     }
 
+    public String GetQueryPanelUrl() {
+        String queryPanelURL = null;
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equalsIgnoreCase("DEV"))
+            queryPanelURL = PropertyUtility.getDataProperties("dev.querypanel.url");
+        if (environment.equalsIgnoreCase("QA") || environment.equalsIgnoreCase("QA_AUTO") || environment.equalsIgnoreCase("QA_AUTO_AWS"))
+            queryPanelURL = PropertyUtility.getDataProperties("qa.querypanel.url");
+        if (environment.equalsIgnoreCase("STAGE"))
+            queryPanelURL = PropertyUtility.getDataProperties("stage.querypanel.url");
+        return queryPanelURL;
+    }
+
     public String GetBungiiUrl() {
         String adminURL = null;
         String environment = PropertyUtility.getProp("environment");
@@ -183,6 +195,15 @@ public class GeneralUtility extends DriverBase {
         action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
         action.click(Page_AdminLogin.Button_AdminLogin());
+    }
+
+    public void QueryPanelLogin() throws InterruptedException {
+        String querypanelURL = GetQueryPanelUrl();
+        Thread.sleep(2000);
+        action.navigateTo(querypanelURL);
+        action.sendKeys(Page_AdminLogin.TextBox_QueryPanelPhone(), PropertyUtility.getDataProperties("admin.user"));
+        action.sendKeys(Page_AdminLogin.TextBox_QueryPanelPassword(), PropertyUtility.getDataProperties("admin.password"));
+        action.click(Page_AdminLogin.Button_QueryPanelLogin());
     }
 
     public void NavigateToAdminPortal() throws InterruptedException {

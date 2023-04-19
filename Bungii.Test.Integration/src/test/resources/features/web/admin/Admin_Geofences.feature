@@ -118,12 +118,11 @@ Feature: Admin_Geofence
     Then I should see active zone in the dropdown on the "respective" page
     And I should not see inactive zone in the dropdown on the "respective" page
 
-
   @sanity
   @regression
     #Issues logged- CORE-6481
     Scenario: Verify Settings Behavior Of Solo And Duo Settings on Geofence
-    When I click on the geofence "Denver"
+    When I click on the geofence "Chicago"
     And I click on the "Settings" Button on "Geofence" Screen
     Then I cannot uncheck "Solo" for "Driver(s) for Scheduled trip" settings when "Duo" is checked
     When I "uncheck" option "Duo" for Scheduled trip
