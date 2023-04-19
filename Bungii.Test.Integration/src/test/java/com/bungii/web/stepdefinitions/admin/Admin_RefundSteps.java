@@ -47,6 +47,7 @@ public class Admin_RefundSteps extends DriverBase {
                 partial= true;
                 break;
             case "Complete Refund":
+                action.waitUntilIsElementExistsAndDisplayed(admin_refundsPage.RadioButton_CompleteRefund(), (long) 5000);
                 action.click(admin_refundsPage.RadioButton_CompleteRefund());
                 partial= false;
                 break;
@@ -228,6 +229,7 @@ public class Admin_RefundSteps extends DriverBase {
     @Then("^The \"([^\"]*)\" section should be displayed$")
     public void the_something_section_should_be_displayed(String header) throws Throwable {
        try{
+            action.waitUntilIsElementExistsAndDisplayed(admin_refundsPage.Header_popup(), (long) 5000);
             testStepAssert.isElementTextEquals(admin_refundsPage.Header_popup(),header, "Issue Refund popup should be displayed", "Issue Refund popup is displayed","Issue Refund popup is not displayed");
             admin_refundsPage.TextBox_RefundAmount().sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));;
             String driverEarning = action.getAttributeValue(admin_refundsPage.Label_Driver());

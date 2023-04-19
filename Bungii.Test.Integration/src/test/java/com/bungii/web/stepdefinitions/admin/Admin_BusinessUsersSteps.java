@@ -1025,6 +1025,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
 
                 case "RESET":
+                    action.waitUntilIsElementExistsAndDisplayed(admin_refundsPage.Button_Reset(), (long) 5000);
                     action.click(admin_refundsPage.Button_Reset());
                     break;
 

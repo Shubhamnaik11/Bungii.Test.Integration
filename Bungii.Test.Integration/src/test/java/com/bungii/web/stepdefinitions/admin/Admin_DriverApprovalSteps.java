@@ -169,6 +169,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment_Save());
                     break;
                 case "Cancel":
+                    action.waitUntilIsElementExistsAndDisplayed(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment(), (long) 5000);
                     action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment(), "Driver phone updated");
                     action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment_Cancel());
             }
