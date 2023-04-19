@@ -182,6 +182,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     action.waitUntilIsElementExistsAndDisplayed(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment(), (long) 5000);
                     action.clearSendKeys(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment(), "Driver phone updated");
                     action.click(admin_GetAllBungiiDriversPage.Driver_Mobile_Updated_Comment_Cancel());
+                    break;
             }
             log("I should able to enter confirm comment for edited phone and " + State + " it", "I have entered confirm comment for the edited phone and " + State + " it", true);
         } catch (Exception e) {
@@ -190,7 +191,6 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                     true);
         }
     }
-
     @Then("^I see updated driver phone number$")
     public void i_see_updated_phone_number() throws Throwable {
         try {
